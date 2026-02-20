@@ -1,0 +1,32 @@
+[ {
+  "namespace" : "http://www.provider.com/definitions/model-c",
+  "modelName" : "Model C",
+  "elementCount" : 1,
+  "elementTraces" : [ {
+    "name" : "modelCDecisionBasedOnBs",
+    "rulesCount" : 0,
+    "ruleTraces" : [ ]
+  } ]
+}, {
+  "namespace" : "http://www.provider.com/definitions/model-b1",
+  "modelName" : "",
+  "elementCount" : 0,
+  "elementTraces" : [ {
+    "name" : "evaluatingB1SayHello",
+    "rulesCount" : 0,
+    "ruleTraces" : [ ]
+  }, {
+    "name" : "greetThePerson",
+    "rulesCount" : 0,
+    "ruleTraces" : [ ]
+  } ]
+}, {
+  "namespace" : "http://www.provider.com/definitions/model-b2",
+  "modelName" : "",
+  "elementCount" : 0,
+  "elementTraces" : [ {
+    "name" : "evaluatingB2SayHello",
+    "rulesCount" : 0,
+    "ruleTraces" : [ ]
+  } ]
+} ]

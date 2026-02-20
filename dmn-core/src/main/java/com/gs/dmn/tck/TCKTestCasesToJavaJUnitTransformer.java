@@ -29,6 +29,7 @@ import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.StopWatch;
 
 import java.io.File;
@@ -158,29 +159,21 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
     }
 
     protected String testClassName(TestCases testCases, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
-        String sourceName = testCases.getTestCasesName();
-        if (sourceName != null && !sourceName.isEmpty()) {
-            sourceName = removeExtension(sourceName, this.inputParameters.getTckFileExtension());
-            return testClassName(sourceName, dmnTransformer);
+        String testCasesName = TCKUtil.getTestCasesName(testCases.getTestCasesName());
+        if (!StringUtils.isBlank(testCasesName)) {
+            return testClassName(testCasesName, dmnTransformer);
         } else {
             throw new DMNRuntimeException(String.format("Mising TestCases name when testing model '%s'", testCases.getModelName()));
         }
     }
 
-    private static String testClassName(String sourceName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
-        String testName = dmnTransformer.upperCaseFirst(sourceName + "Test");
-        if (!Character.isJavaIdentifierStart(sourceName.charAt(0))) {
+    private static String testClassName(String testCasesName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
+        String testName = dmnTransformer.upperCaseFirst(testCasesName + "Test");
+        if (!Character.isJavaIdentifierStart(testCasesName.charAt(0))) {
             return "_" + testName;
         } else {
             return testName;
         }
-    }
-
-    private static String removeExtension(String sourceName, String extension) {
-        if (sourceName.endsWith(extension)) {
-            sourceName = sourceName.substring(0, sourceName.length() - extension.length());
-        }
-        return sourceName;
     }
 
     private Map<String, Object> makeTemplateParams(TestCases testCases, TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckUtil) {

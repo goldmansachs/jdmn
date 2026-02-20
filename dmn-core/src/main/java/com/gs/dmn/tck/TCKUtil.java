@@ -44,6 +44,20 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     private static final Logger LOGGER = LoggerFactory.getLogger(TCKUtil.class);
 
     public static String getModelName(String fileName) {
+        if (StringUtils.isBlank(fileName)) {
+            throw new DMNRuntimeException("Missing model name");
+        };
+
+        // Remove extension
+        int index = fileName.lastIndexOf(".");
+        return index == -1 ? fileName : fileName.substring(0, index);
+    }
+
+    public static String getTestCasesName(String fileName) {
+        if (StringUtils.isBlank(fileName)) {
+            throw new DMNRuntimeException("Missing test cases name");
+        };
+
         // Remove extension
         int index = fileName.lastIndexOf(".");
         return index == -1 ? fileName : fileName.substring(0, index);
@@ -580,9 +594,26 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return elementToEvaluate;
     }
 
-    private String getModelName(TestCases testCases) {
+    public String getRootModelNamespace(TestCases testCases) {
+        TDefinitions rootModel = getRootModel(testCases);
+        return rootModel.getNamespace();
+    }
+
+    public String getModelName(TestCases testCases) {
         String fileName = testCases.getModelName();
         return getModelName(fileName);
+    }
+
+    public int getElementsCount(TestCases testCases) {
+        TDefinitions rootModel = getRootModel(testCases);
+        List<TDRGElement> drgElements = this.dmnModelRepository.findDRGElements(rootModel);
+        int size = drgElements.stream().filter(e -> e instanceof TDecision || e instanceof TInvocable).collect(Collectors.toList()).size();
+        return size;
+    }
+
+    public String getTraceFileName(TestCases testCases) {
+        String testCasesName = getTestCasesName(testCases.getTestCasesName());
+        return testCasesName + ".json";
     }
 
     private String getNamespace(TestCases testCases) {

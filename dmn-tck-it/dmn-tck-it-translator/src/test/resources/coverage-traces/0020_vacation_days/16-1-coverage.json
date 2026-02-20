@@ -1,0 +1,44 @@
+[ {
+  "namespace" : "https://www.drools.org/kie-dmn",
+  "modelName" : "0020-vacation-days",
+  "elementCount" : 5,
+  "elementTraces" : [ {
+    "name" : "Base Vacation Days",
+    "rulesCount" : 0,
+    "ruleTraces" : [ ]
+  }, {
+    "name" : "Extra days case 1",
+    "rulesCount" : 2,
+    "ruleTraces" : [ {
+      "ruleIndex" : 1,
+      "matched" : true
+    }, {
+      "ruleIndex" : 2,
+      "matched" : false
+    } ]
+  }, {
+    "name" : "Extra days case 2",
+    "rulesCount" : 2,
+    "ruleTraces" : [ {
+      "ruleIndex" : 1,
+      "matched" : false
+    }, {
+      "ruleIndex" : 2,
+      "matched" : false
+    } ]
+  }, {
+    "name" : "Extra days case 3",
+    "rulesCount" : 2,
+    "ruleTraces" : [ {
+      "ruleIndex" : 1,
+      "matched" : false
+    }, {
+      "ruleIndex" : 2,
+      "matched" : false
+    } ]
+  }, {
+    "name" : "Total Vacation Days",
+    "rulesCount" : 0,
+    "ruleTraces" : [ ]
+  } ]
+} ]

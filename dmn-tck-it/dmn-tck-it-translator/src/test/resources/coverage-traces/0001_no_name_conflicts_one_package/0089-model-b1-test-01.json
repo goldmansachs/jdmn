@@ -1,0 +1,10 @@
+[ {
+  "namespace" : "http://www.provider.com/definitions/model-b1",
+  "modelName" : "Model B1",
+  "elementCount" : 2,
+  "elementTraces" : [ {
+    "name" : "greetThePerson",
+    "rulesCount" : 0,
+    "ruleTraces" : [ ]
+  } ]
+} ]

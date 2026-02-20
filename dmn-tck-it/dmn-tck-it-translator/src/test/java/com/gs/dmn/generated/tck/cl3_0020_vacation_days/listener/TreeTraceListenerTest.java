@@ -10,28 +10,28 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.generated.tck.cl3_0020_vacation_days;
+package com.gs.dmn.generated.tck.cl3_0020_vacation_days.listener;
 
+import com.gs.dmn.generated.tck.cl3_0020_vacation_days.TotalVacationDays;
 import com.gs.dmn.runtime.ExecutionContext;
 import com.gs.dmn.runtime.ExecutionContextBuilder;
-import com.gs.dmn.runtime.listener.PostorderTraceEventListener;
+import com.gs.dmn.runtime.listener.TreeTraceEventListener;
 import com.gs.dmn.runtime.listener.node.DRGElementNode;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
+public class TreeTraceListenerTest extends AbstractTraceListenerTest {
     private final TotalVacationDays decision = new TotalVacationDays();
 
     @Test
-    public void testListener() throws Exception {
-        PostorderTraceEventListener listener = new PostorderTraceEventListener();
+    public void testTree() throws Exception {
+        TreeTraceEventListener listener = new TreeTraceEventListener();
         ExecutionContext context = ExecutionContextBuilder.executionContext().withEventListener(listener).build();
 
         String expectedResult = "27";
@@ -40,15 +40,15 @@ public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
         Number actualResult = applyDecision(age, yearsOfService, context);
         assertEquals(expectedResult, actualResult.toString());
 
-        List<DRGElementNode> elementTraces = listener.postorderNodes();
-        File actualOutputFile = writeNodes(elementTraces);
-        File expectedOutputFile = new File(resource(getExpectedPath() + "/26-1-postorder.json"));
+        DRGElementNode root = listener.getRoot();
+        File actualOutputFile = writeNodes(root);
+        File expectedOutputFile = new File(resource(getExpectedPath() + "/26-1-tree.json"));
         checkTrace(expectedOutputFile, actualOutputFile);
     }
 
     @Test
-    public void testListenerWithFilter() throws Exception {
-        PostorderTraceEventListener listener = new PostorderTraceEventListener(Arrays.asList("Extra days case 1", "Extra days case 2"));
+    public void testPreorder() throws Exception {
+        TreeTraceEventListener listener = new TreeTraceEventListener();
         ExecutionContext context = ExecutionContextBuilder.executionContext().withEventListener(listener).build();
 
         String expectedResult = "27";
@@ -57,14 +57,27 @@ public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
         Number actualResult = applyDecision(age, yearsOfService, context);
         assertEquals(expectedResult, actualResult.toString());
 
-        List<DRGElementNode> elementTraces = listener.postorderNodes();
-        File actualOutputFile = writeNodes(elementTraces);
-        File expectedOutputFile = new File(resource(getExpectedPath() + "/26-1-postorder-with-filter.json"));
+        List<DRGElementNode> nodes = listener.preorderNodes();
+        File actualOutputFile = writeNodes(nodes);
+        File expectedOutputFile = new File(resource(getExpectedPath() + "/26-1-tree-preorder.json"));
         checkTrace(expectedOutputFile, actualOutputFile);
     }
 
-    private String getExpectedPath() {
-        return "traces/cl3_0020_vacation_days";
+    @Test
+    public void testPostorder() throws Exception {
+        TreeTraceEventListener listener = new TreeTraceEventListener();
+        ExecutionContext context = ExecutionContextBuilder.executionContext().withEventListener(listener).build();
+
+        String expectedResult = "27";
+        String age = "16";
+        String yearsOfService = "1";
+        Number actualResult = applyDecision(age, yearsOfService, context);
+        assertEquals(expectedResult, actualResult.toString());
+
+        List<DRGElementNode> nodes = listener.postorderNodes();
+        File actualOutputFile = writeNodes(nodes);
+        File expectedOutputFile = new File(resource(getExpectedPath() + "/26-1-tree-postorder.json"));
+        checkTrace(expectedOutputFile, actualOutputFile);
     }
 
     private Number applyDecision(String age, String yearsOfService, ExecutionContext context) {
@@ -72,5 +85,9 @@ public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
         result.put("Age", age);
         result.put("Years of Service", yearsOfService);
         return decision.applyMap(result, context);
+    }
+
+    private String getExpectedPath() {
+        return "traces/cl3_0020_vacation_days";
     }
 }

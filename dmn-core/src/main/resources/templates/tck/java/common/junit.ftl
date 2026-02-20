@@ -32,8 +32,11 @@ public class ${testClassName} extends ${decisionBaseClass}<Object> {
 
     </#if>
     <@addTestCases/>
+    <@coverage/>
 }
 <#macro addTestCases>
+    private static final com.gs.dmn.runtime.coverage.trace.CoverageTraceListener listener = new com.gs.dmn.runtime.coverage.trace.CoverageTraceListener("${tckUtil.getRootModelNamespace(testCases)}", "${tckUtil.getModelName(testCases)}", ${tckUtil.getElementsCount(testCases)});
+
     <#list testCases.testCase>
         <#items as tc>
             <#assign inputNodeInfoList = tckUtil.extractInputNodeInfoList(testCases, tc)/>
@@ -103,7 +106,7 @@ public class ${testClassName} extends ${decisionBaseClass}<Object> {
 
 <#macro checkResult inputNodeInfoList resultInfo>
         // Check '${resultInfo.nodeName}'
-        ${tckUtil.executionContextClassName()} ${tckUtil.executionContextVariableName()} = ${tckUtil.executionContextBuilderClassName()}.executionContext().build();
+        ${tckUtil.executionContextClassName()} ${tckUtil.executionContextVariableName()} = ${tckUtil.executionContextBuilderClassName()}.executionContext().withEventListener(listener).build();
         <#assign elementQName = tckUtil.qualifiedName(resultInfo)/>
         <#assign expectedValue = tckUtil.toNativeExpression(resultInfo)/>
         <#assign parentArgList = tckUtil.drgElementArgumentListApplyContext(resultInfo)/>
@@ -148,4 +151,21 @@ public class ${testClassName} extends ${decisionBaseClass}<Object> {
             </#if>
         </#items>
     </#list>
+</#macro>
+
+<#macro coverage>
+
+    @org.junit.jupiter.api.AfterAll
+    static void saveTrace() {
+        java.io.File traceDir = new java.io.File("target/coverage-traces");
+        if (!traceDir.exists()) {
+            traceDir.mkdirs();
+        }
+        java.io.File traceFile = new java.io.File(traceDir, "${tckUtil.getTraceFileName(testCases)}");
+        try (java.io.FileWriter writer = new java.io.FileWriter(traceFile)) {
+            com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValue(writer, listener.getModelTraces());
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
+    }
 </#macro>

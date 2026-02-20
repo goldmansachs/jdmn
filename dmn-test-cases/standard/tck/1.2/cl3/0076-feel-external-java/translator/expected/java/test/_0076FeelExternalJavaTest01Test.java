@@ -4,6 +4,8 @@ import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "0076-feel-external-java.dmn"})
 public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
+    private static final com.gs.dmn.runtime.coverage.trace.CoverageTraceListener listener = new com.gs.dmn.runtime.coverage.trace.CoverageTraceListener("http://www.montera.com.au/spec/DMN/0076-feel-external-java", "0076-feel-external-java", 19);
+
     @org.junit.jupiter.api.Test
     public void testCaseboxed_001_1() {
 
@@ -11,7 +13,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'boxed_001'
-        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
         checkValues(number("456"), new Boxed_001().applyContext(input_, context_));
     }
 
@@ -22,7 +24,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'incorrect_001'
-        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
         checkValues(null, new Incorrect_001().applyContext(input_, context_));
     }
 
@@ -33,7 +35,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'incorrect_002'
-        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
         checkValues(null, new Incorrect_002().applyContext(input_, context_));
     }
 
@@ -44,7 +46,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'incorrect_003'
-        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
         checkValues(null, new Incorrect_003().applyContext(input_, context_));
     }
 
@@ -55,7 +57,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'literal_001'
-        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
         checkValues(number("-0.88796890"), new Literal_001().applyContext(input_, context_));
     }
 
@@ -66,7 +68,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'literal_002'
-        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
         checkValues(number("456.78"), new Literal_002().applyContext(input_, context_));
     }
 
@@ -77,7 +79,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'literal_003'
-        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
         checkValues(number("456"), new Literal_003().applyContext(input_, context_));
     }
 
@@ -88,7 +90,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'literal_004'
-        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
         checkValues(number("456"), new Literal_004().applyContext(input_, context_));
     }
 
@@ -99,7 +101,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'literal_005'
-        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
         checkValues(number("123"), new Literal_005().applyContext(input_, context_));
     }
 
@@ -110,7 +112,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'literal_006'
-        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
         checkValues(number("3"), new Literal_006().applyContext(input_, context_));
     }
 
@@ -121,7 +123,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'literal_007'
-        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
         checkValues("a", new Literal_007().applyContext(input_, context_));
     }
 
@@ -132,7 +134,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'literal_007_a'
-        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
         checkValues(null, new Literal_007_a().applyContext(input_, context_));
     }
 
@@ -143,7 +145,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'literal_008'
-        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
         checkValues(number("456"), new Literal_008().applyContext(input_, context_));
     }
 
@@ -154,7 +156,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'literal_009'
-        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
         checkValues(number("456.78"), new Literal_009().applyContext(input_, context_));
     }
 
@@ -165,7 +167,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'literal_010'
-        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
         checkValues(number("123"), new Literal_010().applyContext(input_, context_));
     }
 
@@ -176,7 +178,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'literal_011'
-        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
         checkValues(number("1234.56"), new Literal_011().applyContext(input_, context_));
     }
 
@@ -187,7 +189,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'literal_012'
-        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
         checkValues(number("1234.56"), new Literal_012().applyContext(input_, context_));
     }
 
@@ -198,11 +200,25 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'varargs_001'
-        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
         checkValues("foo bar", new Varargs_001().applyContext(input_, context_));
     }
 
     private void checkValues(Object expected, Object actual) {
         com.gs.dmn.runtime.Assert.assertEquals(expected, actual);
+    }
+
+    @org.junit.jupiter.api.AfterAll
+    static void saveTrace() {
+        java.io.File traceDir = new java.io.File("target/coverage-traces");
+        if (!traceDir.exists()) {
+            traceDir.mkdirs();
+        }
+        java.io.File traceFile = new java.io.File(traceDir, "0076-feel-external-java-test-01.json");
+        try (java.io.FileWriter writer = new java.io.FileWriter(traceFile)) {
+            com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValue(writer, listener.getModelTraces());
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
     }
 }
