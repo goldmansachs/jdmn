@@ -26,6 +26,7 @@ public class TestCasesConverter extends TCKBaseElementConverter {
     static final String NAMESPACE = "namespace";
 
     // Elements
+    static final String TEST_CASES_NAME = "testCasesName";
     static final String MODEL_NAME = "modelName";
     static final String LABELS = "labels";
     static final String TEST_CASE = "testCase";
@@ -47,7 +48,9 @@ public class TestCasesConverter extends TCKBaseElementConverter {
     @Override
     protected void assignChildElement(Object parent, String nodeName, Object child) {
         TestCases element = (TestCases) parent;
-        if (MODEL_NAME.equals(nodeName)) {
+        if (TEST_CASES_NAME.equals(nodeName)) {
+            element.setTestCasesName((String) child);
+        } else if (MODEL_NAME.equals(nodeName)) {
             element.setModelName((String) child);
         } else if (child instanceof Labels) {
             element.setLabels((Labels) child);
@@ -71,6 +74,10 @@ public class TestCasesConverter extends TCKBaseElementConverter {
         super.writeChildren(writer, context, parent);
 
         TestCases element = (TestCases) parent;
+        String testCasesName = element.getTestCasesName();
+        if (testCasesName != null) {
+            writeChildrenNode(writer, context, testCasesName, TEST_CASES_NAME);
+        }
         String modelName = element.getModelName();
         if (modelName != null) {
             writeChildrenNode(writer, context, modelName, MODEL_NAME);

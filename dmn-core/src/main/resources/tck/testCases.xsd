@@ -11,6 +11,7 @@
 	<xs:element name="testCases">
 		<xs:complexType>
 			<xs:sequence>
+				<xs:element name="testCasesName" type="xs:string" minOccurs="0"/>
 				<xs:element name="modelName" type="xs:string" minOccurs="0"/>
 				<xs:element name="labels" minOccurs="0">
 					<xs:complexType>

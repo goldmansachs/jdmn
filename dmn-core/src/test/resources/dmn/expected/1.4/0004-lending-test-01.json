@@ -1,4 +1,5 @@
 {
+  "testCasesName": "0004-lending-test-001.xml",
   "modelName" : "0004-lending.dmn",
   "labels" : {
     "label" : [ "Compliance Level 3", "Literal Expression", "Item Definition", "Function Invocation", "Business Knowledge Model", "Context", "Decision Table: Single Output", "Hit Policy: UNIQUE", "Hit Policy: PRIORITY", "Hit Policy: COLLECT", "FEEL Arithmetic", "FEEL Conditionals", "Data Type: String", "Data Type: Number", "Data Type: Boolean", "Data Type: Structure" ],
