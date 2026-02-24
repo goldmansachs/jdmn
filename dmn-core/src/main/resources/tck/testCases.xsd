@@ -36,14 +36,12 @@
 							<xs:element name="resultNode" minOccurs="0" maxOccurs="unbounded">
 								<xs:complexType>
 									<xs:sequence>
-										<xs:element name="computed" type="valueType" minOccurs="0"/>
 										<xs:element name="expected" type="valueType" minOccurs="0"/>
 									</xs:sequence>
 									<xs:attribute name="errorResult" type="xs:boolean" default="false"/>
 									<xs:attribute name="name" use="required"/>
 									<xs:attribute name="namespace" type="xs:string" use="optional"/>
 									<xs:attribute name="type" type="xs:string"/>
-									<xs:attribute name="cast" type="xs:string"/>
 									<xs:anyAttribute namespace="##other" processContents="lax"/>
 								</xs:complexType>
 							</xs:element>

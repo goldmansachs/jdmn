@@ -29,22 +29,12 @@ import java.util.Map;
         "computed"
 })
 public class ResultNode extends TCKBaseElement {
-    protected ValueType computed;
     protected ValueType expected;
     protected Boolean errorResult;
     protected String name;
     protected String namespace;
     protected String type;
-    protected String cast;
     protected Map<QName, String> otherAttributes;
-
-    public ValueType getComputed() {
-        return computed;
-    }
-
-    public void setComputed(ValueType value) {
-        this.computed = value;
-    }
 
     public ValueType getExpected() {
         return expected;
@@ -92,14 +82,6 @@ public class ResultNode extends TCKBaseElement {
 
     public void setType(String value) {
         this.type = value;
-    }
-
-    public String getCast() {
-        return cast;
-    }
-
-    public void setCast(String value) {
-        this.cast = value;
     }
 
     public Map<QName, String> getOtherAttributes() {

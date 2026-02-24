@@ -25,12 +25,10 @@ public class ResultNodeConverter extends TCKBaseElementConverter {
     private static final String TYPE = "type";
     private static final String NAMESPACE = "namespace";
     private static final String NAME = "name";
-    private static final String CAST = "cast";
     private static final String ERROR_RESULT = "errorResult";
 
     // Elements
     static final String EXPECTED = "expected";
-    static final String COMPUTED = "computed";
 
     public ResultNodeConverter(XStream xstream) {
         super(xstream);
@@ -49,9 +47,7 @@ public class ResultNodeConverter extends TCKBaseElementConverter {
     @Override
     protected void assignChildElement(Object parent, String nodeName, Object child) {
         ResultNode element = (ResultNode) parent;
-        if (COMPUTED.equals(nodeName)) {
-            element.setComputed((ValueType) child);
-        } else if (EXPECTED.equals(nodeName)) {
+        if (EXPECTED.equals(nodeName)) {
             element.setExpected((ValueType) child);
         } else {
             super.assignChildElement(parent, nodeName, child);
@@ -66,7 +62,6 @@ public class ResultNodeConverter extends TCKBaseElementConverter {
         element.setType(reader.getAttribute(TYPE));
         element.setNamespace(reader.getAttribute(NAMESPACE));
         element.setName(reader.getAttribute(NAME));
-        element.setCast(reader.getAttribute(CAST));
         String errorResult = reader.getAttribute(ERROR_RESULT);
         if (errorResult != null) {
             element.setErrorResult(Boolean.valueOf(errorResult));
@@ -81,10 +76,6 @@ public class ResultNodeConverter extends TCKBaseElementConverter {
         ValueType expected = element.getExpected();
         if (expected != null) {
             writeChildrenNode(writer, context, expected, EXPECTED);
-        }
-        ValueType computed = element.getComputed();
-        if (computed != null) {
-            writeChildrenNode(writer, context, computed, COMPUTED);
         }
     }
 
@@ -104,10 +95,6 @@ public class ResultNodeConverter extends TCKBaseElementConverter {
         String name = element.getName();
         if (name != null) {
             writer.addAttribute(NAME, name);
-        }
-        String cast = element.getCast();
-        if (cast != null) {
-            writer.addAttribute(CAST, cast);
         }
         Boolean errorResult = element.getErrorResultField();
         if (errorResult != null) {

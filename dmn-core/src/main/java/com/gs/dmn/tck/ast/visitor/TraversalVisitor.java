@@ -61,7 +61,6 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, TCKBaseElement> {
     public TCKBaseElement visit(ResultNode element, C context) {
         if (element != null) {
             visitValueType(element.getExpected(), context);
-            visitValueType(element.getComputed(), context);
         }
         return element;
     }

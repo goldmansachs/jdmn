@@ -197,7 +197,6 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
         xStream.alias(TestCasesConverter.MODEL_NAME, String.class);
         xStream.alias(TestCaseConverter.DESCRIPTION, String.class);
         xStream.alias(ResultNodeConverter.EXPECTED, ValueType.class);
-        xStream.alias(ResultNodeConverter.COMPUTED, ValueType.class);
         xStream.alias(LabelsConverter.LABEL, String.class);
 
         // Register converters
