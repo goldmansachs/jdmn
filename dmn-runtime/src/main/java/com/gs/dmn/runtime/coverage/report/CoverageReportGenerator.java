@@ -29,7 +29,7 @@ public abstract class CoverageReportGenerator {
             if (coverageFiles != null && coverageFiles.length > 0) {
                 for (File coverageFile : coverageFiles) {
                     try {
-                        List<ModelCoverageTrace> traces = JsonSerializer.OBJECT_MAPPER.readValue(coverageFile,  new TypeReference<List<ModelCoverageTrace>>(){});
+                        List<ModelCoverageTrace> traces = JsonSerializer.OBJECT_MAPPER.readValue(coverageFile, new TypeReference<List<ModelCoverageTrace>>(){});
                         report.addTraces(traces);
                     } catch (Exception e) {
                         throw new DMNRuntimeException("Cannot read coverage file: " + coverageFile.getAbsolutePath(), e);

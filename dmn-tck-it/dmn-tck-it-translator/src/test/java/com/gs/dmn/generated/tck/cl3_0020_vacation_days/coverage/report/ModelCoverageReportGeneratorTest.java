@@ -22,7 +22,7 @@ class ModelCoverageReportGeneratorTest extends AbstractTraceListenerTest {
                 "Namespace,Model,Elements,Missed Elements,Elements Coverage,Rules,Missed Rules,Rules Coverage",
                 "https://www.drools.org/kie-dmn,0020-vacation-days,5,0,100.00%,6,0,100.00%"
         );
-        assertEquals(expectedTable, coverageReport.toTable().toCsvLines());
+        checkLines(expectedTable, coverageReport.toTable().toCsvLines());
     }
 
     @Test
@@ -34,7 +34,16 @@ class ModelCoverageReportGeneratorTest extends AbstractTraceListenerTest {
                 "http://www.provider.com/definitions/model-b1,Model B1,2,0,100.00%,0,0,N/A",
                 "http://www.provider.com/definitions/model-b2,,0,0,N/A,0,0,N/A"
         );
-        assertEquals(expectedTable, coverageReport.toTable().toCsvLines());
+        checkLines(expectedTable, coverageReport.toTable().toCsvLines());
+    }
+
+    private void checkLines(List<String> expectedLines, List<String> actualLines) {
+        assertEquals(expectedLines.size(), actualLines.size());
+        for (int i = 0; i < expectedLines.size(); i++) {
+            String expectedLine = expectedLines.get(i);
+            String actualLine = actualLines.get(i);
+            assertEquals(expectedLine, actualLine, "Failed at line " + i);
+        }
     }
 
     private CoverageReport calculateCoverageReport(String tracePath) {
