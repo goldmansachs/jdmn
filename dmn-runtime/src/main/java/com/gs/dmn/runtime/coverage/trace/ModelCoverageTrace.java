@@ -13,6 +13,7 @@
 package com.gs.dmn.runtime.coverage.trace;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -23,7 +24,7 @@ public class ModelCoverageTrace {
     private String namespace;
     private String modelName;
     private int elementCount;
-    private Map<String, ElementCoverageTrace> nameToElementTraces = new ConcurrentHashMap<>();
+    private final Map<String, ElementCoverageTrace> nameToElementTraces = new ConcurrentHashMap<>();
 
     public ModelCoverageTrace() {
         this("", "", 0);
@@ -86,10 +87,14 @@ public class ModelCoverageTrace {
     }
 
     public void merge(ModelCoverageTrace trace) {
+        // Merge the model name for the same model.
+        if (StringUtils.isBlank(this.modelName)) {
+            this.modelName = trace.getModelName();
+        }
         // Merge the element count for the same model.
         this.elementCount = Math.max(this.elementCount, trace.getElementCount());
         // Merge element traces for the same model.
-        trace.getElementTraces().stream().forEach(elementTrace -> {
+        trace.getElementTraces().forEach(elementTrace -> {
             String key = elementTrace.getName();
             if (nameToElementTraces.containsKey(key)) {
                 nameToElementTraces.get(key).merge(elementTrace);
