@@ -23,6 +23,7 @@ import java.util.Map;
 @JsonPropertyOrder({
         "namespace",
         "otherAttributes",
+        "testCasesName",
         "modelName",
         "labels",
         "testCase"
