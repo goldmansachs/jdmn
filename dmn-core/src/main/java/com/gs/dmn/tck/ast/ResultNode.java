@@ -22,11 +22,9 @@ import java.util.Map;
         "type",
         "namespace",
         "name",
-        "cast",
         "errorResult",
         "otherAttributes",
-        "expected",
-        "computed"
+        "expected"
 })
 public class ResultNode extends TCKBaseElement {
     protected ValueType expected;
