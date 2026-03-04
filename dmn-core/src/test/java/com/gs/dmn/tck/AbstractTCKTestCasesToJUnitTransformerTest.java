@@ -27,6 +27,7 @@ import java.net.URI;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.util.Arrays;
 
 public abstract class AbstractTCKTestCasesToJUnitTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestCasesTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
     @Override
@@ -63,7 +64,10 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest<NUMBER, DATE, T
 
     @Override
     protected DMNTransformer<TestCases> makeDMNTransformer(BuildLogger logger) {
-        return new ToQuotedNameTransformer(logger);
+        return new CompositeDMNTransformer<>(Arrays.asList(
+                new ToQuotedNameTransformer(logger),
+                new TestCaseTransformer(logger)
+        ));
     }
 
     @Override

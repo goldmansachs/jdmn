@@ -15,10 +15,8 @@ package com.gs.dmn.tck.ast;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import javax.xml.namespace.QName;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 @JsonPropertyOrder({
         "id",
@@ -82,16 +80,8 @@ public class TestCase extends TCKBaseElement {
         this.id = value;
     }
 
-    public TestCaseType getTypeField() {
-        return TestCaseType.DECISION;
-    }
-
     public TestCaseType getType() {
-        if (type == null) {
-            return TestCaseType.DECISION;
-        } else {
-            return type;
-        }
+        return Objects.requireNonNullElse(type, TestCaseType.DECISION);
     }
 
     public void setType(TestCaseType value) {

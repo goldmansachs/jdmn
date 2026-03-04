@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "0085-decision-services.dmn"})
 public class _0085DecisionServicesTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
-    private static final com.gs.dmn.runtime.coverage.trace.CoverageTraceListener listener = new com.gs.dmn.runtime.coverage.trace.CoverageTraceListener("http://www.montera.com.au/spec/DMN/0085-decision-services", "0085-decision-services", 41);
+    private static final com.gs.dmn.runtime.coverage.trace.CoverageTraceListener listener = new com.gs.dmn.runtime.coverage.trace.CoverageTraceListener("http://www.montera.com.au/spec/DMN/0085-decision-services", "0085-decision-services", 44);
 
     @org.junit.jupiter.api.Test
     public void testCase001_1() {
@@ -12,7 +12,18 @@ public class _0085DecisionServicesTest01Test extends com.gs.dmn.runtime.JavaTime
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
-        // Check 'decision_001'
+        // Check 'decisionService_001'
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
+        checkValues("foo", DecisionService_001.instance().applyContext(input_, context_));
+    }
+
+    @org.junit.jupiter.api.Test
+    public void testCase001a_1() {
+
+        // Initialize input context
+        com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
+
+        // Check 'decisionService_001'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
         checkValues("foo", DecisionService_001.instance().applyContext(input_, context_));
     }
@@ -26,7 +37,7 @@ public class _0085DecisionServicesTest01Test extends com.gs.dmn.runtime.JavaTime
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
         input_.add("decision_002_input", decision_002_input);
 
-        // Check 'decision_002'
+        // Check 'decisionService_002'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
         checkValues("foo baz", DecisionService_002.instance().applyContext(input_, context_));
     }
@@ -44,7 +55,7 @@ public class _0085DecisionServicesTest01Test extends com.gs.dmn.runtime.JavaTime
         input_.add("decision_003_input_2", decision_003_input_2);
         input_.add("inputData_003", inputData_003);
 
-        // Check 'decision_003'
+        // Check 'decisionService_003'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
         checkValues("A B C D", DecisionService_003.instance().applyContext(input_, context_));
     }
@@ -130,6 +141,28 @@ public class _0085DecisionServicesTest01Test extends com.gs.dmn.runtime.JavaTime
         // Check 'decision_014_1'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
         checkValues(new com.gs.dmn.runtime.Context().add("decisionService_014", "A B").add("decision_014_3", "D").add("inputData_014_1", "C"), new Decision_014_1().applyContext(input_, context_));
+    }
+
+    @org.junit.jupiter.api.Test
+    public void testCase015_1() {
+
+        // Initialize input context
+        com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
+
+        // Check 'decisionService_015'
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
+        checkValues(new com.gs.dmn.runtime.Context().add("decision_015_1", "15_1").add("decision_015_2", "15_2"), DecisionService_015.instance().applyContext(input_, context_));
+    }
+
+    @org.junit.jupiter.api.Test
+    public void testCase015_a_1() {
+
+        // Initialize input context
+        com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
+
+        // Check 'decisionService_015'
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
+        checkValues(new com.gs.dmn.runtime.Context().add("decision_015_1", "15_1").add("decision_015_2", "15_2"), DecisionService_015.instance().applyContext(input_, context_));
     }
 
     private void checkValues(Object expected, Object actual) {

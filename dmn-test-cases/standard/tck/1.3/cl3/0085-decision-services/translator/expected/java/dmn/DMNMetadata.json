@@ -637,5 +637,27 @@
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
+  }, {
+    "@kind" : "decision",
+    "id" : "_decision_015_1",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "decision_015_1",
+    "javaTypeName" : "Decision_015_1",
+    "knowledgeReferences" : [ ],
+    "name" : "decision_015_1",
+    "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services",
+    "transitiveRequiredInput" : [ ]
+  }, {
+    "@kind" : "decision",
+    "id" : "_decision_015_2",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "decision_015_2",
+    "javaTypeName" : "Decision_015_2",
+    "knowledgeReferences" : [ ],
+    "name" : "decision_015_2",
+    "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services",
+    "transitiveRequiredInput" : [ ]
   } ]
 }

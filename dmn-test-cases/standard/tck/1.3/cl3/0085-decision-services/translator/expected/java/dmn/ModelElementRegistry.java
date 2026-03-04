@@ -13,6 +13,7 @@ public class ModelElementRegistry extends com.gs.dmn.runtime.discovery.ModelElem
         register("http://www.montera.com.au/spec/DMN/0085-decision-services#decisionService_012", "DecisionService_012");
         register("http://www.montera.com.au/spec/DMN/0085-decision-services#decisionService_013", "DecisionService_013");
         register("http://www.montera.com.au/spec/DMN/0085-decision-services#decisionService_014", "DecisionService_014");
+        register("http://www.montera.com.au/spec/DMN/0085-decision-services#decisionService_015", "DecisionService_015");
         register("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_001", "Decision_001");
         register("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_002", "Decision_002");
         register("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_002_input", "Decision_002_input");
@@ -43,5 +44,7 @@ public class ModelElementRegistry extends com.gs.dmn.runtime.discovery.ModelElem
         register("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_014_1", "Decision_014_1");
         register("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_014_2", "Decision_014_2");
         register("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_014_3", "Decision_014_3");
+        register("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_015_1", "Decision_015_1");
+        register("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_015_2", "Decision_015_2");
     }
 }

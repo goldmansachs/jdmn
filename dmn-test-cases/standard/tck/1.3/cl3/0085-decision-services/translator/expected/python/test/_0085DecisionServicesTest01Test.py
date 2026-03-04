@@ -23,6 +23,7 @@ import Decision_011_1
 import Decision_012_1
 import Decision_013_1
 import Decision_014_1
+import DecisionService_015
 
 
 # Generated(value = ["junit.ftl", "0085-decision-services.dmn"])
@@ -35,7 +36,14 @@ class _0085DecisionServicesTest01Test(unittest.TestCase, jdmn.runtime.DefaultDMN
         context_ = jdmn.runtime.ExecutionContext.ExecutionContext()
         cache_ = context_.cache
 
-        # Check 'decision_001'
+        # Check 'decisionService_001'
+        self.checkValues("foo", DecisionService_001.DecisionService_001.instance().apply(context_))
+
+    def testCase001a_1(self):
+        context_ = jdmn.runtime.ExecutionContext.ExecutionContext()
+        cache_ = context_.cache
+
+        # Check 'decisionService_001'
         self.checkValues("foo", DecisionService_001.DecisionService_001.instance().apply(context_))
 
     def testCase002_1(self):
@@ -45,7 +53,7 @@ class _0085DecisionServicesTest01Test(unittest.TestCase, jdmn.runtime.DefaultDMN
         decision_002_input: typing.Optional[str] = "baz"
         cache_.bind("decision_002_input", decision_002_input)
 
-        # Check 'decision_002'
+        # Check 'decisionService_002'
         self.checkValues("foo baz", DecisionService_002.DecisionService_002.instance().apply(decision_002_input, context_))
 
     def testCase003_1(self):
@@ -58,7 +66,7 @@ class _0085DecisionServicesTest01Test(unittest.TestCase, jdmn.runtime.DefaultDMN
         cache_.bind("decision_003_input_2", decision_003_input_2)
         inputData_003: typing.Optional[str] = "D"
 
-        # Check 'decision_003'
+        # Check 'decisionService_003'
         self.checkValues("A B C D", DecisionService_003.DecisionService_003.instance().apply(inputData_003, decision_003_input_1, decision_003_input_2, context_))
 
     def testCase004_1(self):
@@ -113,6 +121,20 @@ class _0085DecisionServicesTest01Test(unittest.TestCase, jdmn.runtime.DefaultDMN
 
         # Check 'decision_014_1'
         self.checkValues(jdmn.runtime.Context.Context().add("decisionService_014", "A B").add("decision_014_3", "D").add("inputData_014_1", "C"), Decision_014_1.Decision_014_1().apply(inputData_014_1, context_))
+
+    def testCase015_1(self):
+        context_ = jdmn.runtime.ExecutionContext.ExecutionContext()
+        cache_ = context_.cache
+
+        # Check 'decisionService_015'
+        self.checkValues(jdmn.runtime.Context.Context().add("decision_015_1", "15_1").add("decision_015_2", "15_2"), DecisionService_015.DecisionService_015.instance().apply(context_))
+
+    def testCase015_a_1(self):
+        context_ = jdmn.runtime.ExecutionContext.ExecutionContext()
+        cache_ = context_.cache
+
+        # Check 'decisionService_015'
+        self.checkValues(jdmn.runtime.Context.Context().add("decision_015_1", "15_1").add("decision_015_2", "15_2"), DecisionService_015.DecisionService_015.instance().apply(context_))
 
     def checkValues(self, expected: typing.Any, actual: typing.Any):
         jdmn.runtime.Assert.Assert().assertEquals(expected, actual)

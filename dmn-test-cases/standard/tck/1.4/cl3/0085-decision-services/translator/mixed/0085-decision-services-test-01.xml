@@ -18,6 +18,15 @@
         </resultNode>
     </testCase>
 
+    <testCase id="001a">
+        <description>Test DS without using invocableName and type (equivalent to test 001)</description>
+        <resultNode name="decisionService_001">
+            <expected>
+                <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
     <testCase id="002" invocableName="decisionService_002" type="decisionService">
         <description>Direct invocation: with an input decision</description>
         <!-- we expect the input param value to 'override' the actual impl of 'decision_002_input' -->
@@ -225,6 +234,35 @@
                 </component>
                 <component name="decisionService_014">
                     <value xsi:type="xsd:string">A B</value> <!-- DMN13-163 Decision Service output value in the case of single output Decision -->
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <!-- DS with multiple output decisions -->
+    <testCase id="015" invocableName="decisionService_015" type="decisionService">
+        <description>Direct invocation: with no params</description>
+        <resultNode name="decision_015_1">
+            <expected>
+                <value xsi:type="xsd:string">15_1</value>
+            </expected>
+        </resultNode>
+        <resultNode name="decision_015_2">
+            <expected>
+                <value xsi:type="xsd:string">15_2</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="015_a">
+        <description>Direct invocation: with no params</description>
+        <resultNode name="decisionService_015">
+            <expected>
+                <component name="decision_015_1">
+                    <value xsi:type="xsd:string">15_1</value>
+                </component>
+                <component name="decision_015_2">
+                    <value xsi:type="xsd:string">15_2</value>
                 </component>
             </expected>
         </resultNode>

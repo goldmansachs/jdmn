@@ -19,8 +19,8 @@ import com.gs.dmn.tck.ast.ValueType;
 public class ResultNodeInfo extends NodeInfo {
     private final ValueType expectedValue;
 
-    public ResultNodeInfo(String rootModelName, String nodeType, String nodeName, DRGElementReference<? extends TDRGElement> reference, ValueType expectedValue) {
-        super(rootModelName, nodeType, nodeName, reference);
+    public ResultNodeInfo(String rootModelName, String nodeName, DRGElementReference<? extends TDRGElement> reference, ValueType expectedValue) {
+        super(rootModelName, nodeTypeFrom(reference), nodeName, reference);
         this.expectedValue = expectedValue;
     }
 

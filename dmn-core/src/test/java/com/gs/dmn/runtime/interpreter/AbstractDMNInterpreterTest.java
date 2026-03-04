@@ -31,9 +31,7 @@ import com.gs.dmn.tck.ast.ResultNode;
 import com.gs.dmn.tck.ast.TestCase;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.tck.serialization.xstream.XMLTCKSerializer;
-import com.gs.dmn.transformation.DMNTransformer;
-import com.gs.dmn.transformation.InputParameters;
-import com.gs.dmn.transformation.ToQuotedNameTransformer;
+import com.gs.dmn.transformation.*;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.junit.jupiter.api.Assertions;
@@ -41,10 +39,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import static com.gs.dmn.serialization.DMNConstants.isDMNFile;
 import static com.gs.dmn.serialization.DMNConstants.isTCKFile;
@@ -73,7 +68,10 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
             Pair<List<String>, List<TestCases>> pair = readTestCases(dmnVersion, folderName);
 
             // Transform definitions and test cases
-            this.dmnTransformer = new ToQuotedNameTransformer(LOGGER);
+            this.dmnTransformer = new CompositeDMNTransformer<>(Arrays.asList(
+                    new ToQuotedNameTransformer(LOGGER),
+                    new TestCaseTransformer(LOGGER)
+            ));
             this.dmnTransformer.transform(repository, pair.getRight());
 
             // Set-up execution

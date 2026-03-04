@@ -46,7 +46,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     public static String getModelName(String fileName) {
         if (StringUtils.isBlank(fileName)) {
             throw new DMNRuntimeException("Missing model name");
-        };
+        }
 
         // Remove extension
         int index = fileName.lastIndexOf(".");
@@ -56,7 +56,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     public static String getTestCasesName(String fileName) {
         if (StringUtils.isBlank(fileName)) {
             throw new DMNRuntimeException("Missing test cases name");
-        };
+        }
 
         // Remove extension
         int index = fileName.lastIndexOf(".");
@@ -334,7 +334,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     public ResultNodeInfo extractResultNodeInfo(TestCases testCases, TestCase testCase, ResultNode resultNode) {
         TDRGElement element = findDRGElement(testCases, testCase, resultNode);
         DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
-        return new ResultNodeInfo(testCases.getModelName(), testCase.getType().value(), resultNode.getName(), reference, resultNode.getExpected());
+        return new ResultNodeInfo(testCases.getModelName(), resultNode.getName(), reference, resultNode.getExpected());
     }
 
     public String toNativeExpression(ResultNodeInfo info) {
@@ -581,17 +581,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     }
 
     private String drgElementName(TestCases testCases, TestCase testCase, ResultNode resultNode) {
-        String elementToEvaluate;
-        if (testCase.getType() == TestCaseType.DECISION) {
-            elementToEvaluate = resultNode.getName();
-        } else if (testCase.getType() == TestCaseType.DECISION_SERVICE) {
-            elementToEvaluate = testCase.getInvocableName();
-        } else if (testCase.getType() == TestCaseType.BKM) {
-            elementToEvaluate = testCase.getInvocableName();
-        } else {
-            throw new IllegalArgumentException(String.format("Not supported type '%s'", testCase.getType()));
-        }
-        return elementToEvaluate;
+        return resultNode.getName();
     }
 
     public String getRootModelNamespace(TestCases testCases) {

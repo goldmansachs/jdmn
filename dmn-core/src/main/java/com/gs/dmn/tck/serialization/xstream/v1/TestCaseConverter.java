@@ -106,7 +106,7 @@ public class TestCaseConverter extends TCKBaseElementConverter {
         if (id != null) {
             writer.addAttribute(ID, id);
         }
-        TestCaseType type = element.getTypeField();
+        TestCaseType type = element.getType();
         if (type != null) {
             writer.addAttribute(TYPE, type.value());
         }

@@ -593,5 +593,25 @@
         <variable name="inputData_014_1" typeRef="string"/>
     </inputData>
 
+    <!-- DS with multiple output decisions: no params -->
+    <decisionService name="decisionService_015" id="_decisionService_015">
+        <variable name="decisionService_015"/>
+        <outputDecision href="#_decision_015_1"/>
+        <outputDecision href="#_decision_015_2"/>
+    </decisionService>
+
+    <decision name="decision_015_1" id="_decision_015_1">
+        <variable name="decision_015_1"/>
+        <literalExpression>
+            <text>"15_1"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision_015_2" id="_decision_015_2">
+        <variable name="decision_015_2"/>
+        <literalExpression>
+            <text>"15_2"</text>
+        </literalExpression>
+    </decision>
 
 </definitions>
