@@ -13,11 +13,12 @@
 package com.gs.dmn.tck.ast.visitor;
 
 import com.gs.dmn.error.ErrorHandler;
+import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.tck.ast.*;
 
 public class NopVisitor<C> extends AbstractVisitor<C, TCKBaseElement> {
-    public NopVisitor(ErrorHandler errorHandler) {
-        super(errorHandler);
+    public NopVisitor(BuildLogger logger, ErrorHandler errorHandler) {
+        super(logger, errorHandler);
     }
 
     @Override

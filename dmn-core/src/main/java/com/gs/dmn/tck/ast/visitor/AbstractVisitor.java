@@ -13,12 +13,15 @@
 package com.gs.dmn.tck.ast.visitor;
 
 import com.gs.dmn.error.ErrorHandler;
+import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.tck.ast.Visitor;
 
 public abstract class AbstractVisitor<C, R> implements Visitor<C, R> {
+    protected final BuildLogger logger;
     protected final ErrorHandler errorHandler;
 
-    public AbstractVisitor(ErrorHandler errorHandler) {
+    public AbstractVisitor(BuildLogger logger, ErrorHandler errorHandler) {
+        this.logger = logger;
         this.errorHandler = errorHandler;
     }
 }

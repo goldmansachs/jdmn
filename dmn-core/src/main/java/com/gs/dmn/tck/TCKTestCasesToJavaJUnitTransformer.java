@@ -45,13 +45,13 @@ import java.util.stream.Stream;
 import static com.gs.dmn.serialization.DMNConstants.isTCKFile;
 
 public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestCasesToJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
-    private final TCKSerializer testCasesReader;
+    private final TCKSerializer tckSerializer;
     private final Path inputModelPath;
 
     public TCKTestCasesToJavaJUnitTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> dialectDefinition, DMNValidator dmnValidator, DMNTransformer<TestCases> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, InputParameters inputParameters, BuildLogger logger) {
         super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
         this.inputModelPath = inputModelPath;
-        this.testCasesReader = new XMLTCKSerializer(logger, inputParameters);
+        this.tckSerializer = new XMLTCKSerializer(logger, inputParameters);
     }
 
     protected void collectFiles(Path inputPath, List<File> files) {
@@ -113,7 +113,7 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
         List<TestCases> testCasesList = new ArrayList<>();
         for (File file : files) {
             logger.info(String.format("Processing TCK files '%s'", file));
-            TestCases testCases = testCasesReader.read(file);
+            TestCases testCases = tckSerializer.read(file);
             testCases.setTestCasesName(file.getName());
             testCasesList.add(testCases);
         }

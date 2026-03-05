@@ -58,7 +58,7 @@ public class AddMissingNamespaceInTestCasesTransformer extends SimpleDMNTransfor
             transform(repository);
         }
 
-        AddMissingImportPrefixInDTVisitor visitor = new AddMissingImportPrefixInDTVisitor(this.errorHandler);
+        AddMissingImportPrefixInDTVisitor visitor = new AddMissingImportPrefixInDTVisitor(this.logger, this.errorHandler);
         TransformationContext context = new TransformationContext(repository);
         for (TestCases testCases : testCasesList) {
             testCases.accept(visitor, context);
@@ -69,8 +69,8 @@ public class AddMissingNamespaceInTestCasesTransformer extends SimpleDMNTransfor
 }
 
 class AddMissingImportPrefixInDTVisitor extends TraversalVisitor<TransformationContext> {
-    public AddMissingImportPrefixInDTVisitor(ErrorHandler errorHandler) {
-        super(errorHandler);
+    public AddMissingImportPrefixInDTVisitor(BuildLogger logger, ErrorHandler errorHandler) {
+        super(logger, errorHandler);
     }
 
     @Override

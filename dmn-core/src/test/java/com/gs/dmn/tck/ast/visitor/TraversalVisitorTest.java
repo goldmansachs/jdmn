@@ -13,6 +13,7 @@
 package com.gs.dmn.tck.ast.visitor;
 
 import com.gs.dmn.error.NopErrorHandler;
+import com.gs.dmn.log.NopBuildLogger;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.tck.serialization.TCKMarshaller;
 import com.gs.dmn.tck.serialization.xstream.TCKMarshallerFactory;
@@ -24,7 +25,7 @@ import java.io.FileReader;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class TraversalVisitorTest {
-    private final TraversalVisitor<?> visitor = new TraversalVisitor<>(new NopErrorHandler());
+    private final TraversalVisitor<?> visitor = new TraversalVisitor<>(new NopBuildLogger(), new NopErrorHandler());
     private final TCKMarshaller marshaller = TCKMarshallerFactory.newDefaultMarshaller();
 
     @Test
