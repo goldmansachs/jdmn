@@ -15,11 +15,7 @@ package com.gs.dmn.runtime.coverage.report;
 import com.gs.dmn.runtime.coverage.trace.ElementCoverageTrace;
 import com.gs.dmn.runtime.coverage.trace.ModelCoverageTrace;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class ModelCoverageReport extends CoverageReport {
     private final List<String> columnNames = Arrays.asList(
@@ -54,14 +50,14 @@ public class ModelCoverageReport extends CoverageReport {
         line.add(elementsCount + "");
 
         // Add missed elements count.
-        Set<ElementCoverageTrace> coveredElements = modelCoverage.getElementTraces().stream().collect(Collectors.toSet());
+        Set<ElementCoverageTrace> coveredElements = new LinkedHashSet<>(modelCoverage.getElementTraces());
         int coveredElementsCount = coveredElements.size();
         // Elements count can be 0 in case not having a TCK file for that model - where the element count is initialized.
         int missedElementsCount = elementsCount == 0 ? 0 : elementsCount  - coveredElementsCount;
         line.add(missedElementsCount + "");
 
         // Add elements coverage.
-        String elementsCoverage = elementsCount == 0 ? "N/A" : String.format("%.2f%%", (coveredElementsCount * 100.0) / elementsCount);
+        String elementsCoverage = elementsCount == 0 ? COVERAGE_FOR_MISSING : String.format("%.2f%%", (coveredElementsCount * 100.0) / elementsCount);
         line.add(elementsCoverage);
 
         // Add rules count.
@@ -74,7 +70,7 @@ public class ModelCoverageReport extends CoverageReport {
         line.add(missedRules + "");
 
         // Add rules coverage.
-        String rulesCoverage = rulesCount == 0 ? "N/A" : String.format("%.2f%%", (coveredRulesCount * 100.0) / rulesCount);
+        String rulesCoverage = rulesCount == 0 ? COVERAGE_FOR_MISSING : String.format("%.2f%%", (coveredRulesCount * 100.0) / rulesCount);
         line.add(rulesCoverage);
 
         return line;

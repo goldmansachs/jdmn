@@ -59,7 +59,7 @@ public class ElementsCoverageReport extends CoverageReport {
         line.add(missedRules + "");
 
         // Add rules coverage.
-        String rulesCoverage = rulesCount == 0 ? "N/A" : String.format("%.2f%%", (coveredRulesCount * 100.0) / rulesCount);
+        String rulesCoverage = rulesCount == 0 ? COVERAGE_FOR_MISSING : String.format("%.2f%%", (coveredRulesCount * 100.0) / rulesCount);
         line.add(rulesCoverage);
 
         return line;

@@ -20,11 +20,13 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class CoverageReport {
-    private Map<String, ModelCoverageTrace> traceMap = new ConcurrentHashMap<>();
+    protected static final String COVERAGE_FOR_MISSING = "100.00%";
+
+    private final Map<String, ModelCoverageTrace> traceMap = new ConcurrentHashMap<>();
 
     public void addTraces(List<ModelCoverageTrace> traces) {
         // Merge traces for the same model.
-        traces.stream().forEach(trace -> {
+        traces.forEach(trace -> {
             if (traceMap.containsKey(trace.getNamespace())) {
                 traceMap.get(trace.getNamespace()).merge(trace);
             } else {
@@ -35,9 +37,7 @@ public abstract class CoverageReport {
 
     public Table toTable() {
         List<List<String>> lines = new ArrayList<>();
-        traceMap.forEach((namespace, trace) -> {
-            lines.addAll(toLines(trace));
-        });
+        traceMap.forEach((namespace, trace) -> lines.addAll(toLines(trace)));
         return new Table(columnNames(), lines);
     }
 

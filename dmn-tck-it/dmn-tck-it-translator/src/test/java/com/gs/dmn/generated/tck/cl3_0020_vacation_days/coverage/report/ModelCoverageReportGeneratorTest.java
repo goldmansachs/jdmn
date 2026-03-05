@@ -30,9 +30,9 @@ class ModelCoverageReportGeneratorTest extends AbstractTraceListenerTest {
         CoverageReport coverageReport = calculateCoverageReport("coverage-traces/0001_no_name_conflicts_one_package");
         List<String> expectedTable = Arrays.asList(
                 "Namespace,Model,Elements,Missed Elements,Elements Coverage,Rules,Missed Rules,Rules Coverage",
-                "http://www.provider.com/definitions/model-c,Model C,1,0,100.00%,0,0,N/A",
-                "http://www.provider.com/definitions/model-b1,Model B1,2,0,100.00%,0,0,N/A",
-                "http://www.provider.com/definitions/model-b2,,0,0,N/A,0,0,N/A"
+                "http://www.provider.com/definitions/model-c,Model C,1,0,100.00%,0,0,100.00%",
+                "http://www.provider.com/definitions/model-b1,Model B1,2,0,100.00%,0,0,100.00%",
+                "http://www.provider.com/definitions/model-b2,,0,0,100.00%,0,0,100.00%"
         );
         checkLines(expectedTable, coverageReport.toTable().toCsvLines());
     }
@@ -48,7 +48,6 @@ class ModelCoverageReportGeneratorTest extends AbstractTraceListenerTest {
 
     private CoverageReport calculateCoverageReport(String tracePath) {
         File traceFolder = new File(resource(tracePath));
-        CoverageReport coverageReport = generator.generateCoverageReport(traceFolder);
-        return coverageReport;
+        return generator.generateCoverageReport(traceFolder);
     }
 }

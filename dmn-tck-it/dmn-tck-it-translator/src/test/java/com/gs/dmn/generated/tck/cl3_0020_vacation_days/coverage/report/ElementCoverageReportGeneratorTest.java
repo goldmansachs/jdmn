@@ -20,11 +20,11 @@ class ElementCoverageReportGeneratorTest extends AbstractTraceListenerTest {
         CoverageReport coverageReport = calculateCoverageReport("coverage-traces/0020_vacation_days/");
         List<String> expectedTable = Arrays.asList(
                 "Namespace,Element,Rules,Missed Rules,Rules Coverage",
-                "https://www.drools.org/kie-dmn,Base Vacation Days,0,0,N/A",
+                "https://www.drools.org/kie-dmn,Base Vacation Days,0,0,100.00%",
                 "https://www.drools.org/kie-dmn,Extra days case 1,2,0,100.00%",
                 "https://www.drools.org/kie-dmn,Extra days case 2,2,0,100.00%",
                 "https://www.drools.org/kie-dmn,Extra days case 3,2,0,100.00%",
-                "https://www.drools.org/kie-dmn,Total Vacation Days,0,0,N/A"
+                "https://www.drools.org/kie-dmn,Total Vacation Days,0,0,100.00%"
         );
         assertEquals(expectedTable, coverageReport.toTable().toCsvLines());
     }
@@ -34,17 +34,16 @@ class ElementCoverageReportGeneratorTest extends AbstractTraceListenerTest {
         CoverageReport coverageReport = calculateCoverageReport("coverage-traces/0001_no_name_conflicts_one_package");
         List<String> expectedTable = Arrays.asList(
                 "Namespace,Element,Rules,Missed Rules,Rules Coverage",
-                "http://www.provider.com/definitions/model-c,modelCDecisionBasedOnBs,0,0,N/A",
-                "http://www.provider.com/definitions/model-b1,evaluatingB1SayHello,0,0,N/A",
-                "http://www.provider.com/definitions/model-b1,greetThePerson,0,0,N/A",
-                "http://www.provider.com/definitions/model-b2,evaluatingB2SayHello,0,0,N/A"
+                "http://www.provider.com/definitions/model-c,modelCDecisionBasedOnBs,0,0,100.00%",
+                "http://www.provider.com/definitions/model-b1,evaluatingB1SayHello,0,0,100.00%",
+                "http://www.provider.com/definitions/model-b1,greetThePerson,0,0,100.00%",
+                "http://www.provider.com/definitions/model-b2,evaluatingB2SayHello,0,0,100.00%"
         );
         assertEquals(expectedTable, coverageReport.toTable().toCsvLines());
     }
 
     private CoverageReport calculateCoverageReport(String tracePath) {
         File traceFolder = new File(resource(tracePath));
-        CoverageReport coverageReport = generator.generateCoverageReport(traceFolder);
-        return coverageReport;
+        return generator.generateCoverageReport(traceFolder);
     }
 }
