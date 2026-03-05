@@ -1,0 +1,66 @@
+/*
+ * Copyright 2016 Goldman Sachs.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+ *
+ * You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations under the License.
+ */
+package com.gs.dmn.tck.validation;
+
+import com.gs.dmn.tck.ast.TestCases;
+import org.junit.jupiter.api.Test;
+
+import java.net.URI;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+public class CompositeTCKValidatorTest extends AbstractValidatorTest {
+    private final TCKValidator validator = new CompositeTCKValidator(
+            Arrays.asList(new DefaultTCKValidator())
+    );
+
+    @Test
+    public void testValidateWhenTestCasesNameIsMissing() {
+        List<String> expectedErrors = Arrays.asList(
+                "[ERROR] Missing testCasesName for element TestCases"
+        );
+        validate("default-tck-validator", validator, tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days-test-01.xml"), expectedErrors);
+    }
+
+    @Test
+    public void testValidateEmptyRepo() {
+        List<String> expectedErrors = Collections.emptyList();
+        List<ValidationError> actualErrors = validator.validate(null);
+        checkErrors(validator.ruleName(), expectedErrors, actualErrors);
+    }
+
+    @Test
+    public void testValidateException() {
+        CompositeTCKValidator validator = new CompositeTCKValidator(Arrays.asList(new SimpleTCKValidator() {
+            @Override
+            public List<ValidationError> validate(TestCases testCases) {
+                throw new RuntimeException("Exception Stacktrace");
+            }
+
+            @Override
+            public String ruleName() {
+                return "exception-validator";
+            }
+        }));
+        List<String> expectedErrors = Arrays.asList(
+                "[ERROR] Fatal error in validator 'exception-validator' Exception Stacktrace"
+        );
+        URI fileURI = tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days-test-01.xml");
+        TestCases testCases = readTestCases(fileURI);
+        List<ValidationError> actualErrors = validator.validate(testCases);
+
+        checkErrors("exception-validator", expectedErrors, actualErrors);
+    }
+}
+
