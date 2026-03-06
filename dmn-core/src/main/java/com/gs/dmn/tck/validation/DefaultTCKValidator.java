@@ -152,6 +152,15 @@ class DefaultTCKValidatorVisitor extends TraversalVisitor<ValidationContext> {
             String errorMessage = "Invalid type of testCase with id '%s'. Expected type is bkm or decisionService when invocableName is provided.".formatted(element.getId());
             this.validator.addValidationError(context, element, errorMessage);
         }
+        // Validate that the input nodes and result nodes have unique names
+        validateUnique(
+                new ArrayList<>(element.getInputNode()), "InputNode", "name",
+                InputNode::getName, null, context
+        );
+        validateUnique(
+                new ArrayList<>(element.getResultNode()), "ResultNode", "name",
+                ResultNode::getName, null, context
+        );
     }
 
     private static boolean missingInvocableName(TestCase element) {
@@ -196,17 +205,17 @@ class DefaultTCKValidatorVisitor extends TraversalVisitor<ValidationContext> {
         }
     }
 
-    protected void validateUnique(List<TestCase> elements, String elementType, String property, Function<TestCase, String> accessor, String errorMessage, ValidationContext context) {
+    protected <T> void validateUnique(List<T> elements, String elementType, String property, Function<T, String> accessor, String errorMessage, ValidationContext context) {
         if (errorMessage == null) {
             errorMessage = String.format("The %s of a %s must be unique.", property, elementType);
         }
 
         // Create a map
-        Map<String, List<TCKBaseElement>> map = new LinkedHashMap<>();
-        for (TestCase element : elements) {
+        Map<String, List<T>> map = new LinkedHashMap<>();
+        for (T element : elements) {
             String key = accessor.apply(element);
             if (key != null) {
-                List<TCKBaseElement> list = map.get(key);
+                List<T> list = map.get(key);
                 if (list == null) {
                     list = new ArrayList<>();
                     list.add(element);
@@ -218,7 +227,7 @@ class DefaultTCKValidatorVisitor extends TraversalVisitor<ValidationContext> {
         }
         // Find duplicates
         List<String> duplicates = new ArrayList<>();
-        for (Map.Entry<String, List<TCKBaseElement>> entry : map.entrySet()) {
+        for (Map.Entry<String, List<T>> entry : map.entrySet()) {
             String key = entry.getKey();
             if (entry.getValue().size() > 1) {
                 duplicates.add(key);

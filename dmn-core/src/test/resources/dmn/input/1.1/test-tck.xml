@@ -139,4 +139,24 @@
             </expected>
         </resultNode>
     </testCase>
+    <testCase id="005">
+        <inputNode name="Routing">
+            <value>ACCEPT</value>
+        </inputNode>
+        <inputNode name="Routing">
+            <value>ACCEPT</value>
+        </inputNode>
+    </testCase>
+    <testCase id="006">
+        <resultNode name="Routing">
+            <expected>
+                <value>ACCEPT</value>
+            </expected>
+        </resultNode>
+        <resultNode name="Routing">
+            <expected>
+                <value>ACCEPT</value>
+            </expected>
+        </resultNode>
+    </testCase>
 </testCases>

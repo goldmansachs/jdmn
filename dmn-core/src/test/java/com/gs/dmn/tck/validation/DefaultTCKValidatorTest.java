@@ -49,7 +49,9 @@ public class DefaultTCKValidatorTest extends AbstractValidatorTest {
                 "[ERROR] (testCasesName = '0004-lending-test-01.xml', testCase = '001'): Missing value of inputNode 'ApplicantData' in testCase with id '001'",
                 "[ERROR] (testCasesName = '0004-lending-test-01.xml', testCase = '001'): Missing name of resultNode in testCase with id '001'",
                 "[ERROR] (testCasesName = '0004-lending-test-01.xml', testCase = '003'): Missing invocableName of testCase with id '003'",
-                "[ERROR] (testCasesName = '0004-lending-test-01.xml', testCase = '004'): Invalid type of testCase with id '004'. Expected type is bkm or decisionService when invocableName is provided."
+                "[ERROR] (testCasesName = '0004-lending-test-01.xml', testCase = '004'): Invalid type of testCase with id '004'. Expected type is bkm or decisionService when invocableName is provided.",
+                "[ERROR] (testCasesName = '0004-lending-test-01.xml'): The name of a InputNode must be unique. Found duplicates for 'Routing'.",
+                "[ERROR] (testCasesName = '0004-lending-test-01.xml'): The name of a ResultNode must be unique. Found duplicates for 'Routing'."
         );
         validate(validator, resource("dmn/input/1.1/test-tck.xml"), expectedErrors);
     }

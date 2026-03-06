@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.tck.validation;
 
+import com.gs.dmn.error.SeverityLevel;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.tck.error.ErrorFactory;
 import com.gs.dmn.tck.error.TCKError;
@@ -44,7 +45,7 @@ public class CompositeTCKValidator implements TCKValidator {
             } catch (Exception e) {
                 String ruleName = validator.ruleName();
                 String errorMessage = String.format("Fatal error in validator '%s' %s", ruleName, e.getMessage());
-                TCKError error = ErrorFactory.makeTCKError(null, errorMessage);
+                TCKError error = ErrorFactory.makeTCKError(null, SeverityLevel.ERROR, errorMessage);
                 errors.add(new ValidationError(error, ruleName));
             }
         }

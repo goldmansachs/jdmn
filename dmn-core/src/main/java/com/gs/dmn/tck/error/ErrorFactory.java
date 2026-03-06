@@ -103,7 +103,7 @@ public class ErrorFactory {
         }
     }
 
-    public static TCKError makeTCKError(TestLocation testLocation, String errorMessage) {
-        return new TCKError(SeverityLevel.ERROR, testLocation, errorMessage);
+    public static TCKError makeTCKError(TestLocation testLocation, SeverityLevel level, String errorMessage) {
+        return new TCKError(level, testLocation, errorMessage);
     }
 }
