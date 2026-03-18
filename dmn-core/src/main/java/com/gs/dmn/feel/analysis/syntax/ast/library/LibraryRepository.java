@@ -86,7 +86,7 @@ public class LibraryRepository {
         return library.analyze(context, metadata);
     }
 
-    private Library<?> parseLibrary(String libPath) {
+    public Library<?> parseLibrary(String libPath) {
         String text = readLibrary(libPath);
         LibraryParser parser = makeParser(text);
         return (Library<?>) parser.library().ast;

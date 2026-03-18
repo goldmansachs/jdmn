@@ -1,0 +1,1204 @@
+{
+  "name": "signavio",
+  "functions": [
+    {
+      "name": "isDefined",
+      "parameters": [
+        {
+          "name": "arg",
+          "type": "Any"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "isDefined(arg: Any) : boolean"
+    },
+    {
+      "name": "isUndefined",
+      "parameters": [
+        {
+          "name": "arg",
+          "type": "Any"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "isUndefined(arg: Any) : boolean"
+    },
+    {
+      "name": "isValid",
+      "parameters": [
+        {
+          "name": "arg",
+          "type": "Any"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "isValid(arg: Any) : boolean"
+    },
+    {
+      "name": "isInvalid",
+      "parameters": [
+        {
+          "name": "arg",
+          "type": "Any"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "isInvalid(arg: Any) : boolean"
+    },
+    {
+      "name": "date",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "string"
+        }
+      ],
+      "returnType": "date",
+      "signature": "date(from: string) : date"
+    },
+    {
+      "name": "date and time",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "string"
+        }
+      ],
+      "returnType": "date and time",
+      "signature": "date and time(from: string) : date and time"
+    },
+    {
+      "name": "time",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "string"
+        }
+      ],
+      "returnType": "time",
+      "signature": "time(from: string) : time"
+    },
+    {
+      "name": "string",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "Any"
+        }
+      ],
+      "returnType": "string",
+      "signature": "string(from: Any) : string"
+    },
+    {
+      "name": "duration",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "Any"
+        }
+      ],
+      "returnType": "duration",
+      "signature": "duration(from: Any) : duration"
+    },
+    {
+      "name": "abs",
+      "parameters": [
+        {
+          "name": "number",
+          "type": "number"
+        }
+      ],
+      "returnType": "number",
+      "signature": "abs(number: number) : number"
+    },
+    {
+      "name": "count",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<Any>"
+        }
+      ],
+      "returnType": "number",
+      "signature": "count(list: list<Any>) : number"
+    },
+    {
+      "name": "round",
+      "parameters": [
+        {
+          "name": "number",
+          "type": "number"
+        },
+        {
+          "name": "digits",
+          "type": "number"
+        }
+      ],
+      "returnType": "number",
+      "signature": "round(number: number, digits: number) : number"
+    },
+    {
+      "name": "ceiling",
+      "parameters": [
+        {
+          "name": "number",
+          "type": "number"
+        }
+      ],
+      "returnType": "number",
+      "signature": "ceiling(number: number) : number"
+    },
+    {
+      "name": "floor",
+      "parameters": [
+        {
+          "name": "number",
+          "type": "number"
+        }
+      ],
+      "returnType": "number",
+      "signature": "floor(number: number) : number"
+    },
+    {
+      "name": "integer",
+      "parameters": [
+        {
+          "name": "number",
+          "type": "number"
+        }
+      ],
+      "returnType": "number",
+      "signature": "integer(number: number) : number"
+    },
+    {
+      "name": "modulo",
+      "parameters": [
+        {
+          "name": "dividend",
+          "type": "number"
+        },
+        {
+          "name": "divisor",
+          "type": "number"
+        }
+      ],
+      "returnType": "number",
+      "signature": "modulo(dividend: number, divisor: number) : number"
+    },
+    {
+      "name": "percent",
+      "parameters": [
+        {
+          "name": "number",
+          "type": "number"
+        }
+      ],
+      "returnType": "number",
+      "signature": "percent(number: number) : number"
+    },
+    {
+      "name": "power",
+      "parameters": [
+        {
+          "name": "base",
+          "type": "number"
+        },
+        {
+          "name": "exponent",
+          "type": "number"
+        }
+      ],
+      "returnType": "number",
+      "signature": "power(base: number, exponent: number) : number"
+    },
+    {
+      "name": "product",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<Any>"
+        }
+      ],
+      "returnType": "number",
+      "signature": "product(list: list<Any>) : number"
+    },
+    {
+      "name": "roundDown",
+      "parameters": [
+        {
+          "name": "number",
+          "type": "number"
+        },
+        {
+          "name": "digits",
+          "type": "number"
+        }
+      ],
+      "returnType": "number",
+      "signature": "roundDown(number: number, digits: number) : number"
+    },
+    {
+      "name": "roundUp",
+      "parameters": [
+        {
+          "name": "number",
+          "type": "number"
+        },
+        {
+          "name": "digits",
+          "type": "number"
+        }
+      ],
+      "returnType": "number",
+      "signature": "roundUp(number: number, digits: number) : number"
+    },
+    {
+      "name": "sum",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<Any>"
+        }
+      ],
+      "returnType": "number",
+      "signature": "sum(list: list<Any>) : number"
+    },
+    {
+      "name": "concat",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<Any>"
+        }
+      ],
+      "returnType": "string",
+      "signature": "concat(list: list<Any>) : string"
+    },
+    {
+      "name": "isAlpha",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "isAlpha(text: string) : boolean"
+    },
+    {
+      "name": "isAlphanumeric",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "isAlphanumeric(text: string) : boolean"
+    },
+    {
+      "name": "isNumeric",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "isNumeric(text: string) : boolean"
+    },
+    {
+      "name": "isSpaces",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "isSpaces(text: string) : boolean"
+    },
+    {
+      "name": "len",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string"
+        }
+      ],
+      "returnType": "number",
+      "signature": "len(text: string) : number"
+    },
+    {
+      "name": "lower",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string"
+        }
+      ],
+      "returnType": "string",
+      "signature": "lower(text: string) : string"
+    },
+    {
+      "name": "trim",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string"
+        }
+      ],
+      "returnType": "string",
+      "signature": "trim(text: string) : string"
+    },
+    {
+      "name": "upper",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string"
+        }
+      ],
+      "returnType": "string",
+      "signature": "upper(text: string) : string"
+    },
+    {
+      "name": "number",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string"
+        },
+        {
+          "name": "default_value",
+          "type": "number?"
+        }
+      ],
+      "returnType": "number",
+      "signature": "number(text: string, default_value: number?) : number"
+    },
+    {
+      "name": "mid",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string"
+        },
+        {
+          "name": "start",
+          "type": "number"
+        },
+        {
+          "name": "num_chars",
+          "type": "number"
+        }
+      ],
+      "returnType": "string",
+      "signature": "mid(text: string, start: number, num_chars: number) : string"
+    },
+    {
+      "name": "left",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string"
+        },
+        {
+          "name": "num_chars",
+          "type": "number"
+        }
+      ],
+      "returnType": "string",
+      "signature": "left(text: string, num_chars: number) : string"
+    },
+    {
+      "name": "right",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string"
+        },
+        {
+          "name": "num_chars",
+          "type": "number"
+        }
+      ],
+      "returnType": "string",
+      "signature": "right(text: string, num_chars: number) : string"
+    },
+    {
+      "name": "text",
+      "parameters": [
+        {
+          "name": "num",
+          "type": "number"
+        },
+        {
+          "name": "format_text",
+          "type": "string"
+        }
+      ],
+      "returnType": "string",
+      "signature": "text(num: number, format_text: string) : string"
+    },
+    {
+      "name": "textOccurrences",
+      "parameters": [
+        {
+          "name": "find_text",
+          "type": "string"
+        },
+        {
+          "name": "within_text",
+          "type": "string"
+        }
+      ],
+      "returnType": "number",
+      "signature": "textOccurrences(find_text: string, within_text: string) : number"
+    },
+    {
+      "name": "contains",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string"
+        },
+        {
+          "name": "substring",
+          "type": "string"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "contains(text: string, substring: string) : boolean"
+    },
+    {
+      "name": "startsWith",
+      "parameters": [
+        {
+          "name": "string",
+          "type": "string"
+        },
+        {
+          "name": "prefix",
+          "type": "string"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "startsWith(string: string, prefix: string) : boolean"
+    },
+    {
+      "name": "endsWith",
+      "parameters": [
+        {
+          "name": "string",
+          "type": "string"
+        },
+        {
+          "name": "suffix",
+          "type": "string"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "endsWith(string: string, suffix: string) : boolean"
+    },
+    {
+      "name": "not",
+      "parameters": [
+        {
+          "name": "negand",
+          "type": "boolean"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "not(negand: boolean) : boolean"
+    },
+    {
+      "name": "day",
+      "parameters": [
+        {
+          "name": "datetime",
+          "type": "date"
+        }
+      ],
+      "returnType": "number",
+      "signature": "day(datetime: date) : number"
+    },
+    {
+      "name": "day",
+      "parameters": [
+        {
+          "name": "datetime",
+          "type": "date and time"
+        }
+      ],
+      "returnType": "number",
+      "signature": "day(datetime: date and time) : number"
+    },
+    {
+      "name": "dayAdd",
+      "parameters": [
+        {
+          "name": "datetime",
+          "type": "date"
+        },
+        {
+          "name": "days_to_add",
+          "type": "number"
+        }
+      ],
+      "returnType": "date",
+      "signature": "dayAdd(datetime: date, days_to_add: number) : date"
+    },
+    {
+      "name": "dayAdd",
+      "parameters": [
+        {
+          "name": "datetime",
+          "type": "date and time"
+        },
+        {
+          "name": "days_to_add",
+          "type": "number"
+        }
+      ],
+      "returnType": "date and time",
+      "signature": "dayAdd(datetime: date and time, days_to_add: number) : date and time"
+    },
+    {
+      "name": "dayDiff",
+      "parameters": [
+        {
+          "name": "datetime1",
+          "type": "date"
+        },
+        {
+          "name": "datetime2",
+          "type": "date"
+        }
+      ],
+      "returnType": "number",
+      "signature": "dayDiff(datetime1: date, datetime2: date) : number"
+    },
+    {
+      "name": "dayDiff",
+      "parameters": [
+        {
+          "name": "datetime1",
+          "type": "date"
+        },
+        {
+          "name": "datetime2",
+          "type": "date and time"
+        }
+      ],
+      "returnType": "number",
+      "signature": "dayDiff(datetime1: date, datetime2: date and time) : number"
+    },
+    {
+      "name": "dayDiff",
+      "parameters": [
+        {
+          "name": "datetime1",
+          "type": "date and time"
+        },
+        {
+          "name": "datetime2",
+          "type": "date"
+        }
+      ],
+      "returnType": "number",
+      "signature": "dayDiff(datetime1: date and time, datetime2: date) : number"
+    },
+    {
+      "name": "dayDiff",
+      "parameters": [
+        {
+          "name": "datetime1",
+          "type": "date and time"
+        },
+        {
+          "name": "datetime2",
+          "type": "date and time"
+        }
+      ],
+      "returnType": "number",
+      "signature": "dayDiff(datetime1: date and time, datetime2: date and time) : number"
+    },
+    {
+      "name": "date",
+      "parameters": [
+        {
+          "name": "year",
+          "type": "number"
+        },
+        {
+          "name": "month",
+          "type": "number"
+        },
+        {
+          "name": "day",
+          "type": "number"
+        }
+      ],
+      "returnType": "date",
+      "signature": "date(year: number, month: number, day: number) : date"
+    },
+    {
+      "name": "dateTime",
+      "parameters": [
+        {
+          "name": "day",
+          "type": "number"
+        },
+        {
+          "name": "month",
+          "type": "number"
+        },
+        {
+          "name": "year",
+          "type": "number"
+        },
+        {
+          "name": "hour",
+          "type": "number"
+        },
+        {
+          "name": "minute",
+          "type": "number"
+        },
+        {
+          "name": "second",
+          "type": "number"
+        },
+        {
+          "name": "hourOffset",
+          "type": "number?"
+        }
+      ],
+      "returnType": "date and time",
+      "signature": "dateTime(day: number, month: number, year: number, hour: number, minute: number, second: number, hourOffset: number?) : date and time"
+    },
+    {
+      "name": "hour",
+      "parameters": [
+        {
+          "name": "datetime",
+          "type": "time"
+        }
+      ],
+      "returnType": "number",
+      "signature": "hour(datetime: time) : number"
+    },
+    {
+      "name": "hour",
+      "parameters": [
+        {
+          "name": "datetime",
+          "type": "date and time"
+        }
+      ],
+      "returnType": "number",
+      "signature": "hour(datetime: date and time) : number"
+    },
+    {
+      "name": "hourDiff",
+      "parameters": [
+        {
+          "name": "datetime1",
+          "type": "temporal"
+        },
+        {
+          "name": "datetime2",
+          "type": "temporal"
+        }
+      ],
+      "returnType": "number",
+      "signature": "hourDiff(datetime1: temporal, datetime2: temporal) : number"
+    },
+    {
+      "name": "minute",
+      "parameters": [
+        {
+          "name": "datetime",
+          "type": "time"
+        }
+      ],
+      "returnType": "number",
+      "signature": "minute(datetime: time) : number"
+    },
+    {
+      "name": "minute",
+      "parameters": [
+        {
+          "name": "datetime",
+          "type": "date and time"
+        }
+      ],
+      "returnType": "number",
+      "signature": "minute(datetime: date and time) : number"
+    },
+    {
+      "name": "minutesDiff",
+      "parameters": [
+        {
+          "name": "datetime1",
+          "type": "temporal"
+        },
+        {
+          "name": "datetime2",
+          "type": "temporal"
+        }
+      ],
+      "returnType": "number",
+      "signature": "minutesDiff(datetime1: temporal, datetime2: temporal) : number"
+    },
+    {
+      "name": "month",
+      "parameters": [
+        {
+          "name": "datetime",
+          "type": "date"
+        }
+      ],
+      "returnType": "number",
+      "signature": "month(datetime: date) : number"
+    },
+    {
+      "name": "month",
+      "parameters": [
+        {
+          "name": "datetime",
+          "type": "date and time"
+        }
+      ],
+      "returnType": "number",
+      "signature": "month(datetime: date and time) : number"
+    },
+    {
+      "name": "monthAdd",
+      "parameters": [
+        {
+          "name": "datetime",
+          "type": "date"
+        },
+        {
+          "name": "months_to_add",
+          "type": "number"
+        }
+      ],
+      "returnType": "date",
+      "signature": "monthAdd(datetime: date, months_to_add: number) : date"
+    },
+    {
+      "name": "monthAdd",
+      "parameters": [
+        {
+          "name": "datetime",
+          "type": "date and time"
+        },
+        {
+          "name": "months_to_add",
+          "type": "number"
+        }
+      ],
+      "returnType": "date and time",
+      "signature": "monthAdd(datetime: date and time, months_to_add: number) : date and time"
+    },
+    {
+      "name": "monthDiff",
+      "parameters": [
+        {
+          "name": "datetime1",
+          "type": "date"
+        },
+        {
+          "name": "datetime2",
+          "type": "date"
+        }
+      ],
+      "returnType": "number",
+      "signature": "monthDiff(datetime1: date, datetime2: date) : number"
+    },
+    {
+      "name": "monthDiff",
+      "parameters": [
+        {
+          "name": "datetime1",
+          "type": "date"
+        },
+        {
+          "name": "datetime2",
+          "type": "date and time"
+        }
+      ],
+      "returnType": "number",
+      "signature": "monthDiff(datetime1: date, datetime2: date and time) : number"
+    },
+    {
+      "name": "monthDiff",
+      "parameters": [
+        {
+          "name": "datetime1",
+          "type": "date and time"
+        },
+        {
+          "name": "datetime2",
+          "type": "date"
+        }
+      ],
+      "returnType": "number",
+      "signature": "monthDiff(datetime1: date and time, datetime2: date) : number"
+    },
+    {
+      "name": "monthDiff",
+      "parameters": [
+        {
+          "name": "datetime1",
+          "type": "date and time"
+        },
+        {
+          "name": "datetime2",
+          "type": "date and time"
+        }
+      ],
+      "returnType": "number",
+      "signature": "monthDiff(datetime1: date and time, datetime2: date and time) : number"
+    },
+    {
+      "name": "now",
+      "parameters": [],
+      "returnType": "date and time",
+      "signature": "now() : date and time"
+    },
+    {
+      "name": "today",
+      "parameters": [],
+      "returnType": "date",
+      "signature": "today() : date"
+    },
+    {
+      "name": "weekday",
+      "parameters": [
+        {
+          "name": "datetime",
+          "type": "date"
+        }
+      ],
+      "returnType": "number",
+      "signature": "weekday(datetime: date) : number"
+    },
+    {
+      "name": "weekday",
+      "parameters": [
+        {
+          "name": "datetime",
+          "type": "date and time"
+        }
+      ],
+      "returnType": "number",
+      "signature": "weekday(datetime: date and time) : number"
+    },
+    {
+      "name": "year",
+      "parameters": [
+        {
+          "name": "datetime",
+          "type": "date"
+        }
+      ],
+      "returnType": "number",
+      "signature": "year(datetime: date) : number"
+    },
+    {
+      "name": "year",
+      "parameters": [
+        {
+          "name": "datetime",
+          "type": "date and time"
+        }
+      ],
+      "returnType": "number",
+      "signature": "year(datetime: date and time) : number"
+    },
+    {
+      "name": "yearAdd",
+      "parameters": [
+        {
+          "name": "datetime",
+          "type": "date"
+        },
+        {
+          "name": "years_to_add",
+          "type": "number"
+        }
+      ],
+      "returnType": "date",
+      "signature": "yearAdd(datetime: date, years_to_add: number) : date"
+    },
+    {
+      "name": "yearAdd",
+      "parameters": [
+        {
+          "name": "datetime",
+          "type": "date and time"
+        },
+        {
+          "name": "years_to_add",
+          "type": "number"
+        }
+      ],
+      "returnType": "date and time",
+      "signature": "yearAdd(datetime: date and time, years_to_add: number) : date and time"
+    },
+    {
+      "name": "yearDiff",
+      "parameters": [
+        {
+          "name": "datetime1",
+          "type": "date"
+        },
+        {
+          "name": "datetime2",
+          "type": "date"
+        }
+      ],
+      "returnType": "number",
+      "signature": "yearDiff(datetime1: date, datetime2: date) : number"
+    },
+    {
+      "name": "yearDiff",
+      "parameters": [
+        {
+          "name": "datetime1",
+          "type": "date"
+        },
+        {
+          "name": "datetime2",
+          "type": "date and time"
+        }
+      ],
+      "returnType": "number",
+      "signature": "yearDiff(datetime1: date, datetime2: date and time) : number"
+    },
+    {
+      "name": "yearDiff",
+      "parameters": [
+        {
+          "name": "datetime1",
+          "type": "date and time"
+        },
+        {
+          "name": "datetime2",
+          "type": "date"
+        }
+      ],
+      "returnType": "number",
+      "signature": "yearDiff(datetime1: date and time, datetime2: date) : number"
+    },
+    {
+      "name": "yearDiff",
+      "parameters": [
+        {
+          "name": "datetime1",
+          "type": "date and time"
+        },
+        {
+          "name": "datetime2",
+          "type": "date and time"
+        }
+      ],
+      "returnType": "number",
+      "signature": "yearDiff(datetime1: date and time, datetime2: date and time) : number"
+    },
+    {
+      "name": "append",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<Any>"
+        },
+        {
+          "name": "element",
+          "type": "Any"
+        }
+      ],
+      "returnType": "list<Any>",
+      "signature": "append(list: list<Any>, element: Any) : list<Any>"
+    },
+    {
+      "name": "appendAll",
+      "parameters": [
+        {
+          "name": "list1",
+          "type": "list<Any>"
+        },
+        {
+          "name": "list2",
+          "type": "list<Any>"
+        }
+      ],
+      "returnType": "list<Any>",
+      "signature": "appendAll(list1: list<Any>, list2: list<Any>) : list<Any>"
+    },
+    {
+      "name": "remove",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<Any>"
+        },
+        {
+          "name": "element",
+          "type": "Any"
+        }
+      ],
+      "returnType": "list<Any>",
+      "signature": "remove(list: list<Any>, element: Any) : list<Any>"
+    },
+    {
+      "name": "removeAll",
+      "parameters": [
+        {
+          "name": "list1",
+          "type": "list<Any>"
+        },
+        {
+          "name": "list2",
+          "type": "list<Any>"
+        }
+      ],
+      "returnType": "list<Any>",
+      "signature": "removeAll(list1: list<Any>, list2: list<Any>) : list<Any>"
+    },
+    {
+      "name": "zip",
+      "parameters": [
+        {
+          "name": "attributes",
+          "type": "list<Any>"
+        },
+        {
+          "name": "values",
+          "type": "list<Any>"
+        }
+      ],
+      "returnType": "list<Any>",
+      "signature": "zip(attributes: list<Any>, values: list<Any>) : list<Any>"
+    },
+    {
+      "name": "notContainsAny",
+      "parameters": [
+        {
+          "name": "list1",
+          "type": "list<Any>"
+        },
+        {
+          "name": "list2",
+          "type": "list<Any>"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "notContainsAny(list1: list<Any>, list2: list<Any>) : boolean"
+    },
+    {
+      "name": "containsOnly",
+      "parameters": [
+        {
+          "name": "list1",
+          "type": "list<Any>"
+        },
+        {
+          "name": "list2",
+          "type": "list<Any>"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "containsOnly(list1: list<Any>, list2: list<Any>) : boolean"
+    },
+    {
+      "name": "areElementsOf",
+      "parameters": [
+        {
+          "name": "list1",
+          "type": "list<Any>"
+        },
+        {
+          "name": "list2",
+          "type": "list<Any>"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "areElementsOf(list1: list<Any>, list2: list<Any>) : boolean"
+    },
+    {
+      "name": "elementOf",
+      "parameters": [
+        {
+          "name": "list1",
+          "type": "Any"
+        },
+        {
+          "name": "list2",
+          "type": "list<Any>"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "elementOf(list1: Any, list2: list<Any>) : boolean"
+    },
+    {
+      "name": "avg",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<Any>"
+        }
+      ],
+      "returnType": "number",
+      "signature": "avg(list: list<Any>) : number"
+    },
+    {
+      "name": "max",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<Any>"
+        }
+      ],
+      "returnType": "number",
+      "signature": "max(list: list<Any>) : number"
+    },
+    {
+      "name": "median",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<Any>"
+        }
+      ],
+      "returnType": "number",
+      "signature": "median(list: list<Any>) : number"
+    },
+    {
+      "name": "min",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<Any>"
+        }
+      ],
+      "returnType": "number",
+      "signature": "min(list: list<Any>) : number"
+    },
+    {
+      "name": "mode",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<Any>"
+        }
+      ],
+      "returnType": "number",
+      "signature": "mode(list: list<Any>) : number"
+    }
+  ]
+}

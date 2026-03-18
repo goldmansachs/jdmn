@@ -1,0 +1,1879 @@
+{
+  "name": "builtin",
+  "functions": [
+    {
+      "name": "date",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "string"
+        }
+      ],
+      "returnType": "date",
+      "signature": "date(from: string) : date"
+    },
+    {
+      "name": "date",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "date"
+        }
+      ],
+      "returnType": "date",
+      "signature": "date(from: date) : date"
+    },
+    {
+      "name": "date",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "date and time"
+        }
+      ],
+      "returnType": "date",
+      "signature": "date(from: date and time) : date"
+    },
+    {
+      "name": "date",
+      "parameters": [
+        {
+          "name": "year",
+          "type": "number"
+        },
+        {
+          "name": "month",
+          "type": "number"
+        },
+        {
+          "name": "day",
+          "type": "number"
+        }
+      ],
+      "returnType": "date",
+      "signature": "date(year: number, month: number, day: number) : date"
+    },
+    {
+      "name": "date and time",
+      "parameters": [
+        {
+          "name": "date",
+          "type": "date"
+        },
+        {
+          "name": "time",
+          "type": "time"
+        }
+      ],
+      "returnType": "date and time",
+      "signature": "date and time(date: date, time: time) : date and time"
+    },
+    {
+      "name": "date and time",
+      "parameters": [
+        {
+          "name": "date",
+          "type": "date and time"
+        },
+        {
+          "name": "time",
+          "type": "time"
+        }
+      ],
+      "returnType": "date and time",
+      "signature": "date and time(date: date and time, time: time) : date and time"
+    },
+    {
+      "name": "date and time",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "string"
+        }
+      ],
+      "returnType": "date and time",
+      "signature": "date and time(from: string) : date and time"
+    },
+    {
+      "name": "time",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "string"
+        }
+      ],
+      "returnType": "time",
+      "signature": "time(from: string) : time"
+    },
+    {
+      "name": "time",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "date"
+        }
+      ],
+      "returnType": "time",
+      "signature": "time(from: date) : time"
+    },
+    {
+      "name": "time",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "date and time"
+        }
+      ],
+      "returnType": "time",
+      "signature": "time(from: date and time) : time"
+    },
+    {
+      "name": "time",
+      "parameters": [
+        {
+          "name": "hour",
+          "type": "number"
+        },
+        {
+          "name": "minute",
+          "type": "number"
+        },
+        {
+          "name": "second",
+          "type": "number"
+        },
+        {
+          "name": "offset",
+          "type": "days and time duration?"
+        }
+      ],
+      "returnType": "time",
+      "signature": "time(hour: number, minute: number, second: number, offset: days and time duration?) : time"
+    },
+    {
+      "name": "number",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "string"
+        },
+        {
+          "name": "grouping separator",
+          "type": "string"
+        },
+        {
+          "name": "decimal separator",
+          "type": "string"
+        }
+      ],
+      "returnType": "number",
+      "signature": "number(from: string, grouping separator: string, decimal separator: string) : number"
+    },
+    {
+      "name": "number",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "string"
+        },
+        {
+          "name": "groupingSeparator",
+          "type": "string"
+        },
+        {
+          "name": "decimalSeparator",
+          "type": "string"
+        }
+      ],
+      "returnType": "number",
+      "signature": "number(from: string, groupingSeparator: string, decimalSeparator: string) : number"
+    },
+    {
+      "name": "string",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "Any"
+        }
+      ],
+      "returnType": "string",
+      "signature": "string(from: Any) : string"
+    },
+    {
+      "name": "duration",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "string"
+        }
+      ],
+      "returnType": "duration",
+      "signature": "duration(from: string) : duration"
+    },
+    {
+      "name": "years and months duration",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "date"
+        },
+        {
+          "name": "to",
+          "type": "date"
+        }
+      ],
+      "returnType": "years and months duration",
+      "signature": "years and months duration(from: date, to: date) : years and months duration"
+    },
+    {
+      "name": "years and months duration",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "date and time"
+        },
+        {
+          "name": "to",
+          "type": "date and time"
+        }
+      ],
+      "returnType": "years and months duration",
+      "signature": "years and months duration(from: date and time, to: date and time) : years and months duration"
+    },
+    {
+      "name": "years and months duration",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "date"
+        },
+        {
+          "name": "to",
+          "type": "date and time"
+        }
+      ],
+      "returnType": "years and months duration",
+      "signature": "years and months duration(from: date, to: date and time) : years and months duration"
+    },
+    {
+      "name": "years and months duration",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "date and time"
+        },
+        {
+          "name": "to",
+          "type": "date"
+        }
+      ],
+      "returnType": "years and months duration",
+      "signature": "years and months duration(from: date and time, to: date) : years and months duration"
+    },
+    {
+      "name": "range",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "string"
+        }
+      ],
+      "returnType": "range<Any>",
+      "signature": "range(from: string) : range<Any>"
+    },
+    {
+      "name": "decimal",
+      "parameters": [
+        {
+          "name": "n",
+          "type": "number"
+        },
+        {
+          "name": "scale",
+          "type": "number"
+        }
+      ],
+      "returnType": "number",
+      "signature": "decimal(n: number, scale: number) : number"
+    },
+    {
+      "name": "round",
+      "parameters": [
+        {
+          "name": "n",
+          "type": "number"
+        },
+        {
+          "name": "scale",
+          "type": "number"
+        },
+        {
+          "name": "mode",
+          "type": "string"
+        }
+      ],
+      "returnType": "number",
+      "signature": "round(n: number, scale: number, mode: string) : number"
+    },
+    {
+      "name": "round up",
+      "parameters": [
+        {
+          "name": "n",
+          "type": "number"
+        },
+        {
+          "name": "scale",
+          "type": "number"
+        }
+      ],
+      "returnType": "number",
+      "signature": "round up(n: number, scale: number) : number"
+    },
+    {
+      "name": "round down",
+      "parameters": [
+        {
+          "name": "n",
+          "type": "number"
+        },
+        {
+          "name": "scale",
+          "type": "number"
+        }
+      ],
+      "returnType": "number",
+      "signature": "round down(n: number, scale: number) : number"
+    },
+    {
+      "name": "round half up",
+      "parameters": [
+        {
+          "name": "n",
+          "type": "number"
+        },
+        {
+          "name": "scale",
+          "type": "number"
+        }
+      ],
+      "returnType": "number",
+      "signature": "round half up(n: number, scale: number) : number"
+    },
+    {
+      "name": "round half down",
+      "parameters": [
+        {
+          "name": "n",
+          "type": "number"
+        },
+        {
+          "name": "scale",
+          "type": "number"
+        }
+      ],
+      "returnType": "number",
+      "signature": "round half down(n: number, scale: number) : number"
+    },
+    {
+      "name": "floor",
+      "parameters": [
+        {
+          "name": "n",
+          "type": "number"
+        }
+      ],
+      "returnType": "number",
+      "signature": "floor(n: number) : number"
+    },
+    {
+      "name": "floor",
+      "parameters": [
+        {
+          "name": "n",
+          "type": "number"
+        },
+        {
+          "name": "scale",
+          "type": "number"
+        }
+      ],
+      "returnType": "number",
+      "signature": "floor(n: number, scale: number) : number"
+    },
+    {
+      "name": "ceiling",
+      "parameters": [
+        {
+          "name": "n",
+          "type": "number"
+        }
+      ],
+      "returnType": "number",
+      "signature": "ceiling(n: number) : number"
+    },
+    {
+      "name": "ceiling",
+      "parameters": [
+        {
+          "name": "n",
+          "type": "number"
+        },
+        {
+          "name": "scale",
+          "type": "number"
+        }
+      ],
+      "returnType": "number",
+      "signature": "ceiling(n: number, scale: number) : number"
+    },
+    {
+      "name": "abs",
+      "parameters": [
+        {
+          "name": "n",
+          "type": "number"
+        }
+      ],
+      "returnType": "number",
+      "signature": "abs(n: number) : number"
+    },
+    {
+      "name": "abs",
+      "parameters": [
+        {
+          "name": "n",
+          "type": "years and months duration"
+        }
+      ],
+      "returnType": "years and months duration",
+      "signature": "abs(n: years and months duration) : years and months duration"
+    },
+    {
+      "name": "abs",
+      "parameters": [
+        {
+          "name": "n",
+          "type": "days and time duration"
+        }
+      ],
+      "returnType": "days and time duration",
+      "signature": "abs(n: days and time duration) : days and time duration"
+    },
+    {
+      "name": "modulo",
+      "parameters": [
+        {
+          "name": "dividend",
+          "type": "number"
+        },
+        {
+          "name": "divisor",
+          "type": "number"
+        }
+      ],
+      "returnType": "number",
+      "signature": "modulo(dividend: number, divisor: number) : number"
+    },
+    {
+      "name": "sqrt",
+      "parameters": [
+        {
+          "name": "number",
+          "type": "number"
+        }
+      ],
+      "returnType": "number",
+      "signature": "sqrt(number: number) : number"
+    },
+    {
+      "name": "log",
+      "parameters": [
+        {
+          "name": "number",
+          "type": "number"
+        }
+      ],
+      "returnType": "number",
+      "signature": "log(number: number) : number"
+    },
+    {
+      "name": "exp",
+      "parameters": [
+        {
+          "name": "number",
+          "type": "number"
+        }
+      ],
+      "returnType": "number",
+      "signature": "exp(number: number) : number"
+    },
+    {
+      "name": "odd",
+      "parameters": [
+        {
+          "name": "number",
+          "type": "number"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "odd(number: number) : boolean"
+    },
+    {
+      "name": "even",
+      "parameters": [
+        {
+          "name": "number",
+          "type": "number"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "even(number: number) : boolean"
+    },
+    {
+      "name": "not",
+      "parameters": [
+        {
+          "name": "negand",
+          "type": "boolean"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "not(negand: boolean) : boolean"
+    },
+    {
+      "name": "substring",
+      "parameters": [
+        {
+          "name": "string",
+          "type": "string"
+        },
+        {
+          "name": "start position",
+          "type": "number"
+        },
+        {
+          "name": "length",
+          "type": "number?"
+        }
+      ],
+      "returnType": "string",
+      "signature": "substring(string: string, start position: number, length: number?) : string"
+    },
+    {
+      "name": "string length",
+      "parameters": [
+        {
+          "name": "string",
+          "type": "string"
+        }
+      ],
+      "returnType": "number",
+      "signature": "string length(string: string) : number"
+    },
+    {
+      "name": "upper case",
+      "parameters": [
+        {
+          "name": "string",
+          "type": "string"
+        }
+      ],
+      "returnType": "string",
+      "signature": "upper case(string: string) : string"
+    },
+    {
+      "name": "lower case",
+      "parameters": [
+        {
+          "name": "string",
+          "type": "string"
+        }
+      ],
+      "returnType": "string",
+      "signature": "lower case(string: string) : string"
+    },
+    {
+      "name": "substring before",
+      "parameters": [
+        {
+          "name": "string",
+          "type": "string"
+        },
+        {
+          "name": "match",
+          "type": "string"
+        }
+      ],
+      "returnType": "string",
+      "signature": "substring before(string: string, match: string) : string"
+    },
+    {
+      "name": "substring after",
+      "parameters": [
+        {
+          "name": "string",
+          "type": "string"
+        },
+        {
+          "name": "match",
+          "type": "string"
+        }
+      ],
+      "returnType": "string",
+      "signature": "substring after(string: string, match: string) : string"
+    },
+    {
+      "name": "replace",
+      "parameters": [
+        {
+          "name": "input",
+          "type": "string"
+        },
+        {
+          "name": "pattern",
+          "type": "string"
+        },
+        {
+          "name": "replacement",
+          "type": "string"
+        },
+        {
+          "name": "flags",
+          "type": "string?"
+        }
+      ],
+      "returnType": "string",
+      "signature": "replace(input: string, pattern: string, replacement: string, flags: string?) : string"
+    },
+    {
+      "name": "contains",
+      "parameters": [
+        {
+          "name": "string",
+          "type": "string"
+        },
+        {
+          "name": "match",
+          "type": "string"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "contains(string: string, match: string) : boolean"
+    },
+    {
+      "name": "starts with",
+      "parameters": [
+        {
+          "name": "string",
+          "type": "string"
+        },
+        {
+          "name": "match",
+          "type": "string"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "starts with(string: string, match: string) : boolean"
+    },
+    {
+      "name": "ends with",
+      "parameters": [
+        {
+          "name": "string",
+          "type": "string"
+        },
+        {
+          "name": "match",
+          "type": "string"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "ends with(string: string, match: string) : boolean"
+    },
+    {
+      "name": "matches",
+      "parameters": [
+        {
+          "name": "input",
+          "type": "string"
+        },
+        {
+          "name": "pattern",
+          "type": "string"
+        },
+        {
+          "name": "flags",
+          "type": "string?"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "matches(input: string, pattern: string, flags: string?) : boolean"
+    },
+    {
+      "name": "split",
+      "parameters": [
+        {
+          "name": "string",
+          "type": "string"
+        },
+        {
+          "name": "delimiter",
+          "type": "string"
+        }
+      ],
+      "returnType": "list<string>",
+      "signature": "split(string: string, delimiter: string) : list<string>"
+    },
+    {
+      "name": "string join",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<string>"
+        },
+        {
+          "name": "delimiter",
+          "type": "string?"
+        }
+      ],
+      "returnType": "string",
+      "signature": "string join(list: list<string>, delimiter: string?) : string"
+    },
+    {
+      "name": "is",
+      "parameters": [
+        {
+          "name": "value1",
+          "type": "Any"
+        },
+        {
+          "name": "value2",
+          "type": "Any"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "is(value1: Any, value2: Any) : boolean"
+    },
+    {
+      "name": "day of year",
+      "parameters": [
+        {
+          "name": "date",
+          "type": "date"
+        }
+      ],
+      "returnType": "number",
+      "signature": "day of year(date: date) : number"
+    },
+    {
+      "name": "day of year",
+      "parameters": [
+        {
+          "name": "date",
+          "type": "date and time"
+        }
+      ],
+      "returnType": "number",
+      "signature": "day of year(date: date and time) : number"
+    },
+    {
+      "name": "day of week",
+      "parameters": [
+        {
+          "name": "date",
+          "type": "date"
+        }
+      ],
+      "returnType": "string",
+      "signature": "day of week(date: date) : string"
+    },
+    {
+      "name": "day of week",
+      "parameters": [
+        {
+          "name": "date",
+          "type": "date and time"
+        }
+      ],
+      "returnType": "string",
+      "signature": "day of week(date: date and time) : string"
+    },
+    {
+      "name": "month of year",
+      "parameters": [
+        {
+          "name": "date",
+          "type": "date"
+        }
+      ],
+      "returnType": "string",
+      "signature": "month of year(date: date) : string"
+    },
+    {
+      "name": "month of year",
+      "parameters": [
+        {
+          "name": "date",
+          "type": "date and time"
+        }
+      ],
+      "returnType": "string",
+      "signature": "month of year(date: date and time) : string"
+    },
+    {
+      "name": "week of year",
+      "parameters": [
+        {
+          "name": "date",
+          "type": "date"
+        }
+      ],
+      "returnType": "number",
+      "signature": "week of year(date: date) : number"
+    },
+    {
+      "name": "week of year",
+      "parameters": [
+        {
+          "name": "date",
+          "type": "date and time"
+        }
+      ],
+      "returnType": "number",
+      "signature": "week of year(date: date and time) : number"
+    },
+    {
+      "name": "now",
+      "parameters": [],
+      "returnType": "date and time",
+      "signature": "now() : date and time"
+    },
+    {
+      "name": "today",
+      "parameters": [],
+      "returnType": "date",
+      "signature": "today() : date"
+    },
+    {
+      "name": "list contains",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<Any>"
+        },
+        {
+          "name": "element",
+          "type": "Any"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "list contains(list: list<Any>, element: Any) : boolean"
+    },
+    {
+      "name": "count",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<Any>"
+        }
+      ],
+      "returnType": "number",
+      "signature": "count(list: list<Any>) : number"
+    },
+    {
+      "name": "min",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<comparable>"
+        }
+      ],
+      "returnType": "comparable",
+      "signature": "min(list: list<comparable>) : comparable"
+    },
+    {
+      "name": "min",
+      "parameters": [
+        {
+          "name": "c1",
+          "type": "comparable"
+        },
+        {
+          "name": "cs",
+          "type": "comparable..."
+        }
+      ],
+      "returnType": "comparable",
+      "signature": "min(c1: comparable, cs: comparable...) : comparable"
+    },
+    {
+      "name": "max",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<comparable>"
+        }
+      ],
+      "returnType": "comparable",
+      "signature": "max(list: list<comparable>) : comparable"
+    },
+    {
+      "name": "max",
+      "parameters": [
+        {
+          "name": "c1",
+          "type": "comparable"
+        },
+        {
+          "name": "cs",
+          "type": "comparable..."
+        }
+      ],
+      "returnType": "comparable",
+      "signature": "max(c1: comparable, cs: comparable...) : comparable"
+    },
+    {
+      "name": "sum",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<number>"
+        }
+      ],
+      "returnType": "number",
+      "signature": "sum(list: list<number>) : number"
+    },
+    {
+      "name": "sum",
+      "parameters": [
+        {
+          "name": "n1",
+          "type": "number"
+        },
+        {
+          "name": "ns",
+          "type": "number..."
+        }
+      ],
+      "returnType": "number",
+      "signature": "sum(n1: number, ns: number...) : number"
+    },
+    {
+      "name": "mean",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<number>"
+        }
+      ],
+      "returnType": "number",
+      "signature": "mean(list: list<number>) : number"
+    },
+    {
+      "name": "mean",
+      "parameters": [
+        {
+          "name": "n1",
+          "type": "number"
+        },
+        {
+          "name": "ns",
+          "type": "number..."
+        }
+      ],
+      "returnType": "number",
+      "signature": "mean(n1: number, ns: number...) : number"
+    },
+    {
+      "name": "and",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<boolean>"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "and(list: list<boolean>) : boolean"
+    },
+    {
+      "name": "and",
+      "parameters": [
+        {
+          "name": "b1",
+          "type": "boolean"
+        },
+        {
+          "name": "bs",
+          "type": "boolean..."
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "and(b1: boolean, bs: boolean...) : boolean"
+    },
+    {
+      "name": "all",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<boolean>"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "all(list: list<boolean>) : boolean"
+    },
+    {
+      "name": "all",
+      "parameters": [
+        {
+          "name": "b1",
+          "type": "boolean"
+        },
+        {
+          "name": "bs",
+          "type": "boolean..."
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "all(b1: boolean, bs: boolean...) : boolean"
+    },
+    {
+      "name": "or",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<boolean>"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "or(list: list<boolean>) : boolean"
+    },
+    {
+      "name": "or",
+      "parameters": [
+        {
+          "name": "b1",
+          "type": "boolean"
+        },
+        {
+          "name": "bs",
+          "type": "boolean..."
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "or(b1: boolean, bs: boolean...) : boolean"
+    },
+    {
+      "name": "any",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<boolean>"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "any(list: list<boolean>) : boolean"
+    },
+    {
+      "name": "any",
+      "parameters": [
+        {
+          "name": "b1",
+          "type": "boolean"
+        },
+        {
+          "name": "bs",
+          "type": "boolean..."
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "any(b1: boolean, bs: boolean...) : boolean"
+    },
+    {
+      "name": "sublist",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<Any>"
+        },
+        {
+          "name": "start position",
+          "type": "number"
+        },
+        {
+          "name": "length",
+          "type": "number?"
+        }
+      ],
+      "returnType": "list<Any>",
+      "signature": "sublist(list: list<Any>, start position: number, length: number?) : list<Any>"
+    },
+    {
+      "name": "append",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<Any>"
+        },
+        {
+          "name": "item",
+          "type": "Any..."
+        }
+      ],
+      "returnType": "list<Any>",
+      "signature": "append(list: list<Any>, item: Any...) : list<Any>"
+    },
+    {
+      "name": "concatenate",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<Any>..."
+        }
+      ],
+      "returnType": "list<Any>",
+      "signature": "concatenate(list: list<Any>...) : list<Any>"
+    },
+    {
+      "name": "insert before",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<Any>"
+        },
+        {
+          "name": "position",
+          "type": "number"
+        },
+        {
+          "name": "newItem",
+          "type": "Any"
+        }
+      ],
+      "returnType": "list<Any>",
+      "signature": "insert before(list: list<Any>, position: number, newItem: Any) : list<Any>"
+    },
+    {
+      "name": "remove",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<Any>"
+        },
+        {
+          "name": "position",
+          "type": "number"
+        }
+      ],
+      "returnType": "list<Any>",
+      "signature": "remove(list: list<Any>, position: number) : list<Any>"
+    },
+    {
+      "name": "reverse",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<Any>"
+        }
+      ],
+      "returnType": "list<Any>",
+      "signature": "reverse(list: list<Any>) : list<Any>"
+    },
+    {
+      "name": "index of",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<Any>"
+        },
+        {
+          "name": "match",
+          "type": "Any"
+        }
+      ],
+      "returnType": "list<number>",
+      "signature": "index of(list: list<Any>, match: Any) : list<number>"
+    },
+    {
+      "name": "distinct values",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<Any>"
+        }
+      ],
+      "returnType": "list<Any>",
+      "signature": "distinct values(list: list<Any>) : list<Any>"
+    },
+    {
+      "name": "union",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<Any>..."
+        }
+      ],
+      "returnType": "list<Any>",
+      "signature": "union(list: list<Any>...) : list<Any>"
+    },
+    {
+      "name": "flatten",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<Any>"
+        }
+      ],
+      "returnType": "list<Any>",
+      "signature": "flatten(list: list<Any>) : list<Any>"
+    },
+    {
+      "name": "product",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<number>"
+        }
+      ],
+      "returnType": "number",
+      "signature": "product(list: list<number>) : number"
+    },
+    {
+      "name": "product",
+      "parameters": [
+        {
+          "name": "n1",
+          "type": "number"
+        },
+        {
+          "name": "ns",
+          "type": "number..."
+        }
+      ],
+      "returnType": "number",
+      "signature": "product(n1: number, ns: number...) : number"
+    },
+    {
+      "name": "median",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<number>"
+        }
+      ],
+      "returnType": "number",
+      "signature": "median(list: list<number>) : number"
+    },
+    {
+      "name": "median",
+      "parameters": [
+        {
+          "name": "n1",
+          "type": "number"
+        },
+        {
+          "name": "ns",
+          "type": "number..."
+        }
+      ],
+      "returnType": "number",
+      "signature": "median(n1: number, ns: number...) : number"
+    },
+    {
+      "name": "stddev",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<number>"
+        }
+      ],
+      "returnType": "number",
+      "signature": "stddev(list: list<number>) : number"
+    },
+    {
+      "name": "stddev",
+      "parameters": [
+        {
+          "name": "n1",
+          "type": "number"
+        },
+        {
+          "name": "ns",
+          "type": "number..."
+        }
+      ],
+      "returnType": "number",
+      "signature": "stddev(n1: number, ns: number...) : number"
+    },
+    {
+      "name": "mode",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<number>"
+        }
+      ],
+      "returnType": "number",
+      "signature": "mode(list: list<number>) : number"
+    },
+    {
+      "name": "mode",
+      "parameters": [
+        {
+          "name": "n1",
+          "type": "number"
+        },
+        {
+          "name": "ns",
+          "type": "number..."
+        }
+      ],
+      "returnType": "number",
+      "signature": "mode(n1: number, ns: number...) : number"
+    },
+    {
+      "name": "list replace",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<Any>"
+        },
+        {
+          "name": "position",
+          "type": "number"
+        },
+        {
+          "name": "newItem",
+          "type": "Any"
+        }
+      ],
+      "returnType": "list<Any>",
+      "signature": "list replace(list: list<Any>, position: number, newItem: Any) : list<Any>"
+    },
+    {
+      "name": "list replace",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<Any>"
+        },
+        {
+          "name": "match",
+          "type": "function<Null, Null> -> boolean"
+        },
+        {
+          "name": "newItem",
+          "type": "Any"
+        }
+      ],
+      "returnType": "list<Any>",
+      "signature": "list replace(list: list<Any>, match: function<Null, Null> -> boolean, newItem: Any) : list<Any>"
+    },
+    {
+      "name": "sort",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "list<Any>"
+        },
+        {
+          "name": "precedes",
+          "type": "function<Null, Null> -> boolean"
+        }
+      ],
+      "returnType": "list<Any>",
+      "signature": "sort(list: list<Any>, precedes: function<Null, Null> -> boolean) : list<Any>"
+    },
+    {
+      "name": "get entries",
+      "parameters": [
+        {
+          "name": "m",
+          "type": "context"
+        }
+      ],
+      "returnType": "list<context>",
+      "signature": "get entries(m: context) : list<context>"
+    },
+    {
+      "name": "get value",
+      "parameters": [
+        {
+          "name": "m",
+          "type": "context"
+        },
+        {
+          "name": "key",
+          "type": "string"
+        }
+      ],
+      "returnType": "Any",
+      "signature": "get value(m: context, key: string) : Any"
+    },
+    {
+      "name": "context",
+      "parameters": [
+        {
+          "name": "entries",
+          "type": "list<context>"
+        }
+      ],
+      "returnType": "context",
+      "signature": "context(entries: list<context>) : context"
+    },
+    {
+      "name": "context put",
+      "parameters": [
+        {
+          "name": "context",
+          "type": "context"
+        },
+        {
+          "name": "key",
+          "type": "string"
+        },
+        {
+          "name": "value",
+          "type": "Any"
+        }
+      ],
+      "returnType": "context",
+      "signature": "context put(context: context, key: string, value: Any) : context"
+    },
+    {
+      "name": "context put",
+      "parameters": [
+        {
+          "name": "context",
+          "type": "context"
+        },
+        {
+          "name": "keys",
+          "type": "list<string>"
+        },
+        {
+          "name": "value",
+          "type": "Any"
+        }
+      ],
+      "returnType": "context",
+      "signature": "context put(context: context, keys: list<string>, value: Any) : context"
+    },
+    {
+      "name": "context merge",
+      "parameters": [
+        {
+          "name": "contexts",
+          "type": "list<Any>"
+        }
+      ],
+      "returnType": "context",
+      "signature": "context merge(contexts: list<Any>) : context"
+    },
+    {
+      "name": "before",
+      "parameters": [
+        {
+          "name": "point1",
+          "type": "comparable"
+        },
+        {
+          "name": "point2",
+          "type": "comparable"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "before(point1: comparable, point2: comparable) : boolean"
+    },
+    {
+      "name": "before",
+      "parameters": [
+        {
+          "name": "point",
+          "type": "comparable"
+        },
+        {
+          "name": "range",
+          "type": "range<comparable>"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "before(point: comparable, range: range<comparable>) : boolean"
+    },
+    {
+      "name": "before",
+      "parameters": [
+        {
+          "name": "range",
+          "type": "range<comparable>"
+        },
+        {
+          "name": "point",
+          "type": "comparable"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "before(range: range<comparable>, point: comparable) : boolean"
+    },
+    {
+      "name": "before",
+      "parameters": [
+        {
+          "name": "range1",
+          "type": "range<comparable>"
+        },
+        {
+          "name": "range2",
+          "type": "range<comparable>"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "before(range1: range<comparable>, range2: range<comparable>) : boolean"
+    },
+    {
+      "name": "after",
+      "parameters": [
+        {
+          "name": "point1",
+          "type": "comparable"
+        },
+        {
+          "name": "point2",
+          "type": "comparable"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "after(point1: comparable, point2: comparable) : boolean"
+    },
+    {
+      "name": "after",
+      "parameters": [
+        {
+          "name": "point",
+          "type": "comparable"
+        },
+        {
+          "name": "range",
+          "type": "range<comparable>"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "after(point: comparable, range: range<comparable>) : boolean"
+    },
+    {
+      "name": "after",
+      "parameters": [
+        {
+          "name": "range",
+          "type": "range<comparable>"
+        },
+        {
+          "name": "point",
+          "type": "comparable"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "after(range: range<comparable>, point: comparable) : boolean"
+    },
+    {
+      "name": "after",
+      "parameters": [
+        {
+          "name": "range1",
+          "type": "range<comparable>"
+        },
+        {
+          "name": "range2",
+          "type": "range<comparable>"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "after(range1: range<comparable>, range2: range<comparable>) : boolean"
+    },
+    {
+      "name": "meets",
+      "parameters": [
+        {
+          "name": "range1",
+          "type": "range<comparable>"
+        },
+        {
+          "name": "range2",
+          "type": "range<comparable>"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "meets(range1: range<comparable>, range2: range<comparable>) : boolean"
+    },
+    {
+      "name": "met by",
+      "parameters": [
+        {
+          "name": "range1",
+          "type": "range<comparable>"
+        },
+        {
+          "name": "range2",
+          "type": "range<comparable>"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "met by(range1: range<comparable>, range2: range<comparable>) : boolean"
+    },
+    {
+      "name": "overlaps",
+      "parameters": [
+        {
+          "name": "range1",
+          "type": "range<comparable>"
+        },
+        {
+          "name": "range2",
+          "type": "range<comparable>"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "overlaps(range1: range<comparable>, range2: range<comparable>) : boolean"
+    },
+    {
+      "name": "overlaps before",
+      "parameters": [
+        {
+          "name": "range1",
+          "type": "range<comparable>"
+        },
+        {
+          "name": "range2",
+          "type": "range<comparable>"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "overlaps before(range1: range<comparable>, range2: range<comparable>) : boolean"
+    },
+    {
+      "name": "overlaps after",
+      "parameters": [
+        {
+          "name": "range1",
+          "type": "range<comparable>"
+        },
+        {
+          "name": "range2",
+          "type": "range<comparable>"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "overlaps after(range1: range<comparable>, range2: range<comparable>) : boolean"
+    },
+    {
+      "name": "finishes",
+      "parameters": [
+        {
+          "name": "point",
+          "type": "comparable"
+        },
+        {
+          "name": "range",
+          "type": "range<comparable>"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "finishes(point: comparable, range: range<comparable>) : boolean"
+    },
+    {
+      "name": "finishes",
+      "parameters": [
+        {
+          "name": "range1",
+          "type": "range<comparable>"
+        },
+        {
+          "name": "range2",
+          "type": "range<comparable>"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "finishes(range1: range<comparable>, range2: range<comparable>) : boolean"
+    },
+    {
+      "name": "finished by",
+      "parameters": [
+        {
+          "name": "range",
+          "type": "range<comparable>"
+        },
+        {
+          "name": "point",
+          "type": "comparable"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "finished by(range: range<comparable>, point: comparable) : boolean"
+    },
+    {
+      "name": "finished by",
+      "parameters": [
+        {
+          "name": "range1",
+          "type": "range<comparable>"
+        },
+        {
+          "name": "range2",
+          "type": "range<comparable>"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "finished by(range1: range<comparable>, range2: range<comparable>) : boolean"
+    },
+    {
+      "name": "includes",
+      "parameters": [
+        {
+          "name": "range",
+          "type": "range<comparable>"
+        },
+        {
+          "name": "point",
+          "type": "comparable"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "includes(range: range<comparable>, point: comparable) : boolean"
+    },
+    {
+      "name": "includes",
+      "parameters": [
+        {
+          "name": "range1",
+          "type": "range<comparable>"
+        },
+        {
+          "name": "range2",
+          "type": "range<comparable>"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "includes(range1: range<comparable>, range2: range<comparable>) : boolean"
+    },
+    {
+      "name": "during",
+      "parameters": [
+        {
+          "name": "point",
+          "type": "comparable"
+        },
+        {
+          "name": "range",
+          "type": "range<comparable>"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "during(point: comparable, range: range<comparable>) : boolean"
+    },
+    {
+      "name": "during",
+      "parameters": [
+        {
+          "name": "range1",
+          "type": "range<comparable>"
+        },
+        {
+          "name": "range2",
+          "type": "range<comparable>"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "during(range1: range<comparable>, range2: range<comparable>) : boolean"
+    },
+    {
+      "name": "starts",
+      "parameters": [
+        {
+          "name": "point",
+          "type": "comparable"
+        },
+        {
+          "name": "range",
+          "type": "range<comparable>"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "starts(point: comparable, range: range<comparable>) : boolean"
+    },
+    {
+      "name": "starts",
+      "parameters": [
+        {
+          "name": "range1",
+          "type": "range<comparable>"
+        },
+        {
+          "name": "range2",
+          "type": "range<comparable>"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "starts(range1: range<comparable>, range2: range<comparable>) : boolean"
+    },
+    {
+      "name": "started by",
+      "parameters": [
+        {
+          "name": "range",
+          "type": "range<comparable>"
+        },
+        {
+          "name": "point",
+          "type": "comparable"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "started by(range: range<comparable>, point: comparable) : boolean"
+    },
+    {
+      "name": "started by",
+      "parameters": [
+        {
+          "name": "range1",
+          "type": "range<comparable>"
+        },
+        {
+          "name": "range2",
+          "type": "range<comparable>"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "started by(range1: range<comparable>, range2: range<comparable>) : boolean"
+    },
+    {
+      "name": "coincides",
+      "parameters": [
+        {
+          "name": "point1",
+          "type": "comparable"
+        },
+        {
+          "name": "point2",
+          "type": "comparable"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "coincides(point1: comparable, point2: comparable) : boolean"
+    },
+    {
+      "name": "coincides",
+      "parameters": [
+        {
+          "name": "range1",
+          "type": "range<comparable>"
+        },
+        {
+          "name": "range2",
+          "type": "range<comparable>"
+        }
+      ],
+      "returnType": "boolean",
+      "signature": "coincides(range1: range<comparable>, range2: range<comparable>) : boolean"
+    }
+  ]
+}
