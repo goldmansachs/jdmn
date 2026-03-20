@@ -1,0 +1,546 @@
+[
+  {
+    "signature": "date(from: string) : date",
+    "description": "convert from to a date, string in the format YYYY-MM-DD"
+  },
+  {
+    "signature": "date(from: date) : date",
+    "description": "convert from to a date"
+  },
+  {
+    "signature": "date(from: date and time) : date",
+    "description": "convert from to a date (set time components to null)"
+  },
+  {
+    "signature": "date(year: number, month: number, day: number) : date",
+    "description": "creates a date from year, month, day component values"
+  },
+  {
+    "signature": "date and time(date: date, time: time) : date and time",
+    "description": "creates a date time from the given date and the given time"
+  },
+  {
+    "signature": "date and time(date: date and time, time: time) : date and time",
+    "description": "creates a date time from the given date (ignoring any time component) and the given time"
+  },
+  {
+    "signature": "date and time(from: string) : date and time",
+    "description": "convert from to a date and time"
+  },
+  {
+    "signature": "time(from: string) : time",
+    "description": "convert from to time"
+  },
+  {
+    "signature": "time(from: date) : time",
+    "description": "convert from to time (ignoring date components)"
+  },
+  {
+    "signature": "time(from: date and time) : time",
+    "description": "convert from to time (ignoring date components)"
+  },
+  {
+    "signature": "time(hour: number, minute: number, second: number, offset: days and time duration?) : time",
+    "description": "creates a time from the given component values"
+  },
+  {
+    "signature": "number(from: string, grouping separator: string, decimal separator: string) : number",
+    "description": "convert from to a number, using the given grouping and decimal separators"
+  },
+  {
+    "signature": "number(from: string, groupingSeparator: string, decimalSeparator: string) : number",
+    "description": "convert from to a number, using the given grouping and decimal separators"
+  },
+  {
+    "signature": "string(from: Any) : string",
+    "description": "convert from to a string"
+  },
+  {
+    "signature": "duration(from: string) : duration",
+    "description": "convert from to a days and time or years and months duration"
+  },
+  {
+    "signature": "years and months duration(from: date, to: date) : years and months duration",
+    "description": "convert from to a days and time or years and months duration"
+  },
+  {
+    "signature": "years and months duration(from: date and time, to: date and time) : years and months duration",
+    "description": "convert from to a days and time or years and months duration"
+  },
+  {
+    "signature": "years and months duration(from: date, to: date and time) : years and months duration",
+    "description": "convert from to a days and time or years and months duration"
+  },
+  {
+    "signature": "years and months duration(from: date and time, to: date) : years and months duration",
+    "description": "convert from to a days and time or years and months duration"
+  },
+  {
+    "signature": "range(from: string) : range<Any>",
+    "description": "Convert from a range string to a range, according to the definitions of chapter 10.3.2.7 “Ranges”."
+  },
+  {
+    "signature": "decimal(n: number, scale: number) : number",
+    "description": "return n with given scale"
+  },
+  {
+    "signature": "round(n: number, scale: number, mode: string) : number",
+    "description": "deprecated: use specialized rounding functions instead (e.g. round up)."
+  },
+  {
+    "signature": "round up(n: number, scale: number) : number",
+    "description": "Return n with given scale and rounding mode round up. If at least one of n or scale is null the result is null."
+  },
+  {
+    "signature": "round down(n: number, scale: number) : number",
+    "description": "Return n with given scale and rounding mode round down. If at least one of n or scale is null the result is null."
+  },
+  {
+    "signature": "round half up(n: number, scale: number) : number",
+    "description": "Return n with given scale and rounding mode round half up. If at least one of n or scale is null the result is null."
+  },
+  {
+    "signature": "round half down(n: number, scale: number) : number",
+    "description": "Return n with given scale and rounding mode round up. If at least one of n or scale is null the result is null."
+  },
+  {
+    "signature": "floor(n: number) : number",
+    "description": "Return n with given scale and rounding mode flooring. If at least one of n or scale is null the result is null."
+  },
+  {
+    "signature": "floor(n: number, scale: number) : number",
+    "description": "Return n with given scale and rounding mode flooring. If at least one of n or scale is null the result is null."
+  },
+  {
+    "signature": "ceiling(n: number) : number",
+    "description": "Return n with given scale and rounding mode ceiling. If at least one of n or scale is null the result is null."
+  },
+  {
+    "signature": "ceiling(n: number, scale: number) : number",
+    "description": "Return n with given scale and rounding mode ceiling. If at least one of n or scale is null the result is null."
+  },
+  {
+    "signature": "abs(n: number) : number",
+    "description": "Returns the absolute value of n."
+  },
+  {
+    "signature": "abs(n: years and months duration) : years and months duration",
+    "description": "Returns the absolute value of n."
+  },
+  {
+    "signature": "abs(n: days and time duration) : days and time duration",
+    "description": "Returns the absolute value of n."
+  },
+  {
+    "signature": "modulo(dividend: number, divisor: number) : number",
+    "description": "Returns the remainder of the division of dividend by divisor"
+  },
+  {
+    "signature": "sqrt(number: number) : number",
+    "description": "Returns the square root of the given number. If number is negative it returns null."
+  },
+  {
+    "signature": "log(number: number) : number",
+    "description": "Returns the natural logarithm (base e) of the number parameter"
+  },
+  {
+    "signature": "exp(number: number) : number",
+    "description": "Returns the Euler’s number e raised to the power of number."
+  },
+  {
+    "signature": "odd(number: number) : boolean",
+    "description": "Returns true if number is odd, false if it is even."
+  },
+  {
+    "signature": "even(number: number) : boolean",
+    "description": "Returns true if number is even, false if it is odd."
+  },
+  {
+    "signature": "not(negand: boolean) : boolean",
+    "description": "logical negation"
+  },
+  {
+    "signature": "substring(string: string, start position: number, length: number?) : string",
+    "description": "return length (or all) characters in string, starting at start position. 1st position is 1, last position is -1"
+  },
+  {
+    "signature": "string length(string: string) : number",
+    "description": "return number of characters (or code points) in string."
+  },
+  {
+    "signature": "upper case(string: string) : string",
+    "description": "return uppercased string"
+  },
+  {
+    "signature": "lower case(string: string) : string",
+    "description": "return lowercased string"
+  },
+  {
+    "signature": "substring before(string: string, match: string) : string",
+    "description": "return substring of string before the match in string"
+  },
+  {
+    "signature": "substring after(string: string, match: string) : string",
+    "description": "return substring of string after the match in string"
+  },
+  {
+    "signature": "replace(input: string, pattern: string, replacement: string, flags: string?) : string",
+    "description": "regular expression pattern matching and replacement"
+  },
+  {
+    "signature": "contains(string: string, match: string) : boolean",
+    "description": "does the string contain the match?"
+  },
+  {
+    "signature": "starts with(string: string, match: string) : boolean",
+    "description": "does the string start with the match?"
+  },
+  {
+    "signature": "ends with(string: string, match: string) : boolean",
+    "description": "does the string end with the match?"
+  },
+  {
+    "signature": "matches(input: string, pattern: string, flags: string?) : boolean",
+    "description": "does the input match the regexp pattern?"
+  },
+  {
+    "signature": "split(string: string, delimiter: string) : list<string>",
+    "description": "Splits the string into a list of substrings, breaking at each occurrence of the delimiter pattern."
+  },
+  {
+    "signature": "string join(list: list<string>, delimiter: string?) : string",
+    "description": "return a string which is composed by joining all the string elements from the list parameter, separated by the delimiter. The delimiter can be an empty string. Null elements in the list parameter are ignored. If list is empty, the result is the empty string. If delimiter is null, the string elements are joined without a separator."
+  },
+  {
+    "signature": "is(value1: Any, value2: Any) : boolean",
+    "description": "Returns true if both values are the same element in the FEEL semantic domain D (see 10.3.2.2)"
+  },
+  {
+    "signature": "day of year(date: date) : number",
+    "description": "returns the Gregorian number of the day within the year"
+  },
+  {
+    "signature": "day of year(date: date and time) : number",
+    "description": "returns the Gregorian number of the day within the year"
+  },
+  {
+    "signature": "day of week(date: date) : string",
+    "description": "returns the day of the week according to the Gregorian calendar enumeration: “Monday”, “Tuesday”, “Wednesday”, Thursday”, “Friday”, “Saturday”, “Sunday”"
+  },
+  {
+    "signature": "day of week(date: date and time) : string",
+    "description": "returns the day of the week according to the Gregorian calendar enumeration: “Monday”, “Tuesday”, “Wednesday”, Thursday”, “Friday”, “Saturday”, “Sunday”"
+  },
+  {
+    "signature": "month of year(date: date) : string",
+    "description": "returns the month of the year according to the Gregorian calendar enumeration: “January”, “February”, “March”, “April”, “May”, “June”, “July”, “August”, “September”, “October”, “November”, “December”"
+  },
+  {
+    "signature": "month of year(date: date and time) : string",
+    "description": "returns the month of the year according to the Gregorian calendar enumeration: “January”, “February”, “March”, “April”, “May”, “June”, “July”, “August”, “September”, “October”, “November”, “December”"
+  },
+  {
+    "signature": "week of year(date: date) : number",
+    "description": "returns the Gregorian number of the week within the year, accordingly to ISO 8601"
+  },
+  {
+    "signature": "week of year(date: date and time) : number",
+    "description": "returns the Gregorian number of the week within the year, accordingly to ISO 8601"
+  },
+  {
+    "signature": "now() : date and time",
+    "description": "returns current date and time"
+  },
+  {
+    "signature": "today() : date",
+    "description": "returns current date"
+  },
+  {
+    "signature": "list contains(list: list<Any>, element: Any) : boolean",
+    "description": "does the list contain the element?"
+  },
+  {
+    "signature": "count(list: list<Any>) : number",
+    "description": "return size of list, or zero if list is empty"
+  },
+  {
+    "signature": "min(list: list<comparable>) : comparable",
+    "description": "return minimu item, or null if list is empty"
+  },
+  {
+    "signature": "min(c1: comparable, cs: comparable...) : comparable",
+    "description": "return minimum item, or null if list is empty"
+  },
+  {
+    "signature": "max(list: list<comparable>) : comparable",
+    "description": "return maximum item, or null if list is empty"
+  },
+  {
+    "signature": "max(c1: comparable, cs: comparable...) : comparable",
+    "description": "return maximum item, or null if list is empty"
+  },
+  {
+    "signature": "sum(list: list<number>) : number",
+    "description": "return sum of numbers, or null if list is empty"
+  },
+  {
+    "signature": "sum(n1: number, ns: number...) : number",
+    "description": "return sum of numbers, or null if list is empty"
+  },
+  {
+    "signature": "mean(list: list<number>) : number",
+    "description": "return arithmetic mean (average) of numbers"
+  },
+  {
+    "signature": "mean(n1: number, ns: number...) : number",
+    "description": "return arithmetic mean (average) of numbers"
+  },
+  {
+    "signature": "and(list: list<boolean>) : boolean",
+    "description": "deprecated use all(list: list<boolean>) : boolean instead"
+  },
+  {
+    "signature": "and(b1: boolean, bs: boolean...) : boolean",
+    "description": "deprecated use all(b1: boolean, bs: boolean...) : boolean instead"
+  },
+  {
+    "signature": "all(list: list<boolean>) : boolean",
+    "description": "return false if any item is false, else true if empty or all items are true, else null"
+  },
+  {
+    "signature": "all(b1: boolean, bs: boolean...) : boolean",
+    "description": "return false if any item is false, else true if empty or all items are true, else null"
+  },
+  {
+    "signature": "or(list: list<boolean>) : boolean",
+    "description": "deprecated: use any(list: list<boolean>) : boolean instead"
+  },
+  {
+    "signature": "or(b1: boolean, bs: boolean...) : boolean",
+    "description": "deprecated: use any(b1: boolean, bs: boolean...) : boolean instead"
+  },
+  {
+    "signature": "any(list: list<boolean>) : boolean",
+    "description": "return true if any item is true, else false if empty or all items are false, else null"
+  },
+  {
+    "signature": "any(b1: boolean, bs: boolean...) : boolean",
+    "description": "return true if any item is true, else false if empty or all items are false, else null"
+  },
+  {
+    "signature": "sublist(list: list<Any>, start position: number, length: number?) : list<Any>",
+    "description": "return list of length (or all) elements of list, starting with list[start position]. 1st position is 1, last position is -1"
+  },
+  {
+    "signature": "append(list: list<Any>, item: Any...) : list<Any>",
+    "description": "return new list with items appended"
+  },
+  {
+    "signature": "concatenate(list: list<Any>...) : list<Any>",
+    "description": "return new list that is a concatenation of the arguments"
+  },
+  {
+    "signature": "insert before(list: list<Any>, position: number, newItem: Any) : list<Any>",
+    "description": "return new list with newItem inserted at position"
+  },
+  {
+    "signature": "remove(list: list<Any>, position: number) : list<Any>",
+    "description": "list with item at position removed"
+  },
+  {
+    "signature": "reverse(list: list<Any>) : list<Any>",
+    "description": "reverse the list"
+  },
+  {
+    "signature": "index of(list: list<Any>, match: Any) : list<number>",
+    "description": "return ascending list of list positions containing match"
+  },
+  {
+    "signature": "distinct values(list: list<Any>) : list<Any>",
+    "description": "duplicate removal"
+  },
+  {
+    "signature": "union(list: list<Any>...) : list<Any>",
+    "description": "concatenate with duplicate removal"
+  },
+  {
+    "signature": "flatten(list: list<Any>) : list<Any>",
+    "description": "flatten nested lists"
+  },
+  {
+    "signature": "product(list: list<number>) : number",
+    "description": "returns the product of the numbers"
+  },
+  {
+    "signature": "product(n1: number, ns: number...) : number",
+    "description": "returns the product of the numbers"
+  },
+  {
+    "signature": "median(list: list<number>) : number",
+    "description": "Returns the median element of the list of numbers. I.e., after sorting the list, if the list has an odd number of elements, it returns the middle element. If the list has an even number of elements, returns the average of the two middle elements. If the list is empty, returns null."
+  },
+  {
+    "signature": "median(n1: number, ns: number...) : number",
+    "description": "Returns the median element of the list of numbers. I.e., after sorting the list, if the list has an odd number of elements, it returns the middle element. If the list has an even number of elements, returns the average of the two middle elements. If the list is empty, returns null."
+  },
+  {
+    "signature": "stddev(list: list<number>) : number",
+    "description": "Returns the sample standard deviation of the list of numbers. If the list is empty or if the list contains only one element, the function returns null."
+  },
+  {
+    "signature": "stddev(n1: number, ns: number...) : number",
+    "description": "Returns the sample standard deviation of the list of numbers. If the list is empty or if the list contains only one element, the function returns null."
+  },
+  {
+    "signature": "mode(list: list<number>) : number",
+    "description": "Returns the mode of the list of numbers. If the result contains multiple elements, they are returned in ascending order. If the list is empty, an empty list is returned."
+  },
+  {
+    "signature": "mode(n1: number, ns: number...) : number",
+    "description": "Returns the mode of the list of numbers. If the result contains multiple elements, they are returned in ascending order. If the list is empty, an empty list is returned."
+  },
+  {
+    "signature": "list replace(list: list<Any>, position: number, newItem: Any) : list<Any>",
+    "description": "return new list with newItem replaced at position (if position is a number) or return a new list where newItem replaced at all positions where the match function returned true"
+  },
+  {
+    "signature": "list replace(list: list<Any>, match: function<Null, Null> -> boolean, newItem: Any) : list<Any>",
+    "description": "return new list with newItem replaced at position (if position is a number) or return a new list where newItem replaced at all positions where the match function returned true"
+  },
+  {
+    "signature": "sort(list: list<Any>, precedes: function<Null, Null> -> boolean) : list<Any>",
+    "description": "Sort a list using an ordering function."
+  },
+  {
+    "signature": "get entries(m: context) : list<context>",
+    "description": "produces a list of key,value pairs from a context m"
+  },
+  {
+    "signature": "get value(m: context, key: string) : Any",
+    "description": "select the value of the entry named key from context m"
+  },
+  {
+    "signature": "context(entries: list<context>) : context",
+    "description": "Returns a new context that includes all specified entries. If a context item contains additional entries beyond the required \"key\" and \"value\" entries, the additional entries are ignored. If a context item is missing the required \"key\" and \"value\" entries, the final result is null. See also: get entries() builtin function."
+  },
+  {
+    "signature": "context put(context: context, key: string, value: Any) : context",
+    "description": "(a) Returns a new context that includes the new entry, or overriding the existing value if an entry for the same key already exists in the supplied context parameter. A new entry is added as the last entry of the new context. If overriding an existing entry, the order of the keys maintains the same order as in the original context."
+  },
+  {
+    "signature": "context put(context: context, keys: list<string>, value: Any) : context",
+    "description": "Returns the composite of nested invocations to context put() for each item in keys hierarchy in context. If keys is a list of 1 element, this is equivalent to context put(context, key', value), where key' is the only element in the list keys. If keys is a list of 2 or more elements, this is equivalent of calling context put(context, key', value'), with: key' is the head element in the list keys, value' is the result of invocation of context put(context', keys', value), where: context' is the result of context.key', keys' is the remainder of the list keys without the head element key'. If keys is an empty list or null, the result is null."
+  },
+  {
+    "signature": "context merge(contexts: list<Any>) : context",
+    "description": "Returns a new context that includes all entries from the given contexts; if some of the keys are equal, the entries are overriden. The entries are overridden in the same order as specified by the supplied parameter, with new entries added as the last entry in the new context."
+  },
+  {
+    "signature": "before(point1: comparable, point2: comparable) : boolean",
+    "description": "Evaluates to true if and only if point1 < point2"
+  },
+  {
+    "signature": "before(point: comparable, range: range<comparable>) : boolean",
+    "description": "Evaluates to true if and only if point < range.start or (point = range.start and not(range.start included) )"
+  },
+  {
+    "signature": "before(range: range<comparable>, point: comparable) : boolean",
+    "description": "Evaluates to true if and only if range.end < point or (range.end = point and not(range.end included) )"
+  },
+  {
+    "signature": "before(range1: range<comparable>, range2: range<comparable>) : boolean",
+    "description": "Evaluates to true if and only if range1.end < range2.start or (( not(range1.end included) or not(range2.start included)) and range 1 .end = range2.start)"
+  },
+  {
+    "signature": "after(point1: comparable, point2: comparable) : boolean",
+    "description": "Evaluates to true if and only if point1 > point2"
+  },
+  {
+    "signature": "after(point: comparable, range: range<comparable>) : boolean",
+    "description": "Evaluates to true if and only if point > range.end or (point = range.end and not(range.end included) )"
+  },
+  {
+    "signature": "after(range: range<comparable>, point: comparable) : boolean",
+    "description": "Evaluates to true if and only if range.start > point or (range.start = point and not(range.start included) )"
+  },
+  {
+    "signature": "after(range1: range<comparable>, range2: range<comparable>) : boolean",
+    "description": "Evaluates to true if and only if range 1 .start > range2.end or (( not(range1 .start included) or not(range2.end included) ) and range 1 .start = range2.end)"
+  },
+  {
+    "signature": "meets(range1: range<comparable>, range2: range<comparable>) : boolean",
+    "description": "Evaluates to true if and only if range1.end included and range2.start included and range 1 .end = range2.start"
+  },
+  {
+    "signature": "met by(range1: range<comparable>, range2: range<comparable>) : boolean",
+    "description": "Evaluates to true if and only if range1.start included and range2.end included and range 1 .start = range2.end"
+  },
+  {
+    "signature": "overlaps(range1: range<comparable>, range2: range<comparable>) : boolean",
+    "description": "Evaluates to true if and only if (range1.end > range2.start or (range1.end = range2.start and range1.end included and range2.start included)) and (range1.start < range2.end or (range1.start = range2.end and range1.start included and range2.end included))"
+  },
+  {
+    "signature": "overlaps before(range1: range<comparable>, range2: range<comparable>) : boolean",
+    "description": "Evaluates to true if and only if (range1.start < range2.start or (range1.start = range2.start and range1.start included and not(range2.start included))) and (range1.end > range2.start or (range1.end = range2.start and range1.end included and range2.start included)) and (range1.end < range2.end or (range1.end = range2.end and (not(range1.end included) or range2.end included )))"
+  },
+  {
+    "signature": "overlaps after(range1: range<comparable>, range2: range<comparable>) : boolean",
+    "description": "Evaluates to true if and only if (range2.start < range1.start or (range2.start = range1.start and range2.start included and not( range 1.start included))) and (range2.end > range 1.start or (range2.end = range 1.start and range2.end included and range 1.start included )) and (range2.end < range1.end or (range2.end = range1.end and (not(range2.end included) or range1.end included)))"
+  },
+  {
+    "signature": "finishes(point: comparable, range: range<comparable>) : boolean",
+    "description": "Evaluates to true if and only if range.end included and range.end = point"
+  },
+  {
+    "signature": "finishes(range1: range<comparable>, range2: range<comparable>) : boolean",
+    "description": "Evaluates to true if and only if range1.end included = range2.end included and range1.end = range2.end and (range1.start > range2.start or (range1.start = range2.start and (not(range1.start included) or range2.start included)))"
+  },
+  {
+    "signature": "finished by(range: range<comparable>, point: comparable) : boolean",
+    "description": "Evaluates to true if and only if range.end included and range.end = point"
+  },
+  {
+    "signature": "finished by(range1: range<comparable>, range2: range<comparable>) : boolean",
+    "description": "Evaluates to true if and only if range1.end included = range2.end included and range1.end = range2.end and (range1.start < range2.start or (range1.start = range2.start and (range1.start included or not(range2.start included))))"
+  },
+  {
+    "signature": "includes(range: range<comparable>, point: comparable) : boolean",
+    "description": "Evaluates to true if and only if (range.start < point and range.end > point) or (range.start = point and range.start included) or (range.end = point and range.end included)"
+  },
+  {
+    "signature": "includes(range1: range<comparable>, range2: range<comparable>) : boolean",
+    "description": "Evaluates to true if and only if (range1.start < range2.start or (range1.start = range2.start and (range1.start included or not(range2.start included)))) and (range1.end > range2.end or (range1.end = range2.end and (range1.end included or not(range2.end included))))"
+  },
+  {
+    "signature": "during(point: comparable, range: range<comparable>) : boolean",
+    "description": "Evaluates to true if and only if (range.start < point and range.end > point) or (range.start = point and range.start included) or (range.end = point and range.end included)"
+  },
+  {
+    "signature": "during(range1: range<comparable>, range2: range<comparable>) : boolean",
+    "description": "Evaluates to true if and only if (range2.start < range1.start or (range2.start = range1.start and (range2.start included or not(range1.start included)))) and (range2.end > range1.end or (range2.end = range1.end and (range2.end included or not(range1.end included))))"
+  },
+  {
+    "signature": "starts(point: comparable, range: range<comparable>) : boolean",
+    "description": "Evaluates to true if and only if range.start = point and range.start included"
+  },
+  {
+    "signature": "starts(range1: range<comparable>, range2: range<comparable>) : boolean",
+    "description": "Evaluates to true if and only if range1.start = range2.start and range1.start included = range2.start included and (range1.end < range2.end or (range1.end = range2.end and (not(range1.end included) or range2.end included)))"
+  },
+  {
+    "signature": "started by(range: range<comparable>, point: comparable) : boolean",
+    "description": "Evaluates to true if and only if range.start = point and range.start included"
+  },
+  {
+    "signature": "started by(range1: range<comparable>, range2: range<comparable>) : boolean",
+    "description": "Evaluates to true if and only if range1.start = range2.start and range1.start included = range2.start included and (range2.end < range1.end or (range2.end = range1.end and (not(range2.end included) or range1.end included)))"
+  },
+  {
+    "signature": "coincides(point1: comparable, point2: comparable) : boolean",
+    "description": "Evaluates to true if and only if point1 = point2"
+  },
+  {
+    "signature":  "coincides(range1: range<comparable>, range2: range<comparable>) : boolean",
+    "description": "Evaluates to true if and only if range1.start = range2.start and range1.start included = range2.start included and range1.end = range2.end and range1.end included = range2.end included"
+  }
+]

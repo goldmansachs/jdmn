@@ -10,7 +10,8 @@
         }
       ],
       "returnType": "date",
-      "signature": "date(from: string) : date"
+      "signature": "date(from: string) : date",
+      "description": "convert from to a date, string in the format YYYY-MM-DD"
     },
     {
       "name": "date",
@@ -21,7 +22,8 @@
         }
       ],
       "returnType": "date",
-      "signature": "date(from: date) : date"
+      "signature": "date(from: date) : date",
+      "description": "convert from to a date"
     },
     {
       "name": "date",
@@ -32,7 +34,8 @@
         }
       ],
       "returnType": "date",
-      "signature": "date(from: date and time) : date"
+      "signature": "date(from: date and time) : date",
+      "description": "convert from to a date (set time components to null)"
     },
     {
       "name": "date",
@@ -51,7 +54,8 @@
         }
       ],
       "returnType": "date",
-      "signature": "date(year: number, month: number, day: number) : date"
+      "signature": "date(year: number, month: number, day: number) : date",
+      "description": "creates a date from year, month, day component values"
     },
     {
       "name": "date and time",
@@ -66,7 +70,8 @@
         }
       ],
       "returnType": "date and time",
-      "signature": "date and time(date: date, time: time) : date and time"
+      "signature": "date and time(date: date, time: time) : date and time",
+      "description": "creates a date time from the given date and the given time"
     },
     {
       "name": "date and time",
@@ -81,7 +86,8 @@
         }
       ],
       "returnType": "date and time",
-      "signature": "date and time(date: date and time, time: time) : date and time"
+      "signature": "date and time(date: date and time, time: time) : date and time",
+      "description": "creates a date time from the given date (ignoring any time component) and the given time"
     },
     {
       "name": "date and time",
@@ -92,7 +98,8 @@
         }
       ],
       "returnType": "date and time",
-      "signature": "date and time(from: string) : date and time"
+      "signature": "date and time(from: string) : date and time",
+      "description": "convert from to a date and time"
     },
     {
       "name": "time",
@@ -103,7 +110,8 @@
         }
       ],
       "returnType": "time",
-      "signature": "time(from: string) : time"
+      "signature": "time(from: string) : time",
+      "description": "convert from to time"
     },
     {
       "name": "time",
@@ -114,7 +122,8 @@
         }
       ],
       "returnType": "time",
-      "signature": "time(from: date) : time"
+      "signature": "time(from: date) : time",
+      "description": "convert from to time (ignoring date components)"
     },
     {
       "name": "time",
@@ -125,7 +134,8 @@
         }
       ],
       "returnType": "time",
-      "signature": "time(from: date and time) : time"
+      "signature": "time(from: date and time) : time",
+      "description": "convert from to time (ignoring date components)"
     },
     {
       "name": "time",
@@ -148,7 +158,8 @@
         }
       ],
       "returnType": "time",
-      "signature": "time(hour: number, minute: number, second: number, offset: days and time duration?) : time"
+      "signature": "time(hour: number, minute: number, second: number, offset: days and time duration?) : time",
+      "description": "creates a time from the given component values"
     },
     {
       "name": "number",
@@ -167,7 +178,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "number(from: string, grouping separator: string, decimal separator: string) : number"
+      "signature": "number(from: string, grouping separator: string, decimal separator: string) : number",
+      "description": "convert from to a number, using the given grouping and decimal separators"
     },
     {
       "name": "number",
@@ -186,7 +198,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "number(from: string, groupingSeparator: string, decimalSeparator: string) : number"
+      "signature": "number(from: string, groupingSeparator: string, decimalSeparator: string) : number",
+      "description": "convert from to a number, using the given grouping and decimal separators"
     },
     {
       "name": "string",
@@ -197,7 +210,8 @@
         }
       ],
       "returnType": "string",
-      "signature": "string(from: Any) : string"
+      "signature": "string(from: Any) : string",
+      "description": "convert from to a string"
     },
     {
       "name": "duration",
@@ -208,7 +222,8 @@
         }
       ],
       "returnType": "duration",
-      "signature": "duration(from: string) : duration"
+      "signature": "duration(from: string) : duration",
+      "description": "convert from to a days and time or years and months duration"
     },
     {
       "name": "years and months duration",
@@ -223,7 +238,8 @@
         }
       ],
       "returnType": "years and months duration",
-      "signature": "years and months duration(from: date, to: date) : years and months duration"
+      "signature": "years and months duration(from: date, to: date) : years and months duration",
+      "description": "convert from to a days and time or years and months duration"
     },
     {
       "name": "years and months duration",
@@ -238,7 +254,8 @@
         }
       ],
       "returnType": "years and months duration",
-      "signature": "years and months duration(from: date and time, to: date and time) : years and months duration"
+      "signature": "years and months duration(from: date and time, to: date and time) : years and months duration",
+      "description": "convert from to a days and time or years and months duration"
     },
     {
       "name": "years and months duration",
@@ -253,7 +270,8 @@
         }
       ],
       "returnType": "years and months duration",
-      "signature": "years and months duration(from: date, to: date and time) : years and months duration"
+      "signature": "years and months duration(from: date, to: date and time) : years and months duration",
+      "description": "convert from to a days and time or years and months duration"
     },
     {
       "name": "years and months duration",
@@ -268,7 +286,8 @@
         }
       ],
       "returnType": "years and months duration",
-      "signature": "years and months duration(from: date and time, to: date) : years and months duration"
+      "signature": "years and months duration(from: date and time, to: date) : years and months duration",
+      "description": "convert from to a days and time or years and months duration"
     },
     {
       "name": "range",
@@ -279,7 +298,8 @@
         }
       ],
       "returnType": "range<Any>",
-      "signature": "range(from: string) : range<Any>"
+      "signature": "range(from: string) : range<Any>",
+      "description": "Convert from a range string to a range, according to the definitions of chapter 10.3.2.7 “Ranges”."
     },
     {
       "name": "decimal",
@@ -294,7 +314,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "decimal(n: number, scale: number) : number"
+      "signature": "decimal(n: number, scale: number) : number",
+      "description": "return n with given scale"
     },
     {
       "name": "round",
@@ -313,7 +334,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "round(n: number, scale: number, mode: string) : number"
+      "signature": "round(n: number, scale: number, mode: string) : number",
+      "description": "deprecated: use specialized rounding functions instead (e.g. round up)."
     },
     {
       "name": "round up",
@@ -328,7 +350,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "round up(n: number, scale: number) : number"
+      "signature": "round up(n: number, scale: number) : number",
+      "description": "Return n with given scale and rounding mode round up. If at least one of n or scale is null the result is null."
     },
     {
       "name": "round down",
@@ -343,7 +366,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "round down(n: number, scale: number) : number"
+      "signature": "round down(n: number, scale: number) : number",
+      "description": "Return n with given scale and rounding mode round down. If at least one of n or scale is null the result is null."
     },
     {
       "name": "round half up",
@@ -358,7 +382,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "round half up(n: number, scale: number) : number"
+      "signature": "round half up(n: number, scale: number) : number",
+      "description": "Return n with given scale and rounding mode round half up. If at least one of n or scale is null the result is null."
     },
     {
       "name": "round half down",
@@ -373,7 +398,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "round half down(n: number, scale: number) : number"
+      "signature": "round half down(n: number, scale: number) : number",
+      "description": "Return n with given scale and rounding mode round up. If at least one of n or scale is null the result is null."
     },
     {
       "name": "floor",
@@ -384,7 +410,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "floor(n: number) : number"
+      "signature": "floor(n: number) : number",
+      "description": "Return n with given scale and rounding mode flooring. If at least one of n or scale is null the result is null."
     },
     {
       "name": "floor",
@@ -399,7 +426,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "floor(n: number, scale: number) : number"
+      "signature": "floor(n: number, scale: number) : number",
+      "description": "Return n with given scale and rounding mode flooring. If at least one of n or scale is null the result is null."
     },
     {
       "name": "ceiling",
@@ -410,7 +438,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "ceiling(n: number) : number"
+      "signature": "ceiling(n: number) : number",
+      "description": "Return n with given scale and rounding mode ceiling. If at least one of n or scale is null the result is null."
     },
     {
       "name": "ceiling",
@@ -425,7 +454,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "ceiling(n: number, scale: number) : number"
+      "signature": "ceiling(n: number, scale: number) : number",
+      "description": "Return n with given scale and rounding mode ceiling. If at least one of n or scale is null the result is null."
     },
     {
       "name": "abs",
@@ -436,7 +466,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "abs(n: number) : number"
+      "signature": "abs(n: number) : number",
+      "description": "Returns the absolute value of n."
     },
     {
       "name": "abs",
@@ -447,7 +478,8 @@
         }
       ],
       "returnType": "years and months duration",
-      "signature": "abs(n: years and months duration) : years and months duration"
+      "signature": "abs(n: years and months duration) : years and months duration",
+      "description": "Returns the absolute value of n."
     },
     {
       "name": "abs",
@@ -458,7 +490,8 @@
         }
       ],
       "returnType": "days and time duration",
-      "signature": "abs(n: days and time duration) : days and time duration"
+      "signature": "abs(n: days and time duration) : days and time duration",
+      "description": "Returns the absolute value of n."
     },
     {
       "name": "modulo",
@@ -473,7 +506,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "modulo(dividend: number, divisor: number) : number"
+      "signature": "modulo(dividend: number, divisor: number) : number",
+      "description": "Returns the remainder of the division of dividend by divisor"
     },
     {
       "name": "sqrt",
@@ -484,7 +518,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "sqrt(number: number) : number"
+      "signature": "sqrt(number: number) : number",
+      "description": "Returns the square root of the given number. If number is negative it returns null."
     },
     {
       "name": "log",
@@ -495,7 +530,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "log(number: number) : number"
+      "signature": "log(number: number) : number",
+      "description": "Returns the natural logarithm (base e) of the number parameter"
     },
     {
       "name": "exp",
@@ -506,7 +542,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "exp(number: number) : number"
+      "signature": "exp(number: number) : number",
+      "description": "Returns the Euler’s number e raised to the power of number."
     },
     {
       "name": "odd",
@@ -517,7 +554,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "odd(number: number) : boolean"
+      "signature": "odd(number: number) : boolean",
+      "description": "Returns true if number is odd, false if it is even."
     },
     {
       "name": "even",
@@ -528,7 +566,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "even(number: number) : boolean"
+      "signature": "even(number: number) : boolean",
+      "description": "Returns true if number is even, false if it is odd."
     },
     {
       "name": "not",
@@ -539,7 +578,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "not(negand: boolean) : boolean"
+      "signature": "not(negand: boolean) : boolean",
+      "description": "logical negation"
     },
     {
       "name": "substring",
@@ -558,7 +598,8 @@
         }
       ],
       "returnType": "string",
-      "signature": "substring(string: string, start position: number, length: number?) : string"
+      "signature": "substring(string: string, start position: number, length: number?) : string",
+      "description": "return length (or all) characters in string, starting at start position. 1st position is 1, last position is -1"
     },
     {
       "name": "string length",
@@ -569,7 +610,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "string length(string: string) : number"
+      "signature": "string length(string: string) : number",
+      "description": "return number of characters (or code points) in string."
     },
     {
       "name": "upper case",
@@ -580,7 +622,8 @@
         }
       ],
       "returnType": "string",
-      "signature": "upper case(string: string) : string"
+      "signature": "upper case(string: string) : string",
+      "description": "return uppercased string"
     },
     {
       "name": "lower case",
@@ -591,7 +634,8 @@
         }
       ],
       "returnType": "string",
-      "signature": "lower case(string: string) : string"
+      "signature": "lower case(string: string) : string",
+      "description": "return lowercased string"
     },
     {
       "name": "substring before",
@@ -606,7 +650,8 @@
         }
       ],
       "returnType": "string",
-      "signature": "substring before(string: string, match: string) : string"
+      "signature": "substring before(string: string, match: string) : string",
+      "description": "return substring of string before the match in string"
     },
     {
       "name": "substring after",
@@ -621,7 +666,8 @@
         }
       ],
       "returnType": "string",
-      "signature": "substring after(string: string, match: string) : string"
+      "signature": "substring after(string: string, match: string) : string",
+      "description": "return substring of string after the match in string"
     },
     {
       "name": "replace",
@@ -644,7 +690,8 @@
         }
       ],
       "returnType": "string",
-      "signature": "replace(input: string, pattern: string, replacement: string, flags: string?) : string"
+      "signature": "replace(input: string, pattern: string, replacement: string, flags: string?) : string",
+      "description": "regular expression pattern matching and replacement"
     },
     {
       "name": "contains",
@@ -659,7 +706,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "contains(string: string, match: string) : boolean"
+      "signature": "contains(string: string, match: string) : boolean",
+      "description": "does the string contain the match?"
     },
     {
       "name": "starts with",
@@ -674,7 +722,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "starts with(string: string, match: string) : boolean"
+      "signature": "starts with(string: string, match: string) : boolean",
+      "description": "does the string start with the match?"
     },
     {
       "name": "ends with",
@@ -689,7 +738,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "ends with(string: string, match: string) : boolean"
+      "signature": "ends with(string: string, match: string) : boolean",
+      "description": "does the string end with the match?"
     },
     {
       "name": "matches",
@@ -708,7 +758,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "matches(input: string, pattern: string, flags: string?) : boolean"
+      "signature": "matches(input: string, pattern: string, flags: string?) : boolean",
+      "description": "does the input match the regexp pattern?"
     },
     {
       "name": "split",
@@ -723,7 +774,8 @@
         }
       ],
       "returnType": "list<string>",
-      "signature": "split(string: string, delimiter: string) : list<string>"
+      "signature": "split(string: string, delimiter: string) : list<string>",
+      "description": "Splits the string into a list of substrings, breaking at each occurrence of the delimiter pattern."
     },
     {
       "name": "string join",
@@ -738,7 +790,8 @@
         }
       ],
       "returnType": "string",
-      "signature": "string join(list: list<string>, delimiter: string?) : string"
+      "signature": "string join(list: list<string>, delimiter: string?) : string",
+      "description": "return a string which is composed by joining all the string elements from the list parameter, separated by the delimiter. The delimiter can be an empty string. Null elements in the list parameter are ignored. If list is empty, the result is the empty string. If delimiter is null, the string elements are joined without a separator."
     },
     {
       "name": "is",
@@ -753,7 +806,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "is(value1: Any, value2: Any) : boolean"
+      "signature": "is(value1: Any, value2: Any) : boolean",
+      "description": "Returns true if both values are the same element in the FEEL semantic domain D (see 10.3.2.2)"
     },
     {
       "name": "day of year",
@@ -764,7 +818,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "day of year(date: date) : number"
+      "signature": "day of year(date: date) : number",
+      "description": "returns the Gregorian number of the day within the year"
     },
     {
       "name": "day of year",
@@ -775,7 +830,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "day of year(date: date and time) : number"
+      "signature": "day of year(date: date and time) : number",
+      "description": "returns the Gregorian number of the day within the year"
     },
     {
       "name": "day of week",
@@ -786,7 +842,8 @@
         }
       ],
       "returnType": "string",
-      "signature": "day of week(date: date) : string"
+      "signature": "day of week(date: date) : string",
+      "description": "returns the day of the week according to the Gregorian calendar enumeration: “Monday”, “Tuesday”, “Wednesday”, Thursday”, “Friday”, “Saturday”, “Sunday”"
     },
     {
       "name": "day of week",
@@ -797,7 +854,8 @@
         }
       ],
       "returnType": "string",
-      "signature": "day of week(date: date and time) : string"
+      "signature": "day of week(date: date and time) : string",
+      "description": "returns the day of the week according to the Gregorian calendar enumeration: “Monday”, “Tuesday”, “Wednesday”, Thursday”, “Friday”, “Saturday”, “Sunday”"
     },
     {
       "name": "month of year",
@@ -808,7 +866,8 @@
         }
       ],
       "returnType": "string",
-      "signature": "month of year(date: date) : string"
+      "signature": "month of year(date: date) : string",
+      "description": "returns the month of the year according to the Gregorian calendar enumeration: “January”, “February”, “March”, “April”, “May”, “June”, “July”, “August”, “September”, “October”, “November”, “December”"
     },
     {
       "name": "month of year",
@@ -819,7 +878,8 @@
         }
       ],
       "returnType": "string",
-      "signature": "month of year(date: date and time) : string"
+      "signature": "month of year(date: date and time) : string",
+      "description": "returns the month of the year according to the Gregorian calendar enumeration: “January”, “February”, “March”, “April”, “May”, “June”, “July”, “August”, “September”, “October”, “November”, “December”"
     },
     {
       "name": "week of year",
@@ -830,7 +890,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "week of year(date: date) : number"
+      "signature": "week of year(date: date) : number",
+      "description": "returns the Gregorian number of the week within the year, accordingly to ISO 8601"
     },
     {
       "name": "week of year",
@@ -841,19 +902,22 @@
         }
       ],
       "returnType": "number",
-      "signature": "week of year(date: date and time) : number"
+      "signature": "week of year(date: date and time) : number",
+      "description": "returns the Gregorian number of the week within the year, accordingly to ISO 8601"
     },
     {
       "name": "now",
       "parameters": [],
       "returnType": "date and time",
-      "signature": "now() : date and time"
+      "signature": "now() : date and time",
+      "description": "returns current date and time"
     },
     {
       "name": "today",
       "parameters": [],
       "returnType": "date",
-      "signature": "today() : date"
+      "signature": "today() : date",
+      "description": "returns current date"
     },
     {
       "name": "list contains",
@@ -868,7 +932,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "list contains(list: list<Any>, element: Any) : boolean"
+      "signature": "list contains(list: list<Any>, element: Any) : boolean",
+      "description": "does the list contain the element?"
     },
     {
       "name": "count",
@@ -879,7 +944,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "count(list: list<Any>) : number"
+      "signature": "count(list: list<Any>) : number",
+      "description": "return size of list, or zero if list is empty"
     },
     {
       "name": "min",
@@ -890,7 +956,8 @@
         }
       ],
       "returnType": "comparable",
-      "signature": "min(list: list<comparable>) : comparable"
+      "signature": "min(list: list<comparable>) : comparable",
+      "description": "return minimu item, or null if list is empty"
     },
     {
       "name": "min",
@@ -905,7 +972,8 @@
         }
       ],
       "returnType": "comparable",
-      "signature": "min(c1: comparable, cs: comparable...) : comparable"
+      "signature": "min(c1: comparable, cs: comparable...) : comparable",
+      "description": "return minimum item, or null if list is empty"
     },
     {
       "name": "max",
@@ -916,7 +984,8 @@
         }
       ],
       "returnType": "comparable",
-      "signature": "max(list: list<comparable>) : comparable"
+      "signature": "max(list: list<comparable>) : comparable",
+      "description": "return maximum item, or null if list is empty"
     },
     {
       "name": "max",
@@ -931,7 +1000,8 @@
         }
       ],
       "returnType": "comparable",
-      "signature": "max(c1: comparable, cs: comparable...) : comparable"
+      "signature": "max(c1: comparable, cs: comparable...) : comparable",
+      "description": "return maximum item, or null if list is empty"
     },
     {
       "name": "sum",
@@ -942,7 +1012,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "sum(list: list<number>) : number"
+      "signature": "sum(list: list<number>) : number",
+      "description": "return sum of numbers, or null if list is empty"
     },
     {
       "name": "sum",
@@ -957,7 +1028,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "sum(n1: number, ns: number...) : number"
+      "signature": "sum(n1: number, ns: number...) : number",
+      "description": "return sum of numbers, or null if list is empty"
     },
     {
       "name": "mean",
@@ -968,7 +1040,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "mean(list: list<number>) : number"
+      "signature": "mean(list: list<number>) : number",
+      "description": "return arithmetic mean (average) of numbers"
     },
     {
       "name": "mean",
@@ -983,7 +1056,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "mean(n1: number, ns: number...) : number"
+      "signature": "mean(n1: number, ns: number...) : number",
+      "description": "return arithmetic mean (average) of numbers"
     },
     {
       "name": "and",
@@ -994,7 +1068,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "and(list: list<boolean>) : boolean"
+      "signature": "and(list: list<boolean>) : boolean",
+      "description": "deprecated use all(list: list<boolean>) : boolean instead"
     },
     {
       "name": "and",
@@ -1009,7 +1084,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "and(b1: boolean, bs: boolean...) : boolean"
+      "signature": "and(b1: boolean, bs: boolean...) : boolean",
+      "description": "deprecated use all(b1: boolean, bs: boolean...) : boolean instead"
     },
     {
       "name": "all",
@@ -1020,7 +1096,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "all(list: list<boolean>) : boolean"
+      "signature": "all(list: list<boolean>) : boolean",
+      "description": "return false if any item is false, else true if empty or all items are true, else null"
     },
     {
       "name": "all",
@@ -1035,7 +1112,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "all(b1: boolean, bs: boolean...) : boolean"
+      "signature": "all(b1: boolean, bs: boolean...) : boolean",
+      "description": "return false if any item is false, else true if empty or all items are true, else null"
     },
     {
       "name": "or",
@@ -1046,7 +1124,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "or(list: list<boolean>) : boolean"
+      "signature": "or(list: list<boolean>) : boolean",
+      "description": "deprecated: use any(list: list<boolean>) : boolean instead"
     },
     {
       "name": "or",
@@ -1061,7 +1140,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "or(b1: boolean, bs: boolean...) : boolean"
+      "signature": "or(b1: boolean, bs: boolean...) : boolean",
+      "description": "deprecated: use any(b1: boolean, bs: boolean...) : boolean instead"
     },
     {
       "name": "any",
@@ -1072,7 +1152,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "any(list: list<boolean>) : boolean"
+      "signature": "any(list: list<boolean>) : boolean",
+      "description": "return true if any item is true, else false if empty or all items are false, else null"
     },
     {
       "name": "any",
@@ -1087,7 +1168,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "any(b1: boolean, bs: boolean...) : boolean"
+      "signature": "any(b1: boolean, bs: boolean...) : boolean",
+      "description": "return true if any item is true, else false if empty or all items are false, else null"
     },
     {
       "name": "sublist",
@@ -1106,7 +1188,8 @@
         }
       ],
       "returnType": "list<Any>",
-      "signature": "sublist(list: list<Any>, start position: number, length: number?) : list<Any>"
+      "signature": "sublist(list: list<Any>, start position: number, length: number?) : list<Any>",
+      "description": "return list of length (or all) elements of list, starting with list[start position]. 1st position is 1, last position is -1"
     },
     {
       "name": "append",
@@ -1121,7 +1204,8 @@
         }
       ],
       "returnType": "list<Any>",
-      "signature": "append(list: list<Any>, item: Any...) : list<Any>"
+      "signature": "append(list: list<Any>, item: Any...) : list<Any>",
+      "description": "return new list with items appended"
     },
     {
       "name": "concatenate",
@@ -1132,7 +1216,8 @@
         }
       ],
       "returnType": "list<Any>",
-      "signature": "concatenate(list: list<Any>...) : list<Any>"
+      "signature": "concatenate(list: list<Any>...) : list<Any>",
+      "description": "return new list that is a concatenation of the arguments"
     },
     {
       "name": "insert before",
@@ -1151,7 +1236,8 @@
         }
       ],
       "returnType": "list<Any>",
-      "signature": "insert before(list: list<Any>, position: number, newItem: Any) : list<Any>"
+      "signature": "insert before(list: list<Any>, position: number, newItem: Any) : list<Any>",
+      "description": "return new list with newItem inserted at position"
     },
     {
       "name": "remove",
@@ -1166,7 +1252,8 @@
         }
       ],
       "returnType": "list<Any>",
-      "signature": "remove(list: list<Any>, position: number) : list<Any>"
+      "signature": "remove(list: list<Any>, position: number) : list<Any>",
+      "description": "list with item at position removed"
     },
     {
       "name": "reverse",
@@ -1177,7 +1264,8 @@
         }
       ],
       "returnType": "list<Any>",
-      "signature": "reverse(list: list<Any>) : list<Any>"
+      "signature": "reverse(list: list<Any>) : list<Any>",
+      "description": "reverse the list"
     },
     {
       "name": "index of",
@@ -1192,7 +1280,8 @@
         }
       ],
       "returnType": "list<number>",
-      "signature": "index of(list: list<Any>, match: Any) : list<number>"
+      "signature": "index of(list: list<Any>, match: Any) : list<number>",
+      "description": "return ascending list of list positions containing match"
     },
     {
       "name": "distinct values",
@@ -1203,7 +1292,8 @@
         }
       ],
       "returnType": "list<Any>",
-      "signature": "distinct values(list: list<Any>) : list<Any>"
+      "signature": "distinct values(list: list<Any>) : list<Any>",
+      "description": "duplicate removal"
     },
     {
       "name": "union",
@@ -1214,7 +1304,8 @@
         }
       ],
       "returnType": "list<Any>",
-      "signature": "union(list: list<Any>...) : list<Any>"
+      "signature": "union(list: list<Any>...) : list<Any>",
+      "description": "concatenate with duplicate removal"
     },
     {
       "name": "flatten",
@@ -1225,7 +1316,8 @@
         }
       ],
       "returnType": "list<Any>",
-      "signature": "flatten(list: list<Any>) : list<Any>"
+      "signature": "flatten(list: list<Any>) : list<Any>",
+      "description": "flatten nested lists"
     },
     {
       "name": "product",
@@ -1236,7 +1328,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "product(list: list<number>) : number"
+      "signature": "product(list: list<number>) : number",
+      "description": "returns the product of the numbers"
     },
     {
       "name": "product",
@@ -1251,7 +1344,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "product(n1: number, ns: number...) : number"
+      "signature": "product(n1: number, ns: number...) : number",
+      "description": "returns the product of the numbers"
     },
     {
       "name": "median",
@@ -1262,7 +1356,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "median(list: list<number>) : number"
+      "signature": "median(list: list<number>) : number",
+      "description": "Returns the median element of the list of numbers. I.e., after sorting the list, if the list has an odd number of elements, it returns the middle element. If the list has an even number of elements, returns the average of the two middle elements. If the list is empty, returns null."
     },
     {
       "name": "median",
@@ -1277,7 +1372,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "median(n1: number, ns: number...) : number"
+      "signature": "median(n1: number, ns: number...) : number",
+      "description": "Returns the median element of the list of numbers. I.e., after sorting the list, if the list has an odd number of elements, it returns the middle element. If the list has an even number of elements, returns the average of the two middle elements. If the list is empty, returns null."
     },
     {
       "name": "stddev",
@@ -1288,7 +1384,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "stddev(list: list<number>) : number"
+      "signature": "stddev(list: list<number>) : number",
+      "description": "Returns the sample standard deviation of the list of numbers. If the list is empty or if the list contains only one element, the function returns null."
     },
     {
       "name": "stddev",
@@ -1303,7 +1400,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "stddev(n1: number, ns: number...) : number"
+      "signature": "stddev(n1: number, ns: number...) : number",
+      "description": "Returns the sample standard deviation of the list of numbers. If the list is empty or if the list contains only one element, the function returns null."
     },
     {
       "name": "mode",
@@ -1314,7 +1412,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "mode(list: list<number>) : number"
+      "signature": "mode(list: list<number>) : number",
+      "description": "Returns the mode of the list of numbers. If the result contains multiple elements, they are returned in ascending order. If the list is empty, an empty list is returned."
     },
     {
       "name": "mode",
@@ -1329,7 +1428,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "mode(n1: number, ns: number...) : number"
+      "signature": "mode(n1: number, ns: number...) : number",
+      "description": "Returns the mode of the list of numbers. If the result contains multiple elements, they are returned in ascending order. If the list is empty, an empty list is returned."
     },
     {
       "name": "list replace",
@@ -1348,7 +1448,8 @@
         }
       ],
       "returnType": "list<Any>",
-      "signature": "list replace(list: list<Any>, position: number, newItem: Any) : list<Any>"
+      "signature": "list replace(list: list<Any>, position: number, newItem: Any) : list<Any>",
+      "description": "return new list with newItem replaced at position (if position is a number) or return a new list where newItem replaced at all positions where the match function returned true"
     },
     {
       "name": "list replace",
@@ -1367,7 +1468,8 @@
         }
       ],
       "returnType": "list<Any>",
-      "signature": "list replace(list: list<Any>, match: function<Null, Null> -> boolean, newItem: Any) : list<Any>"
+      "signature": "list replace(list: list<Any>, match: function<Null, Null> -> boolean, newItem: Any) : list<Any>",
+      "description": "return new list with newItem replaced at position (if position is a number) or return a new list where newItem replaced at all positions where the match function returned true"
     },
     {
       "name": "sort",
@@ -1382,7 +1484,8 @@
         }
       ],
       "returnType": "list<Any>",
-      "signature": "sort(list: list<Any>, precedes: function<Null, Null> -> boolean) : list<Any>"
+      "signature": "sort(list: list<Any>, precedes: function<Null, Null> -> boolean) : list<Any>",
+      "description": "Sort a list using an ordering function."
     },
     {
       "name": "get entries",
@@ -1393,7 +1496,8 @@
         }
       ],
       "returnType": "list<context>",
-      "signature": "get entries(m: context) : list<context>"
+      "signature": "get entries(m: context) : list<context>",
+      "description": "produces a list of key,value pairs from a context m"
     },
     {
       "name": "get value",
@@ -1408,7 +1512,8 @@
         }
       ],
       "returnType": "Any",
-      "signature": "get value(m: context, key: string) : Any"
+      "signature": "get value(m: context, key: string) : Any",
+      "description": "select the value of the entry named key from context m"
     },
     {
       "name": "context",
@@ -1419,7 +1524,8 @@
         }
       ],
       "returnType": "context",
-      "signature": "context(entries: list<context>) : context"
+      "signature": "context(entries: list<context>) : context",
+      "description": "Returns a new context that includes all specified entries. If a context item contains additional entries beyond the required \"key\" and \"value\" entries, the additional entries are ignored. If a context item is missing the required \"key\" and \"value\" entries, the final result is null. See also: get entries() builtin function."
     },
     {
       "name": "context put",
@@ -1438,7 +1544,8 @@
         }
       ],
       "returnType": "context",
-      "signature": "context put(context: context, key: string, value: Any) : context"
+      "signature": "context put(context: context, key: string, value: Any) : context",
+      "description": "(a) Returns a new context that includes the new entry, or overriding the existing value if an entry for the same key already exists in the supplied context parameter. A new entry is added as the last entry of the new context. If overriding an existing entry, the order of the keys maintains the same order as in the original context."
     },
     {
       "name": "context put",
@@ -1457,7 +1564,8 @@
         }
       ],
       "returnType": "context",
-      "signature": "context put(context: context, keys: list<string>, value: Any) : context"
+      "signature": "context put(context: context, keys: list<string>, value: Any) : context",
+      "description": "Returns the composite of nested invocations to context put() for each item in keys hierarchy in context. If keys is a list of 1 element, this is equivalent to context put(context, key', value), where key' is the only element in the list keys. If keys is a list of 2 or more elements, this is equivalent of calling context put(context, key', value'), with: key' is the head element in the list keys, value' is the result of invocation of context put(context', keys', value), where: context' is the result of context.key', keys' is the remainder of the list keys without the head element key'. If keys is an empty list or null, the result is null."
     },
     {
       "name": "context merge",
@@ -1468,7 +1576,8 @@
         }
       ],
       "returnType": "context",
-      "signature": "context merge(contexts: list<Any>) : context"
+      "signature": "context merge(contexts: list<Any>) : context",
+      "description": "Returns a new context that includes all entries from the given contexts; if some of the keys are equal, the entries are overriden. The entries are overridden in the same order as specified by the supplied parameter, with new entries added as the last entry in the new context."
     },
     {
       "name": "before",
@@ -1483,7 +1592,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "before(point1: comparable, point2: comparable) : boolean"
+      "signature": "before(point1: comparable, point2: comparable) : boolean",
+      "description": "Evaluates to true if and only if point1 < point2"
     },
     {
       "name": "before",
@@ -1498,7 +1608,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "before(point: comparable, range: range<comparable>) : boolean"
+      "signature": "before(point: comparable, range: range<comparable>) : boolean",
+      "description": "Evaluates to true if and only if point < range.start or (point = range.start and not(range.start included) )"
     },
     {
       "name": "before",
@@ -1513,7 +1624,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "before(range: range<comparable>, point: comparable) : boolean"
+      "signature": "before(range: range<comparable>, point: comparable) : boolean",
+      "description": "Evaluates to true if and only if range.end < point or (range.end = point and not(range.end included) )"
     },
     {
       "name": "before",
@@ -1528,7 +1640,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "before(range1: range<comparable>, range2: range<comparable>) : boolean"
+      "signature": "before(range1: range<comparable>, range2: range<comparable>) : boolean",
+      "description": "Evaluates to true if and only if range1.end < range2.start or (( not(range1.end included) or not(range2.start included)) and range 1 .end = range2.start)"
     },
     {
       "name": "after",
@@ -1543,7 +1656,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "after(point1: comparable, point2: comparable) : boolean"
+      "signature": "after(point1: comparable, point2: comparable) : boolean",
+      "description": "Evaluates to true if and only if point1 > point2"
     },
     {
       "name": "after",
@@ -1558,7 +1672,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "after(point: comparable, range: range<comparable>) : boolean"
+      "signature": "after(point: comparable, range: range<comparable>) : boolean",
+      "description": "Evaluates to true if and only if point > range.end or (point = range.end and not(range.end included) )"
     },
     {
       "name": "after",
@@ -1573,7 +1688,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "after(range: range<comparable>, point: comparable) : boolean"
+      "signature": "after(range: range<comparable>, point: comparable) : boolean",
+      "description": "Evaluates to true if and only if range.start > point or (range.start = point and not(range.start included) )"
     },
     {
       "name": "after",
@@ -1588,7 +1704,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "after(range1: range<comparable>, range2: range<comparable>) : boolean"
+      "signature": "after(range1: range<comparable>, range2: range<comparable>) : boolean",
+      "description": "Evaluates to true if and only if range 1 .start > range2.end or (( not(range1 .start included) or not(range2.end included) ) and range 1 .start = range2.end)"
     },
     {
       "name": "meets",
@@ -1603,7 +1720,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "meets(range1: range<comparable>, range2: range<comparable>) : boolean"
+      "signature": "meets(range1: range<comparable>, range2: range<comparable>) : boolean",
+      "description": "Evaluates to true if and only if range1.end included and range2.start included and range 1 .end = range2.start"
     },
     {
       "name": "met by",
@@ -1618,7 +1736,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "met by(range1: range<comparable>, range2: range<comparable>) : boolean"
+      "signature": "met by(range1: range<comparable>, range2: range<comparable>) : boolean",
+      "description": "Evaluates to true if and only if range1.start included and range2.end included and range 1 .start = range2.end"
     },
     {
       "name": "overlaps",
@@ -1633,7 +1752,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "overlaps(range1: range<comparable>, range2: range<comparable>) : boolean"
+      "signature": "overlaps(range1: range<comparable>, range2: range<comparable>) : boolean",
+      "description": "Evaluates to true if and only if (range1.end > range2.start or (range1.end = range2.start and range1.end included and range2.start included)) and (range1.start < range2.end or (range1.start = range2.end and range1.start included and range2.end included))"
     },
     {
       "name": "overlaps before",
@@ -1648,7 +1768,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "overlaps before(range1: range<comparable>, range2: range<comparable>) : boolean"
+      "signature": "overlaps before(range1: range<comparable>, range2: range<comparable>) : boolean",
+      "description": "Evaluates to true if and only if (range1.start < range2.start or (range1.start = range2.start and range1.start included and not(range2.start included))) and (range1.end > range2.start or (range1.end = range2.start and range1.end included and range2.start included)) and (range1.end < range2.end or (range1.end = range2.end and (not(range1.end included) or range2.end included )))"
     },
     {
       "name": "overlaps after",
@@ -1663,7 +1784,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "overlaps after(range1: range<comparable>, range2: range<comparable>) : boolean"
+      "signature": "overlaps after(range1: range<comparable>, range2: range<comparable>) : boolean",
+      "description": "Evaluates to true if and only if (range2.start < range1.start or (range2.start = range1.start and range2.start included and not( range 1.start included))) and (range2.end > range 1.start or (range2.end = range 1.start and range2.end included and range 1.start included )) and (range2.end < range1.end or (range2.end = range1.end and (not(range2.end included) or range1.end included)))"
     },
     {
       "name": "finishes",
@@ -1678,7 +1800,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "finishes(point: comparable, range: range<comparable>) : boolean"
+      "signature": "finishes(point: comparable, range: range<comparable>) : boolean",
+      "description": "Evaluates to true if and only if range.end included and range.end = point"
     },
     {
       "name": "finishes",
@@ -1693,7 +1816,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "finishes(range1: range<comparable>, range2: range<comparable>) : boolean"
+      "signature": "finishes(range1: range<comparable>, range2: range<comparable>) : boolean",
+      "description": "Evaluates to true if and only if range1.end included = range2.end included and range1.end = range2.end and (range1.start > range2.start or (range1.start = range2.start and (not(range1.start included) or range2.start included)))"
     },
     {
       "name": "finished by",
@@ -1708,7 +1832,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "finished by(range: range<comparable>, point: comparable) : boolean"
+      "signature": "finished by(range: range<comparable>, point: comparable) : boolean",
+      "description": "Evaluates to true if and only if range.end included and range.end = point"
     },
     {
       "name": "finished by",
@@ -1723,7 +1848,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "finished by(range1: range<comparable>, range2: range<comparable>) : boolean"
+      "signature": "finished by(range1: range<comparable>, range2: range<comparable>) : boolean",
+      "description": "Evaluates to true if and only if range1.end included = range2.end included and range1.end = range2.end and (range1.start < range2.start or (range1.start = range2.start and (range1.start included or not(range2.start included))))"
     },
     {
       "name": "includes",
@@ -1738,7 +1864,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "includes(range: range<comparable>, point: comparable) : boolean"
+      "signature": "includes(range: range<comparable>, point: comparable) : boolean",
+      "description": "Evaluates to true if and only if (range.start < point and range.end > point) or (range.start = point and range.start included) or (range.end = point and range.end included)"
     },
     {
       "name": "includes",
@@ -1753,7 +1880,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "includes(range1: range<comparable>, range2: range<comparable>) : boolean"
+      "signature": "includes(range1: range<comparable>, range2: range<comparable>) : boolean",
+      "description": "Evaluates to true if and only if (range1.start < range2.start or (range1.start = range2.start and (range1.start included or not(range2.start included)))) and (range1.end > range2.end or (range1.end = range2.end and (range1.end included or not(range2.end included))))"
     },
     {
       "name": "during",
@@ -1768,7 +1896,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "during(point: comparable, range: range<comparable>) : boolean"
+      "signature": "during(point: comparable, range: range<comparable>) : boolean",
+      "description": "Evaluates to true if and only if (range.start < point and range.end > point) or (range.start = point and range.start included) or (range.end = point and range.end included)"
     },
     {
       "name": "during",
@@ -1783,7 +1912,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "during(range1: range<comparable>, range2: range<comparable>) : boolean"
+      "signature": "during(range1: range<comparable>, range2: range<comparable>) : boolean",
+      "description": "Evaluates to true if and only if (range2.start < range1.start or (range2.start = range1.start and (range2.start included or not(range1.start included)))) and (range2.end > range1.end or (range2.end = range1.end and (range2.end included or not(range1.end included))))"
     },
     {
       "name": "starts",
@@ -1798,7 +1928,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "starts(point: comparable, range: range<comparable>) : boolean"
+      "signature": "starts(point: comparable, range: range<comparable>) : boolean",
+      "description": "Evaluates to true if and only if range.start = point and range.start included"
     },
     {
       "name": "starts",
@@ -1813,7 +1944,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "starts(range1: range<comparable>, range2: range<comparable>) : boolean"
+      "signature": "starts(range1: range<comparable>, range2: range<comparable>) : boolean",
+      "description": "Evaluates to true if and only if range1.start = range2.start and range1.start included = range2.start included and (range1.end < range2.end or (range1.end = range2.end and (not(range1.end included) or range2.end included)))"
     },
     {
       "name": "started by",
@@ -1828,7 +1960,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "started by(range: range<comparable>, point: comparable) : boolean"
+      "signature": "started by(range: range<comparable>, point: comparable) : boolean",
+      "description": "Evaluates to true if and only if range.start = point and range.start included"
     },
     {
       "name": "started by",
@@ -1843,7 +1976,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "started by(range1: range<comparable>, range2: range<comparable>) : boolean"
+      "signature": "started by(range1: range<comparable>, range2: range<comparable>) : boolean",
+      "description": "Evaluates to true if and only if range1.start = range2.start and range1.start included = range2.start included and (range2.end < range1.end or (range2.end = range1.end and (not(range2.end included) or range1.end included)))"
     },
     {
       "name": "coincides",
@@ -1858,7 +1992,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "coincides(point1: comparable, point2: comparable) : boolean"
+      "signature": "coincides(point1: comparable, point2: comparable) : boolean",
+      "description": "Evaluates to true if and only if point1 = point2"
     },
     {
       "name": "coincides",
@@ -1873,7 +2008,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "coincides(range1: range<comparable>, range2: range<comparable>) : boolean"
+      "signature": "coincides(range1: range<comparable>, range2: range<comparable>) : boolean",
+      "description": "Evaluates to true if and only if range1.start = range2.start and range1.start included = range2.start included and range1.end = range2.end and range1.end included = range2.end included"
     }
   ]
 }

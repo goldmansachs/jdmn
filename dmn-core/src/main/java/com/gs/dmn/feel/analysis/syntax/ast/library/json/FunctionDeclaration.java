@@ -19,6 +19,7 @@ public class FunctionDeclaration {
     private final List<Parameter> parameters;
     private final String returnType;
     private final String signature;
+    private String description;
 
     public FunctionDeclaration(String name, List<Parameter> parameters, String returnType) {
         this.name = name;
@@ -42,5 +43,13 @@ public class FunctionDeclaration {
 
     public String getSignature() {
         return signature;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

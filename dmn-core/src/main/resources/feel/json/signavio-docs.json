@@ -1,0 +1,366 @@
+[
+  {
+    "signature": "isDefined(arg: Any) : boolean",
+    "description": "checks if the argument is not null"
+  },
+  {
+    "signature": "isUndefined(arg: Any) : boolean",
+    "description": "checks if the argument is null"
+  },
+  {
+    "signature": "isValid(arg: Any) : boolean",
+    "description": "checks if the argument is not null"
+  },
+  {
+    "signature": "isInvalid(arg: Any) : boolean",
+    "description": "checks if the argument is null"
+  },
+  {
+    "signature": "date(from: string) : date",
+    "description": "converts a string to a date. The string must be in the format 'YYYY-MM-DD'."
+  },
+  {
+    "signature": "date and time(from: string) : date and time",
+    "description": "converts a string to a date and time. The string must be in the format 'YYYY-MM-DDTHH:MM:SS' or 'YYYY-MM-DD HH:MM:SS'."
+  },
+  {
+    "signature": "time(from: string) : time",
+    "description": "converts a string to a time."
+  },
+  {
+    "signature": "string(from: Any) : string",
+    "description": "converts a value to a string."
+  },
+  {
+    "signature": "duration(from: Any) : duration",
+    "description": "duration converts a string to a duration or returns a duration if the argument is already a duration."
+  },
+  {
+    "signature": "abs(number: number) : number",
+    "description": "returns the absolute value of a number"
+  },
+  {
+    "signature": "count(list: list<Any>) : number",
+    "description": "returns the number of elements in a list"
+  },
+  {
+    "signature": "round(number: number, digits: number) : number",
+    "description": "returns the number rounded to the specified number of digits."
+  },
+  {
+    "signature": "ceiling(number: number) : number",
+    "description": "returns the number rounded up to the next integer"
+  },
+  {
+    "signature": "floor(number: number) : number",
+    "description": "returns the number rounded down to the previous integer"
+  },
+  {
+    "signature": "integer(number: number) : number",
+    "description": "returns the integer part of a number"
+  },
+  {
+    "signature": "modulo(dividend: number, divisor: number) : number",
+    "description": "returns the remainder of the division of the dividend by the divisor"
+  },
+  {
+    "signature": "percent(number: number) : number",
+    "description": "returns the number divided by 100"
+  },
+  {
+    "signature": "power(base: number, exponent: number) : number",
+    "description": "returns the base raised to the power of the exponent"
+  },
+  {
+    "signature": "product(list: list<Any>) : number",
+    "description": "returns the product of the elements in a list"
+  },
+  {
+    "signature": "roundDown(number: number, digits: number) : number",
+    "description": "returns the number rounded down to the specified number of digits."
+  },
+  {
+    "signature": "roundUp(number: number, digits: number) : number",
+    "description": "returns the number rounded up to the specified number of digits."
+  },
+  {
+    "signature": "sum(list: list<Any>) : number",
+    "description": "returns the sum of the elements in a list"
+  },
+  {
+    "signature": "concat(list: list<Any>) : string",
+    "description": "returns the concatenation of the string representations of the elements in a list"
+  },
+  {
+    "signature": "isAlpha(text: string) : boolean",
+    "description": "determines if a string contains only letters (a-z, A-Z)"
+  },
+  {
+    "signature": "isAlphanumeric(text: string) : boolean",
+    "description": "determines if a string contains only letters (a-z, A-Z) and digits (0-9)"
+  },
+  {
+    "signature": "isNumeric(text: string) : boolean",
+    "description": "determines if a string contains only digits (0-9), plus or minus signs, decimal points"
+  },
+  {
+    "signature": "isSpaces(text: string) : boolean",
+    "description": "determines if a string contains only whitespace characters"
+  },
+  {
+    "signature": "len(text: string) : number",
+    "description": "returns the number of characters in a string"
+  },
+  {
+    "signature": "lower(text: string) : string",
+    "description": "returns a string with all letters converted to lowercase"
+  },
+  {
+    "signature": "trim(text: string) : string",
+    "description": "returns a string with all leading and trailing whitespace characters removed"
+  },
+  {
+    "signature": "upper(text: string) : string",
+    "description": "returns a string with all letters converted to uppercase"
+  },
+  {
+    "signature": "number(text: string, default_value: number?) : number",
+    "description": "returns the number represented by a string. Only a period is allowed as a separator. Return the default value if the string cannot be converted to a number."
+  },
+  {
+    "signature": "mid(text: string, start: number, num_chars: number) : string",
+    "description": "returns the character sequence of the length num_chars from the specified starting position"
+  },
+  {
+    "signature": "left(text: string, num_chars: number) : string",
+    "description": "returns the character sequence of the length num_chars from the start of the string"
+  },
+  {
+    "signature": "right(text: string, num_chars: number) : string",
+    "description": "returns the character sequence of the length num_chars from the end of the string"
+  },
+  {
+    "signature": "text(num: number, format_text: string) : string",
+    "description": "returns a string representation of a number formatted according to the specified format text. The format text can contain the following characters: 0, #, and ."
+  },
+  {
+    "signature": "textOccurrences(find_text: string, within_text: string) : number",
+    "description": "returns the number of occurrences of a string within another string"
+  },
+  {
+    "signature": "contains(text: string, substring: string) : boolean",
+    "description": "determines if a string contains a substring"
+  },
+  {
+    "signature": "startsWith(string: string, prefix: string) : boolean",
+    "description": "de"
+  },
+  {
+    "signature": "endsWith(string: string, suffix: string) : boolean",
+    "description": "determines if a string ends with a suffix"
+  },
+  {
+    "signature": "not(negand: boolean) : boolean",
+    "description": "negates a boolean value"
+  },
+  {
+    "signature": "day(datetime: date) : number",
+    "description": "returns the day of the month from a date"
+  },
+  {
+    "signature": "day(datetime: date and time) : number",
+    "description": "returns the day of the month from a date and time"
+  },
+  {
+    "signature": "dayAdd(datetime: date, days_to_add: number) : date",
+    "description": "returns the date resulting from adding the specified number of days to the given date"
+  },
+  {
+    "signature": "dayAdd(datetime: date and time, days_to_add: number) : date and time",
+    "description": "returns the date and time resulting from adding the specified number of days to the given date and time"
+  },
+  {
+    "signature": "dayDiff(datetime1: date, datetime2: date) : number",
+    "description": "returns the number of full days between two dates"
+  },
+  {
+    "signature": "dayDiff(datetime1: date, datetime2: date and time) : number",
+    "description": "returns the number of full days between a date and a date and time"
+  },
+  {
+    "signature": "dayDiff(datetime1: date and time, datetime2: date) : number",
+    "description": "returns the number of full days between a date and time and a date"
+  },
+  {
+    "signature": "dayDiff(datetime1: date and time, datetime2: date and time) : number",
+    "description": "returns the number of full days between two dates and times"
+  },
+  {
+    "signature": "date(year: number, month: number, day: number) : date",
+    "description": "returns a date from the given year, month and day"
+  },
+  {
+    "signature": "dateTime(day: number, month: number, year: number, hour: number, minute: number, second: number, hourOffset: number?) : date and time",
+    "description": "returns a date and time from the given day, month, year, hour, minute, second and hour offset"
+  },
+  {
+    "signature": "hour(datetime: time) : number",
+    "description": "returns the hour of the day from a time"
+  },
+  {
+    "signature": "hour(datetime: date and time) : number",
+    "description": "returns the hour of the day from a date and time"
+  },
+  {
+    "signature": "hourDiff(datetime1: temporal, datetime2: temporal) : number",
+    "description": "returns the number of full hours between two temporal values"
+  },
+  {
+    "signature": "minute(datetime: time) : number",
+    "description": "returns the minute of the hour from a time"
+  },
+  {
+    "signature": "minute(datetime: date and time) : number",
+    "description": "returns the minute of the hour from a date and time"
+  },
+  {
+    "signature": "minutesDiff(datetime1: temporal, datetime2: temporal) : number",
+    "description": "returns the number of full minutes between two temporal values"
+  },
+  {
+    "signature": "month(datetime: date) : number",
+    "description": "returns the month of the year from a date"
+  },
+  {
+    "signature": "month(datetime: date and time) : number",
+    "description": "returns the month of the year from a date and time"
+  },
+  {
+    "signature": "monthAdd(datetime: date, months_to_add: number) : date",
+    "description": "returns the date resulting from adding the specified number of months to the given date"
+  },
+  {
+    "signature": "monthAdd(datetime: date and time, months_to_add: number) : date and time",
+    "description": "returns the date and time resulting from adding the specified number of months to the given date and time"
+  },
+  {
+    "signature": "monthDiff(datetime1: date, datetime2: date) : number",
+    "description": "returns the number of full months between two dates"
+  },
+  {
+    "signature": "monthDiff(datetime1: date, datetime2: date and time) : number",
+    "description": "returns the number of full months between a date and a date and time"
+  },
+  {
+    "signature": "monthDiff(datetime1: date and time, datetime2: date) : number",
+    "description": "returns the number of full months between a date and time and a date"
+  },
+  {
+    "signature": "monthDiff(datetime1: date and time, datetime2: date and time) : number",
+    "description": "returns the number of full months between two dates and times"
+  },
+  {
+    "signature": "now() : date and time",
+    "description": "returns the current date and time"
+  },
+  {
+    "signature": "today() : date",
+    "description": "returns the current date"
+  },
+  {
+    "signature": "weekday(datetime: date) : number",
+    "description": "returns a number (1 to 7) representing the day of the week"
+  },
+  {
+    "signature": "weekday(datetime: date and time) : number",
+    "description": "returns a number (1 to 7) representing the day of the week"
+  },
+  {
+    "signature": "year(datetime: date) : number",
+    "description": "returns the year from a date"
+  },
+  {
+    "signature": "year(datetime: date and time) : number",
+    "description": "returns the year from a date and time"
+  },
+  {
+    "signature": "yearAdd(datetime: date, years_to_add: number) : date",
+    "description": "returns the date resulting from adding the specified number of years to the given date"
+  },
+  {
+    "signature": "yearAdd(datetime: date and time, years_to_add: number) : date and time",
+    "description": "returns the date and time resulting from adding the specified number of years to the given date and time"
+  },
+  {
+    "signature": "yearDiff(datetime1: date, datetime2: date) : number",
+    "description": "returns the number of full years between two dates"
+  },
+  {
+    "signature": "yearDiff(datetime1: date, datetime2: date and time) : number",
+    "description": "returns the number of full years between a date and a date and time"
+  },
+  {
+    "signature": "yearDiff(datetime1: date and time, datetime2: date) : number",
+    "description": "returns the number of full years between a date and time and a date"
+  },
+  {
+    "signature": "yearDiff(datetime1: date and time, datetime2: date and time) : number",
+    "description": "returns the number of full years between two dates and times"
+  },
+  {
+    "signature": "append(list: list<Any>, element: Any) : list<Any>",
+    "description": "adds an element to the end of a list and returns the new list"
+  },
+  {
+    "signature": "appendAll(list1: list<Any>, list2: list<Any>) : list<Any>",
+    "description": "adds all elements of the second list to the end of the first list and returns the new list"
+  },
+  {
+    "signature": "remove(list: list<Any>, element: Any) : list<Any>",
+    "description": "removes an element from a list and returns the new list"
+  },
+  {
+    "signature": "removeAll(list1: list<Any>, list2: list<Any>) : list<Any>",
+    "description": "removes all elements of the second list from the first list and returns the new list"
+  },
+  {
+    "signature": "zip(attributes: list<Any>, values: list<Any>) : list<Any>",
+    "description": "assembles a list of objects from a list of attributes and multiple lists of values"
+  },
+  {
+    "signature": "notContainsAny(list1: list<Any>, list2: list<Any>) : boolean",
+    "description": "determines whether list1 contains none of the elements in list2"
+  },
+  {
+    "signature": "containsOnly(list1: list<Any>, list2: list<Any>) : boolean",
+    "description": "determines whether list1 contains only elements of list2"
+  },
+  {
+    "signature": "areElementsOf(list1: list<Any>, list2: list<Any>) : boolean",
+    "description": "determines whether list2 contains all elements of list1"
+  },
+  {
+    "signature": "elementOf(list1: Any, list2: list<Any>) : boolean",
+    "description": "deprecated: use areElementsOf instead"
+  },
+  {
+    "signature": "avg(list: list<Any>) : number",
+    "description": "returns the average of the elements in a list."
+  },
+  {
+    "signature": "max(list: list<Any>) : number",
+    "description": "determines the maximum of the elements in a list."
+  },
+  {
+    "signature": "median(list: list<Any>) : number",
+    "description": "determines the median of the elements in a list."
+  },
+  {
+    "signature": "min(list: list<Any>) : number",
+    "description": "determines the minimum of the elements in a list."
+  },
+  {
+    "signature": "mode(list: list<Any>) : number",
+    "description": "determines the mode of the elements in a list."
+  }
+]

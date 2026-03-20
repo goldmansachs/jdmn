@@ -13,6 +13,7 @@ builtin {
     function time(from: date and time) : time;
     function time(hour: number, minute: number, second: number, offset: days and time duration ?) : time;
     function number(from: string, 'grouping separator': string, 'decimal separator': string) : number;
+    // Deprecated, use the above
     function number(from: string, groupingSeparator: string, decimalSeparator: string) : number;
     function string(from: Any) : string;
     function duration(from: string) : duration;
@@ -25,6 +26,7 @@ builtin {
 
     // Number functions
     function decimal(n: number, scale: number) : number;
+    // Deprecated, use the specialized functions below
     function round(n: number, scale: number, mode: string) : number;
     function round up(n: number, scale: number) : number;
     function round down(n: number, scale: number) : number;

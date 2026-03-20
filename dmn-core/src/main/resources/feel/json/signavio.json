@@ -10,7 +10,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "isDefined(arg: Any) : boolean"
+      "signature": "isDefined(arg: Any) : boolean",
+      "description": "checks if the argument is not null"
     },
     {
       "name": "isUndefined",
@@ -21,7 +22,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "isUndefined(arg: Any) : boolean"
+      "signature": "isUndefined(arg: Any) : boolean",
+      "description": "checks if the argument is null"
     },
     {
       "name": "isValid",
@@ -32,7 +34,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "isValid(arg: Any) : boolean"
+      "signature": "isValid(arg: Any) : boolean",
+      "description": "checks if the argument is not null"
     },
     {
       "name": "isInvalid",
@@ -43,7 +46,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "isInvalid(arg: Any) : boolean"
+      "signature": "isInvalid(arg: Any) : boolean",
+      "description": "checks if the argument is null"
     },
     {
       "name": "date",
@@ -54,7 +58,8 @@
         }
       ],
       "returnType": "date",
-      "signature": "date(from: string) : date"
+      "signature": "date(from: string) : date",
+      "description": "converts a string to a date. The string must be in the format 'YYYY-MM-DD'."
     },
     {
       "name": "date and time",
@@ -65,7 +70,8 @@
         }
       ],
       "returnType": "date and time",
-      "signature": "date and time(from: string) : date and time"
+      "signature": "date and time(from: string) : date and time",
+      "description": "converts a string to a date and time. The string must be in the format 'YYYY-MM-DDTHH:MM:SS' or 'YYYY-MM-DD HH:MM:SS'."
     },
     {
       "name": "time",
@@ -76,7 +82,8 @@
         }
       ],
       "returnType": "time",
-      "signature": "time(from: string) : time"
+      "signature": "time(from: string) : time",
+      "description": "converts a string to a time."
     },
     {
       "name": "string",
@@ -87,7 +94,8 @@
         }
       ],
       "returnType": "string",
-      "signature": "string(from: Any) : string"
+      "signature": "string(from: Any) : string",
+      "description": "converts a value to a string."
     },
     {
       "name": "duration",
@@ -98,7 +106,8 @@
         }
       ],
       "returnType": "duration",
-      "signature": "duration(from: Any) : duration"
+      "signature": "duration(from: Any) : duration",
+      "description": "duration converts a string to a duration or returns a duration if the argument is already a duration."
     },
     {
       "name": "abs",
@@ -109,7 +118,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "abs(number: number) : number"
+      "signature": "abs(number: number) : number",
+      "description": "returns the absolute value of a number"
     },
     {
       "name": "count",
@@ -120,7 +130,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "count(list: list<Any>) : number"
+      "signature": "count(list: list<Any>) : number",
+      "description": "returns the number of elements in a list"
     },
     {
       "name": "round",
@@ -135,7 +146,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "round(number: number, digits: number) : number"
+      "signature": "round(number: number, digits: number) : number",
+      "description": "returns the number rounded to the specified number of digits."
     },
     {
       "name": "ceiling",
@@ -146,7 +158,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "ceiling(number: number) : number"
+      "signature": "ceiling(number: number) : number",
+      "description": "returns the number rounded up to the next integer"
     },
     {
       "name": "floor",
@@ -157,7 +170,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "floor(number: number) : number"
+      "signature": "floor(number: number) : number",
+      "description": "returns the number rounded down to the previous integer"
     },
     {
       "name": "integer",
@@ -168,7 +182,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "integer(number: number) : number"
+      "signature": "integer(number: number) : number",
+      "description": "returns the integer part of a number"
     },
     {
       "name": "modulo",
@@ -183,7 +198,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "modulo(dividend: number, divisor: number) : number"
+      "signature": "modulo(dividend: number, divisor: number) : number",
+      "description": "returns the remainder of the division of the dividend by the divisor"
     },
     {
       "name": "percent",
@@ -194,7 +210,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "percent(number: number) : number"
+      "signature": "percent(number: number) : number",
+      "description": "returns the number divided by 100"
     },
     {
       "name": "power",
@@ -209,7 +226,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "power(base: number, exponent: number) : number"
+      "signature": "power(base: number, exponent: number) : number",
+      "description": "returns the base raised to the power of the exponent"
     },
     {
       "name": "product",
@@ -220,7 +238,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "product(list: list<Any>) : number"
+      "signature": "product(list: list<Any>) : number",
+      "description": "returns the product of the elements in a list"
     },
     {
       "name": "roundDown",
@@ -235,7 +254,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "roundDown(number: number, digits: number) : number"
+      "signature": "roundDown(number: number, digits: number) : number",
+      "description": "returns the number rounded down to the specified number of digits."
     },
     {
       "name": "roundUp",
@@ -250,7 +270,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "roundUp(number: number, digits: number) : number"
+      "signature": "roundUp(number: number, digits: number) : number",
+      "description": "returns the number rounded up to the specified number of digits."
     },
     {
       "name": "sum",
@@ -261,7 +282,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "sum(list: list<Any>) : number"
+      "signature": "sum(list: list<Any>) : number",
+      "description": "returns the sum of the elements in a list"
     },
     {
       "name": "concat",
@@ -272,7 +294,8 @@
         }
       ],
       "returnType": "string",
-      "signature": "concat(list: list<Any>) : string"
+      "signature": "concat(list: list<Any>) : string",
+      "description": "returns the concatenation of the string representations of the elements in a list"
     },
     {
       "name": "isAlpha",
@@ -283,7 +306,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "isAlpha(text: string) : boolean"
+      "signature": "isAlpha(text: string) : boolean",
+      "description": "determines if a string contains only letters (a-z, A-Z)"
     },
     {
       "name": "isAlphanumeric",
@@ -294,7 +318,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "isAlphanumeric(text: string) : boolean"
+      "signature": "isAlphanumeric(text: string) : boolean",
+      "description": "determines if a string contains only letters (a-z, A-Z) and digits (0-9)"
     },
     {
       "name": "isNumeric",
@@ -305,7 +330,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "isNumeric(text: string) : boolean"
+      "signature": "isNumeric(text: string) : boolean",
+      "description": "determines if a string contains only digits (0-9), plus or minus signs, decimal points"
     },
     {
       "name": "isSpaces",
@@ -316,7 +342,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "isSpaces(text: string) : boolean"
+      "signature": "isSpaces(text: string) : boolean",
+      "description": "determines if a string contains only whitespace characters"
     },
     {
       "name": "len",
@@ -327,7 +354,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "len(text: string) : number"
+      "signature": "len(text: string) : number",
+      "description": "returns the number of characters in a string"
     },
     {
       "name": "lower",
@@ -338,7 +366,8 @@
         }
       ],
       "returnType": "string",
-      "signature": "lower(text: string) : string"
+      "signature": "lower(text: string) : string",
+      "description": "returns a string with all letters converted to lowercase"
     },
     {
       "name": "trim",
@@ -349,7 +378,8 @@
         }
       ],
       "returnType": "string",
-      "signature": "trim(text: string) : string"
+      "signature": "trim(text: string) : string",
+      "description": "returns a string with all leading and trailing whitespace characters removed"
     },
     {
       "name": "upper",
@@ -360,7 +390,8 @@
         }
       ],
       "returnType": "string",
-      "signature": "upper(text: string) : string"
+      "signature": "upper(text: string) : string",
+      "description": "returns a string with all letters converted to uppercase"
     },
     {
       "name": "number",
@@ -375,7 +406,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "number(text: string, default_value: number?) : number"
+      "signature": "number(text: string, default_value: number?) : number",
+      "description": "returns the number represented by a string. Only a period is allowed as a separator. Return the default value if the string cannot be converted to a number."
     },
     {
       "name": "mid",
@@ -394,7 +426,8 @@
         }
       ],
       "returnType": "string",
-      "signature": "mid(text: string, start: number, num_chars: number) : string"
+      "signature": "mid(text: string, start: number, num_chars: number) : string",
+      "description": "returns the character sequence of the length num_chars from the specified starting position"
     },
     {
       "name": "left",
@@ -409,7 +442,8 @@
         }
       ],
       "returnType": "string",
-      "signature": "left(text: string, num_chars: number) : string"
+      "signature": "left(text: string, num_chars: number) : string",
+      "description": "returns the character sequence of the length num_chars from the start of the string"
     },
     {
       "name": "right",
@@ -424,7 +458,8 @@
         }
       ],
       "returnType": "string",
-      "signature": "right(text: string, num_chars: number) : string"
+      "signature": "right(text: string, num_chars: number) : string",
+      "description": "returns the character sequence of the length num_chars from the end of the string"
     },
     {
       "name": "text",
@@ -439,7 +474,8 @@
         }
       ],
       "returnType": "string",
-      "signature": "text(num: number, format_text: string) : string"
+      "signature": "text(num: number, format_text: string) : string",
+      "description": "returns a string representation of a number formatted according to the specified format text. The format text can contain the following characters: 0, #, and ."
     },
     {
       "name": "textOccurrences",
@@ -454,7 +490,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "textOccurrences(find_text: string, within_text: string) : number"
+      "signature": "textOccurrences(find_text: string, within_text: string) : number",
+      "description": "returns the number of occurrences of a string within another string"
     },
     {
       "name": "contains",
@@ -469,7 +506,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "contains(text: string, substring: string) : boolean"
+      "signature": "contains(text: string, substring: string) : boolean",
+      "description": "determines if a string contains a substring"
     },
     {
       "name": "startsWith",
@@ -484,7 +522,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "startsWith(string: string, prefix: string) : boolean"
+      "signature": "startsWith(string: string, prefix: string) : boolean",
+      "description": "de"
     },
     {
       "name": "endsWith",
@@ -499,7 +538,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "endsWith(string: string, suffix: string) : boolean"
+      "signature": "endsWith(string: string, suffix: string) : boolean",
+      "description": "determines if a string ends with a suffix"
     },
     {
       "name": "not",
@@ -510,7 +550,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "not(negand: boolean) : boolean"
+      "signature": "not(negand: boolean) : boolean",
+      "description": "negates a boolean value"
     },
     {
       "name": "day",
@@ -521,7 +562,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "day(datetime: date) : number"
+      "signature": "day(datetime: date) : number",
+      "description": "returns the day of the month from a date"
     },
     {
       "name": "day",
@@ -532,7 +574,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "day(datetime: date and time) : number"
+      "signature": "day(datetime: date and time) : number",
+      "description": "returns the day of the month from a date and time"
     },
     {
       "name": "dayAdd",
@@ -547,7 +590,8 @@
         }
       ],
       "returnType": "date",
-      "signature": "dayAdd(datetime: date, days_to_add: number) : date"
+      "signature": "dayAdd(datetime: date, days_to_add: number) : date",
+      "description": "returns the date resulting from adding the specified number of days to the given date"
     },
     {
       "name": "dayAdd",
@@ -562,7 +606,8 @@
         }
       ],
       "returnType": "date and time",
-      "signature": "dayAdd(datetime: date and time, days_to_add: number) : date and time"
+      "signature": "dayAdd(datetime: date and time, days_to_add: number) : date and time",
+      "description": "returns the date and time resulting from adding the specified number of days to the given date and time"
     },
     {
       "name": "dayDiff",
@@ -577,7 +622,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "dayDiff(datetime1: date, datetime2: date) : number"
+      "signature": "dayDiff(datetime1: date, datetime2: date) : number",
+      "description": "returns the number of full days between two dates"
     },
     {
       "name": "dayDiff",
@@ -592,7 +638,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "dayDiff(datetime1: date, datetime2: date and time) : number"
+      "signature": "dayDiff(datetime1: date, datetime2: date and time) : number",
+      "description": "returns the number of full days between a date and a date and time"
     },
     {
       "name": "dayDiff",
@@ -607,7 +654,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "dayDiff(datetime1: date and time, datetime2: date) : number"
+      "signature": "dayDiff(datetime1: date and time, datetime2: date) : number",
+      "description": "returns the number of full days between a date and time and a date"
     },
     {
       "name": "dayDiff",
@@ -622,7 +670,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "dayDiff(datetime1: date and time, datetime2: date and time) : number"
+      "signature": "dayDiff(datetime1: date and time, datetime2: date and time) : number",
+      "description": "returns the number of full days between two dates and times"
     },
     {
       "name": "date",
@@ -641,7 +690,8 @@
         }
       ],
       "returnType": "date",
-      "signature": "date(year: number, month: number, day: number) : date"
+      "signature": "date(year: number, month: number, day: number) : date",
+      "description": "returns a date from the given year, month and day"
     },
     {
       "name": "dateTime",
@@ -676,7 +726,8 @@
         }
       ],
       "returnType": "date and time",
-      "signature": "dateTime(day: number, month: number, year: number, hour: number, minute: number, second: number, hourOffset: number?) : date and time"
+      "signature": "dateTime(day: number, month: number, year: number, hour: number, minute: number, second: number, hourOffset: number?) : date and time",
+      "description": "returns a date and time from the given day, month, year, hour, minute, second and hour offset"
     },
     {
       "name": "hour",
@@ -687,7 +738,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "hour(datetime: time) : number"
+      "signature": "hour(datetime: time) : number",
+      "description": "returns the hour of the day from a time"
     },
     {
       "name": "hour",
@@ -698,7 +750,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "hour(datetime: date and time) : number"
+      "signature": "hour(datetime: date and time) : number",
+      "description": "returns the hour of the day from a date and time"
     },
     {
       "name": "hourDiff",
@@ -713,7 +766,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "hourDiff(datetime1: temporal, datetime2: temporal) : number"
+      "signature": "hourDiff(datetime1: temporal, datetime2: temporal) : number",
+      "description": "returns the number of full hours between two temporal values"
     },
     {
       "name": "minute",
@@ -724,7 +778,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "minute(datetime: time) : number"
+      "signature": "minute(datetime: time) : number",
+      "description": "returns the minute of the hour from a time"
     },
     {
       "name": "minute",
@@ -735,7 +790,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "minute(datetime: date and time) : number"
+      "signature": "minute(datetime: date and time) : number",
+      "description": "returns the minute of the hour from a date and time"
     },
     {
       "name": "minutesDiff",
@@ -750,7 +806,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "minutesDiff(datetime1: temporal, datetime2: temporal) : number"
+      "signature": "minutesDiff(datetime1: temporal, datetime2: temporal) : number",
+      "description": "returns the number of full minutes between two temporal values"
     },
     {
       "name": "month",
@@ -761,7 +818,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "month(datetime: date) : number"
+      "signature": "month(datetime: date) : number",
+      "description": "returns the month of the year from a date"
     },
     {
       "name": "month",
@@ -772,7 +830,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "month(datetime: date and time) : number"
+      "signature": "month(datetime: date and time) : number",
+      "description": "returns the month of the year from a date and time"
     },
     {
       "name": "monthAdd",
@@ -787,7 +846,8 @@
         }
       ],
       "returnType": "date",
-      "signature": "monthAdd(datetime: date, months_to_add: number) : date"
+      "signature": "monthAdd(datetime: date, months_to_add: number) : date",
+      "description": "returns the date resulting from adding the specified number of months to the given date"
     },
     {
       "name": "monthAdd",
@@ -802,7 +862,8 @@
         }
       ],
       "returnType": "date and time",
-      "signature": "monthAdd(datetime: date and time, months_to_add: number) : date and time"
+      "signature": "monthAdd(datetime: date and time, months_to_add: number) : date and time",
+      "description": "returns the date and time resulting from adding the specified number of months to the given date and time"
     },
     {
       "name": "monthDiff",
@@ -817,7 +878,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "monthDiff(datetime1: date, datetime2: date) : number"
+      "signature": "monthDiff(datetime1: date, datetime2: date) : number",
+      "description": "returns the number of full months between two dates"
     },
     {
       "name": "monthDiff",
@@ -832,7 +894,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "monthDiff(datetime1: date, datetime2: date and time) : number"
+      "signature": "monthDiff(datetime1: date, datetime2: date and time) : number",
+      "description": "returns the number of full months between a date and a date and time"
     },
     {
       "name": "monthDiff",
@@ -847,7 +910,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "monthDiff(datetime1: date and time, datetime2: date) : number"
+      "signature": "monthDiff(datetime1: date and time, datetime2: date) : number",
+      "description": "returns the number of full months between a date and time and a date"
     },
     {
       "name": "monthDiff",
@@ -862,19 +926,22 @@
         }
       ],
       "returnType": "number",
-      "signature": "monthDiff(datetime1: date and time, datetime2: date and time) : number"
+      "signature": "monthDiff(datetime1: date and time, datetime2: date and time) : number",
+      "description": "returns the number of full months between two dates and times"
     },
     {
       "name": "now",
       "parameters": [],
       "returnType": "date and time",
-      "signature": "now() : date and time"
+      "signature": "now() : date and time",
+      "description": "returns the current date and time"
     },
     {
       "name": "today",
       "parameters": [],
       "returnType": "date",
-      "signature": "today() : date"
+      "signature": "today() : date",
+      "description": "returns the current date"
     },
     {
       "name": "weekday",
@@ -885,7 +952,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "weekday(datetime: date) : number"
+      "signature": "weekday(datetime: date) : number",
+      "description": "returns a number (1 to 7) representing the day of the week"
     },
     {
       "name": "weekday",
@@ -896,7 +964,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "weekday(datetime: date and time) : number"
+      "signature": "weekday(datetime: date and time) : number",
+      "description": "returns a number (1 to 7) representing the day of the week"
     },
     {
       "name": "year",
@@ -907,7 +976,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "year(datetime: date) : number"
+      "signature": "year(datetime: date) : number",
+      "description": "returns the year from a date"
     },
     {
       "name": "year",
@@ -918,7 +988,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "year(datetime: date and time) : number"
+      "signature": "year(datetime: date and time) : number",
+      "description": "returns the year from a date and time"
     },
     {
       "name": "yearAdd",
@@ -933,7 +1004,8 @@
         }
       ],
       "returnType": "date",
-      "signature": "yearAdd(datetime: date, years_to_add: number) : date"
+      "signature": "yearAdd(datetime: date, years_to_add: number) : date",
+      "description": "returns the date resulting from adding the specified number of years to the given date"
     },
     {
       "name": "yearAdd",
@@ -948,7 +1020,8 @@
         }
       ],
       "returnType": "date and time",
-      "signature": "yearAdd(datetime: date and time, years_to_add: number) : date and time"
+      "signature": "yearAdd(datetime: date and time, years_to_add: number) : date and time",
+      "description": "returns the date and time resulting from adding the specified number of years to the given date and time"
     },
     {
       "name": "yearDiff",
@@ -963,7 +1036,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "yearDiff(datetime1: date, datetime2: date) : number"
+      "signature": "yearDiff(datetime1: date, datetime2: date) : number",
+      "description": "returns the number of full years between two dates"
     },
     {
       "name": "yearDiff",
@@ -978,7 +1052,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "yearDiff(datetime1: date, datetime2: date and time) : number"
+      "signature": "yearDiff(datetime1: date, datetime2: date and time) : number",
+      "description": "returns the number of full years between a date and a date and time"
     },
     {
       "name": "yearDiff",
@@ -993,7 +1068,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "yearDiff(datetime1: date and time, datetime2: date) : number"
+      "signature": "yearDiff(datetime1: date and time, datetime2: date) : number",
+      "description": "returns the number of full years between a date and time and a date"
     },
     {
       "name": "yearDiff",
@@ -1008,7 +1084,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "yearDiff(datetime1: date and time, datetime2: date and time) : number"
+      "signature": "yearDiff(datetime1: date and time, datetime2: date and time) : number",
+      "description": "returns the number of full years between two dates and times"
     },
     {
       "name": "append",
@@ -1023,7 +1100,8 @@
         }
       ],
       "returnType": "list<Any>",
-      "signature": "append(list: list<Any>, element: Any) : list<Any>"
+      "signature": "append(list: list<Any>, element: Any) : list<Any>",
+      "description": "adds an element to the end of a list and returns the new list"
     },
     {
       "name": "appendAll",
@@ -1038,7 +1116,8 @@
         }
       ],
       "returnType": "list<Any>",
-      "signature": "appendAll(list1: list<Any>, list2: list<Any>) : list<Any>"
+      "signature": "appendAll(list1: list<Any>, list2: list<Any>) : list<Any>",
+      "description": "adds all elements of the second list to the end of the first list and returns the new list"
     },
     {
       "name": "remove",
@@ -1053,7 +1132,8 @@
         }
       ],
       "returnType": "list<Any>",
-      "signature": "remove(list: list<Any>, element: Any) : list<Any>"
+      "signature": "remove(list: list<Any>, element: Any) : list<Any>",
+      "description": "removes an element from a list and returns the new list"
     },
     {
       "name": "removeAll",
@@ -1068,7 +1148,8 @@
         }
       ],
       "returnType": "list<Any>",
-      "signature": "removeAll(list1: list<Any>, list2: list<Any>) : list<Any>"
+      "signature": "removeAll(list1: list<Any>, list2: list<Any>) : list<Any>",
+      "description": "removes all elements of the second list from the first list and returns the new list"
     },
     {
       "name": "zip",
@@ -1083,7 +1164,8 @@
         }
       ],
       "returnType": "list<Any>",
-      "signature": "zip(attributes: list<Any>, values: list<Any>) : list<Any>"
+      "signature": "zip(attributes: list<Any>, values: list<Any>) : list<Any>",
+      "description": "assembles a list of objects from a list of attributes and multiple lists of values"
     },
     {
       "name": "notContainsAny",
@@ -1098,7 +1180,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "notContainsAny(list1: list<Any>, list2: list<Any>) : boolean"
+      "signature": "notContainsAny(list1: list<Any>, list2: list<Any>) : boolean",
+      "description": "determines whether list1 contains none of the elements in list2"
     },
     {
       "name": "containsOnly",
@@ -1113,7 +1196,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "containsOnly(list1: list<Any>, list2: list<Any>) : boolean"
+      "signature": "containsOnly(list1: list<Any>, list2: list<Any>) : boolean",
+      "description": "determines whether list1 contains only elements of list2"
     },
     {
       "name": "areElementsOf",
@@ -1128,7 +1212,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "areElementsOf(list1: list<Any>, list2: list<Any>) : boolean"
+      "signature": "areElementsOf(list1: list<Any>, list2: list<Any>) : boolean",
+      "description": "determines whether list2 contains all elements of list1"
     },
     {
       "name": "elementOf",
@@ -1143,7 +1228,8 @@
         }
       ],
       "returnType": "boolean",
-      "signature": "elementOf(list1: Any, list2: list<Any>) : boolean"
+      "signature": "elementOf(list1: Any, list2: list<Any>) : boolean",
+      "description": "deprecated: use areElementsOf instead"
     },
     {
       "name": "avg",
@@ -1154,7 +1240,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "avg(list: list<Any>) : number"
+      "signature": "avg(list: list<Any>) : number",
+      "description": "returns the average of the elements in a list."
     },
     {
       "name": "max",
@@ -1165,7 +1252,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "max(list: list<Any>) : number"
+      "signature": "max(list: list<Any>) : number",
+      "description": "determines the maximum of the elements in a list."
     },
     {
       "name": "median",
@@ -1176,7 +1264,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "median(list: list<Any>) : number"
+      "signature": "median(list: list<Any>) : number",
+      "description": "determines the median of the elements in a list."
     },
     {
       "name": "min",
@@ -1187,7 +1276,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "min(list: list<Any>) : number"
+      "signature": "min(list: list<Any>) : number",
+      "description": "determines the minimum of the elements in a list."
     },
     {
       "name": "mode",
@@ -1198,7 +1288,8 @@
         }
       ],
       "returnType": "number",
-      "signature": "mode(list: list<Any>) : number"
+      "signature": "mode(list: list<Any>) : number",
+      "description": "determines the mode of the elements in a list."
     }
   ]
 }

@@ -20,6 +20,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.library.LibraryRepository;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.JsonSerializer;
 import com.gs.dmn.transformation.InputParameters;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -28,6 +29,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class JsonDescriptionGenerator {
     public void generate(String libPath) throws Exception {
@@ -54,14 +56,46 @@ public class JsonDescriptionGenerator {
         JsonSerializer.OBJECT_MAPPER.writeValue(writer, toJson(library));
     }
 
-    private FEELLibrary toJson(Library<?> library) {
+    private FEELLibrary toJson(Library<?> library) throws Exception {
+        // Transform the library into a serializable format
         String name =  library.getName();
         List<FunctionDeclaration> functions = new ArrayList<>();
         library.getFunctions().forEach(function -> {
            FunctionDeclaration jsonFunction = toJson(function);
            functions.add(jsonFunction);
         });
-        return new FEELLibrary(name, functions);
+
+        // Add documentation for the library
+        FEELLibrary feelLibrary = new FEELLibrary(name, functions);
+        augment(feelLibrary);
+        return feelLibrary;
+    }
+
+    private void augment(FEELLibrary feelLibrary) throws Exception {
+        // Read docs.json file as Map
+        String libraryName = feelLibrary.name();
+        String fileName = String.format("/feel/json/%s-docs.json", libraryName);
+        List<?> docs = JsonSerializer.OBJECT_MAPPER.readValue(getClass().getResourceAsStream(fileName), List.class);
+
+        // Svan feelLibrary functions and add documentation using the signature
+        for (FunctionDeclaration function : feelLibrary.functions()) {
+            // Find corresponding doc in docs.json using the signature
+            String signature = function.getSignature();
+            boolean found = false;
+            for (Object doc : docs) {
+                Map<String, String> map = (Map<String, String>)doc;
+                String sgn = map.get("signature");
+                String info = map.get("description");
+                if (signature.equals(sgn) && !StringUtils.isBlank(info)) {
+                    found = true;
+                    function.setDescription(info);
+                    break;
+                }
+            }
+            if (!found) {
+                throw new SemanticErrorException(String.format("Documentation for function '%s' not found in '%s'", signature, fileName));
+            }
+        }
     }
 
     private FunctionDeclaration toJson(com.gs.dmn.feel.analysis.syntax.ast.library.FunctionDeclaration<?> function) {
