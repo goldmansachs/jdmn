@@ -36,6 +36,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
 
     private QName diagramIdQName = new QName(this.schemaNamespace, "diagramId");
     private QName shapeIdQName = new QName(this.schemaNamespace, "shapeId");
+    private QName glossaryIdQName = new QName(this.schemaNamespace, "glossaryId");
 
     public final SignavioExtension extension = new SignavioExtension(this);
 
@@ -66,6 +67,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         this.schemaNamespace = schemaNamespace;
         this.diagramIdQName = new QName(schemaNamespace, "diagramId");
         this.shapeIdQName = new QName(schemaNamespace, "shapeId");
+        this.glossaryIdQName = new QName(schemaNamespace, "glossaryId");
         populateSignavioCaches(definitionsList);
     }
 
@@ -104,22 +106,20 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         return this.shapeIdQName;
     }
 
-    public String getDiagramId(TDMNElement element) {
-        if (element == null) {
-            return null;
-        }
-        Map<QName, String> otherAttributes = element.getOtherAttributes();
-        javax.xml.namespace.QName diagramIdQName = getDiagramIdQName();
-        return otherAttributes == null ? null : otherAttributes.get(diagramIdQName);
+    private QName getGlossaryIdQName() {
+        return this.glossaryIdQName;
     }
 
-    public String getShapeId(TDRGElement element) {
-        if (element == null) {
-            return null;
-        }
-        Map<QName, String> otherAttributes = element.getOtherAttributes();
-        javax.xml.namespace.QName shapeIdQName = getShapeIdQName();
-        return otherAttributes == null ? null : otherAttributes.get(shapeIdQName);
+    public String getDiagramId(TDMNElement element) {
+        return getAttribute(element, getDiagramIdQName());
+    }
+
+    public String getShapeId(TDMNElement element) {
+        return getAttribute(element, getShapeIdQName());
+    }
+
+    public String getGlossaryId(TDMNElement element) {
+        return getAttribute(element, getGlossaryIdQName());
     }
 
     public SignavioExtension getExtension() {

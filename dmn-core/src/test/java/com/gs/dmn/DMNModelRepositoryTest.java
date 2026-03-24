@@ -20,6 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.util.StringUtils;
 
+import javax.xml.namespace.QName;
 import java.io.File;
 import java.net.URI;
 import java.util.*;
@@ -210,6 +211,26 @@ public class DMNModelRepositoryTest extends AbstractTest {
         // Read test models
         this.dmnModelRepository = readModels("other/1.5/cycles-with-prefix/translator/");
         doTest("a", "b");
+    }
+
+    @Test
+    public void testFindAttributes() {
+        // Test edge cases
+        assertNull(this.dmnModelRepository.getAttribute(null, null, null));
+        assertNull(this.dmnModelRepository.getAttribute(null, "", null));
+        assertNull(this.dmnModelRepository.getAttribute(null, null, ""));
+        assertNull(this.dmnModelRepository.getAttribute(null, null));
+
+        // Read test models
+        String namespace = "http://www.provider.com/schema/dmn/1.1/";
+        File input = new File(signavioResource("dmn/complex/Example credit decision.dmn"));
+        List<TDefinitions> definitionsList = this.dmnSerializer.readModels(input);
+        DMNModelRepository repository = new DMNModelRepository(definitionsList);
+        TDRGElement decision = repository.findDRGElementByName("processPriorIssues");
+        assertNotNull(decision);
+        assertEquals("9acf44f2b05343d79fc35140c493c1e0", this.dmnModelRepository.getAttribute(decision, namespace, "diagramId"));
+        assertEquals("sid-F7FAA264-FA92-4952-A302-2BEADD9DCC59", this.dmnModelRepository.getAttribute(decision, namespace, "shapeId"));
+        assertEquals("sid-F7FAA264-FA92-4952-A302-2BEADD9DCC59", this.dmnModelRepository.getAttribute(decision, new QName(namespace, "shapeId")));
     }
 
     private void doTest(String prefixA, String prefixB) {

@@ -24,6 +24,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.namespace.QName;
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
@@ -659,6 +660,21 @@ public class DMNModelRepository {
         } else {
             return result;
         }
+    }
+
+    public String getAttribute(TDMNElement element, String namespace, String localPart) {
+        if (element == null || namespace == null || localPart == null) {
+            return null;
+        }
+        return getAttribute(element, new QName(namespace, localPart));
+    }
+
+    public String getAttribute(TDMNElement element, QName qName) {
+        if (element == null || qName == null) {
+            return null;
+        }
+        Map<QName, String> otherAttributes = element.getOtherAttributes();
+        return otherAttributes == null ? null : otherAttributes.get(qName);
     }
 
     public boolean sameId(TDMNElement element, String href) {
