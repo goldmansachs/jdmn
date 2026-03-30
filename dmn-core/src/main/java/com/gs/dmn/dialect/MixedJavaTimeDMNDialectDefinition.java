@@ -20,6 +20,8 @@ import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.MixedJavaTimeDMNBaseDecision;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
+import com.gs.dmn.tck.TCKTestCasesToJavaJUnitTransformer;
+import com.gs.dmn.tck.TestCasesToNativeTransformer;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.DMNToNativeTransformer;
@@ -32,6 +34,7 @@ import com.gs.dmn.validation.DMNValidator;
 
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
@@ -53,6 +56,18 @@ public class MixedJavaTimeDMNDialectDefinition extends AbstractStandardDMNDialec
     public BasicDMNToJavaTransformer createBasicTransformer(DMNModelRepository repository, LazyEvaluationDetector lazyEvaluationDetector, InputParameters inputParameters) {
         return new BasicDMNToJavaTransformer(this, repository, lazyEvaluationDetector, inputParameters);
     }
+
+    //
+    // TestCases processor
+    //
+    @Override
+    public TestCasesToNativeTransformer createTestCasesToNativeTransformer(DMNValidator dmnValidator, DMNTransformer<TestCases> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, InputParameters inputParameters, BuildLogger logger) {
+        return new TCKTestCasesToJavaJUnitTransformer<>(this, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputModelPath, inputParameters, logger);
+    }
+
+    //
+    // TestCases processor
+    //
 
     //
     // DMN execution

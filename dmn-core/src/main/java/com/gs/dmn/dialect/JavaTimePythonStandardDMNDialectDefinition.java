@@ -20,6 +20,8 @@ import com.gs.dmn.feel.synthesis.type.StandardNativeTypeToPythonFactory;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.JavaTimeDMNBaseDecision;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
+import com.gs.dmn.tck.TCKTestCasesToPythonJUnitTransformer;
+import com.gs.dmn.tck.TestCasesToNativeTransformer;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.DMNToNativeTransformer;
 import com.gs.dmn.transformation.DMNToPythonTransformer;
@@ -31,6 +33,7 @@ import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
@@ -47,6 +50,14 @@ public class JavaTimePythonStandardDMNDialectDefinition extends AbstractStandard
     @Override
     public BasicDMNToJavaTransformer createBasicTransformer(DMNModelRepository repository, LazyEvaluationDetector lazyEvaluationDetector, InputParameters inputParameters) {
         return new BasicDMNToPythonTransformer(this, repository, lazyEvaluationDetector, inputParameters);
+    }
+
+    //
+    // TestCases processor
+    //
+    @Override
+    public TestCasesToNativeTransformer createTestCasesToNativeTransformer(DMNValidator dmnValidator, DMNTransformer<TestCases> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, InputParameters inputParameters, BuildLogger logger) {
+        return new TCKTestCasesToPythonJUnitTransformer<>(this, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputModelPath, inputParameters, logger);
     }
 
     //

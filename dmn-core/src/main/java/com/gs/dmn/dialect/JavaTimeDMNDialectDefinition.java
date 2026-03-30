@@ -20,6 +20,8 @@ import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.JavaTimeDMNBaseDecision;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
+import com.gs.dmn.tck.TCKTestCasesToJavaJUnitTransformer;
+import com.gs.dmn.tck.TestCasesToNativeTransformer;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.DMNToNativeTransformer;
@@ -30,6 +32,7 @@ import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
@@ -46,6 +49,14 @@ public class JavaTimeDMNDialectDefinition extends AbstractStandardDMNDialectDefi
     @Override
     public BasicDMNToJavaTransformer createBasicTransformer(DMNModelRepository repository, LazyEvaluationDetector lazyEvaluationDetector, InputParameters inputParameters) {
         return new BasicDMNToJavaTransformer(this, repository, lazyEvaluationDetector, inputParameters);
+    }
+
+    //
+    // TestCases processor
+    //
+    @Override
+    public TestCasesToNativeTransformer createTestCasesToNativeTransformer(DMNValidator dmnValidator, DMNTransformer<TestCases> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, InputParameters inputParameters, BuildLogger logger) {
+        return new TCKTestCasesToJavaJUnitTransformer<>(this, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputModelPath, inputParameters, logger);
     }
 
     //

@@ -26,6 +26,7 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
+import com.gs.dmn.tck.TestCasesToNativeTransformer;
 import com.gs.dmn.transformation.DMNToNativeTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.InputParameters;
@@ -34,6 +35,7 @@ import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 
+import java.nio.file.Path;
 import java.util.List;
 
 public interface DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
@@ -63,6 +65,11 @@ public interface DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, T
     DMNToNativeTransformer createDMNToNativeTransformer(DMNValidator dmnValidator, DMNTransformer<TEST> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, InputParameters inputParameters, BuildLogger logger);
 
     BasicDMNToJavaTransformer createBasicTransformer(DMNModelRepository repository, LazyEvaluationDetector lazyEvaluationDetector, InputParameters inputParameters);
+
+    //
+    // TestCases processors
+    //
+    TestCasesToNativeTransformer createTestCasesToNativeTransformer(DMNValidator dmnValidator, DMNTransformer<TEST> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, InputParameters inputParameters, BuildLogger logger);
 
     //
     // Execution engine

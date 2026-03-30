@@ -21,8 +21,10 @@ import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.signavio.feel.lib.MixedJavaTimeSignavioLib;
 import com.gs.dmn.signavio.runtime.MixedJavaTimeSignavioBaseDecision;
 import com.gs.dmn.signavio.testlab.TestLab;
+import com.gs.dmn.signavio.testlab.TestLabToJavaJUnitTransformer;
 import com.gs.dmn.signavio.transformation.SignavioDMNToJavaTransformer;
 import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMNToJavaTransformer;
+import com.gs.dmn.tck.TestCasesToNativeTransformer;
 import com.gs.dmn.transformation.DMNToNativeTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.InputParameters;
@@ -33,6 +35,7 @@ import com.gs.dmn.validation.DMNValidator;
 
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
@@ -53,6 +56,14 @@ public class MixedJavaTimeSignavioDMNDialectDefinition extends AbstractSignavioD
     @Override
     public BasicDMNToJavaTransformer createBasicTransformer(DMNModelRepository repository, LazyEvaluationDetector lazyEvaluationDetector, InputParameters inputParameters) {
         return new BasicSignavioDMNToJavaTransformer(this, repository, lazyEvaluationDetector, inputParameters);
+    }
+
+    //
+    // TestCases processor
+    //
+    @Override
+    public TestCasesToNativeTransformer createTestCasesToNativeTransformer(DMNValidator dmnValidator, DMNTransformer<TestLab> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, InputParameters inputParameters, BuildLogger logger) {
+        return new TestLabToJavaJUnitTransformer<>(this, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputModelPath, inputParameters, logger);
     }
 
     //
