@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class LocationInfo {
+public class ModelLocation {
     private final String namespace;
     private final String modelName;
     private final String modelId;
@@ -30,7 +30,7 @@ public class LocationInfo {
     @JsonIgnore
     private final String text;
 
-    public LocationInfo(String namespace, String modelName, String modelId, String elementName, String elementId) {
+    public ModelLocation(String namespace, String modelName, String modelId, String elementName, String elementId) {
         this.namespace = namespace;
         this.modelName = modelName;
         this.modelId = modelId;
@@ -76,5 +76,10 @@ public class LocationInfo {
 
     public String toText() {
         return text;
+    }
+
+    @Override
+    public String toString() {
+        return this.toText();
     }
 }

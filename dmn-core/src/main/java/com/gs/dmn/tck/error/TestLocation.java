@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.tck.error;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gs.dmn.tck.ast.TCKBaseElement;
 import com.gs.dmn.tck.ast.TestCases;
 import org.apache.commons.lang3.StringUtils;
@@ -22,26 +23,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class TestLocation {
-    private final TestCases testCases;
-    private final TCKBaseElement element;
-
-    private final String text;
-
-    public TestLocation(TestCases testCases, TCKBaseElement element) {
-        this.testCases = testCases;
-        this.element = element;
-
-        // Derive the textual representation
-        Map<String, String> parts = new LinkedHashMap<>();
-        addPart("testCasesName", testCases.getTestCasesName(), parts);
-        addPart("testCase", findTestCaseId(element), parts);
-        List<String> notEmptyParts = parts.entrySet().stream()
-                .filter(e -> StringUtils.isNotEmpty(e.getValue()))
-                .map(e -> String.format("%s = '%s'", e.getKey(), e.getValue())).collect(Collectors.toList());
-        this.text = notEmptyParts.isEmpty() ? "" : String.format("(%s)", String.join(", ", notEmptyParts));
-    }
-
-    private String findTestCaseId(TCKBaseElement element) {
+    private static String findTestCaseId(TCKBaseElement element) {
         while (element != null) {
             if (element instanceof com.gs.dmn.tck.ast.TestCase) {
                 return ((com.gs.dmn.tck.ast.TestCase) element).getId();
@@ -51,19 +33,49 @@ public class TestLocation {
         return null;
     }
 
-    public TestCases getTestCases() {
-        return testCases;
+    private final String testCasesName;
+    private final String testCasesId;
+
+    @JsonIgnore
+    private final String text;
+
+    public TestLocation(TestCases testCases, TCKBaseElement element) {
+        this(testCases.getTestCasesName(), findTestCaseId(element));
     }
 
-    public TCKBaseElement getElement() {
-        return element;
+    public TestLocation(String testCasesName, String testCasesId) {
+        this.testCasesName = testCasesName;
+        this.testCasesId = testCasesId;
+
+        // Derive the textual representation
+        Map<String, String> parts = new LinkedHashMap<>();
+        addPart("testCasesName", testCasesName, parts);
+        addPart("testCase", testCasesId, parts);
+        List<String> notEmptyParts = parts.entrySet().stream()
+                .filter(e -> StringUtils.isNotEmpty(e.getValue()))
+                .map(e -> String.format("%s = '%s'", e.getKey(), e.getValue())).collect(Collectors.toList());
+        this.text = notEmptyParts.isEmpty() ? "" : String.format("(%s)", String.join(", ", notEmptyParts));
     }
+
 
     private void addPart(String key, String value, Map<String, String> parts) {
         parts.put(key, value);
     }
 
+    public String getTestCasesName() {
+        return testCasesName;
+    }
+
+    public String getTestCasesId() {
+        return testCasesId;
+    }
+
     public String toText() {
         return text;
+    }
+
+    @Override
+    public String toString() {
+        return this.toText();
     }
 }

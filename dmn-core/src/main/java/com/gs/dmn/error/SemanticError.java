@@ -13,7 +13,7 @@
 package com.gs.dmn.error;
 
 public class SemanticError {
-    private final LocationInfo locationInfo;
+    private final ModelLocation modelLocation;
     private final SeverityLevel severityLevel;
     private final String errorMessage;
 
@@ -21,14 +21,14 @@ public class SemanticError {
         this(severityLevel, null, errorMessage);
     }
 
-    public SemanticError(SeverityLevel severityLevel, LocationInfo locationInfo, String errorMessage) {
-        this.locationInfo = locationInfo;
+    public SemanticError(SeverityLevel severityLevel, ModelLocation modelLocation, String errorMessage) {
+        this.modelLocation = modelLocation;
         this.severityLevel = severityLevel;
         this.errorMessage = errorMessage;
     }
 
-    public LocationInfo getLocationInfo() {
-        return locationInfo;
+    public ModelLocation getModelLocation() {
+        return modelLocation;
     }
 
     public SeverityLevel getSeverityLevel() {
@@ -40,10 +40,10 @@ public class SemanticError {
     }
 
     public String toText() {
-        if (locationInfo == null) {
+        if (modelLocation == null) {
             return String.format("[%s] %s", severityLevel.name(), errorMessage);
         } else {
-            return String.format("[%s] %s: %s", severityLevel.name(), locationInfo.toText(), errorMessage);
+            return String.format("[%s] %s: %s", severityLevel.name(), modelLocation.toText(), errorMessage);
         }
     }
 
