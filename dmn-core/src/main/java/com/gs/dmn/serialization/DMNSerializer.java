@@ -97,6 +97,10 @@ public abstract class DMNSerializer {
     }
 
     public void writeModel(TDefinitions definitions, File output) {
+        if (definitions == null) {
+            throw new DMNRuntimeException(String.format("Cannot write null DMN model '%s'", output.getAbsolutePath()));
+        }
+
         try (FileOutputStream fos = new FileOutputStream(output); OutputStreamWriter osw = new OutputStreamWriter(fos, this.inputParameters.getCharset())) {
             this.dmnMarshaller.marshal(definitions, osw);
         } catch (Exception e) {

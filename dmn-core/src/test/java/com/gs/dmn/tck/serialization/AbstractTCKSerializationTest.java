@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.tck.serialization;
 
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.TCKVersion;
 import com.gs.dmn.tck.TCKSerializer;
 import com.gs.dmn.tck.ast.InputNode;
@@ -25,6 +26,7 @@ import java.io.File;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class AbstractTCKSerializationTest extends AbstractFileTransformerTest {
     protected final TCKSerializer serializer = makeSerializer();
@@ -41,7 +43,7 @@ public abstract class AbstractTCKSerializationTest extends AbstractFileTransform
         File outputFile = File.createTempFile("jdmn-", "-tck");
         outputFile.deleteOnExit();
 
-        assertDoesNotThrow(() -> this.serializer.write(null, outputFile));
+        assertThrows(DMNRuntimeException.class, () -> this.serializer.write(null, outputFile));
 
         assertDoesNotThrow(() -> {
             TestCases testCases = new TestCases();

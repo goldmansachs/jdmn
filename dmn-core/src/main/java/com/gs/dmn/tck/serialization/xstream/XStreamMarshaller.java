@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.tck.serialization.xstream;
 
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.TCKVersion;
 import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
 import com.gs.dmn.tck.ast.TestCases;
@@ -73,9 +74,8 @@ public class XStreamMarshaller implements TCKMarshaller {
             }
             return unmarshal(tckVersion, secondStringReader);
         } catch (Exception e) {
-            LOGGER.error("Error unmarshalling TCK content from String.", e);
+            throw new DMNRuntimeException(String.format("Error unmarshalling TCK content from String.", e));
         }
-        return null;
     }
 
     @Override
@@ -84,9 +84,8 @@ public class XStreamMarshaller implements TCKMarshaller {
             String xml = buffer.lines().collect(Collectors.joining("\n"));
             return unmarshal(xml, validateSchema);
         } catch (Exception e) {
-            LOGGER.error("Error unmarshalling TCK content from Reader.", e);
+            throw new DMNRuntimeException(String.format("Error unmarshalling TCK content from Reader.", e));
         }
-        return null;
     }
 
     private TestCases unmarshal(TCKVersion inferTCKVersion, Reader secondStringReader) {
@@ -103,9 +102,8 @@ public class XStreamMarshaller implements TCKMarshaller {
             TCKVersion tckVersion = inferTCKVersion(testCases);
             return marshall(testCases, tckVersion);
         } else {
-            LOGGER.error("Error marshalling object {}", testCases);
+            throw new DMNRuntimeException(String.format("Error marshalling object {}", testCases));
         }
-        return null;
     }
 
     @Override
@@ -114,7 +112,7 @@ public class XStreamMarshaller implements TCKMarshaller {
             TCKVersion tckVersion = inferTCKVersion(testCases);
             marshall(testCases, output, tckVersion);
         } else {
-            LOGGER.error("Error marshalling object {}", testCases);
+            throw new DMNRuntimeException(String.format("Error marshalling object {}", testCases));
         }
     }
 
@@ -122,7 +120,7 @@ public class XStreamMarshaller implements TCKMarshaller {
         if (tckVersion == TCK_1) {
             return xStream1.marshal(o);
         } else {
-            return null;
+            throw new DMNRuntimeException(String.format("Error marshalling object %s for TCK version %s", o, tckVersion));
         }
     }
 

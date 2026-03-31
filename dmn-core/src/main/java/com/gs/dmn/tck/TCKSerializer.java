@@ -19,6 +19,8 @@ import com.gs.dmn.tck.serialization.TCKMarshaller;
 import com.gs.dmn.transformation.InputParameters;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class TCKSerializer {
     private final BuildLogger logger;
@@ -29,6 +31,16 @@ public abstract class TCKSerializer {
         this.logger = logger;
         this.marshaller = marshaller;
         this.inputParameters = inputParameters;
+    }
+
+    public List<TestCases> read(List<File> inputs) {
+        if (inputs == null || inputs.isEmpty()) {
+            return List.of();
+        }
+
+        List<TestCases> result = new ArrayList<>();
+        inputs.forEach(input -> result.add(read(input)));
+        return result;
     }
 
     public TestCases read(File input) {
@@ -53,6 +65,10 @@ public abstract class TCKSerializer {
     }
 
     public void write(TestCases testCases, File output) {
+        if (testCases == null) {
+            throw new DMNRuntimeException("Cannot write null TCK");
+        }
+
         try (FileOutputStream fos = new FileOutputStream(output); OutputStreamWriter osw = new OutputStreamWriter(fos, inputParameters.getCharset())) {
             write(testCases, osw);
         } catch (Exception e) {

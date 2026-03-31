@@ -16,6 +16,7 @@ import com.gs.dmn.ast.TDecision;
 import com.gs.dmn.ast.TDecisionRule;
 import com.gs.dmn.ast.TDecisionTable;
 import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
 import com.gs.dmn.serialization.xstream.extensions.test.*;
 import com.gs.dmn.transformation.AbstractFileTransformerTest;
@@ -26,6 +27,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class AbstractDMNSerializationTest extends AbstractFileTransformerTest {
     public static Map<String, Class<?>> EXTENSION_MAPPER = new LinkedHashMap<String, Class<?>>() {{
@@ -53,7 +55,7 @@ public abstract class AbstractDMNSerializationTest extends AbstractFileTransform
         File outputFile = File.createTempFile("jdmn-", "-dmn");
         outputFile.deleteOnExit();
 
-        assertDoesNotThrow(() -> this.dmnSerializer.writeModel(null, outputFile));
+        assertThrows(DMNRuntimeException.class, () -> this.dmnSerializer.writeModel(null, outputFile));
 
         assertDoesNotThrow(() -> {
             TDefinitions definitions = new TDefinitions();

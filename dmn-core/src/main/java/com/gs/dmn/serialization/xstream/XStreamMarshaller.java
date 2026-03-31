@@ -97,9 +97,8 @@ public class XStreamMarshaller implements DMNMarshaller {
             }
             return result;
         } catch (Exception e) {
-            LOGGER.error("Error unmarshalling DMN model from reader.", e);
+            throw new DMNRuntimeException(String.format("Error unmarshalling DMN model from reader.", e));
         }
-        return result;
     }
 
     private final com.gs.dmn.serialization.xstream.v1_1.XStreamMarshaller xStream11;
@@ -134,9 +133,8 @@ public class XStreamMarshaller implements DMNMarshaller {
             }
             return unmarshal(dmnVersion, secondStringReader);
         } catch (Exception e) {
-            LOGGER.error("Error unmarshalling DMN model from reader.", e);
+            throw new DMNRuntimeException(String.format("Error unmarshalling DMN model from reader.", e));
         }
-        return null;
     }
 
     @Override
@@ -145,9 +143,8 @@ public class XStreamMarshaller implements DMNMarshaller {
             String xml = buffer.lines().collect(Collectors.joining("\n"));
             return unmarshal(xml, validateSchema);
         } catch (Exception e) {
-            LOGGER.error("Error unmarshalling DMN model from reader.", e);
+            throw new DMNRuntimeException(String.format("Error unmarshalling DMN model from reader.", e));
         }
-        return null;
     }
 
     private TDefinitions unmarshal(DMNVersion inferDMNVersion, Reader secondStringReader) {
@@ -172,9 +169,8 @@ public class XStreamMarshaller implements DMNMarshaller {
             DMNVersion dmnVersion = inferDMNVersion(o);
             return marshall(o, dmnVersion);
         } else {
-            LOGGER.error("Error marshalling object {}", o);
+            throw new DMNRuntimeException(String.format("Error marshalling object {}", o));
         }
-        return null;
     }
 
     @Override
@@ -183,7 +179,7 @@ public class XStreamMarshaller implements DMNMarshaller {
             DMNVersion dmnVersion = inferDMNVersion(o);
             marshall(o, output, dmnVersion);
         } else {
-            LOGGER.error("Error marshalling object {}", o);
+            throw new DMNRuntimeException(String.format("Error marshalling object {}", o));
         }
     }
 
