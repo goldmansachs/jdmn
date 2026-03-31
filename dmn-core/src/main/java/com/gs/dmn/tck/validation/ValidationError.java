@@ -23,7 +23,20 @@ public class ValidationError {
         this.ruleName = ruleName;
     }
 
+    public TCKError getError() {
+        return error;
+    }
+
+    public String getRuleName() {
+        return ruleName;
+    }
+
     public String toText() {
         return String.format("[%s] %s", ruleName, error.toText());
+    }
+
+    @Override
+    public String toString() {
+        return toText();
     }
 }

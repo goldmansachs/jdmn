@@ -32,4 +32,9 @@ public class ValidationError {
     public String getRuleName() {
         return ruleName;
     }
+
+    @Override
+    public String toString() {
+        return toText();
+    }
 }
