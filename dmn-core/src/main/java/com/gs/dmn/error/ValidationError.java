@@ -21,16 +21,16 @@ public class ValidationError {
         this.ruleName = ruleName;
     }
 
-    public String toText() {
-        return String.format("[%s] %s", ruleName, error.toText());
-    }
-
     public SemanticError getError() {
         return error;
     }
 
     public String getRuleName() {
         return ruleName;
+    }
+
+    public String toText() {
+        return String.format("[%s] %s", ruleName, error.toText());
     }
 
     @Override
