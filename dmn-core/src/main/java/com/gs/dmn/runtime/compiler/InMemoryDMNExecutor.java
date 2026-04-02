@@ -32,6 +32,12 @@ public class InMemoryDMNExecutor {
         this.translator = translator;
     }
 
+    public TestRunResult execute(File inputFile, File outputFolder) throws Exception {
+        // DMN and TCK files are in the same folder
+        // Output is generated in the same folder
+        return execute(inputFile, inputFile, outputFolder, outputFolder);
+    }
+
     public TestRunResult execute(File inputModelFile, File inputTestFile, File outputSourceFolder, File outputTestFolder) throws Exception {
         // Translate DMN and TCK to Java, compile and run the tests
         Map<String, String> allSources = translate(inputModelFile, inputTestFile, outputSourceFolder, outputTestFolder);
@@ -51,24 +57,34 @@ public class InMemoryDMNExecutor {
         translator.translateDMN(inputModelFile, outputSourceFolder);
         translator.translateTCK(inputTestFile, outputTestFolder);
 
-        // Collect source code files
-        List<File> sources = new ArrayList<>();
-        deepCollectFiles(outputSourceFolder, this::isJavaFile, sources);
-
-        // Collect test code files
-        List<File> tests = new ArrayList<>();
-        deepCollectFiles(outputTestFolder, this::isJavaFile, tests);
-
         // Create a map with class name as key and source code as value for all sources and tests
         Map<String, String> allClassesMap = new HashMap<>();
-        collectCode(sources, allClassesMap);
-        collectCode(tests, allClassesMap);
+
+        // Collect source code files
+        collectJavaClasses(outputSourceFolder, allClassesMap);
+
+        // Collect test code files
+        if (outputSourceFolder != outputTestFolder) {
+            collectJavaClasses(outputTestFolder, allClassesMap);
+        }
 
         watch.stop();
         LOGGER.info("Translation executed in {}", watch);
         return allClassesMap;
     }
 
+    // Collects source code from the provided files and puts it in the map with class name as key and source code as value
+    private void collectJavaClasses(File outputFolder, Map<String, String> allClassesMap) throws IOException {
+        List<File> javaFiles = new ArrayList<>();
+        deepCollectFiles(outputFolder, this::isJavaFile, javaFiles);
+        for (File file : javaFiles) {
+            String className = file.getName().replace(".java", "");
+            String classSource = new String(Files.readAllBytes(file.toPath()));
+            allClassesMap.put(className, classSource);
+        }
+    }
+
+    // Collect Java files from folder
     private void deepCollectFiles(File file, java.util.function.Predicate<File> predicate, List<File> sources) {
         if (file.isDirectory()) {
             for (File child : file.listFiles()) {
@@ -105,14 +121,5 @@ public class InMemoryDMNExecutor {
         watch.stop();
         LOGGER.info("Test execution in {}", watch);
         return result;
-    }
-
-    // Collects source code from the provided files and puts it in the map with class name as key and source code as value
-    private void collectCode(List<File> sources, Map<String, String> allSources) throws IOException {
-        for (File file : sources) {
-            String className = file.getName().replace(".java", "");
-            String classSource = new String(Files.readAllBytes(file.toPath()));
-            allSources.put(className, classSource);
-        }
     }
 }
