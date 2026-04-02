@@ -28,7 +28,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class InMemoryDMNExecutorTest {
+class InMemoryTestCasesExecutorTest {
     @Test
     void testExecuteSeparateFolders() throws Exception {
         // Input path
@@ -59,17 +59,17 @@ class InMemoryDMNExecutorTest {
         runTests(translator, inputFile, outputFolder);
     }
 
-     private void runTests(DMNToJavaTranslator translator, File inputFile, File outputFolder) throws Exception {
+    private void runTests(DMNToJavaTranslator translator, File inputFile, File outputFolder) throws Exception {
          // Translate DMN and TCK to Java, compile and run the tests
-         TestRunResult result = new InMemoryDMNExecutor(translator).execute(inputFile, outputFolder);
+         TestRunResult result = new InMemoryTestCasesExecutor(translator).execute(inputFile, outputFolder);
 
          // Check results
          checkTestResults(result);
-     }
+    }
 
     private void runTests(DMNToJavaTranslator translator, File inputModelFile, File inputTestFile, File outputSourceFolder, File outputTestFolder) throws Exception {
         // Translate DMN and TCK to Java, compile and run the tests
-        TestRunResult result = new InMemoryDMNExecutor(translator).execute(inputModelFile, inputTestFile, outputSourceFolder, outputTestFolder);
+        TestRunResult result = new InMemoryTestCasesExecutor(translator).execute(inputModelFile, inputTestFile, outputSourceFolder, outputTestFolder);
 
         // Check results
         checkTestResults(result);
@@ -91,8 +91,7 @@ class InMemoryDMNExecutorTest {
                 .withLazyEvaluationDetector(new SparseDecisionDetector());
         DMNToNativeTransformer dmnTranslator = dmnTranslatorBuilder.buildDMNTranslator();
         TestCasesToNativeTransformer tckTranslator = dmnTranslatorBuilder.buildTCKTranslator(inputModelFile);
-        DMNToJavaTranslator translator = new DMNToJavaTranslator(dmnTranslator, tckTranslator);
-        return translator;
+        return new DMNToJavaTranslator(dmnTranslator, tckTranslator);
     }
 
     private void checkTestResults(TestRunResult result) {

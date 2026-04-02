@@ -21,14 +21,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.*;
 
-public class InMemoryDMNExecutor {
-    private static final Logger LOGGER = LoggerFactory.getLogger(InMemoryDMNExecutor.class);
+public class InMemoryTestCasesExecutor {
+    private static final Logger LOGGER = LoggerFactory.getLogger(InMemoryTestCasesExecutor.class);
 
     private final DMNToJavaTranslator translator;
     private final InMemoryJavaCompiler compiler = new InMemoryJavaCompiler();
     private final InMemoryJUnitRunner junit5Runner = new InMemoryJUnitRunner();
 
-    public InMemoryDMNExecutor(DMNToJavaTranslator translator) {
+    public InMemoryTestCasesExecutor(DMNToJavaTranslator translator) {
         this.translator = translator;
     }
 
