@@ -10,10 +10,17 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.tck.validation;
+package com.gs.dmn.maven;
 
-import com.gs.dmn.tck.ast.TestCases;
-import com.gs.dmn.validation.TestValidator;
+import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.signavio.testlab.TestLab;
+import com.gs.dmn.signavio.testlab.TestLabValidator;
 
-public interface TCKValidator extends TestValidator<TestCases> {
+@SuppressWarnings("CanBeFinal")
+public abstract class AbstractTestLabToJunitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestToJunitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> {
+
+    @Override
+    protected TestLabValidator makeTestValidator(String[] testValidatorClassNames, BuildLogger logger) {
+        return new TestLabValidator();
+    }
 }

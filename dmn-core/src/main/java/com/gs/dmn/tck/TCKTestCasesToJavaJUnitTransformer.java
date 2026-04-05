@@ -29,6 +29,7 @@ import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
+import com.gs.dmn.validation.TestValidator;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.StopWatch;
 
@@ -48,8 +49,8 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
     private final TCKSerializer tckSerializer;
     private final Path inputModelPath;
 
-    public TCKTestCasesToJavaJUnitTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> dialectDefinition, DMNValidator dmnValidator, DMNTransformer<TestCases> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, InputParameters inputParameters, BuildLogger logger) {
-        super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
+    public TCKTestCasesToJavaJUnitTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> dialectDefinition, DMNValidator dmnValidator, TestValidator<TestCases> testCasesValidator, DMNTransformer<TestCases> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, InputParameters inputParameters, BuildLogger logger) {
+        super(dialectDefinition, dmnValidator, testCasesValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
         this.inputModelPath = inputModelPath;
         this.tckSerializer = new XMLTCKSerializer(logger, inputParameters);
     }
@@ -74,6 +75,12 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
     }
 
     @Override
+    protected String getInputFileType() {
+        return "TCK";
+    }
+
+
+    @Override
     protected boolean shouldTransformFile(File inputFile) {
         return isTCKFile(inputFile, inputParameters.getTckFileExtension());
     }
@@ -95,8 +102,9 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
             repository = pair.getLeft();
             testCasesList = pair.getRight();
 
-            // Validate the models
-            handleErrors(this.dmnValidator.validate(repository));
+            // Validate the models and test cases
+            handleModelErrors(this.dmnValidator.validate(repository));
+            handleTestErrors(this.testeCasesValidator.validate(testCasesList));
 
             // Translate the test cases to the native platform
             BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer = this.dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);

@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.tck.validation;
 
+import com.gs.dmn.tck.ast.TestCases;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -33,7 +34,7 @@ public class DefaultTCKValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateDefinitionsWithDuplicatesError() {
         List<String> expectedErrors = Arrays.asList(
-                "[ERROR] (testCasesName = '0004-lending-test-01.xml'): The id of a TestCase must be unique. Found duplicates for '001'.",
+                "[ERROR] (testCasesName = '0004-lending-test-01.xml'): The attribute(s) 'id' of a TestCase must be unique. Found duplicates for '001'.",
                 "[ERROR] (testCasesName = '0004-lending-test-01.xml', testCase = '001'): The name of a component must be unique. Found duplicates for 'Age'.",
                 "[ERROR] (testCasesName = '0004-lending-test-01.xml', testCase = '001'): The name of a component must be unique. Found duplicates for 'Income'.",
                 "[ERROR] (testCasesName = '0004-lending-test-01.xml', testCase = '001'): The name of a component must be unique. Found duplicates for 'CreditScore'."
@@ -50,15 +51,15 @@ public class DefaultTCKValidatorTest extends AbstractValidatorTest {
                 "[ERROR] (testCasesName = '0004-lending-test-01.xml', testCase = '001'): Missing name of resultNode in testCase with id '001'",
                 "[ERROR] (testCasesName = '0004-lending-test-01.xml', testCase = '003'): Missing invocableName of testCase with id '003'",
                 "[ERROR] (testCasesName = '0004-lending-test-01.xml', testCase = '004'): Invalid type of testCase with id '004'. Expected type is bkm or decisionService when invocableName is provided.",
-                "[ERROR] (testCasesName = '0004-lending-test-01.xml'): The name of a InputNode must be unique. Found duplicates for 'Routing'.",
-                "[ERROR] (testCasesName = '0004-lending-test-01.xml'): The name of a ResultNode must be unique. Found duplicates for 'Routing'."
+                "[ERROR] (testCasesName = '0004-lending-test-01.xml'): The attribute(s) 'namespace, name' of a InputNode must be unique. Found duplicates for 'null, Routing'.",
+                "[ERROR] (testCasesName = '0004-lending-test-01.xml'): The attribute(s) 'namespace, name' of a ResultNode must be unique. Found duplicates for 'null, Routing'."
         );
         validate(validator, resource("dmn/input/1.1/test-tck.xml"), expectedErrors);
     }
 
     @Test
     public void testValidateDefinitionsWhenNull() {
-        List<ValidationError> actualErrors = validator.validate(null);
+        List<ValidationError> actualErrors = validator.validate((TestCases) null);
         assertTrue(actualErrors.isEmpty());
     }
 }

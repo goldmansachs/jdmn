@@ -15,11 +15,12 @@ package com.gs.dmn.signavio.testlab;
 import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.error.ValidationError;
+import com.gs.dmn.validation.TestValidator;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestLabValidator {
+public class TestLabValidator implements TestValidator<TestLab> {
     private static final String RULE_NAME = "test-lab-validator";
 
     public List<ValidationError> validate(TestLab testLab) {

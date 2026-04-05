@@ -15,15 +15,15 @@ package com.gs.dmn.tck.validation;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
+import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.tck.ast.*;
 import com.gs.dmn.tck.ast.visitor.TraversalVisitor;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class DefaultTCKValidator extends SimpleTCKValidator {
     public DefaultTCKValidator() {
@@ -131,8 +131,7 @@ class DefaultTCKValidatorVisitor extends TraversalVisitor<ValidationContext> {
         }
         // The id of a test case must be unique
         validateUnique(
-                new ArrayList<>(element.getTestCase()), "TestCase", "id",
-                TestCase::getId, null, context
+                new ArrayList<>(element.getTestCase()), "TestCase", Arrays.asList(new Pair<>("id", TestCase::getId)), null, context
         );
     }
 
@@ -153,13 +152,19 @@ class DefaultTCKValidatorVisitor extends TraversalVisitor<ValidationContext> {
             this.validator.addValidationError(context, element, errorMessage);
         }
         // Validate that the input nodes and result nodes have unique names
-        validateUnique(
-                new ArrayList<>(element.getInputNode()), "InputNode", "name",
-                InputNode::getName, null, context
+        List<Pair<String, Function<InputNode, String>>> inputNodeKey = Arrays.asList(
+                new Pair<>("namespace", InputNode::getNamespace),
+                new Pair<>("name", InputNode::getName)
         );
         validateUnique(
-                new ArrayList<>(element.getResultNode()), "ResultNode", "name",
-                ResultNode::getName, null, context
+                new ArrayList<>(element.getInputNode()), "InputNode", inputNodeKey, null, context
+        );
+        List<Pair<String, Function<ResultNode, String>>> resultNodeKey = Arrays.asList(
+                new Pair<>("namespace", ResultNode::getNamespace),
+                new Pair<>("name", ResultNode::getName)
+        );
+        validateUnique(
+                new ArrayList<>(element.getResultNode()), "ResultNode", resultNodeKey, null, context
         );
     }
 
@@ -205,15 +210,16 @@ class DefaultTCKValidatorVisitor extends TraversalVisitor<ValidationContext> {
         }
     }
 
-    protected <T> void validateUnique(List<T> elements, String elementType, String property, Function<T, String> accessor, String errorMessage, ValidationContext context) {
+    protected <T> void validateUnique(List<T> elements, String elementType, List<Pair<String, Function<T, String>>> compositeKey, String errorMessage, ValidationContext context) {
+        String keyName = compositeKey.stream().map(Pair::getLeft).collect(Collectors.joining(", "));
         if (errorMessage == null) {
-            errorMessage = String.format("The %s of a %s must be unique.", property, elementType);
+            errorMessage = String.format("The attribute(s) '%s' of a %s must be unique.", keyName, elementType);
         }
 
         // Create a map
         Map<String, List<T>> map = new LinkedHashMap<>();
         for (T element : elements) {
-            String key = accessor.apply(element);
+            String key = compositeKey.stream().map(p -> p.getRight().apply(element)).collect(Collectors.joining(", "));
             if (key != null) {
                 List<T> list = map.get(key);
                 if (list == null) {
@@ -252,5 +258,4 @@ class DefaultTCKValidatorVisitor extends TraversalVisitor<ValidationContext> {
             names.add(name);
         }
     }
-
 }

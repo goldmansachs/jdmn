@@ -36,7 +36,7 @@ public class CompositeTCKValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateEmptyRepo() {
         List<String> expectedErrors = Collections.emptyList();
-        List<ValidationError> actualErrors = validator.validate(null);
+        List<ValidationError> actualErrors = validator.validate((TestCases) null);
         checkErrors(validator.ruleName(), expectedErrors, actualErrors);
     }
 

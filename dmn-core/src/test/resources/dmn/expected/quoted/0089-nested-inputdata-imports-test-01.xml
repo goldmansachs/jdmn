@@ -4,7 +4,7 @@
   <labels>
     <label>Compliance Level 3</label>
   </labels>
-  <testCase id="001" type="decision" invocableName="Evaluation DS">
+  <testCase id="001" type="decision">
     <description>Nested imports of InputData following GITHUB DMN TCK 274</description>
     <inputNode name="Model B">
       <component name="modelA">

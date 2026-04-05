@@ -50,11 +50,4 @@ public abstract class AbstractValidatorTest extends AbstractTest {
             assertEquals(expected, actual, "Failed at index " + i);
         }
     }
-
-    protected void checkXSDErrors(List<String> expectedErrors, List<String> actualErrors) {
-        assertEquals(expectedErrors.size(), actualErrors.size());
-        for (int i = 0; i < actualErrors.size(); i++) {
-            assertEquals(expectedErrors.get(i), actualErrors.get(i), "Failed at index " + i);
-        }
-    }
 }

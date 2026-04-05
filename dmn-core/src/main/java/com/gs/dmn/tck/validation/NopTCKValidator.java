@@ -13,7 +13,15 @@
 package com.gs.dmn.tck.validation;
 
 import com.gs.dmn.tck.ast.TestCases;
-import com.gs.dmn.validation.TestValidator;
 
-public interface TCKValidator extends TestValidator<TestCases> {
+import java.util.List;
+
+public class NopTCKValidator extends SimpleTCKValidator {
+    public NopTCKValidator() {
+    }
+
+    @Override
+    public List<ValidationError> validate(TestCases testCases) {
+        return List.of();
+    }
 }

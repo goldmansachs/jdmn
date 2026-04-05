@@ -16,13 +16,13 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.signavio.testlab.TestLab;
-import com.gs.dmn.signavio.testlab.TestLabToJavaJUnitTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.FileTransformer;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
+import com.gs.dmn.validation.TestValidator;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -32,7 +32,7 @@ import java.io.File;
 
 @SuppressWarnings("CanBeFinal")
 @Mojo(name = "testlab-to-java", defaultPhase = LifecyclePhase.GENERATE_TEST_SOURCES, configurator = "dmn-mojo-configurator")
-public class TestLabToJavaJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestToJunitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> {
+public class TestLabToJavaJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestLabToJunitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     @Parameter(required = true, defaultValue = "com.gs.dmn.signavio.dialect.JavaTimeSignavioDMNDialectDefinition")
     public String dmnDialect;
 
@@ -67,10 +67,10 @@ public class TestLabToJavaJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
     }
 
     @Override
-    protected FileTransformer makeTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> dmnDialect, DMNValidator dmnValidator, DMNTransformer<TestLab> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, InputParameters inputParameters, BuildLogger logger) {
-        FileTransformer transformer = new TestLabToJavaJUnitTransformer<>(
-                dmnDialect,
+    protected FileTransformer makeTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> dmnDialect, DMNValidator dmnValidator, TestValidator<TestLab> testCasesValidator, DMNTransformer<TestLab> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, InputParameters inputParameters, BuildLogger logger) throws Exception {
+        return dmnDialect.createTestCasesToNativeTransformer(
                 dmnValidator,
+                makeTestValidator(new String[]{}, logger),
                 dmnTransformer,
                 templateProvider,
                 lazyEvaluationDetector,
@@ -79,6 +79,5 @@ public class TestLabToJavaJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
                 makeInputParameters(),
                 logger
         );
-        return transformer;
     }
 }

@@ -14,6 +14,7 @@ package com.gs.dmn.transformation;
 
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.validation.TestValidator;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -47,6 +48,8 @@ public abstract class AbstractTestCasesTransformerTest<NUMBER, DATE, TIME, DATE_
         }
         return inputParameters;
     }
+
+    protected abstract TestValidator<TEST> makeTestCasesValidator(BuildLogger logger);
 
     protected abstract FileTransformer makeTransformer(Path inputModelPath, InputParameters inputParameters, BuildLogger logger);
 }

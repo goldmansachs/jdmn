@@ -12,14 +12,7 @@
  */
 package com.gs.dmn.tck.error;
 
-import com.gs.dmn.ast.*;
-import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.error.ModelLocation;
-import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.error.SeverityLevel;
-import com.gs.dmn.feel.DMNExpressionLocation;
-import com.gs.dmn.feel.FEELExpressionLocation;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
 public class ErrorFactory {
     private ErrorFactory() {
@@ -28,80 +21,6 @@ public class ErrorFactory {
     //
     // Factory methods for SemanticErrors
     //
-    public static SemanticError makeDMNError(com.gs.dmn.feel.ModelLocation modelLocation, String errorMessage) {
-        ModelLocation location = makeLocation(modelLocation);
-        return new SemanticError(SeverityLevel.ERROR, location, errorMessage);
-    }
-
-    public static SemanticError makeDMNExpressionError(DMNExpressionLocation location, String errorMessage) {
-        TExpression expression = location.getExpression();
-        String expressionText = expressionDescription(expression);
-        return makeExpressionError(location, expressionText, errorMessage);
-    }
-
-    public static SemanticError makeELExpressionError(FEELExpressionLocation location, String errorMessage) {
-        Expression<Type> expression = location.getExpression();
-        String expressionText = expressionDescription(expression);
-        return makeExpressionError(location, expressionText, errorMessage);
-    }
-
-    private static SemanticError makeExpressionError(com.gs.dmn.feel.ModelLocation modelLocation, String expressionText, String errorMessage) {
-        ModelLocation locationInfo = makeLocation(modelLocation);
-
-        // Add expression to error message
-        String finalErrorMessage = String.format("%s for expression '%s'", errorMessage, expressionText);
-        return new SemanticError(SeverityLevel.ERROR, locationInfo, finalErrorMessage);
-    }
-
-    public static SemanticError makeIfError(com.gs.dmn.feel.ModelLocation location, Type thenType, Type elseType) {
-        String errorMessage = String.format("Types of then and else branches are incompatible, found '%s' and '%s'", thenType, elseType);
-        return makeDMNError(location, errorMessage);
-    }
-
-    // DMN location of the error
-    public static ModelLocation makeLocation(com.gs.dmn.feel.ModelLocation location) {
-        if (location == null) {
-            return null;
-        }
-
-        TDefinitions definitions = location.getModel();
-        TDMNElement element = location.getElement();
-        if (definitions == null && element == null) {
-            return null;
-        }
-
-        // Calculate model coordinates
-        String namespace = null;
-        String modelName = null;
-        String modelId = null;
-        if (definitions != null) {
-            namespace = definitions.getNamespace();
-            modelName = definitions.getName();
-            modelId = definitions.getId();
-        }
-        // Calculate element coordinates
-        String elementName = null;
-        String elementId = null;
-        if (element != null) {
-            elementId = element.getId();
-        }
-        if (element instanceof TNamedElement) {
-            elementName = ((TNamedElement) element).getName();
-        }
-
-        return new ModelLocation(namespace, modelName, modelId, elementName, elementId);
-    }
-
-    private static String expressionDescription(Object expression) {
-        if (expression == null) {
-            return null;
-        } else if (expression instanceof TLiteralExpression) {
-            return ((TLiteralExpression) expression).getText();
-        } else {
-            return expression.toString();
-        }
-    }
-
     public static TCKError makeTCKError(TestLocation testLocation, SeverityLevel level, String errorMessage) {
         return new TCKError(level, testLocation, errorMessage);
     }

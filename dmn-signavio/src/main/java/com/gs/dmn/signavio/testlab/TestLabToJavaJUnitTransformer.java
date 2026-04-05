@@ -31,6 +31,7 @@ import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
+import com.gs.dmn.validation.TestValidator;
 import org.apache.commons.lang3.time.StopWatch;
 
 import java.io.File;
@@ -45,13 +46,19 @@ import static com.gs.dmn.signavio.testlab.TestLabSerializer.isTestLabFile;
 
 public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestCasesToJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> {
     private final TestLabSerializer testLabReader = new TestLabSerializer();
-    private final TestLabValidator testLabValidator = new TestLabValidator();
+    private final TestLabValidator testLabValidator;
 
     private final Path inputModelPath;
 
-    public TestLabToJavaJUnitTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> dialectDefinition, DMNValidator dmnValidator, DMNTransformer<TestLab> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, InputParameters inputParameters, BuildLogger logger) {
-        super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
+    public TestLabToJavaJUnitTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> dialectDefinition, DMNValidator dmnValidator, TestValidator<TestLab> testCasesValidator, DMNTransformer<TestLab> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, InputParameters inputParameters, BuildLogger logger) {
+        super(dialectDefinition, dmnValidator, testCasesValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
         this.inputModelPath = inputModelPath;
+        this.testLabValidator = (TestLabValidator) testCasesValidator;
+    }
+
+    @Override
+    protected String getInputFileType() {
+        return "TestLab";
     }
 
     @Override
@@ -78,8 +85,8 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
             testLabList = pair.getRight();
 
             // Validate the models and test cases
-            handleErrors(this.dmnValidator.validate(repository));
-            handleErrors(validateTestCases(testLabList));
+            handleModelErrors(this.dmnValidator.validate(repository));
+            handleModelErrors(validateTestCases(testLabList));
 
             // Translate the test cases to the native platform
             BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer = this.dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);

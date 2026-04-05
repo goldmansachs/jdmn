@@ -26,7 +26,10 @@ import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends TCKValueProcessor<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
@@ -133,7 +136,11 @@ public class TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     }
 
     protected void sortParameters(List<Pair<String, String>> parameters) {
-        parameters.sort(Comparator.comparing(Pair::getLeft));
+        parameters.sort((p1, p2) -> {
+            String left1 = p1 == null ? "" : p1.getLeft();
+            String left2 = p2 == null ? "" : p2.getLeft();
+            return left1 == null ? +1 : left2 == null ? -1 : left1.compareTo(left2);
+        });
     }
 
     private boolean isNumber(Object value, Type type) {

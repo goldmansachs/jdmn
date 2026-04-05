@@ -38,6 +38,6 @@ public abstract class AbstractTestLabToJavaJUnitTransformerTest extends Abstract
 
     @Override
     protected FileTransformer makeTransformer(Path inputModelPath, InputParameters inputParameters, BuildLogger logger) {
-        return new TestLabToJavaJUnitTransformer<>(makeDialectDefinition(), makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, logger), makeTypeDeserializationConfigurer(logger), inputModelPath, inputParameters, logger);
+        return new TestLabToJavaJUnitTransformer<>(makeDialectDefinition(), makeDMNValidator(logger), makeTestCasesValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, logger), makeTypeDeserializationConfigurer(logger), inputModelPath, inputParameters, logger);
     }
 }

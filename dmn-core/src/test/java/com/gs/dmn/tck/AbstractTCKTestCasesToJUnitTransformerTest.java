@@ -17,6 +17,8 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.tck.ast.TestCases;
+import com.gs.dmn.tck.validation.NopTCKValidator;
+import com.gs.dmn.tck.validation.TCKValidator;
 import com.gs.dmn.transformation.*;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
@@ -60,6 +62,11 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest<NUMBER, DATE, T
     @Override
     protected DMNValidator makeDMNValidator(BuildLogger logger) {
         return new NopDMNValidator();
+    }
+
+    @Override
+    protected TCKValidator makeTestCasesValidator(BuildLogger logger) {
+        return new NopTCKValidator();
     }
 
     @Override

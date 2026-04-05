@@ -38,6 +38,11 @@ public abstract class AbstractTestLabToJUnitTransformerTest<NUMBER, DATE, TIME, 
     }
 
     @Override
+    protected TestLabValidator makeTestCasesValidator(BuildLogger logger) {
+        return new TestLabValidator();
+    }
+
+    @Override
     protected DMNTransformer<TestLab> makeDMNTransformer(BuildLogger logger) {
         return new NopDMNTransformer<>();
     }

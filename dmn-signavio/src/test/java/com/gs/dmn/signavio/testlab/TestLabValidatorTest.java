@@ -29,7 +29,7 @@ public class TestLabValidatorTest {
 
     @Test
     public void testValidateWhenNull() {
-        List<ValidationError> errors = validator.validate(null);
+        List<ValidationError> errors = validator.validate((TestLab) null);
         assertEquals(List.of("[test-lab-validator] [ERROR] Missing or empty TestLab"), toText(errors));
     }
 

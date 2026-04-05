@@ -11,14 +11,14 @@
     <!-- A uses decision002 -->
     <!-- We expect the decision002 from Model B to be the resolved one -->
 
-<!--    <testCase id="001">-->
-<!--        <description>multiple impoprts - will not import a decision with name conflict</description>-->
-<!--        <resultNode name="decision001" type="decision">-->
-<!--            <expected>-->
-<!--                <value xsi:type="xsd:string">model_b_decision002</value>-->
-<!--            </expected>-->
-<!--        </resultNode>-->
-<!--    </testCase>-->
+    <testCase id="001">
+        <description>multiple imports - will not import a decision with name conflict</description>
+        <resultNode name="decision001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">model_b_decision002</value>
+            </expected>
+        </resultNode>
+    </testCase>
 
 
 </testCases>

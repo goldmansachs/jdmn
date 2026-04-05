@@ -73,6 +73,12 @@ class DefaultTransformer extends AbstractFileTransformer {
     }
 
     @Override
+    protected String getInputFileType() {
+        // NOP transformer for testing
+        return "";
+    }
+
+    @Override
     protected boolean shouldTransformFile(File inputFile) {
         return false;
     }

@@ -38,7 +38,7 @@ public abstract class AbstractFileTransformer implements FileTransformer {
         List<File> files = new ArrayList<>();
         collectFiles(inputPath, files);
         if (files.isEmpty()) {
-            logger.warn("Cannot find files to transform in " + inputPath.toFile().getAbsolutePath());
+            logger.warn(String.format("Cannot find %s files to transform in %s", getInputFileType(), inputPath.toFile().getAbsolutePath()));
         } else {
             transformFiles(files, inputPath.toFile(), outputPath);
         }
@@ -101,6 +101,8 @@ public abstract class AbstractFileTransformer implements FileTransformer {
             throw new DMNRuntimeException(String.format("Cannot compute relative path for parent '%s' and child '%s'", parentPath, childPath));
         }
     }
+
+    protected abstract String getInputFileType();
 
     protected abstract boolean shouldTransformFile(File inputFile);
 

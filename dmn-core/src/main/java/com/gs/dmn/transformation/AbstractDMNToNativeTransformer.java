@@ -57,6 +57,11 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
     }
 
     @Override
+    protected String getInputFileType() {
+        return "DMN";
+    }
+
+    @Override
     protected boolean shouldTransformFile(File inputFile) {
         return isDMNFile(inputFile, inputParameters.getDmnFileExtension());
     }
@@ -74,7 +79,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         this.dmnTransformer.transform(repository);
 
         // Validate the models
-        handleErrors(this.dmnValidator.validate(repository));
+        handleModelErrors(this.dmnValidator.validate(repository));
 
         // Translate the models to the native platform
         BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer = this.dialectDefinition.createBasicTransformer(repository, this.lazyEvaluationDetector, this.inputParameters);
