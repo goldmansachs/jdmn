@@ -16,8 +16,8 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.error.SemanticErrorException;
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.tck.ast.TestCases;
@@ -43,6 +43,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import static com.gs.dmn.error.DMNErrorHandler.handleError;
 import static com.gs.dmn.serialization.DMNConstants.isTCKFile;
 
 public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestCasesToJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
@@ -79,7 +80,6 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
         return "TCK";
     }
 
-
     @Override
     protected boolean shouldTransformFile(File inputFile) {
         return isTCKFile(inputFile, inputParameters.getTckFileExtension());
@@ -87,34 +87,33 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Override
     protected void transformFiles(List<File> files, File rootFile, Path outputPath) {
-        try {
-            StopWatch watch = new StopWatch();
-            watch.start();
+        StopWatch watch = new StopWatch();
+        watch.start();
 
-            // Read the models
-            DMNModelRepository repository = readModels(inputModelPath.toFile());
+        // Read the models
+        DMNModelRepository repository = readModels(inputModelPath.toFile());
 
-            // Read the test cases
-            List<TestCases> testCasesList = readTestCases(files);
+        // Read the test cases
+        List<TestCases> testCasesList = readTestCases(files);
 
-            // Apply the DMN transformation
-            Pair<DMNModelRepository, List<TestCases>> pair = dmnTransformer.transform(repository, testCasesList);
-            repository = pair.getLeft();
-            testCasesList = pair.getRight();
+        // Apply the DMN transformation
+        Pair<DMNModelRepository, List<TestCases>> pair = dmnTransformer.transform(repository, testCasesList);
+        repository = pair.getLeft();
+        testCasesList = pair.getRight();
 
-            // Validate the models and test cases
-            handleModelErrors(this.dmnValidator.validate(repository));
-            handleTestErrors(this.testeCasesValidator.validate(testCasesList));
+        // Apply the DMN transformation
+        this.dmnTransformer.transform(repository);
 
-            // Translate the test cases to the native platform
-            BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer = this.dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);
-            transformTestCases(testCasesList, basicTransformer, outputPath);
+        // Validate the models and test cases
+        handleModelErrors(this.dmnValidator.validate(repository));
+        handleTestErrors(this.testeCasesValidator.validate(testCasesList));
 
-            watch.stop();
-            logger.info("TCK processing time: " + watch);
-        } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Error during transforming TCK tests in %s.", rootFile.getName()), e);
-        }
+        // Translate the test cases to the native platform
+        BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer = this.dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);
+        transformTestCases(testCasesList, basicTransformer, outputPath);
+
+        watch.stop();
+        logger.info("TCK processing time: " + watch);
     }
 
     private List<TestCases> readTestCases(List<File> files) {
@@ -162,7 +161,7 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
             // Process template
             this.templateProcessor.processTemplate(baseTemplatePath, templateName, params, outputFile, true);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot process template '%s' for testCases of '%s'", templateName, testCases.getModelName()), e);
+            throw handleError(String.format("Cannot process template '%s' for testCases of '%s'", templateName, testCases.getModelName()), e);
         }
     }
 
@@ -171,7 +170,7 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
         if (!StringUtils.isBlank(testCasesName)) {
             return testClassName(testCasesName, dmnTransformer);
         } else {
-            throw new DMNRuntimeException(String.format("Missing TestCases name when testing model '%s'", testCases.getModelName()));
+            throw new SemanticErrorException(String.format("Missing TestCases name when testing model '%s'", testCases.getModelName()));
         }
     }
 

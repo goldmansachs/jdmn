@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.runtime.compiler;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,25 +76,28 @@ public class InMemoryTestCasesExecutor {
 
     // Collects source code from the provided files and puts it in the map with class name as key and source code as value
     private void collectJavaClasses(File outputFolder, Map<String, String> allClassesMap) throws IOException {
-        List<File> javaFiles = new ArrayList<>();
-        deepCollectFiles(outputFolder, this::isJavaFile, javaFiles);
-        for (File file : javaFiles) {
-            String className = file.getName().replace(".java", "");
-            String classSource = new String(Files.readAllBytes(file.toPath()));
-            allClassesMap.put(className, classSource);
+        if (outputFolder != null && outputFolder.listFiles() != null) {
+            deepCollectClasses(Arrays.asList(outputFolder.listFiles()), "", this::isJavaFile, allClassesMap);
         }
     }
 
-    // Collect Java files from folder
-    private void deepCollectFiles(File file, java.util.function.Predicate<File> predicate, List<File> sources) {
+    private void deepCollectClasses(List<File> files, String currentPackage, java.util.function.Predicate<File> predicate, Map<String, String> allClassesMap) throws IOException {
+        if (files != null) {
+            for (File file : files) {
+                deepCollectClasses(file, currentPackage, predicate, allClassesMap);
+            }
+        }
+    }
+
+    private void deepCollectClasses(File file, String currentPackage, java.util.function.Predicate<File> predicate, Map<String, String> allClassesMap) throws IOException {
         if (file.isDirectory()) {
-            for (File child : file.listFiles()) {
-                deepCollectFiles(child, predicate, sources);
-            }
-        } else {
-            if (predicate.test(file)) {
-                sources.add(file);
-            }
+            String childPackage = currentPackage.isEmpty() ? file.getName() : currentPackage + "." + file.getName();
+            deepCollectClasses(Arrays.asList(file.listFiles()), childPackage, predicate, allClassesMap);
+        } else if (predicate.test(file)) {
+            String className = file.getName().replace(".java", "");
+            String classQName = StringUtils.isEmpty(currentPackage) ? className : currentPackage + "." + className;
+            String classSource = new String(Files.readAllBytes(file.toPath()));
+            allClassesMap.put(classQName, classSource);
         }
     }
 

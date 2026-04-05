@@ -19,6 +19,7 @@ import com.gs.dmn.feel.analysis.semantics.type.FEELType;
 import com.gs.dmn.serialization.DMNVersion;
 
 import javax.xml.namespace.QName;
+import java.util.Objects;
 
 public class QualifiedName {
     public static String toName(QName qName) {
@@ -56,7 +57,7 @@ public class QualifiedName {
             }
             // Check the types defined in the model
             for (TItemDefinition itemDefinition: model.getItemDefinition()) {
-                if (itemDefinition.getName().equals(qName)) {
+                if (Objects.equals(itemDefinition.getName(), qName)) {
                     return new QualifiedName(null, qName);
                 }
             }

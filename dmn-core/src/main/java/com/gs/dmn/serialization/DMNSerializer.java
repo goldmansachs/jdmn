@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static com.gs.dmn.error.DMNErrorHandler.handleError;
+
 public abstract class DMNSerializer {
 
     private final BuildLogger logger;
@@ -84,7 +86,7 @@ public abstract class DMNSerializer {
             this.logger.info("DMN read.");
             return definitions;
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.getAbsolutePath()), e);
+            throw handleError(String.format("Cannot read DMN from '%s'", input.getAbsolutePath()), e);
         }
     }
 
@@ -92,7 +94,7 @@ public abstract class DMNSerializer {
         try {
             return transform(this.dmnMarshaller.unmarshal(input, this.inputParameters.isXsdValidation()));
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.toString()), e);
+            throw handleError(String.format("Cannot read DMN from '%s'", input.toString()), e);
         }
     }
 
@@ -136,5 +138,4 @@ public abstract class DMNSerializer {
             throw new DMNRuntimeException(String.format("'%s' is not supported", definitions.getClass()));
         }
     }
-
 }

@@ -12,16 +12,17 @@
  */
 package com.gs.dmn.runtime.compiler;
 
+import com.gs.dmn.runtime.DMNRuntimeException;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class InMemoryJUnitRunnerTest {
+public class InMemoryJavaCompilerTest {
     @Test
-    public void testRun() throws Exception {
+    public void testCompile() throws Exception {
         String className = "com.example.demo.Demo";
         String classSource = """
             package com.example.demo;
@@ -49,17 +50,30 @@ public class InMemoryJUnitRunnerTest {
 
         InMemoryJavaCompiler compiler = new InMemoryJavaCompiler();
         Map<String, byte[]> classBytes = compiler.compile(sources);
-        InMemoryJUnitRunner runner = new InMemoryJUnitRunner();
-        TestRunResult result = runner.run(sources.keySet(), classBytes);
+        assertNotNull(classBytes);
+        assertEquals(2, classBytes.size(), "Expected 2 compiled classes");
+        assertTrue(classBytes.containsKey(className), "Expected compiled class for " + className);
+        assertTrue(classBytes.containsKey(testClassName), "Expected compiled class for " + testClassName);
+    }
 
-        // Expect 2 tests, 1 success, 1 failure
-        assertEquals(2, result.getTestsFound(), "testsFound");
-        assertEquals(1, result.getTestsSucceeded(), "testsSucceeded");
-        assertEquals(1, result.getTestsFailed(), "testsFailed");
-        TestFailure actualFailure = result.getFailures().get(0);
-        assertEquals("com.example.demo.DemoTest", actualFailure.getClassName());
-        assertEquals("fails()", actualFailure.getMethodName());
-        assertEquals("expected: <2> but was: <1>", actualFailure.getMessage());
+    @Test
+    public void testCompileWithErrors() {
+        String className = "com.example.demo.Demo";
+        String classSource = """
+            package com.example.demo;
+            import org.junit.jupiter.api.Test;
+            import static org.junit.jupiter.api.Assertions.*;
+            public class Demo {
+              int calcul ate(int x) { return x; }
+            }
+        """;
+        Map<String, String> sources = new HashMap<>();
+        sources.put(className, classSource);
+
+        assertThrows(DMNRuntimeException.class, () -> {
+            InMemoryJavaCompiler compiler = new InMemoryJavaCompiler();
+            compiler.compile(sources);
+        });
     }
 }
 

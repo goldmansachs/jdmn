@@ -10,18 +10,24 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.tck.error;
+package com.gs.dmn.error;
 
-import com.gs.dmn.error.SeverityLevel;
+import com.gs.dmn.runtime.DMNRuntimeException;
+import freemarker.template.TemplateException;
 
-public class ErrorFactory {
-    private ErrorFactory() {
+public class DMNErrorHandler {
+    private DMNErrorHandler() {
     }
 
-    //
-    // Factory methods for TCK errors
-    //
-    public static TCKError makeTCKError(TestLocation testLocation, String errorMessage) {
-        return new TCKError(SeverityLevel.ERROR, testLocation, errorMessage);
+    public static RuntimeException handleError(String message, Throwable e) {
+        if (e instanceof TemplateException) {
+            e = e.getCause();
+        }
+        if (e instanceof SyntaxErrorException || e instanceof SemanticErrorException) {
+            return (RuntimeException) e;
+        } else {
+            return new DMNRuntimeException(message, e);
+        }
     }
+
 }

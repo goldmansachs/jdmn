@@ -12,35 +12,28 @@
  */
 package com.gs.dmn.tck.serialization.xstream;
 
+import com.gs.dmn.error.SyntaxErrorException;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.TCKVersion;
 import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.tck.serialization.TCKMarshaller;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.gs.dmn.tck.validation.ValidationError;
 
-import javax.xml.XMLConstants;
-import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
 import java.io.BufferedReader;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.Writer;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.gs.dmn.error.DMNErrorHandler.handleError;
 import static com.gs.dmn.serialization.TCKVersion.LATEST;
 import static com.gs.dmn.serialization.TCKVersion.TCK_1;
 
 public class XStreamMarshaller implements TCKMarshaller {
-    private static final Logger LOGGER = LoggerFactory.getLogger(XStreamMarshaller.class);
-
     private static TCKVersion inferTCKVersion(Reader firstStringReader) {
         return LATEST;
     }
@@ -67,14 +60,17 @@ public class XStreamMarshaller implements TCKMarshaller {
     public TestCases unmarshal(String input, boolean validateSchema) {
         try (Reader firstStringReader = new StringReader(input); Reader secondStringReader = new StringReader(input)) {
             TCKVersion tckVersion = inferTCKVersion(firstStringReader);
-            if (validateSchema) {
+            if (validateSchema && tckVersion != null) {
                 try (StringReader reader = new StringReader(input)) {
-                    validateXMLSchema(new StreamSource(reader), tckVersion.getSchemaLocation());
+                    List<ValidationError> errors = new XSDSchemaValidator().validateXSDSchema(new StreamSource(reader), LATEST);
+                    if (!errors.isEmpty()) {
+                        throw new SyntaxErrorException(String.format("%s", errors));
+                    }
                 }
             }
             return unmarshal(tckVersion, secondStringReader);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Error unmarshalling TCK content from String.", e));
+            throw handleError(e.getMessage(), e);
         }
     }
 
@@ -84,7 +80,7 @@ public class XStreamMarshaller implements TCKMarshaller {
             String xml = buffer.lines().collect(Collectors.joining("\n"));
             return unmarshal(xml, validateSchema);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Error unmarshalling TCK content from Reader.", e));
+            throw handleError(e.getMessage(), e);
         }
     }
 
@@ -127,23 +123,6 @@ public class XStreamMarshaller implements TCKMarshaller {
     private void marshall(TestCases testCases, Writer out, TCKVersion tckVersion) {
         if (tckVersion == TCK_1) {
             xStream1.marshal(testCases, out);
-        }
-    }
-
-    private boolean validateXMLSchema(Source source, String schemaPath) {
-        try {
-            URL schemaURL = this.getClass().getClassLoader().getResource(schemaPath).toURI().toURL();
-            SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            // Prohibit the use of all protocols by external entities:
-            factory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            factory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
-            Schema schema = factory.newSchema(schemaURL);
-            Validator validator = schema.newValidator();
-            validator.validate(source);
-            return true;
-        } catch (Exception e) {
-            LOGGER.error("Invalid XML file: " + e.getMessage());
-            return false;
         }
     }
 }

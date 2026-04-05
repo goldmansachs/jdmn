@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.runtime.compiler;
 
+import com.gs.dmn.runtime.DMNRuntimeException;
+
 import javax.tools.*;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
@@ -59,7 +61,7 @@ public class InMemoryJavaCompiler {
                         .append(d.getSource() == null ? "<unknown>" : d.getSource().getName())
                         .append(":").append(d.getLineNumber()).append("\n");
             }
-            throw new IllegalStateException("Compilation failed:\n" + sb);
+            throw new DMNRuntimeException("Compilation failed:\n" + sb);
         }
         return fileManager.getAllClassBytes();
     }

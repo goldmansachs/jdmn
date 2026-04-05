@@ -14,6 +14,7 @@ package com.gs.dmn.serialization.xstream;
 
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.error.SyntaxErrorException;
 import com.gs.dmn.error.ValidationError;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNMarshaller;
@@ -35,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static com.gs.dmn.error.DMNErrorHandler.handleError;
 import static com.gs.dmn.serialization.DMNVersion.*;
 
 public class XStreamMarshaller implements DMNMarshaller {
@@ -127,13 +129,13 @@ public class XStreamMarshaller implements DMNMarshaller {
                 try (StringReader reader = new StringReader(input)) {
                     List<ValidationError> errors = new XSDSchemaValidator().validateXSDSchema(new StreamSource(reader), dmnVersion);
                     if (!errors.isEmpty()) {
-                        throw new DMNRuntimeException(String.format("%s", errors));
+                        throw new SyntaxErrorException(String.format("%s", errors));
                     }
                 }
             }
             return unmarshal(dmnVersion, secondStringReader);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Error unmarshalling DMN model from reader.", e));
+            throw handleError("Error unmarshalling DMN model from String.", e);
         }
     }
 
@@ -143,7 +145,7 @@ public class XStreamMarshaller implements DMNMarshaller {
             String xml = buffer.lines().collect(Collectors.joining("\n"));
             return unmarshal(xml, validateSchema);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Error unmarshalling DMN model from reader.", e));
+            throw handleError("Error unmarshalling DMN model from Reader.", e);
         }
     }
 
@@ -169,7 +171,7 @@ public class XStreamMarshaller implements DMNMarshaller {
             DMNVersion dmnVersion = inferDMNVersion(o);
             return marshall(o, dmnVersion);
         } else {
-            throw new DMNRuntimeException(String.format("Error marshalling object {}", o));
+            throw new DMNRuntimeException("Missing DMN model to marshal.");
         }
     }
 
@@ -179,7 +181,7 @@ public class XStreamMarshaller implements DMNMarshaller {
             DMNVersion dmnVersion = inferDMNVersion(o);
             marshall(o, output, dmnVersion);
         } else {
-            throw new DMNRuntimeException(String.format("Error marshalling object {}", o));
+            throw new DMNRuntimeException("Missing DMN model to marshal.");
         }
     }
 

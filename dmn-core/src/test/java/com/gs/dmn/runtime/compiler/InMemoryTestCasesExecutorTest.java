@@ -12,10 +12,14 @@
  */
 package com.gs.dmn.runtime.compiler;
 
+import com.gs.dmn.error.SemanticErrorException;
+import com.gs.dmn.error.SyntaxErrorException;
 import com.gs.dmn.tck.TestCasesToNativeTransformer;
 import com.gs.dmn.tck.ast.TestCases;
+import com.gs.dmn.tck.validation.DefaultTCKValidator;
 import com.gs.dmn.transformation.CompositeDMNTransformer;
 import com.gs.dmn.transformation.DMNToNativeTransformer;
+import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.ToQuotedNameTransformer;
 import com.gs.dmn.transformation.lazy.SparseDecisionDetector;
 import com.gs.dmn.validation.*;
@@ -24,11 +28,34 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryTestCasesExecutorTest {
+    // static configuration shared across all instances
+    private static final Map<String, String> MAP;
+    private static final Map<String, String> TCK_MAP;
+    private static final InputParameters INPUT_PARAMETERS;
+    private static final InputParameters TCK_INPUT_PARAMETERS;
+
+    static {
+        MAP = new LinkedHashMap<>();
+        MAP.put("dmn.version", "1.5");
+        MAP.put("model.version", "1.0");
+        MAP.put("platform.version", "10.0.0");
+        MAP.put("xsdValidation", "true");
+
+
+        TCK_MAP = new LinkedHashMap<>(MAP);
+        TCK_MAP.put("tckFileExtension", "tck");
+
+        INPUT_PARAMETERS = new InputParameters(MAP);
+        TCK_INPUT_PARAMETERS = new InputParameters(TCK_MAP);
+    }
+
     @Test
     void testExecuteSeparateFolders() throws Exception {
         // Input path
@@ -41,8 +68,12 @@ class InMemoryTestCasesExecutorTest {
         File outputSourceFolder = outputPath.resolve("dmn").toFile();
         File outputTestFolder = outputPath.resolve("tck").toFile();
 
+        // Run tests
         DMNToJavaTranslator translator = makeTranslator(inputModelFile);
-        runTests(translator, inputModelFile, inputTestFile, outputSourceFolder, outputTestFolder);
+        TestRunResult testRunResult = runTests(translator, inputModelFile, inputTestFile, outputSourceFolder, outputTestFolder);
+
+        // Check results
+        checkTestResults(testRunResult);
     }
 
     @Test
@@ -55,27 +86,95 @@ class InMemoryTestCasesExecutorTest {
         Path outputPath = Paths.get("target", "in-memory", "shared");
         File outputFolder = outputPath.resolve("java").toFile();
 
+        // Run tests
         DMNToJavaTranslator translator = makeTranslator(inputFile);
-        runTests(translator, inputFile, outputFolder);
-    }
-
-    private void runTests(DMNToJavaTranslator translator, File inputFile, File outputFolder) throws Exception {
-         // Translate DMN and TCK to Java, compile and run the tests
-         TestRunResult result = new InMemoryTestCasesExecutor(translator).execute(inputFile, outputFolder);
-
-         // Check results
-         checkTestResults(result);
-    }
-
-    private void runTests(DMNToJavaTranslator translator, File inputModelFile, File inputTestFile, File outputSourceFolder, File outputTestFolder) throws Exception {
-        // Translate DMN and TCK to Java, compile and run the tests
-        TestRunResult result = new InMemoryTestCasesExecutor(translator).execute(inputModelFile, inputTestFile, outputSourceFolder, outputTestFolder);
+        TestRunResult testRunResult = runTests(translator, inputFile, outputFolder);
 
         // Check results
-        checkTestResults(result);
+        checkTestResults(testRunResult);
+    }
+
+    @Test
+    void testInvalidDMNFiles() {
+        // Missing DMN file
+        assertThrows(IllegalArgumentException.class, () -> {
+            runTests("missing-dmn.dmn", "dmn-error-1");
+        });
+
+        // DMN file with schema error
+        assertThrows(SyntaxErrorException.class, () -> {
+            runTests("invalid-schema.dmn", "dmn-error-2");
+        });
+
+        // DMN file with FEEL syntax error
+        assertThrows(SemanticErrorException.class, () -> {
+            runTests("feel-syntax-error.dmn", "dmn-error-3");
+        });
+
+        // Correct
+        assertDoesNotThrow(() -> {
+            runTests("correct.dmn", "dmn-error-4");
+        });
+    }
+
+    @Test
+    void testInvalidTCKFiles() {
+        Path inputPath = Paths.get("src/test/resources/compiler", "correct.dmn");
+        File inputModelFile = inputPath.toFile();
+
+        // TCK file with schema error
+        assertThrows(SyntaxErrorException.class, () -> {
+            runTests(inputModelFile, "invalid-schema.tck", "tck-error-1");
+        });
+
+        // TCK file with invalid model name
+        assertThrows(SemanticErrorException.class, () -> {
+            runTests(inputModelFile, "invalid-model-name.tck", "tck-error-2");
+        });
+
+        // TCK file with duplicate IDs
+        assertThrows(SemanticErrorException.class, () -> {
+            runTests(inputModelFile, "duplicate-ids.tck", "tck-error-3");
+        });
+
+        // Correct
+        assertDoesNotThrow(() -> {
+            runTests(inputModelFile, "correct.tck", "tck-error-4");
+        });
+    }
+
+    private void runTests(String dmnFileName, String outputFileName) throws Exception {
+        Path inputPath = Paths.get("src/test/resources/compiler", dmnFileName);
+        File inputFile = inputPath.toFile();
+        Path outputPath = Paths.get("target", "in-memory", outputFileName);
+        DMNToJavaTranslator translator = makeTranslator(inputFile);
+        runTests(translator, inputFile, outputPath.toFile());
+    }
+
+    private void runTests(File inputModelFile, String tckFileName, String outputFileName) throws Exception {
+        Path inputPath = Paths.get("src/test/resources/compiler", tckFileName);
+        File inputTestFile = inputPath.toFile();
+        Path outputPath = Paths.get("target", "in-memory", outputFileName);
+        DMNToJavaTranslator translator = makeTranslator(inputModelFile, TCK_INPUT_PARAMETERS);
+        File outputFolder = outputPath.toFile();
+        runTests(translator, inputModelFile, inputTestFile, outputFolder, outputFolder);
+    }
+
+    private TestRunResult runTests(DMNToJavaTranslator translator, File inputFile, File outputFolder) throws Exception {
+         // Translate DMN and TCK to Java, compile and run the tests
+         return new InMemoryTestCasesExecutor(translator).execute(inputFile, outputFolder);
+    }
+
+    private TestRunResult runTests(DMNToJavaTranslator translator, File inputModelFile, File inputTestFile, File outputSourceFolder, File outputTestFolder) throws Exception {
+        // Translate DMN and TCK to Java, compile and run the tests
+        return new InMemoryTestCasesExecutor(translator).execute(inputModelFile, inputTestFile, outputSourceFolder, outputTestFolder);
     }
 
     private DMNToJavaTranslator makeTranslator(File inputModelFile) {
+        return makeTranslator(inputModelFile, INPUT_PARAMETERS);
+    }
+
+    private DMNToJavaTranslator makeTranslator(File inputModelFile, InputParameters inputParameters) {
         // Build the translator for DMN and TCK
         DMNValidator dmnValidator = new CompositeDMNValidator(List.of(
                 new DefaultDMNValidator(),
@@ -86,7 +185,9 @@ class InMemoryTestCasesExecutorTest {
                 new ToQuotedNameTransformer()
         ));
         DMNToJavaTranslatorBuilder dmnTranslatorBuilder = new DMNToJavaTranslatorBuilder()
+                .withInputParameters(inputParameters)
                 .withDMNValidator(dmnValidator)
+                .withTestValidator(new DefaultTCKValidator())
                 .withDMNTransformer(dmnTransformer)
                 .withLazyEvaluationDetector(new SparseDecisionDetector());
         DMNToNativeTransformer dmnTranslator = dmnTranslatorBuilder.buildDMNTranslator();

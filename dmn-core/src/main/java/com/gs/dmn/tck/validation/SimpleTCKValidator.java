@@ -14,7 +14,6 @@ package com.gs.dmn.tck.validation;
 
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.error.LogErrorHandler;
-import com.gs.dmn.error.SeverityLevel;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.tck.ast.TCKBaseElement;
@@ -41,7 +40,7 @@ public abstract class SimpleTCKValidator implements TCKValidator {
 
     protected void addValidationError(ValidationContext context, TCKBaseElement element, String errorMessage) {
         TestCases testCases = context.getTestCases();
-        TCKError error = ErrorFactory.makeTCKError(new TestLocation(testCases, element), SeverityLevel.ERROR, errorMessage);
+        TCKError error = ErrorFactory.makeTCKError(new TestLocation(testCases, element), errorMessage);
         context.addError(new ValidationError(error, this.ruleName()));
     }
 }

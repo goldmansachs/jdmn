@@ -22,6 +22,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.gs.dmn.error.DMNErrorHandler.handleError;
+
 public abstract class TCKSerializer {
     private final BuildLogger logger;
     private final TCKMarshaller marshaller;
@@ -52,7 +54,7 @@ public abstract class TCKSerializer {
             this.logger.info("TCK read.");
             return testCases;
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot read TCK from File '%s'", input.getPath()), e);
+            throw handleError(String.format("Cannot read TCK from File '%s'", input.getPath()), e);
         }
     }
 
@@ -60,7 +62,7 @@ public abstract class TCKSerializer {
         try {
             return this.marshaller.unmarshal(input, this.inputParameters.isXsdValidation());
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot read TCK from Reader '%s'", input.toString()), e);
+            throw handleError(String.format("Cannot read TCK from Reader '%s'", input.toString()), e);
         }
     }
 
