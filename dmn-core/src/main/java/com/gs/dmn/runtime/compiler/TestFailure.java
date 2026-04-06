@@ -20,7 +20,7 @@ import org.junit.platform.launcher.listeners.TestExecutionSummary;
 
 import java.util.Optional;
 
-class TestFailure {
+public class TestFailure {
     private static String extractClassName(Optional<TestSource> source) {
         String className = "";
         if (source.isPresent()) {
