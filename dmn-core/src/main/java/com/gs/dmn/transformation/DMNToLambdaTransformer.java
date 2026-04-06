@@ -23,6 +23,7 @@ import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
+import com.gs.dmn.transformation.repository.OutputRepository;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 
@@ -48,7 +49,7 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
     }
 
     @Override
-    protected void transformModels(DMNModelRepository repository, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, File outputFolder) {
+    protected void transformModels(DMNModelRepository repository, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, OutputRepository outputRepository) {
         // Check if there is only one model
         List<TDefinitions> allDefinitions = repository.getAllDefinitions();
         if (allDefinitions.size() != 1) {
@@ -60,20 +61,21 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
         // Generate code for DMN model
         String modelName = definitions.getName();
         String lambdaFolderName = lambdaFolderName(modelName, basicTransformer);
-        File targetFolder = Paths.get(outputFolder.toPath().toString(), lambdaFolderName, "src", "main", "java").toFile();
-        super.transformModels(repository, basicTransformer, targetFolder);
+        File targetFolder = Paths.get(outputRepository.getPath(), lambdaFolderName, "src", "main", "java").toFile();
+        OutputRepository targetRepository = new OutputRepository(targetFolder);
+        super.transformModels(repository, basicTransformer, targetRepository);
 
         // Generate pom file
-        generateLambdaPom(lambdaFolderName, outputFolder);
+        generateLambdaPom(lambdaFolderName, outputRepository);
 
         // Generate handlers
-        generateLambdaRequestHandler(modelName, targetFolder, basicTransformer);
+        generateLambdaRequestHandler(modelName, targetRepository, basicTransformer);
 
         // Generate SAM template
-        generateTemplate(modelName, lambdaFolderName, outputFolder, basicTransformer);
+        generateTemplate(modelName, lambdaFolderName, outputRepository, basicTransformer);
     }
 
-    private void generateLambdaRequestHandler(String modelName, File functionPath, BasicDMNToJavaTransformer transformer) {
+    private void generateLambdaRequestHandler(String modelName, OutputRepository functionPath, BasicDMNToJavaTransformer transformer) {
         // Template
         String baseTemplatePath = getAWSBaseTemplatePath();
         String templateName = "lambdaClass.ftl";
@@ -85,7 +87,7 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
             String nativePackageName = transformer.nativeModelPackageName(modelName);
             String relativeFilePath = nativePackageName.replace('.', '/');
             String fileExtension = ".java";
-            File outputFile = this.templateProcessor.makeOutputFile(functionPath, relativeFilePath, outputFileName, fileExtension);
+            File outputFile = functionPath.makeOutputFile(relativeFilePath, outputFileName, fileExtension);
 
             // Make parameters
             Map<String, Object> params = new HashMap<>();
@@ -100,20 +102,16 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
         }
     }
 
-    private void generateLambdaPom(String lambdaFolderName, File outputFolder) {
+    private void generateLambdaPom(String lambdaFolderName, OutputRepository outputRepository) {
         // Template
         String baseTemplatePath = getAWSBaseTemplatePath();
         String templateName = "pomFile.ftl";
 
         try {
-            // Function folder
-            File targetFolder = Paths.get(outputFolder.toPath().toString(), lambdaFolderName).toFile();
-
             // Output file
             String fileName = "pom";
             String fileExtension = ".xml";
-            String relativeFilePath = "";
-            File outputFile = this.templateProcessor.makeOutputFile(targetFolder, relativeFilePath, fileName, fileExtension);
+            File outputFile = outputRepository.makeOutputFile(lambdaFolderName, fileName, fileExtension);
 
             // Make parameters
             Map<String, Object> params = new HashMap<>();
@@ -126,7 +124,7 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
         }
     }
 
-    private void generateTemplate(String modelName, String stackName, File outputFolder, BasicDMNToJavaTransformer transformer) {
+    private void generateTemplate(String modelName, String stackName, OutputRepository outputRepository, BasicDMNToJavaTransformer transformer) {
         // Template
         String baseTemplatePath = getAWSBaseTemplatePath();
         String templateName = "template.ftl";
@@ -138,7 +136,7 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
             String fileName = "template";
             String fileExtension = ".yaml";
             String relativeFilePath = "";
-            File outputFile = this.templateProcessor.makeOutputFile(outputFolder, relativeFilePath, fileName, fileExtension);
+            File outputFile = outputRepository.makeOutputFile(relativeFilePath, fileName, fileExtension);
 
             // Make parameters
             Map<String, Object> params = new HashMap<>();

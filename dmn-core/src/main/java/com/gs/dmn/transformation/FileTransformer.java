@@ -12,9 +12,16 @@
  */
 package com.gs.dmn.transformation;
 
+import com.gs.dmn.transformation.repository.InputRepository;
+import com.gs.dmn.transformation.repository.OutputRepository;
+
 import java.io.File;
 
 public interface FileTransformer {
     // Directories in the outputFolder are created prior invocation
-    void transform(File inputFile, File outputFolder);
+    default void transform(File inputFile, File outputFolder) {
+        transform(new InputRepository(inputFile), new OutputRepository(outputFolder));
+    }
+
+    void transform(InputRepository inputRepository, OutputRepository outputRepository);
 }

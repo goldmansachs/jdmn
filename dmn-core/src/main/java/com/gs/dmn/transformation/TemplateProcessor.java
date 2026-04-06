@@ -21,16 +21,15 @@ import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.formatter.JavaFormatter;
 import com.gs.dmn.transformation.formatter.NopJavaFormatter;
+import com.gs.dmn.transformation.repository.OutputRepository;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import freemarker.template.*;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -52,17 +51,6 @@ public class TemplateProcessor {
         this.fileExtension = fileExtension;
         this.typeDeserializationConfigurer = typeDeserializationConfigurer;
         this.inputParameters = inputParameters;
-    }
-
-    public File makeOutputFile(File outputFolder, String relativeFilePath, String fileName, String fileExtension) throws IOException {
-        String absoluteFilePath = outputFolder.getAbsolutePath();
-        if (!StringUtils.isBlank(relativeFilePath)) {
-            absoluteFilePath += "/" + relativeFilePath;
-        }
-        absoluteFilePath += "/" + fileName + fileExtension;
-        File outputFile = new File(absoluteFilePath);
-        Files.createDirectories(outputFile.getParentFile().toPath());
-        return outputFile;
     }
 
     public void processTemplate(String baseTemplatePath, String templateName, Map<String, Object> params, File outputFile, boolean formatOutput) throws IOException, TemplateException {
@@ -87,14 +75,13 @@ public class TemplateProcessor {
         }
     }
 
-    void processTemplate(TDefinitions definitions, TItemDefinition itemDefinition, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, File outputFolder, String nativePackageName, String nativeClassName) {
+    void processTemplate(TDefinitions definitions, TItemDefinition itemDefinition, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, OutputRepository outputRepository, String nativePackageName, String nativeClassName) {
         try {
             // Make parameters
             Map<String, Object> params = makeTemplateParams(definitions, itemDefinition, nativePackageName, nativeClassName, dmnTransformer);
 
             // Make output file
-            String relativeFilePath = nativePackageName.replace('.', '/');
-            File outputFile = makeOutputFile(outputFolder, relativeFilePath, nativeClassName, this.fileExtension);
+            File outputFile = outputRepository.makeOutputFile(toPath(nativePackageName), nativeClassName, this.fileExtension);
 
             // Process template
             processTemplate(baseTemplatePath, templateName, params, outputFile, false);
@@ -103,14 +90,13 @@ public class TemplateProcessor {
         }
     }
 
-    void processTemplate(TDefinitions definitions, TInvocable in, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, File outputFolder, String nativePackageName, String nativeClassName, String decisionBaseClass) {
+    void processTemplate(TDefinitions definitions, TInvocable in, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, OutputRepository outputRepository, String nativePackageName, String nativeClassName, String decisionBaseClass) {
         try {
             // Make parameters
             Map<String, Object> params = makeTemplateParams(definitions, in, nativePackageName, nativeClassName, decisionBaseClass, dmnTransformer);
 
             // Make output file
-            String relativeFilePath = nativePackageName.replace('.', '/');
-            File outputFile = makeOutputFile(outputFolder, relativeFilePath, nativeClassName, this.fileExtension);
+            File outputFile = outputRepository.makeOutputFile(toPath(nativePackageName), nativeClassName, this.fileExtension);
 
             // Process template
             processTemplate(baseTemplatePath, templateName, params, outputFile, true);
@@ -119,14 +105,13 @@ public class TemplateProcessor {
         }
     }
 
-    void processTemplate(TDefinitions definitions, TDecision decision, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, File outputFolder, String nativePackageName, String nativeClassName, String decisionBaseClass) {
+    void processTemplate(TDefinitions definitions, TDecision decision, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, OutputRepository outputRepository, String nativePackageName, String nativeClassName, String decisionBaseClass) {
         try {
             // Make parameters
             Map<String, Object> params = makeTemplateParams(definitions, decision, nativePackageName, nativeClassName, decisionBaseClass, dmnTransformer);
 
             // Make output file
-            String relativeFilePath = nativePackageName.replace('.', '/');
-            File outputFile = makeOutputFile(outputFolder, relativeFilePath, nativeClassName, this.fileExtension);
+            File outputFile = outputRepository.makeOutputFile(toPath(nativePackageName), nativeClassName, this.fileExtension);
 
             // Process template
             processTemplate(baseTemplatePath, templateName, params, outputFile, true);
@@ -135,20 +120,23 @@ public class TemplateProcessor {
         }
     }
 
-    void processTemplate(TDefinitions definitions, TDRGElement element, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, File outputFolder, String nativePackageName, String nativeClassName, String decisionBaseClass) {
+    void processTemplate(TDefinitions definitions, TDRGElement element, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, OutputRepository outputRepository, String nativePackageName, String nativeClassName, String decisionBaseClass) {
         try {
             // Make parameters
             Map<String, Object> params = makeTemplateParams(definitions, element, nativePackageName, nativeClassName, decisionBaseClass, dmnTransformer);
 
             // Make output file
-            String relativeFilePath = nativePackageName.replace('.', '/');
-            File outputFile = makeOutputFile(outputFolder, relativeFilePath, nativeClassName, this.fileExtension);
+            File outputFile = outputRepository.makeOutputFile(toPath(nativePackageName), nativeClassName, this.fileExtension);
 
             // Process template
             processTemplate(baseTemplatePath, templateName, params, outputFile, true);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot process template '%s' for element '%s'", templateName, element.getName()), e);
         }
+    }
+
+    private String toPath(String nativePackageName) {
+        return nativePackageName.replace('.', '/');
     }
 
     //

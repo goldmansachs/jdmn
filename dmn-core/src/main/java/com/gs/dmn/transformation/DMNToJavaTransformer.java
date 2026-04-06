@@ -25,6 +25,7 @@ import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
+import com.gs.dmn.transformation.repository.OutputRepository;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 
@@ -45,14 +46,14 @@ public class DMNToJavaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> exten
     }
 
     @Override
-    protected void transformModels(DMNModelRepository dmnModelRepository, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, File outputFolder) {
-        super.transformModels(dmnModelRepository, dmnTransformer, outputFolder);
+    protected void transformModels(DMNModelRepository dmnModelRepository, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, OutputRepository outputRepository) {
+        super.transformModels(dmnModelRepository, dmnTransformer, outputRepository);
 
         // Generate metadata
-        processManifest(dmnTransformer, DMN_METADATA_FILE_NAME, outputFolder);
+        processManifest(dmnTransformer, DMN_METADATA_FILE_NAME, outputRepository);
     }
 
-    private void processManifest(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, String jsonFileName, File outputFolder) {
+    private void processManifest(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, String jsonFileName, OutputRepository outputRepository) {
         String nativePackageName = dmnTransformer.nativeRootPackageName();
         String filePath = nativePackageName.replace('.', '/');
         String fileExtension = ".json";
@@ -65,7 +66,7 @@ public class DMNToJavaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> exten
             String modelVersion = this.inputParameters.getModelVersion();
             String platformVersion = this.inputParameters.getPlatformVersion();
             DMNMetadata manifest = dmnToManifestTransformer.toManifest(dmnNamespaces, nativeNamespace, dmnVersion, modelVersion, platformVersion);
-            File resultFile = this.templateProcessor.makeOutputFile(outputFolder, filePath, jsonFileName, fileExtension);
+            File resultFile = outputRepository.makeOutputFile(filePath, jsonFileName, fileExtension);
             JsonSerializer.OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValue(resultFile, manifest);
         } catch (Exception e) {
             throw new DMNRuntimeException("Cannot process manifest file", e);

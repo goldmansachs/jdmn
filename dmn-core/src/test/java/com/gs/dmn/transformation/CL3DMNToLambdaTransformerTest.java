@@ -20,6 +20,7 @@ import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
+import com.gs.dmn.transformation.repository.OutputRepository;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.transformation.template.TreeTemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
@@ -80,7 +81,8 @@ public class CL3DMNToLambdaTransformerTest extends AbstractTckDMNToJavaTransform
         // Transform
         File inputFile = new File( "C:\\Work\\Projects\\jdmn-opatrascoiu\\dmn-test-cases\\standard\\tck\\1.3\\cl3\\0020-vacation-days\\0020-vacation-days.dmn");
         File outputFolder = new File("C:/Work/Projects/aws/bpmn-to-aws-examples/dmn-lambda/");
-        transformer.transformFiles(List.of(inputFile), outputFolder);
+        OutputRepository outputRepository = new OutputRepository(outputFolder);
+        transformer.transformFiles(List.of(inputFile), outputRepository);
     }
 
     private static InputParameters makeLambdaInputParameters() {

@@ -26,6 +26,7 @@ import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.NopDMNTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
+import com.gs.dmn.transformation.repository.InputRepository;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.transformation.template.TreeTemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
@@ -33,7 +34,6 @@ import com.gs.dmn.validation.NopDMNValidator;
 import com.gs.dmn.validation.TestValidator;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -106,10 +106,10 @@ public class DMNToJavaTranslatorBuilder {
                 deserializationConfigurer, inputParameters, buildLogger);
     }
 
-    public TestCasesToNativeTransformer buildTCKTranslator(File inputModelFile) {
+    public TestCasesToNativeTransformer buildTCKTranslator(InputRepository inputModelRepository) {
         return dialectDefinition.createTestCasesToNativeTransformer(
                 dmnValidator, testCasesValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, deserializationConfigurer,
-                inputModelFile,
+                inputModelRepository,
                 inputParameters,
                 buildLogger
         );

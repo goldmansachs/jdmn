@@ -12,15 +12,16 @@
  */
 package com.gs.dmn.runtime.compiler;
 
-import org.apache.commons.lang3.StringUtils;
+import com.gs.dmn.transformation.repository.InputRepository;
+import com.gs.dmn.transformation.repository.OutputRepository;
 import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class InMemoryTestCasesExecutor {
     private static final Logger LOGGER = LoggerFactory.getLogger(InMemoryTestCasesExecutor.class);
@@ -32,16 +33,15 @@ public class InMemoryTestCasesExecutor {
     public InMemoryTestCasesExecutor(DMNToJavaTranslator translator) {
         this.translator = translator;
     }
-
-    public TestRunResult execute(File inputFile, File outputFolder) throws Exception {
+    public TestRunResult execute(InputRepository inputRepository, OutputRepository outputRepository) throws Exception {
         // DMN and TCK files are in the same folder
         // Output is generated in the same folder
-        return execute(inputFile, inputFile, outputFolder, outputFolder);
+        return execute(inputRepository, inputRepository, outputRepository, outputRepository);
     }
 
-    public TestRunResult execute(File inputModelFile, File inputTestFile, File outputSourceFolder, File outputTestFolder) throws Exception {
+    public TestRunResult execute(InputRepository inputModelRepository, InputRepository inputTestRepository, OutputRepository outputSourceRepository, OutputRepository outputTestRepository) throws Exception {
         // Translate DMN and TCK to Java, compile and run the tests
-        Map<String, String> allSources = translate(inputModelFile, inputTestFile, outputSourceFolder, outputTestFolder);
+        Map<String, String> allSources = translate(inputModelRepository, inputTestRepository, outputSourceRepository, outputTestRepository);
 
         // Compile the generated code and load it in memory
         Map<String, byte[]> classBytes = compile(allSources);
@@ -50,59 +50,28 @@ public class InMemoryTestCasesExecutor {
         return runTests(allSources.keySet(), classBytes);
     }
 
-    private Map<String, String> translate(File inputModelFile, File inputTestFile, File outputSourceFolder, File outputTestFolder) throws IOException {
+    private Map<String, String> translate(InputRepository inputModelRepository, InputRepository inputTestRepository, OutputRepository outputSourceRepository, OutputRepository outputTestRepository) throws IOException {
         // Generate code for DMN and TCK
         StopWatch watch = new StopWatch();
         watch.start();
 
-        translator.translateDMN(inputModelFile, outputSourceFolder);
-        translator.translateTCK(inputTestFile, outputTestFolder);
+        translator.translateDMN(inputModelRepository, outputSourceRepository);
+        translator.translateTCK(inputTestRepository, outputTestRepository);
 
         // Create a map with class name as key and source code as value for all sources and tests
         Map<String, String> allClassesMap = new HashMap<>();
 
         // Collect source code files
-        collectJavaClasses(outputSourceFolder, allClassesMap);
+        outputSourceRepository.collectJavaClasses(allClassesMap);
 
         // Collect test code files
-        if (outputSourceFolder != outputTestFolder) {
-            collectJavaClasses(outputTestFolder, allClassesMap);
+        if (outputSourceRepository != outputTestRepository) {
+            outputTestRepository.collectJavaClasses(allClassesMap);
         }
 
         watch.stop();
         LOGGER.info("Translation executed in {}", watch);
         return allClassesMap;
-    }
-
-    // Collects source code from the provided files and puts it in the map with class name as key and source code as value
-    private void collectJavaClasses(File outputFolder, Map<String, String> allClassesMap) throws IOException {
-        if (outputFolder != null && outputFolder.listFiles() != null) {
-            deepCollectClasses(Arrays.asList(outputFolder.listFiles()), "", this::isJavaFile, allClassesMap);
-        }
-    }
-
-    private void deepCollectClasses(List<File> files, String currentPackage, java.util.function.Predicate<File> predicate, Map<String, String> allClassesMap) throws IOException {
-        if (files != null) {
-            for (File file : files) {
-                deepCollectClasses(file, currentPackage, predicate, allClassesMap);
-            }
-        }
-    }
-
-    private void deepCollectClasses(File file, String currentPackage, java.util.function.Predicate<File> predicate, Map<String, String> allClassesMap) throws IOException {
-        if (file.isDirectory()) {
-            String childPackage = currentPackage.isEmpty() ? file.getName() : currentPackage + "." + file.getName();
-            deepCollectClasses(Arrays.asList(file.listFiles()), childPackage, predicate, allClassesMap);
-        } else if (predicate.test(file)) {
-            String className = file.getName().replace(".java", "");
-            String classQName = StringUtils.isEmpty(currentPackage) ? className : currentPackage + "." + className;
-            String classSource = new String(Files.readAllBytes(file.toPath()));
-            allClassesMap.put(classQName, classSource);
-        }
-    }
-
-    private boolean isJavaFile(File file) {
-        return file.isFile() && file.getName().endsWith(".java");
     }
 
     private Map<String, byte[]> compile(Map<String, String> sources) {

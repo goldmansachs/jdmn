@@ -36,6 +36,7 @@ import com.gs.dmn.transformation.AbstractFileTransformer;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
+import com.gs.dmn.transformation.repository.OutputRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -107,19 +108,19 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
     }
 
     @Override
-    protected void transformFiles(List<File> files, File outputFolder) {
-        this.logger.info(String.format("Processing DMN files for target '%s'", outputFolder.getPath()));
+    protected void transformFiles(List<File> files, OutputRepository outputRepository) {
+        this.logger.info(String.format("Processing DMN files for target '%s'", outputRepository.getPath()));
         for (File child : files) {
             this.logger.info(String.format("Transforming file '%s'", child.getPath()));
-            transformLeaf(child, outputFolder);
+            transformLeaf(child, outputRepository);
         }
     }
 
-    private void transformLeaf(File child, File outputFolder) {
+    private void transformLeaf(File child, OutputRepository outputRepository) {
         try (FileInputStream inputStream = new FileInputStream(child.toURI().getPath())) {
-            File outputFile = new File(outputFolder, diagramName(child) + inputParameters.getDmnFileExtension());
+            File outputFile = outputRepository.makeOutputFile("", diagramName(child), inputParameters.getDmnFileExtension());
 
-            this.logger.info(String.format("Output folder '%s' ", outputFolder.getCanonicalPath()));
+            this.logger.info(String.format("Output folder '%s' ", outputRepository.getPath()));
             this.logger.info(String.format("Output file %s ...", outputFile.getCanonicalPath()));
 
             TDefinitions element = transform(diagramName(child), inputStream);

@@ -14,8 +14,8 @@ package com.gs.dmn.runtime.compiler;
 
 import com.gs.dmn.tck.TestCasesToNativeTransformer;
 import com.gs.dmn.transformation.DMNToNativeTransformer;
-
-import java.io.File;
+import com.gs.dmn.transformation.repository.InputRepository;
+import com.gs.dmn.transformation.repository.OutputRepository;
 
 public class DMNToJavaTranslator {
     private final DMNToNativeTransformer dmnTranslator;
@@ -26,12 +26,12 @@ public class DMNToJavaTranslator {
         this.tckTranslator = tckTestCasesToJavaJUnitTransformer;
     }
 
-    public void translateDMN(File inputFile, File outputFolder) {
-        dmnTranslator.transform(inputFile, outputFolder);
+    public void translateDMN(InputRepository inputRepository, OutputRepository outputRepository) {
+        dmnTranslator.transform(inputRepository, outputRepository);
     }
 
-    public void translateTCK(File inputTestFile, File outputFile) {
-        tckTranslator.transform(inputTestFile, outputFile);
+    public void translateTCK(InputRepository inputTestRepository, OutputRepository outputRepository) {
+        tckTranslator.transform(inputTestRepository, outputRepository);
     }
 }
 

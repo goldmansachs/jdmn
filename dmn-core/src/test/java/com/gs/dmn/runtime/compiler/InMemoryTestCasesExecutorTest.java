@@ -22,6 +22,8 @@ import com.gs.dmn.transformation.DMNToNativeTransformer;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.ToQuotedNameTransformer;
 import com.gs.dmn.transformation.lazy.SparseDecisionDetector;
+import com.gs.dmn.transformation.repository.InputRepository;
+import com.gs.dmn.transformation.repository.OutputRepository;
 import com.gs.dmn.validation.*;
 import org.junit.jupiter.api.Test;
 
@@ -68,9 +70,15 @@ class InMemoryTestCasesExecutorTest {
         File outputSourceFolder = outputPath.resolve("dmn").toFile();
         File outputTestFolder = outputPath.resolve("tck").toFile();
 
+        // Repositories
+        InputRepository inputModelRepository = new InputRepository(inputModelFile);
+        InputRepository inputTestRepository = new InputRepository(inputTestFile);
+        OutputRepository outputSourceRepository = new OutputRepository(outputSourceFolder);
+        OutputRepository outputTestRepository = new OutputRepository(outputTestFolder);
+
         // Run tests
-        DMNToJavaTranslator translator = makeTranslator(inputModelFile);
-        TestRunResult testRunResult = runTests(translator, inputModelFile, inputTestFile, outputSourceFolder, outputTestFolder);
+        DMNToJavaTranslator translator = makeTranslator(inputModelRepository);
+        TestRunResult testRunResult = runTests(translator, inputModelRepository, inputTestRepository, outputSourceRepository, outputTestRepository);
 
         // Check results
         checkTestResults(testRunResult);
@@ -78,17 +86,17 @@ class InMemoryTestCasesExecutorTest {
 
     @Test
     void testExecuteSharedFolders() throws Exception {
-        // Input path
+        // Repositories
         Path inputPath = Paths.get("../dmn-test-cases", "standard/tck/1.4/cl3/0020-vacation-days");
         File inputFile = inputPath.toFile();
-
-        // Output path
         Path outputPath = Paths.get("target", "in-memory", "shared");
         File outputFolder = outputPath.resolve("java").toFile();
+        InputRepository inputRepository = new InputRepository(inputFile);
+        OutputRepository outputRepository = new OutputRepository(outputFolder);
 
         // Run tests
-        DMNToJavaTranslator translator = makeTranslator(inputFile);
-        TestRunResult testRunResult = runTests(translator, inputFile, outputFolder);
+        DMNToJavaTranslator translator = makeTranslator(inputRepository);
+        TestRunResult testRunResult = runTests(translator, inputRepository, outputRepository);
 
         // Check results
         checkTestResults(testRunResult);
@@ -147,34 +155,44 @@ class InMemoryTestCasesExecutorTest {
         Path inputPath = Paths.get("src/test/resources/compiler", dmnFileName);
         File inputFile = inputPath.toFile();
         Path outputPath = Paths.get("target", "in-memory", outputFileName);
-        DMNToJavaTranslator translator = makeTranslator(inputFile);
-        runTests(translator, inputFile, outputPath.toFile());
+        InputRepository inputRepository = new InputRepository(inputFile);
+        OutputRepository outputRepository = new OutputRepository(outputPath.toFile());
+
+        DMNToJavaTranslator translator = makeTranslator(inputRepository);
+        runTests(translator, inputRepository, outputRepository);
     }
 
     private void runTests(File inputModelFile, String tckFileName, String outputFileName) throws Exception {
+        // Repositories
         Path inputPath = Paths.get("src/test/resources/compiler", tckFileName);
         File inputTestFile = inputPath.toFile();
         Path outputPath = Paths.get("target", "in-memory", outputFileName);
-        DMNToJavaTranslator translator = makeTranslator(inputModelFile, TCK_INPUT_PARAMETERS);
         File outputFolder = outputPath.toFile();
-        runTests(translator, inputModelFile, inputTestFile, outputFolder, outputFolder);
+        InputRepository inputModelRepository = new InputRepository(inputModelFile);
+        InputRepository inputTestRepository = new InputRepository(inputTestFile);
+        OutputRepository outputSourceRepository = new OutputRepository(outputFolder);
+        OutputRepository outputTestRepository = new OutputRepository(outputFolder);
+
+        // Run tests
+        DMNToJavaTranslator translator = makeTranslator(inputModelRepository, TCK_INPUT_PARAMETERS);
+        runTests(translator, inputModelRepository, inputTestRepository, outputSourceRepository, outputTestRepository);
     }
 
-    private TestRunResult runTests(DMNToJavaTranslator translator, File inputFile, File outputFolder) throws Exception {
+    private TestRunResult runTests(DMNToJavaTranslator translator, InputRepository inputRepository, OutputRepository outputRepository) throws Exception {
          // Translate DMN and TCK to Java, compile and run the tests
-         return new InMemoryTestCasesExecutor(translator).execute(inputFile, outputFolder);
+         return new InMemoryTestCasesExecutor(translator).execute(inputRepository, outputRepository);
     }
 
-    private TestRunResult runTests(DMNToJavaTranslator translator, File inputModelFile, File inputTestFile, File outputSourceFolder, File outputTestFolder) throws Exception {
+    private TestRunResult runTests(DMNToJavaTranslator translator, InputRepository inputModelRepository, InputRepository inputTestRepository, OutputRepository outputSourceRepository, OutputRepository outputTestRepository) throws Exception {
         // Translate DMN and TCK to Java, compile and run the tests
-        return new InMemoryTestCasesExecutor(translator).execute(inputModelFile, inputTestFile, outputSourceFolder, outputTestFolder);
+        return new InMemoryTestCasesExecutor(translator).execute(inputModelRepository, inputTestRepository, outputSourceRepository, outputTestRepository);
     }
 
-    private DMNToJavaTranslator makeTranslator(File inputModelFile) {
-        return makeTranslator(inputModelFile, INPUT_PARAMETERS);
+    private DMNToJavaTranslator makeTranslator(InputRepository inputModelRepository) {
+        return makeTranslator(inputModelRepository, INPUT_PARAMETERS);
     }
 
-    private DMNToJavaTranslator makeTranslator(File inputModelFile, InputParameters inputParameters) {
+    private DMNToJavaTranslator makeTranslator(InputRepository inputModelRepository, InputParameters inputParameters) {
         // Build the translator for DMN and TCK
         DMNValidator dmnValidator = new CompositeDMNValidator(List.of(
                 new DefaultDMNValidator(),
@@ -191,7 +209,7 @@ class InMemoryTestCasesExecutorTest {
                 .withDMNTransformer(dmnTransformer)
                 .withLazyEvaluationDetector(new SparseDecisionDetector());
         DMNToNativeTransformer dmnTranslator = dmnTranslatorBuilder.buildDMNTranslator();
-        TestCasesToNativeTransformer tckTranslator = dmnTranslatorBuilder.buildTCKTranslator(inputModelFile);
+        TestCasesToNativeTransformer tckTranslator = dmnTranslatorBuilder.buildTCKTranslator(inputModelRepository);
         return new DMNToJavaTranslator(dmnTranslator, tckTranslator);
     }
 

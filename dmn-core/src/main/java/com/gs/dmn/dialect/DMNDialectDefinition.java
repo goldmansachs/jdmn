@@ -32,11 +32,11 @@ import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
+import com.gs.dmn.transformation.repository.InputRepository;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.TestValidator;
 
-import java.io.File;
 import java.util.List;
 
 public interface DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
@@ -70,7 +70,7 @@ public interface DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, T
     //
     // TestCases processors
     //
-    TestCasesToNativeTransformer createTestCasesToNativeTransformer(DMNValidator dmnValidator, TestValidator<TEST> testCasesValidator, DMNTransformer<TEST> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, File inputModelFile, InputParameters inputParameters, BuildLogger logger);
+    TestCasesToNativeTransformer createTestCasesToNativeTransformer(DMNValidator dmnValidator, TestValidator<TEST> testCasesValidator, DMNTransformer<TEST> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, InputRepository inputModelRepository, InputParameters inputParameters, BuildLogger logger);
 
     //
     // Execution engine

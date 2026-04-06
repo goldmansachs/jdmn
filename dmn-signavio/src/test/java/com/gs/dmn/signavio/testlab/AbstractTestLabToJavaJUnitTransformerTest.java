@@ -18,9 +18,9 @@ import com.gs.dmn.signavio.dialect.JavaTimeSignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider;
 import com.gs.dmn.transformation.FileTransformer;
 import com.gs.dmn.transformation.InputParameters;
+import com.gs.dmn.transformation.repository.InputRepository;
 import com.gs.dmn.transformation.template.TemplateProvider;
 
-import java.io.File;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
@@ -37,7 +37,7 @@ public abstract class AbstractTestLabToJavaJUnitTransformerTest extends Abstract
     }
 
     @Override
-    protected FileTransformer makeTransformer(File inputModelFile, InputParameters inputParameters, BuildLogger logger) {
-        return new TestLabToJavaJUnitTransformer<>(makeDialectDefinition(), makeDMNValidator(logger), makeTestCasesValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, logger), makeTypeDeserializationConfigurer(logger), inputModelFile, inputParameters, logger);
+    protected FileTransformer makeTransformer(InputRepository inputModelRepository, InputParameters inputParameters, BuildLogger logger) {
+        return new TestLabToJavaJUnitTransformer<>(makeDialectDefinition(), makeDMNValidator(logger), makeTestCasesValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, logger), makeTypeDeserializationConfigurer(logger), inputModelRepository, inputParameters, logger);
     }
 }

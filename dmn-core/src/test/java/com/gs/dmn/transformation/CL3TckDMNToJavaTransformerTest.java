@@ -13,6 +13,7 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.transformation.repository.InputRepository;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -75,12 +76,13 @@ public class CL3TckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
         String dmnFolderName = "0068-feel-equality";
         String inputFilePath = completePath(getInputPath(), dmnVersion, dmnFolderName) + "/";
         URI resource = resource(inputFilePath);
+        File tckTestFolder = new File(resource.getPath()).getParentFile();
+        InputRepository tckTestRepository = new InputRepository(tckTestFolder);
 
         // collect recursively the DMN files
         DMNToJavaTransformer<?, ?, ?, ?, ?> transformer = (DMNToJavaTransformer<?, ?, ?, ?, ?>) makeTransformer(makeInputParameters(makeInputParametersMap()), LOGGER);
         List<File> files = new ArrayList<>();
-        File tckTestFolder = new File(resource.getPath()).getParentFile();
-        transformer.collectFiles(tckTestFolder, files);
+        transformer.collectFiles(tckTestRepository, files);
         assertEquals(2, files.size());
     }
 }

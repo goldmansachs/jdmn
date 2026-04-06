@@ -22,10 +22,10 @@ import com.gs.dmn.tck.validation.TCKValidator;
 import com.gs.dmn.transformation.*;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
+import com.gs.dmn.transformation.repository.InputRepository;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.NopDMNValidator;
 
-import java.io.File;
 import java.net.URI;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -88,7 +88,7 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest<NUMBER, DATE, T
     }
 
     @Override
-    protected abstract FileTransformer makeTransformer(File inputModelFile, InputParameters inputParameters, BuildLogger logger);
+    protected abstract FileTransformer makeTransformer(InputRepository inputModelRepository, InputParameters inputParameters, BuildLogger logger);
 
     protected abstract String getDMNInputPath();
 

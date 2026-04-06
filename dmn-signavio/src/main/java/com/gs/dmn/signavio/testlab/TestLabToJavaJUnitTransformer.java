@@ -29,6 +29,8 @@ import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
+import com.gs.dmn.transformation.repository.InputRepository;
+import com.gs.dmn.transformation.repository.OutputRepository;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.TestValidator;
@@ -46,11 +48,11 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
     private final TestLabSerializer testLabReader = new TestLabSerializer();
     private final TestLabValidator testLabValidator;
 
-    private final File inputModelFile;
+    private final InputRepository inputModelRepository;
 
-    public TestLabToJavaJUnitTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> dialectDefinition, DMNValidator dmnValidator, TestValidator<TestLab> testCasesValidator, DMNTransformer<TestLab> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, File inputModelFile, InputParameters inputParameters, BuildLogger logger) {
+    public TestLabToJavaJUnitTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> dialectDefinition, DMNValidator dmnValidator, TestValidator<TestLab> testCasesValidator, DMNTransformer<TestLab> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, InputRepository inputModelRepository, InputParameters inputParameters, BuildLogger logger) {
         super(dialectDefinition, dmnValidator, testCasesValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
-        this.inputModelFile = inputModelFile;
+        this.inputModelRepository = inputModelRepository;
         this.testLabValidator = (TestLabValidator) testCasesValidator;
     }
 
@@ -65,13 +67,12 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
     }
 
     @Override
-    protected void transformFiles(List<File> files, File outputFolder) {
-        this.logger.info(String.format("Processing DMN files for target '%s'", outputFolder.getPath()));
+    protected void transformFiles(List<File> files, OutputRepository outputRepository) {
         StopWatch watch = new StopWatch();
         watch.start();
 
         // Read the models
-        DMNModelRepository repository = readModels(inputModelFile);
+        DMNModelRepository repository = readModels(inputModelRepository.getRootFile());
 
         // Read the test cases
         List<TestLab> testLabList = readTestCases(files);
@@ -87,7 +88,7 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
 
         // Translate the test cases to the native platform
         BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer = this.dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);
-        transformTestCases(testLabList, basicTransformer, outputFolder);
+        transformTestCases(testLabList, basicTransformer, outputRepository);
 
         watch.stop();
         this.logger.info("TestLab processing time: " + watch);
@@ -112,7 +113,7 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
         return errors;
     }
 
-    private void transformTestCases(List<TestLab> testLabList, BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer, File outputFolder) {
+    private void transformTestCases(List<TestLab> testLabList, BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer, OutputRepository outputRepository) {
         // Enhance test cases with item definition information
         TestLabUtil testLabUtil = new TestLabUtil(basicTransformer);
         TestLabEnhancer testLabEnhancer = new TestLabEnhancer(testLabUtil);
@@ -123,11 +124,11 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
         // Translate the test cases to the native platform
         for (TestLab testLab: testLabList) {
             String nativeClassName = testClassName(testLab, basicTransformer, testLabUtil);
-            transformTestLab(testLab, this.templateProcessor.getTemplateProvider().testBaseTemplatePath(), this.templateProcessor.getTemplateProvider().testTemplateName(), basicTransformer, testLabUtil, outputFolder, nativeClassName);
+            transformTestLab(testLab, this.templateProcessor.getTemplateProvider().testBaseTemplatePath(), this.templateProcessor.getTemplateProvider().testTemplateName(), basicTransformer, testLabUtil, outputRepository, nativeClassName);
         }
     }
 
-    private void transformTestLab(TestLab testLab, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, TestLabUtil testLabUtil, File outputPath, String testClassName) {
+    private void transformTestLab(TestLab testLab, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, TestLabUtil testLabUtil, OutputRepository outputRepository, String testClassName) {
         try {
             String nativePackageName = dmnTransformer.nativeModelPackageName(testLab.getModelName());
 
@@ -140,7 +141,7 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
             // Make output file
             String relativeFilePath = nativePackageName.replace('.', '/');
             String fileExtension = getFileExtension();
-            File outputFile = this.templateProcessor.makeOutputFile(outputPath, relativeFilePath, testClassName, fileExtension);
+            File outputFile = outputRepository.makeOutputFile(relativeFilePath, testClassName, fileExtension);
 
             // Process template
             this.templateProcessor.processTemplate(baseTemplatePath, templateName, params, outputFile, true);

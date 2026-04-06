@@ -18,18 +18,18 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.FileTransformer;
 import com.gs.dmn.transformation.InputParameters;
+import com.gs.dmn.transformation.repository.InputRepository;
 import com.gs.dmn.transformation.template.PythonTreeTemplateProvider;
 import com.gs.dmn.transformation.template.TemplateProvider;
 
-import java.io.File;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
 public abstract class AbstractTestCasesToPythonJUnitTransformerTest extends AbstractTCKTestCasesToJUnitTransformerTest<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
-    protected FileTransformer makeTransformer(File inputModelFile, InputParameters inputParameters, BuildLogger logger) {
-        return new TCKTestCasesToPythonJUnitTransformer<>(makeDialectDefinition(), makeDMNValidator(logger), makeTestCasesValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, LOGGER), makeTypeDeserializationConfigurer(logger), inputModelFile, inputParameters, logger);
+    protected FileTransformer makeTransformer(InputRepository inputModelRepository, InputParameters inputParameters, BuildLogger logger) {
+        return new TCKTestCasesToPythonJUnitTransformer<>(makeDialectDefinition(), makeDMNValidator(logger), makeTestCasesValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, LOGGER), makeTypeDeserializationConfigurer(logger), inputModelRepository, inputParameters, logger);
     }
 
     @Override

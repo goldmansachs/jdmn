@@ -13,15 +13,12 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.transformation.repository.InputRepository;
+import com.gs.dmn.transformation.repository.OutputRepository;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 public abstract class AbstractFileTransformer implements FileTransformer {
     protected final BuildLogger logger;
@@ -33,50 +30,23 @@ public abstract class AbstractFileTransformer implements FileTransformer {
     }
 
     @Override
-    public void transform(File inputFile, File outputFolder) {
+    public void transform(InputRepository inputRepository, OutputRepository outputRepository) {
         List<File> files = new ArrayList<>();
-        collectFiles(inputFile, files);
+        collectFiles(inputRepository, files);
         if (files.isEmpty()) {
-            logger.warn(String.format("Cannot find %s files to transform in %s", getInputFileType(), inputFile.getAbsolutePath()));
+            logger.warn(String.format("Cannot find %s files to transform in %s", getInputFileType(), inputRepository.getPath()));
         } else {
-            transformFiles(files, outputFolder);
+            transformFiles(files, outputRepository);
         }
     }
 
-    protected void collectFiles(File inputFile, List<File> files) {
-        if (Files.isRegularFile(inputFile.toPath()) && shouldTransformFile(inputFile)) {
-            files.add(inputFile);
-        } else if (Files.isDirectory(inputFile.toPath())) {
-            // All levels
-            try (Stream<Path> stream = Files.walk(inputFile.toPath())) {
-                files.addAll(
-                    stream
-                    .filter(Files::isRegularFile)
-                    .map(Path::toFile)
-                    .filter(this::shouldTransformFile)
-                    .toList()
-                );
-            } catch (IOException e) {
-                throw new DMNRuntimeException(String.format("Error collecting files in '%s'", inputFile.getPath()), e);
-            }
-        }
-    }
-
-    protected String relativePath(String parentPath, String childPath) {
-        if (parentPath.endsWith("/")) {
-            parentPath = parentPath.substring(0, parentPath.length() - 1);
-        }
-        if (childPath.startsWith(parentPath)) {
-            String relativePath = childPath.substring(parentPath.length());
-            return relativePath.startsWith("/") ? relativePath.substring(1) : relativePath;
-        } else {
-            throw new DMNRuntimeException(String.format("Cannot compute relative path for parent '%s' and child '%s'", parentPath, childPath));
-        }
+    protected void collectFiles(InputRepository inputRepository, List<File> files) {
+        inputRepository.deepCollectFiles(this::shouldTransformFile, files);
     }
 
     protected abstract String getInputFileType();
 
     protected abstract boolean shouldTransformFile(File inputFile);
 
-    protected abstract void transformFiles(List<File> files, File outputFolder);
+    protected abstract void transformFiles(List<File> files, OutputRepository outputRepository);
 }

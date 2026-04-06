@@ -14,6 +14,8 @@ package com.gs.dmn.transformation;
 
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.transformation.repository.InputRepository;
+import com.gs.dmn.transformation.repository.OutputRepository;
 import com.gs.dmn.validation.TestValidator;
 
 import java.io.File;
@@ -23,14 +25,17 @@ import java.util.Map;
 public abstract class AbstractTestCasesTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
     @SafeVarargs
     protected final void doTest(String inputTestFilePath, String inputModelFilePath, String expectedOutputPath, Pair<String, String>... extraInputParameters) throws Exception {
+        // Repositories
         File outputFolder = new File("target/" + expectedOutputPath);
         Files.createDirectories(outputFolder.toPath());
+        InputRepository inputModelRepository = new InputRepository(new File(inputModelFilePath));
+        InputRepository inputTestRepository = new InputRepository(new File(inputTestFilePath));
+        OutputRepository outputRepository = new OutputRepository(outputFolder);
 
-        File inputFile = new File(inputTestFilePath);
-        File inputModelFile = new File(inputModelFilePath);
+        // Transform tests
         Map<String, String> inputParameters = makeInputParametersMap(extraInputParameters);
-        FileTransformer transformer = makeTransformer(inputModelFile, makeInputParameters(inputParameters), LOGGER);
-        transformer.transform(inputFile, outputFolder);
+        FileTransformer transformer = makeTransformer(inputModelRepository, makeInputParameters(inputParameters), LOGGER);
+        transformer.transform(inputTestRepository, outputRepository);
 
         File expectedOutputFolder = new File(resource(expectedOutputPath));
         compareFile(expectedOutputFolder, outputFolder);
@@ -50,5 +55,5 @@ public abstract class AbstractTestCasesTransformerTest<NUMBER, DATE, TIME, DATE_
 
     protected abstract TestValidator<TEST> makeTestCasesValidator(BuildLogger logger);
 
-    protected abstract FileTransformer makeTransformer(File inputModelFile, InputParameters inputParameters, BuildLogger logger);
+    protected abstract FileTransformer makeTransformer(InputRepository inputModelRepository, InputParameters inputParameters, BuildLogger logger);
 }

@@ -20,6 +20,7 @@ import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.FileTransformer;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
+import com.gs.dmn.transformation.repository.InputRepository;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.TestValidator;
@@ -75,7 +76,7 @@ public class TestLabToKotlinJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
                 templateProvider,
                 lazyEvaluationDetector,
                 typeDeserializationConfigurer,
-                this.inputModelFileDirectory,
+                new InputRepository(this.inputModelFileDirectory),
                 makeInputParameters(),
                 logger
         );
