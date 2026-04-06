@@ -28,17 +28,17 @@ import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.TestValidator;
 
-import java.nio.file.Path;
+import java.io.File;
 
 public class TCKTestCasesToPythonJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
-    public TCKTestCasesToPythonJUnitTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> dialectDefinition, DMNValidator dmnValidator, TestValidator<TestCases> testCasesValidator, DMNTransformer<TestCases> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, InputParameters inputParameters, BuildLogger logger) {
-        super(dialectDefinition, dmnValidator, testCasesValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputModelPath, inputParameters, logger);
+    public TCKTestCasesToPythonJUnitTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> dialectDefinition, DMNValidator dmnValidator, TestValidator<TestCases> testCasesValidator, DMNTransformer<TestCases> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, File inputModelFile, InputParameters inputParameters, BuildLogger logger) {
+        super(dialectDefinition, dmnValidator, testCasesValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputModelFile, inputParameters, logger);
     }
 
     @Override
-    protected void generateExtra(BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer, DMNModelRepository dmnModelRepository, Path outputPath) {
+    protected void generateExtra(BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer, DMNModelRepository dmnModelRepository, File outputFolder) {
         if (basicTransformer.isGenerateExtra()) {
-            DMNToPythonTransformer.generateInitFiles(basicTransformer, dmnModelRepository, outputPath, inputParameters.getCharset(), false);
+            DMNToPythonTransformer.generateInitFiles(basicTransformer, dmnModelRepository, outputFolder, inputParameters.getCharset(), false);
         }
     }
 

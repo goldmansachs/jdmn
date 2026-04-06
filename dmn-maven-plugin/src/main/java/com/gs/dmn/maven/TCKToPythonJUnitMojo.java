@@ -75,7 +75,7 @@ public class TCKToPythonJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> exten
                 templateProvider,
                 lazyEvaluationDetector,
                 typeDeserializationConfigurer,
-                this.inputModelFileDirectory.toPath(),
+                this.inputModelFileDirectory,
                 makeInputParameters(),
                 logger
         );

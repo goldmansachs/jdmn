@@ -21,6 +21,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 
+import static com.gs.dmn.error.DMNErrorHandler.handleError;
+
 public class TestLabSerializer {
     public static final String TEST_LAB_FILE_EXTENSION = ".json";
 
@@ -43,16 +45,24 @@ public class TestLabSerializer {
                 .build();
     }
 
-    public TestLab read(File inputFile) throws IOException {
-        TestLab testLab = MAPPER.readValue(inputFile, TestLab.class);
-        testLab.setSource(inputFile.getName());
-        return testLab;
+    public TestLab read(File inputFile) {
+        try {
+            TestLab testLab = MAPPER.readValue(inputFile, TestLab.class);
+            testLab.setSource(inputFile.getName());
+            return testLab;
+        } catch (IOException e) {
+            throw handleError(String.format("Cannot read DMN from '%s'", inputFile.getName()), e);
+        }
     }
 
-    public TestLab read(Reader reader) throws IOException {
-        TestLab testLab = MAPPER.readValue(reader, TestLab.class);
-        testLab.setSource(reader.getClass().getSimpleName());
-        return testLab;
+    public TestLab read(Reader reader) {
+        try {
+            TestLab testLab = MAPPER.readValue(reader, TestLab.class);
+            testLab.setSource(reader.getClass().getSimpleName());
+            return testLab;
+        } catch (IOException e) {
+            throw handleError(String.format("Cannot read DMN from '%s'", reader), e);
+        }
     }
 
     public void write(TestLab testLab, File file) throws IOException {

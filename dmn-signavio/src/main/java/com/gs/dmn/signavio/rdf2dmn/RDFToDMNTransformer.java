@@ -46,7 +46,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -108,16 +107,16 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
     }
 
     @Override
-    protected void transformFiles(List<File> files, File inputRoot, Path outputPath) {
+    protected void transformFiles(List<File> files, File outputFolder) {
+        this.logger.info(String.format("Processing DMN files for target '%s'", outputFolder.getPath()));
         for (File child : files) {
             this.logger.info(String.format("Transforming file '%s'", child.getPath()));
-            transformLeaf(child, inputRoot, outputPath);
+            transformLeaf(child, outputFolder);
         }
     }
 
-    private void transformLeaf(File child, File root, Path outputPath) {
+    private void transformLeaf(File child, File outputFolder) {
         try (FileInputStream inputStream = new FileInputStream(child.toURI().getPath())) {
-            File outputFolder = outputFolder(child, root, outputPath);
             File outputFile = new File(outputFolder, diagramName(child) + inputParameters.getDmnFileExtension());
 
             this.logger.info(String.format("Output folder '%s' ", outputFolder.getCanonicalPath()));

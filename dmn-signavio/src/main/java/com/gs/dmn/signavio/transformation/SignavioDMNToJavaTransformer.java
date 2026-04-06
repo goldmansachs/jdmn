@@ -32,7 +32,6 @@ import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 
 import java.io.File;
-import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,14 +48,14 @@ public class SignavioDMNToJavaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    protected void transformModels(DMNModelRepository dmnModelRepository, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath) {
-        super.transformModels(dmnModelRepository, dmnTransformer, outputPath);
+    protected void transformModels(DMNModelRepository dmnModelRepository, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, File outputFolder) {
+        super.transformModels(dmnModelRepository, dmnTransformer, outputFolder);
 
         // Generate metadata
-        processManifest(dmnTransformer, DMN_METADATA_FILE_NAME, outputPath);
+        processManifest(dmnTransformer, DMN_METADATA_FILE_NAME, outputFolder);
     }
 
-    private void processManifest(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, String jsonFileName, Path outputPath) {
+    private void processManifest(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, String jsonFileName, File outputFolder) {
         String nativePackageName = dmnTransformer.nativeRootPackageName();
         String filePath = nativePackageName.replace('.', '/');
         String fileExtension = ".json";
@@ -69,7 +68,7 @@ public class SignavioDMNToJavaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             String modelVersion = this.inputParameters.getModelVersion();
             String platformVersion = this.inputParameters.getPlatformVersion();
             DMNMetadata manifest = dmnToManifestTransformer.toManifest(dmnNamespaces, nativeNamespace, dmnVersion, modelVersion, platformVersion);
-            File resultFile = this.templateProcessor.makeOutputFile(outputPath, filePath, jsonFileName, fileExtension);
+            File resultFile = this.templateProcessor.makeOutputFile(outputFolder, filePath, jsonFileName, fileExtension);
             JsonSerializer.OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValue(resultFile, manifest);
         } catch (Exception e) {
             throw new DMNRuntimeException("Cannot process manifest file", e);

@@ -18,20 +18,8 @@ import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
-import org.junit.jupiter.api.Test;
-
-import java.io.File;
-import java.nio.file.Path;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class AbstractTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractFileTransformerTest {
-    protected Path path(String path) {
-        File file = new File(resource(path));
-        return file.toPath();
-    }
-
     protected String friendlyFolderName(String name) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < name.length(); i++) {
@@ -56,35 +44,4 @@ public abstract class AbstractTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     protected abstract LazyEvaluationDetector makeLazyEvaluationDetector(InputParameters inputParameters, BuildLogger logger);
 
     protected abstract TypeDeserializationConfigurer makeTypeDeserializationConfigurer(BuildLogger logger);
-
-    @Test
-    public void testRelativePath() {
-        AbstractFileTransformer transformer = new DefaultTransformer(null, null);
-        assertEquals("", transformer.relativePath("", ""));
-        assertEquals("", transformer.relativePath("abc", "abc"));
-        assertEquals("", transformer.relativePath("abc/", "abc"));
-        assertEquals("abc", transformer.relativePath("abc/complex/", "abc/complex/abc"));
-    }
-}
-
-class DefaultTransformer extends AbstractFileTransformer {
-    public DefaultTransformer(InputParameters inputParameters, BuildLogger logger) {
-        super(logger, inputParameters);
-    }
-
-    @Override
-    protected String getInputFileType() {
-        // NOP transformer for testing
-        return "";
-    }
-
-    @Override
-    protected boolean shouldTransformFile(File inputFile) {
-        return false;
-    }
-
-    @Override
-    protected void transformFiles(List<File> children, File root, Path outputPath) {
-        // NOP transformer for testing
-    }
 }

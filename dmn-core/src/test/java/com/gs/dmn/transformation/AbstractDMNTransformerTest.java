@@ -21,14 +21,13 @@ import com.gs.dmn.validation.NopDMNValidator;
 import java.io.File;
 import java.net.URI;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Map;
 import java.util.Objects;
 
 public abstract class AbstractDMNTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
     protected void doFolderTest() throws Exception {
         String inputPath = getInputPath();
-        File folder = path(inputPath).toFile();
+        File folder = new File(resource(inputPath));
         if (folder.listFiles() != null) {
             for(File file: Objects.requireNonNull(folder.listFiles())) {
                 if (file.isFile() && file.getName().endsWith(this.inputParameters.getDmnFileExtension())) {
@@ -62,10 +61,10 @@ public abstract class AbstractDMNTransformerTest<NUMBER, DATE, TIME, DATE_TIME, 
         File outputFolder = new File("target/" + expectedOutputPath);
         Files.createDirectories(outputFolder.toPath());
 
-        Path inputPath = new File(inputFilePath).toPath();
+        File inputFile = new File(inputFilePath);
         Map<String, String> inputParameters = makeInputParametersMap(extraInputParameters);
         FileTransformer transformer = makeTransformer(makeInputParameters(inputParameters), LOGGER);
-        transformer.transform(inputPath, outputFolder.toPath());
+        transformer.transform(inputFile, outputFolder);
 
         File expectedOutputFolder = new File(resource(expectedOutputPath));
         compareFile(expectedOutputFolder, outputFolder);

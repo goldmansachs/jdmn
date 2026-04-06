@@ -75,7 +75,7 @@ public class TCKToKotlinJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> exten
                 templateProvider,
                 lazyEvaluationDetector,
                 typeDeserializationConfigurer,
-                this.inputModelFileDirectory.toPath(),
+                this.inputModelFileDirectory,
                 makeInputParameters(),
                 logger
         );

@@ -75,7 +75,7 @@ public class TestLabToJavaJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
                 templateProvider,
                 lazyEvaluationDetector,
                 typeDeserializationConfigurer,
-                this.inputModelFileDirectory.toPath(),
+                this.inputModelFileDirectory,
                 makeInputParameters(),
                 logger
         );

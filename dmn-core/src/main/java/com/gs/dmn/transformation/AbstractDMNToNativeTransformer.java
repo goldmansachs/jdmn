@@ -31,7 +31,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -67,8 +66,8 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
     }
 
     @Override
-    protected void transformFiles(List<File> files, File rootFile, Path outputPath) {
-        this.logger.info(String.format("Processing DMN files in '%s'", rootFile.getPath()));
+    protected void transformFiles(List<File> files, File outputFolder) {
+        this.logger.info(String.format("Processing DMN files for target '%s'", outputFolder.getPath()));
         StopWatch watch = new StopWatch();
         watch.start();
 
@@ -83,33 +82,33 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
 
         // Translate the models to the native platform
         BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer = this.dialectDefinition.createBasicTransformer(repository, this.lazyEvaluationDetector, this.inputParameters);
-        transformModels(repository, dmnTransformer, outputPath);
+        transformModels(repository, dmnTransformer, outputFolder);
 
         watch.stop();
         this.logger.info("DMN processing time: " + watch);
     }
 
-    protected void transformModels(DMNModelRepository dmnModelRepository, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath) {
-        DMNToNativeVisitor visitor = new DMNToNativeVisitor(this.logger, new LogErrorHandler(LOGGER), dmnTransformer, dmnModelRepository, this.templateProcessor, outputPath, new ArrayList<>(), this.decisionBaseClass);
+    protected void transformModels(DMNModelRepository dmnModelRepository, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, File outputFolder) {
+        DMNToNativeVisitor visitor = new DMNToNativeVisitor(this.logger, new LogErrorHandler(LOGGER), dmnTransformer, dmnModelRepository, this.templateProcessor, outputFolder, new ArrayList<>(), this.decisionBaseClass);
         for (TDefinitions definitions : dmnModelRepository.getAllDefinitions()) {
             definitions.accept(visitor, new NativeVisitorContext(definitions));
         }
 
         // Generate registry
-        generateRegistry(dmnModelRepository.getAllDefinitions(), dmnTransformer, outputPath);
+        generateRegistry(dmnModelRepository.getAllDefinitions(), dmnTransformer, outputFolder);
 
         // Generate extra
-        generateExtra(dmnTransformer, dmnModelRepository, outputPath);
+        generateExtra(dmnTransformer, dmnModelRepository, outputFolder);
     }
 
-    private void generateRegistry(List<TDefinitions> definitionsList, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath) {
+    private void generateRegistry(List<TDefinitions> definitionsList, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, File outputFolder) {
         try {
             // Make output file
             String registryClassName = REGISTRY_CLASS_NAME;
             String modelPackageName = dmnTransformer.nativeRootPackageName();
             String relativeFilePath = modelPackageName.replace('.', '/');
             String fileExtension = getFileExtension();
-            File outputFile = this.templateProcessor.makeOutputFile(outputPath, relativeFilePath, registryClassName, fileExtension);
+            File outputFile = this.templateProcessor.makeOutputFile(outputFolder, relativeFilePath, registryClassName, fileExtension);
 
             // Make parameters
             Map<String, Object> params = this.templateProcessor.makeModelRegistryTemplateParams(definitionsList, modelPackageName, registryClassName, dmnTransformer);
@@ -120,6 +119,6 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
 
     }
 
-    protected void generateExtra(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, DMNModelRepository dmnModelRepository, Path outputPath) {
+    protected void generateExtra(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, DMNModelRepository dmnModelRepository, File outputFolder) {
     }
 }

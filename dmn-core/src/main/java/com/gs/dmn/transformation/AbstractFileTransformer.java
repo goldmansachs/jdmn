@@ -14,7 +14,6 @@ package com.gs.dmn.transformation;
 
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,22 +33,22 @@ public abstract class AbstractFileTransformer implements FileTransformer {
     }
 
     @Override
-    public void transform(Path inputPath, Path outputPath) {
+    public void transform(File inputFile, File outputFolder) {
         List<File> files = new ArrayList<>();
-        collectFiles(inputPath, files);
+        collectFiles(inputFile, files);
         if (files.isEmpty()) {
-            logger.warn(String.format("Cannot find %s files to transform in %s", getInputFileType(), inputPath.toFile().getAbsolutePath()));
+            logger.warn(String.format("Cannot find %s files to transform in %s", getInputFileType(), inputFile.getAbsolutePath()));
         } else {
-            transformFiles(files, inputPath.toFile(), outputPath);
+            transformFiles(files, outputFolder);
         }
     }
 
-    protected void collectFiles(Path inputPath, List<File> files) {
-        if (Files.isRegularFile(inputPath) && shouldTransformFile(inputPath.toFile())) {
-            files.add(inputPath.toFile());
-        } else if (Files.isDirectory(inputPath)) {
+    protected void collectFiles(File inputFile, List<File> files) {
+        if (Files.isRegularFile(inputFile.toPath()) && shouldTransformFile(inputFile)) {
+            files.add(inputFile);
+        } else if (Files.isDirectory(inputFile.toPath())) {
             // All levels
-            try (Stream<Path> stream = Files.walk(inputPath)) {
+            try (Stream<Path> stream = Files.walk(inputFile.toPath())) {
                 files.addAll(
                     stream
                     .filter(Files::isRegularFile)
@@ -58,39 +57,12 @@ public abstract class AbstractFileTransformer implements FileTransformer {
                     .toList()
                 );
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new DMNRuntimeException(String.format("Error collecting files in '%s'", inputFile.getPath()), e);
             }
         }
     }
 
-    protected File outputFolder(File child, File root, Path outputPath) throws IOException {
-        if (root.isDirectory()) {
-            String relativePath = relativePath(root, child);
-            File outputFolder;
-            if (StringUtils.isBlank(relativePath)) {
-                outputFolder = outputPath.toFile();
-            } else {
-                String path = outputPath.toFile().getCanonicalPath();
-                outputFolder = new File(path + "/" + relativePath);
-            }
-            Files.createDirectories(outputFolder.toPath());
-            return outputFolder;
-        } else if (root.getCanonicalPath().equals(child.getCanonicalPath())) {
-            File outputFolder = outputPath.toFile();
-            Files.createDirectories(outputFolder.toPath());
-            return outputFolder;
-        } else {
-            throw new DMNRuntimeException(String.format("Cannot compute output folder for child '%s' and root '%s'", child.getCanonicalPath(), root.getCanonicalPath()));
-        }
-    }
-
-    private String relativePath(File root, File child) throws IOException {
-        String childPath = child.getParentFile().getCanonicalPath();
-        String parentPath = root.getCanonicalPath();
-        return relativePath(parentPath, childPath);
-    }
-
-    String relativePath(String parentPath, String childPath) {
+    protected String relativePath(String parentPath, String childPath) {
         if (parentPath.endsWith("/")) {
             parentPath = parentPath.substring(0, parentPath.length() - 1);
         }
@@ -106,5 +78,5 @@ public abstract class AbstractFileTransformer implements FileTransformer {
 
     protected abstract boolean shouldTransformFile(File inputFile);
 
-    protected abstract void transformFiles(List<File> files, File rootFile, Path outputPath);
+    protected abstract void transformFiles(List<File> files, File outputFolder);
 }

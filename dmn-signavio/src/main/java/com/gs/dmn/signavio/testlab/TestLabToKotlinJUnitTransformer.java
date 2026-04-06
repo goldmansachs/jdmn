@@ -22,11 +22,11 @@ import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.TestValidator;
 
-import java.nio.file.Path;
+import java.io.File;
 
 public class TestLabToKotlinJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
-    public TestLabToKotlinJUnitTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> dialectDefinition, DMNValidator dmnValidator, TestValidator<TestLab> testCasesValidator, DMNTransformer<TestLab> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, InputParameters inputParameters, BuildLogger logger) {
-        super(dialectDefinition, dmnValidator, testCasesValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputModelPath, inputParameters, logger);
+    public TestLabToKotlinJUnitTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> dialectDefinition, DMNValidator dmnValidator, TestValidator<TestLab> testCasesValidator, DMNTransformer<TestLab> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, File inputModelFile, InputParameters inputParameters, BuildLogger logger) {
+        super(dialectDefinition, dmnValidator, testCasesValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputModelFile, inputParameters, logger);
     }
 
     @Override

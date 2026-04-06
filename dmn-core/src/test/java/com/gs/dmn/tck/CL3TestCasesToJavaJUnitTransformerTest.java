@@ -17,7 +17,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.net.URI;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,10 +81,10 @@ public class CL3TestCasesToJavaJUnitTransformerTest extends AbstractTCKTestCases
         URI resource = resource(inputFilePath);
 
         // Do not collect recursively the TCK files
-        Path tckTestFolderPath = new File(resource.getPath()).toPath();
-        TCKTestCasesToJavaJUnitTransformer<?, ?, ?, ?, ?> transformer = (TCKTestCasesToJavaJUnitTransformer<?, ?, ?, ?, ?>) makeTransformer(tckTestFolderPath, makeInputParameters(makeInputParametersMap()), LOGGER);
+        File tckTestFolder = new File(resource.getPath());
+        TCKTestCasesToJavaJUnitTransformer<?, ?, ?, ?, ?> transformer = (TCKTestCasesToJavaJUnitTransformer<?, ?, ?, ?, ?>) makeTransformer(tckTestFolder, makeInputParameters(makeInputParametersMap()), LOGGER);
         List<File> files = new ArrayList<>();
-        transformer.collectFiles(tckTestFolderPath, files);
+        transformer.collectFiles(tckTestFolder, files);
         assertEquals(1, files.size());
     }
 }

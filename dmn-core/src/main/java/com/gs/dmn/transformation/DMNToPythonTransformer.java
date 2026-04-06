@@ -30,7 +30,6 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.nio.file.Path;
 
 public class DMNToPythonTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
     public DMNToPythonTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> dialectDefinition, DMNValidator dmnValidator, DMNTransformer<TestCases> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, InputParameters inputParameters, BuildLogger logger) {
@@ -38,32 +37,32 @@ public class DMNToPythonTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
     }
 
     @Override
-    protected void generateExtra(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, DMNModelRepository dmnModelRepository, Path outputPath) {
+    protected void generateExtra(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, DMNModelRepository dmnModelRepository, File outputFolder) {
         if (dmnTransformer.isGenerateExtra()) {
-            generateInitFiles(dmnTransformer, dmnModelRepository, outputPath, inputParameters.getCharset(), true);
+            generateInitFiles(dmnTransformer, dmnModelRepository, outputFolder, inputParameters.getCharset(), true);
         }
     }
 
-    public static void generateInitFiles(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, DMNModelRepository dmnModelRepository, Path outputPath, Charset charset, boolean srcFolder) {
+    public static void generateInitFiles(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, DMNModelRepository dmnModelRepository, File outputFolder, Charset charset, boolean srcFolder) {
         for (TDefinitions definitions : dmnModelRepository.getAllDefinitions()) {
             String packageName = dmnTransformer.nativeModelPackageName(definitions.getName());
             if (srcFolder) {
-                generateInitFile(packageName.split("\\."), outputPath, charset);
+                generateInitFile(packageName.split("\\."), outputFolder, charset);
                 String typePackageName = dmnTransformer.nativeTypePackageName(definitions.getName());
-                generateInitFile(typePackageName.split("\\."), outputPath, charset);
+                generateInitFile(typePackageName.split("\\."), outputFolder, charset);
             } else {
-                createInitFile(outputPath.toFile(), charset);
-                generateInitFile(packageName.split("\\."), outputPath, charset);
+                createInitFile(outputFolder, charset);
+                generateInitFile(packageName.split("\\."), outputFolder, charset);
             }
         }
     }
 
-    private static void generateInitFile(String[] packageParts, Path outputPath, Charset charset) {
+    private static void generateInitFile(String[] packageParts, File outputFolder, Charset charset) {
         if (packageParts ==  null) {
             return;
         }
 
-        File currentDir = outputPath.toFile();
+        File currentDir = outputFolder;
         for (String part : packageParts) {
             if (!StringUtils.isBlank(part)) {
                 currentDir = new File(currentDir, part);

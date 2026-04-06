@@ -18,7 +18,6 @@ import com.gs.dmn.validation.TestValidator;
 
 import java.io.File;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Map;
 
 public abstract class AbstractTestCasesTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
@@ -27,11 +26,11 @@ public abstract class AbstractTestCasesTransformerTest<NUMBER, DATE, TIME, DATE_
         File outputFolder = new File("target/" + expectedOutputPath);
         Files.createDirectories(outputFolder.toPath());
 
-        Path inputPath = new File(inputTestFilePath).toPath();
-        Path inputModelPath = new File(inputModelFilePath).toPath();
+        File inputFile = new File(inputTestFilePath);
+        File inputModelFile = new File(inputModelFilePath);
         Map<String, String> inputParameters = makeInputParametersMap(extraInputParameters);
-        FileTransformer transformer = makeTransformer(inputModelPath, makeInputParameters(inputParameters), LOGGER);
-        transformer.transform(inputPath, outputFolder.toPath());
+        FileTransformer transformer = makeTransformer(inputModelFile, makeInputParameters(inputParameters), LOGGER);
+        transformer.transform(inputFile, outputFolder);
 
         File expectedOutputFolder = new File(resource(expectedOutputPath));
         compareFile(expectedOutputFolder, outputFolder);
@@ -51,5 +50,5 @@ public abstract class AbstractTestCasesTransformerTest<NUMBER, DATE, TIME, DATE_
 
     protected abstract TestValidator<TEST> makeTestCasesValidator(BuildLogger logger);
 
-    protected abstract FileTransformer makeTransformer(Path inputModelPath, InputParameters inputParameters, BuildLogger logger);
+    protected abstract FileTransformer makeTransformer(File inputModelFile, InputParameters inputParameters, BuildLogger logger);
 }

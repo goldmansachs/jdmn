@@ -27,11 +27,11 @@ public class DMNToJavaTranslator {
     }
 
     public void translateDMN(File inputFile, File outputFolder) {
-        dmnTranslator.transform(inputFile.toPath(), outputFolder.toPath());
+        dmnTranslator.transform(inputFile, outputFolder);
     }
 
     public void translateTCK(File inputTestFile, File outputFile) {
-        tckTranslator.transform(inputTestFile.toPath(), outputFile.toPath());
+        tckTranslator.transform(inputTestFile, outputFile);
     }
 }
 

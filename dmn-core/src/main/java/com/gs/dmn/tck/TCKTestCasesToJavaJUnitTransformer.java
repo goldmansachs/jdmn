@@ -48,20 +48,20 @@ import static com.gs.dmn.serialization.DMNConstants.isTCKFile;
 
 public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestCasesToJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
     private final TCKSerializer tckSerializer;
-    private final Path inputModelPath;
+    private final File inputModelFile;
 
-    public TCKTestCasesToJavaJUnitTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> dialectDefinition, DMNValidator dmnValidator, TestValidator<TestCases> testCasesValidator, DMNTransformer<TestCases> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, InputParameters inputParameters, BuildLogger logger) {
+    public TCKTestCasesToJavaJUnitTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> dialectDefinition, DMNValidator dmnValidator, TestValidator<TestCases> testCasesValidator, DMNTransformer<TestCases> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, File inputModelFile, InputParameters inputParameters, BuildLogger logger) {
         super(dialectDefinition, dmnValidator, testCasesValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
-        this.inputModelPath = inputModelPath;
+        this.inputModelFile = inputModelFile;
         this.tckSerializer = new XMLTCKSerializer(logger, inputParameters);
     }
 
-    protected void collectFiles(Path inputPath, List<File> files) {
-        if (Files.isRegularFile(inputPath) && shouldTransformFile(inputPath.toFile())) {
-            files.add(inputPath.toFile());
-        } else if (Files.isDirectory(inputPath)) {
+    protected void collectFiles(File inputFile, List<File> files) {
+        if (Files.isRegularFile(inputFile.toPath()) && shouldTransformFile(inputFile)) {
+            files.add(inputFile);
+        } else if (Files.isDirectory(inputFile.toPath())) {
             // One single level
-            try (Stream<Path> stream = Files.list(inputPath)) {
+            try (Stream<Path> stream = Files.list(inputFile.toPath())) {
                 files.addAll(
                     stream
                     .filter(Files::isRegularFile)
@@ -86,12 +86,13 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
     }
 
     @Override
-    protected void transformFiles(List<File> files, File rootFile, Path outputPath) {
+    protected void transformFiles(List<File> files, File outputFolder) {
+        this.logger.info(String.format("Processing DMN files for target '%s'", outputFolder.getPath()));
         StopWatch watch = new StopWatch();
         watch.start();
 
         // Read the models
-        DMNModelRepository repository = readModels(inputModelPath.toFile());
+        DMNModelRepository repository = readModels(inputModelFile);
 
         // Read the test cases
         List<TestCases> testCasesList = readTestCases(files);
@@ -110,7 +111,7 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
 
         // Translate the test cases to the native platform
         BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer = this.dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);
-        transformTestCases(testCasesList, basicTransformer, outputPath);
+        transformTestCases(testCasesList, basicTransformer, outputFolder);
 
         watch.stop();
         logger.info("TCK processing time: " + watch);
@@ -127,30 +128,30 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
         return testCasesList;
     }
 
-    private void transformTestCases(List<TestCases> testCasesList, BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer, Path outputPath) {
+    private void transformTestCases(List<TestCases> testCasesList, BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer, File outputFolder) {
         TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckUtil = new TCKUtil<>(basicTransformer, dialectDefinition.createFEELLib());
         TemplateProvider templateProvider = templateProcessor.getTemplateProvider();
         for (TestCases testCases: testCasesList) {
             String nativeClassName = testClassName(testCases, basicTransformer);
-            transformTestCase(testCases, templateProvider, basicTransformer, tckUtil, outputPath, nativeClassName);
+            transformTestCase(testCases, templateProvider, basicTransformer, tckUtil, outputFolder, nativeClassName);
         }
-        generateExtra(basicTransformer, basicTransformer.getDMNModelRepository(), outputPath);
+        generateExtra(basicTransformer, basicTransformer.getDMNModelRepository(), outputFolder);
     }
 
-    private void transformTestCase(TestCases testCases, TemplateProvider templateProvider, BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer, TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckUtil, Path outputPath, String nativeClassName) {
-        processTemplate(testCases, templateProvider.testBaseTemplatePath(), templateProvider.testTemplateName(), basicTransformer, tckUtil, outputPath, nativeClassName);
+    private void transformTestCase(TestCases testCases, TemplateProvider templateProvider, BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer, TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckUtil, File outputFolder, String nativeClassName) {
+        processTemplate(testCases, templateProvider.testBaseTemplatePath(), templateProvider.testTemplateName(), basicTransformer, tckUtil, outputFolder, nativeClassName);
     }
 
-    protected void generateExtra(BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer, DMNModelRepository dmnModelRepository, Path outputPath) {
+    protected void generateExtra(BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer, DMNModelRepository dmnModelRepository, File outputFolder) {
     }
 
-    protected void processTemplate(TestCases testCases, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckUtil, Path outputPath, String testClassName) {
+    protected void processTemplate(TestCases testCases, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckUtil, File outputFolder, String testClassName) {
         try {
             // Make output file
             String nativePackageName = dmnTransformer.nativeModelPackageName(testCases.getModelName());
             String relativeFilePath = nativePackageName.replace('.', '/');
             String fileExtension = getFileExtension();
-            File outputFile = this.templateProcessor.makeOutputFile(outputPath, relativeFilePath, testClassName, fileExtension);
+            File outputFile = this.templateProcessor.makeOutputFile(outputFolder, relativeFilePath, testClassName, fileExtension);
 
             // Make parameters
             Map<String, Object> params = makeTemplateParams(testCases, tckUtil);

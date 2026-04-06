@@ -21,15 +21,15 @@ import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.template.KotlinTreeTemplateProvider;
 import com.gs.dmn.transformation.template.TemplateProvider;
 
-import java.nio.file.Path;
+import java.io.File;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
 public abstract class AbstractTestCasesToKotlinJUnitTransformerTest extends AbstractTCKTestCasesToJUnitTransformerTest<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
-    protected FileTransformer makeTransformer(Path inputModelPath, InputParameters inputParameters, BuildLogger logger) {
-        return new TCKTestCasesToKotlinJUnitTransformer<>(makeDialectDefinition(), makeDMNValidator(logger), makeTestCasesValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, LOGGER), makeTypeDeserializationConfigurer(logger), inputModelPath, inputParameters, logger);
+    protected FileTransformer makeTransformer(File inputModelFile, InputParameters inputParameters, BuildLogger logger) {
+        return new TCKTestCasesToKotlinJUnitTransformer<>(makeDialectDefinition(), makeDMNValidator(logger), makeTestCasesValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, LOGGER), makeTypeDeserializationConfigurer(logger), inputModelFile, inputParameters, logger);
     }
 
     @Override

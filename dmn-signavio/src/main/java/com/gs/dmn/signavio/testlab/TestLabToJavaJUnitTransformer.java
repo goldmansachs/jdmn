@@ -35,8 +35,6 @@ import com.gs.dmn.validation.TestValidator;
 import org.apache.commons.lang3.time.StopWatch;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,11 +46,11 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
     private final TestLabSerializer testLabReader = new TestLabSerializer();
     private final TestLabValidator testLabValidator;
 
-    private final Path inputModelPath;
+    private final File inputModelFile;
 
-    public TestLabToJavaJUnitTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> dialectDefinition, DMNValidator dmnValidator, TestValidator<TestLab> testCasesValidator, DMNTransformer<TestLab> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, InputParameters inputParameters, BuildLogger logger) {
+    public TestLabToJavaJUnitTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> dialectDefinition, DMNValidator dmnValidator, TestValidator<TestLab> testCasesValidator, DMNTransformer<TestLab> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, File inputModelFile, InputParameters inputParameters, BuildLogger logger) {
         super(dialectDefinition, dmnValidator, testCasesValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
-        this.inputModelPath = inputModelPath;
+        this.inputModelFile = inputModelFile;
         this.testLabValidator = (TestLabValidator) testCasesValidator;
     }
 
@@ -67,39 +65,35 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
     }
 
     @Override
-    protected void transformFiles(List<File> files, File root, Path outputPath) {
-        try {
-            this.logger.info(String.format("Processing TestLab file '%s'", root.getPath()));
-            StopWatch watch = new StopWatch();
-            watch.start();
+    protected void transformFiles(List<File> files, File outputFolder) {
+        this.logger.info(String.format("Processing DMN files for target '%s'", outputFolder.getPath()));
+        StopWatch watch = new StopWatch();
+        watch.start();
 
-            // Read the models
-            DMNModelRepository repository = readModels(inputModelPath.toFile());
+        // Read the models
+        DMNModelRepository repository = readModels(inputModelFile);
 
-            // Read the test cases
-            List<TestLab> testLabList = readTestCases(files);
+        // Read the test cases
+        List<TestLab> testLabList = readTestCases(files);
 
-            // Apply the DMN transformation
-            Pair<DMNModelRepository, List<TestLab>> pair = this.dmnTransformer.transform(repository, testLabList);
-            repository = pair.getLeft();
-            testLabList = pair.getRight();
+        // Apply the DMN transformation
+        Pair<DMNModelRepository, List<TestLab>> pair = this.dmnTransformer.transform(repository, testLabList);
+        repository = pair.getLeft();
+        testLabList = pair.getRight();
 
-            // Validate the models and test cases
-            handleModelErrors(this.dmnValidator.validate(repository));
-            handleModelErrors(validateTestCases(testLabList));
+        // Validate the models and test cases
+        handleModelErrors(this.dmnValidator.validate(repository));
+        handleModelErrors(validateTestCases(testLabList));
 
-            // Translate the test cases to the native platform
-            BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer = this.dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);
-            transformTestCases(testLabList, basicTransformer, outputPath);
+        // Translate the test cases to the native platform
+        BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer = this.dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);
+        transformTestCases(testLabList, basicTransformer, outputFolder);
 
-            watch.stop();
-            this.logger.info("TestLab processing time: " + watch);
-        } catch (IOException e) {
-            throw new DMNRuntimeException(String.format("Error during transforming %s.", root.getName()), e);
-        }
+        watch.stop();
+        this.logger.info("TestLab processing time: " + watch);
     }
 
-    private List<TestLab> readTestCases(List<File> files) throws IOException {
+    private List<TestLab> readTestCases(List<File> files) {
         List<TestLab> testLabList = new ArrayList<>();
         for (File child: files) {
             if (shouldTransformFile(child)) {
@@ -118,7 +112,7 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
         return errors;
     }
 
-    private void transformTestCases(List<TestLab> testLabList, BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer, Path outputPath) {
+    private void transformTestCases(List<TestLab> testLabList, BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer, File outputFolder) {
         // Enhance test cases with item definition information
         TestLabUtil testLabUtil = new TestLabUtil(basicTransformer);
         TestLabEnhancer testLabEnhancer = new TestLabEnhancer(testLabUtil);
@@ -129,11 +123,11 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
         // Translate the test cases to the native platform
         for (TestLab testLab: testLabList) {
             String nativeClassName = testClassName(testLab, basicTransformer, testLabUtil);
-            transformTestLab(testLab, this.templateProcessor.getTemplateProvider().testBaseTemplatePath(), this.templateProcessor.getTemplateProvider().testTemplateName(), basicTransformer, testLabUtil, outputPath, nativeClassName);
+            transformTestLab(testLab, this.templateProcessor.getTemplateProvider().testBaseTemplatePath(), this.templateProcessor.getTemplateProvider().testTemplateName(), basicTransformer, testLabUtil, outputFolder, nativeClassName);
         }
     }
 
-    private void transformTestLab(TestLab testLab, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, TestLabUtil testLabUtil, Path outputPath, String testClassName) {
+    private void transformTestLab(TestLab testLab, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, TestLabUtil testLabUtil, File outputPath, String testClassName) {
         try {
             String nativePackageName = dmnTransformer.nativeModelPackageName(testLab.getModelName());
 

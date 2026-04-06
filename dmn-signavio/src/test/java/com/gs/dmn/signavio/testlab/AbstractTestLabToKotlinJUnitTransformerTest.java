@@ -20,7 +20,7 @@ import com.gs.dmn.transformation.FileTransformer;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.template.TemplateProvider;
 
-import java.nio.file.Path;
+import java.io.File;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
@@ -37,7 +37,7 @@ public abstract class AbstractTestLabToKotlinJUnitTransformerTest extends Abstra
     }
 
     @Override
-    protected FileTransformer makeTransformer(Path inputModelPath, InputParameters inputParameters, BuildLogger logger) {
-        return new TestLabToKotlinJUnitTransformer<>(makeDialectDefinition(), makeDMNValidator(logger), makeTestCasesValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, logger), makeTypeDeserializationConfigurer(logger), inputModelPath, inputParameters, logger);
+    protected FileTransformer makeTransformer(File inputModelFile, InputParameters inputParameters, BuildLogger logger) {
+        return new TestLabToKotlinJUnitTransformer<>(makeDialectDefinition(), makeDMNValidator(logger), makeTestCasesValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, logger), makeTypeDeserializationConfigurer(logger), inputModelFile, inputParameters, logger);
     }
 }

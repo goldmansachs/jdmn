@@ -17,7 +17,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.net.URI;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,7 +79,7 @@ public class CL3TckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
         // collect recursively the DMN files
         DMNToJavaTransformer<?, ?, ?, ?, ?> transformer = (DMNToJavaTransformer<?, ?, ?, ?, ?>) makeTransformer(makeInputParameters(makeInputParametersMap()), LOGGER);
         List<File> files = new ArrayList<>();
-        Path tckTestFolder = new File(resource.getPath()).getParentFile().toPath();
+        File tckTestFolder = new File(resource.getPath()).getParentFile();
         transformer.collectFiles(tckTestFolder, files);
         assertEquals(2, files.size());
     }

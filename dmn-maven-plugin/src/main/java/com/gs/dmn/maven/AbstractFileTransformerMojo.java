@@ -38,7 +38,7 @@ public abstract class AbstractFileTransformerMojo<NUMBER, DATE, TIME, DATE_TIME,
             // Transform
             this.getLog().info(String.format("Transforming '%s' to '%s' ...", inputFileDirectory, outputFileDirectory));
             Files.createDirectories(outputFileDirectory.toPath());
-            transformer.transform(inputFileDirectory.toPath(), outputFileDirectory.toPath());
+            transformer.transform(inputFileDirectory, outputFileDirectory);
 
             // Add sources
             addSourceRoot(outputFileDirectory);

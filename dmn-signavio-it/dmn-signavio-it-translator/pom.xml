@@ -63,14 +63,44 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <id>rdf-to-dmn</id>
+                        <id>rdf-to-dmn-complex</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>rdf-to-dmn</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${xml.folder}</inputFileDirectory>
-                            <outputFileDirectory>${generated.dmn.diagram.folder}</outputFileDirectory>
+                            <inputFileDirectory>${xml.folder}/complex</inputFileDirectory>
+                            <outputFileDirectory>${generated.dmn.diagram.folder}/complex</outputFileDirectory>
+                            <inputParameters>
+                                <namespace>http://www.gs.com/cip</namespace>
+                                <prefix>cip</prefix>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>rdf-to-dmn-decision-table</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>rdf-to-dmn</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${xml.folder}/decision-table</inputFileDirectory>
+                            <outputFileDirectory>${generated.dmn.diagram.folder}/decision-table</outputFileDirectory>
+                            <inputParameters>
+                                <namespace>http://www.gs.com/cip</namespace>
+                                <prefix>cip</prefix>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>rdf-to-dmn-literal</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>rdf-to-dmn</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${xml.folder}/literal</inputFileDirectory>
+                            <outputFileDirectory>${generated.dmn.diagram.folder}/literal</outputFileDirectory>
                             <inputParameters>
                                 <namespace>http://www.gs.com/cip</namespace>
                                 <prefix>cip</prefix>

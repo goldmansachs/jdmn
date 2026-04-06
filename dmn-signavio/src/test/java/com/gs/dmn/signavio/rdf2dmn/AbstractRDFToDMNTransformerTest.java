@@ -31,7 +31,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Map;
 
 import static com.gs.dmn.signavio.rdf2dmn.RDFToDMNTransformer.RDF_FILE_EXTENSION;
@@ -73,7 +72,7 @@ public abstract class AbstractRDFToDMNTransformerTest extends AbstractSignavioFi
         Files.createDirectories(outputFolder.toPath());
 
         RDFToDMNTransformer transformer = (RDFToDMNTransformer) makeTransformer(new InputParameters(makeInputParametersMap()), LOGGER);
-        transformer.transform(path(inputPath), new File(outputPath).toPath());
+        transformer.transform(new File(signavioResource(inputPath)), new File(outputPath));
 
         File actualOutputFile = new File(outputFolder, diagramName + DMNConstants.DMN_FILE_EXTENSION);
         String resourcePath = expectedDMNPath + "/" + diagramName + DMNConstants.DMN_FILE_EXTENSION;
@@ -119,11 +118,6 @@ public abstract class AbstractRDFToDMNTransformerTest extends AbstractSignavioFi
         map.put("prefix", "cip");
         map.put("signavioSchemaNamespace", SignavioTestConstants.SIG_EXT_NAMESPACE);
         return map;
-    }
-
-    private Path path(String path) {
-        File file = new File(signavioResource(path));
-        return file.toPath();
     }
 
     private String getInputPath() {

@@ -75,7 +75,7 @@ public class TestLabToKotlinJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
                 templateProvider,
                 lazyEvaluationDetector,
                 typeDeserializationConfigurer,
-                this.inputModelFileDirectory.toPath(),
+                this.inputModelFileDirectory,
                 makeInputParameters(),
                 logger
         );

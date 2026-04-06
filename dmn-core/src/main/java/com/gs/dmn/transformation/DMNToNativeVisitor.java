@@ -26,7 +26,7 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
-import java.nio.file.Path;
+import java.io.File;
 import java.util.List;
 import java.util.Objects;
 
@@ -34,16 +34,16 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
     private final BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer;
     private final DMNModelRepository dmnModelRepository;
     private final TemplateProcessor templateProcessor;
-    private final Path outputPath;
+    private final File outputFolder;
     private final List<String> generatedClasses;
     private final String decisionBaseClass;
 
-    public DMNToNativeVisitor(BuildLogger logger, LogErrorHandler errorHandler, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, DMNModelRepository dmnModelRepository, TemplateProcessor templateProcessor, Path outputPath, List<String> generatedClasses, String decisionBaseClass) {
+    public DMNToNativeVisitor(BuildLogger logger, LogErrorHandler errorHandler, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, DMNModelRepository dmnModelRepository, TemplateProcessor templateProcessor, File outputFolder, List<String> generatedClasses, String decisionBaseClass) {
         super(logger, errorHandler);
         this.dmnTransformer = dmnTransformer;
         this.dmnModelRepository = dmnModelRepository;
         this.templateProcessor = templateProcessor;
-        this.outputPath = outputPath;
+        this.outputFolder = outputFolder;
         this.generatedClasses = generatedClasses;
         this.decisionBaseClass = decisionBaseClass;
     }
@@ -105,8 +105,8 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
 
                 // Generate interface and class
                 String nativeInterfaceName = dmnTransformer.itemDefinitionNativeSimpleInterfaceName(element);
-                transformItemDefinition(definitions, element, dmnTransformer, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().itemDefinitionInterfaceTemplate(), generatedClasses, outputPath, typePackageName, nativeInterfaceName);
-                transformItemDefinition(definitions, element, dmnTransformer, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().itemDefinitionClassTemplate(), generatedClasses, outputPath, typePackageName, dmnTransformer.itemDefinitionNativeClassName(nativeInterfaceName));
+                transformItemDefinition(definitions, element, dmnTransformer, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().itemDefinitionInterfaceTemplate(), generatedClasses, outputFolder, typePackageName, nativeInterfaceName);
+                transformItemDefinition(definitions, element, dmnTransformer, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().itemDefinitionClassTemplate(), generatedClasses, outputFolder, typePackageName, dmnTransformer.itemDefinitionNativeClassName(nativeInterfaceName));
 
                 // Process children
                 List<TItemDefinition> itemDefinitionList = element.getItemComponent();
@@ -124,12 +124,12 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
         }
     }
 
-    private void transformItemDefinition(TDefinitions definitions, TItemDefinition itemDefinition, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, String baseTemplatePath, String itemDefinitionTemplate, List<String> generatedClasses, Path outputPath, String typePackageName, String typeName) {
+    private void transformItemDefinition(TDefinitions definitions, TItemDefinition itemDefinition, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, String baseTemplatePath, String itemDefinitionTemplate, List<String> generatedClasses, File outputFolder, String typePackageName, String typeName) {
         String qualifiedName = dmnTransformer.qualifiedName(typePackageName, typeName);
         if (generatedClasses.contains(qualifiedName)) {
             this.logger.warn(String.format("Class '%s' has already been generated", typeName));
         } else {
-            templateProcessor.processTemplate(definitions, itemDefinition, baseTemplatePath, itemDefinitionTemplate, dmnTransformer, outputPath, typePackageName, typeName);
+            templateProcessor.processTemplate(definitions, itemDefinition, baseTemplatePath, itemDefinitionTemplate, dmnTransformer, outputFolder, typePackageName, typeName);
             generatedClasses.add(qualifiedName);
         }
     }
@@ -145,12 +145,12 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
             String bkmPackageName = dmnTransformer.nativeModelPackageName(definitions.getName());
             String bkmClassName = dmnTransformer.drgElementClassName(element);
             checkDuplicate(generatedClasses, bkmPackageName, bkmClassName, dmnTransformer);
-            templateProcessor.processTemplate(definitions, element, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().bkmTemplateName(), dmnTransformer, outputPath, bkmPackageName, bkmClassName, decisionBaseClass);
+            templateProcessor.processTemplate(definitions, element, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().bkmTemplateName(), dmnTransformer, outputFolder, bkmPackageName, bkmClassName, decisionBaseClass);
 
             if (dmnTransformer.getDMNModelRepository().isDecisionTableExpression(element)) {
                 String decisionRuleOutputClassName = dmnTransformer.ruleOutputClassName(element);
                 checkDuplicate(generatedClasses, bkmPackageName, decisionRuleOutputClassName, dmnTransformer);
-                templateProcessor.processTemplate(definitions, element, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().decisionTableRuleOutputTemplate(), dmnTransformer, outputPath, bkmPackageName, decisionRuleOutputClassName, decisionBaseClass);
+                templateProcessor.processTemplate(definitions, element, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().decisionTableRuleOutputTemplate(), dmnTransformer, outputFolder, bkmPackageName, decisionRuleOutputClassName, decisionBaseClass);
             }
 
             return element;
@@ -171,7 +171,7 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
             String dsPackageName = dmnTransformer.nativeModelPackageName(definitions.getName());
             String dsClassName = dmnTransformer.drgElementClassName(element);
             checkDuplicate(generatedClasses, dsPackageName, dsClassName, dmnTransformer);
-            templateProcessor.processTemplate(definitions, element, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().dsTemplateName(), dmnTransformer, outputPath, dsPackageName, dsClassName, decisionBaseClass);
+            templateProcessor.processTemplate(definitions, element, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().dsTemplateName(), dmnTransformer, outputFolder, dsPackageName, dsClassName, decisionBaseClass);
 
             return element;
         } catch (Exception e) {
@@ -191,12 +191,12 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
             String decisionPackageName = dmnTransformer.nativeModelPackageName(definitions.getName());
             String decisionClassName = dmnTransformer.drgElementClassName(element);
             checkDuplicate(generatedClasses, decisionPackageName, decisionClassName, dmnTransformer);
-            templateProcessor.processTemplate(definitions, element, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().decisionTemplateName(), dmnTransformer, outputPath, decisionPackageName, decisionClassName, decisionBaseClass);
+            templateProcessor.processTemplate(definitions, element, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().decisionTemplateName(), dmnTransformer, outputFolder, decisionPackageName, decisionClassName, decisionBaseClass);
 
             if (dmnTransformer.getDMNModelRepository().isDecisionTableExpression(element)) {
                 String decisionRuleOutputClassName = dmnTransformer.ruleOutputClassName(element);
                 checkDuplicate(generatedClasses, decisionPackageName, decisionRuleOutputClassName, dmnTransformer);
-                templateProcessor.processTemplate(definitions, element, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().decisionTableRuleOutputTemplate(), dmnTransformer, outputPath, decisionPackageName, decisionRuleOutputClassName, decisionBaseClass);
+                templateProcessor.processTemplate(definitions, element, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().decisionTableRuleOutputTemplate(), dmnTransformer, outputFolder, decisionPackageName, decisionRuleOutputClassName, decisionBaseClass);
             }
 
             return element;
@@ -220,7 +220,7 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
             checkDuplicate(generatedClasses, inputPackageName, inputClassName, dmnTransformer);
             String pojoTemplateName = templateProcessor.getTemplateProvider().pojoInputTemplateName();
             if (pojoTemplateName != null) {
-                templateProcessor.processTemplate(definitions, element, templateProcessor.getTemplateProvider().baseTemplatePath(), pojoTemplateName, dmnTransformer, outputPath, inputPackageName, inputClassName, decisionBaseClass);
+                templateProcessor.processTemplate(definitions, element, templateProcessor.getTemplateProvider().baseTemplatePath(), pojoTemplateName, dmnTransformer, outputFolder, inputPackageName, inputClassName, decisionBaseClass);
             }
         } catch (Exception e) {
             SemanticError error = makeError(definitions, element);

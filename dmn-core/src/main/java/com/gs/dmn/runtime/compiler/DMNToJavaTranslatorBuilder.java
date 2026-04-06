@@ -109,7 +109,7 @@ public class DMNToJavaTranslatorBuilder {
     public TestCasesToNativeTransformer buildTCKTranslator(File inputModelFile) {
         return dialectDefinition.createTestCasesToNativeTransformer(
                 dmnValidator, testCasesValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, deserializationConfigurer,
-                inputModelFile.toPath(),
+                inputModelFile,
                 inputParameters,
                 buildLogger
         );
