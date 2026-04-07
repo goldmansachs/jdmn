@@ -21,15 +21,22 @@ import com.gs.dmn.tck.ast.TestCase;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.tck.serialization.xstream.XMLTCKSerializer;
 import com.gs.dmn.transformation.AbstractFileTransformerTest;
+import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class AbstractTCKSerializationTest extends AbstractFileTransformerTest {
     protected final TCKSerializer serializer = makeSerializer();
+
+    protected Map<String, String> makeInputParametersMap() {
+        Map<String, String> inputParams = super.makeInputParametersMap();
+        inputParams.put("xsdValidation", "true");
+        return inputParams;
+    }
 
     protected void doReadTest(String inputPath) {
         File input = new File(resource(inputPath));
@@ -81,4 +88,34 @@ public abstract class AbstractTCKSerializationTest extends AbstractFileTransform
     protected abstract TCKSerializer makeSerializer();
 
     protected abstract void checkTestCases(TestCases testCases);
+
+    @Test
+    public void testReadWhenNull() {
+        assertThrows(DMNRuntimeException.class, () -> {
+            this.serializer.read((File) null);
+        });
+
+        assertThrows(DMNRuntimeException.class, () -> {
+            this.serializer.read((Reader) null);
+        });
+    }
+
+    @Test
+    public void testWriteWhenErrors() {
+        // Test read
+        assertThrows(DMNRuntimeException.class, () -> {
+            this.serializer.write(null, new File("test"));
+        });
+        assertThrows(DMNRuntimeException.class, () -> {
+            this.serializer.write(new TestCases(), (File) null);
+        });
+
+        // Test write
+        assertThrows(DMNRuntimeException.class, () -> {
+            this.serializer.write(null, new StringWriter());
+        });
+        assertThrows(DMNRuntimeException.class, () -> {
+            this.serializer.write(new TestCases(), (Writer) null);
+        });
+    }
 }

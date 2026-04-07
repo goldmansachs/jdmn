@@ -46,6 +46,10 @@ public abstract class TCKSerializer {
     }
 
     public TestCases read(File input) {
+        if (input == null) {
+            throw new DMNRuntimeException("Cannot read TCK from null File");
+        }
+
         try (FileInputStream fis = new FileInputStream(input); InputStreamReader isr = new InputStreamReader(fis, inputParameters.getCharset())) {
             this.logger.info(String.format("Reading TCK '%s' ...", input.getPath()));
 
@@ -59,16 +63,23 @@ public abstract class TCKSerializer {
     }
 
     public TestCases read(Reader input) {
+        if (input == null) {
+            throw new DMNRuntimeException("Cannot read TCK from null Reader");
+        }
+
         try {
             return this.marshaller.unmarshal(input, this.inputParameters.isXsdValidation());
         } catch (Exception e) {
-            throw handleError(String.format("Cannot read TCK from Reader '%s'", input.toString()), e);
+            throw handleError(String.format("Cannot read TCK from Reader '%s'", input), e);
         }
     }
 
     public void write(TestCases testCases, File output) {
         if (testCases == null) {
             throw new DMNRuntimeException("Cannot write null TCK");
+        }
+        if (output == null) {
+            throw new DMNRuntimeException("Cannot write tp null File");
         }
 
         try (FileOutputStream fos = new FileOutputStream(output); OutputStreamWriter osw = new OutputStreamWriter(fos, inputParameters.getCharset())) {
@@ -79,10 +90,17 @@ public abstract class TCKSerializer {
     }
 
     public void write(TestCases testCases, Writer output) {
+        if (testCases == null) {
+            throw new DMNRuntimeException("Cannot write null TCK");
+        }
+        if (output == null) {
+            throw new DMNRuntimeException("Cannot write tp null Writer");
+        }
+
         try {
             this.marshaller.marshal(testCases, output);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot write TCK to Writer '%s'", output.toString()), e);
+            throw new DMNRuntimeException(String.format("Cannot write TCK to Writer '%s'", output), e);
         }
     }
 }

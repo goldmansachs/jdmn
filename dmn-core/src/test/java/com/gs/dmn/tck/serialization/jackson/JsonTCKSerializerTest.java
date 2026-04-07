@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.tck.serialization.jackson;
 
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.tck.TCKSerializer;
 import com.gs.dmn.tck.ast.InputNode;
 import com.gs.dmn.tck.ast.ResultNode;
@@ -21,15 +22,22 @@ import com.gs.dmn.tck.serialization.AbstractTCKSerializationTest;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonTCKSerializerTest extends AbstractTCKSerializationTest {
     @Test
     public void testRead() {
         doReadTest("dmn/input/1.4/0004-lending-test-01.json");
+    }
+
+    @Test
+    public void testReadWhenEmpty() {
+        assertThrows(DMNRuntimeException.class, () -> {
+            this.serializer.read(new StringReader(""));
+        });
     }
 
     @Test
