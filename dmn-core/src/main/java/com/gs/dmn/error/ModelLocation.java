@@ -12,23 +12,15 @@
  */
 package com.gs.dmn.error;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
-public class ModelLocation {
+public class ModelLocation extends ErrorLocation {
     private final String namespace;
     private final String modelName;
     private final String modelId;
     private final String elementName;
     private final String elementId;
-
-    @JsonIgnore
-    private final String text;
 
     public ModelLocation(String namespace, String modelName, String modelId, String elementName, String elementId) {
         this.namespace = namespace;
@@ -44,14 +36,7 @@ public class ModelLocation {
         addPart("modelId", modelId, parts);
         addPart("elementName", elementName, parts);
         addPart("elementId", elementId, parts);
-        List<String> notEmptyParts = parts.entrySet().stream()
-                .filter(e -> StringUtils.isNotEmpty(e.getValue()))
-                .map(e -> String.format("%s = '%s'", e.getKey(), e.getValue())).collect(Collectors.toList());
-        this.text = notEmptyParts.isEmpty() ? "" : String.format("(%s)", String.join(", ", notEmptyParts));
-    }
-
-    private void addPart(String key, String value, Map<String, String> parts) {
-        parts.put(key, value);
+        initText(parts);
     }
 
     public String getNamespace() {
@@ -72,14 +57,5 @@ public class ModelLocation {
 
     public String getElementId() {
         return elementId;
-    }
-
-    public String toText() {
-        return text;
-    }
-
-    @Override
-    public String toString() {
-        return this.toText();
     }
 }

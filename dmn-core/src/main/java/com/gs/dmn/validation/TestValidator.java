@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.validation;
 
+import com.gs.dmn.error.ValidationError;
+
 import java.util.List;
 
 import static com.gs.dmn.NameUtils.toHyphenSeparated;
@@ -22,8 +24,8 @@ public interface TestValidator<TEST> {
         return toHyphenSeparated(clsName);
     }
 
-    default <E> List<E> validate(List<TEST> testCasesList) {
-        List<E> errors = new java.util.ArrayList<>();
+    default List<ValidationError> validate(List<TEST> testCasesList) {
+        List<ValidationError> errors = new java.util.ArrayList<>();
         for (TEST testCases : testCasesList) {
             if (!isEmpty(testCases)) {
                 errors.addAll(validate(testCases));
@@ -36,5 +38,5 @@ public interface TestValidator<TEST> {
         return testCases == null;
     }
 
-    <E> List<E> validate(TEST test);
+    List<ValidationError> validate(TEST test);
 }

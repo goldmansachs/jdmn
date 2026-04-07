@@ -13,6 +13,7 @@
 package com.gs.dmn.tck.validation;
 
 import com.gs.dmn.error.ErrorHandler;
+import com.gs.dmn.error.ValidationError;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;

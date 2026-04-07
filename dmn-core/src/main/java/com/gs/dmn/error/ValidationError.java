@@ -13,15 +13,15 @@
 package com.gs.dmn.error;
 
 public class ValidationError {
-    private final SemanticError error;
+    private final Error error;
     private final String ruleName;
 
-    public ValidationError(SemanticError error, String ruleName) {
+    public ValidationError(Error error, String ruleName) {
         this.error = error;
         this.ruleName = ruleName;
     }
 
-    public SemanticError getError() {
+    public Error getError() {
         return error;
     }
 

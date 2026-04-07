@@ -79,7 +79,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         this.dmnTransformer.transform(repository);
 
         // Validate the models
-        handleModelErrors(this.dmnValidator.validate(repository));
+        handleValidationErrors(this.dmnValidator.validate(repository));
 
         // Translate the models to the native platform
         BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer = this.dialectDefinition.createBasicTransformer(repository, this.lazyEvaluationDetector, this.inputParameters);

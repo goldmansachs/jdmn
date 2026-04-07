@@ -59,7 +59,7 @@ public abstract class AbstractDMNTransformer<NUMBER, DATE, TIME, DATE_TIME, DURA
         return this.dialectDefinition.createDMNModelRepository(definitionsList, this.inputParameters);
     }
 
-    protected void handleModelErrors(List<ValidationError> errors) {
+    protected void handleValidationErrors(List<ValidationError> errors) {
         if (errors == null || errors.isEmpty()) {
             return;
         }

@@ -13,6 +13,7 @@
 package com.gs.dmn.tck.validation;
 
 import com.gs.dmn.AbstractTest;
+import com.gs.dmn.error.ValidationError;
 import com.gs.dmn.tck.TCKSerializer;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.tck.serialization.xstream.XMLTCKSerializer;

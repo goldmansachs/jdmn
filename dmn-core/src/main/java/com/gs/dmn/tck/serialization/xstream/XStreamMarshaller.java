@@ -13,12 +13,12 @@
 package com.gs.dmn.tck.serialization.xstream;
 
 import com.gs.dmn.error.SyntaxErrorException;
+import com.gs.dmn.error.ValidationError;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.TCKVersion;
 import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.tck.serialization.TCKMarshaller;
-import com.gs.dmn.tck.validation.ValidationError;
 
 import javax.xml.transform.stream.StreamSource;
 import java.io.BufferedReader;
@@ -98,7 +98,7 @@ public class XStreamMarshaller implements TCKMarshaller {
             TCKVersion tckVersion = inferTCKVersion(testCases);
             return marshall(testCases, tckVersion);
         } else {
-            throw new DMNRuntimeException(String.format("Error marshalling object {}", testCases));
+            throw new DMNRuntimeException("Error marshalling null object");
         }
     }
 
@@ -108,7 +108,7 @@ public class XStreamMarshaller implements TCKMarshaller {
             TCKVersion tckVersion = inferTCKVersion(testCases);
             marshall(testCases, output, tckVersion);
         } else {
-            throw new DMNRuntimeException(String.format("Error marshalling object {}", testCases));
+            throw new DMNRuntimeException("Error marshalling null object");
         }
     }
 

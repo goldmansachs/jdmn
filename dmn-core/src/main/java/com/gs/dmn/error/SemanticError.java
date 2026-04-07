@@ -12,43 +12,12 @@
  */
 package com.gs.dmn.error;
 
-public class SemanticError {
-    private final ModelLocation modelLocation;
-    private final SeverityLevel severityLevel;
-    private final String errorMessage;
-
+public class SemanticError extends Error {
     public SemanticError(SeverityLevel severityLevel, String errorMessage) {
         this(severityLevel, null, errorMessage);
     }
 
     public SemanticError(SeverityLevel severityLevel, ModelLocation modelLocation, String errorMessage) {
-        this.modelLocation = modelLocation;
-        this.severityLevel = severityLevel;
-        this.errorMessage = errorMessage;
-    }
-
-    public ModelLocation getModelLocation() {
-        return modelLocation;
-    }
-
-    public SeverityLevel getSeverityLevel() {
-        return severityLevel;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public String toText() {
-        if (modelLocation == null) {
-            return String.format("[%s] %s", severityLevel.name(), errorMessage);
-        } else {
-            return String.format("[%s] %s: %s", severityLevel.name(), modelLocation.toText(), errorMessage);
-        }
-    }
-
-    @Override
-    public String toString() {
-        return this.toText();
+        super(severityLevel, modelLocation, errorMessage);
     }
 }

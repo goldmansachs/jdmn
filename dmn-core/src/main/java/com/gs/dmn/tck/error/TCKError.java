@@ -12,41 +12,11 @@
  */
 package com.gs.dmn.tck.error;
 
+import com.gs.dmn.error.Error;
 import com.gs.dmn.error.SeverityLevel;
 
-public class TCKError {
-    private final TestLocation testLocation;
-    private final SeverityLevel severityLevel;
-    private final String errorMessage;
-
+public class TCKError extends Error {
     public TCKError(SeverityLevel severityLevel, TestLocation testLocation, String errorMessage) {
-        this.severityLevel = severityLevel;
-        this.testLocation = testLocation;
-        this.errorMessage = errorMessage;
-    }
-
-    public SeverityLevel getSeverityLevel() {
-        return severityLevel;
-    }
-
-    public TestLocation getTestLocation() {
-        return testLocation;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public String toText() {
-        if (testLocation == null || testLocation.toText().isEmpty()) {
-            return String.format("[%s] %s", severityLevel.name(), errorMessage);
-        } else {
-            return String.format("[%s] %s: %s", severityLevel.name(), testLocation.toText(), errorMessage);
-        }
-    }
-
-    @Override
-    public String toString() {
-        return this.toText();
+        super(severityLevel, testLocation, errorMessage);
     }
 }

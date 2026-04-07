@@ -86,8 +86,8 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
         testCasesList = pair.getRight();
 
         // Validate the models and test cases
-        handleModelErrors(this.dmnValidator.validate(repository));
-        handleTestErrors(this.testeCasesValidator.validate(testCasesList));
+        handleValidationErrors(this.dmnValidator.validate(repository));
+        handleValidationErrors(this.testCasesValidator.validate(testCasesList));
 
         // Translate the test cases to the native platform
         BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer = this.dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);

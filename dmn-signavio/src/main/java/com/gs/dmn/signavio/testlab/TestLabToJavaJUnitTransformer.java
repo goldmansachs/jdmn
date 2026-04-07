@@ -83,8 +83,8 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
         testLabList = pair.getRight();
 
         // Validate the models and test cases
-        handleModelErrors(this.dmnValidator.validate(repository));
-        handleModelErrors(validateTestCases(testLabList));
+        handleValidationErrors(this.dmnValidator.validate(repository));
+        handleValidationErrors(validateTestCases(testLabList));
 
         // Translate the test cases to the native platform
         BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer = this.dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);

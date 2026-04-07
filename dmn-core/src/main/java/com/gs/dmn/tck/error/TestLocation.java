@@ -12,17 +12,14 @@
  */
 package com.gs.dmn.tck.error;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gs.dmn.error.ErrorLocation;
 import com.gs.dmn.tck.ast.TCKBaseElement;
 import com.gs.dmn.tck.ast.TestCases;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
-public class TestLocation {
+public class TestLocation extends ErrorLocation {
     private static String findTestCaseId(TCKBaseElement element) {
         while (element != null) {
             if (element instanceof com.gs.dmn.tck.ast.TestCase) {
@@ -36,9 +33,6 @@ public class TestLocation {
     private final String testCasesName;
     private final String testCasesId;
 
-    @JsonIgnore
-    private final String text;
-
     public TestLocation(TestCases testCases, TCKBaseElement element) {
         this(testCases.getTestCasesName(), findTestCaseId(element));
     }
@@ -51,15 +45,7 @@ public class TestLocation {
         Map<String, String> parts = new LinkedHashMap<>();
         addPart("testCasesName", testCasesName, parts);
         addPart("testCase", testCasesId, parts);
-        List<String> notEmptyParts = parts.entrySet().stream()
-                .filter(e -> StringUtils.isNotEmpty(e.getValue()))
-                .map(e -> String.format("%s = '%s'", e.getKey(), e.getValue())).collect(Collectors.toList());
-        this.text = notEmptyParts.isEmpty() ? "" : String.format("(%s)", String.join(", ", notEmptyParts));
-    }
-
-
-    private void addPart(String key, String value, Map<String, String> parts) {
-        parts.put(key, value);
+        initText(parts);
     }
 
     public String getTestCasesName() {
@@ -68,14 +54,5 @@ public class TestLocation {
 
     public String getTestCasesId() {
         return testCasesId;
-    }
-
-    public String toText() {
-        return text;
-    }
-
-    @Override
-    public String toString() {
-        return this.toText();
     }
 }

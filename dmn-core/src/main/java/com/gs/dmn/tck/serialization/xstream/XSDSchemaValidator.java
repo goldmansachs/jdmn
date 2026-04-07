@@ -13,12 +13,12 @@
 package com.gs.dmn.tck.serialization.xstream;
 
 import com.gs.dmn.error.SyntaxErrorException;
+import com.gs.dmn.error.ValidationError;
 import com.gs.dmn.serialization.TCKVersion;
 import com.gs.dmn.serialization.XsdErrorHandler;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.tck.error.ErrorFactory;
 import com.gs.dmn.tck.error.TestLocation;
-import com.gs.dmn.tck.validation.ValidationError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
