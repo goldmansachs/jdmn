@@ -17,6 +17,7 @@ import com.gs.dmn.error.ValidationError;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.tck.TCKUtil;
 import com.gs.dmn.tck.ast.*;
 import com.gs.dmn.tck.ast.visitor.TraversalVisitor;
 import org.apache.commons.lang3.StringUtils;
@@ -154,15 +155,13 @@ class DefaultTCKValidatorVisitor extends TraversalVisitor<ValidationContext> {
         }
         // Validate that the input nodes and result nodes have unique names
         List<Pair<String, Function<InputNode, String>>> inputNodeKey = Arrays.asList(
-                new Pair<>("namespace", InputNode::getNamespace),
-                new Pair<>("name", InputNode::getName)
+                new Pair<>("namespace, name", this::getQName)
         );
         validateUnique(
                 new ArrayList<>(element.getInputNode()), "InputNode", inputNodeKey, null, context
         );
         List<Pair<String, Function<ResultNode, String>>> resultNodeKey = Arrays.asList(
-                new Pair<>("namespace", ResultNode::getNamespace),
-                new Pair<>("name", ResultNode::getName)
+                new Pair<>("namespace, name", this::getQName)
         );
         validateUnique(
                 new ArrayList<>(element.getResultNode()), "ResultNode", resultNodeKey, null, context
@@ -258,5 +257,37 @@ class DefaultTCKValidatorVisitor extends TraversalVisitor<ValidationContext> {
             }
             names.add(name);
         }
+    }
+
+    public String getQName(InputNode node) {
+        if (node == null) {
+            return null;
+        }
+        Pair<TestCases, TestCase> parents = extractParents(node);
+        String namespace = TCKUtil.getNamespace(parents.getLeft(), parents.getRight(), node);
+        return namespace + ", " + node.getName();
+    }
+
+    public String getQName(ResultNode node) {
+        if (node == null) {
+            return null;
+        }
+        Pair<TestCases, TestCase> parents = extractParents(node);
+        String namespace = TCKUtil.getNamespace(parents.getLeft(), parents.getRight(), node);
+        return namespace + ", " + node.getName();
+    }
+
+    private Pair<TestCases, TestCase> extractParents(TCKBaseElement node) {
+        TestCases testCases = null;
+        TestCase testCase = null;
+        TCKBaseElement parent = node.getParent();
+        if (parent instanceof TestCase) {
+            testCase = (TestCase) parent;
+            parent = testCase.getParent();
+            if (parent instanceof TestCases) {
+                testCases = (TestCases) parent;
+            }
+        }
+        return new Pair<>(testCases, testCase);
     }
 }

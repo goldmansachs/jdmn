@@ -63,6 +63,44 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return index == -1 ? fileName : fileName.substring(0, index);
     }
 
+    public static String getNamespace(TestCases testCases, TestCase testCase, InputNode node) {
+        String namespace = getNamespace(node);
+        if (StringUtils.isBlank(namespace)) {
+            namespace = getNamespace(testCase);
+        }
+        if (StringUtils.isBlank(namespace)) {
+            namespace = getNamespace(testCases);
+        }
+        return namespace;
+    }
+
+    public static String getNamespace(TestCases testCases, TestCase testCase, ResultNode node) {
+        String namespace = getNamespace(node);
+        if (StringUtils.isBlank(namespace)) {
+            namespace = getNamespace(testCase);
+        }
+        if (StringUtils.isBlank(namespace)) {
+            namespace = getNamespace(testCases);
+        }
+        return namespace;
+    }
+
+    private static String getNamespace(TestCases testCases) {
+        return testCases == null ? null : testCases.getNamespace();
+    }
+
+    private static String getNamespace(TestCase testCase) {
+        return testCase == null ? null : testCase.getNamespace();
+    }
+
+    private static String getNamespace(InputNode node) {
+        return node == null ? null : node.getNamespace();
+    }
+
+    private static String getNamespace(ResultNode node) {
+        return node == null ? null : node.getNamespace();
+    }
+
     private final DMNModelRepository dmnModelRepository;
 
     private final BasicDMNToNativeTransformer<Type, DMNContext> transformer;
@@ -604,44 +642,6 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     public String getTraceFileName(TestCases testCases) {
         String testCasesName = getTestCasesName(testCases.getTestCasesName());
         return testCasesName + ".json";
-    }
-
-    private String getNamespace(TestCases testCases) {
-        return testCases.getNamespace();
-    }
-
-    private String getNamespace(TestCase testCase) {
-        return testCase.getNamespace();
-    }
-
-    private String getNamespace(TestCases testCases, TestCase testCase, InputNode node) {
-        String namespace = getNamespace(node);
-        if (StringUtils.isBlank(namespace)) {
-            namespace = getNamespace(testCase);
-        }
-        if (StringUtils.isBlank(namespace)) {
-            namespace = getNamespace(testCases);
-        }
-        return namespace;
-    }
-
-    private String getNamespace(TestCases testCases, TestCase testCase, ResultNode node) {
-        String namespace = getNamespace(node);
-        if (StringUtils.isBlank(namespace)) {
-            namespace = getNamespace(testCase);
-        }
-        if (StringUtils.isBlank(namespace)) {
-            namespace = getNamespace(testCases);
-        }
-        return namespace;
-    }
-
-    private String getNamespace(InputNode node) {
-        return node.getNamespace();
-    }
-
-    private String getNamespace(ResultNode node) {
-        return node.getNamespace();
     }
 
     //
