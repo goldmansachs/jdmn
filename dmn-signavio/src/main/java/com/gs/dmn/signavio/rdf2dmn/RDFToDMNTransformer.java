@@ -36,6 +36,7 @@ import com.gs.dmn.transformation.AbstractFileTransformer;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
+import com.gs.dmn.transformation.repository.OutputElement;
 import com.gs.dmn.transformation.repository.OutputRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Element;
@@ -43,10 +44,7 @@ import org.w3c.dom.Node;
 
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -109,7 +107,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
 
     @Override
     protected void transformFiles(List<File> files, OutputRepository outputRepository) {
-        this.logger.info(String.format("Processing DMN files for target '%s'", outputRepository.getPath()));
+        this.logger.info(String.format("Processing DMN files for target '%s'", outputRepository.getRootPath()));
         for (File child : files) {
             this.logger.info(String.format("Transforming file '%s'", child.getPath()));
             transformLeaf(child, outputRepository);
@@ -118,13 +116,15 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
 
     private void transformLeaf(File child, OutputRepository outputRepository) {
         try (FileInputStream inputStream = new FileInputStream(child.toURI().getPath())) {
-            File outputFile = outputRepository.makeOutputFile("", diagramName(child), inputParameters.getDmnFileExtension());
+            OutputElement outputElement = outputRepository.makeOutputElement("", diagramName(child), inputParameters.getDmnFileExtension());
 
-            this.logger.info(String.format("Output folder '%s' ", outputRepository.getPath()));
-            this.logger.info(String.format("Output file %s ...", outputFile.getCanonicalPath()));
+            this.logger.info(String.format("Output folder '%s' ", outputRepository.getRootPath()));
+            this.logger.info(String.format("Output file %s ...", outputElement.getName()));
 
             TDefinitions element = transform(diagramName(child), inputStream);
-            this.dmnSerializer.writeModel(element, outputFile);
+            try (Writer writer = outputElement.getWriter()) {
+                this.dmnSerializer.writeModel(element, writer);
+            }
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Error during transforming '%s'.", child.getName()), e);
         }

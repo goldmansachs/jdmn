@@ -30,6 +30,7 @@ import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.repository.InputRepository;
+import com.gs.dmn.transformation.repository.OutputElement;
 import com.gs.dmn.transformation.repository.OutputRepository;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
@@ -139,12 +140,11 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
             params.put("decisionBaseClass", this.decisionBaseClass);
 
             // Make output file
-            String relativeFilePath = nativePackageName.replace('.', '/');
             String fileExtension = getFileExtension();
-            File outputFile = outputRepository.makeOutputFile(relativeFilePath, testClassName, fileExtension);
+            OutputElement outElement = outputRepository.makeOutputElement(nativePackageName, testClassName, fileExtension);
 
             // Process template
-            this.templateProcessor.processTemplate(baseTemplatePath, templateName, params, outputFile, true);
+            this.templateProcessor.processTemplate(baseTemplatePath, templateName, params, outElement, true);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot process TestLab template '%s' for '%s'", templateName, testLab.getRootDecisionId()), e);
         }

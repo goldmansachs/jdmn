@@ -24,6 +24,7 @@ import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
+import com.gs.dmn.transformation.repository.OutputElement;
 import com.gs.dmn.transformation.repository.OutputRepository;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
@@ -68,7 +69,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
 
     @Override
     protected void transformFiles(List<File> files, OutputRepository outputRepository) {
-        this.logger.info(String.format("Processing DMN files for target '%s'", outputRepository.getPath()));
+        this.logger.info(String.format("Processing DMN files for target '%s'", outputRepository.getRootPath()));
         StopWatch watch = new StopWatch();
         watch.start();
 
@@ -107,13 +108,12 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
             // Make output file
             String registryClassName = REGISTRY_CLASS_NAME;
             String modelPackageName = dmnTransformer.nativeRootPackageName();
-            String relativeFilePath = modelPackageName.replace('.', '/');
             String fileExtension = getFileExtension();
-            File outputFile = outputRepository.makeOutputFile(relativeFilePath, registryClassName, fileExtension);
+            OutputElement outputElement = outputRepository.makeOutputElement(modelPackageName, registryClassName, fileExtension);
 
             // Make parameters
             Map<String, Object> params = this.templateProcessor.makeModelRegistryTemplateParams(definitionsList, modelPackageName, registryClassName, dmnTransformer);
-            this.templateProcessor.processTemplate(this.templateProcessor.getTemplateProvider().baseTemplatePath(), "common/registry.ftl", params, outputFile, false);
+            this.templateProcessor.processTemplate(this.templateProcessor.getTemplateProvider().baseTemplatePath(), "common/registry.ftl", params, outputElement, false);
         } catch (Exception e) {
             throw new DMNRuntimeException("Error when generating registry file for model(s)", e);
         }

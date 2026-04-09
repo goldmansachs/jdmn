@@ -22,6 +22,7 @@ import com.gs.dmn.transformation.DMNToNativeTransformer;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.ToQuotedNameTransformer;
 import com.gs.dmn.transformation.lazy.SparseDecisionDetector;
+import com.gs.dmn.transformation.repository.FileOutputRepository;
 import com.gs.dmn.transformation.repository.InputRepository;
 import com.gs.dmn.transformation.repository.OutputRepository;
 import com.gs.dmn.validation.*;
@@ -73,8 +74,8 @@ class InMemoryTestCasesExecutorTest {
         // Repositories
         InputRepository inputModelRepository = new InputRepository(inputModelFile);
         InputRepository inputTestRepository = new InputRepository(inputTestFile);
-        OutputRepository outputSourceRepository = new OutputRepository(outputSourceFolder);
-        OutputRepository outputTestRepository = new OutputRepository(outputTestFolder);
+        OutputRepository outputSourceRepository = new FileOutputRepository(outputSourceFolder);
+        OutputRepository outputTestRepository = new FileOutputRepository(outputTestFolder);
 
         // Run tests
         DMNToJavaTranslator translator = makeTranslator(inputModelRepository);
@@ -92,7 +93,7 @@ class InMemoryTestCasesExecutorTest {
         Path outputPath = Paths.get("target", "in-memory", "shared");
         File outputFolder = outputPath.resolve("java").toFile();
         InputRepository inputRepository = new InputRepository(inputFile);
-        OutputRepository outputRepository = new OutputRepository(outputFolder);
+        OutputRepository outputRepository = new FileOutputRepository(outputFolder);
 
         // Run tests
         DMNToJavaTranslator translator = makeTranslator(inputRepository);
@@ -156,7 +157,7 @@ class InMemoryTestCasesExecutorTest {
         File inputFile = inputPath.toFile();
         Path outputPath = Paths.get("target", "in-memory", outputFileName);
         InputRepository inputRepository = new InputRepository(inputFile);
-        OutputRepository outputRepository = new OutputRepository(outputPath.toFile());
+        OutputRepository outputRepository = new FileOutputRepository(outputPath.toFile());
 
         DMNToJavaTranslator translator = makeTranslator(inputRepository);
         runTests(translator, inputRepository, outputRepository);
@@ -170,8 +171,8 @@ class InMemoryTestCasesExecutorTest {
         File outputFolder = outputPath.toFile();
         InputRepository inputModelRepository = new InputRepository(inputModelFile);
         InputRepository inputTestRepository = new InputRepository(inputTestFile);
-        OutputRepository outputSourceRepository = new OutputRepository(outputFolder);
-        OutputRepository outputTestRepository = new OutputRepository(outputFolder);
+        OutputRepository outputSourceRepository = new FileOutputRepository(outputFolder);
+        OutputRepository outputTestRepository = new FileOutputRepository(outputFolder);
 
         // Run tests
         DMNToJavaTranslator translator = makeTranslator(inputModelRepository, TCK_INPUT_PARAMETERS);

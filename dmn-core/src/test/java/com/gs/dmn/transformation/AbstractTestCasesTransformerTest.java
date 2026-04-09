@@ -14,6 +14,7 @@ package com.gs.dmn.transformation;
 
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.transformation.repository.FileOutputRepository;
 import com.gs.dmn.transformation.repository.InputRepository;
 import com.gs.dmn.transformation.repository.OutputRepository;
 import com.gs.dmn.validation.TestValidator;
@@ -30,7 +31,7 @@ public abstract class AbstractTestCasesTransformerTest<NUMBER, DATE, TIME, DATE_
         Files.createDirectories(outputFolder.toPath());
         InputRepository inputModelRepository = new InputRepository(new File(inputModelFilePath));
         InputRepository inputTestRepository = new InputRepository(new File(inputTestFilePath));
-        OutputRepository outputRepository = new OutputRepository(outputFolder);
+        OutputRepository outputRepository = new FileOutputRepository(outputFolder);
 
         // Transform tests
         Map<String, String> inputParameters = makeInputParametersMap(extraInputParameters);

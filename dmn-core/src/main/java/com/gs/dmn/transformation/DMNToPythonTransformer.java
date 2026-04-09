@@ -22,14 +22,13 @@ import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
+import com.gs.dmn.transformation.repository.OutputElement;
 import com.gs.dmn.transformation.repository.OutputRepository;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
-import org.apache.commons.io.FileUtils;
 
-import java.io.File;
-import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DMNToPythonTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
@@ -63,29 +62,32 @@ public class DMNToPythonTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
             return;
         }
 
-        List<File> folders = outputRepository.makeOutputFolders(packageParts);
-        for (File folder : folders) {
-            createInitFile(outputRepository, folder, charset);
+        // Make a list of all the relative paths from packageParts
+        List<String> packageNames = new ArrayList<>();
+        String currentPackage = "";
+        for (String packagePart : packageParts) {
+            if (currentPackage.isBlank()) {
+                currentPackage = packagePart;
+            } else {
+                currentPackage = String.join(".", currentPackage, packagePart);
+            }
+            packageNames.add(currentPackage);
+        }
+        // Create init files
+        for (String packageName : packageNames) {
+            createInitFile(outputRepository, packageName, charset);
+        }
+    }
+
+    private static void createInitFile(OutputRepository outputRepository, String nativePackageName, Charset charset) {
+        if (outputRepository.notEmptyPackage(nativePackageName)) {
+            OutputElement outElement = outputRepository.makeOutputElement(nativePackageName, "__init__", ".py");
+            outElement.writeText("", charset);
         }
     }
 
     private static void createInitFile(OutputRepository outputRepository, Charset charset) {
-        createInitFile(outputRepository, outputRepository.getRootFile(), charset);
-    }
-
-    private static void createInitFile(OutputRepository outputRepository, File folder, Charset charset) {
-        try {
-            // Do not generate if folder is empty
-            if (folder.exists()) {
-                File[] files = folder.listFiles();
-                if (files != null && files.length > 0) {
-                    File initFile = outputRepository.makeOutputFile(folder, "__init__.py");
-                    FileUtils.write(initFile, "", charset);
-                }
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        createInitFile(outputRepository, "", charset);
     }
 
     @Override

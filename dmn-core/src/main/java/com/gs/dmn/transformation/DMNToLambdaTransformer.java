@@ -23,6 +23,8 @@ import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
+import com.gs.dmn.transformation.repository.FileOutputRepository;
+import com.gs.dmn.transformation.repository.OutputElement;
 import com.gs.dmn.transformation.repository.OutputRepository;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
@@ -61,15 +63,15 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
         // Generate code for DMN model
         String modelName = definitions.getName();
         String lambdaFolderName = lambdaFolderName(modelName, basicTransformer);
-        File targetFolder = Paths.get(outputRepository.getPath(), lambdaFolderName, "src", "main", "java").toFile();
-        OutputRepository targetRepository = new OutputRepository(targetFolder);
-        super.transformModels(repository, basicTransformer, targetRepository);
+        File codeFolder = Paths.get(outputRepository.getRootPath(), lambdaFolderName, "src", "main", "java").toFile();
+        OutputRepository codeRepository = new FileOutputRepository(codeFolder);
+        super.transformModels(repository, basicTransformer, codeRepository);
+
+        // Generate handlers
+        generateLambdaRequestHandler(modelName, codeRepository, basicTransformer);
 
         // Generate pom file
         generateLambdaPom(lambdaFolderName, outputRepository);
-
-        // Generate handlers
-        generateLambdaRequestHandler(modelName, targetRepository, basicTransformer);
 
         // Generate SAM template
         generateTemplate(modelName, lambdaFolderName, outputRepository, basicTransformer);
@@ -83,20 +85,19 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
 
         try {
             // Output file
-            String outputFileName = transformer.upperCaseFirst(lambdaName);
+            String outputElementName = transformer.upperCaseFirst(lambdaName);
             String nativePackageName = transformer.nativeModelPackageName(modelName);
-            String relativeFilePath = nativePackageName.replace('.', '/');
             String fileExtension = ".java";
-            File outputFile = functionPath.makeOutputFile(relativeFilePath, outputFileName, fileExtension);
+            OutputElement outputElement = functionPath.makeOutputElement(nativePackageName, outputElementName, fileExtension);
 
             // Make parameters
             Map<String, Object> params = new HashMap<>();
             params.put("modelName", modelName);
             params.put("transformer", transformer);
             params.put("nativePackageName", nativePackageName);
-            params.put("nativeClassName", outputFileName);
+            params.put("nativeClassName", outputElementName);
 
-            this.templateProcessor.processTemplate(baseTemplatePath, templateName, params, outputFile);
+            this.templateProcessor.processTemplate(baseTemplatePath, templateName, params, outputElement);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot generate from template '%s' for element '%s'", templateName, lambdaName), e);
         }
@@ -111,14 +112,14 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
             // Output file
             String fileName = "pom";
             String fileExtension = ".xml";
-            File outputFile = outputRepository.makeOutputFile(lambdaFolderName, fileName, fileExtension);
+            OutputElement outputElement = outputRepository.makeOutputElement(lambdaFolderName, fileName, fileExtension);
 
             // Make parameters
             Map<String, Object> params = new HashMap<>();
             params.put("lambdaGroupId", "com.gs.dmn");
             params.put("lambdaArtifactId", lambdaFolderName);
 
-            this.templateProcessor.processTemplate(baseTemplatePath, templateName, params, outputFile);
+            this.templateProcessor.processTemplate(baseTemplatePath, templateName, params, outputElement);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot generate from template '%s' for element '%s'", templateName, lambdaFolderName), e);
         }
@@ -133,10 +134,10 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
 
         try {
             // Output file
-            String fileName = "template";
+            String outputElementName = "template";
             String fileExtension = ".yaml";
-            String relativeFilePath = "";
-            File outputFile = outputRepository.makeOutputFile(relativeFilePath, fileName, fileExtension);
+            String nativePackageName = "";
+            OutputElement outputElement = outputRepository.makeOutputElement(nativePackageName, outputElementName, fileExtension);
 
             // Make parameters
             Map<String, Object> params = new HashMap<>();
@@ -144,7 +145,7 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
             params.put("stackName", stackName);
             params.put("functionResources", functionResources);
 
-            this.templateProcessor.processTemplate(baseTemplatePath, templateName, params, outputFile);
+            this.templateProcessor.processTemplate(baseTemplatePath, templateName, params, outputElement);
         } catch (Exception e) {
             throw new RuntimeException(String.format("Cannot generate from template '%s' for '%s'", templateName, modelName), e);
         }

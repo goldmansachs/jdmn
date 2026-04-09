@@ -21,13 +21,11 @@ import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.formatter.JavaFormatter;
 import com.gs.dmn.transformation.formatter.NopJavaFormatter;
+import com.gs.dmn.transformation.repository.OutputElement;
 import com.gs.dmn.transformation.repository.OutputRepository;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import freemarker.template.*;
-import org.apache.commons.io.FileUtils;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.HashMap;
@@ -53,25 +51,25 @@ public class TemplateProcessor {
         this.inputParameters = inputParameters;
     }
 
-    public void processTemplate(String baseTemplatePath, String templateName, Map<String, Object> params, File outputFile, boolean formatOutput) throws IOException, TemplateException {
-        processTemplate(baseTemplatePath, templateName, params, outputFile);
+    public void processTemplate(String baseTemplatePath, String templateName, Map<String, Object> params, OutputElement outElement, boolean formatOutput) throws IOException, TemplateException {
+        processTemplate(baseTemplatePath, templateName, params, outElement);
         try {
-            String text = FileUtils.readFileToString(outputFile, inputParameters.getCharset());
+            String text = outElement.readText(inputParameters.getCharset());
             if (formatOutput) {
                 text = FORMATTER.formatSource(text);
             }
-            FileUtils.write(outputFile, text, inputParameters.getCharset(), false);
+            outElement.writeText(text, inputParameters.getCharset());
         } catch (Exception e) {
-            logger.error(String.format("Formatting error for file %s", outputFile.getName()));
+            logger.error(String.format("Formatting error for file %s", outElement.getName()));
         }
     }
 
-    void processTemplate(String baseTemplatePath, String templateName, Map<String, Object> params, File outputFile) throws IOException, TemplateException {
+    void processTemplate(String baseTemplatePath, String templateName, Map<String, Object> params, OutputElement outElement) throws IOException, TemplateException {
         Configuration cfg = makeConfiguration(baseTemplatePath);
         Template template = cfg.getTemplate("/" + templateName);
 
-        try (Writer fileWriter = new FileWriter(outputFile)) {
-            template.process(params, fileWriter);
+        try (Writer writer = outElement.getWriter()) {
+            template.process(params, writer);
         }
     }
 
@@ -81,10 +79,10 @@ public class TemplateProcessor {
             Map<String, Object> params = makeTemplateParams(definitions, itemDefinition, nativePackageName, nativeClassName, dmnTransformer);
 
             // Make output file
-            File outputFile = outputRepository.makeOutputFile(toPath(nativePackageName), nativeClassName, this.fileExtension);
+            OutputElement outElement = outputRepository.makeOutputElement(nativePackageName, nativeClassName, this.fileExtension);
 
             // Process template
-            processTemplate(baseTemplatePath, templateName, params, outputFile, false);
+            processTemplate(baseTemplatePath, templateName, params, outElement, false);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot process template '%s' for itemDefinition '%s'", templateName, itemDefinition.getName()), e);
         }
@@ -96,10 +94,10 @@ public class TemplateProcessor {
             Map<String, Object> params = makeTemplateParams(definitions, in, nativePackageName, nativeClassName, decisionBaseClass, dmnTransformer);
 
             // Make output file
-            File outputFile = outputRepository.makeOutputFile(toPath(nativePackageName), nativeClassName, this.fileExtension);
+            OutputElement outElement = outputRepository.makeOutputElement(nativePackageName, nativeClassName, this.fileExtension);
 
             // Process template
-            processTemplate(baseTemplatePath, templateName, params, outputFile, true);
+            processTemplate(baseTemplatePath, templateName, params, outElement, true);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot process template '%s' for BKM '%s'", templateName, in.getName()), e);
         }
@@ -111,10 +109,10 @@ public class TemplateProcessor {
             Map<String, Object> params = makeTemplateParams(definitions, decision, nativePackageName, nativeClassName, decisionBaseClass, dmnTransformer);
 
             // Make output file
-            File outputFile = outputRepository.makeOutputFile(toPath(nativePackageName), nativeClassName, this.fileExtension);
+            OutputElement outElement = outputRepository.makeOutputElement(nativePackageName, nativeClassName, this.fileExtension);
 
             // Process template
-            processTemplate(baseTemplatePath, templateName, params, outputFile, true);
+            processTemplate(baseTemplatePath, templateName, params, outElement, true);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot process template '%s' for decision '%s'", templateName, decision.getName()), e);
         }
@@ -126,17 +124,13 @@ public class TemplateProcessor {
             Map<String, Object> params = makeTemplateParams(definitions, element, nativePackageName, nativeClassName, decisionBaseClass, dmnTransformer);
 
             // Make output file
-            File outputFile = outputRepository.makeOutputFile(toPath(nativePackageName), nativeClassName, this.fileExtension);
+            OutputElement outElement = outputRepository.makeOutputElement(nativePackageName, nativeClassName, this.fileExtension);
 
             // Process template
-            processTemplate(baseTemplatePath, templateName, params, outputFile, true);
+            processTemplate(baseTemplatePath, templateName, params, outElement, true);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot process template '%s' for element '%s'", templateName, element.getName()), e);
         }
-    }
-
-    private String toPath(String nativePackageName) {
-        return nativePackageName.replace('.', '/');
     }
 
     //

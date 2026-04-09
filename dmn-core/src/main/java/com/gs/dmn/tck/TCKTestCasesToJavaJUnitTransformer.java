@@ -28,6 +28,7 @@ import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.repository.InputRepository;
+import com.gs.dmn.transformation.repository.OutputElement;
 import com.gs.dmn.transformation.repository.OutputRepository;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
@@ -129,9 +130,8 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
         try {
             // Make output file
             String nativePackageName = dmnTransformer.nativeModelPackageName(testCases.getModelName());
-            String relativeFilePath = nativePackageName.replace('.', '/');
             String fileExtension = getFileExtension();
-            File outputFile = outputRepository.makeOutputFile(relativeFilePath, testClassName, fileExtension);
+            OutputElement outputElement = outputRepository.makeOutputElement(nativePackageName, testClassName, fileExtension);
 
             // Make parameters
             Map<String, Object> params = makeTemplateParams(testCases, tckUtil);
@@ -140,7 +140,7 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
             params.put("decisionBaseClass", decisionBaseClass);
 
             // Process template
-            this.templateProcessor.processTemplate(baseTemplatePath, templateName, params, outputFile, true);
+            this.templateProcessor.processTemplate(baseTemplatePath, templateName, params, outputElement, true);
         } catch (Exception e) {
             throw handleError(String.format("Cannot process template '%s' for testCases of '%s'", templateName, testCases.getModelName()), e);
         }
