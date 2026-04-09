@@ -12,11 +12,14 @@
  */
 package com.gs.dmn.transformation.repository;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public abstract class OutputRepository {
+    protected final List<OutputRepository> childRepositories = new ArrayList<>();
+
     protected final List<OutputElement> elements = new ArrayList<>();
 
     public abstract String getRootPath();
@@ -41,6 +44,10 @@ public abstract class OutputRepository {
     public void collectJavaClasses(Map<String, String> allClassesMap) {
         List<OutputElement> javaElements = this.elements.stream().filter(this::isJavaElement).toList();
         collectCode(javaElements, allClassesMap);
+        // Iterate on children as well
+        for (OutputRepository childRepository : this.childRepositories) {
+            childRepository.collectJavaClasses(allClassesMap);
+        }
     }
 
     private boolean isJavaElement(OutputElement element) {
@@ -55,4 +62,12 @@ public abstract class OutputRepository {
             allSources.put(className, classSource);
         }
     }
+
+    public OutputRepository addChildRepository(Path childPath) {
+        OutputRepository child = makeOutputRepository(childPath);
+        this.childRepositories.add(child);
+        return child;
+    }
+
+    public abstract OutputRepository makeOutputRepository(Path childPath);
 }

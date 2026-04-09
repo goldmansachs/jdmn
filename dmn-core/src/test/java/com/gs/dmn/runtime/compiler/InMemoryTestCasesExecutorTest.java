@@ -22,7 +22,6 @@ import com.gs.dmn.transformation.DMNToNativeTransformer;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.ToQuotedNameTransformer;
 import com.gs.dmn.transformation.lazy.SparseDecisionDetector;
-import com.gs.dmn.transformation.repository.FileOutputRepository;
 import com.gs.dmn.transformation.repository.InputRepository;
 import com.gs.dmn.transformation.repository.OutputRepository;
 import com.gs.dmn.validation.*;
@@ -37,7 +36,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class InMemoryTestCasesExecutorTest {
+public abstract class InMemoryTestCasesExecutorTest {
     // static configuration shared across all instances
     private static final Map<String, String> MAP;
     private static final Map<String, String> TCK_MAP;
@@ -50,7 +49,6 @@ class InMemoryTestCasesExecutorTest {
         MAP.put("model.version", "1.0");
         MAP.put("platform.version", "10.0.0");
         MAP.put("xsdValidation", "true");
-
 
         TCK_MAP = new LinkedHashMap<>(MAP);
         TCK_MAP.put("tckFileExtension", "tck");
@@ -74,8 +72,8 @@ class InMemoryTestCasesExecutorTest {
         // Repositories
         InputRepository inputModelRepository = new InputRepository(inputModelFile);
         InputRepository inputTestRepository = new InputRepository(inputTestFile);
-        OutputRepository outputSourceRepository = new FileOutputRepository(outputSourceFolder);
-        OutputRepository outputTestRepository = new FileOutputRepository(outputTestFolder);
+        OutputRepository outputSourceRepository = makeOutputRepository(outputSourceFolder);
+        OutputRepository outputTestRepository = makeOutputRepository(outputTestFolder);
 
         // Run tests
         DMNToJavaTranslator translator = makeTranslator(inputModelRepository);
@@ -93,7 +91,7 @@ class InMemoryTestCasesExecutorTest {
         Path outputPath = Paths.get("target", "in-memory", "shared");
         File outputFolder = outputPath.resolve("java").toFile();
         InputRepository inputRepository = new InputRepository(inputFile);
-        OutputRepository outputRepository = new FileOutputRepository(outputFolder);
+        OutputRepository outputRepository = makeOutputRepository(outputFolder);
 
         // Run tests
         DMNToJavaTranslator translator = makeTranslator(inputRepository);
@@ -157,7 +155,7 @@ class InMemoryTestCasesExecutorTest {
         File inputFile = inputPath.toFile();
         Path outputPath = Paths.get("target", "in-memory", outputFileName);
         InputRepository inputRepository = new InputRepository(inputFile);
-        OutputRepository outputRepository = new FileOutputRepository(outputPath.toFile());
+        OutputRepository outputRepository = makeOutputRepository(outputPath.toFile());
 
         DMNToJavaTranslator translator = makeTranslator(inputRepository);
         runTests(translator, inputRepository, outputRepository);
@@ -171,8 +169,8 @@ class InMemoryTestCasesExecutorTest {
         File outputFolder = outputPath.toFile();
         InputRepository inputModelRepository = new InputRepository(inputModelFile);
         InputRepository inputTestRepository = new InputRepository(inputTestFile);
-        OutputRepository outputSourceRepository = new FileOutputRepository(outputFolder);
-        OutputRepository outputTestRepository = new FileOutputRepository(outputFolder);
+        OutputRepository outputSourceRepository = makeOutputRepository(outputFolder);
+        OutputRepository outputTestRepository = makeOutputRepository(outputFolder);
 
         // Run tests
         DMNToJavaTranslator translator = makeTranslator(inputModelRepository, TCK_INPUT_PARAMETERS);
@@ -220,4 +218,6 @@ class InMemoryTestCasesExecutorTest {
         assertEquals(7, result.getTestsSucceeded(), "testsSucceeded");
         assertEquals(0, result.getTestsFailed(), "testsFailed");
     }
+
+    protected abstract OutputRepository makeOutputRepository(File outputTestFolder);
 }

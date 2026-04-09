@@ -23,13 +23,12 @@ import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
-import com.gs.dmn.transformation.repository.FileOutputRepository;
 import com.gs.dmn.transformation.repository.OutputElement;
 import com.gs.dmn.transformation.repository.OutputRepository;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 
-import java.io.File;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,8 +62,8 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
         // Generate code for DMN model
         String modelName = definitions.getName();
         String lambdaFolderName = lambdaFolderName(modelName, basicTransformer);
-        File codeFolder = Paths.get(outputRepository.getRootPath(), lambdaFolderName, "src", "main", "java").toFile();
-        OutputRepository codeRepository = new FileOutputRepository(codeFolder);
+        Path codePath = Paths.get(outputRepository.getRootPath(), lambdaFolderName, "src", "main", "java");
+        OutputRepository codeRepository = outputRepository.addChildRepository(codePath);
         super.transformModels(repository, basicTransformer, codeRepository);
 
         // Generate handlers

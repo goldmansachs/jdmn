@@ -17,6 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class FileOutputRepository extends OutputRepository {
     static String toPath(String nativePackageName) {
@@ -51,5 +52,10 @@ public class FileOutputRepository extends OutputRepository {
         } catch (IOException e) {
             throw new RuntimeException(String.format("Error creating output file '%s'", relativePath), e);
         }
+    }
+
+    @Override
+    public OutputRepository makeOutputRepository(Path childPath) {
+        return new FileOutputRepository(childPath.toFile());
     }
 }
