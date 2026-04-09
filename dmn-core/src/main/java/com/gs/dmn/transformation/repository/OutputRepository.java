@@ -69,5 +69,5 @@ public abstract class OutputRepository {
         return child;
     }
 
-    public abstract OutputRepository makeOutputRepository(Path childPath);
+    protected abstract OutputRepository makeOutputRepository(Path childPath);
 }

@@ -18,7 +18,6 @@ import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +32,7 @@ public class InMemoryTestCasesExecutor {
     public InMemoryTestCasesExecutor(DMNToJavaTranslator translator) {
         this.translator = translator;
     }
+
     public TestRunResult execute(InputRepository inputRepository, OutputRepository outputRepository) throws Exception {
         // DMN and TCK files are in the same folder
         // Output is generated in the same folder
@@ -50,7 +50,7 @@ public class InMemoryTestCasesExecutor {
         return runTests(allSources.keySet(), classBytes);
     }
 
-    private Map<String, String> translate(InputRepository inputModelRepository, InputRepository inputTestRepository, OutputRepository outputSourceRepository, OutputRepository outputTestRepository) throws IOException {
+    private Map<String, String> translate(InputRepository inputModelRepository, InputRepository inputTestRepository, OutputRepository outputSourceRepository, OutputRepository outputTestRepository) {
         // Generate code for DMN and TCK
         StopWatch watch = new StopWatch();
         watch.start();

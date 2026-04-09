@@ -55,7 +55,7 @@ public class FileOutputRepository extends OutputRepository {
     }
 
     @Override
-    public OutputRepository makeOutputRepository(Path childPath) {
+    protected OutputRepository makeOutputRepository(Path childPath) {
         return new FileOutputRepository(childPath.toFile());
     }
 }

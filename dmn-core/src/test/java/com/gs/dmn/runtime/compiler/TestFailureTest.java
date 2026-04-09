@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-class TestFailureTest {
+public class TestFailureTest {
     @Test
     void testExtractTestCaseId() {
         assertNull(TestFailure.extractTestCaseId(null));
