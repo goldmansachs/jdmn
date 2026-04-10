@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.jmh;
 
-import com.gs.dmn.feel.lib.PureJavaTimeFEELLib;
+import com.gs.dmn.feel.lib.JavaTimeFEELLib;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.results.RunResult;
 import org.openjdk.jmh.runner.Runner;
@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 
 @State(Scope.Benchmark)
 public class StringLibBenchmarkTest {
-    private PureJavaTimeFEELLib lib = new PureJavaTimeFEELLib();
+    private final JavaTimeFEELLib lib = new JavaTimeFEELLib();
 
     @Benchmark
     @BenchmarkMode(Mode.All)

@@ -1,13 +1,13 @@
-Benchmark                                 Mode     Cnt  Score    Error   Units
-StringLibBenchmarkTest.testLib           thrpt      20  1.773 ±  0.015  ops/ms
-StringLibBenchmarkTest.testLib            avgt      20  5.150 ± 17.681   ms/op
-StringLibBenchmarkTest.testLib          sample  355168  0.563 ±  0.001   ms/op
-StringLibBenchmarkTest.testLib:p0.00    sample          0.503            ms/op
-StringLibBenchmarkTest.testLib:p0.50    sample          0.553            ms/op
-StringLibBenchmarkTest.testLib:p0.90    sample          0.629            ms/op
-StringLibBenchmarkTest.testLib:p0.95    sample          0.662            ms/op
-StringLibBenchmarkTest.testLib:p0.99    sample          0.765            ms/op
-StringLibBenchmarkTest.testLib:p0.999   sample          1.622            ms/op
-StringLibBenchmarkTest.testLib:p0.9999  sample          1.947            ms/op
-StringLibBenchmarkTest.testLib:p1.00    sample          2.830            ms/op
-StringLibBenchmarkTest.testLib              ss      20  2.959 ±  0.377   ms/op
+Benchmark                                 Mode     Cnt  Score   Error   Units
+StringLibBenchmarkTest.testLib           thrpt      20  1.478 ± 0.080  ops/ms
+StringLibBenchmarkTest.testLib            avgt      20  1.270 ± 2.126   ms/op
+StringLibBenchmarkTest.testLib          sample  296849  0.674 ± 0.001   ms/op
+StringLibBenchmarkTest.testLib:p0.00    sample          0.589           ms/op
+StringLibBenchmarkTest.testLib:p0.50    sample          0.647           ms/op
+StringLibBenchmarkTest.testLib:p0.90    sample          0.724           ms/op
+StringLibBenchmarkTest.testLib:p0.95    sample          0.779           ms/op
+StringLibBenchmarkTest.testLib:p0.99    sample          1.033           ms/op
+StringLibBenchmarkTest.testLib:p0.999   sample          2.306           ms/op
+StringLibBenchmarkTest.testLib:p0.9999  sample          5.188           ms/op
+StringLibBenchmarkTest.testLib:p1.00    sample          9.159           ms/op
+StringLibBenchmarkTest.testLib              ss      20  3.602 ± 0.576   ms/op

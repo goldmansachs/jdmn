@@ -1,13 +1,13 @@
 Benchmark                                                        Mode      Cnt    Score    Error   Units
-CreditDecisionMixedSignavioBenchmarkTest.testCompiler           thrpt       20  371.174 ±  1.916  ops/ms
+CreditDecisionMixedSignavioBenchmarkTest.testCompiler           thrpt       20  360.582 ± 68.024  ops/ms
 CreditDecisionMixedSignavioBenchmarkTest.testCompiler            avgt       20    0.003 ±  0.001   ms/op
-CreditDecisionMixedSignavioBenchmarkTest.testCompiler          sample  4543202    0.003 ±  0.001   ms/op
+CreditDecisionMixedSignavioBenchmarkTest.testCompiler          sample  4626047    0.003 ±  0.001   ms/op
 CreditDecisionMixedSignavioBenchmarkTest.testCompiler:p0.00    sample             0.002            ms/op
 CreditDecisionMixedSignavioBenchmarkTest.testCompiler:p0.50    sample             0.003            ms/op
 CreditDecisionMixedSignavioBenchmarkTest.testCompiler:p0.90    sample             0.003            ms/op
 CreditDecisionMixedSignavioBenchmarkTest.testCompiler:p0.95    sample             0.003            ms/op
-CreditDecisionMixedSignavioBenchmarkTest.testCompiler:p0.99    sample             0.007            ms/op
-CreditDecisionMixedSignavioBenchmarkTest.testCompiler:p0.999   sample             0.019            ms/op
-CreditDecisionMixedSignavioBenchmarkTest.testCompiler:p0.9999  sample             0.237            ms/op
-CreditDecisionMixedSignavioBenchmarkTest.testCompiler:p1.00    sample             2.343            ms/op
-CreditDecisionMixedSignavioBenchmarkTest.testCompiler              ss       20    0.276 ±  0.047   ms/op
+CreditDecisionMixedSignavioBenchmarkTest.testCompiler:p0.99    sample             0.003            ms/op
+CreditDecisionMixedSignavioBenchmarkTest.testCompiler:p0.999   sample             0.023            ms/op
+CreditDecisionMixedSignavioBenchmarkTest.testCompiler:p0.9999  sample             0.058            ms/op
+CreditDecisionMixedSignavioBenchmarkTest.testCompiler:p1.00    sample             4.751            ms/op
+CreditDecisionMixedSignavioBenchmarkTest.testCompiler              ss       20    0.467 ±  0.105   ms/op

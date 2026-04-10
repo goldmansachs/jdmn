@@ -23,7 +23,6 @@ import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
-import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -48,8 +47,8 @@ public class CreditDecisionSignavioBenchmarkTest {
         applicant.setCreditScore(decision.number("100"));
         applicant.setPriorIssues(decision.asList("Late payment"));
 
-        BigDecimal currentRiskAppetite = decision.number("50");
-        BigDecimal lendingThreshold = decision.number("25");
+        Number currentRiskAppetite = decision.number("50");
+        Number lendingThreshold = decision.number("25");
 
         List<?> result = decision.apply(applicant, currentRiskAppetite, lendingThreshold, context_);
 //        System.out.println(result);
