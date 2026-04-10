@@ -1,13 +1,13 @@
 Benchmark                                            Mode      Cnt   Score    Error   Units
-LendingStandardBenchmarkTest.testCompiler           thrpt       20  67.300 ±  2.241  ops/ms
-LendingStandardBenchmarkTest.testCompiler            avgt       20   0.015 ±  0.001   ms/op
-LendingStandardBenchmarkTest.testCompiler          sample  3464037   0.016 ±  0.001   ms/op
+LendingStandardBenchmarkTest.testCompiler           thrpt       20  62.666 ± 12.935  ops/ms
+LendingStandardBenchmarkTest.testCompiler            avgt       20   0.026 ±  0.043   ms/op
+LendingStandardBenchmarkTest.testCompiler          sample  3487468   0.016 ±  0.001   ms/op
 LendingStandardBenchmarkTest.testCompiler:p0.00    sample            0.013            ms/op
 LendingStandardBenchmarkTest.testCompiler:p0.50    sample            0.014            ms/op
 LendingStandardBenchmarkTest.testCompiler:p0.90    sample            0.016            ms/op
-LendingStandardBenchmarkTest.testCompiler:p0.95    sample            0.024            ms/op
-LendingStandardBenchmarkTest.testCompiler:p0.99    sample            0.042            ms/op
-LendingStandardBenchmarkTest.testCompiler:p0.999   sample            0.093            ms/op
-LendingStandardBenchmarkTest.testCompiler:p0.9999  sample            1.298            ms/op
-LendingStandardBenchmarkTest.testCompiler:p1.00    sample           14.680            ms/op
-LendingStandardBenchmarkTest.testCompiler              ss       20   0.901 ±  0.183   ms/op
+LendingStandardBenchmarkTest.testCompiler:p0.95    sample            0.020            ms/op
+LendingStandardBenchmarkTest.testCompiler:p0.99    sample            0.043            ms/op
+LendingStandardBenchmarkTest.testCompiler:p0.999   sample            0.095            ms/op
+LendingStandardBenchmarkTest.testCompiler:p0.9999  sample            1.295            ms/op
+LendingStandardBenchmarkTest.testCompiler:p1.00    sample            7.881            ms/op
+LendingStandardBenchmarkTest.testCompiler              ss       20   0.885 ±  0.140   ms/op

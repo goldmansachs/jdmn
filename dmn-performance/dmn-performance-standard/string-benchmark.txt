@@ -1,13 +1,13 @@
 Benchmark                                 Mode     Cnt  Score   Error   Units
-StringLibBenchmarkTest.testLib           thrpt      20  1.478 ± 0.080  ops/ms
-StringLibBenchmarkTest.testLib            avgt      20  1.270 ± 2.126   ms/op
-StringLibBenchmarkTest.testLib          sample  296849  0.674 ± 0.001   ms/op
-StringLibBenchmarkTest.testLib:p0.00    sample          0.589           ms/op
-StringLibBenchmarkTest.testLib:p0.50    sample          0.647           ms/op
-StringLibBenchmarkTest.testLib:p0.90    sample          0.724           ms/op
-StringLibBenchmarkTest.testLib:p0.95    sample          0.779           ms/op
-StringLibBenchmarkTest.testLib:p0.99    sample          1.033           ms/op
-StringLibBenchmarkTest.testLib:p0.999   sample          2.306           ms/op
-StringLibBenchmarkTest.testLib:p0.9999  sample          5.188           ms/op
-StringLibBenchmarkTest.testLib:p1.00    sample          9.159           ms/op
-StringLibBenchmarkTest.testLib              ss      20  3.602 ± 0.576   ms/op
+StringLibBenchmarkTest.testLib           thrpt      20  1.560 ± 0.047  ops/ms
+StringLibBenchmarkTest.testLib            avgt      20  0.666 ± 0.033   ms/op
+StringLibBenchmarkTest.testLib          sample  333355  0.600 ± 0.001   ms/op
+StringLibBenchmarkTest.testLib:p0.00    sample          0.519           ms/op
+StringLibBenchmarkTest.testLib:p0.50    sample          0.574           ms/op
+StringLibBenchmarkTest.testLib:p0.90    sample          0.663           ms/op
+StringLibBenchmarkTest.testLib:p0.95    sample          0.753           ms/op
+StringLibBenchmarkTest.testLib:p0.99    sample          1.065           ms/op
+StringLibBenchmarkTest.testLib:p0.999   sample          1.652           ms/op
+StringLibBenchmarkTest.testLib:p0.9999  sample          2.182           ms/op
+StringLibBenchmarkTest.testLib:p1.00    sample          6.619           ms/op
+StringLibBenchmarkTest.testLib              ss      20  3.377 ± 0.511   ms/op
