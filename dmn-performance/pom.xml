@@ -29,7 +29,7 @@
 
         <java.version>17</java.version>
 
-        <jdmn.version>9.0.0</jdmn.version>
+        <jdmn.version>10.0.0</jdmn.version>
         <jdmn.plugin.version>${jdmn.version}</jdmn.plugin.version>
         <jmh.version>1.37</jmh.version>
 

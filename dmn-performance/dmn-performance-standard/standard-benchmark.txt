@@ -1,13 +1,13 @@
 Benchmark                                            Mode      Cnt   Score    Error   Units
-LendingStandardBenchmarkTest.testCompiler           thrpt       20  62.666 ± 12.935  ops/ms
-LendingStandardBenchmarkTest.testCompiler            avgt       20   0.026 ±  0.043   ms/op
-LendingStandardBenchmarkTest.testCompiler          sample  3487468   0.016 ±  0.001   ms/op
-LendingStandardBenchmarkTest.testCompiler:p0.00    sample            0.013            ms/op
-LendingStandardBenchmarkTest.testCompiler:p0.50    sample            0.014            ms/op
-LendingStandardBenchmarkTest.testCompiler:p0.90    sample            0.016            ms/op
-LendingStandardBenchmarkTest.testCompiler:p0.95    sample            0.020            ms/op
-LendingStandardBenchmarkTest.testCompiler:p0.99    sample            0.043            ms/op
-LendingStandardBenchmarkTest.testCompiler:p0.999   sample            0.095            ms/op
-LendingStandardBenchmarkTest.testCompiler:p0.9999  sample            1.295            ms/op
-LendingStandardBenchmarkTest.testCompiler:p1.00    sample            7.881            ms/op
-LendingStandardBenchmarkTest.testCompiler              ss       20   0.885 ±  0.140   ms/op
+LendingStandardBenchmarkTest.testCompiler           thrpt       20  59.665 ±  7.239  ops/ms
+LendingStandardBenchmarkTest.testCompiler            avgt       20   0.032 ±  0.043   ms/op
+LendingStandardBenchmarkTest.testCompiler          sample  3563387   0.017 ±  0.001   ms/op
+LendingStandardBenchmarkTest.testCompiler:p0.00    sample            0.014            ms/op
+LendingStandardBenchmarkTest.testCompiler:p0.50    sample            0.015            ms/op
+LendingStandardBenchmarkTest.testCompiler:p0.90    sample            0.017            ms/op
+LendingStandardBenchmarkTest.testCompiler:p0.95    sample            0.027            ms/op
+LendingStandardBenchmarkTest.testCompiler:p0.99    sample            0.045            ms/op
+LendingStandardBenchmarkTest.testCompiler:p0.999   sample            0.094            ms/op
+LendingStandardBenchmarkTest.testCompiler:p0.9999  sample            1.372            ms/op
+LendingStandardBenchmarkTest.testCompiler:p1.00    sample           19.038            ms/op
+LendingStandardBenchmarkTest.testCompiler              ss       20   1.009 ±  0.230   ms/op
