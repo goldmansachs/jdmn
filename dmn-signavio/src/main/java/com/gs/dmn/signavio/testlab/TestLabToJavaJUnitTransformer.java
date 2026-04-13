@@ -22,6 +22,7 @@ import com.gs.dmn.error.ValidationError;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.serialization.TestSerializer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.signavio.testlab.visitor.TestLabEnhancer;
 import com.gs.dmn.transformation.AbstractTestCasesToJUnitTransformer;
@@ -46,7 +47,7 @@ import java.util.Map;
 import static com.gs.dmn.signavio.testlab.TestLabSerializer.isTestLabFile;
 
 public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestCasesToJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> {
-    private final TestLabSerializer testLabReader = new TestLabSerializer();
+    private final TestSerializer<TestLab> testSerializer = this.dialectDefinition.createTestSerializer(logger, inputParameters);
     private final TestLabValidator testLabValidator;
 
     private final InputRepository inputModelRepository;
@@ -99,7 +100,7 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
         List<TestLab> testLabList = new ArrayList<>();
         for (File child: files) {
             if (shouldTransformFile(child)) {
-                TestLab testLab = this.testLabReader.read(child);
+                TestLab testLab = this.testSerializer.read(child);
                 testLabList.add(testLab);
             }
         }

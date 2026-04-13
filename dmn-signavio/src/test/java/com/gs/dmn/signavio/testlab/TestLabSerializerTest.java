@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestLabSerializerTest extends AbstractTest {
-    private final TestLabSerializer serializer = new TestLabSerializer();
+    private final TestLabSerializer serializer = new TestLabSerializer(LOGGER, inputParameters);
 
     @Test
     public void testRead() throws Exception {

@@ -16,14 +16,18 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.serialization.TestSerializer;
+import com.gs.dmn.transformation.InputParameters;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.Writer;
 
 import static com.gs.dmn.error.DMNErrorHandler.handleError;
 
-public class TestLabSerializer {
+public class TestLabSerializer extends TestSerializer<TestLab> {
     public static final String TEST_LAB_FILE_EXTENSION = ".json";
 
     public static boolean isTestLabFile(File file, String extension) {
@@ -45,27 +49,46 @@ public class TestLabSerializer {
                 .build();
     }
 
+    public TestLabSerializer(BuildLogger logger, InputParameters inputParameters) {
+        super(logger, inputParameters);
+    }
+
+    @Override
     public TestLab read(File inputFile) {
         try {
             TestLab testLab = MAPPER.readValue(inputFile, TestLab.class);
             testLab.setSource(inputFile.getName());
             return testLab;
         } catch (IOException e) {
-            throw handleError(String.format("Cannot read DMN from '%s'", inputFile.getName()), e);
+            throw handleError(String.format("Cannot read Test Cases from '%s'", inputFile.getName()), e);
         }
     }
 
+    @Override
     public TestLab read(Reader reader) {
         try {
             TestLab testLab = MAPPER.readValue(reader, TestLab.class);
             testLab.setSource(reader.getClass().getSimpleName());
             return testLab;
         } catch (IOException e) {
-            throw handleError(String.format("Cannot read DMN from '%s'", reader), e);
+            throw handleError(String.format("Cannot read Test Cases from '%s'", reader), e);
         }
     }
 
-    public void write(TestLab testLab, File file) throws IOException {
-        MAPPER.writerWithDefaultPrettyPrinter().writeValue(file, testLab);
+    public void write(TestLab testLab, File file)  {
+        try {
+            MAPPER.writerWithDefaultPrettyPrinter().writeValue(file, testLab);
+        } catch (Exception e) {
+            throw handleError(String.format("Cannot read Test Cases from '%s'", file.getName()), e);
+        }
+    }
+
+    @Override
+    public void write(TestLab testCases, Writer output) {
+        try {
+            MAPPER.writerWithDefaultPrettyPrinter().writeValue(output, testCases);
+        } catch (Exception e) {
+            throw handleError(String.format("Cannot write Test Cases to '%s'", output), e);
+        }
     }
 }

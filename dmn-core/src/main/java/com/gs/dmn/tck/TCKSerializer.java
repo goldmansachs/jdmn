@@ -14,54 +14,25 @@ package com.gs.dmn.tck;
 
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.serialization.TestSerializer;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.tck.serialization.TCKMarshaller;
 import com.gs.dmn.transformation.InputParameters;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Reader;
+import java.io.Writer;
 
 import static com.gs.dmn.error.DMNErrorHandler.handleError;
 
-public abstract class TCKSerializer {
-    private final BuildLogger logger;
+public abstract class TCKSerializer extends TestSerializer<TestCases> {
     private final TCKMarshaller marshaller;
-    private final InputParameters inputParameters;
 
-    protected TCKSerializer(BuildLogger logger, TCKMarshaller marshaller, InputParameters inputParameters) {
-        this.logger = logger;
+    public TCKSerializer(BuildLogger logger, InputParameters inputParameters, TCKMarshaller marshaller) {
+        super(logger, inputParameters);
         this.marshaller = marshaller;
-        this.inputParameters = inputParameters;
     }
 
-    public List<TestCases> read(List<File> inputs) {
-        if (inputs == null || inputs.isEmpty()) {
-            return List.of();
-        }
-
-        List<TestCases> result = new ArrayList<>();
-        inputs.forEach(input -> result.add(read(input)));
-        return result;
-    }
-
-    public TestCases read(File input) {
-        if (input == null) {
-            throw new DMNRuntimeException("Cannot read TCK from null File");
-        }
-
-        try (FileInputStream fis = new FileInputStream(input); InputStreamReader isr = new InputStreamReader(fis, inputParameters.getCharset())) {
-            this.logger.info(String.format("Reading TCK '%s' ...", input.getPath()));
-
-            TestCases testCases = read(isr);
-
-            this.logger.info("TCK read.");
-            return testCases;
-        } catch (Exception e) {
-            throw handleError(String.format("Cannot read TCK from File '%s'", input.getPath()), e);
-        }
-    }
-
+    @Override
     public TestCases read(Reader input) {
         if (input == null) {
             throw new DMNRuntimeException("Cannot read TCK from null Reader");
@@ -74,21 +45,7 @@ public abstract class TCKSerializer {
         }
     }
 
-    public void write(TestCases testCases, File output) {
-        if (testCases == null) {
-            throw new DMNRuntimeException("Cannot write null TCK");
-        }
-        if (output == null) {
-            throw new DMNRuntimeException("Cannot write tp null File");
-        }
-
-        try (FileOutputStream fos = new FileOutputStream(output); OutputStreamWriter osw = new OutputStreamWriter(fos, inputParameters.getCharset())) {
-            write(testCases, osw);
-        } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot write TCK to File '%s'", output.getPath()), e);
-        }
-    }
-
+    @Override
     public void write(TestCases testCases, Writer output) {
         if (testCases == null) {
             throw new DMNRuntimeException("Cannot write null TCK");

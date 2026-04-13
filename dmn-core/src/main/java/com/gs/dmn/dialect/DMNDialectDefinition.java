@@ -25,6 +25,7 @@ import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.serialization.DMNSerializer;
+import com.gs.dmn.serialization.TestSerializer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.tck.TestCasesToNativeTransformer;
 import com.gs.dmn.transformation.DMNToNativeTransformer;
@@ -46,6 +47,8 @@ public interface DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, T
     DMNSerializer createDMNSerializer(BuildLogger logger, InputParameters inputParameters);
 
     DMNModelRepository createDMNModelRepository(List<TDefinitions> definitionsList, InputParameters inputParameters);
+
+    TestSerializer<TEST> createTestSerializer(BuildLogger logger, InputParameters inputParameters);
 
     //
     // FEEL Processors

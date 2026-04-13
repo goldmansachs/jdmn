@@ -22,10 +22,10 @@ import java.util.List;
 
 public class XMLTCKSerializer extends TCKSerializer {
     public XMLTCKSerializer(BuildLogger logger, InputParameters inputParameters) {
-        this(logger, new ArrayList<>(), inputParameters);
+        this(logger, inputParameters, new ArrayList<>());
     }
 
-    public XMLTCKSerializer(BuildLogger logger, List<DMNExtensionRegister> registers, InputParameters inputParameters) {
-        super(logger, TCKMarshallerFactory.newMarshallerWithExtensions(registers), inputParameters);
+    public XMLTCKSerializer(BuildLogger logger, InputParameters inputParameters, List<DMNExtensionRegister> registers) {
+        super(logger, inputParameters, TCKMarshallerFactory.newMarshallerWithExtensions(registers));
     }
 }

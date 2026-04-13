@@ -22,6 +22,7 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.serialization.SerializationFormat;
+import com.gs.dmn.serialization.TestSerializer;
 import com.gs.dmn.serialization.jackson.JsonDMNSerializer;
 import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
@@ -30,6 +31,7 @@ import com.gs.dmn.signavio.runtime.SignavioEnvironmentFactory;
 import com.gs.dmn.signavio.runtime.interpreter.SignavioDMNInterpreter;
 import com.gs.dmn.signavio.serialization.xstream.SignavioExtensionRegister;
 import com.gs.dmn.signavio.testlab.TestLab;
+import com.gs.dmn.signavio.testlab.TestLabSerializer;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.apache.commons.lang3.StringUtils;
@@ -73,6 +75,16 @@ public abstract class AbstractSignavioDMNDialectDefinition<NUMBER, DATE, TIME, D
         return new SignavioDMNModelRepository(definitionsList, schemaNamespace);
     }
 
+    @Override
+    public TestSerializer<TestLab> createTestSerializer(BuildLogger logger, InputParameters inputParameters) {
+        SerializationFormat format = inputParameters.getFormat();
+        if (format == JSON) {
+            return new TestLabSerializer(logger, inputParameters);
+        } else {
+            logger.warn(String.format("Format '%s' is not supported yet for test cases. Using JSON format", format));
+            return new TestLabSerializer(logger, inputParameters);
+        }
+    }
 
     //
     // DMN processors

@@ -57,11 +57,11 @@ public abstract class AbstractMergeInputDataTransformerTest extends AbstractSign
             File testLabFile = new File(resource(path + testLabFileName));
             List<TestLab> testLabList = new ArrayList<>();
             if (testLabFile.isFile()) {
-                TestLab testLab = this.testReader.read(testLabFile);
+                TestLab testLab = this.testSerializer.read(testLabFile);
                 testLabList.add(testLab);
             } else {
                 for (File child: testLabFile.listFiles()) {
-                    TestLab testLab = this.testReader.read(child);
+                    TestLab testLab = this.testSerializer.read(child);
                     testLabList.add(testLab);
                 }
 
@@ -126,7 +126,7 @@ public abstract class AbstractMergeInputDataTransformerTest extends AbstractSign
 
     private void checkTestLab(TestLab actualTestLab, String fileName) throws Exception {
         File actualTestLabFile = new File("target/" + fileName);
-        this.testReader.write(actualTestLab, actualTestLabFile);
+        this.testSerializer.write(actualTestLab, actualTestLabFile);
 
         String path = "dmn/expected/";
         File expectedTestLabFile = new File(resource(path + fileName));

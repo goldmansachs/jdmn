@@ -23,9 +23,12 @@ import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
 import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.serialization.SerializationFormat;
+import com.gs.dmn.serialization.TestSerializer;
 import com.gs.dmn.serialization.jackson.JsonDMNSerializer;
 import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
 import com.gs.dmn.tck.ast.TestCases;
+import com.gs.dmn.tck.serialization.jackson.JsonTCKSerializer;
+import com.gs.dmn.tck.serialization.xstream.XMLTCKSerializer;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 
@@ -61,6 +64,18 @@ public abstract class AbstractStandardDMNDialectDefinition<NUMBER, DATE, TIME, D
     @Override
     public DMNModelRepository createDMNModelRepository(List<TDefinitions> definitionsList, InputParameters inputParameters) {
         return new DMNModelRepository(definitionsList);
+    }
+
+    @Override
+    public TestSerializer<TestCases> createTestSerializer(BuildLogger logger, InputParameters inputParameters) {
+        SerializationFormat format = inputParameters.getFormat();
+        if (XML == format) {
+            return new XMLTCKSerializer(logger, inputParameters);
+        } else if (format == JSON) {
+            return new JsonTCKSerializer(logger, inputParameters);
+        } else {
+            throw new IllegalArgumentException(String.format("Format '%s' is not supported yet", format));
+        }
     }
 
     //

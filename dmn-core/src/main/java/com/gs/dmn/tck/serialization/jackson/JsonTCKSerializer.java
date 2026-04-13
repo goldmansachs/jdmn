@@ -18,6 +18,6 @@ import com.gs.dmn.transformation.InputParameters;
 
 public class JsonTCKSerializer extends TCKSerializer {
     public JsonTCKSerializer(BuildLogger logger, InputParameters inputParameters) {
-        super(logger, new JsonTCKMarshaller(logger), inputParameters);
+        super(logger, inputParameters, new JsonTCKMarshaller(logger));
     }
 }
