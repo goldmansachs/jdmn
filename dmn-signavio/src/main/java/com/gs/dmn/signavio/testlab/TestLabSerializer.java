@@ -17,6 +17,7 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.TestSerializer;
 import com.gs.dmn.transformation.InputParameters;
 
@@ -28,14 +29,14 @@ import java.io.Writer;
 import static com.gs.dmn.error.DMNErrorHandler.handleError;
 
 public class TestLabSerializer extends TestSerializer<TestLab> {
-    public static final String TEST_LAB_FILE_EXTENSION = ".json";
-
-    public static boolean isTestLabFile(File file, String extension) {
-        return file != null && file.isFile() && file.getName().endsWith(extension);
-    }
+    public static final String TEST_LAB_FILE_EXTENSION = DMNConstants.JSON_FILE_EXTENSION;
 
     public static boolean isTestLabFile(File file) {
         return isTestLabFile(file, TEST_LAB_FILE_EXTENSION);
+    }
+
+    private static boolean isTestLabFile(File file, String extension) {
+        return file != null && file.isFile() && file.getName().endsWith(extension);
     }
 
     public static final ObjectMapper MAPPER;

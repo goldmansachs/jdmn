@@ -63,7 +63,7 @@ public class XMLDMNSerializerTest extends AbstractDMNSerializationTest {
 
     @Override
     protected DMNSerializer makeSerializer() {
-        return new XMLDMNSerializer(LOGGER, Collections.singletonList(new TestRegister()), this.inputParameters);
+        return new XMLDMNSerializer(LOGGER, this.inputParameters, Collections.singletonList(new TestRegister()));
     }
 
     protected void checkModel(TDefinitions definitions) {

@@ -81,9 +81,9 @@ public class InputParametersTest {
         assertNull(inputParameters.getSchemaNamespace());
         assertNull(inputParameters.getNamespace());
         assertNull(inputParameters.getPrefix());
-        assertEquals(SerializationFormat.XML, inputParameters.getFormat());
+        assertEquals(SerializationFormat.XML, inputParameters.getDmnFormat());
         assertEquals(DMNConstants.DMN_FILE_EXTENSION, inputParameters.getDmnFileExtension());
-        assertEquals(DMNConstants.TCK_FILE_EXTENSION, inputParameters.getTckFileExtension());
+        assertEquals(DMNConstants.XML_FILE_EXTENSION, inputParameters.getTckFileExtension());
         assertEquals("UTF-8", inputParameters.getCharset().displayName());
 
         assertNull(inputParameters.getJavaRootPackage());
@@ -114,8 +114,8 @@ public class InputParametersTest {
         String namespace = "namespace";
         String prefix = "prefix";
         String format = "JSON";
-        String dmnFileExtension = "dmnFileExtension";
-        String tckFileExtension = "tckFileExtension";
+        String dmnFileExtension = DMNConstants.DMN_FILE_EXTENSION;
+        String tckFileExtension = DMNConstants.XML_FILE_EXTENSION;
         String charset = "charset";
 
         String javaRootPackage = "javaRootPackage";
@@ -173,8 +173,9 @@ public class InputParametersTest {
         assertEquals(schemaNamespace, inputParameters.getSchemaNamespace());
         assertEquals(namespace, inputParameters.getNamespace());
         assertEquals(prefix, inputParameters.getPrefix());
-        assertEquals(SerializationFormat.JSON, inputParameters.getFormat());
+        assertEquals(SerializationFormat.XML, inputParameters.getDmnFormat());
         assertEquals(dmnFileExtension, inputParameters.getDmnFileExtension());
+        assertEquals(SerializationFormat.XML, inputParameters.getTckFormat());
         assertEquals(tckFileExtension, inputParameters.getTckFileExtension());
         assertEquals("UTF-8", inputParameters.getCharset().displayName());
 

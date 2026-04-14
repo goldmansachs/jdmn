@@ -51,7 +51,7 @@ public abstract class AbstractStandardDMNDialectDefinition<NUMBER, DATE, TIME, D
     //
     @Override
     public DMNSerializer createDMNSerializer(BuildLogger logger, InputParameters inputParameters) {
-        SerializationFormat format = inputParameters.getFormat();
+        SerializationFormat format = inputParameters.getDmnFormat();
         if (XML == format) {
             return new XMLDMNSerializer(logger, inputParameters);
         } else if (format == JSON) {
@@ -68,7 +68,7 @@ public abstract class AbstractStandardDMNDialectDefinition<NUMBER, DATE, TIME, D
 
     @Override
     public TestSerializer<TestCases> createTestSerializer(BuildLogger logger, InputParameters inputParameters) {
-        SerializationFormat format = inputParameters.getFormat();
+        SerializationFormat format = inputParameters.getTckFormat();
         if (XML == format) {
             return new XMLTCKSerializer(logger, inputParameters);
         } else if (format == JSON) {

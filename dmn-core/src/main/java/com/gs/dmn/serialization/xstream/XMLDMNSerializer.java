@@ -21,10 +21,10 @@ import java.util.List;
 
 public class XMLDMNSerializer extends DMNSerializer {
     public XMLDMNSerializer(BuildLogger logger, InputParameters inputParameters) {
-        this(logger, new ArrayList<>(), inputParameters);
+        this(logger, inputParameters, new ArrayList<>());
     }
 
-    public XMLDMNSerializer(BuildLogger logger, List<DMNExtensionRegister> registers, InputParameters inputParameters) {
+    public XMLDMNSerializer(BuildLogger logger, InputParameters inputParameters, List<DMNExtensionRegister> registers) {
         super(logger, DMNMarshallerFactory.newMarshallerWithExtensions(registers), inputParameters);
     }
 }

@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 public class DMNSerializerConversionTest extends AbstractFileTransformerTest {
-    private final DMNSerializer xmlSerializer = new XMLDMNSerializer(LOGGER, Collections.singletonList(new TestRegister()), this.inputParameters);
+    private final DMNSerializer xmlSerializer = new XMLDMNSerializer(LOGGER, this.inputParameters, Collections.singletonList(new TestRegister()));
 
     private final DMNSerializer jsonSerializer = new JsonDMNSerializer(LOGGER, EXTENSION_MAPPER, this.inputParameters);
 

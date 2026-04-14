@@ -14,6 +14,8 @@ package com.gs.dmn.runtime.compiler;
 
 import com.gs.dmn.error.SemanticErrorException;
 import com.gs.dmn.error.SyntaxErrorException;
+import com.gs.dmn.serialization.DMNConstants;
+import com.gs.dmn.serialization.SerializationFormat;
 import com.gs.dmn.tck.TestCasesToNativeTransformer;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.tck.validation.DefaultTCKValidator;
@@ -51,7 +53,8 @@ public abstract class InMemoryTestCasesExecutorTest {
         MAP.put("xsdValidation", "true");
 
         TCK_MAP = new LinkedHashMap<>(MAP);
-        TCK_MAP.put("tckFileExtension", "tck");
+        TCK_MAP.put(InputParameters.TCK_FORMAT_KEY, SerializationFormat.XML.name());
+        TCK_MAP.put(InputParameters.TCK_FILE_EXTENSION_KEY, DMNConstants.TCK_FILE_EXTENSION);
 
         INPUT_PARAMETERS = new InputParameters(MAP);
         TCK_INPUT_PARAMETERS = new InputParameters(TCK_MAP);

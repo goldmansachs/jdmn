@@ -22,6 +22,17 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class InputParameters {
+    // Frequently used parameter keys
+    public static final String DMN_FORMAT_KEY = "dmnFormat";
+    public static final String DMN_FORMAT_DEFAULT_VALUE = SerializationFormat.XML.name();
+    public static final String DMN_FILE_EXTENSION_KEY = "dmnFileExtension";
+    public static final String DMN_FILE_EXTENSION_DEFAULT_VALUE = DMNConstants.DMN_FILE_EXTENSION;
+
+    public static final String TCK_FILE_EXTENSION_KEY = "tckFileExtension";
+    public static final String TCK_FORMAT_DEFAULT_VALUE = SerializationFormat.XML.name();
+    public static final String TCK_FORMAT_KEY = "tckFormat";
+    public static final String TCK_FILE_EXTENSION_DEFAULT_VALUE = DMNConstants.XML_FILE_EXTENSION;
+
     protected static String getRequiredParam(Map<String, String> parameters, String parameterKey) {
         if (parameters == null || parameters.get(parameterKey) == null || parameters.get(parameterKey).trim().isEmpty()) {
             throw new DMNRuntimeException("A '" + parameterKey + "' parameter is required.");
@@ -56,6 +67,9 @@ public class InputParameters {
         return Boolean.parseBoolean(param);
     }
 
+    //
+    // Versioning
+    //
     // Version of the DMN standard.
     private final String dmnVersion;
     // Version of the DMN model.
@@ -63,34 +77,47 @@ public class InputParameters {
     // Version of the DMN platform.
     private final String platformVersion;
 
-    // Whether to validate DMN models against the XSD schema.
+    //
+    // Serialization
+    //
+    // Whether to validate files against the XSD schema.
     private final boolean xsdValidation;
-    // Namespace for the generated DMN models.
+    // Namespace for the DMN models.
     private final String schemaNamespace;
     private final String namespace;
     private final String prefix;
-    // Format for the generated DMN models (e.g., XML, JSON).
-    private final SerializationFormat format;
+    // Format for the DMN models (e.g., XML, JSON).
+    private final SerializationFormat dmnFormat;
     // File extension for the generated DMN models.
     private final String dmnFileExtension;
-    // File extension for the generated TCK test cases.
+    // Format for the TCK tests (e.g., XML, JSON).
+    private final SerializationFormat tckFormat;
+    // File extension for the TCK test cases.
     private final String tckFileExtension;
     // Character encoding for reading and writing DMN models and TCK files.
     private final Charset charset;
 
+    //
+    // Semantics
+    //
     // Whether recursive calls are supported for BKMs.
     private final boolean recursiveCalls;
-
-    // Java package for the generated DMN models.
-    private final String javaRootPackage;
-    // Whether to generate all classes in one package or to use a package structure based on the DMN model namespace.
-    private final boolean onePackage;
     // Whether the inputs imported several times are treated as the same.
     private final boolean singletonInputData;
     // Whether the generated code supported the singleton pattern for decisions.
     private final boolean singletonDecision;
-    // Whether to use strong typing for the generated DMN models.
+    // Whether to use strong typing during semantic analyses.
     private final boolean strongTyping;
+    // Whether to check constraints during evaluation / code generation.
+    private final boolean checkConstraints;
+
+    //
+    // Translation and execution
+    //
+    // The root package.
+    private final String javaRootPackage;
+    // Whether to generate all classes in one package or to use a package structure based on the names of the models.
+    private final boolean onePackage;
 
     // Whether to cache the results of decision evaluations.
     private final boolean caching;
@@ -106,9 +133,6 @@ public class InputParameters {
     // Whether to generate extra information in the generated code, such as POMs.
     private final boolean generateExtra;
 
-    // Whether to check constraints in the generated code.
-    private final boolean checkConstraints;
-
     // Path to the libraries configuration file.
     private final String librariesConfigPath;
 
@@ -120,30 +144,36 @@ public class InputParameters {
     }
 
     public InputParameters(Map<String, String> inputParameters) {
+        // Versioning
         this.dmnVersion = InputParameters.getOptionalParam(inputParameters, "dmnVersion");
         this.modelVersion = InputParameters.getOptionalParam(inputParameters, "modelVersion");
         this.platformVersion = InputParameters.getOptionalParam(inputParameters, "platformVersion");
 
+        // Serialization
         this.xsdValidation = InputParameters.getOptionalBooleanParam(inputParameters, "xsdValidation");
         this.namespace = InputParameters.getOptionalParam(inputParameters, "namespace");
         this.schemaNamespace = InputParameters.getOptionalParam(inputParameters, "signavioSchemaNamespace");
         this.prefix = InputParameters.getOptionalParam(inputParameters, "prefix");
-        this.format = SerializationFormat.valueOf(InputParameters.getOptionalParam(inputParameters, "format", "XML"));
-        this.dmnFileExtension = InputParameters.getOptionalParam(inputParameters, "dmnFileExtension", DMNConstants.DMN_FILE_EXTENSION);
-        this.tckFileExtension = InputParameters.getOptionalParam(inputParameters, "tckFileExtension", DMNConstants.TCK_FILE_EXTENSION);
+        this.dmnFormat = SerializationFormat.valueOf(InputParameters.getOptionalParam(inputParameters, DMN_FORMAT_KEY, DMN_FORMAT_DEFAULT_VALUE));
+        this.dmnFileExtension = InputParameters.getOptionalParam(inputParameters, DMN_FILE_EXTENSION_KEY, DMN_FILE_EXTENSION_DEFAULT_VALUE);
+        this.tckFormat = SerializationFormat.valueOf(InputParameters.getOptionalParam(inputParameters, TCK_FORMAT_KEY, TCK_FORMAT_DEFAULT_VALUE));
+        this.tckFileExtension = InputParameters.getOptionalParam(inputParameters, TCK_FILE_EXTENSION_KEY, TCK_FILE_EXTENSION_DEFAULT_VALUE);
         String charsetName = InputParameters.getOptionalParam(inputParameters, "encoding");
         this.charset = charsetName == null ? StandardCharsets.UTF_8 : Charset.forName(charsetName);
 
+        // Semantics
         this.strongTyping = InputParameters.getOptionalBooleanParam(inputParameters, "strongTyping", "true");
         this.recursiveCalls = InputParameters.getOptionalBooleanParam(inputParameters, "recursiveCalls", "true");
+        this.singletonInputData = InputParameters.getOptionalBooleanParam(inputParameters, "singletonInputData", "true");
+        this.singletonDecision = InputParameters.getOptionalBooleanParam(inputParameters, "singletonDecision", "false");
+        this.checkConstraints = InputParameters.getOptionalBooleanParam(inputParameters, "checkConstraints", "false");
 
+        // Translation and execution
         this.javaRootPackage = InputParameters.getOptionalParam(inputParameters, "javaRootPackage");
         this.onePackage = InputParameters.getOptionalBooleanParam(inputParameters, "onePackage", "false");
         this.caching = InputParameters.getOptionalBooleanParam(inputParameters, "caching");
         String cachingThresholdParam = InputParameters.getOptionalParam(inputParameters, "cachingThreshold", "1");
         this.cachingThreshold = Integer.parseInt(cachingThresholdParam);
-        this.singletonInputData = InputParameters.getOptionalBooleanParam(inputParameters, "singletonInputData", "true");
-        this.singletonDecision = InputParameters.getOptionalBooleanParam(inputParameters, "singletonDecision", "false");
         this.parallelStream = InputParameters.getOptionalBooleanParam(inputParameters, "parallelStream", "false");
 
         String sparsityThresholdParam = InputParameters.getOptionalParam(inputParameters, "sparsityThreshold", "0.0");
@@ -152,7 +182,6 @@ public class InputParameters {
         this.mockTesting = InputParameters.getOptionalBooleanParam(inputParameters, "mockTesting");
         this.generateExtra = InputParameters.getOptionalBooleanParam(inputParameters, "generateExtra", "false");
 
-        this.checkConstraints = InputParameters.getOptionalBooleanParam(inputParameters, "checkConstraints", "false");
         this.librariesConfigPath = InputParameters.getOptionalParam(inputParameters, "librariesConfigPath", "feel/library/libraries.json");
 
         this.useNames = InputParameters.getOptionalBooleanParam(inputParameters, "useNames", "true");
@@ -186,12 +215,16 @@ public class InputParameters {
         return xsdValidation;
     }
 
-    public SerializationFormat getFormat() {
-        return format;
+    public SerializationFormat getDmnFormat() {
+        return dmnFormat;
     }
 
     public String getDmnFileExtension() {
         return dmnFileExtension;
+    }
+
+    public SerializationFormat getTckFormat() {
+        return tckFormat;
     }
 
     public String getTckFileExtension() {

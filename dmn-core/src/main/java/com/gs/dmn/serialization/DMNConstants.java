@@ -25,7 +25,11 @@ public class DMNConstants {
 
     public static final String DMN_FILE_EXTENSION = ".dmn";
 
-    public static final String TCK_FILE_EXTENSION = ".xml";
+    public static final String XML_FILE_EXTENSION = ".xml";
+
+    public static final String TCK_FILE_EXTENSION = ".tck";
+
+    public static final String JSON_FILE_EXTENSION = ".json";
 
     // XSD
     public static final String XSD_NS = "http://www.w3.org/2001/XMLSchema";

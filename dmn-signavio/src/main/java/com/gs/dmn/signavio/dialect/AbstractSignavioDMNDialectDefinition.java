@@ -56,9 +56,9 @@ public abstract class AbstractSignavioDMNDialectDefinition<NUMBER, DATE, TIME, D
     //
     @Override
     public DMNSerializer createDMNSerializer(BuildLogger logger, InputParameters inputParameters) {
-        SerializationFormat format = inputParameters.getFormat();
+        SerializationFormat format = inputParameters.getTckFormat();
         if (format == XML) {
-            return new XMLDMNSerializer(logger, Collections.singletonList(new SignavioExtensionRegister(inputParameters.getSchemaNamespace())), inputParameters);
+            return new XMLDMNSerializer(logger, inputParameters, Collections.singletonList(new SignavioExtensionRegister(inputParameters.getSchemaNamespace())));
         } else if (format == JSON) {
             return new JsonDMNSerializer(logger, inputParameters);
         } else {
@@ -77,13 +77,8 @@ public abstract class AbstractSignavioDMNDialectDefinition<NUMBER, DATE, TIME, D
 
     @Override
     public TestSerializer<TestLab> createTestSerializer(BuildLogger logger, InputParameters inputParameters) {
-        SerializationFormat format = inputParameters.getFormat();
-        if (format == JSON) {
-            return new TestLabSerializer(logger, inputParameters);
-        } else {
-            logger.warn(String.format("Format '%s' is not supported yet for test cases. Using JSON format", format));
-            return new TestLabSerializer(logger, inputParameters);
-        }
+        // Only JSON format is supported
+        return new TestLabSerializer(logger, inputParameters);
     }
 
     //
