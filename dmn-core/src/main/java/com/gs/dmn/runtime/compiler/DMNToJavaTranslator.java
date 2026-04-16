@@ -19,19 +19,19 @@ import com.gs.dmn.transformation.repository.OutputRepository;
 
 public class DMNToJavaTranslator {
     private final DMNToNativeTransformer dmnTranslator;
-    private final TestCasesToNativeTransformer tckTranslator;
+    private final TestCasesToNativeTransformer testeCasesTranslator;
 
-    public DMNToJavaTranslator(DMNToNativeTransformer dmnTranslator, TestCasesToNativeTransformer tckTestCasesToJavaJUnitTransformer) {
+    public DMNToJavaTranslator(DMNToNativeTransformer dmnTranslator, TestCasesToNativeTransformer testCasesToJavaJUnitTransformer) {
         this.dmnTranslator = dmnTranslator;
-        this.tckTranslator = tckTestCasesToJavaJUnitTransformer;
+        this.testeCasesTranslator = testCasesToJavaJUnitTransformer;
     }
 
     public void translateDMN(InputRepository inputRepository, OutputRepository outputRepository) {
         dmnTranslator.transform(inputRepository, outputRepository);
     }
 
-    public void translateTCK(InputRepository inputTestRepository, OutputRepository outputRepository) {
-        tckTranslator.transform(inputTestRepository, outputRepository);
+    public void translateTestCases(InputRepository inputTestRepository, OutputRepository outputRepository) {
+        testeCasesTranslator.transform(inputTestRepository, outputRepository);
     }
 }
 

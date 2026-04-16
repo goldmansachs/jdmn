@@ -204,14 +204,14 @@ public abstract class InMemoryTestCasesExecutorTest {
         CompositeDMNTransformer<TestCases> dmnTransformer = new CompositeDMNTransformer<>(List.of(
                 new ToQuotedNameTransformer()
         ));
-        DMNToJavaTranslatorBuilder dmnTranslatorBuilder = new DMNToJavaTranslatorBuilder()
+        AbstractDMNToJavaTranslatorBuilder<TestCases> dmnTranslatorBuilder = new DMNToJavaTranslatorBuilder()
                 .withInputParameters(inputParameters)
                 .withDMNValidator(dmnValidator)
                 .withTestValidator(new DefaultTCKValidator())
                 .withDMNTransformer(dmnTransformer)
                 .withLazyEvaluationDetector(new SparseDecisionDetector());
         DMNToNativeTransformer dmnTranslator = dmnTranslatorBuilder.buildDMNTranslator();
-        TestCasesToNativeTransformer tckTranslator = dmnTranslatorBuilder.buildTCKTranslator(inputModelRepository);
+        TestCasesToNativeTransformer tckTranslator = dmnTranslatorBuilder.buildTestCasesTranslator(inputModelRepository);
         return new DMNToJavaTranslator(dmnTranslator, tckTranslator);
     }
 
@@ -220,6 +220,8 @@ public abstract class InMemoryTestCasesExecutorTest {
         assertEquals(7, result.getTestsFound(), "testsFound");
         assertEquals(7, result.getTestsSucceeded(), "testsSucceeded");
         assertEquals(0, result.getTestsFailed(), "testsFailed");
+        assertEquals(0, result.getTestsAborted(), "testsAborted");
+        assertEquals(0, result.getTestsSkipped(), "testsSkipped");
     }
 
     protected abstract OutputRepository makeOutputRepository(File outputTestFolder);

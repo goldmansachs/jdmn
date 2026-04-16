@@ -56,7 +56,7 @@ public class InMemoryTestCasesExecutor {
         watch.start();
 
         translator.translateDMN(inputModelRepository, outputSourceRepository);
-        translator.translateTCK(inputTestRepository, outputTestRepository);
+        translator.translateTestCases(inputTestRepository, outputTestRepository);
 
         // Create a map with class name as key and source code as value for all sources and tests
         Map<String, String> allClassesMap = new HashMap<>();
