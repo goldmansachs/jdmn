@@ -14,6 +14,9 @@ package com.gs.dmn.runtime.compiler;
 
 import com.gs.dmn.error.SemanticErrorException;
 import com.gs.dmn.error.SyntaxErrorException;
+import com.gs.dmn.runtime.compiler.listener.ExecutionListener;
+import com.gs.dmn.runtime.compiler.listener.ExecutionTimer;
+import com.gs.dmn.runtime.compiler.listener.NopExecutionListener;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.SerializationFormat;
 import com.gs.dmn.tck.TestCasesToNativeTransformer;
@@ -32,10 +35,12 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Duration;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.gs.dmn.runtime.compiler.listener.ExecutionTimer.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class InMemoryTestCasesExecutorTest {
@@ -80,7 +85,7 @@ public abstract class InMemoryTestCasesExecutorTest {
 
         // Run tests
         DMNToJavaTranslator translator = makeTranslator(inputModelRepository);
-        TestRunResult testRunResult = runTests(translator, inputModelRepository, inputTestRepository, outputSourceRepository, outputTestRepository);
+        TestRunResult testRunResult = runTests(translator, inputModelRepository, inputTestRepository, outputSourceRepository, outputTestRepository, new NopExecutionListener());
 
         // Check results
         checkTestResults(testRunResult);
@@ -98,10 +103,39 @@ public abstract class InMemoryTestCasesExecutorTest {
 
         // Run tests
         DMNToJavaTranslator translator = makeTranslator(inputRepository);
-        TestRunResult testRunResult = runTests(translator, inputRepository, outputRepository);
+        TestRunResult testRunResult = runTests(translator, inputRepository, outputRepository, new NopExecutionListener());
 
         // Check results
         checkTestResults(testRunResult);
+    }
+
+    @Test
+    void testExecuteSharedFoldersWithListener() throws Exception {
+        // Repositories
+        Path inputPath = Paths.get("../dmn-test-cases", "standard/tck/1.4/cl3/0020-vacation-days");
+        File inputFile = inputPath.toFile();
+        Path outputPath = Paths.get("target", "in-memory", "shared");
+        File outputFolder = outputPath.resolve("java").toFile();
+        InputRepository inputRepository = new InputRepository(inputFile);
+        OutputRepository outputRepository = makeOutputRepository(outputFolder);
+
+        // Run tests
+        DMNToJavaTranslator translator = makeTranslator(inputRepository);
+        ExecutionTimer listener = new ExecutionTimer();
+        TestRunResult testRunResult = runTests(translator, inputRepository, outputRepository, listener);
+
+        // Check results
+        checkTestResults(testRunResult);
+
+        // Check listener
+        Duration dmnTranslationDuration = listener.getAccumulatedDuration(DMN_TRANSLATION);
+        Duration testCasesTranslationDuration = listener.getAccumulatedDuration(TEST_CASES_TRANSLATION);
+        Duration compilationDuration = listener.getAccumulatedDuration(COMPILATION);
+        Duration testExecutionDuration = listener.getAccumulatedDuration(TEST_EXECUTION);
+        assertTrue(dmnTranslationDuration.toNanos() > 0);
+        assertTrue(testCasesTranslationDuration.toNanos() > 0);
+        assertTrue(compilationDuration.toNanos() > 0);
+        assertTrue(testExecutionDuration.toNanos() > 0);
     }
 
     @Test
@@ -161,7 +195,7 @@ public abstract class InMemoryTestCasesExecutorTest {
         OutputRepository outputRepository = makeOutputRepository(outputPath.toFile());
 
         DMNToJavaTranslator translator = makeTranslator(inputRepository);
-        runTests(translator, inputRepository, outputRepository);
+        runTests(translator, inputRepository, outputRepository, new NopExecutionListener());
     }
 
     private void runTests(File inputModelFile, String tckFileName, String outputFileName) throws Exception {
@@ -177,17 +211,17 @@ public abstract class InMemoryTestCasesExecutorTest {
 
         // Run tests
         DMNToJavaTranslator translator = makeTranslator(inputModelRepository, TCK_INPUT_PARAMETERS);
-        runTests(translator, inputModelRepository, inputTestRepository, outputSourceRepository, outputTestRepository);
+        runTests(translator, inputModelRepository, inputTestRepository, outputSourceRepository, outputTestRepository, new NopExecutionListener());
     }
 
-    private TestRunResult runTests(DMNToJavaTranslator translator, InputRepository inputRepository, OutputRepository outputRepository) throws Exception {
+    private TestRunResult runTests(DMNToJavaTranslator translator, InputRepository inputRepository, OutputRepository outputRepository, ExecutionListener listener) throws Exception {
          // Translate DMN and TCK to Java, compile and run the tests
-         return new InMemoryTestCasesExecutor(translator).execute(inputRepository, outputRepository);
+         return new InMemoryTestCasesExecutor(translator).execute(inputRepository, outputRepository, listener);
     }
 
-    private TestRunResult runTests(DMNToJavaTranslator translator, InputRepository inputModelRepository, InputRepository inputTestRepository, OutputRepository outputSourceRepository, OutputRepository outputTestRepository) throws Exception {
+    private TestRunResult runTests(DMNToJavaTranslator translator, InputRepository inputModelRepository, InputRepository inputTestRepository, OutputRepository outputSourceRepository, OutputRepository outputTestRepository, ExecutionListener listener) throws Exception {
         // Translate DMN and TCK to Java, compile and run the tests
-        return new InMemoryTestCasesExecutor(translator).execute(inputModelRepository, inputTestRepository, outputSourceRepository, outputTestRepository);
+        return new InMemoryTestCasesExecutor(translator).execute(inputModelRepository, inputTestRepository, outputSourceRepository, outputTestRepository, listener);
     }
 
     private DMNToJavaTranslator makeTranslator(InputRepository inputModelRepository) {

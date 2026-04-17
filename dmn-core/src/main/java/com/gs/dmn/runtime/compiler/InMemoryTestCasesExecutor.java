@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.runtime.compiler;
 
+import com.gs.dmn.runtime.compiler.listener.ExecutionListener;
+import com.gs.dmn.runtime.compiler.listener.NopExecutionListener;
 import com.gs.dmn.transformation.repository.InputRepository;
 import com.gs.dmn.transformation.repository.OutputRepository;
 import org.apache.commons.lang3.time.StopWatch;
@@ -36,27 +38,47 @@ public class InMemoryTestCasesExecutor {
     public TestRunResult execute(InputRepository inputRepository, OutputRepository outputRepository) throws Exception {
         // DMN and TCK files are in the same folder
         // Output is generated in the same folder
-        return execute(inputRepository, inputRepository, outputRepository, outputRepository);
+        return execute(inputRepository, inputRepository, outputRepository, outputRepository, new NopExecutionListener());
     }
 
     public TestRunResult execute(InputRepository inputModelRepository, InputRepository inputTestRepository, OutputRepository outputSourceRepository, OutputRepository outputTestRepository) throws Exception {
-        // Translate DMN and TCK to Java, compile and run the tests
-        Map<String, String> allSources = translate(inputModelRepository, inputTestRepository, outputSourceRepository, outputTestRepository);
-
-        // Compile the generated code and load it in memory
-        Map<String, byte[]> classBytes = compile(allSources);
-
-        // Run unit tests and display results
-        return runTests(allSources.keySet(), classBytes);
+        return execute(inputModelRepository, inputTestRepository, outputSourceRepository, outputTestRepository, new NopExecutionListener());
     }
 
-    private Map<String, String> translate(InputRepository inputModelRepository, InputRepository inputTestRepository, OutputRepository outputSourceRepository, OutputRepository outputTestRepository) {
+    public TestRunResult execute(InputRepository inputRepository, OutputRepository outputRepository, ExecutionListener listener) throws Exception {
+        // DMN and TCK files are in the same folder
+        // Output is generated in the same folder
+        return execute(inputRepository, inputRepository, outputRepository, outputRepository, listener);
+    }
+
+    public TestRunResult execute(InputRepository inputModelRepository, InputRepository inputTestRepository, OutputRepository outputSourceRepository, OutputRepository outputTestRepository, ExecutionListener listener) throws Exception {
+        // Translate DMN and TCK to Java, compile and run the tests
+        Map<String, String> allSources = translate(inputModelRepository, inputTestRepository, outputSourceRepository, outputTestRepository, listener);
+
+        // Compile the generated code and load it in memory
+        listener.startCompilation();
+        Map<String, byte[]> classBytes = compile(allSources);
+        listener.endCompilation();
+
+        // Run unit tests and display results
+        listener.startTestExecution();
+        TestRunResult testRunResult = runTests(allSources.keySet(), classBytes);
+        listener.endTestExecution();
+        return testRunResult;
+    }
+
+    private Map<String, String> translate(InputRepository inputModelRepository, InputRepository inputTestRepository, OutputRepository outputSourceRepository, OutputRepository outputTestRepository, ExecutionListener listener) {
         // Generate code for DMN and TCK
         StopWatch watch = new StopWatch();
         watch.start();
 
+        listener.startDMNTranslation();
         translator.translateDMN(inputModelRepository, outputSourceRepository);
+        listener.endDMNTranslation();
+
+        listener.startTestCasesTranslation();
         translator.translateTestCases(inputTestRepository, outputTestRepository);
+        listener.endTestCasesTranslation();
 
         // Create a map with class name as key and source code as value for all sources and tests
         Map<String, String> allClassesMap = new HashMap<>();
