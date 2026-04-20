@@ -159,7 +159,7 @@ public class AnySimpleType extends TCKBaseElement {
     }
 
     private String getType() {
-        for (Map.Entry<QName, String> entry : this.otherAttributes.entrySet()) {
+        for (Map.Entry<QName, String> entry : this.getOtherAttributes().entrySet()) {
             QName qName = entry.getKey();
             if (XSI_NS.equals(qName.getNamespaceURI())) {
                 if ("type".equals(qName.getLocalPart())) {

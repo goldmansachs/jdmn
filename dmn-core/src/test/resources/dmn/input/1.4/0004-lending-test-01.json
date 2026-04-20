@@ -9,6 +9,7 @@
   },
   "testCase" : [ {
     "id" : "001",
+    "type" : "DECISION",
     "inputNode" : [ {
       "@kind" : "inputNode",
       "name" : "ApplicantData",
