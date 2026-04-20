@@ -19,9 +19,9 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.SemanticErrorException;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.serialization.TestSerializer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.tck.ast.TestCases;
-import com.gs.dmn.tck.serialization.xstream.XMLTCKSerializer;
 import com.gs.dmn.transformation.AbstractTestCasesToJUnitTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.InputParameters;
@@ -46,13 +46,13 @@ import static com.gs.dmn.error.DMNErrorHandler.handleError;
 import static com.gs.dmn.serialization.DMNConstants.isTCKFile;
 
 public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestCasesToJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
-    private final TCKSerializer tckSerializer;
+    private final TestSerializer<TestCases> tckSerializer;
     private final InputRepository inputModelRepository;
 
     public TCKTestCasesToJavaJUnitTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> dialectDefinition, DMNValidator dmnValidator, TestValidator<TestCases> testCasesValidator, DMNTransformer<TestCases> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, InputRepository inputModelRepository, InputParameters inputParameters, BuildLogger logger) {
         super(dialectDefinition, dmnValidator, testCasesValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
         this.inputModelRepository = inputModelRepository;
-        this.tckSerializer = new XMLTCKSerializer(logger, inputParameters);
+        this.tckSerializer = dialectDefinition.createTestSerializer(logger, inputParameters);
     }
 
     @Override
