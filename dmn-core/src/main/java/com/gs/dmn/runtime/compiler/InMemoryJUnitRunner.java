@@ -95,7 +95,7 @@ public class InMemoryJUnitRunner {
     }
 
     private TestFailure makeFailure(TestExecutionSummary.Failure junitFailure) {
-        return new TestFailure(junitFailure);
+        return TestFailure.from(junitFailure);
     }
 }
 

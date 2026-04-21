@@ -12,49 +12,73 @@
  */
 package com.gs.dmn.runtime.compiler;
 
-import org.apache.commons.lang3.StringUtils;
+import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.runtime.annotation.TestCase;
+import com.gs.dmn.runtime.annotation.TestCases;
 import org.junit.platform.engine.TestSource;
 import org.junit.platform.engine.support.descriptor.ClassSource;
 import org.junit.platform.engine.support.descriptor.MethodSource;
 import org.junit.platform.launcher.listeners.TestExecutionSummary;
 
+import java.lang.reflect.Method;
 import java.util.Optional;
 
 public class TestFailure {
-    private static String extractClassName(Optional<TestSource> source) {
-        String className = "";
+    public static TestFailure from(TestExecutionSummary.Failure junitFailure) {
+        if (junitFailure != null) {
+            Optional<TestSource> testSource = junitFailure.getTestIdentifier() == null ? Optional.empty() : junitFailure.getTestIdentifier().getSource();
+            Pair<Class<?>, Method> classMethodPair = extractJavaInfo(testSource);
+            Class<?> javaClass = classMethodPair.getLeft();
+            Method javaMethod = classMethodPair.getRight();
+            String className = javaClass == null ? "" : javaClass.getName();
+            String methodName = javaMethod == null ? "" : javaMethod.getName();
+            String message = junitFailure.getException() == null ? null : junitFailure.getException().getMessage();
+            message = message == null ? "" : message;
+            String testCasesName = extractTestCasesName(javaClass);
+            String testCaseId = extractTestCaseId(javaMethod);
+            return new TestFailure(
+                    className,
+                    methodName,
+                    message,
+                    testCasesName,
+                    testCaseId);
+        } else {
+            throw new DMNRuntimeException("Cannot create TestFailure from null junitFailure");
+        }
+    }
+
+    private static Pair<Class<?>, Method> extractJavaInfo(Optional<TestSource> source) {
+        Class<?> javaClass = null;
+        Method javaMethod = null;
         if (source.isPresent()) {
             TestSource s = source.get();
             if (s instanceof MethodSource) {
-                className = ((MethodSource) s).getClassName();
+                javaClass = ((MethodSource) s).getJavaClass();
+                javaMethod = ((MethodSource) s).getJavaMethod();
             } else if (s instanceof ClassSource) {
-                className = ((ClassSource) s).getClassName();
-            } else {
-                // fallback to source.toString() if it's an unknown TestSource implementation
-                className = s.toString();
+                javaClass = ((ClassSource) s).getJavaClass();
             }
         }
-        return className;
+        return new Pair<>(javaClass, javaMethod);
     }
 
-    static String extractTestCaseId(String methodName) {
-        if (StringUtils.isBlank(methodName)) {
-            return methodName;
+    private static String extractTestCasesName(Class<?> javaClass) {
+        String testCasesName = "";
+        if (javaClass != null) {
+            TestCases annotation = javaClass.getAnnotation(TestCases.class);
+            return annotation == null ? "" : annotation.testCasesName();
         }
+        return testCasesName;
+    }
 
-        // Remove suffix ()
-        if (methodName.endsWith("()")) {
-            methodName = methodName.substring(0, methodName.length() - 2);
+    private static String extractTestCaseId(Method javaMethod) {
+        String testCaseId = "";
+        if (javaMethod != null) {
+            TestCase annotation = javaMethod.getAnnotation(TestCase.class);
+            return annotation == null ? "" : annotation.id();
         }
-        // Remove prefix "testCase" and suffix "_XXX"
-        if (methodName.startsWith("testCase")) {
-            methodName = methodName.substring(8);
-            int index = methodName.indexOf('_');
-            if (index != -1) {
-                methodName = methodName.substring(0, index);
-            }
-        }
-        return methodName;
+        return testCaseId;
     }
 
     // TCK location
@@ -65,15 +89,6 @@ public class TestFailure {
     private final String className;
     private final String methodName;
     private final String message;
-
-    public TestFailure(TestExecutionSummary.Failure junitFailure) {
-        // TODO - extract TCK location from class annotations
-        this(extractClassName(junitFailure.getTestIdentifier().getSource()),
-                junitFailure.getTestIdentifier().getDisplayName(),
-                junitFailure.getException() == null ? null : junitFailure.getException().getMessage(),
-                null,
-                extractTestCaseId(junitFailure.getTestIdentifier().getDisplayName()));
-    }
 
     public TestFailure(String className, String methodName, String message, String testCasesName, String testCaseId) {
         this.testCasesName = testCasesName;

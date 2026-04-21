@@ -13,18 +13,37 @@
 package com.gs.dmn.runtime.compiler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import org.junit.jupiter.api.Test;
+import org.junit.platform.launcher.TestIdentifier;
+import org.junit.platform.launcher.listeners.TestExecutionSummary;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestFailureTest {
     @Test
-    void testExtractTestCaseId() {
-        assertNull(TestFailure.extractTestCaseId(null));
-        assertEquals(" ", TestFailure.extractTestCaseId(" "));
-        assertEquals("123", TestFailure.extractTestCaseId("testCase123()"));
-        assertEquals("123", TestFailure.extractTestCaseId("testCase123_1()"));
+    void testFromMethod() {
+        // Test when null
+        assertThrows(DMNRuntimeException.class, () -> TestFailure.from(null));
+
+        // Test when empty
+        TestFailure from = TestFailure.from(new TestExecutionSummary.Failure() {
+            @Override
+            public TestIdentifier getTestIdentifier() {
+                return null;
+            }
+
+            @Override
+            public Throwable getException() {
+                return null;
+            }
+        });
+        assertEquals("", from.getClassName());
+        assertEquals("", from.getMethodName());
+        assertEquals("", from.getMessage());
+        assertEquals("", from.getTestCasesName());
+        assertEquals("", from.getTestCaseId());
     }
 
     @Test

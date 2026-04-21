@@ -21,12 +21,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class InMemoryJUnitRunnerTest {
     @Test
-    public void testRun() throws Exception {
+    void testRun() throws Exception {
         String className = "com.example.demo.Demo";
         String classSource = """
             package com.example.demo;
-            import org.junit.jupiter.api.Test;
-            import static org.junit.jupiter.api.Assertions.*;
             public class Demo {
               int calculate(int x) { return x; }
             }
@@ -42,15 +40,7 @@ public class InMemoryJUnitRunnerTest {
               @Test void fails() { assertEquals(2, demo.calculate(1)); }
             }
         """;
-
-        Map<String, String> sources = new HashMap<>();
-        sources.put(className, classSource);
-        sources.put(testClassName, testClassSource);
-
-        InMemoryJavaCompiler compiler = new InMemoryJavaCompiler();
-        Map<String, byte[]> classBytes = compiler.compile(sources);
-        InMemoryJUnitRunner runner = new InMemoryJUnitRunner();
-        TestRunResult result = runner.run(sources.keySet(), classBytes);
+        TestRunResult result = runTests(className, classSource, testClassName, testClassSource);
 
         // Expect 2 tests, 1 success, 1 failure
         assertEquals(2, result.getTestsFound(), "testsFound");
@@ -58,8 +48,66 @@ public class InMemoryJUnitRunnerTest {
         assertEquals(1, result.getTestsFailed(), "testsFailed");
         TestFailure actualFailure = result.getFailures().get(0);
         assertEquals("com.example.demo.DemoTest", actualFailure.getClassName());
-        assertEquals("fails()", actualFailure.getMethodName());
+        assertEquals("fails", actualFailure.getMethodName());
         assertEquals("expected: <2> but was: <1>", actualFailure.getMessage());
+        assertEquals("", actualFailure.getTestCasesName());
+        assertEquals("", actualFailure.getTestCaseId());
+    }
+
+    @Test
+    void testRunWithAnnotations() throws Exception {
+        String className = "com.example.demo.Demo";
+        String classSource = """
+            package com.example.demo;
+            public class Demo {
+              int calculate(int x) { return x; }
+            }
+        """;
+        String testClassName = "com.example.demo.DemoTest";
+        String testClassSource = """
+            package com.example.demo;
+            import org.junit.jupiter.api.Test;
+            import static org.junit.jupiter.api.Assertions.*;
+            @com.gs.dmn.runtime.annotation.TestCases(
+               testCasesName = "0004-lending-test-01",
+               modelName = "0004-lending.dmn"
+            )
+            public class DemoTest {
+              Demo demo = new Demo();
+              @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "node1")
+              @Test void succeeds() { assertTrue(1 == demo.calculate(1)); }
+              @com.gs.dmn.runtime.annotation.TestCase(id = "002", resultNode = "node2")
+              @Test void fails() { assertEquals(2, demo.calculate(1)); }
+            }
+        """;
+        TestRunResult result = runTests(className, classSource, testClassName, testClassSource);
+
+        // Expect 2 tests, 1 success, 1 failure
+        assertEquals(2, result.getTestsFound(), "testsFound");
+        assertEquals(1, result.getTestsSucceeded(), "testsSucceeded");
+        assertEquals(1, result.getTestsFailed(), "testsFailed");
+        TestFailure actualFailure = result.getFailures().get(0);
+        assertEquals("com.example.demo.DemoTest", actualFailure.getClassName());
+        assertEquals("fails", actualFailure.getMethodName());
+        assertEquals("expected: <2> but was: <1>", actualFailure.getMessage());
+        assertEquals("0004-lending-test-01", actualFailure.getTestCasesName());
+        assertEquals("002", actualFailure.getTestCaseId());
+    }
+
+    private TestRunResult runTests(String className, String classSource, String testClassName, String testClassSource) throws Exception {
+        Map<String, String> sources = makeSources(className, classSource, testClassName, testClassSource);
+
+        InMemoryJavaCompiler compiler = new InMemoryJavaCompiler();
+        Map<String, byte[]> classBytes = compiler.compile(sources);
+        InMemoryJUnitRunner runner = new InMemoryJUnitRunner();
+        return runner.run(sources.keySet(), classBytes);
+    }
+
+    private Map<String, String> makeSources(String className, String classSource, String testClassName, String testClassSource) {
+        Map<String, String> sources = new HashMap<>();
+        sources.put(className, classSource);
+        sources.put(testClassName, testClassSource);
+        return sources;
     }
 }
 
