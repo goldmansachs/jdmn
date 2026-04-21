@@ -12,8 +12,10 @@
  */
 package com.gs.dmn.serialization.jackson;
 
+import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.error.SyntaxErrorException;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNMarshaller;
 import org.slf4j.Logger;
@@ -26,6 +28,10 @@ import java.io.Writer;
 public class JsonDMNMarshaller implements DMNMarshaller {
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonDMNMarshaller.class);
 
+    private static String modelName(TDefinitions definitions) {
+        return definitions == null ? null : definitions.getName();
+    }
+
     private final ObjectMapper objectMapper;
 
     JsonDMNMarshaller(ObjectMapper objectMapper) {
@@ -37,8 +43,8 @@ public class JsonDMNMarshaller implements DMNMarshaller {
         try {
             checkSchemaValidationFlag(validateSchema);
             return this.objectMapper.readValue(input, TDefinitions.class);
-        } catch (IOException e) {
-            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input), e);
+        } catch (JacksonException e) {
+            throw new SyntaxErrorException(String.format("Cannot read DMN from '%s'", input), e);
         }
     }
 
@@ -47,6 +53,8 @@ public class JsonDMNMarshaller implements DMNMarshaller {
         try {
             checkSchemaValidationFlag(validateSchema);
             return this.objectMapper.readValue(input, TDefinitions.class);
+        } catch (JacksonException e) {
+            throw new SyntaxErrorException(String.format("Cannot read DMN from '%s'", input), e);
         } catch (IOException e) {
             throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input), e);
         }
@@ -56,8 +64,8 @@ public class JsonDMNMarshaller implements DMNMarshaller {
     public String marshal(TDefinitions definitions) {
         try {
             return this.objectMapper.writeValueAsString(definitions);
-        } catch (IOException e) {
-            throw new DMNRuntimeException("Cannot write DMN as string", e);
+        } catch (JacksonException e) {
+            throw new SyntaxErrorException(String.format("Cannot write DMN '%s'", modelName(definitions)), e);
         }
     }
 
@@ -65,8 +73,10 @@ public class JsonDMNMarshaller implements DMNMarshaller {
     public void marshal(TDefinitions definitions, Writer output) {
         try {
             this.objectMapper.writeValue(output, definitions);
+        } catch (JacksonException e) {
+            throw new SyntaxErrorException(String.format("Cannot write DMN '%s'", modelName(definitions)), e);
         } catch (IOException e) {
-            throw new DMNRuntimeException(String.format("Cannot write DMN to '%s'", output), e);
+            throw new DMNRuntimeException(String.format("Cannot write DMN '%s'", modelName(definitions)), e);
         }
     }
 

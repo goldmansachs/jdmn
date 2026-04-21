@@ -16,13 +16,14 @@ import com.gs.dmn.ast.TDecision;
 import com.gs.dmn.ast.TDecisionRule;
 import com.gs.dmn.ast.TDecisionTable;
 import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.error.SyntaxErrorException;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
 import com.gs.dmn.serialization.xstream.extensions.test.*;
 import com.gs.dmn.transformation.AbstractFileTransformerTest;
+import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -30,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class AbstractDMNSerializationTest extends AbstractFileTransformerTest {
-    public static Map<String, Class<?>> EXTENSION_MAPPER = new LinkedHashMap<String, Class<?>>() {{
+    public static Map<String, Class<?>> EXTENSION_MAPPER = new LinkedHashMap<>() {{
         put(AllowedAnswer.class.getName(), AllowedAnswer.class);
         put(Decision.class.getName(), Decision.class);
         put(Definitions.class.getName(), Definitions.class);
@@ -41,12 +42,12 @@ public abstract class AbstractDMNSerializationTest extends AbstractFileTransform
         put(TextAnnotation.class.getName(), TextAnnotation.class);
     }};
 
-    private final DMNSerializer dmnSerializer = makeSerializer();
+    private final DMNSerializer serializer = makeSerializer();
 
     protected void doReadTest(String inputPath) {
         File input = new File(resource(inputPath));
 
-        TDefinitions definitions = this.dmnSerializer.readModel(input);
+        TDefinitions definitions = this.serializer.readModel(input);
         checkModel(definitions);
     }
 
@@ -55,12 +56,12 @@ public abstract class AbstractDMNSerializationTest extends AbstractFileTransform
         File outputFile = File.createTempFile("jdmn-", "-dmn");
         outputFile.deleteOnExit();
 
-        assertThrows(DMNRuntimeException.class, () -> this.dmnSerializer.writeModel(null, outputFile));
+        assertThrows(DMNRuntimeException.class, () -> this.serializer.writeModel(null, outputFile));
 
         assertDoesNotThrow(() -> {
             TDefinitions definitions = new TDefinitions();
             definitions.getElementInfo().getNsContext().putAll(DMNVersion.LATEST.getPrefixToNamespaceMap());
-            this.dmnSerializer.writeModel(definitions, outputFile);
+            this.serializer.writeModel(definitions, outputFile);
         });
 
         assertDoesNotThrow(() -> {
@@ -72,12 +73,12 @@ public abstract class AbstractDMNSerializationTest extends AbstractFileTransform
             value.getRule().add(rule);
             decision.setExpression(value);
             definitions.getDrgElement().add(decision);
-            this.dmnSerializer.writeModel(definitions, outputFile);
+            this.serializer.writeModel(definitions, outputFile);
         });
     }
 
     protected void doRoundTripTest(String inputPath, String expectedPath) throws Exception {
-        doRoundTripTest(inputPath, expectedPath, this.dmnSerializer);
+        doRoundTripTest(inputPath, expectedPath, this.serializer);
     }
 
     protected void doRoundTripTest(String inputPath, String expectedPath, DMNSerializer dmnSerializer) throws Exception {
@@ -90,6 +91,41 @@ public abstract class AbstractDMNSerializationTest extends AbstractFileTransform
 
         File expectedFile = new File(resource(expectedPath));
         compareFile(expectedFile, outputFile);
+    }
+
+    @Test
+    public void testReadWhenErrors() {
+        // Test null input
+        assertThrows(DMNRuntimeException.class, () -> {
+            this.serializer.readModel((File) null);
+        });
+        assertThrows(DMNRuntimeException.class, () -> {
+            this.serializer.readModel((Reader) null);
+        });
+
+        // Test empty input
+        assertThrows(SyntaxErrorException.class, () -> {
+            this.serializer.readModel(new StringReader(""));
+        });
+    }
+
+    @Test
+    public void testWriteWhenErrors() {
+        // Test write
+        assertThrows(DMNRuntimeException.class, () -> {
+            this.serializer.writeModel(null, new File("test"));
+        });
+        assertThrows(DMNRuntimeException.class, () -> {
+            this.serializer.writeModel(new TDefinitions(), (File) null);
+        });
+
+        // Test write
+        assertThrows(DMNRuntimeException.class, () -> {
+            this.serializer.writeModel(null, new StringWriter());
+        });
+        assertThrows(DMNRuntimeException.class, () -> {
+            this.serializer.writeModel(new TDefinitions(), (Writer) null);
+        });
     }
 
     protected abstract DMNSerializer makeSerializer();

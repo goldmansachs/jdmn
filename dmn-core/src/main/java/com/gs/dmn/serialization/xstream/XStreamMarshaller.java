@@ -86,7 +86,7 @@ public class XStreamMarshaller implements DMNMarshaller {
     }
 
     private static DMNVersion inferDMNVersion(Reader from) {
-        DMNVersion result = null;
+        DMNVersion result;
         try {
             XMLStreamReader xmlReader = STAX_DRIVER.getInputFactory().createXMLStreamReader(from);
             CustomStaxReader customStaxReader = new CustomStaxReader(new QNameMap(), xmlReader);
@@ -95,11 +95,11 @@ public class XStreamMarshaller implements DMNMarshaller {
             customStaxReader.close();
 
             if (result == null) {
-                throw new DMNRuntimeException("Cannot infer version of DMN");
+                throw new SyntaxErrorException("Cannot infer version of DMN");
             }
             return result;
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Error unmarshalling DMN model from reader.", e));
+            throw new SyntaxErrorException("Cannot infer version of DMN", e);
         }
     }
 

@@ -51,7 +51,7 @@ public abstract class TCKSerializer extends TestSerializer<TestCases> {
             throw new DMNRuntimeException("Cannot write null TCK");
         }
         if (output == null) {
-            throw new DMNRuntimeException("Cannot write tp null Writer");
+            throw new DMNRuntimeException("Cannot write to null Writer");
         }
 
         try {

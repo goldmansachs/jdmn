@@ -15,11 +15,13 @@ package com.gs.dmn.tck.serialization.jackson;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.gs.dmn.error.SyntaxErrorException;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.jackson.QNameDeserializer;
@@ -36,6 +38,11 @@ import java.io.Writer;
 
 public class JsonTCKMarshaller implements TCKMarshaller {
     public static final ObjectMapper JSON_MAPPER = makeJsonMapper();
+
+    private static String getTestCasesName(TestCases testCases) {
+        return testCases == null ? null : testCases.getTestCasesName();
+    }
+
     private final BuildLogger logger;
 
     private static ObjectMapper makeJsonMapper() {
@@ -71,8 +78,8 @@ public class JsonTCKMarshaller implements TCKMarshaller {
         try {
             checkSchemaValidationFlag(validateSchema);
             return JSON_MAPPER.readValue(input, TestCases.class);
-        } catch (IOException e) {
-            throw new DMNRuntimeException(String.format("Cannot read TCK from '%s'", input), e);
+        } catch (JacksonException e) {
+            throw new SyntaxErrorException(String.format("Cannot read TCK from '%s'", input), e);
         }
     }
 
@@ -81,6 +88,8 @@ public class JsonTCKMarshaller implements TCKMarshaller {
         try {
             checkSchemaValidationFlag(validateSchema);
             return JSON_MAPPER.readValue(input, TestCases.class);
+        } catch (JacksonException e) {
+            throw new SyntaxErrorException(String.format("Cannot read TCK from '%s'", input), e);
         } catch (IOException e) {
             throw new DMNRuntimeException(String.format("Cannot read TCK from '%s'", input), e);
         }
@@ -90,8 +99,8 @@ public class JsonTCKMarshaller implements TCKMarshaller {
     public String marshal(TestCases testCases) {
         try {
             return JSON_MAPPER.writeValueAsString(testCases);
-        } catch (IOException e) {
-            throw new DMNRuntimeException("Cannot write TCK as string", e);
+        } catch (JacksonException e) {
+            throw new SyntaxErrorException(String.format("Cannot write TCK '%s'", getTestCasesName(testCases)), e);
         }
     }
 
@@ -99,8 +108,10 @@ public class JsonTCKMarshaller implements TCKMarshaller {
     public void marshal(TestCases testCases, Writer output) {
         try {
             JSON_MAPPER.writeValue(output, testCases);
+        } catch (JacksonException e) {
+            throw new SyntaxErrorException(String.format("Cannot write TCK '%s'", getTestCasesName(testCases)), e);
         } catch (IOException e) {
-            throw new DMNRuntimeException(String.format("Cannot write TCK to '%s'", output), e);
+            throw new DMNRuntimeException(String.format("Cannot write TCK '%s'", getTestCasesName(testCases)), e);
         }
     }
 

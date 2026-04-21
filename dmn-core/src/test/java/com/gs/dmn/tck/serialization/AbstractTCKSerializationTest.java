@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.tck.serialization;
 
+import com.gs.dmn.error.SyntaxErrorException;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.TCKVersion;
 import com.gs.dmn.tck.TCKSerializer;
@@ -85,24 +86,25 @@ public abstract class AbstractTCKSerializationTest extends AbstractFileTransform
         compareFile(expectedFile, outputFile);
     }
 
-    protected abstract TCKSerializer makeSerializer();
-
-    protected abstract void checkTestCases(TestCases testCases);
-
     @Test
-    public void testReadWhenNull() {
+    public void testReadWhenErrors() {
+        // Test null input
         assertThrows(DMNRuntimeException.class, () -> {
             this.serializer.read((File) null);
         });
-
         assertThrows(DMNRuntimeException.class, () -> {
             this.serializer.read((Reader) null);
+        });
+
+        // Test empty input
+        assertThrows(SyntaxErrorException.class, () -> {
+            this.serializer.read(new StringReader(""));
         });
     }
 
     @Test
     public void testWriteWhenErrors() {
-        // Test read
+        // Test write
         assertThrows(DMNRuntimeException.class, () -> {
             this.serializer.write(null, new File("test"));
         });
@@ -118,4 +120,8 @@ public abstract class AbstractTCKSerializationTest extends AbstractFileTransform
             this.serializer.write(new TestCases(), (Writer) null);
         });
     }
+
+    protected abstract TCKSerializer makeSerializer();
+
+    protected abstract void checkTestCases(TestCases testCases);
 }

@@ -78,6 +78,10 @@ public abstract class DMNSerializer {
     }
 
     public TDefinitions readModel(File input) {
+        if (input == null) {
+            throw new DMNRuntimeException("Cannot read DMN from null File");
+        }
+
         try (FileInputStream fis = new FileInputStream(input); InputStreamReader isr = new InputStreamReader(fis, this.inputParameters.getCharset())) {
             this.logger.info(String.format("Reading DMN '%s' ...", input.getAbsolutePath()));
 
@@ -86,35 +90,49 @@ public abstract class DMNSerializer {
             this.logger.info("DMN read.");
             return definitions;
         } catch (Exception e) {
-            throw handleError(String.format("Cannot read DMN from '%s'", input.getAbsolutePath()), e);
+            throw handleError(String.format("Cannot read DMN from File '%s'", input), e);
         }
     }
 
     public TDefinitions readModel(Reader input) {
+        if (input == null) {
+            throw new DMNRuntimeException("Cannot read DMN from null Reader");
+        }
+
         try {
             return transform(this.dmnMarshaller.unmarshal(input, this.inputParameters.isXsdValidation()));
         } catch (Exception e) {
-            throw handleError(String.format("Cannot read DMN from '%s'", input.toString()), e);
+            throw handleError(String.format("Cannot read DMN from Reader '%s'", input), e);
         }
     }
 
     public void writeModel(TDefinitions definitions, File output) {
         if (definitions == null) {
-            throw new DMNRuntimeException(String.format("Cannot write null DMN model '%s'", output.getAbsolutePath()));
+            throw new DMNRuntimeException("Cannot write null DMN");
+        }
+        if (output == null) {
+            throw new DMNRuntimeException("Cannot write to null Writer");
         }
 
         try (FileOutputStream fos = new FileOutputStream(output); OutputStreamWriter osw = new OutputStreamWriter(fos, this.inputParameters.getCharset())) {
             this.dmnMarshaller.marshal(definitions, osw);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot write DMN to '%s'", output.getPath()), e);
+            throw new DMNRuntimeException(String.format("Cannot write DMN to File '%s'", output), e);
         }
     }
 
     public void writeModel(TDefinitions definitions, Writer output) {
+        if (definitions == null) {
+            throw new DMNRuntimeException("Cannot write null DMN");
+        }
+        if (output == null) {
+            throw new DMNRuntimeException("Cannot write to null Writer");
+        }
+
         try {
             this.dmnMarshaller.marshal(definitions, output);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot write DMN to Writer '%s'", output.toString()), e);
+            throw new DMNRuntimeException(String.format("Cannot write DMN to Writer '%s'", output), e);
         }
     }
 
