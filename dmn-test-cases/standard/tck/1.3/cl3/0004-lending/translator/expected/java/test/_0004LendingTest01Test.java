@@ -3,10 +3,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "0004-lending.dmn"})
+@com.gs.dmn.runtime.annotation.TestCases(
+    testCasesName = "",
+    modelName = "0004-lending.dmn"
+)
 public class _0004LendingTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     private static final com.gs.dmn.runtime.coverage.trace.CoverageTraceListener listener = new com.gs.dmn.runtime.coverage.trace.CoverageTraceListener("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b", "0004-lending", 20);
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "Adjudication")
     public void testCase001_1() {
         // Initialize inputs
         type.TApplicantData applicantData = new type.TApplicantDataImpl(number("35"), "EMPLOYED", Boolean.TRUE, "M", new type.MonthlyImpl(number("2000"), number("6000"), number("0")));
@@ -27,6 +32,7 @@ public class _0004LendingTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "ApplicationRiskScore")
     public void testCase001_2() {
         // Initialize inputs
         type.TApplicantData applicantData = new type.TApplicantDataImpl(number("35"), "EMPLOYED", Boolean.TRUE, "M", new type.MonthlyImpl(number("2000"), number("6000"), number("0")));
@@ -47,6 +53,7 @@ public class _0004LendingTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "Pre-bureauRiskCategory")
     public void testCase001_3() {
         // Initialize inputs
         type.TApplicantData applicantData = new type.TApplicantDataImpl(number("35"), "EMPLOYED", Boolean.TRUE, "M", new type.MonthlyImpl(number("2000"), number("6000"), number("0")));
@@ -67,6 +74,7 @@ public class _0004LendingTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "BureauCallType")
     public void testCase001_4() {
         // Initialize inputs
         type.TApplicantData applicantData = new type.TApplicantDataImpl(number("35"), "EMPLOYED", Boolean.TRUE, "M", new type.MonthlyImpl(number("2000"), number("6000"), number("0")));
@@ -87,6 +95,7 @@ public class _0004LendingTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "Post-bureauRiskCategory")
     public void testCase001_5() {
         // Initialize inputs
         type.TApplicantData applicantData = new type.TApplicantDataImpl(number("35"), "EMPLOYED", Boolean.TRUE, "M", new type.MonthlyImpl(number("2000"), number("6000"), number("0")));
@@ -107,6 +116,7 @@ public class _0004LendingTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "RequiredMonthlyInstallment")
     public void testCase001_6() {
         // Initialize inputs
         type.TApplicantData applicantData = new type.TApplicantDataImpl(number("35"), "EMPLOYED", Boolean.TRUE, "M", new type.MonthlyImpl(number("2000"), number("6000"), number("0")));
@@ -127,6 +137,7 @@ public class _0004LendingTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "Pre-bureauAffordability")
     public void testCase001_7() {
         // Initialize inputs
         type.TApplicantData applicantData = new type.TApplicantDataImpl(number("35"), "EMPLOYED", Boolean.TRUE, "M", new type.MonthlyImpl(number("2000"), number("6000"), number("0")));
@@ -147,6 +158,7 @@ public class _0004LendingTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "Eligibility")
     public void testCase001_8() {
         // Initialize inputs
         type.TApplicantData applicantData = new type.TApplicantDataImpl(number("35"), "EMPLOYED", Boolean.TRUE, "M", new type.MonthlyImpl(number("2000"), number("6000"), number("0")));
@@ -167,6 +179,7 @@ public class _0004LendingTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "Strategy")
     public void testCase001_9() {
         // Initialize inputs
         type.TApplicantData applicantData = new type.TApplicantDataImpl(number("35"), "EMPLOYED", Boolean.TRUE, "M", new type.MonthlyImpl(number("2000"), number("6000"), number("0")));
@@ -187,6 +200,7 @@ public class _0004LendingTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "Post-bureauAffordability")
     public void testCase001_10() {
         // Initialize inputs
         type.TApplicantData applicantData = new type.TApplicantDataImpl(number("35"), "EMPLOYED", Boolean.TRUE, "M", new type.MonthlyImpl(number("2000"), number("6000"), number("0")));
@@ -207,6 +221,7 @@ public class _0004LendingTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "Routing")
     public void testCase001_11() {
         // Initialize inputs
         type.TApplicantData applicantData = new type.TApplicantDataImpl(number("35"), "EMPLOYED", Boolean.TRUE, "M", new type.MonthlyImpl(number("2000"), number("6000"), number("0")));

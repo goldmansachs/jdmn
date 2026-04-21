@@ -3,10 +3,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "9001-recursive-function.dmn"})
+@com.gs.dmn.runtime.annotation.TestCases(
+    testCasesName = "",
+    modelName = "9001-recursive-function.dmn"
+)
 public class _9001RecursiveFunctionTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     private static final com.gs.dmn.runtime.coverage.trace.CoverageTraceListener listener = new com.gs.dmn.runtime.coverage.trace.CoverageTraceListener("http://www.gs.com/spec/DMN/9001-recursive-function", "9001-recursive-function", 2);
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "main")
     public void testCase001_1() {
         // Initialize inputs
         java.lang.Number n = number("0");
@@ -21,6 +26,7 @@ public class _9001RecursiveFunctionTest01Test extends com.gs.dmn.runtime.JavaTim
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "002", resultNode = "main")
     public void testCase002_1() {
         // Initialize inputs
         java.lang.Number n = number("1");
@@ -35,6 +41,7 @@ public class _9001RecursiveFunctionTest01Test extends com.gs.dmn.runtime.JavaTim
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "003", resultNode = "main")
     public void testCase003_1() {
         // Initialize inputs
         java.lang.Number n = number("3");
@@ -49,6 +56,7 @@ public class _9001RecursiveFunctionTest01Test extends com.gs.dmn.runtime.JavaTim
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "004", resultNode = "main")
     public void testCase004_1() {
         // Initialize inputs
         java.lang.Number n = number("-1");

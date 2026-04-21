@@ -4,10 +4,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "decisionTables"})
+@com.gs.dmn.runtime.annotation.TestCases(
+    testCasesName = "",
+    modelName = "decisionTables"
+)
 public class _0017TableTestsTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     private static final com.gs.dmn.runtime.coverage.trace.CoverageTraceListener listener = new com.gs.dmn.runtime.coverage.trace.CoverageTraceListener("http://www.provider.com/definitions/decisions", "decisionTables", 4);
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "priceGt10")
     public void testCase001_1() {
         // Initialize inputs
         decisioninputs.type.TA decisioninputs_structA = new decisioninputs.type.TAImpl("widget", number("20"));
@@ -22,6 +27,7 @@ public class _0017TableTestsTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "002", resultNode = "priceInRange")
     public void testCase002_1() {
         // Initialize inputs
         decisioninputs.type.TA decisioninputs_structA = new decisioninputs.type.TAImpl("widget", number("20"));
@@ -40,6 +46,7 @@ public class _0017TableTestsTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "003", resultNode = "dateCompare1")
     public void testCase003_1() {
         // Initialize inputs
         java.time.LocalDate decisioninputs_dateD = date("2016-11-01");
@@ -54,6 +61,7 @@ public class _0017TableTestsTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "004", resultNode = "dateCompare2")
     public void testCase004_1() {
         // Initialize inputs
         java.time.LocalDate decisioninputs_dateD = date("2016-11-01");

@@ -3,10 +3,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "0013-sort.dmn"})
+@com.gs.dmn.runtime.annotation.TestCases(
+    testCasesName = "",
+    modelName = "0013-sort.dmn"
+)
 public class _0013SortTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     private static final com.gs.dmn.runtime.coverage.trace.CoverageTraceListener listener = new com.gs.dmn.runtime.coverage.trace.CoverageTraceListener("http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217", "0013-sort", 3);
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "sort1")
     public void testCase001_1() {
         // Initialize inputs
         List<java.lang.Number> listA = asList(number("3"), number("1"), number("5"), number("4"));
@@ -25,6 +30,7 @@ public class _0013SortTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "sort2")
     public void testCase001_2() {
         // Initialize inputs
         List<java.lang.Number> listA = asList(number("3"), number("1"), number("5"), number("4"));
@@ -43,6 +49,7 @@ public class _0013SortTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "sort3")
     public void testCase001_3() {
         // Initialize inputs
         List<java.lang.Number> listA = asList(number("3"), number("1"), number("5"), number("4"));

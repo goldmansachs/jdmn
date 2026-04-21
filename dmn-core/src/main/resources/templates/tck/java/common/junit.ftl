@@ -18,6 +18,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "${testCases.modelName}"})
+@${tckUtil.testAnnotationTestCasesName()}(
+    testCasesName = "${tckUtil.escapeInString(testCases.testCaseName)}",
+    modelName = "${tckUtil.escapeInString(testCases.modelName)}"
+)
 public class ${testClassName} extends ${decisionBaseClass}<Object> {
     <#if tckUtil.isMockTesting()>
     // Default values for mock tests
@@ -44,6 +48,7 @@ public class ${testClassName} extends ${decisionBaseClass}<Object> {
                 <#items as rn>
                     <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, tc, rn)/>
     @org.junit.jupiter.api.Test
+    @${tckUtil.testAnnotationTestCaseName()}(id = "${tckUtil.escapeInString(tc.id)}", resultNode = "${tckUtil.escapeInString(rn.name)}")
     public void testCase${tckUtil.testCaseId(tc)}_${rn?index + 1}() {
         <@initializeApplyArguments inputNodeInfoList resultInfo/>
 

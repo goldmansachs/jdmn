@@ -3,10 +3,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "0076-feel-external-java.dmn"})
+@com.gs.dmn.runtime.annotation.TestCases(
+    testCasesName = "",
+    modelName = "0076-feel-external-java.dmn"
+)
 public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     private static final com.gs.dmn.runtime.coverage.trace.CoverageTraceListener listener = new com.gs.dmn.runtime.coverage.trace.CoverageTraceListener("http://www.montera.com.au/spec/DMN/0076-feel-external-java", "0076-feel-external-java", 19);
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "boxed_001", resultNode = "boxed_001")
     public void testCaseboxed_001_1() {
 
         // Initialize input context
@@ -18,6 +23,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "incorrect_001", resultNode = "incorrect_001")
     public void testCaseincorrect_001_1() {
 
         // Initialize input context
@@ -29,6 +35,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "incorrect_002", resultNode = "incorrect_002")
     public void testCaseincorrect_002_1() {
 
         // Initialize input context
@@ -40,6 +47,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "incorrect_003", resultNode = "incorrect_003")
     public void testCaseincorrect_003_1() {
 
         // Initialize input context
@@ -51,6 +59,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "literal_001", resultNode = "literal_001")
     public void testCaseliteral_001_1() {
 
         // Initialize input context
@@ -62,6 +71,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "literal_002", resultNode = "literal_002")
     public void testCaseliteral_002_1() {
 
         // Initialize input context
@@ -73,6 +83,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "literal_003", resultNode = "literal_003")
     public void testCaseliteral_003_1() {
 
         // Initialize input context
@@ -84,6 +95,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "literal_004", resultNode = "literal_004")
     public void testCaseliteral_004_1() {
 
         // Initialize input context
@@ -95,6 +107,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "literal_005", resultNode = "literal_005")
     public void testCaseliteral_005_1() {
 
         // Initialize input context
@@ -106,6 +119,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "literal_006", resultNode = "literal_006")
     public void testCaseliteral_006_1() {
 
         // Initialize input context
@@ -117,6 +131,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "literal_007", resultNode = "literal_007")
     public void testCaseliteral_007_1() {
 
         // Initialize input context
@@ -128,6 +143,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "literal_007_a", resultNode = "literal_007_a")
     public void testCaseliteral_007_a_1() {
 
         // Initialize input context
@@ -139,6 +155,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "literal_008", resultNode = "literal_008")
     public void testCaseliteral_008_1() {
 
         // Initialize input context
@@ -150,6 +167,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "literal_009", resultNode = "literal_009")
     public void testCaseliteral_009_1() {
 
         // Initialize input context
@@ -161,6 +179,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "literal_010", resultNode = "literal_010")
     public void testCaseliteral_010_1() {
 
         // Initialize input context
@@ -172,6 +191,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "literal_011", resultNode = "literal_011")
     public void testCaseliteral_011_1() {
 
         // Initialize input context
@@ -183,6 +203,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "literal_012", resultNode = "literal_012")
     public void testCaseliteral_012_1() {
 
         // Initialize input context
@@ -194,6 +215,7 @@ public class _0076FeelExternalJavaTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "varargs_001", resultNode = "varargs_001")
     public void testCasevarargs_001_1() {
 
         // Initialize input context

@@ -3,10 +3,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "0016-some-every.dmn"})
+@com.gs.dmn.runtime.annotation.TestCases(
+    testCasesName = "",
+    modelName = "0016-some-every.dmn"
+)
 public class _0016SomeEveryTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     private static final com.gs.dmn.runtime.coverage.trace.CoverageTraceListener listener = new com.gs.dmn.runtime.coverage.trace.CoverageTraceListener("http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70", "0016-some-every", 7);
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "priceTable1")
     public void testCase001_1() {
         // Initialize inputs
         List<type.TItemPrice> priceTable2 = asList(new type.TItemPriceImpl("widget", number("25")), new type.TItemPriceImpl("sprocket", number("15")), new type.TItemPriceImpl("trinket", number("1.5")));
@@ -21,6 +26,7 @@ public class _0016SomeEveryTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBase
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "everyGtTen1")
     public void testCase001_2() {
         // Initialize inputs
         List<type.TItemPrice> priceTable2 = asList(new type.TItemPriceImpl("widget", number("25")), new type.TItemPriceImpl("sprocket", number("15")), new type.TItemPriceImpl("trinket", number("1.5")));
@@ -35,6 +41,7 @@ public class _0016SomeEveryTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBase
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "everyGtTen2")
     public void testCase001_3() {
         // Initialize inputs
         List<type.TItemPrice> priceTable2 = asList(new type.TItemPriceImpl("widget", number("25")), new type.TItemPriceImpl("sprocket", number("15")), new type.TItemPriceImpl("trinket", number("1.5")));
@@ -49,6 +56,7 @@ public class _0016SomeEveryTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBase
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "someGtTen1")
     public void testCase001_4() {
         // Initialize inputs
         List<type.TItemPrice> priceTable2 = asList(new type.TItemPriceImpl("widget", number("25")), new type.TItemPriceImpl("sprocket", number("15")), new type.TItemPriceImpl("trinket", number("1.5")));
@@ -63,6 +71,7 @@ public class _0016SomeEveryTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBase
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "someGtTen2")
     public void testCase001_5() {
         // Initialize inputs
         List<type.TItemPrice> priceTable2 = asList(new type.TItemPriceImpl("widget", number("25")), new type.TItemPriceImpl("sprocket", number("15")), new type.TItemPriceImpl("trinket", number("1.5")));
@@ -77,6 +86,7 @@ public class _0016SomeEveryTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBase
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "everyGtTen3")
     public void testCase001_6() {
         // Initialize inputs
         List<type.TItemPrice> priceTable2 = asList(new type.TItemPriceImpl("widget", number("25")), new type.TItemPriceImpl("sprocket", number("15")), new type.TItemPriceImpl("trinket", number("1.5")));

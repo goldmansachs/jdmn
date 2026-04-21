@@ -3,10 +3,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "0008-LX-arithmetic.dmn"})
+@com.gs.dmn.runtime.annotation.TestCases(
+    testCasesName = "",
+    modelName = "0008-LX-arithmetic.dmn"
+)
 public class _0008LXArithmeticTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     private static final com.gs.dmn.runtime.coverage.trace.CoverageTraceListener listener = new com.gs.dmn.runtime.coverage.trace.CoverageTraceListener("http://www.trisotech.com/definitions/_1fedf2c0-0f4a-470c-bc66-a15528e8a49a", "0008-LX-arithmetic", 1);
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "payment")
     public void testCase001_1() {
         // Initialize inputs
         type.TLoan loan = new type.TLoanImpl(number("600000"), number("0.0375"), number("360"));
@@ -21,6 +26,7 @@ public class _0008LXArithmeticTest01Test extends com.gs.dmn.runtime.JavaTimeDMNB
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "002", resultNode = "payment")
     public void testCase002_1() {
         // Initialize inputs
         type.TLoan loan = new type.TLoanImpl(number("30000"), number("0.0475"), number("60"));
@@ -35,6 +41,7 @@ public class _0008LXArithmeticTest01Test extends com.gs.dmn.runtime.JavaTimeDMNB
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "003", resultNode = "payment")
     public void testCase003_1() {
         // Initialize inputs
         type.TLoan loan = new type.TLoanImpl(number("600000"), number("0.0399"), number("360"));

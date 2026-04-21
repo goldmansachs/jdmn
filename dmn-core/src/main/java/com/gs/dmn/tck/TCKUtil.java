@@ -713,4 +713,17 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     public String getDefaultDurationValue() {
         return this.transformer.getDefaultDurationValue();
     }
+
+    // Annotations
+    public String testAnnotationTestCasesName() {
+        return com.gs.dmn.runtime.annotation.TestCases.class.getName();
+    }
+
+    public String testAnnotationTestCaseName() {
+        return com.gs.dmn.runtime.annotation.TestCase.class.getName();
+    }
+
+    public String escapeInString(String text) {
+        return this.transformer.escapeInString(text);
+    }
 }

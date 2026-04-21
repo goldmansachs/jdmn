@@ -3,10 +3,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "0083-feel-unicode.dmn"})
+@com.gs.dmn.runtime.annotation.TestCases(
+    testCasesName = "",
+    modelName = "0083-feel-unicode.dmn"
+)
 public class _0083FeelUnicodeTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     private static final com.gs.dmn.runtime.coverage.trace.CoverageTraceListener listener = new com.gs.dmn.runtime.coverage.trace.CoverageTraceListener("http://www.montera.com.au/spec/DMN/0083-feel-unicode", "0083-feel-unicode", 15);
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "decision_001", resultNode = "decision_001")
     public void testCasedecision_001_1() {
 
         // Initialize input context
@@ -18,6 +23,7 @@ public class _0083FeelUnicodeTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBa
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "decision_001_a", resultNode = "decision_001_a")
     public void testCasedecision_001_a_1() {
 
         // Initialize input context
@@ -29,6 +35,7 @@ public class _0083FeelUnicodeTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBa
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "decision_001_b", resultNode = "decision_001_b")
     public void testCasedecision_001_b_1() {
 
         // Initialize input context
@@ -40,6 +47,7 @@ public class _0083FeelUnicodeTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBa
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "decision_002", resultNode = "decision_002")
     public void testCasedecision_002_1() {
 
         // Initialize input context
@@ -51,6 +59,7 @@ public class _0083FeelUnicodeTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBa
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "decision_003", resultNode = "decision_003")
     public void testCasedecision_003_1() {
 
         // Initialize input context
@@ -62,6 +71,7 @@ public class _0083FeelUnicodeTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBa
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "decision_003_a", resultNode = "decision_003_a")
     public void testCasedecision_003_a_1() {
 
         // Initialize input context
@@ -73,6 +83,7 @@ public class _0083FeelUnicodeTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBa
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "decision_004", resultNode = "decision_004")
     public void testCasedecision_004_1() {
 
         // Initialize input context
@@ -84,6 +95,7 @@ public class _0083FeelUnicodeTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBa
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "decision_004_a", resultNode = "decision_004_a")
     public void testCasedecision_004_a_1() {
 
         // Initialize input context
@@ -95,6 +107,7 @@ public class _0083FeelUnicodeTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBa
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "decision_005", resultNode = "decision_005")
     public void testCasedecision_005_1() {
 
         // Initialize input context
@@ -106,6 +119,7 @@ public class _0083FeelUnicodeTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBa
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "decision_005_a", resultNode = "decision_005_a")
     public void testCasedecision_005_a_1() {
 
         // Initialize input context
@@ -117,6 +131,7 @@ public class _0083FeelUnicodeTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBa
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "decision_006", resultNode = "decision_006")
     public void testCasedecision_006_1() {
 
         // Initialize input context
@@ -128,6 +143,7 @@ public class _0083FeelUnicodeTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBa
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "decision_007", resultNode = "decision_007")
     public void testCasedecision_007_1() {
 
         // Initialize input context
@@ -139,6 +155,7 @@ public class _0083FeelUnicodeTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBa
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "endswith_001", resultNode = "endswith_001")
     public void testCaseendswith_001_1() {
 
         // Initialize input context
@@ -150,6 +167,7 @@ public class _0083FeelUnicodeTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBa
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "substring_004", resultNode = "substring_004")
     public void testCasesubstring_004_1() {
 
         // Initialize input context

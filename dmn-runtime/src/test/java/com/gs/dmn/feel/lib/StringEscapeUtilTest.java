@@ -75,7 +75,7 @@ public class StringEscapeUtilTest {
 
     @Test
     public void testEscapeInString() {
-        assertNull(StringEscapeUtil.escapeInString(null));
+        assertEquals("", StringEscapeUtil.escapeInString(null));
         assertEquals("", StringEscapeUtil.escapeInString(""));
 
         assertEquals("abc", StringEscapeUtil.escapeInString("abc"));

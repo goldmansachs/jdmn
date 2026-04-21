@@ -399,8 +399,7 @@ public class DMNExpressionToNativeTransformer {
     // Annotations
     //
     String annotationEscapedText(TDecisionRule rule) {
-        String description = rule.getDescription();
-        return description == null ? "" : StringEscapeUtil.escapeInString(description);
+        return StringEscapeUtil.escapeInString(rule.getDescription());
     }
 
     protected List<String> annotations(TDRGElement element, TDecisionRule rule) {

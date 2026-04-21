@@ -3,10 +3,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "0102-feel-constants.dmn"})
+@com.gs.dmn.runtime.annotation.TestCases(
+    testCasesName = "",
+    modelName = "0102-feel-constants.dmn"
+)
 public class _0102FeelConstantsTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     private static final com.gs.dmn.runtime.coverage.trace.CoverageTraceListener listener = new com.gs.dmn.runtime.coverage.trace.CoverageTraceListener("https://github.com/dmn-tck/tck", "0102-feel-constants", 4);
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "Decision1")
     public void testCase001_1() {
 
         // Initialize input context
@@ -18,6 +23,7 @@ public class _0102FeelConstantsTest01Test extends com.gs.dmn.runtime.JavaTimeDMN
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "002", resultNode = "Decision2")
     public void testCase002_1() {
 
         // Initialize input context
@@ -29,6 +35,7 @@ public class _0102FeelConstantsTest01Test extends com.gs.dmn.runtime.JavaTimeDMN
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "003", resultNode = "Decision3")
     public void testCase003_1() {
 
         // Initialize input context
@@ -40,6 +47,7 @@ public class _0102FeelConstantsTest01Test extends com.gs.dmn.runtime.JavaTimeDMN
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "004", resultNode = "Decision4")
     public void testCase004_1() {
 
         // Initialize input context

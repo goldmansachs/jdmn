@@ -3,10 +3,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "0010-multi-output-U.dmn"})
+@com.gs.dmn.runtime.annotation.TestCases(
+    testCasesName = "",
+    modelName = "0010-multi-output-U.dmn"
+)
 public class _0010MultiOutputUTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     private static final com.gs.dmn.runtime.coverage.trace.CoverageTraceListener listener = new com.gs.dmn.runtime.coverage.trace.CoverageTraceListener("http://www.trisotech.com/definitions/_a3ebbd98-af09-42f3-9099-4ae2204a1f54", "0010-multi-output-U", 1);
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "Approval")
     public void testCase001_1() {
         // Initialize inputs
         java.lang.Number age = number("18");
@@ -25,6 +30,7 @@ public class _0010MultiOutputUTest01Test extends com.gs.dmn.runtime.JavaTimeDMNB
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "002", resultNode = "Approval")
     public void testCase002_1() {
         // Initialize inputs
         java.lang.Number age = number("17");
@@ -43,6 +49,7 @@ public class _0010MultiOutputUTest01Test extends com.gs.dmn.runtime.JavaTimeDMNB
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "003", resultNode = "Approval")
     public void testCase003_1() {
         // Initialize inputs
         java.lang.Number age = number("18");

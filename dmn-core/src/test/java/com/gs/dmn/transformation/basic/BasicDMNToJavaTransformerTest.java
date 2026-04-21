@@ -33,7 +33,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class BasicDMNToJavaTransformerTest extends AbstractTest {
     private final DMNDialectDefinition<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestCases> dialectDefinition = new JavaTimeDMNDialectDefinition();
@@ -116,7 +115,7 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
 
     @Test
     public void testEscapeInString() {
-        assertNull(this.dmnTransformer.escapeInString(null));
+        assertEquals("", this.dmnTransformer.escapeInString(null));
         assertEquals("", this.dmnTransformer.escapeInString(""));
         assertEquals("abc", this.dmnTransformer.escapeInString("abc"));
         assertEquals("ab\\\"abc", this.dmnTransformer.escapeInString("ab\\\"abc"));

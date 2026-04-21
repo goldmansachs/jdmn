@@ -3,10 +3,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "0030-user-defined-functions.dmn"})
+@com.gs.dmn.runtime.annotation.TestCases(
+    testCasesName = "",
+    modelName = "0030-user-defined-functions.dmn"
+)
 public class _0030UserDefinedFunctionsTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     private static final com.gs.dmn.runtime.coverage.trace.CoverageTraceListener listener = new com.gs.dmn.runtime.coverage.trace.CoverageTraceListener("http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions", "0030-user-defined-functions", 2);
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "simple function invocation")
     public void testCase001_1() {
         // Initialize inputs
         String stringInputA = "feel";
@@ -23,6 +28,7 @@ public class _0030UserDefinedFunctionsTest01Test extends com.gs.dmn.runtime.Java
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "named function invocation")
     public void testCase001_2() {
         // Initialize inputs
         String stringInputA = "feel";

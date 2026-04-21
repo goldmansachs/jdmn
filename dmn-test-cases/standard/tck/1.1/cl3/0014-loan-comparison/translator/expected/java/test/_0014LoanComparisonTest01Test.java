@@ -3,10 +3,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "0014-loan-comparison.dmn"})
+@com.gs.dmn.runtime.annotation.TestCases(
+    testCasesName = "",
+    modelName = "0014-loan-comparison.dmn"
+)
 public class _0014LoanComparisonTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     private static final com.gs.dmn.runtime.coverage.trace.CoverageTraceListener listener = new com.gs.dmn.runtime.coverage.trace.CoverageTraceListener("http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719", "0014-loan-comparison", 5);
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "Bankrates")
     public void testCase001_1() {
         // Initialize inputs
         java.lang.Number requestedAmt = number("330000");
@@ -21,6 +26,7 @@ public class _0014LoanComparisonTest01Test extends com.gs.dmn.runtime.JavaTimeDM
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "RankedProducts")
     public void testCase001_2() {
         // Initialize inputs
         java.lang.Number requestedAmt = number("330000");

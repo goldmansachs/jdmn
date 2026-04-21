@@ -3,10 +3,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "0085-decision-services.dmn"})
+@com.gs.dmn.runtime.annotation.TestCases(
+    testCasesName = "",
+    modelName = "0085-decision-services.dmn"
+)
 public class _0085DecisionServicesTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     private static final com.gs.dmn.runtime.coverage.trace.CoverageTraceListener listener = new com.gs.dmn.runtime.coverage.trace.CoverageTraceListener("http://www.montera.com.au/spec/DMN/0085-decision-services", "0085-decision-services", 44);
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "decisionService_001")
     public void testCase001_1() {
 
         // Initialize input context
@@ -18,6 +23,7 @@ public class _0085DecisionServicesTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001a", resultNode = "decisionService_001")
     public void testCase001a_1() {
 
         // Initialize input context
@@ -29,6 +35,7 @@ public class _0085DecisionServicesTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "002", resultNode = "decisionService_002")
     public void testCase002_1() {
         // Initialize inputs
         String decision_002_input = "baz";
@@ -43,6 +50,7 @@ public class _0085DecisionServicesTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "003", resultNode = "decisionService_003")
     public void testCase003_1() {
         // Initialize inputs
         String decision_003_input_1 = "B";
@@ -61,6 +69,7 @@ public class _0085DecisionServicesTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "004", resultNode = "decision_004_1")
     public void testCase004_1() {
 
         // Initialize input context
@@ -72,6 +81,7 @@ public class _0085DecisionServicesTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "006", resultNode = "decision_006_1")
     public void testCase006_1() {
 
         // Initialize input context
@@ -83,6 +93,7 @@ public class _0085DecisionServicesTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "009", resultNode = "decision_009_1")
     public void testCase009_1() {
 
         // Initialize input context
@@ -94,6 +105,7 @@ public class _0085DecisionServicesTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "011", resultNode = "decision_011_1")
     public void testCase011_1() {
 
         // Initialize input context
@@ -105,6 +117,7 @@ public class _0085DecisionServicesTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "012", resultNode = "decision_012_1")
     public void testCase012_1() {
 
         // Initialize input context
@@ -116,6 +129,7 @@ public class _0085DecisionServicesTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "013", resultNode = "decision_013_1")
     public void testCase013_1() {
         // Initialize inputs
         String inputData_013_1 = "C";
@@ -130,6 +144,7 @@ public class _0085DecisionServicesTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "014", resultNode = "decision_014_1")
     public void testCase014_1() {
         // Initialize inputs
         String inputData_014_1 = "C";
@@ -144,6 +159,7 @@ public class _0085DecisionServicesTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "015", resultNode = "decisionService_015")
     public void testCase015_1() {
 
         // Initialize input context
@@ -155,6 +171,7 @@ public class _0085DecisionServicesTest01Test extends com.gs.dmn.runtime.JavaTime
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "015_a", resultNode = "decisionService_015")
     public void testCase015_a_1() {
 
         // Initialize input context

@@ -3,10 +3,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "0021-singleton-list.dmn"})
+@com.gs.dmn.runtime.annotation.TestCases(
+    testCasesName = "",
+    modelName = "0021-singleton-list.dmn"
+)
 public class _0021SingletonListTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     private static final com.gs.dmn.runtime.coverage.trace.CoverageTraceListener listener = new com.gs.dmn.runtime.coverage.trace.CoverageTraceListener("http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a", "0021-singleton-list", 5);
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "decision1")
     public void testCase001_1() {
         // Initialize inputs
         List<String> employees = asList("Jack", "John", "Bob", "Zack");
@@ -21,6 +26,7 @@ public class _0021SingletonListTest01Test extends com.gs.dmn.runtime.JavaTimeDMN
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "decision2")
     public void testCase001_2() {
         // Initialize inputs
         List<String> employees = asList("Jack", "John", "Bob", "Zack");
@@ -35,6 +41,7 @@ public class _0021SingletonListTest01Test extends com.gs.dmn.runtime.JavaTimeDMN
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "decision3")
     public void testCase001_3() {
         // Initialize inputs
         List<String> employees = asList("Jack", "John", "Bob", "Zack");
@@ -49,6 +56,7 @@ public class _0021SingletonListTest01Test extends com.gs.dmn.runtime.JavaTimeDMN
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "decision4")
     public void testCase001_4() {
         // Initialize inputs
         List<String> employees = asList("Jack", "John", "Bob", "Zack");
@@ -63,6 +71,7 @@ public class _0021SingletonListTest01Test extends com.gs.dmn.runtime.JavaTimeDMN
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "decision5")
     public void testCase001_5() {
         // Initialize inputs
         List<String> employees = asList("Jack", "John", "Bob", "Zack");

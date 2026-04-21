@@ -3,10 +3,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "0092-feel-lambda.dmn"})
+@com.gs.dmn.runtime.annotation.TestCases(
+    testCasesName = "",
+    modelName = "0092-feel-lambda.dmn"
+)
 public class _0092FeelLambdaTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     private static final com.gs.dmn.runtime.coverage.trace.CoverageTraceListener listener = new com.gs.dmn.runtime.coverage.trace.CoverageTraceListener("http://www.montera.com.au/spec/DMN/0092-feel-lambda", "0092-feel-lambda", 37);
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "decision_001_1")
     public void testCase001_1() {
 
         // Initialize input context
@@ -18,6 +23,7 @@ public class _0092FeelLambdaTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "002", resultNode = "decision_002_1")
     public void testCase002_1() {
 
         // Initialize input context
@@ -29,6 +35,7 @@ public class _0092FeelLambdaTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "003", resultNode = "decision_003_1")
     public void testCase003_1() {
 
         // Initialize input context
@@ -40,6 +47,7 @@ public class _0092FeelLambdaTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "004", resultNode = "decision_004_1")
     public void testCase004_1() {
 
         // Initialize input context
@@ -51,6 +59,7 @@ public class _0092FeelLambdaTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "005", resultNode = "decision_005_1")
     public void testCase005_1() {
 
         // Initialize input context
@@ -62,6 +71,7 @@ public class _0092FeelLambdaTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "006", resultNode = "decision_006_1")
     public void testCase006_1() {
 
         // Initialize input context
@@ -73,6 +83,7 @@ public class _0092FeelLambdaTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "007", resultNode = "decision_007_1")
     public void testCase007_1() {
         // Initialize inputs
         java.lang.Number input_007_1 = number("20");
@@ -87,6 +98,7 @@ public class _0092FeelLambdaTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "008", resultNode = "decision_008_1")
     public void testCase008_1() {
 
         // Initialize input context
@@ -98,6 +110,7 @@ public class _0092FeelLambdaTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "009", resultNode = "decision_009_1")
     public void testCase009_1() {
 
         // Initialize input context
@@ -109,6 +122,7 @@ public class _0092FeelLambdaTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "010", resultNode = "decision_010_1")
     public void testCase010_1() {
 
         // Initialize input context
@@ -120,6 +134,7 @@ public class _0092FeelLambdaTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "010_a", resultNode = "decision_010_1_a")
     public void testCase010_a_1() {
 
         // Initialize input context
@@ -131,6 +146,7 @@ public class _0092FeelLambdaTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "011", resultNode = "decision_011_1")
     public void testCase011_1() {
         // Initialize inputs
         java.lang.Number input_011_1 = number("10");
@@ -145,6 +161,7 @@ public class _0092FeelLambdaTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "012", resultNode = "decision_012_1")
     public void testCase012_1() {
 
         // Initialize input context
@@ -156,6 +173,7 @@ public class _0092FeelLambdaTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "013", resultNode = "decision_013_1")
     public void testCase013_1() {
 
         // Initialize input context
@@ -167,6 +185,7 @@ public class _0092FeelLambdaTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "017", resultNode = "decision_017_1")
     public void testCase017_1() {
         // Initialize inputs
         String input_017_1 = "a";
@@ -181,6 +200,7 @@ public class _0092FeelLambdaTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
+    @com.gs.dmn.runtime.annotation.TestCase(id = "018", resultNode = "decision_018")
     public void testCase018_1() {
 
         // Initialize input context

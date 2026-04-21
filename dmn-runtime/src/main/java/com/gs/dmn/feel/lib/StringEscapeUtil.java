@@ -15,7 +15,6 @@ package com.gs.dmn.feel.lib;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.LinkedHashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -156,8 +155,8 @@ public class StringEscapeUtil {
     }
 
     public static String escapeInString(String text) {
-        if (StringUtils.isBlank(text)) {
-            return text;
+        if (StringUtils.isEmpty(text)) {
+            return "";
         }
 
         StringBuilder builder = new StringBuilder();
@@ -222,9 +221,5 @@ public class StringEscapeUtil {
 
     private static boolean contains(Set<Character> set, String value, int index) {
         return index < value.length() && set.contains(value.charAt(index));
-    }
-
-    private static String hex(int codepoint) {
-        return Integer.toHexString(codepoint).toUpperCase(Locale.ENGLISH);
     }
 }
