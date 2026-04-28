@@ -12,9 +12,6 @@
  */
 package com.gs.dmn.runtime;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 public interface DMNType {
-    @JsonIgnore
     Context toContext();
 }

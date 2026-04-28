@@ -28,10 +28,10 @@ public class ModelElementRegistry {
     private static final Logger LOGGER = LoggerFactory.getLogger(ModelElementRegistry.class);
 
     private final Map<String, String> classNameMap = new LinkedHashMap<>();
-    private final Map<String, ExecutableDRGElement> executableElementMap = new LinkedHashMap<>();
+    private final Map<String, ExecutableDRGElement<?>> executableElementMap = new LinkedHashMap<>();
 
     public void register(String qName, String className) {
-        Objects.requireNonNull(qName, "Missing qName");
+        Objects.requireNonNull(qName, "Missing qualified name of DMN element");
         Objects.requireNonNull(className, "Missing class name");
 
         String value = classNameMap.get(qName);
@@ -53,17 +53,17 @@ public class ModelElementRegistry {
     }
 
     private <T> ExecutableDRGElement<T> makeInstance(String qName, Class<T> outputClass) {
-        ExecutableDRGElement executableDRGElement = this.executableElementMap.get(qName);
+        ExecutableDRGElement<T> executableDRGElement = (ExecutableDRGElement<T>) this.executableElementMap.get(qName);
         if (executableDRGElement == null) {
             String clsName = this.classNameMap.get(qName);
             if (clsName == null) {
                 throw new DMNRuntimeException(String.format("Element '%s' is not registered. Registered elements are %s", qName, keys()));
             }
             try {
-                Class<?> elementClass = Class.forName(clsName);
+                Class<T> elementClass = (Class<T>) Class.forName(clsName, true, this.getClass().getClassLoader());
                 executableDRGElement = makeInstance(elementClass);
             } catch (Exception e) {
-                throw new DMNRuntimeException(String.format("Cannot instantiate class '%s' for name '%s'", clsName, qName));
+                throw new DMNRuntimeException(String.format("Cannot instantiate class '%s' for name '%s'", clsName, qName), e);
             }
             this.executableElementMap.put(qName, executableDRGElement);
         }
@@ -75,10 +75,10 @@ public class ModelElementRegistry {
         LOGGER.debug("Instantiating element '{}'", annotation.name());
         if (isDecision(annotation)) {
             // Invoke the default constructor
-            return (ExecutableDRGElement) elementClass.getConstructor().newInstance();
+            return (ExecutableDRGElement<T>) elementClass.getConstructor().newInstance();
         } else if (isInvocable(annotation)) {
             // Invoke the static instance() method
-            return (ExecutableDRGElement) elementClass.getMethod("instance").invoke(null);
+            return (ExecutableDRGElement<T>) elementClass.getMethod("instance").invoke(null);
         } else {
             throw new DMNRuntimeException(String.format("Cannot instantiate element '%s'. Element is neither Decision nor Invocable.", annotation.name()));
         }
