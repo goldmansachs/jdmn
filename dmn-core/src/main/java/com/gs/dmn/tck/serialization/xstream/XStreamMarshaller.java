@@ -19,6 +19,7 @@ import com.gs.dmn.serialization.TCKVersion;
 import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.tck.serialization.TCKMarshaller;
+import com.gs.dmn.tck.serialization.XSDSchemaValidator;
 
 import javax.xml.transform.stream.StreamSource;
 import java.io.BufferedReader;
