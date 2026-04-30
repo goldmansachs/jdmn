@@ -1,0 +1,13 @@
+Benchmark                                                Mode   Cnt      Score     Error   Units
+StringTestExecutionBenchmarkTest.testCompiler           thrpt    20      0.006 ±   0.001  ops/ms
+StringTestExecutionBenchmarkTest.testCompiler            avgt    20    160.410 ±   7.041   ms/op
+StringTestExecutionBenchmarkTest.testCompiler          sample  1235    233.025 ± 231.146   ms/op
+StringTestExecutionBenchmarkTest.testCompiler:p0.00    sample          147.063             ms/op
+StringTestExecutionBenchmarkTest.testCompiler:p0.50    sample          157.024             ms/op
+StringTestExecutionBenchmarkTest.testCompiler:p0.90    sample          170.918             ms/op
+StringTestExecutionBenchmarkTest.testCompiler:p0.95    sample          190.526             ms/op
+StringTestExecutionBenchmarkTest.testCompiler:p0.99    sample          275.880             ms/op
+StringTestExecutionBenchmarkTest.testCompiler:p0.999   sample        66377.470             ms/op
+StringTestExecutionBenchmarkTest.testCompiler:p0.9999  sample        86704.652             ms/op
+StringTestExecutionBenchmarkTest.testCompiler:p1.00    sample        86704.652             ms/op
+StringTestExecutionBenchmarkTest.testCompiler              ss    20    335.000 ±  26.141   ms/op

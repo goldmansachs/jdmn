@@ -42,7 +42,7 @@
     <dependencies>
         <dependency>
             <groupId>com.goldmansachs.jdmn</groupId>
-            <artifactId>jdmn-runtime</artifactId>
+            <artifactId>jdmn-core</artifactId>
         </dependency>
 
         <dependency>

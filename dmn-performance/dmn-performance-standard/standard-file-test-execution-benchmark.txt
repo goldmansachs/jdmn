@@ -1,0 +1,13 @@
+Benchmark                                              Mode   Cnt       Score     Error   Units
+FileTestExecutionBenchmarkTest.testCompiler           thrpt    20       0.005 ±   0.001  ops/ms
+FileTestExecutionBenchmarkTest.testCompiler            avgt    20     304.986 ± 453.790   ms/op
+FileTestExecutionBenchmarkTest.testCompiler          sample  1088     487.857 ± 999.114   ms/op
+FileTestExecutionBenchmarkTest.testCompiler:p0.00    sample           172.229             ms/op
+FileTestExecutionBenchmarkTest.testCompiler:p0.50    sample           180.617             ms/op
+FileTestExecutionBenchmarkTest.testCompiler:p0.90    sample           191.365             ms/op
+FileTestExecutionBenchmarkTest.testCompiler:p0.95    sample           197.827             ms/op
+FileTestExecutionBenchmarkTest.testCompiler:p0.99    sample           300.569             ms/op
+FileTestExecutionBenchmarkTest.testCompiler:p0.999   sample        300372.471             ms/op
+FileTestExecutionBenchmarkTest.testCompiler:p0.9999  sample        329638.740             ms/op
+FileTestExecutionBenchmarkTest.testCompiler:p1.00    sample        329638.740             ms/op
+FileTestExecutionBenchmarkTest.testCompiler              ss    20     387.682 ±  59.039   ms/op
