@@ -1,0 +1,7 @@
+[
+  {
+    "signature": "sum(a: number) : number",
+    "description": "Adds a number"
+  }
+]
+

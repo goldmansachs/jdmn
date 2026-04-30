@@ -24,39 +24,41 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Writer;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class JsonDescriptionGenerator {
-    public void generate(String libPath) throws Exception {
+    public void generate(String libPath, Path outputFolder) throws Exception {
         // Parse library
         LibraryRepository libraryRepository = new LibraryRepository(new InputParameters());
         Library<?> library = libraryRepository.parseLibrary(libPath);
 
         // Serialize library
-        serialize(library, jsonFile(libPath));
+        serialize(library, jsonFile(libPath, outputFolder));
     }
 
-    private File jsonFile(String libPath) {
+    private File jsonFile(String libPath, Path outputFolder) throws IOException {
         // Find file name
         Path path = Paths.get(libPath);
         String fileName = path.getFileName().toString();
         String jsonFileName = fileName.substring(0, fileName.lastIndexOf('.')) + ".json";
-        File jsonFile = new File("dmn-core/src/main/resources/feel/json/" + jsonFileName);
-        jsonFile.getParentFile().mkdirs();
-        return jsonFile;
+        Path outFile = outputFolder.resolve(jsonFileName);
+        Files.createDirectories(outFile.getParent());
+        return outFile.toFile();
     }
 
     private void serialize(Library<?> library, File jsonFile) throws Exception {
-        Writer writer = new FileWriter(jsonFile);
-        JsonSerializer.OBJECT_MAPPER.writeValue(writer, toJson(library));
+        try (Writer writer = new FileWriter(jsonFile)) {
+            JsonSerializer.OBJECT_MAPPER.writeValue(writer, toJson(library));
+        }
     }
 
-    private FEELLibrary toJson(Library<?> library) throws Exception {
+    FEELLibrary toJson(Library<?> library) throws Exception {
         // Transform the library into a serializable format
         String name =  library.getName();
         List<FunctionDeclaration> functions = new ArrayList<>();
@@ -72,18 +74,19 @@ public class JsonDescriptionGenerator {
     }
 
     private void augment(FEELLibrary feelLibrary) throws Exception {
-        // Read docs.json file as Map
+        // Read docs.json file as List of maps (avoid raw types)
         String libraryName = feelLibrary.name();
         String fileName = String.format("/feel/json/%s-docs.json", libraryName);
-        List<?> docs = JsonSerializer.OBJECT_MAPPER.readValue(getClass().getResourceAsStream(fileName), List.class);
+        com.fasterxml.jackson.core.type.TypeReference<java.util.List<java.util.Map<String, String>>> typeRef =
+                new com.fasterxml.jackson.core.type.TypeReference<java.util.List<java.util.Map<String, String>>>() {};
+        java.util.List<java.util.Map<String, String>> docs = JsonSerializer.OBJECT_MAPPER.readValue(getClass().getResourceAsStream(fileName), typeRef);
 
-        // Svan feelLibrary functions and add documentation using the signature
+        // Scan feelLibrary functions and add documentation using the signature
         for (FunctionDeclaration function : feelLibrary.functions()) {
             // Find corresponding doc in docs.json using the signature
             String signature = function.getSignature();
             boolean found = false;
-            for (Object doc : docs) {
-                Map<String, String> map = (Map<String, String>)doc;
+            for (java.util.Map<String, String> map : docs) {
                 String sgn = map.get("signature");
                 String info = map.get("description");
                 if (signature.equals(sgn) && !StringUtils.isBlank(info)) {
@@ -148,9 +151,10 @@ public class JsonDescriptionGenerator {
     }
 
     public static void main(String[] args) throws Exception {
+        Path outputFolder = Paths.get("dmn-core/src/main/resources/feel/json/");
         JsonDescriptionGenerator generator = new JsonDescriptionGenerator();
-        generator.generate("feel/library/builtin.lib");
-        generator.generate("feel/library/signavio.lib");
+        generator.generate("feel/library/builtin.lib", outputFolder);
+        generator.generate("feel/library/signavio.lib", outputFolder);
     }
 }
 
