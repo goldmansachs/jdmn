@@ -24,7 +24,6 @@ public abstract class SimpleDMNTransformer<T> implements DMNTransformer<T> {
 
     protected final BuildLogger logger;
     protected final ErrorHandler errorHandler = new LogErrorHandler(LOGGER);
-    protected boolean transformRepository = true;
 
     public SimpleDMNTransformer() {
         this(new Slf4jBuildLogger(LOGGER));

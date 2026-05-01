@@ -52,24 +52,23 @@ public class SimplifyTypesForMIDTransformer extends SimpleDMNTransformer<TestLab
     @Override
     public DMNModelRepository transform(DMNModelRepository repository) {
         if (isEmpty(repository)) {
-            logger.warn("DMN repository is empty; transformer will not run");
+            logger.warn("DMN repository is empty");
             return repository;
         }
 
-        this.transformRepository = false;
+        // Transform models
         return removeDuplicateInformationRequirements(repository, logger);
     }
 
     @Override
     public Pair<DMNModelRepository, List<TestLab>> transform(DMNModelRepository repository, List<TestLab> testCasesList) {
-        if (isEmpty(repository, testCasesList)) {
-            logger.warn("DMN repository or test cases list is empty; transformer will not run");
-            return new Pair<>(repository, testCasesList);
-        }
-
         // Transform model
-        if (transformRepository) {
-            transform(repository);
+        repository = transform(repository);
+
+        // Transform test cases
+        if (isEmpty(testCasesList)) {
+            logger.warn("List of test cases is empty");
+            return new Pair<>(repository, testCasesList);
         }
 
         return new Pair<>(repository, testCasesList);

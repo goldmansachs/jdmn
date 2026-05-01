@@ -36,7 +36,7 @@ public abstract class AbstractMissingItemDefinitionsTransformer extends SimpleDM
         super(logger);
     }
 
-    protected void addNewDefinitions(DMNModelRepository repository, List<TItemDefinition> definitions) {
+    protected DMNModelRepository addNewDefinitions(DMNModelRepository repository, List<TItemDefinition> definitions) {
         TDefinitions model = repository.getRootDefinitions();
         for (TItemDefinition definition : definitions) {
             TItemDefinition existingDefinition = repository.lookupItemDefinition(model, QualifiedName.toQualifiedName(model, definition.getName()));
@@ -52,18 +52,18 @@ public abstract class AbstractMissingItemDefinitionsTransformer extends SimpleDM
             ((SignavioDMNModelRepository) repository).addItemDefinition(model, definition);
             logger.info(String.format("Generated new item definition for \"%s\"", definition.getName()));
         }
+        return repository;
     }
 
     @Override
     public Pair<DMNModelRepository, List<TestLab>> transform(DMNModelRepository repository, List<TestLab> testCasesList) {
-        if (isEmpty(repository, testCasesList)) {
-            logger.warn("DMN repository or test list is empty; transformer will not run");
-            return new Pair<>(repository, testCasesList);
-        }
+        // Transform models
+        repository = transform(repository);
 
-        // Transform model
-        if (this.transformRepository) {
-            transform(repository);
+        // Transform test cases
+        if (isEmpty(testCasesList)) {
+            logger.warn("List of test cases is empty");
+            return new Pair<>(repository, testCasesList);
         }
 
         return new Pair<>(repository, testCasesList);

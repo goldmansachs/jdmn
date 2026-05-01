@@ -77,7 +77,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         DMNModelRepository repository = readModels(files);
 
         // Apply the DMN transformation
-        this.dmnTransformer.transform(repository);
+        repository = this.dmnTransformer.transform(repository);
 
         // Validate the models
         handleValidationErrors("DMN errors", this.dmnValidator.validate(repository));

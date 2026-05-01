@@ -47,28 +47,25 @@ public class InOutCorrectPathsInDecisionsTransformer extends SimpleDMNTransforme
             return repository;
         }
 
-        correctDecisions(repository);
-
-        this.transformRepository = false;
-        return repository;
+        // Transform models
+        return correctDecisions(repository);
     }
 
     @Override
     public Pair<DMNModelRepository, List<TestLab>> transform(DMNModelRepository repository, List<TestLab> testCasesList) {
-        if (isEmpty(repository, testCasesList)) {
-            logger.warn("DMN repository or test list is empty; transformer will not run");
-            return new Pair<>(repository, testCasesList);
-        }
-
         // Transform model
-        if (this.transformRepository) {
-            transform(repository);
+        repository = transform(repository);
+
+        // Transform test cases
+        if (isEmpty(testCasesList)) {
+            logger.warn("List of test cases is empty");
+            return new Pair<>(repository, testCasesList);
         }
 
         return new Pair<>(repository, testCasesList);
     }
 
-    private void correctDecisions(DMNModelRepository repository) {
+    private DMNModelRepository correctDecisions(DMNModelRepository repository) {
         for (TDefinitions definitions : repository.getAllDefinitions()) {
             for (TDecision decision : repository.findDecisions(definitions)) {
                 TExpression expression = repository.expression(decision);
@@ -78,6 +75,7 @@ public class InOutCorrectPathsInDecisionsTransformer extends SimpleDMNTransforme
                 }
             }
         }
+        return repository;
     }
 
     private List<String> directChildDecisionNames(TDecision decision, DMNModelRepository repository) {

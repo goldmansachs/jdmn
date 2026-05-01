@@ -72,7 +72,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
                     new ToQuotedNameTransformer(LOGGER),
                     new TestCaseTransformer(LOGGER)
             ));
-            this.dmnTransformer.transform(repository, pair.getRight());
+            Pair<DMNModelRepository, List<TestCases>> transformedPair = this.dmnTransformer.transform(repository, pair.getRight());
 
             // Set-up execution
             Map<String, String> inputParameters = makeInputParametersMap(extraInputParameters);
@@ -81,7 +81,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
             this.lib = this.interpreter.getFeelLib();
 
             // Execute tests
-            doTest(pair.getLeft(), pair.getRight(), this.interpreter, repository);
+            doTest(pair.getLeft(), transformedPair.getRight(), this.interpreter, transformedPair.getLeft());
         } catch (Exception e) {
             throw new DMNRuntimeException(errorMessage, e);
         }
@@ -103,12 +103,10 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
     }
 
     protected void doTest(List<String> testCaseFileNameList, List<TestCases> testCasesList, DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> interpreter, DMNModelRepository repository) {
-        // Check all TestCases
-        Pair<DMNModelRepository, List<TestCases>> result = this.dmnTransformer.transform(repository, testCasesList);
-        List<TestCases> actualTestCasesList = result.getRight();
-        for (int i = 0; i < actualTestCasesList.size(); i++) {
+        // Check all test cases, repository and test cases are already transformed
+        for (int i = 0; i < testCasesList.size(); i++) {
             String testCaseFileName = testCaseFileNameList.get(i);
-            TestCases testCases = actualTestCasesList.get(i);
+            TestCases testCases = testCasesList.get(i);
             for (TestCase testCase : testCases.getTestCase()) {
                 doTest(testCaseFileName, testCases, testCase, interpreter);
             }
@@ -116,6 +114,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
     }
 
     private void doTest(String testCaseFileName, TestCases testCases, TestCase testCase, DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> interpreter) {
+        // Check the TestCases, TestCases are already transformed
         TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckUtil = new TCKUtil<>(this.basicTransformer, this.lib);
 
         List<ResultNode> resultNode = testCase.getResultNode();

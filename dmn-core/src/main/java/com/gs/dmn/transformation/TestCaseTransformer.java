@@ -30,30 +30,27 @@ public class TestCaseTransformer extends SimpleDMNTransformer<TestCases> {
     @Override
     public DMNModelRepository transform(DMNModelRepository repository) {
         if (isEmpty(repository)) {
-            logger.warn("DMN repository is empty; transformer will not run");
+            logger.warn("DMN repository is empty");
             return repository;
         }
 
-        this.transformRepository = false;
         return repository;
     }
 
     @Override
     public Pair<DMNModelRepository, List<TestCases>> transform(DMNModelRepository repository, List<TestCases> testCasesList) {
-        if (isEmpty(repository, testCasesList)) {
-            logger.warn("DMN repository or test cases list is empty; transformer will not run");
-            return new Pair<>(repository, testCasesList);
-        }
-
-        // Transform model
-        if (this.transformRepository) {
-            transform(repository);
-        }
+        // Transform models
+        repository = transform(repository);
 
         // Transform test cases
+        if (isEmpty(testCasesList)) {
+            logger.warn("List of test cases is empty");
+            return new Pair<>(repository, testCasesList);
+        }
         for (TestCases testCases : testCasesList) {
             transformTestCases(testCases);
         }
+
         return new Pair<>(repository, testCasesList);
     }
 

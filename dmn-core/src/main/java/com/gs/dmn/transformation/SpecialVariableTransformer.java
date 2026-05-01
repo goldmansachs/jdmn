@@ -47,21 +47,18 @@ public class SpecialVariableTransformer extends SimpleDMNTransformer<TestCases> 
             this.logger.debug(String.format("Replace inputExpressions with ? in inputEntries in model '%s'", definitions.getName()));
             definitions.accept(this.visitor, null);
         }
-
-        this.transformRepository = false;
         return repository;
     }
 
     @Override
     public Pair<DMNModelRepository, List<TestCases>> transform(DMNModelRepository repository, List<TestCases> testCasesList) {
-        if (isEmpty(repository, testCasesList)) {
-            this.logger.warn("DMN repository or test list is empty; transformer will not run");
-            return new Pair<>(repository, testCasesList);
-        }
+        // Transform models
+        repository = transform(repository);
 
-        // Transform model
-        if (this.transformRepository) {
-            transform(repository);
+        // Transform test cases
+        if (isEmpty(testCasesList)) {
+            logger.warn("List of test cases is empty");
+            return new Pair<>(repository, testCasesList);
         }
 
         return new Pair<>(repository, testCasesList);

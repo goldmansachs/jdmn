@@ -31,9 +31,5 @@ public interface DMNTransformer<T> {
         return testCasesList == null || testCasesList.isEmpty();
     }
 
-    default boolean isEmpty(DMNModelRepository repository, List<T> testCasesList) {
-        return isEmpty(repository) || isEmpty(testCasesList);
-    }
-
     default void configure(Map<String, Object> configuration) { }
 }

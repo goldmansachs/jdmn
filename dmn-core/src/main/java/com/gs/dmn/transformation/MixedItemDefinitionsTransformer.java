@@ -39,28 +39,27 @@ public class MixedItemDefinitionsTransformer extends SimpleDMNTransformer<TestCa
     @Override
     public DMNModelRepository transform(DMNModelRepository repository) {
         if (isEmpty(repository)) {
-            this.logger.warn("DMN repository is empty; transformer will not run");
+            this.logger.warn("DMN repository is empty");
             return repository;
         }
 
+        // Transform models
         for (TDefinitions definitions : repository.getAllDefinitions()) {
             definitions.accept(this.visitor, null);
         }
 
-        this.transformRepository = false;
         return repository;
     }
 
     @Override
     public Pair<DMNModelRepository, List<TestCases>> transform(DMNModelRepository repository, List<TestCases> testCasesList) {
-        if (isEmpty(repository, testCasesList)) {
-            this.logger.warn("DMN repository or test cases list is empty; transformer will not run");
-            return new Pair<>(repository, testCasesList);
-        }
+        // Transform models
+        repository = transform(repository);
 
-        // Transform model
-        if (this.transformRepository) {
-            transform(repository);
+        // Transform test cases
+        if (isEmpty(testCasesList)) {
+            logger.warn("List of test cases is empty");
+            return new Pair<>(repository, testCasesList);
         }
 
         return new Pair<>(repository, testCasesList);

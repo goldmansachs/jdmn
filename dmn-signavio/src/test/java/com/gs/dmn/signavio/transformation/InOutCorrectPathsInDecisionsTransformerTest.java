@@ -31,8 +31,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 public class InOutCorrectPathsInDecisionsTransformerTest extends AbstractSignavioFileTransformerTest {
-    private static final ObjectMapper MAPPER = new ObjectMapper();
-
     private final InOutCorrectPathsInDecisionsTransformer transformer = new InOutCorrectPathsInDecisionsTransformer();
 
     @Test
@@ -69,7 +67,7 @@ public class InOutCorrectPathsInDecisionsTransformerTest extends AbstractSignavi
     @Test
     public void testTransformationWhenEmptyRepo() {
         DMNModelRepository repository = null;
-        transformer.transform(repository);
+        repository = transformer.transform(repository);
         Pair<DMNModelRepository, List<TestLab>> res = transformer.transform(repository, null);
         assertEquals(repository, res.getLeft());
     }
@@ -77,12 +75,12 @@ public class InOutCorrectPathsInDecisionsTransformerTest extends AbstractSignavi
     @Test
     public void testTransformationWhenEmptyConfig() {
         DMNModelRepository repository = new DMNModelRepository();
-        transformer.transform(repository);
+        repository = transformer.transform(repository);
         Pair<DMNModelRepository, List<TestLab>> res = transformer.transform(repository, null);
         assertEquals(repository, res.getLeft());
     }
 
-    private DMNModelRepository executeTransformation(URI dmnFileURI) throws Exception {
+    private DMNModelRepository executeTransformation(URI dmnFileURI) {
         File dmnFile = new File(dmnFileURI);
         DMNModelRepository repository = new SignavioDMNModelRepository(this.dmnSerializer.readModel(dmnFile));
 

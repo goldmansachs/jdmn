@@ -38,26 +38,23 @@ public class AddMissingNamespaceInTestCasesTransformer extends SimpleDMNTransfor
     @Override
     public DMNModelRepository transform(DMNModelRepository repository) {
         if (isEmpty(repository)) {
-            logger.warn("DMN repository is empty; transformer will not run");
+            logger.warn("DMN repository is empty");
             return repository;
         }
 
-        this.transformRepository = false;
         return repository;
     }
 
     @Override
     public Pair<DMNModelRepository, List<TestCases>> transform(DMNModelRepository repository, List<TestCases> testCasesList) {
-        if (isEmpty(repository, testCasesList)) {
-            logger.warn("DMN repository or test cases list is empty; transformer will not run");
+        // Transform models
+        repository = transform(repository);
+
+        // Transform test cases
+        if (isEmpty(testCasesList)) {
+            logger.warn("Test cases list is empty");
             return new Pair<>(repository, testCasesList);
         }
-
-        // Transform model
-        if (this.transformRepository) {
-            transform(repository);
-        }
-
         AddMissingImportPrefixInDTVisitor visitor = new AddMissingImportPrefixInDTVisitor(this.logger, this.errorHandler);
         TransformationContext context = new TransformationContext(repository);
         for (TestCases testCases : testCasesList) {

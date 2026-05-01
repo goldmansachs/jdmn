@@ -59,15 +59,15 @@ public class InferMissingItemDefinitionsTransformer extends AbstractMissingItemD
     @Override
     public DMNModelRepository transform(DMNModelRepository repository) {
         if (isEmpty(repository)) {
-            logger.warn("DMN repository is empty; transformer will not run");
+            logger.warn("DMN repository is empty");
             return repository;
         }
 
-        inferAndAddMissingDefinitions(repository);
-        return repository;
+        // Transform models
+        return inferAndAddMissingDefinitions(repository);
     }
 
-    private void inferAndAddMissingDefinitions(DMNModelRepository repository) {
+    private DMNModelRepository inferAndAddMissingDefinitions(DMNModelRepository repository) {
         List<TNamedElement> resolvedElements = new ArrayList<>();
         int idSequence = 0;
 
@@ -106,6 +106,8 @@ public class InferMissingItemDefinitionsTransformer extends AbstractMissingItemD
 
             iteration++;
         } while (!itemDefinitionsToAdd.isEmpty());
+
+        return repository;
     }
 
     private List<Pair<TNamedElement, Type>> inferTypes(List<TNamedElement> errorReport, DMNModelRepository repository) {
@@ -146,7 +148,7 @@ public class InferMissingItemDefinitionsTransformer extends AbstractMissingItemD
         String dialectClassName = JavaTimeSignavioDMNDialectDefinition.class.getName();
         if (configuration != null && configuration.size() != 0) {
             Object dialectNode = configuration.get(DMN_DIALECT_NAME);
-            if (dialectNode == null || configuration.values().size() != 1) {
+            if (dialectNode == null || configuration.size() != 1) {
                 reportInvalidConfig(String.format("Configuration does not have expected structure (expecting only '%s' node)", DMN_DIALECT_NAME));
             } else if (dialectNode instanceof String) {
                 dialectClassName = (String) dialectNode;

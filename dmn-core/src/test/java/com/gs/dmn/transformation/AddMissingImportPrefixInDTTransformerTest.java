@@ -92,7 +92,8 @@ public class AddMissingImportPrefixInDTTransformerTest {
         decision.setExpression(decisionTable);
         definitions.getDrgElement().add(decision);
 
-        transformer.transform(new DMNModelRepository(definitions));
+        DMNModelRepository repository = new DMNModelRepository(definitions);
+        transformer.transform(repository);
 
         // Check replacements in
         assertEquals("person.person . age", inputClause.getInputExpression().getText());

@@ -192,7 +192,7 @@ public class CorrectPathsInDecisionsTransformerTest extends AbstractSignavioFile
     public void testTransformationWhenEmptyRepo() {
         CorrectPathsInDecisionsTransformer transformer = new CorrectPathsInDecisionsTransformer();
         DMNModelRepository repository = null;
-        transformer.transform(repository);
+        repository = transformer.transform(repository);
         Pair<DMNModelRepository, List<TestLab>> res = transformer.transform(repository, null);
         assertEquals(repository, res.getLeft());
     }
@@ -201,7 +201,7 @@ public class CorrectPathsInDecisionsTransformerTest extends AbstractSignavioFile
     public void testTransformationWhenEmptyConfig() {
         CorrectPathsInDecisionsTransformer transformer = new CorrectPathsInDecisionsTransformer();
         DMNModelRepository repository = new DMNModelRepository();
-        transformer.transform(repository);
+        repository = transformer.transform(repository);
         Pair<DMNModelRepository, List<TestLab>> res = transformer.transform(repository, null);
         assertEquals(repository, res.getLeft());
     }

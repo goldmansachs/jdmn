@@ -56,10 +56,8 @@ public class GenerateMissingItemDefinitionsTransformer extends AbstractMissingIt
             return repository;
         }
 
-        addNewDefinitions(repository, this.definitions);
-
-        this.transformRepository = false;
-        return repository;
+        // Transform models
+        return addNewDefinitions(repository, this.definitions);
     }
 
     private List<TItemDefinition> parseConfigurationForDefinitions(Map<String, Object> configuration) {

@@ -34,24 +34,23 @@ public class DRGElementVariableNameTransformer<T> extends SimpleDMNTransformer<T
     @Override
     public DMNModelRepository transform(DMNModelRepository repository) {
         if (isEmpty(repository)) {
-            logger.warn("DMN repository is empty; transformer will not run");
+            logger.warn("DMN repository is empty");
             return repository;
         }
 
-        this.transformRepository = false;
+        // Transform models
         return changeVariable(repository, logger);
     }
 
     @Override
     public Pair<DMNModelRepository, List<T>> transform(DMNModelRepository repository, List<T> testCasesList) {
-        if (isEmpty(repository, testCasesList)) {
-            logger.warn("DMN repository or test cases list is empty; transformer will not run");
-            return new Pair<>(repository, testCasesList);
-        }
+        // Transform models
+        repository = transform(repository);
 
-        // Transform model
-        if (this.transformRepository) {
-            transform(repository);
+        // Transform test cases
+        if (isEmpty(testCasesList)) {
+            logger.warn("Test cases list is empty");
+            return new Pair<>(repository, testCasesList);
         }
 
         return new Pair<>(repository, testCasesList);

@@ -36,36 +36,34 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     @Override
     public DMNModelRepository transform(DMNModelRepository repository) {
         if (isEmpty(repository)) {
-            logger.warn("DMN repository is empty; transformer will not run");
+            logger.warn("DMN repository is empty");
             return repository;
         }
 
-        transformDefinitions(repository);
-        this.transformRepository = false;
-        return repository;
+        // Transform models
+        return transformDefinitions(repository);
     }
 
     @Override
     public Pair<DMNModelRepository, List<TestCases>> transform(DMNModelRepository repository, List<TestCases> testCasesList) {
-        if (isEmpty(repository, testCasesList)) {
-            logger.warn("DMN repository or test cases list is empty; transformer will not run");
-            return new Pair<>(repository, testCasesList);
-        }
+        // Transform models
+        repository = transform(repository);
 
-        // Transform model
-        if (this.transformRepository) {
-            transform(repository);
+        // Transform test cases
+        if (isEmpty(testCasesList)) {
+            logger.warn("List of test cases is empty");
+            return new Pair<>(repository, testCasesList);
         }
 
         return new Pair<>(repository, testCasesList);
     }
 
-    protected void transformDefinitions(DMNModelRepository repository) {
-        replace(repository);
+    protected DMNModelRepository transformDefinitions(DMNModelRepository repository) {
+        return replace(repository);
     }
 
     // Replace old names with new names in expressions
-    protected void replace(DMNModelRepository repository) {
+    protected DMNModelRepository replace(DMNModelRepository repository) {
         for (TDefinitions definitions: repository.getAllDefinitions()) {
             for (TDRGElement element: repository.findDRGElements(definitions)) {
                 if (element instanceof TBusinessKnowledgeModel) {
@@ -88,6 +86,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                 }
             }
         }
+        return repository;
     }
 
     // Replace old names with new names in expressions

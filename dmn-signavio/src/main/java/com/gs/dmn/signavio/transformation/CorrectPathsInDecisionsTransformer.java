@@ -62,22 +62,19 @@ public class CorrectPathsInDecisionsTransformer extends SimpleDMNTransformer<Tes
             return repository;
         }
 
-        correctDecisions(repository, this.corrections);
-
-        this.transformRepository = false;
-        return repository;
+        // Transform models
+        return correctDecisions(repository, this.corrections);
     }
 
     @Override
     public Pair<DMNModelRepository, List<TestLab>> transform(DMNModelRepository repository, List<TestLab> testCasesList) {
-        if (isEmpty(repository, testCasesList)) {
-            logger.warn("DMN repository or test list is empty; transformer will not run");
-            return new Pair<>(repository, testCasesList);
-        }
+        // Transform models
+        repository = transform(repository);
 
-        // Transform model
-        if (this.transformRepository) {
-            transform(repository);
+        // Transform test cases
+        if (isEmpty(testCasesList)) {
+            logger.warn("List of test cases is empty");
+            return new Pair<>(repository, testCasesList);
         }
 
         return new Pair<>(repository, testCasesList);
@@ -155,7 +152,7 @@ public class CorrectPathsInDecisionsTransformer extends SimpleDMNTransformer<Tes
         }
     }
 
-    private void correctDecisions(DMNModelRepository repository, List<Correction> corrections) {
+    private DMNModelRepository correctDecisions(DMNModelRepository repository, List<Correction> corrections) {
         for (Correction cor: corrections) {
             String drgName = cor.getDrgName();
             TDRGElement drgElement = repository.findDRGElementByName(drgName);
@@ -165,6 +162,7 @@ public class CorrectPathsInDecisionsTransformer extends SimpleDMNTransformer<Tes
                 reportInvalidConfig(String.format("Cannot find decision '%s'", drgName));
             }
         }
+        return repository;
     }
 
     private void correctDecision(TDecision decision, Correction cor, DMNModelRepository repository) {
