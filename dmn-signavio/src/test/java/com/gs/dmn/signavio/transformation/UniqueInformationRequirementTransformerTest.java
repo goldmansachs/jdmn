@@ -14,18 +14,17 @@ package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.*;
-import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.DMNTransformer;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class UniqueInformationRequirementTransformerTest extends AbstractSignavioFileTransformerTest {
+public class UniqueInformationRequirementTransformerTest extends AbstractSignavioDMNTransformerTest {
     private final DMNTransformer<TestLab> transformer = new UniqueInformationRequirementTransformer(LOGGER);
 
     @Test
@@ -33,10 +32,8 @@ public class UniqueInformationRequirementTransformerTest extends AbstractSignavi
         String path = "dmn/input/1.1/";
 
         // Transform DMN
-        File dmnFile = new File(resource(path + "simpleMID-with-ir-duplicates.dmn"));
-        TDefinitions definitions = this.dmnSerializer.readModel(dmnFile);
-        DMNModelRepository repository = new SignavioDMNModelRepository(definitions);
-        DMNModelRepository actualRepository = this.transformer.transform(repository);
+        URI dmnFileURI = resource(path + "simpleMID-with-ir-duplicates.dmn");
+        DMNModelRepository actualRepository = executeDMNTransformation(transformer, dmnFileURI);
 
         // Check output
         checkDefinitions(actualRepository.getRootDefinitions(), "simpleMID-with-ir-duplicates.dmn");
@@ -66,5 +63,10 @@ public class UniqueInformationRequirementTransformerTest extends AbstractSignavi
         } else {
             hrefSet.add(href);
         }
+    }
+
+    @Override
+    protected DMNTransformer<TestLab> getTransformer() {
+        return transformer;
     }
 }

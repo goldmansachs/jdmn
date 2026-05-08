@@ -228,7 +228,7 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
             List<TInputData> inputDataClass = pair.getRight();
             for (TInputData inputData : inputDataClass) {
                 if (inputData != representative) {
-                    removeDRGElement(definitions, inputData);
+                    removeDRGElement(repository, inputData);
                 }
             }
         }
@@ -279,14 +279,9 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
         return text == null ? null : text.replaceAll("\\b"+oldName+"\\b", newName);
     }
 
-    private void removeDRGElement(TDefinitions definitions, TDRGElement drgElement) {
-        TDRGElement elementToRemove = null;
-        for(TDRGElement element: definitions.getDrgElement()) {
-            if (element == drgElement) {
-                elementToRemove = element;
-            }
-        }
-        definitions.getDrgElement().remove(elementToRemove);
+    private void removeDRGElement(DMNModelRepository repository, TDRGElement drgElement) {
+        TDefinitions definitions = repository.getRootDefinitions();
+        ((SignavioDMNModelRepository) repository).removeDRGElement(definitions, drgElement);
     }
 
     private TInputData shortestName(List<TInputData> inputDataClass) {

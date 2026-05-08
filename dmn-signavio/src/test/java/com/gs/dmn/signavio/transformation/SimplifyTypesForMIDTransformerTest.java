@@ -14,15 +14,14 @@ package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDefinitions;
-import com.gs.dmn.signavio.SignavioDMNModelRepository;
-import com.gs.dmn.signavio.SignavioTestConstants;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.DMNTransformer;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.net.URI;
 
-public class SimplifyTypesForMIDTransformerTest extends AbstractSignavioFileTransformerTest {
+public class SimplifyTypesForMIDTransformerTest extends AbstractSignavioDMNTransformerTest {
     private final DMNTransformer<TestLab> transformer = new SimplifyTypesForMIDTransformer(LOGGER);
 
     @Test
@@ -30,10 +29,8 @@ public class SimplifyTypesForMIDTransformerTest extends AbstractSignavioFileTran
         String path = "dmn/dmn2java/expected/complex/";
 
         // Transform DMN
-        File dmnFile = new File(signavioResource(path + "IteratorExampleReturningMultiple.dmn"));
-        TDefinitions definitions = this.dmnSerializer.readModel(dmnFile);
-        DMNModelRepository repository = new SignavioDMNModelRepository(definitions, SignavioTestConstants.SIG_EXT_NAMESPACE);
-        DMNModelRepository actualRepository = this.transformer.transform(repository);
+        URI dmnFileURI = signavioResource(path + "IteratorExampleReturningMultiple.dmn");
+        DMNModelRepository actualRepository = executeDMNTransformation(transformer, dmnFileURI);
 
         // Check output
         checkDefinitions(actualRepository, "IteratorExampleReturningMultiple.dmn");
@@ -48,5 +45,10 @@ public class SimplifyTypesForMIDTransformerTest extends AbstractSignavioFileTran
         File expectedDMNFile = new File(signavioResource(path + fileName));
 
         compareFile(expectedDMNFile, actualDMNFile);
+    }
+
+    @Override
+    protected DMNTransformer<TestLab> getTransformer() {
+        return transformer;
     }
 }

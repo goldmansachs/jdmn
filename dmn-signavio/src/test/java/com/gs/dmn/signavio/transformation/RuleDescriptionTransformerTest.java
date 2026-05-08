@@ -15,11 +15,13 @@ package com.gs.dmn.signavio.transformation;
 import com.gs.dmn.ast.TDecisionRule;
 import com.gs.dmn.error.NopErrorHandler;
 import com.gs.dmn.log.NopBuildLogger;
+import com.gs.dmn.signavio.testlab.TestLab;
+import com.gs.dmn.transformation.DMNTransformer;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class RuleDescriptionTransformerTest extends AbstractSignavioFileTransformerTest {
+public class RuleDescriptionTransformerTest extends AbstractSignavioDMNTransformerTest {
     private final RuleDescriptionVisitor visitor = new RuleDescriptionVisitor(new NopBuildLogger(), new NopErrorHandler());
     private final RuleDescriptionTransformer transformer = new RuleDescriptionTransformer(LOGGER);
 
@@ -51,5 +53,10 @@ public class RuleDescriptionTransformerTest extends AbstractSignavioFileTransfor
         TDecisionRule rule = new TDecisionRule();
         rule.setDescription(description);
         return rule;
+    }
+
+    @Override
+    protected DMNTransformer<TestLab> getTransformer() {
+        return transformer;
     }
 }

@@ -19,11 +19,10 @@ import com.gs.dmn.ast.TDecision;
 import com.gs.dmn.ast.TDecisionTable;
 import com.gs.dmn.ast.TExpression;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.transformation.config.Correction;
 import com.gs.dmn.signavio.transformation.config.DecisionTableCorrection;
+import com.gs.dmn.transformation.DMNTransformer;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -36,96 +35,75 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CorrectPathsInDecisionsTransformerTest extends AbstractSignavioFileTransformerTest {
+public class CorrectPathsInDecisionsTransformerTest extends AbstractSignavioDMNTransformerTest {
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @Test
     public void testConfigWhenNoConfig() {
-        try {
+        DMNRuntimeException e = assertThrows(DMNRuntimeException.class, () -> {
             configTransformer(null);
-            fail("Should throw exception");
-        } catch (Exception e) {
-            assertInstanceOf(DMNRuntimeException.class, e);
-            assertEquals("Invalid transformer configuration: Incorrect or missing 'corrections' node", e.getMessage());
-        }
+        });
+        assertEquals("Invalid transformer configuration: Incorrect or missing 'corrections' node", e.getMessage());
     }
 
     @Test
     public void testConfigWhenNullCorrections() {
-        try {
+        DMNRuntimeException e = assertThrows(DMNRuntimeException.class, () -> {
             configTransformer(
                     signavioResource("dmn/dmn2java/configuration/credit-decision-with-null-corrections.json")
             );
-            fail("Should throw exception");
-        } catch (Exception e) {
-            assertInstanceOf(DMNRuntimeException.class, e);
-            assertEquals("Invalid transformer configuration: Incorrect or missing 'corrections' node", e.getMessage());
-        }
+        });
+        assertEquals("Invalid transformer configuration: Incorrect or missing 'corrections' node", e.getMessage());
     }
 
     @Test
     public void testConfigWhenEmptyCorrections() {
-        try {
+        DMNRuntimeException e = assertThrows(DMNRuntimeException.class, () -> {
             configTransformer(
                     signavioResource("dmn/dmn2java/configuration/credit-decision-with-no-corrections.json")
             );
-            fail("Should throw exception");
-        } catch (Exception e) {
-            assertInstanceOf(DMNRuntimeException.class, e);
-            assertEquals("Invalid transformer configuration: Incorrect or missing 'correction' nodes", e.getMessage());
-        }
+        });
+        assertEquals("Invalid transformer configuration: Incorrect or missing 'correction' nodes", e.getMessage());
     }
 
     @Test
     public void testConfigWhenCorrectionIsNotMap() {
-        try {
+        DMNRuntimeException e = assertThrows(DMNRuntimeException.class, () -> {
             configTransformer(
                     signavioResource("dmn/dmn2java/configuration/credit-decision-with-string-correction.json")
             );
-            fail("Should throw exception");
-        } catch (Exception e) {
-            assertInstanceOf(DMNRuntimeException.class, e);
-            assertEquals("Invalid transformer configuration: Incorrect or missing 'correction' nodes", e.getMessage());
-        }
+        });
+        assertEquals("Invalid transformer configuration: Incorrect or missing 'correction' nodes", e.getMessage());
     }
 
     @Test
     public void testConfigWhenCorrectionIsNotListOfMap() {
-        try {
+        DMNRuntimeException e = assertThrows(DMNRuntimeException.class, () -> {
             configTransformer(
                     signavioResource("dmn/dmn2java/configuration/credit-decision-with-string-corrections.json")
             );
-            fail("Should throw exception");
-        } catch (Exception e) {
-            assertInstanceOf(DMNRuntimeException.class, e);
-            assertEquals("Invalid transformer configuration: Incorrect or missing 'correction' nodes", e.getMessage());
-        }
+        });
+        assertEquals("Invalid transformer configuration: Incorrect or missing 'correction' nodes", e.getMessage());
     }
 
     @Test
     public void testConfigWhenCorrectionIsIncorrect() {
-        try {
+        DMNRuntimeException e = assertThrows(DMNRuntimeException.class, () -> {
             configTransformer(
                     signavioResource("dmn/dmn2java/configuration/credit-decision-with-incorrect-correction.json")
             );
-            fail("Should throw exception");
-        } catch (Exception e) {
-            assertInstanceOf(DMNRuntimeException.class, e);
-            assertEquals("Invalid transformer configuration: Incorrect fields in 'correction' node", e.getMessage());
-        }
+        });
+        assertEquals("Invalid transformer configuration: Incorrect fields in 'correction' node", e.getMessage());
     }
 
     @Test
     public void testConfigWhenCorrectionIndexesAreIncorrect() {
-        try {
+        DMNRuntimeException e = assertThrows(DMNRuntimeException.class, () -> {
             configTransformer(
                     signavioResource("dmn/dmn2java/configuration/credit-decision-with-incorrect-indexes.json")
             );
-            fail("Should throw exception");
-        } catch (Exception e) {
-            assertInstanceOf(DMNRuntimeException.class, e);
-            assertEquals("Invalid transformer configuration: Unexpected comma separated list of indexes '{abc=abc}'", e.getMessage());
-        }
+        });
+        assertEquals("Invalid transformer configuration: Unexpected comma separated list of indexes '{abc=abc}'", e.getMessage());
     }
 
     @Test
@@ -154,9 +132,12 @@ public class CorrectPathsInDecisionsTransformerTest extends AbstractSignavioFile
 
     @Test
     public void testTransformationNormalFlow() throws Exception {
-        DMNModelRepository repository = executeTransformation(
-                signavioResource("dmn/complex/example-credit-decision-with-incorrect-paths.dmn"),
+        CorrectPathsInDecisionsTransformer transformer = configTransformer(
                 signavioResource("dmn/dmn2java/configuration/credit-decision-with-corrections.json")
+        );
+        DMNModelRepository repository = executeDMNTransformation(
+                transformer,
+                signavioResource("dmn/complex/example-credit-decision-with-incorrect-paths.dmn")
         );
 
         String decisionName = "processPriorIssues";
@@ -172,9 +153,12 @@ public class CorrectPathsInDecisionsTransformerTest extends AbstractSignavioFile
 
     @Test
     public void testTransformationWhenNoConfiguration() throws Exception {
-        DMNModelRepository repository = executeTransformation(
-                signavioResource("dmn/complex/example-credit-decision-with-incorrect-paths.dmn"),
+        CorrectPathsInDecisionsTransformer transformer = configTransformer(
                 signavioResource("dmn/dmn2java/configuration/credit-decision-with-one-correction.json")
+        );
+        DMNModelRepository repository = executeDMNTransformation(
+                transformer,
+                signavioResource("dmn/complex/example-credit-decision-with-incorrect-paths.dmn")
         );
 
         String decisionName = "processPriorIssues";
@@ -186,32 +170,6 @@ public class CorrectPathsInDecisionsTransformerTest extends AbstractSignavioFile
         TDecisionTable decisionTable = (TDecisionTable) expression;
         assertEquals("applicant.priorIssues", decisionTable.getInput().get(0).getInputExpression().getText());
         assertEquals("(count(applicant.priorIssues)*(-5))", decisionTable.getRule().get(4).getOutputEntry().get(0).getText());
-    }
-
-    @Test
-    public void testTransformationWhenEmptyRepo() {
-        CorrectPathsInDecisionsTransformer transformer = new CorrectPathsInDecisionsTransformer();
-        DMNModelRepository repository = null;
-        repository = transformer.transform(repository);
-        Pair<DMNModelRepository, List<TestLab>> res = transformer.transform(repository, null);
-        assertEquals(repository, res.getLeft());
-    }
-
-    @Test
-    public void testTransformationWhenEmptyConfig() {
-        CorrectPathsInDecisionsTransformer transformer = new CorrectPathsInDecisionsTransformer();
-        DMNModelRepository repository = new DMNModelRepository();
-        repository = transformer.transform(repository);
-        Pair<DMNModelRepository, List<TestLab>> res = transformer.transform(repository, null);
-        assertEquals(repository, res.getLeft());
-    }
-
-    private DMNModelRepository executeTransformation(URI dmnFileURI, URI transformerConfigURI) throws Exception {
-        CorrectPathsInDecisionsTransformer transformer = configTransformer(transformerConfigURI);
-        File dmnFile = new File(dmnFileURI);
-        DMNModelRepository repository = new SignavioDMNModelRepository(this.dmnSerializer.readModel(dmnFile));
-
-        return transformer.transform(repository);
     }
 
     private CorrectPathsInDecisionsTransformer configTransformer(URI transformerConfigURI) throws IOException {
@@ -227,5 +185,10 @@ public class CorrectPathsInDecisionsTransformerTest extends AbstractSignavioFile
 
     private void checkCorrections(List<Correction> expectedCorrections, CorrectPathsInDecisionsTransformer transformer) {
         assertEquals(expectedCorrections, transformer.corrections);
+    }
+
+    @Override
+    protected DMNTransformer<TestLab> getTransformer() {
+        return new CorrectPathsInDecisionsTransformer();
     }
 }

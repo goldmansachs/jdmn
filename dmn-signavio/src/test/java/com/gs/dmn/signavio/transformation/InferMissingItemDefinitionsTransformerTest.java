@@ -17,15 +17,12 @@ import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.ast.TNamedElement;
 import com.gs.dmn.dialect.JavaTimeDMNDialectDefinition;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.signavio.SignavioDMNModelRepository;
-import com.gs.dmn.signavio.SignavioTestConstants;
 import com.gs.dmn.signavio.dialect.JavaTimeSignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.DMNTransformer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.util.*;
@@ -35,7 +32,7 @@ import static com.gs.dmn.signavio.transformation.InferMissingItemDefinitionsTran
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class InferMissingItemDefinitionsTransformerTest extends AbstractSignavioFileTransformerTest {
+public class InferMissingItemDefinitionsTransformerTest extends AbstractSignavioDMNTransformerTest {
     @Test
     public void testWhenSignavioDialect() {
         Map<String, Object> config = makeConfiguration(JavaTimeSignavioDMNDialectDefinition.class.getName());
@@ -140,8 +137,7 @@ public class InferMissingItemDefinitionsTransformerTest extends AbstractSignavio
         DMNTransformer<TestLab> transformer = new InferMissingItemDefinitionsTransformer(LOGGER);
         transformer.configure(configuration);
 
-        File dmnFile = new File(dmnFileURI);
-        DMNModelRepository repository = new SignavioDMNModelRepository(this.dmnSerializer.readModel(dmnFile), SignavioTestConstants.SIG_EXT_NAMESPACE);
+        DMNModelRepository repository = readModel(dmnFileURI);
         List<TItemDefinition> definitions = new ArrayList<>(repository.findTopLevelItemDefinitions(repository.getRootDefinitions()));
         DMNModelRepository transformed = transformer.transform(repository);
 
@@ -177,6 +173,11 @@ public class InferMissingItemDefinitionsTransformerTest extends AbstractSignavio
 
     private String toType(TItemDefinition itemDefinition) {
         return String.format("%s, %s", itemDefinition.getTypeRef(), itemDefinition.isIsCollection());
+    }
+
+    @Override
+    protected DMNTransformer<TestLab> getTransformer() {
+        return new InferMissingItemDefinitionsTransformer(LOGGER);
     }
 
     private static class RepositoryTransformResult {

@@ -186,6 +186,16 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         }
     }
 
+    public void removeDRGElement(TDefinitions definitions, TDRGElement elementToRemove) {
+        if (elementToRemove != null) {
+            // Remove from model
+            definitions.getDrgElement().remove(elementToRemove);
+            // Update cache
+            this.elementToDefinitions.remove(elementToRemove);
+        }
+    }
+
+    // TODO check if it is needed, ID must b eunique
     public TDRGElement findDRGElementById(String id) {
         String key = makeKey(id);
         TDRGElement result = cache.get(key);

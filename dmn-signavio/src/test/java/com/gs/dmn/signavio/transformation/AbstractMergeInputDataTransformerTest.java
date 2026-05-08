@@ -15,6 +15,7 @@ package com.gs.dmn.signavio.transformation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.ast.TInputData;
+import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.SignavioTestConstants;
 import com.gs.dmn.signavio.testlab.InputParameterDefinition;
@@ -22,6 +23,7 @@ import com.gs.dmn.signavio.testlab.TestLab;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -30,7 +32,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public abstract class AbstractMergeInputDataTransformerTest extends AbstractSignavioFileTransformerTest {
+public abstract class AbstractMergeInputDataTransformerTest extends AbstractSignavioDMNTransformerTest {
     protected final AbstractMergeInputDataTransformer transformer = getTransformer();
 
     protected abstract AbstractMergeInputDataTransformer getTransformer();
@@ -42,20 +44,17 @@ public abstract class AbstractMergeInputDataTransformerTest extends AbstractSign
     protected void doTransform(String dmnFileName, String testLabFileName) throws Exception {
         String path = "dmn/input/1.1/";
 
-        // Transform DMN
-        File dmnFile = new File(resource(path + dmnFileName));
-        TDefinitions definitions = this.dmnSerializer.readModel(dmnFile);
-        DMNModelRepository repository = new SignavioDMNModelRepository(definitions, SignavioTestConstants.SIG_EXT_NAMESPACE);
+        // Read DMN
+        URI dmnFileURI = resource(path + dmnFileName);
+        DMNModelRepository repository = readModel(dmnFileURI);
+
+        // Transform DMN and test cases
         Map<String, Object> config = new LinkedHashMap<>();
         config.put("forceMerge", "false");
         this.transformer.configure(config);
-        DMNModelRepository actualRepository = this.transformer.transform(repository);
-
-        // Transform TestLab
-        List<TestLab> actualTestLabList = null;
+        List<TestLab> testLabList = new ArrayList<>();
         if (testLabFileName != null) {
             File testLabFile = new File(resource(path + testLabFileName));
-            List<TestLab> testLabList = new ArrayList<>();
             if (testLabFile.isFile()) {
                 TestLab testLab = this.testSerializer.read(testLabFile);
                 testLabList.add(testLab);
@@ -64,14 +63,13 @@ public abstract class AbstractMergeInputDataTransformerTest extends AbstractSign
                     TestLab testLab = this.testSerializer.read(child);
                     testLabList.add(testLab);
                 }
-
             }
-            actualTestLabList = this.transformer.transform(actualRepository, testLabList).getRight();
         }
+        Pair<DMNModelRepository, List<TestLab>> transformedPair = this.transformer.transform(repository, testLabList);
 
         // Check output
-        TDefinitions rootDefinitions = actualRepository.getRootDefinitions();
-        check(dmnFileName, testLabFileName, rootDefinitions, actualTestLabList);
+        TDefinitions rootDefinitions = transformedPair.getLeft().getRootDefinitions();
+        check(dmnFileName, testLabFileName, rootDefinitions, transformedPair.getRight());
     }
 
     private void check(String dmnFileName, String testLabFileName, TDefinitions actualDefinitions, List<TestLab> actualTestLabList) throws Exception {

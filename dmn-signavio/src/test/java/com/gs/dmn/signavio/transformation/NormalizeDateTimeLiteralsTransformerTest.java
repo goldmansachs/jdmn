@@ -16,15 +16,17 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.error.NopErrorHandler;
 import com.gs.dmn.log.NopBuildLogger;
-import com.gs.dmn.signavio.SignavioDMNModelRepository;
+import com.gs.dmn.signavio.testlab.TestLab;
+import com.gs.dmn.transformation.DMNTransformer;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.net.URI;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class NormalizeDateTimeLiteralsTransformerTest extends AbstractSignavioFileTransformerTest {
+public class NormalizeDateTimeLiteralsTransformerTest extends AbstractSignavioDMNTransformerTest {
     private final NormalizeDateTimeLiteralsVisitor visitor = new NormalizeDateTimeLiteralsVisitor(new NopBuildLogger(), new NopErrorHandler());
     private final NormalizeDateTimeLiteralsTransformer transformer = new NormalizeDateTimeLiteralsTransformer(LOGGER);
 
@@ -44,10 +46,8 @@ public class NormalizeDateTimeLiteralsTransformerTest extends AbstractSignavioFi
         String path = "dmn/input/1.1/";
 
         // Transform DMN
-        File dmnFile = new File(resource(path + "Null Safe Tests.dmn"));
-        TDefinitions definitions = this.dmnSerializer.readModel(dmnFile);
-        DMNModelRepository repository = new SignavioDMNModelRepository(definitions);
-        DMNModelRepository actualRepository = this.transformer.transform(repository);
+        URI dmnFileURI = resource(path + "Null Safe Tests.dmn");
+        DMNModelRepository actualRepository = executeDMNTransformation(transformer, dmnFileURI);
 
         // Check output
         checkDefinitions(actualRepository, "Normalized Null Safe Tests.dmn");
@@ -62,5 +62,10 @@ public class NormalizeDateTimeLiteralsTransformerTest extends AbstractSignavioFi
         File expectedDMNFile = new File(resource(path + fileName));
 
         compareFile(expectedDMNFile, actualDMNFile);
+    }
+
+    @Override
+    protected DMNTransformer<TestLab> getTransformer() {
+        return transformer;
     }
 }

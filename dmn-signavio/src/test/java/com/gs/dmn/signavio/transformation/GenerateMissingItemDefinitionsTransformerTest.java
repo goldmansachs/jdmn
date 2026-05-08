@@ -17,7 +17,6 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.QualifiedName;
 import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.DMNTransformer;
 import org.junit.jupiter.api.Assertions;
@@ -28,7 +27,7 @@ import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class GenerateMissingItemDefinitionsTransformerTest extends AbstractSignavioFileTransformerTest {
+public class GenerateMissingItemDefinitionsTransformerTest extends AbstractSignavioDMNTransformerTest {
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @Test
@@ -133,8 +132,7 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractSigna
             transformer.configure(configuration);
         }
 
-        File dmnFile = new File(dmnFileURI);
-        DMNModelRepository repository = new SignavioDMNModelRepository(this.dmnSerializer.readModel(dmnFile));
+        DMNModelRepository repository = readModel(dmnFileURI);
         List<TItemDefinition> definitions = new ArrayList<>(repository.findTopLevelItemDefinitions(repository.getRootDefinitions()));
         DMNModelRepository transformed = transformer.transform(repository);
 
@@ -161,6 +159,11 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractSigna
         List<String> removedDefinitions = identifyNewDefinitions(transformResult.getAfterTransform(), transformResult.getBeforeTransform());
         Assertions.assertTrue(removedDefinitions.containsAll(expectedRemovedDefinitions), "Expected removed definition is still present");
         Assertions.assertEquals(expectedRemovedDefinitions.size(), removedDefinitions.size(), "Incorrect number of removed definitions");
+    }
+
+    @Override
+    protected DMNTransformer<TestLab> getTransformer() {
+        return new GenerateMissingItemDefinitionsTransformer(LOGGER);
     }
 
     private static class RepositoryTransformResult {

@@ -12,30 +12,25 @@
  */
 package com.gs.dmn.signavio.transformation;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.ast.TDecision;
 import com.gs.dmn.ast.TDecisionTable;
 import com.gs.dmn.ast.TExpression;
-import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.TestLab;
+import com.gs.dmn.transformation.DMNTransformer;
 import org.junit.jupiter.api.Test;
-
-import java.io.File;
-import java.net.URI;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
-public class InOutCorrectPathsInDecisionsTransformerTest extends AbstractSignavioFileTransformerTest {
+public class InOutCorrectPathsInDecisionsTransformerTest extends AbstractSignavioDMNTransformerTest {
     private final InOutCorrectPathsInDecisionsTransformer transformer = new InOutCorrectPathsInDecisionsTransformer();
 
     @Test
-    public void testTransformationNormalFlow() throws Exception {
-        DMNModelRepository repository = executeTransformation(
+    public void testTransformationNormalFlow() {
+        DMNModelRepository repository = executeDMNTransformation(
+                transformer,
                 signavioResource("dmn/complex/example-in-out-credit-decision-with-incorrect-paths.dmn")
         );
 
@@ -64,26 +59,8 @@ public class InOutCorrectPathsInDecisionsTransformerTest extends AbstractSignavi
         assertEquals("assessIssueRisk", thirdDecisionTable.getRule().get(1).getOutputEntry().get(0).getText());
     }
 
-    @Test
-    public void testTransformationWhenEmptyRepo() {
-        DMNModelRepository repository = null;
-        repository = transformer.transform(repository);
-        Pair<DMNModelRepository, List<TestLab>> res = transformer.transform(repository, null);
-        assertEquals(repository, res.getLeft());
-    }
-
-    @Test
-    public void testTransformationWhenEmptyConfig() {
-        DMNModelRepository repository = new DMNModelRepository();
-        repository = transformer.transform(repository);
-        Pair<DMNModelRepository, List<TestLab>> res = transformer.transform(repository, null);
-        assertEquals(repository, res.getLeft());
-    }
-
-    private DMNModelRepository executeTransformation(URI dmnFileURI) {
-        File dmnFile = new File(dmnFileURI);
-        DMNModelRepository repository = new SignavioDMNModelRepository(this.dmnSerializer.readModel(dmnFile));
-
-        return transformer.transform(repository);
+    @Override
+    protected DMNTransformer<TestLab> getTransformer() {
+        return transformer;
     }
 }
