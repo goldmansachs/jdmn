@@ -15,6 +15,7 @@ package com.gs.dmn.signavio.transformation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.QualifiedName;
+import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.signavio.testlab.TestLab;
@@ -133,10 +134,12 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractSigna
         }
 
         DMNModelRepository repository = readModel(dmnFileURI);
-        List<TItemDefinition> definitions = new ArrayList<>(repository.findTopLevelItemDefinitions(repository.getRootDefinitions()));
+        TDefinitions rootDefinitions = getDefinitions(repository);
+        List<TItemDefinition> definitions = new ArrayList<>(repository.findTopLevelItemDefinitions(rootDefinitions));
         DMNModelRepository transformed = transformer.transform(repository);
 
-        List<TItemDefinition> transformedDefinitions = new ArrayList<>(transformed.findTopLevelItemDefinitions(transformed.getRootDefinitions()));
+        TDefinitions transformedRootDefinitions = getDefinitions(transformed);
+        List<TItemDefinition> transformedDefinitions = new ArrayList<>(transformed.findTopLevelItemDefinitions(transformedRootDefinitions));
         return new RepositoryTransformResult(definitions, transformedDefinitions);
     }
 

@@ -30,18 +30,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class DMNModelRepositoryTest extends AbstractTest {
     private DMNModelRepository dmnModelRepository;
+    private TDefinitions definitions;
     private final DMNSerializer dmnSerializer = new XMLDMNSerializer(LOGGER, this.inputParameters);
 
     @BeforeEach
     public void setUp() {
         String pathName = "tck/1.1/cl3/0004-lending/0004-lending.dmn";
         this.dmnModelRepository = readModels(pathName);
+        this.definitions = getDefinitions(this.dmnModelRepository);
     }
 
     @Test
     public void testFindDecisionByRef() {
         String id = "d_BureauCallType";
-        TDefinitions definitions = this.dmnModelRepository.getRootDefinitions();
         String namespace = definitions.getNamespace();
         TDecision decision = this.dmnModelRepository.findDecisionByRef(null, namespace + "#" + id);
         assertEquals(id, decision.getId());
@@ -63,7 +64,6 @@ public class DMNModelRepositoryTest extends AbstractTest {
 
     @Test
     public void testDirectInputDatas() {
-        TDefinitions definitions = this.dmnModelRepository.getRootDefinitions();
         TDRGElement root = this.dmnModelRepository.findDRGElementByName(definitions, "Adjudication");
         List<DRGElementReference<TInputData>> references = this.dmnModelRepository.directInputDatas(root);
         this.dmnModelRepository.sortNamedElementReferences(references);
@@ -79,7 +79,6 @@ public class DMNModelRepositoryTest extends AbstractTest {
 
     @Test
     public void testAllInputDatas() {
-        TDefinitions definitions = this.dmnModelRepository.getRootDefinitions();
         TDRGElement root = this.dmnModelRepository.findDRGElementByName(definitions, "Pre-bureauAffordability");
         List<DRGElementReference<TInputData>> references = this.dmnModelRepository.inputDataClosure(makeRootReference(root), new DRGElementFilter(true));
         this.dmnModelRepository.sortNamedElementReferences(references);
@@ -94,7 +93,6 @@ public class DMNModelRepositoryTest extends AbstractTest {
 
     @Test
     public void testDirectSubDecisions() {
-        TDefinitions definitions = this.dmnModelRepository.getRootDefinitions();
         TDRGElement root = this.dmnModelRepository.findDRGElementByName(definitions, "Strategy");
         List<DRGElementReference<TDecision>> references = this.dmnModelRepository.directSubDecisions(root);
 
@@ -108,7 +106,6 @@ public class DMNModelRepositoryTest extends AbstractTest {
 
     @Test
     public void testDirectSubInvocables() {
-        TDefinitions definitions = this.dmnModelRepository.getRootDefinitions();
         TDRGElement root = this.dmnModelRepository.findDRGElementByName(definitions, "BureauCallType");
         List<DRGElementReference<TInvocable>> references = this.dmnModelRepository.directSubInvocables(root);
 

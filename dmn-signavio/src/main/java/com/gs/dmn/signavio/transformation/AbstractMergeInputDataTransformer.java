@@ -155,13 +155,12 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
         this.inputDataClasses = inputDataEquivalenceClasses(repository);
 
         // For each equivalence class
-        TDefinitions definitions = repository.getRootDefinitions();
         for (Pair<TInputData, List<TInputData>> pair : inputDataClasses.values()) {
             TInputData representative = pair.getLeft();
             List<TInputData> inputDataInClass = pair.getRight();
             if (inputDataInClass.size() >= 2) {
                 // For each decision
-                List<TDecision> decisions = repository.findDecisions(definitions);
+                List<TDecision> decisions = repository.findAllDecisions();
                 for(TDecision decision: decisions) {
                     // Replace InputData in InformationRequirements with representative
                     List<TInformationRequirement> informationRequirementList = decision.getInformationRequirement();
@@ -249,8 +248,7 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
 
     private Map<String, Pair<TInputData, List<TInputData>>> inputDataEquivalenceClasses(DMNModelRepository repository) {
         Map<String, Pair<TInputData, List<TInputData>>> inputDataClasses = new LinkedHashMap<>();
-        TDefinitions definitions = repository.getRootDefinitions();
-        List<TInputData> inputDataList = repository.findInputDatas(definitions);
+        List<TInputData> inputDataList = repository.findAllInputDatas();
         for(TInputData inputData: inputDataList) {
             if (!isIterator(inputData, repository)) {
                 String key = equivalenceKey(inputData, repository);
@@ -280,8 +278,7 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
     }
 
     private void removeDRGElement(DMNModelRepository repository, TDRGElement drgElement) {
-        TDefinitions definitions = repository.getRootDefinitions();
-        ((SignavioDMNModelRepository) repository).removeDRGElement(definitions, drgElement);
+        ((SignavioDMNModelRepository) repository).removeDRGElement(drgElement);
     }
 
     private TInputData shortestName(List<TInputData> inputDataClass) {

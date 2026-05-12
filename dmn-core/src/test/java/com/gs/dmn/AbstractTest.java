@@ -12,6 +12,8 @@
  */
 package com.gs.dmn;
 
+import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.error.SemanticErrorException;
 import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
@@ -75,5 +77,14 @@ public abstract class AbstractTest {
 
     protected ItemDefinitionType makeItemDefinitionType(String itemDefinitionName) {
         return new ItemDefinitionType(itemDefinitionName, "model name");
+    }
+
+    protected TDefinitions getDefinitions(DMNModelRepository repository) {
+        int size = repository.getAllDefinitions().size();
+        if (size == 1) {
+            return repository.allDefinitions.get(0);
+        } else {
+            throw new SemanticErrorException(String.format("Cannot resolve root DM, there are '%d' DMs", size));
+        }
     }
 }

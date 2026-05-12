@@ -68,7 +68,7 @@ public abstract class AbstractMergeInputDataTransformerTest extends AbstractSign
         Pair<DMNModelRepository, List<TestLab>> transformedPair = this.transformer.transform(repository, testLabList);
 
         // Check output
-        TDefinitions rootDefinitions = transformedPair.getLeft().getRootDefinitions();
+        TDefinitions rootDefinitions = getDefinitions(transformedPair.getLeft());
         check(dmnFileName, testLabFileName, rootDefinitions, transformedPair.getRight());
     }
 

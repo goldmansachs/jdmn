@@ -28,6 +28,18 @@ import javax.xml.namespace.QName;
 import java.util.List;
 
 public abstract class AbstractMissingItemDefinitionsTransformer extends SimpleDMNTransformer<TestLab> {
+    // Pre-condition: one single model
+    private static TDefinitions getModel(DMNModelRepository repository) {
+        List<TDefinitions> models = repository.getAllDefinitions();
+        TDefinitions model = null;
+        if (models.size() == 1) {
+            model = models.get(0);
+        } else {
+            throw new DMNRuntimeException(String.format("Not supported for %s models", models.size()));
+        }
+        return model;
+    }
+
     protected AbstractMissingItemDefinitionsTransformer() {
         this(new Slf4jBuildLogger(LOGGER));
     }
@@ -36,9 +48,9 @@ public abstract class AbstractMissingItemDefinitionsTransformer extends SimpleDM
         super(logger);
     }
 
-    protected DMNModelRepository addNewDefinitions(DMNModelRepository repository, List<TItemDefinition> definitions) {
-        TDefinitions model = repository.getRootDefinitions();
-        for (TItemDefinition definition : definitions) {
+    protected DMNModelRepository addNewDefinitions(DMNModelRepository repository, List<TItemDefinition> itemDefinitionList) {
+        TDefinitions model = getModel(repository);
+        for (TItemDefinition definition : itemDefinitionList) {
             TItemDefinition existingDefinition = repository.lookupItemDefinition(model, QualifiedName.toQualifiedName(model, definition.getName()));
             if (existingDefinition != null) {
                 if (definitionsAreEquivalent(definition, existingDefinition)) {

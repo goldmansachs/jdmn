@@ -36,21 +36,23 @@ public class UniqueInformationRequirementTransformerTest extends AbstractSignavi
         DMNModelRepository actualRepository = executeDMNTransformation(transformer, dmnFileURI);
 
         // Check output
-        checkDefinitions(actualRepository.getRootDefinitions(), "simpleMID-with-ir-duplicates.dmn");
+        checkDefinitions(actualRepository.getAllDefinitions(), "simpleMID-with-ir-duplicates.dmn");
     }
 
-    private void checkDefinitions(TDefinitions actualDefinitions, String fileName) {
-        for (TDRGElement drgElement: actualDefinitions.getDrgElement()) {
-            if (drgElement instanceof TDecision) {
-                List<String> hrefSet = new ArrayList<>();
-                for (TInformationRequirement ir: ((TDecision) drgElement).getInformationRequirement()) {
-                    TDMNElementReference requiredInput = ir.getRequiredInput();
-                    TDMNElementReference requiredDecision = ir.getRequiredDecision();
-                    if (requiredInput != null) {
-                        checkIR(drgElement, hrefSet, requiredInput.getHref());
-                    }
-                    if (requiredDecision != null) {
-                        checkIR(drgElement, hrefSet, requiredDecision.getHref());
+    private void checkDefinitions(List<TDefinitions> actualDefinitionsList, String fileName) {
+        for (TDefinitions actualDefinitions : actualDefinitionsList) {
+            for (TDRGElement drgElement: actualDefinitions.getDrgElement()) {
+                if (drgElement instanceof TDecision) {
+                    List<String> hrefSet = new ArrayList<>();
+                    for (TInformationRequirement ir: ((TDecision) drgElement).getInformationRequirement()) {
+                        TDMNElementReference requiredInput = ir.getRequiredInput();
+                        TDMNElementReference requiredDecision = ir.getRequiredDecision();
+                        if (requiredInput != null) {
+                            checkIR(drgElement, hrefSet, requiredInput.getHref());
+                        }
+                        if (requiredDecision != null) {
+                            checkIR(drgElement, hrefSet, requiredDecision.getHref());
+                        }
                     }
                 }
             }

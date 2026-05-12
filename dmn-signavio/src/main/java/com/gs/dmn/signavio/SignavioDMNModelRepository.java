@@ -186,27 +186,28 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         }
     }
 
-    public void removeDRGElement(TDefinitions definitions, TDRGElement elementToRemove) {
+    public void removeDRGElement(TDRGElement elementToRemove) {
         if (elementToRemove != null) {
             // Remove from model
+            TDefinitions definitions = getModel(elementToRemove);
             definitions.getDrgElement().remove(elementToRemove);
             // Update cache
             this.elementToDefinitions.remove(elementToRemove);
         }
     }
 
-    // TODO check if it is needed, ID must b eunique
     public TDRGElement findDRGElementById(String id) {
         String key = makeKey(id);
         TDRGElement result = cache.get(key);
         if (result == null) {
-            TDefinitions definitions = getRootDefinitions();
-            List<TDRGElement> drgElements = findDRGElements(definitions);
-            for (TDRGElement element: drgElements) {
-                if (sameId(element, id)) {
-                    result = element;
-                    cache.put(key, result);
-                    break;
+            for (TDefinitions definitions : getAllDefinitions()) {
+                List<TDRGElement> drgElements = findDRGElements(definitions);
+                for (TDRGElement element: drgElements) {
+                    if (sameId(element, id)) {
+                        result = element;
+                        cache.put(key, result);
+                        break;
+                    }
                 }
             }
         }
@@ -217,13 +218,14 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         String key = makeKey(diagramId, shapeId);
         TDRGElement result = cache.get(key);
         if (result == null) {
-            TDefinitions definitions = getRootDefinitions();
-            List<TDRGElement> drgElements = findDRGElements(definitions);
-            for (TDRGElement element: drgElements) {
-                if (idEndsWith(element, shapeId) || (sameDiagramId(element, diagramId) && sameShapeId(element, shapeId))) {
-                    result = element;
-                    cache.put(key, result);
-                    break;
+            for (TDefinitions definitions : getAllDefinitions()) {
+                List<TDRGElement> drgElements = findDRGElements(definitions);
+                for (TDRGElement element: drgElements) {
+                    if (idEndsWith(element, shapeId) || (sameDiagramId(element, diagramId) && sameShapeId(element, shapeId))) {
+                        result = element;
+                        cache.put(key, result);
+                        break;
+                    }
                 }
             }
         }
@@ -234,26 +236,27 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         String key = makeKey(label, diagramId, shapeId);
         TDRGElement result = cache.get(key);
         if (result == null) {
-            TDefinitions definitions = getRootDefinitions();
-            List<TDRGElement> drgElements = findDRGElements(definitions);
-            List<TDRGElement> elements = drgElements.stream().filter(element -> sameLabel(element, label)).collect(Collectors.toList());
-            if (elements.size() == 0) {
-                result = null;
-            } else if (elements.size() == 1) {
-                result = elements.get(0);
-            } else {
-                List<TDRGElement> sameShapeIdElements = elements.stream().filter(e -> sameShapeId(e, shapeId)).collect(Collectors.toList());
-                QName diagramQName = getDiagramIdQName();
-                String newDiagramID = elements.stream().filter(e -> sameShapeId(e, shapeId)).map(e -> e.getOtherAttributes().get(diagramQName)).collect(Collectors.joining(", "));
-                if (sameShapeIdElements.size() == 1) {
-                    LOGGER.warn(String.format("Incorrect diagramId for test input with label '%s' diagramId='%s' shapeId='%s'. DiagramId should be '%s'", label, diagramId, shapeId, newDiagramID));
-                    result = sameShapeIdElements.get(0);
+            for (TDefinitions definitions : getAllDefinitions()) {
+                List<TDRGElement> drgElements = findDRGElements(definitions);
+                List<TDRGElement> elements = drgElements.stream().filter(element -> sameLabel(element, label)).collect(Collectors.toList());
+                if (elements.size() == 0) {
+                    result = null;
+                } else if (elements.size() == 1) {
+                    result = elements.get(0);
                 } else {
-                    throw new DMNRuntimeException(String.format("Multiple DRGElements for label '%s' with diagramId='%s' shapeId='%s'. Diagram ID should be one of '%s'", label, diagramId, shapeId, newDiagramID));
+                    List<TDRGElement> sameShapeIdElements = elements.stream().filter(e -> sameShapeId(e, shapeId)).collect(Collectors.toList());
+                    QName diagramQName = getDiagramIdQName();
+                    String newDiagramID = elements.stream().filter(e -> sameShapeId(e, shapeId)).map(e -> e.getOtherAttributes().get(diagramQName)).collect(Collectors.joining(", "));
+                    if (sameShapeIdElements.size() == 1) {
+                        LOGGER.warn(String.format("Incorrect diagramId for test input with label '%s' diagramId='%s' shapeId='%s'. DiagramId should be '%s'", label, diagramId, shapeId, newDiagramID));
+                        result = sameShapeIdElements.get(0);
+                    } else {
+                        throw new DMNRuntimeException(String.format("Multiple DRGElements for label '%s' with diagramId='%s' shapeId='%s'. Diagram ID should be one of '%s'", label, diagramId, shapeId, newDiagramID));
+                    }
                 }
-            }
-            if (result != null) {
-                cache.put(key, result);
+                if (result != null) {
+                    cache.put(key, result);
+                }
             }
         }
         return result;

@@ -25,6 +25,7 @@ import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.feel.analysis.semantics.type.YearsAndMonthsDurationType;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.log.NopBuildLogger;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.tck.ast.AnySimpleType;
 import com.gs.dmn.tck.ast.Component;
@@ -80,13 +81,9 @@ public class MockTCKValueTranslatorTest extends AbstractTest {
 
     private static DMNModelRepository readModel() {
         File dmnFile = new File(Objects.requireNonNull(MockTCKValueTranslatorTest.class.getClassLoader().getResource("dmn/input/1.5/test-mock-translator.dmn")).getFile());
-        DMNSerializer dmnSerializer = new JavaTimeDMNDialectDefinition().createDMNSerializer(new NopBuildLogger(), new InputParameters());
+        DMNSerializer dmnSerializer = DIALECT.createDMNSerializer(new NopBuildLogger(), new InputParameters());
         TDefinitions model = dmnSerializer.readModel(dmnFile);
         return new DMNModelRepository(model);
-    }
-
-    private static TDRGElement findElement(String name) {
-        return REPOSITORY.getRootDefinitions().getDrgElement().stream().filter(p -> p.getName().equals(name)).findFirst().orElseThrow();
     }
 
     @Test
@@ -239,6 +236,16 @@ public class MockTCKValueTranslatorTest extends AbstractTest {
 
     private void doTest(String expected, ValueType value, Type type, TDRGElement element) {
         assertEquals(expected, translator.toNativeExpression(value, type, element));
+    }
+
+    private TDRGElement findElement(String name) {
+        TDefinitions model = getDefinitions(REPOSITORY);
+        for (TDRGElement drgElement : model.getDrgElement()) {
+            if (drgElement.getName().equals(name)) {
+                return drgElement;
+            }
+        }
+        throw new DMNRuntimeException(String.format("Cannot find element %s'", name));
     }
 
     private ValueType makeSimpleValue(Object value) {

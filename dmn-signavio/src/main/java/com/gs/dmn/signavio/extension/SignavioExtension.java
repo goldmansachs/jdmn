@@ -51,21 +51,21 @@ public class SignavioExtension {
             if (extension instanceof ReferencedService) {
                 ReferencedService referencedService = (ReferencedService) extension;
                 String serviceId = referencedService.getHref();
-                TDefinitions definitions = dmnModelRepository.getRootDefinitions();
-                return decisionService(definitions, serviceId);
+                return decisionService(dmnModelRepository.getAllDefinitions(), serviceId);
             } else {
                 String serviceId = getAttributeByName((Element) extension, "href");
-                TDefinitions definitions = dmnModelRepository.getRootDefinitions();
-                return decisionService(definitions, serviceId);
+                return decisionService(dmnModelRepository.getAllDefinitions(), serviceId);
             }
         }
     }
 
-    private TDecisionService decisionService(TDefinitions definitions, String serviceId) {
-        List<Object> elementList = findExtensions(definitions.getExtensionElements(), LATEST.getNamespace(), "decisionService");
-        for (Object element: elementList) {
-            if (element instanceof TDecisionService && dmnModelRepository.sameId((TNamedElement) element, serviceId)) {
-                return (TDecisionService) element;
+    private TDecisionService decisionService(List<TDefinitions> definitionsList, String serviceId) {
+        for (TDefinitions definitions : definitionsList) {
+            List<Object> elementList = findExtensions(definitions.getExtensionElements(), LATEST.getNamespace(), "decisionService");
+            for (Object element: elementList) {
+                if (element instanceof TDecisionService && dmnModelRepository.sameId((TNamedElement) element, serviceId)) {
+                    return (TDecisionService) element;
+                }
             }
         }
         throw new DMNRuntimeException(String.format("Cannot find Decision service '%s'", serviceId));

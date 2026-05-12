@@ -13,6 +13,7 @@
 package com.gs.dmn.signavio.testlab;
 
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
@@ -63,6 +64,14 @@ public abstract class AbstractTestLabToJUnitTransformerTest<NUMBER, DATE, TIME, 
         inputParams.put("signavioSchemaNamespace", SignavioTestConstants.SIG_EXT_NAMESPACE);
         return inputParams;
    }
+
+    protected void doMultipleModelTest(String relativePath, Pair<String, String>... extraInputParameters) throws Exception {
+        String path = getInputPath() + "/" + relativePath;
+        String expectedOutputPath = getExpectedPath() + "/" + relativePath;
+        String decodedInputTestFilePath = URLDecoder.decode(signavioResource(path).getPath(), StandardCharsets.UTF_8);
+        String decodedInputModelFilePath = URLDecoder.decode(signavioResource(path).getPath(), StandardCharsets.UTF_8);
+        doTest(decodedInputTestFilePath, decodedInputModelFilePath, expectedOutputPath);
+    }
 
     public void doTest(String name) throws Exception {
         String path = getInputPath() + "/";

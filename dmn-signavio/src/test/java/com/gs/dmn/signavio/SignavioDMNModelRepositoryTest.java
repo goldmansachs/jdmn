@@ -45,7 +45,7 @@ class SignavioDMNModelRepositoryTest extends AbstractTest {
     @Test
     void testGetGlossaryId() {
         assertNull(this.dmnModelRepository.getGlossaryId(null));
-        TDefinitions model = this.dmnModelRepository.getAllDefinitions().get(0);
+        TDefinitions model = getDefinitions(this.dmnModelRepository);
         assertNotNull(model);
         TItemDefinition itemDefinition = this.dmnModelRepository.lookupItemDefinition(model, QualifiedName.toQualifiedName(model, "creditIssueType"));
         assertNotNull(itemDefinition);

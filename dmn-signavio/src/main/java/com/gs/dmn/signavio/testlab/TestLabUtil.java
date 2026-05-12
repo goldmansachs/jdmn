@@ -49,7 +49,7 @@ public class TestLabUtil {
         if (dmnModelRepository instanceof SignavioDMNModelRepository) {
             this.repository = (SignavioDMNModelRepository) dmnModelRepository;
         } else {
-            this.repository = new SignavioDMNModelRepository(dmnModelRepository.getRootDefinitions());
+            this.repository = new SignavioDMNModelRepository(dmnModelRepository.getAllDefinitions());
         }
         this.transformer = transformer;
         this.nativeFactory = transformer.getNativeFactory();

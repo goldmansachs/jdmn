@@ -1,0 +1,183 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "dmnNamespaces" : [ "http://www.provider.com/dmn/1.1/diagram/c3d5f975281b4d2f829ee2c77b320f01.xml", "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml" ],
+  "nativeNamespace" : "",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "id" : "http://www.provider.com/dmn/1.1/diagram/c3d5f975281b4d2f829ee2c77b320f01.xml#id-b06eb129b14470365f5372c2e46a27f3",
+    "isCollection" : false,
+    "label" : "abc",
+    "name" : "abc",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/c3d5f975281b4d2f829ee2c77b320f01.xml",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "id" : "http://www.provider.com/dmn/1.1/diagram/c3d5f975281b4d2f829ee2c77b320f01.xml#id-e49de84a20b6287cfdee3034b2107068",
+    "isCollection" : false,
+    "label" : "num",
+    "name" : "num",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/c3d5f975281b4d2f829ee2c77b320f01.xml",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "id" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml#id-b06eb129b14470365f5372c2e46a27f3",
+    "isCollection" : false,
+    "label" : "abc",
+    "name" : "abc",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "id" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml#id-e49de84a20b6287cfdee3034b2107068",
+    "isCollection" : false,
+    "label" : "num",
+    "name" : "num",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "id" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml#id-87d760e7d14455750f2b0af746d82902",
+    "isCollection" : false,
+    "label" : "SomethingElse",
+    "name" : "somethingElse",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "diagramId" : "c3d5f975281b4d2f829ee2c77b320f01",
+    "id" : "http://www.provider.com/dmn/1.1/diagram/c3d5f975281b4d2f829ee2c77b320f01.xml#id-633e1930a1ad44cae56744496cd663d3",
+    "javaParameterName" : "num",
+    "javaTypeName" : "java.lang.Number",
+    "label" : "num",
+    "name" : "num",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/c3d5f975281b4d2f829ee2c77b320f01.xml",
+    "shapeId" : "sid-5839E07F-9439-46C5-B92F-7588F17E0A7C",
+    "typeRef" : {
+      "localName" : "num",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/c3d5f975281b4d2f829ee2c77b320f01.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : "c3d5f975281b4d2f829ee2c77b320f01",
+    "extensions" : [ ],
+    "id" : "http://www.provider.com/dmn/1.1/diagram/c3d5f975281b4d2f829ee2c77b320f01.xml#id-cd02eb803eaf0f5bf6ae1823636939db",
+    "informationReferences" : [ {
+      "reference" : "http://www.provider.com/dmn/1.1/diagram/c3d5f975281b4d2f829ee2c77b320f01.xml#id-633e1930a1ad44cae56744496cd663d3"
+    } ],
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "abc",
+    "javaTypeName" : "child.Abc",
+    "knowledgeReferences" : [ ],
+    "label" : "abc",
+    "name" : "abc",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/c3d5f975281b4d2f829ee2c77b320f01.xml",
+    "shapeId" : "sid-A551A6AD-049D-440F-9277-A5292F4BB5ED",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : "c3d5f975281b4d2f829ee2c77b320f01",
+      "id" : "http://www.provider.com/dmn/1.1/diagram/c3d5f975281b4d2f829ee2c77b320f01.xml#id-633e1930a1ad44cae56744496cd663d3",
+      "javaParameterName" : "num",
+      "javaTypeName" : "java.lang.Number",
+      "label" : "num",
+      "name" : "num",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/c3d5f975281b4d2f829ee2c77b320f01.xml",
+      "shapeId" : "sid-5839E07F-9439-46C5-B92F-7588F17E0A7C",
+      "typeRef" : {
+        "localName" : "num",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/c3d5f975281b4d2f829ee2c77b320f01.xml"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "abc",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/c3d5f975281b4d2f829ee2c77b320f01.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : "80afa9e878bb4885a8f5be36b6f16abc",
+    "extensions" : [ ],
+    "id" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml#id-7c5358c692497488ed1b1023189410fb",
+    "informationReferences" : [ {
+      "reference" : "http://www.provider.com/dmn/1.1/diagram/c3d5f975281b4d2f829ee2c77b320f01.xml#id-cd02eb803eaf0f5bf6ae1823636939db"
+    } ],
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "childObject",
+    "javaTypeName" : "parentlinked.ChildObject",
+    "knowledgeReferences" : [ ],
+    "label" : "ChildObject",
+    "name" : "childObject",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml",
+    "shapeId" : "sid-3551B993-B042-466B-B0CD-B5EE8B6C192B",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : "c3d5f975281b4d2f829ee2c77b320f01",
+      "id" : "http://www.provider.com/dmn/1.1/diagram/c3d5f975281b4d2f829ee2c77b320f01.xml#id-633e1930a1ad44cae56744496cd663d3",
+      "javaParameterName" : "num",
+      "javaTypeName" : "java.lang.Number",
+      "label" : "num",
+      "name" : "num",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/c3d5f975281b4d2f829ee2c77b320f01.xml",
+      "shapeId" : "sid-5839E07F-9439-46C5-B92F-7588F17E0A7C",
+      "typeRef" : {
+        "localName" : "num",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/c3d5f975281b4d2f829ee2c77b320f01.xml"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "abc",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : "80afa9e878bb4885a8f5be36b6f16abc",
+    "extensions" : [ ],
+    "id" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml#id-6c8cb98cfc4743b1066d1f6ed28f3f10",
+    "informationReferences" : [ {
+      "reference" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml#id-7c5358c692497488ed1b1023189410fb"
+    } ],
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "somethingElse",
+    "javaTypeName" : "parentlinked.SomethingElse",
+    "knowledgeReferences" : [ ],
+    "label" : "SomethingElse",
+    "name" : "somethingElse",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml",
+    "shapeId" : "sid-89A9C1A5-1701-4289-9DFE-9FF6223528C7",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : "c3d5f975281b4d2f829ee2c77b320f01",
+      "id" : "http://www.provider.com/dmn/1.1/diagram/c3d5f975281b4d2f829ee2c77b320f01.xml#id-633e1930a1ad44cae56744496cd663d3",
+      "javaParameterName" : "num",
+      "javaTypeName" : "java.lang.Number",
+      "label" : "num",
+      "name" : "num",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/c3d5f975281b4d2f829ee2c77b320f01.xml",
+      "shapeId" : "sid-5839E07F-9439-46C5-B92F-7588F17E0A7C",
+      "typeRef" : {
+        "localName" : "num",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/c3d5f975281b4d2f829ee2c77b320f01.xml"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "somethingElse",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml"
+    }
+  } ]
+}

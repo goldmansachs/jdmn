@@ -38,7 +38,7 @@ public class SimplifyTypesForMIDTransformerTest extends AbstractSignavioDMNTrans
 
     private void checkDefinitions(DMNModelRepository repository, String fileName) throws Exception {
         File actualDMNFile = new File("target/" + fileName);
-        TDefinitions actualDefinitions = repository.getRootDefinitions();
+        TDefinitions actualDefinitions = getDefinitions(repository);
         this.dmnSerializer.writeModel(actualDefinitions, actualDMNFile);
 
         String path = "dmn/dmn2java/expected/complex/";

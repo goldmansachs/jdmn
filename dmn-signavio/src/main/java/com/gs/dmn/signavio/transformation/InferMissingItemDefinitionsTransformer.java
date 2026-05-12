@@ -102,7 +102,7 @@ public class InferMissingItemDefinitionsTransformer extends AbstractMissingItemD
                 }
             }
             // Add new ItemDefinitions and try again
-            this.addNewDefinitions(repository, itemDefinitionsToAdd);
+            repository = this.addNewDefinitions(repository, itemDefinitionsToAdd);
 
             iteration++;
         } while (!itemDefinitionsToAdd.isEmpty());

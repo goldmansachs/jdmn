@@ -45,7 +45,7 @@ public class SparseDecisionDetectorTest extends AbstractTest {
 
     @Test
     public void testLazyEvaluationOptimisation() {
-        Map<String, String> inputParametersMap = new LinkedHashMap<String, String>() {{
+        Map<String, String> inputParametersMap = new LinkedHashMap<>() {{
             put("sparsityThreshold", "0.10");
         }};
         this.detector = new SparseDecisionDetector(makeInputParameters(inputParametersMap), LOGGER);
@@ -56,13 +56,13 @@ public class SparseDecisionDetectorTest extends AbstractTest {
 
     @Test
     public void testIsSparseDecisionTable() {
-        TDefinitions definitions = this.dmnModelRepository.getRootDefinitions();
+        TDefinitions definitions = getDefinitions(this.dmnModelRepository);
         checkDecisionTable(this.dmnModelRepository.findDRGElementByName(definitions, "EligibilityRules"), 0.75, true);
         checkDecisionTable(this.dmnModelRepository.findDRGElementByName(definitions, "Strategy"), 0.75, false);
     }
 
     private void checkDecisionTable(TDRGElement element, Double sparsityThreshold, boolean expectedResult) {
-        Map<String, String> inputParametersMap = new LinkedHashMap<String, String>() {{
+        Map<String, String> inputParametersMap = new LinkedHashMap<>() {{
             put("sparsityThreshold", sparsityThreshold.toString());
         }};
         this.detector = new SparseDecisionDetector(makeInputParameters(inputParametersMap), LOGGER);

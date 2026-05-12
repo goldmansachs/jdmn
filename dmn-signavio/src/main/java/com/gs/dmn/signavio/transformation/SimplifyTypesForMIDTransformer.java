@@ -80,8 +80,7 @@ public class SimplifyTypesForMIDTransformer extends SimpleDMNTransformer<TestLab
         if (repository instanceof SignavioDMNModelRepository) {
             signavioRepository = (SignavioDMNModelRepository) repository;
         } else {
-            TDefinitions definitions = repository.getRootDefinitions();
-            signavioRepository = new SignavioDMNModelRepository(definitions);
+            signavioRepository = new SignavioDMNModelRepository(repository.getAllDefinitions());
         }
         for (TDefinitions definitions: signavioRepository.getAllDefinitions()) {
             for (TDecision decision: signavioRepository.findDecisions(definitions)) {

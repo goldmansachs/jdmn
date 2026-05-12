@@ -185,15 +185,6 @@ public class DMNModelRepository {
         return DMNVersion.LATEST.getNamespace().equals(import_.getImportType());
     }
 
-    public TDefinitions getRootDefinitions() {
-        int size = this.getAllDefinitions().size();
-        if (size == 1) {
-            return this.allDefinitions.get(0);
-        } else {
-            throw new SemanticErrorException(String.format("Cannot resolve root DM, there are '%d' DMs", size));
-        }
-    }
-
     public List<TDefinitions> getAllDefinitions() {
         return this.allDefinitions;
     }
@@ -302,12 +293,28 @@ public class DMNModelRepository {
         return definitions.getDrgElement();
     }
 
+    public List<TDecision> findAllDecisions() {
+        List<TDecision> result = new ArrayList<>();
+        for (TDefinitions definitions : this.getAllDefinitions()) {
+            result.addAll(findDecisions(definitions));
+        }
+        return result;
+    }
+
     public List<TDecision> findDecisions(TDefinitions definitions) {
         List<TDecision> result = this.decisionsByModel.get(definitions);
         if (result == null) {
             result = new ArrayList<>();
             collectDecisions(definitions, result);
             this.decisionsByModel.put(definitions, result);
+        }
+        return result;
+    }
+
+    public List<TInputData> findAllInputDatas() {
+        List<TInputData> result = new ArrayList<>();
+        for (TDefinitions definitions : this.getAllDefinitions()) {
+            result.addAll(findInputDatas(definitions));
         }
         return result;
     }

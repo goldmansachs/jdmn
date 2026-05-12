@@ -778,6 +778,67 @@
                     </execution>
 
                     <execution>
+                        <id>import-parent-linked</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${dmn.diagram.folder}/import/parent-linked</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.import_parent_linked</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-import-parent-linked</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>testlab-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/import/parent-linked</inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/import/parent-linked</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.import_parent_linked</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>import-parent-linked-prefix</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${dmn.diagram.folder}/import/parent-linked-prefix</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.import_parent_linked_prefix</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-import-parent-linked-prefix</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>testlab-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/import/parent-linked-prefix</inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/import/parent-linked-prefix</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.import_parent_linked_prefix</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+
+                    <execution>
                         <id>test-zip</id>
                         <phase>generate-sources</phase>
                         <goals>
