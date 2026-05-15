@@ -14,9 +14,9 @@ package com.gs.dmn.tck.serialization;
 
 import com.gs.dmn.error.SyntaxErrorException;
 import com.gs.dmn.error.ValidationError;
+import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.TCKVersion;
 import com.gs.dmn.serialization.XsdErrorHandler;
-import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.tck.error.ErrorFactory;
 import com.gs.dmn.tck.error.TestLocation;
 import org.slf4j.Logger;
@@ -34,6 +34,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class XSDSchemaValidator {
@@ -68,7 +69,7 @@ public class XSDSchemaValidator {
     }
 
     private Validator makeValidator(String schemaPath) throws MalformedURLException, URISyntaxException, SAXException {
-        URL schemaURL = this.getClass().getClassLoader().getResource(schemaPath).toURI().toURL();
+        URL schemaURL = Objects.requireNonNull(this.getClass().getClassLoader().getResource(schemaPath), "Missing resource %s".formatted(schemaPath)).toURI().toURL();
         SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         // Prohibit the use of all protocols by external entities:
         factory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
@@ -81,7 +82,7 @@ public class XSDSchemaValidator {
         String systemId = source.getSystemId();
         TestLocation testLocation = null;
         // TODO use InputParameters to determine the file extension
-        if (systemId != null && (systemId.endsWith("tck") || systemId.endsWith("xml"))) {
+        if (systemId != null && (systemId.endsWith(DMNConstants.TCK_FILE_EXTENSION) || systemId.endsWith(DMNConstants.XML_FILE_EXTENSION))) {
             // Determine file name
             String fileName;
             int index = systemId.lastIndexOf("/");
@@ -90,11 +91,10 @@ public class XSDSchemaValidator {
             } else {
                 fileName = systemId;
             }
-            // Determine model name
-            // Make dummy TestCases
-            TestCases testCases = new TestCases();
-            testCases.setTestCasesName(fileName);
-            testLocation = new TestLocation(testCases, null);
+            // Determine test cases name
+            int dotIndex = fileName.lastIndexOf('.');
+            String testCasesName = fileName.substring(0, dotIndex);
+            testLocation = new TestLocation(testCasesName, null);
         }
         return testLocation;
     }

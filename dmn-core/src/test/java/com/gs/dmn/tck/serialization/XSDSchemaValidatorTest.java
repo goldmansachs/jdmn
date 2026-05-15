@@ -19,7 +19,6 @@ import org.junit.jupiter.api.Test;
 
 import javax.xml.transform.stream.StreamSource;
 import java.io.File;
-import java.util.Arrays;
 import java.util.List;
 
 public class XSDSchemaValidatorTest extends AbstractValidatorTest {
@@ -29,8 +28,8 @@ public class XSDSchemaValidatorTest extends AbstractValidatorTest {
     public void testSchemaValidationForEmpty() {
         File dmnFile = new File(resource("dmn/input/1.1/test-empty-tck.xml").getPath());
         List<ValidationError> actualErrors = validator.validateXSDSchema(new StreamSource(dmnFile), TCKVersion.LATEST);
-        List<String> expectedErrors = Arrays.asList(
-                "[ERROR] (testCasesName = 'test-empty-tck.xml'): Line 5, Column 13: cvc-complex-type.2.4.b: The content of element 'testCases' is not complete. One of '{\"http://www.omg.org/spec/DMN/20160719/testcase\":labels, \"http://www.omg.org/spec/DMN/20160719/testcase\":testCase}' is expected.");
+        List<String> expectedErrors = List.of(
+                "[ERROR] (testCasesName = 'test-empty-tck'): Line 5, Column 13: cvc-complex-type.2.4.b: The content of element 'testCases' is not complete. One of '{\"http://www.omg.org/spec/DMN/20160719/testcase\":labels, \"http://www.omg.org/spec/DMN/20160719/testcase\":testCase}' is expected.");
         checkErrors(XSDSchemaValidator.RULE_NAME, expectedErrors, actualErrors);
     }
 
@@ -38,8 +37,8 @@ public class XSDSchemaValidatorTest extends AbstractValidatorTest {
     public void testSchemaValidationForComplex() {
         File dmnFile = new File(resource("dmn/input/1.1/test-tck.xml").getPath());
         List<ValidationError> actualErrors = validator.validateXSDSchema(new StreamSource(dmnFile), TCKVersion.LATEST);
-        List<String> expectedErrors = Arrays.asList(
-                "[ERROR] (testCasesName = 'test-tck.xml'): Line 10, Column 21: cvc-complex-type.4: Attribute 'name' must appear on element 'resultNode'.");
+        List<String> expectedErrors = List.of(
+                "[ERROR] (testCasesName = 'test-tck'): Line 10, Column 21: cvc-complex-type.4: Attribute 'name' must appear on element 'resultNode'.");
         checkErrors(XSDSchemaValidator.RULE_NAME, expectedErrors, actualErrors);
     }
 }

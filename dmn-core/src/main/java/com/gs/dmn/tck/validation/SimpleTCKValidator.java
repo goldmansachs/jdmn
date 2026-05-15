@@ -41,7 +41,17 @@ public abstract class SimpleTCKValidator implements TCKValidator {
 
     protected void addValidationError(ValidationContext context, TCKBaseElement element, String errorMessage) {
         TestCases testCases = context.getTestCases();
-        TCKError error = ErrorFactory.makeTCKError(new TestLocation(testCases, element), errorMessage);
+        TCKError error = ErrorFactory.makeTCKError(new TestLocation(testCases.getTestCasesName(), findTestCaseId(element)), errorMessage);
         context.addError(new ValidationError(error, this.ruleName()));
+    }
+
+    private String findTestCaseId(TCKBaseElement element) {
+        while (element != null) {
+            if (element instanceof com.gs.dmn.tck.ast.TestCase) {
+                return ((com.gs.dmn.tck.ast.TestCase) element).getId();
+            }
+            element = element.getParent();
+        }
+        return null;
     }
 }

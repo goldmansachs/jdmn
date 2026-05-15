@@ -13,29 +13,13 @@
 package com.gs.dmn.tck.error;
 
 import com.gs.dmn.error.ErrorLocation;
-import com.gs.dmn.tck.ast.TCKBaseElement;
-import com.gs.dmn.tck.ast.TestCases;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class TestLocation extends ErrorLocation {
-    private static String findTestCaseId(TCKBaseElement element) {
-        while (element != null) {
-            if (element instanceof com.gs.dmn.tck.ast.TestCase) {
-                return ((com.gs.dmn.tck.ast.TestCase) element).getId();
-            }
-            element = element.getParent();
-        }
-        return null;
-    }
-
     private final String testCasesName;
     private final String testCasesId;
-
-    public TestLocation(TestCases testCases, TCKBaseElement element) {
-        this(testCases.getTestCasesName(), findTestCaseId(element));
-    }
 
     public TestLocation(String testCasesName, String testCasesId) {
         this.testCasesName = testCasesName;
