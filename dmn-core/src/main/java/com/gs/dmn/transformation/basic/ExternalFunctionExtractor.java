@@ -12,13 +12,13 @@
  */
 package com.gs.dmn.transformation.basic;
 
+import com.gs.dmn.ErrorFactory;
+import com.gs.dmn.ModelCoordinates;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.error.SemanticErrorException;
-import com.gs.dmn.feel.FEELExpressionLocation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.context.Context;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.context.ContextEntry;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
@@ -93,7 +93,8 @@ public class ExternalFunctionExtractor {
                         int lpIndex = signature.indexOf('(');
                         int rpIndex = signature.indexOf(')');
                         if (lpIndex == -1 || rpIndex == -1) {
-                            SemanticError error = ErrorFactory.makeELExpressionError(new FEELExpressionLocation(null, element, functionDefinition), String.format("Illegal signature '%s'", signature));
+                            ModelCoordinates coordinates = new ModelCoordinates(null, element, functionDefinition);
+                            SemanticError error = ErrorFactory.makeExpressionError(coordinates, String.format("Illegal signature '%s'", signature));
                             throw new SemanticErrorException(error.toText());
                         }
                         methodName = signature.substring(0, lpIndex);

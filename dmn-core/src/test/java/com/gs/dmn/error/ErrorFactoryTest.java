@@ -12,9 +12,11 @@
  */
 package com.gs.dmn.error;
 
-import com.gs.dmn.feel.DMNExpressionLocation;
-import com.gs.dmn.feel.FEELExpressionLocation;
-import com.gs.dmn.feel.ModelLocation;
+import com.gs.dmn.ErrorFactory;
+import com.gs.dmn.ModelCoordinates;
+import com.gs.dmn.ast.TContext;
+import com.gs.dmn.ast.TExpression;
+import com.gs.dmn.ast.TLiteralExpression;
 import org.junit.jupiter.api.Test;
 
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
@@ -27,20 +29,32 @@ class ErrorFactoryTest {
 
     @Test
     void testMakeDMNErrorMessage() {
-        SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(null, null), errorMessage);
+        SemanticError error = ErrorFactory.makeDMNError(new ModelCoordinates(null, null), errorMessage);
         assertEquals(expectedErrorMessage, error.toText());
     }
 
     @Test
-    void testMakeDMNExpressionErrorMessage() {
-        SemanticError error = ErrorFactory.makeDMNExpressionError(new DMNExpressionLocation(null, null, null), errorMessage);
+    void testMakeExpressionErrorMessage() {
+        ModelCoordinates coordinates = new ModelCoordinates(null, null, null);
+        SemanticError error = ErrorFactory.makeExpressionError(coordinates, errorMessage);
         assertEquals(expectedErrorMessage + " for expression 'null'", error.toText());
     }
 
     @Test
+    void testMakeDMNExpressionErrorMessage() {
+        TExpression expression = new TContext();
+        ModelCoordinates coordinates = new ModelCoordinates(null, null, expression);
+        SemanticError error = ErrorFactory.makeExpressionError(coordinates, errorMessage);
+        assertEquals(expectedErrorMessage + " for expression 'TContext'", error.toText());
+    }
+
+    @Test
     void testMakeELExpressionErrorMessage() {
-        SemanticError error = ErrorFactory.makeELExpressionError(new FEELExpressionLocation(null, null, null), errorMessage);
-        assertEquals(expectedErrorMessage + " for expression 'null'", error.toText());
+        TLiteralExpression expression = new TLiteralExpression();
+        expression.setText("xxx");
+        ModelCoordinates coordinates = new ModelCoordinates(null, null, expression);
+        SemanticError error = ErrorFactory.makeExpressionError(coordinates, errorMessage);
+        assertEquals(expectedErrorMessage + " for expression 'xxx'", error.toText());
     }
 
     @Test

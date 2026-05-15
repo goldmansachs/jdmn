@@ -13,6 +13,8 @@
 package com.gs.dmn.feel.synthesis;
 
 import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.ErrorFactory;
+import com.gs.dmn.ModelCoordinates;
 import com.gs.dmn.NameUtils;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
@@ -21,17 +23,13 @@ import com.gs.dmn.el.analysis.semantics.type.AnyType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.synthesis.triple.Triple;
 import com.gs.dmn.el.synthesis.triple.Triples;
-import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.error.SemanticErrorException;
-import com.gs.dmn.feel.ExpressionLocation;
-import com.gs.dmn.feel.FEELExpressionLocation;
-import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.ArithmeticNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Exponentiation;
@@ -473,9 +471,9 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
         Triple rightOpd = (Triple) rightEndpoint.accept(this, context);
         String feelOperator = "<=";
         NativeOperator nativeOperator = OperatorDecisionTable.nativeOperator(feelOperator, leftEndpoint.getType(), rightEndpoint.getType());
-        FEELExpressionLocation location = makeExpressionLocation(context, element);
-        Triple c1 = makeCondition(feelOperator, leftOpd, value, nativeOperator, location);
-        Triple c2 = makeCondition(feelOperator, value, rightOpd, nativeOperator, location);
+        ModelCoordinates coordinates = makeExpressionCoordinates(context, element);
+        Triple c1 = makeCondition(feelOperator, leftOpd, value, nativeOperator, coordinates);
+        Triple c2 = makeCondition(feelOperator, value, rightOpd, nativeOperator, coordinates);
         return this.triples.makeBuiltinFunctionInvocation("booleanAnd", c1, c2);
     }
 
@@ -556,14 +554,14 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
     @Override
     public Triple visit(FunctionInvocation<Type> element, DMNContext context) {
         // Required to locate error
-        FEELExpressionLocation location = makeExpressionLocation(context, element);
+        ModelCoordinates coordinates = makeExpressionCoordinates(context, element);
 
         // Generate code for actual parameters
         Parameters<Type> parameters = element.getParameters();
         parameters.accept(this, context);
 
         // Generate code for conversion
-        Arguments<Type> arguments = parameters.convertArguments(this::checkBindingArgument, makeExpressionLocation(context, element));
+        Arguments<Type> arguments = parameters.convertArguments(this::checkBindingArgument, makeExpressionCoordinates(context, element));
 
         // Generate code for function invocation
         Expression<Type> function = element.getFunction();
@@ -572,12 +570,12 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
         List<Object> argList = arguments.argumentList(formalParameters);
         Triple functionCode = (Triple) function.accept(this, context);
         if (functionType instanceof LibraryFunctionType) {
-            List<Triple> operands = visitArgList(argList, location);
+            List<Triple> operands = visitArgList(argList, coordinates);
             LibraryMetadata metadata = ((LibraryFunctionType) functionType).getLib().getMetadata();
             Triple className = this.triples.name(metadata.getClassName());
             return this.triples.makeLibraryFunctionInvocation(className, metadata.isStaticAccess(), functionCode, operands);
         } else if (functionType instanceof BuiltinFunctionType) {
-            List<Triple> operands = visitArgList(argList, location);
+            List<Triple> operands = visitArgList(argList, coordinates);
             return this.triples.makeBuiltinFunctionInvocation(functionCode, operands);
         } else if (functionType instanceof DMNFunctionType) {
             if (!this.dmnModelRepository.isJavaFunction(((DMNFunctionType) functionType).getKind())) {
@@ -585,7 +583,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
             }
             TNamedElement invocable = ((DMNFunctionType) functionType).getDRGElement();
             if (invocable instanceof TInvocable) {
-                List<Triple> operands = visitArgList(argList, location);
+                List<Triple> operands = visitArgList(argList, coordinates);
                 if (function instanceof Name) {
                     if (((Name<Type>) function).getName().equals(invocable.getName())) {
                         String qualifiedName = this.dmnTransformer.singletonInvocableInstance((TInvocable) invocable);
@@ -597,14 +595,14 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
                     return this.triples.makeApplyInvocation(functionCode, operands);
                 }
             } else {
-                List<Triple> operands = visitArgList(argList, location);
+                List<Triple> operands = visitArgList(argList, coordinates);
                 return this.triples.makeApplyInvocation(functionCode, operands);
             }
         } else if (functionType instanceof FEELFunctionType) {
             if (!((FEELFunctionType) functionType).isExternal()) {
                 addExtraArguments(argList);
             }
-            List<Triple> operands = visitArgList(argList, location);
+            List<Triple> operands = visitArgList(argList, coordinates);
             return this.triples.makeApplyInvocation(functionCode, operands);
         } else {
             SemanticError error = makeELExpressionError(context, element, String.format("Not supported function type '%s' in '%s'", functionType, context.getElementName()));
@@ -613,13 +611,13 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
         }
     }
 
-    private List<Triple> visitArgList(List<Object> argList, FEELExpressionLocation location) {
+    private List<Triple> visitArgList(List<Object> argList, ModelCoordinates coordinates) {
         List<Triple> operands = new ArrayList<>();
         for (Object arg : argList) {
             if (arg instanceof Triple) {
                 operands.add((Triple) arg);
             } else {
-                SemanticError error = ErrorFactory.makeELExpressionError(location, "Illegal arg, should be Operand");
+                SemanticError error = ErrorFactory.makeExpressionError(coordinates, "Illegal arg, should be Operand");
                 handleError(error);
                 return null;
             }
@@ -631,12 +629,12 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
         argList.add(this.triples.name(dmnTransformer.executionContextVariableName()));
     }
 
-    protected Triple checkBindingArgument(Object param, Conversion<Type> conversion, ExpressionLocation<Expression<Type>> location) {
+    protected Triple checkBindingArgument(Object param, Conversion<Type> conversion, ModelCoordinates coordinates) {
         // TODO check constraints
         if (param instanceof Triple) {
             return this.triples.makeConvertArgument((Triple) param, conversion);
         } else {
-            SemanticError error = ErrorFactory.makeELExpressionError((FEELExpressionLocation) location, String.format("Expected operand, found '%s'", param));
+            SemanticError error = ErrorFactory.makeExpressionError(coordinates, String.format("Expected operand, found '%s'", param));
             handleError(error);
             return null;
         }
@@ -753,7 +751,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
         if (context.isExpressionContext()) {
             TNamedElement element = context.getElement();
             TDefinitions model = this.dmnModelRepository.getModel(element);
-            SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), String.format("Missing inputExpression in context of element '%s'", context.getElementName()));
+            SemanticError error = ErrorFactory.makeDMNError(new ModelCoordinates(model, element), String.format("Missing inputExpression in context of element '%s'", context.getElementName()));
             handleError(error);
             return null;
         } else {
@@ -775,7 +773,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
         Triple leftOpd = (Triple) leftOperand.accept(this, context);
         Triple rightOpd = (Triple) rightOperand.accept(this, context);
         Triple condition;
-        NativeOperator nativeOperator = rangeOperator(feelOperator, leftOperand, rightOperand, makeExpressionLocation(context, parentElement));
+        NativeOperator nativeOperator = rangeOperator(feelOperator, leftOperand, rightOperand, makeExpressionCoordinates(context, parentElement));
         if (nativeOperator.getNotation() == NativeOperator.Notation.INFIX) {
             condition = infixExpression(nativeOperator.getName(), leftOpd, rightOpd);
         } else {
@@ -846,11 +844,11 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
         Triple leftOpd = (Triple) leftOperand.accept(this, context);
         Triple rightOpd = (Triple) rightOperand.accept(this, context);
         NativeOperator nativeOperator = OperatorDecisionTable.nativeOperator(feelOperator, leftOperand.getType(), rightOperand.getType());
-        return makeCondition(feelOperator, leftOpd, rightOpd, nativeOperator, makeExpressionLocation(context, parentElement));
+        return makeCondition(feelOperator, leftOpd, rightOpd, nativeOperator, makeExpressionCoordinates(context, parentElement));
     }
 
-    protected Triple makeCondition(String feelOperator, Triple leftOpd, Triple rightOpd, NativeOperator nativeOperator, FEELExpressionLocation location) {
-        SemanticError error = ErrorFactory.makeELExpressionError(location, makeOperatorErrorMessage(feelOperator, leftOpd, rightOpd));
+    protected Triple makeCondition(String feelOperator, Triple leftOpd, Triple rightOpd, NativeOperator nativeOperator, ModelCoordinates coordinates) {
+        SemanticError error = ErrorFactory.makeExpressionError(coordinates, makeOperatorErrorMessage(feelOperator, leftOpd, rightOpd));
         if (nativeOperator == null) {
             handleError(error);
             return null;
@@ -876,12 +874,12 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
         }
     }
 
-    protected NativeOperator rangeOperator(String feelOperatorName, Expression<Type> leftOperand, Expression<Type> rightOperand, FEELExpressionLocation location) {
+    protected NativeOperator rangeOperator(String feelOperatorName, Expression<Type> leftOperand, Expression<Type> rightOperand, ModelCoordinates coordinates) {
         NativeOperator nativeOperator = OperatorDecisionTable.nativeOperator(feelOperatorName, leftOperand.getType(), rightOperand.getType());
         if (nativeOperator != null) {
             return nativeOperator;
         } else {
-            SemanticError error = ErrorFactory.makeELExpressionError(location, makeOperatorErrorMessage(feelOperatorName, leftOperand, rightOperand));
+            SemanticError error = ErrorFactory.makeExpressionError(coordinates, makeOperatorErrorMessage(feelOperatorName, leftOperand, rightOperand));
             handleError(error);
             return null;
         }

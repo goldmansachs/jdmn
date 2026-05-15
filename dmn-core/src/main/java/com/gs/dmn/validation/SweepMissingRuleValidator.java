@@ -13,6 +13,8 @@
 package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ErrorFactory;
+import com.gs.dmn.ModelCoordinates;
 import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.ast.TDecisionTable;
 import com.gs.dmn.ast.TDefinitions;
@@ -20,10 +22,8 @@ import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.synthesis.ELTranslator;
-import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.error.ValidationError;
-import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.validation.table.*;
@@ -88,7 +88,7 @@ public class SweepMissingRuleValidator extends SweepValidator {
         TDefinitions model = repository.getModel(element);
         String intervalsString = rule.getIntervals().stream().map(Interval::serialize).collect(Collectors.joining(", "));
         String message = String.format("Found missing rule '[%s]' in '%s' table", intervalsString, repository.displayName(element));
-        return ErrorFactory.makeDMNError(new ModelLocation(model, element), message);
+        return ErrorFactory.makeDMNError(new ModelCoordinates(model, element), message);
     }
 
     //  Algorithm: findMissingRules.

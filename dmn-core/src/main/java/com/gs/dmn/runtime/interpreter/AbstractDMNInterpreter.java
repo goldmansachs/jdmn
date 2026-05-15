@@ -12,10 +12,7 @@
  */
 package com.gs.dmn.runtime.interpreter;
 
-import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.DRGElementReference;
-import com.gs.dmn.ImportPath;
-import com.gs.dmn.QualifiedName;
+import com.gs.dmn.*;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.ast.visitor.NopVisitor;
 import com.gs.dmn.context.DMNContext;
@@ -24,8 +21,10 @@ import com.gs.dmn.el.analysis.semantics.type.NullType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.el.interpreter.ELInterpreter;
-import com.gs.dmn.error.*;
-import com.gs.dmn.feel.ModelLocation;
+import com.gs.dmn.error.ErrorHandler;
+import com.gs.dmn.error.LogErrorHandler;
+import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.SemanticErrorException;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.FilterExpression;
@@ -41,8 +40,8 @@ import com.gs.dmn.runtime.annotation.HitPolicy;
 import com.gs.dmn.runtime.function.DMNFunction;
 import com.gs.dmn.runtime.function.DMNInvocable;
 import com.gs.dmn.runtime.function.Function;
-import com.gs.dmn.runtime.listener.EventListener;
 import com.gs.dmn.runtime.listener.*;
+import com.gs.dmn.runtime.listener.EventListener;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -1359,7 +1358,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
     }
 
     protected static SemanticError makeDMNError(TDefinitions model, TDRGElement element, String errorMessage) {
-        ModelLocation modelLocation = new ModelLocation(model, element);
-        return ErrorFactory.makeDMNError(modelLocation, errorMessage);
+        ModelCoordinates modelCoordinates = new ModelCoordinates(model, element);
+        return ErrorFactory.makeDMNError(modelCoordinates, errorMessage);
     }
 }

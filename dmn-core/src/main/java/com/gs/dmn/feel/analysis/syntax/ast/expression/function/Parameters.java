@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
-import com.gs.dmn.feel.ExpressionLocation;
+import com.gs.dmn.ModelCoordinates;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import org.apache.commons.lang3.function.TriFunction;
@@ -30,7 +30,7 @@ public abstract class Parameters<T> extends Element<T> {
 
     public abstract void setConvertedParameterTypes(ParameterTypes<T> parameterTypes);
 
-    public abstract Arguments<T> convertArguments(TriFunction<Object, Conversion<T>, ExpressionLocation<Expression<T>>, Object> convertArgument, ExpressionLocation<Expression<T>> location);
+    public abstract Arguments<T> convertArguments(TriFunction<Object, Conversion<T>, ModelCoordinates, Object> convertArgument, ModelCoordinates coordinates);
 
     public abstract T getParameterType(int position, String name);
 

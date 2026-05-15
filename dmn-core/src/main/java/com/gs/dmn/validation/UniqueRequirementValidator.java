@@ -13,13 +13,13 @@
 package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ErrorFactory;
+import com.gs.dmn.ModelCoordinates;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.ast.visitor.TraversalVisitor;
-import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.error.ValidationError;
-import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 
@@ -120,9 +120,9 @@ class UniqueRequirementValidatorVisitor extends TraversalVisitor<ValidationConte
                     if (referredElement == null) {
                         errorMessage = String.format("Duplicated %s '%s'", propertyPath, id);
                     } else {
-                        errorMessage = String.format("Duplicated %s %s", propertyPath, ErrorFactory.makeLocation(new ModelLocation(definitions, referredElement)));
+                        errorMessage = String.format("Duplicated %s %s", propertyPath, referredElement.getName());
                     }
-                    SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage);
+                    SemanticError error = ErrorFactory.makeDMNError(new ModelCoordinates(definitions, element), errorMessage);
                     context.addError(new ValidationError(error, this.ruleName));
                 } else {
                     existingIds.add(id);

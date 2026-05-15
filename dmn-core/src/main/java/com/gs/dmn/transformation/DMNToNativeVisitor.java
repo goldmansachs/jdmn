@@ -13,15 +13,15 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ErrorFactory;
+import com.gs.dmn.ModelCoordinates;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.ast.visitor.TraversalVisitor;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.LogErrorHandler;
 import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.error.SemanticErrorException;
-import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
@@ -243,6 +243,6 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
 
     public static SemanticError makeError(TDefinitions definitions, TNamedElement element) {
         String errorMessage = String.format("Error translating DMN element '%s' to native platform", element);
-        return ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage);
+        return ErrorFactory.makeDMNError(new ModelCoordinates(definitions, element), errorMessage);
     }
 }

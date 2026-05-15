@@ -13,14 +13,14 @@
 package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ErrorFactory;
+import com.gs.dmn.ModelCoordinates;
 import com.gs.dmn.QualifiedName;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.ast.visitor.TraversalVisitor;
-import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.error.ValidationError;
-import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.feel.analysis.semantics.type.FEELType;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
@@ -151,7 +151,7 @@ class TypeRefValidatorVisitor extends TraversalVisitor<TypeRefValidationContext>
             if (itemDefinition == null) {
                 // Record error
                 TNamedElement element = context.getElement();
-                SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), String.format("Cannot find definition of typeRef '%s'", typeRef1));
+                SemanticError error = ErrorFactory.makeDMNError(new ModelCoordinates(model, element), String.format("Cannot find definition of typeRef '%s'", typeRef1));
                 context.getErrorReport().add(new Pair<>(element, new ValidationError(error, this.ruleName)));
 
                 this.logger.debug(error.toText());
@@ -159,7 +159,7 @@ class TypeRefValidatorVisitor extends TraversalVisitor<TypeRefValidationContext>
         } catch (Exception e) {
             // Record error
             TNamedElement element = context.getElement();
-            SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), String.format("Error during lookup of typeRef '%s': %s", typeRef1, e.getMessage()));
+            SemanticError error = ErrorFactory.makeDMNError(new ModelCoordinates(model, element), String.format("Error during lookup of typeRef '%s': %s", typeRef1, e.getMessage()));
             context.getErrorReport().add(new Pair<>(element, new ValidationError(error, this.ruleName)));
 
             this.logger.debug(error.toText());

@@ -13,7 +13,7 @@
 package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.error.ErrorFactory;
+import com.gs.dmn.ErrorFactory;
 import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.error.ValidationError;
 

@@ -23,10 +23,8 @@ import com.gs.dmn.el.analysis.semantics.type.NullType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.el.synthesis.ELTranslator;
-import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.error.SemanticErrorException;
-import com.gs.dmn.feel.DMNExpressionLocation;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
@@ -1724,7 +1722,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             TDefinitions definitions = this.dmnModelRepository.getModel(element);
             TExpression expression = this.dmnModelRepository.expression(element);
             String errorMessage = "Error translating expression to native platform";
-            SemanticError error = ErrorFactory.makeDMNExpressionError(new DMNExpressionLocation(definitions, element, expression), errorMessage);
+            ModelCoordinates coordinates = new ModelCoordinates(definitions, element, expression);
+            SemanticError error = ErrorFactory.makeExpressionError(coordinates, errorMessage);
             throw new SemanticErrorException(error.toText(), e);
         }
     }

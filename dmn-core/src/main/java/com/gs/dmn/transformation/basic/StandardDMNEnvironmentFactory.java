@@ -12,10 +12,7 @@
  */
 package com.gs.dmn.transformation.basic;
 
-import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.DRGElementReference;
-import com.gs.dmn.ImportPath;
-import com.gs.dmn.QualifiedName;
+import com.gs.dmn.*;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.Declaration;
@@ -27,10 +24,8 @@ import com.gs.dmn.el.analysis.semantics.type.ConstraintType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.el.synthesis.ELTranslator;
-import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.error.SemanticErrorException;
-import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.context.Context;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.context.ContextEntry;
@@ -346,7 +341,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 SemanticError error = makeDMNError(model, element, errorMessage);
                 throw new SemanticErrorException(error.toText());
             }
-            SemanticError error = ErrorFactory.makeIfError(new ModelLocation(model, element), thenType, elseType);
+            SemanticError error = ErrorFactory.makeIfError(new ModelCoordinates(model, element), thenType, elseType);
             if (com.gs.dmn.el.analysis.semantics.type.Type.isNullType(thenType) && com.gs.dmn.el.analysis.semantics.type.Type.isNullType(elseType)) {
                 throw new SemanticErrorException(error.toText());
             } else if (com.gs.dmn.el.analysis.semantics.type.Type.isNullType(thenType)) {
@@ -789,7 +784,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             }
         }
         String errorMessage = String.format("Missing returnType in '%s'", body);
-        SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), errorMessage);
+        SemanticError error = ErrorFactory.makeDMNError(new ModelCoordinates(model, element), errorMessage);
         throw new SemanticErrorException(error.toText());
     }
 
@@ -950,7 +945,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             return environment;
         } catch (Exception e) {
             String errorMessage = e.getMessage();
-            SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), errorMessage);
+            SemanticError error = ErrorFactory.makeDMNError(new ModelCoordinates(model, element), errorMessage);
             throw new SemanticErrorException(error.toText(), e);
         }
     }
@@ -1107,7 +1102,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     }
 
     protected static SemanticError makeDMNError(TDefinitions model, TDRGElement element, String errorMessage) {
-        ModelLocation modelLocation = new ModelLocation(model, element);
-        return ErrorFactory.makeDMNError(modelLocation, errorMessage);
+        ModelCoordinates modelCoordinates = new ModelCoordinates(model, element);
+        return ErrorFactory.makeDMNError(modelCoordinates, errorMessage);
     }
 }

@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.semantics;
 
+import com.gs.dmn.ErrorFactory;
+import com.gs.dmn.ModelCoordinates;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.ast.TNamedElement;
 import com.gs.dmn.context.DMNContext;
@@ -20,11 +22,9 @@ import com.gs.dmn.context.environment.VariableDeclaration;
 import com.gs.dmn.el.analysis.semantics.type.AnyType;
 import com.gs.dmn.el.analysis.semantics.type.NullType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.LogAndThrowErrorHandler;
 import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.feel.FEELConstants;
-import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.AbstractAnalysisVisitor;
 import com.gs.dmn.feel.analysis.semantics.type.*;
@@ -433,7 +433,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         } else if (com.gs.dmn.el.analysis.semantics.type.Type.isNullType(thenType) && com.gs.dmn.el.analysis.semantics.type.Type.isNullType(elseType)) {
             TNamedElement dmnElement = context.getElement();
             TDefinitions definitions = this.dmnModelRepository.getModel(dmnElement);
-            SemanticError error = makeELExpressionError(context, element, ErrorFactory.makeIfError(new ModelLocation(definitions, dmnElement), thenType, elseType).getErrorMessage());
+            SemanticError error = makeELExpressionError(context, element, ErrorFactory.makeIfError(new ModelCoordinates(definitions, dmnElement), thenType, elseType).getErrorMessage());
             handleError(error);
             return null;
         } else if (com.gs.dmn.el.analysis.semantics.type.Type.isNullType(thenType)) {

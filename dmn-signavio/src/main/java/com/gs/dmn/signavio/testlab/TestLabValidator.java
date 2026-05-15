@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.signavio.testlab;
 
-import com.gs.dmn.error.ErrorFactory;
+import com.gs.dmn.ErrorFactory;
 import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.error.ValidationError;
 import com.gs.dmn.validation.TestValidator;

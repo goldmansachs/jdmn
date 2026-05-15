@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.interpreter;
 
-import com.gs.dmn.feel.FEELExpressionLocation;
+import com.gs.dmn.ModelCoordinates;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 
@@ -22,7 +22,7 @@ class SignavioFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> ex
     }
 
     @Override
-    protected Object evaluateDateTimeMember(Object source, String member, FEELExpressionLocation location) {
+    protected Object evaluateDateTimeMember(Object source, String member, ModelCoordinates coordinates) {
         throw new DMNRuntimeException("Not supported yet");
     }
 }

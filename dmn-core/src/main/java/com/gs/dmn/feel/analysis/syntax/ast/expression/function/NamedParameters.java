@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
-import com.gs.dmn.feel.ExpressionLocation;
+import com.gs.dmn.ModelCoordinates;
 import com.gs.dmn.feel.analysis.syntax.ConversionKind;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
@@ -69,14 +69,14 @@ public class NamedParameters<T> extends Parameters<T> {
     }
 
     @Override
-    public Arguments<T> convertArguments(TriFunction<Object, Conversion<T>, ExpressionLocation<Expression<T>>, Object> convertArgument, ExpressionLocation<Expression<T>> location) {
+    public Arguments<T> convertArguments(TriFunction<Object, Conversion<T>, ModelCoordinates, Object> convertArgument, ModelCoordinates coordinates) {
         if (requiresConversion()) {
             this.convertedArguments = new NamedArguments<>();
             for (Map.Entry<String, Conversion<T>> entry : this.parameterConversions.getConversions().entrySet()) {
                 String key = entry.getKey();
                 Object arg = this.originalArguments.getArguments().get(key);
                 Conversion<T> conversion = entry.getValue();
-                Object convertedArg = convertArgument.apply(arg, conversion, location);
+                Object convertedArg = convertArgument.apply(arg, conversion, coordinates);
                 this.convertedArguments.add(key, convertedArg);
             }
         } else {

@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.context;
 
+import com.gs.dmn.ErrorFactory;
+import com.gs.dmn.ModelCoordinates;
 import com.gs.dmn.ast.TNamedElement;
 import com.gs.dmn.context.environment.Declaration;
 import com.gs.dmn.context.environment.Environment;
@@ -19,10 +21,8 @@ import com.gs.dmn.context.environment.RuntimeEnvironment;
 import com.gs.dmn.context.environment.VariableDeclaration;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.error.SemanticErrorException;
-import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.ArrayList;
@@ -83,7 +83,7 @@ public class DMNContext {
             this.environment.addDeclaration(declaration);
         } catch (Exception e) {
             String errorMessage = e.getMessage();
-            SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(null, element), errorMessage);
+            SemanticError error = ErrorFactory.makeDMNError(new ModelCoordinates(null, element), errorMessage);
             throw new SemanticErrorException(error.toText(), e);
         }
     }

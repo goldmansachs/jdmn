@@ -13,16 +13,16 @@
 package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ErrorFactory;
+import com.gs.dmn.ModelCoordinates;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TDMNElement;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.ast.TNamedElement;
 import com.gs.dmn.ast.visitor.TraversalVisitor;
-import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.error.ValidationError;
-import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 
@@ -108,7 +108,7 @@ class UniqueNameValidatorVisitor extends TraversalVisitor<ValidationContext> {
             String key = entry.getKey();
             if(entry.getValue().size() > 1){
                 String finalErrorMessage = String.format("%s Found %d duplicates for '%s'.", errorMessage, entry.getValue().size(), key);
-                SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(definitions, null), finalErrorMessage);
+                SemanticError error = ErrorFactory.makeDMNError(new ModelCoordinates(definitions, null), finalErrorMessage);
                 context.addError(new ValidationError(error, this.ruleName));
             }
         }

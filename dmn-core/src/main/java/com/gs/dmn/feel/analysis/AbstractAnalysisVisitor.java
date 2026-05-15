@@ -13,17 +13,16 @@
 package com.gs.dmn.feel.analysis;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ErrorFactory;
+import com.gs.dmn.ModelCoordinates;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.ast.TNamedElement;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.error.SemanticErrorException;
-import com.gs.dmn.feel.FEELExpressionLocation;
-import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.feel.analysis.semantics.type.DateType;
 import com.gs.dmn.feel.analysis.semantics.type.NumberType;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
@@ -80,28 +79,24 @@ public abstract class AbstractAnalysisVisitor<T, C, R> extends AbstractVisitor<T
     }
 
     protected SemanticError makeDMNError(DMNContext context, String errorMessage) {
-        // Make DMN location
-        ModelLocation modelLocation = makeModelLocation(context);
-        // Make error
-        return ErrorFactory.makeDMNError(modelLocation, errorMessage);
+        ModelCoordinates coordinates = makeModelCoordinates(context);
+        return ErrorFactory.makeDMNError(coordinates, errorMessage);
     }
 
     protected SemanticError makeELExpressionError(DMNContext context, Expression<Type> expression, String errorMessage) {
-        // Make DMN location
-        FEELExpressionLocation location = makeExpressionLocation(context, expression);
-        // Make error
-        return ErrorFactory.makeELExpressionError(location, errorMessage);
+        ModelCoordinates coordinates = makeExpressionCoordinates(context, expression);
+        return ErrorFactory.makeExpressionError(coordinates, errorMessage);
     }
 
-    protected ModelLocation makeModelLocation(DMNContext context) {
+    protected ModelCoordinates makeModelCoordinates(DMNContext context) {
         TNamedElement element = context == null ? null : context.getElement();
         TDefinitions model = this.dmnModelRepository.getModel(element);
-        return new ModelLocation(model, element);
+        return new ModelCoordinates(model, element);
     }
 
-    protected FEELExpressionLocation makeExpressionLocation(DMNContext context, Expression<Type> expression) {
+    protected ModelCoordinates makeExpressionCoordinates(DMNContext context, Expression<Type> expression) {
         TNamedElement element = context == null ? null : context.getElement();
         TDefinitions definitions = this.dmnModelRepository.getModel(element);
-        return new FEELExpressionLocation(definitions, element, expression);
+        return new ModelCoordinates(definitions, element, expression);
     }
 }

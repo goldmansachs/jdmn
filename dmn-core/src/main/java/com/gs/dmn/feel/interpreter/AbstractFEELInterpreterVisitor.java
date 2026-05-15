@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.interpreter;
 
+import com.gs.dmn.ErrorFactory;
+import com.gs.dmn.ModelCoordinates;
 import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.ast.TFunctionDefinition;
 import com.gs.dmn.ast.TFunctionKind;
@@ -22,15 +24,11 @@ import com.gs.dmn.context.environment.RuntimeEnvironment;
 import com.gs.dmn.el.analysis.semantics.type.AnyType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.synthesis.ELTranslator;
-import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.SemanticError;
-import com.gs.dmn.feel.ExpressionLocation;
-import com.gs.dmn.feel.FEELExpressionLocation;
-import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.semantics.type.*;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.ArithmeticNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Exponentiation;
@@ -226,7 +224,6 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
     }
 
     private Object evaluateOperatorRange(Expression<Type> element, String operator, Object self, Type inputExpressionType, Type endpointType, Object endpointValue, DMNContext context) throws IllegalAccessException, InvocationTargetException {
-        FEELExpressionLocation location = makeExpressionLocation(context, element);
         NativeOperator nativeOperator = nativeOperator(operator, inputExpressionType, endpointType);
         if (nativeOperator == null) {
             String errorMessage = String.format("Cannot find method for '%s' '%s'", operator, element);
@@ -473,7 +470,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
             return (NUMBER) number;
         }
         String errorMessage = String.format("Cannot convert '%s' to number", number);
-        handleDMNError((ModelLocation) null, errorMessage);
+        handleDMNError((ModelCoordinates) null, errorMessage);
         return null;
     }
 
@@ -782,8 +779,8 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         parameters.accept(this, context);
 
         // Convert actual parameters
-        FEELExpressionLocation location = makeExpressionLocation(context, element);
-        Arguments<Type> arguments = parameters.convertArguments(this::checkBindingArgument, location);
+        ModelCoordinates coordinates = makeExpressionCoordinates(context, element);
+        Arguments<Type> arguments = parameters.convertArguments(this::checkBindingArgument, coordinates);
 
         // Evaluate function
         Expression<Type> function = element.getFunction();
@@ -793,7 +790,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         return evaluateFunction(function, functionType, argList, context);
     }
 
-    protected Object checkBindingArgument(Object value, Conversion<Type> conversion, ExpressionLocation<Expression<Type>> location) {
+    protected Object checkBindingArgument(Object value, Conversion<Type> conversion, ModelCoordinates coordinates) {
         return this.dmnInterpreter.getTypeChecker().checkBindingArgument(value, conversion);
     }
 
@@ -809,65 +806,65 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
     }
 
     Object evaluateFunctionInvocation(Object functionDefinition, FunctionType functionType, List<Object> argList, DMNContext context) {
-        ModelLocation modelLocation = makeModelLocation(context);
+        ModelCoordinates modelCoordinates = makeModelCoordinates(context);
         if (functionType instanceof DMNFunctionType || functionType instanceof FEELFunctionType) {
             if (functionDefinition == null) {
                 String errorMessage = String.format("Missing function definition, expecting value of type for '%s'", functionType);
-                handleDMNError(modelLocation, errorMessage);
+                handleDMNError(modelCoordinates, errorMessage);
                 return null;
             }
             if (functionDefinition instanceof DMNInvocable) {
                 return evaluateInvocableDefinition((DMNInvocable) functionDefinition, argList);
             } else if (functionDefinition instanceof DMNFunction) {
-                return evaluateFunctionDefinition((DMNFunction) functionDefinition, argList, makeModelLocation(context));
+                return evaluateFunctionDefinition((DMNFunction) functionDefinition, argList, makeModelCoordinates(context));
             } else if (functionDefinition instanceof FEELFunction) {
                 return evaluateFunctionDefinition((FEELFunction) functionDefinition, argList);
             } else if (functionDefinition instanceof LibraryFunctionType) {
                 ELLib library = ((LibraryFunctionType) functionDefinition).getLib();
-                String functionName = functionName(functionDefinition, modelLocation);
-                return evaluateLibraryFunction(library, functionName, argList, modelLocation);
+                String functionName = functionName(functionDefinition, modelCoordinates);
+                return evaluateLibraryFunction(library, functionName, argList, modelCoordinates);
             } else if (functionDefinition instanceof BuiltinFunction) {
-                return evaluateBuiltInFunction((BuiltinFunction) functionDefinition, argList, modelLocation);
+                return evaluateBuiltInFunction((BuiltinFunction) functionDefinition, argList, modelCoordinates);
             } else {
                 String errorMessage = String.format("Not supported yet %s", functionDefinition.getClass().getSimpleName());
-                handleDMNError(modelLocation, errorMessage);
+                handleDMNError(modelCoordinates, errorMessage);
                 return null;
             }
         } else if (functionType instanceof LibraryFunctionType) {
-            String functionName = functionName(functionDefinition, modelLocation);
-            return evaluateLibraryFunction(((LibraryFunctionType) functionType).getLib(), functionName, argList, modelLocation);
+            String functionName = functionName(functionDefinition, modelCoordinates);
+            return evaluateLibraryFunction(((LibraryFunctionType) functionType).getLib(), functionName, argList, modelCoordinates);
         } else if (functionType instanceof BuiltinFunctionType) {
-            String functionName = functionName(functionDefinition, modelLocation);
+            String functionName = functionName(functionDefinition, modelCoordinates);
             String nativeFunctionName = nativeFunctionName(functionName);
             if ("sort".equals(nativeFunctionName)) {
                 Object secondArg = argList.get(1);
                 if (secondArg instanceof Function) {
                     Function sortFunction = (Function) secondArg;
-                    return ((StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) lib).sort((List<Object>) argList.get(0), makeLambdaExpression(sortFunction, modelLocation));
+                    return ((StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) lib).sort((List<Object>) argList.get(0), makeLambdaExpression(sortFunction, modelCoordinates));
                 } else {
                     String errorMessage = String.format("'%s' is not supported yet", secondArg.getClass());
-                    handleDMNError(modelLocation, errorMessage);
+                    handleDMNError(modelCoordinates, errorMessage);
                     return null;
                 }
             } else if ("listReplace".equals(nativeFunctionName)) {
                 Object secondArg = argList.get(1);
                 if (secondArg instanceof Function) {
                     Function filterFunction = (Function) secondArg;
-                    return ((StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) lib).listReplace((List<Object>) argList.get(0), makeLambdaExpression(filterFunction, modelLocation), argList.get(2));
+                    return ((StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) lib).listReplace((List<Object>) argList.get(0), makeLambdaExpression(filterFunction, modelCoordinates), argList.get(2));
                 } else {
-                    return evaluateBuiltInFunction(this.lib, nativeFunctionName, argList, modelLocation);
+                    return evaluateBuiltInFunction(this.lib, nativeFunctionName, argList, modelCoordinates);
                 }
             } else {
-                return evaluateBuiltInFunction(this.lib, nativeFunctionName, argList, modelLocation);
+                return evaluateBuiltInFunction(this.lib, nativeFunctionName, argList, modelCoordinates);
             }
         } else {
             String errorMessage = String.format("Not supported yet %s", functionDefinition.getClass().getSimpleName());
-            handleDMNError(modelLocation, errorMessage);
+            handleDMNError(modelCoordinates, errorMessage);
             return null;
         }
     }
 
-    private LambdaExpression<Boolean> makeLambdaExpression(Function sortFunction, ModelLocation location) {
+    private LambdaExpression<Boolean> makeLambdaExpression(Function sortFunction, ModelCoordinates coordinates) {
         return new LambdaExpression<>() {
             @Override
             public Boolean apply(Object... args) {
@@ -877,12 +874,12 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                 if (sortFunction instanceof FEELFunction) {
                     return (Boolean) evaluateFunctionDefinition((FEELFunction) sortFunction, argList);
                 } else if (sortFunction instanceof DMNFunction) {
-                    return (Boolean) evaluateFunctionDefinition((DMNFunction) sortFunction, argList, location);
+                    return (Boolean) evaluateFunctionDefinition((DMNFunction) sortFunction, argList, coordinates);
                 } else if (sortFunction instanceof DMNInvocable) {
                     return (Boolean) evaluateInvocableDefinition((DMNInvocable) sortFunction, argList);
                 } else {
                     String errorMessage = String.format("Not supported yet '%s'", sortFunction.getClass());
-                    handleDMNError(location, errorMessage);
+                    handleDMNError(coordinates, errorMessage);
                     return null;
                 }
             }
@@ -957,7 +954,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                 return evaluateExternalJavaFunction(functionDefinition, argList, functionContext);
             } else {
                 String errorMessage = String.format("Not supported external function '%s'", functionDefinition);
-                handleDMNError((ModelLocation) null, errorMessage);
+                handleDMNError((ModelCoordinates) null, errorMessage);
                 return null;
             }
         } else {
@@ -965,7 +962,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         }
     }
 
-    private Object evaluateFunctionDefinition(DMNFunction runtimeFunction, List<Object> argList, ModelLocation location) {
+    private Object evaluateFunctionDefinition(DMNFunction runtimeFunction, List<Object> argList, ModelCoordinates coordinates) {
         FunctionType functionType = (FunctionType) runtimeFunction.getType();
         TFunctionDefinition functionDefinition = runtimeFunction.getFunctionDefinition();
         DMNContext definitionContext = runtimeFunction.getDefinitionContext();
@@ -979,7 +976,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
             return evaluateExternalJavaFunction(functionDefinition, argList, functionContext);
         } else {
             String errorMessage = String.format("Kind '%s' is not supported yet", kind.value());
-            handleDMNError(location, errorMessage);
+            handleDMNError(coordinates, errorMessage);
             return null;
         }
     }
@@ -1009,25 +1006,25 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         return output;
     }
 
-    private Object evaluateBuiltInFunction(BuiltinFunction functionDefinition, List<Object> argList, ModelLocation location) {
+    private Object evaluateBuiltInFunction(BuiltinFunction functionDefinition, List<Object> argList, ModelCoordinates coordinates) {
         List<Declaration> declarations = functionDefinition.getDeclarations();
         String functionName = declarations.get(0).getName();
-        return evaluateBuiltInFunction(this.lib, functionName, argList, location);
+        return evaluateBuiltInFunction(this.lib, functionName, argList, coordinates);
     }
 
-    private Object evaluateBuiltInFunction(FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib, String functionName, List<Object> argList, ModelLocation location) {
-        return evaluateMethod(lib, lib.getClass(), functionName, argList, location);
+    private Object evaluateBuiltInFunction(FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib, String functionName, List<Object> argList, ModelCoordinates coordinates) {
+        return evaluateMethod(lib, lib.getClass(), functionName, argList, coordinates);
     }
 
-    private Object evaluateLibraryFunction(ELLib library, String functionName, List<Object> argList, ModelLocation location) {
+    private Object evaluateLibraryFunction(ELLib library, String functionName, List<Object> argList, ModelCoordinates coordinates) {
         LibraryMetadata metadata = library.getMetadata();
         try {
             Class<?> cls = Class.forName(metadata.getClassName());
             Object object = metadata.isStaticAccess() ? null : cls.getDeclaredConstructor().newInstance();
-            return evaluateMethod(object, cls, functionName, argList, location);
+            return evaluateMethod(object, cls, functionName, argList, coordinates);
         } catch (Exception e) {
             String errorMessage = String.format("Cannot evaluate function '%s'", functionName);
-            handleDMNError(location, errorMessage);
+            handleDMNError(coordinates, errorMessage);
             return null;
         }
     }
@@ -1036,7 +1033,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         return this.externalFunctionExecutor.execute(info, argList);
     }
 
-    private Object evaluateMethod(Object object, Class<?> cls, String functionName, List<Object> argList, ModelLocation location) {
+    private Object evaluateMethod(Object object, Class<?> cls, String functionName, List<Object> argList, ModelCoordinates coordinates) {
         try {
             Class<?>[] argTypes = new Class[argList.size()];
             for (int i = 0; i < argList.size(); i++) {
@@ -1045,13 +1042,13 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
             Method declaredMethod = MethodUtils.resolveMethod(functionName, cls, argTypes);
             if (declaredMethod == null) {
                 String errorMessage = String.format("Cannot resolve '%s.%s(%s)", cls.getName(), functionName, argList);
-                handleDMNError(location, errorMessage);
+                handleDMNError(coordinates, errorMessage);
             }
             Object[] args = JavaFunctionInfo.makeArgs(declaredMethod, argList);
             return declaredMethod.invoke(object, args);
         } catch (Exception e) {
             String errorMessage = String.format("Cannot invoke function '%s.%s(%s)'", cls.getName(), functionName, argList);
-            handleDMNError(location, errorMessage);
+            handleDMNError(coordinates, errorMessage);
             return null;
         }
     }
@@ -1124,7 +1121,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
 
     private Object navigate(PathExpression<Type> element, Type sourceType, Object source, String member, DMNContext context) {
         try {
-            FEELExpressionLocation location = makeExpressionLocation(context, element);
+            ModelCoordinates coordinates = makeExpressionCoordinates(context, element);
             if (sourceType instanceof ImportContextType) {
                 List<String> aliases = ((ImportContextType) sourceType).getAliases(member);
                 return ((com.gs.dmn.runtime.Context) source).get(member, aliases.toArray());
@@ -1141,15 +1138,15 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                 List<String> aliases = ((ContextType) sourceType).getAliases(member);
                 return ((com.gs.dmn.runtime.Context) source).get(member, aliases.toArray());
             } else if (sourceType instanceof DateType) {
-                return evaluateDateTimeMember(source, member, location);
+                return evaluateDateTimeMember(source, member, coordinates);
             } else if (sourceType instanceof TimeType) {
-                return evaluateDateTimeMember(source, member, location);
+                return evaluateDateTimeMember(source, member, coordinates);
             } else if (sourceType instanceof DateTimeType) {
-                return evaluateDateTimeMember(source, member, location);
+                return evaluateDateTimeMember(source, member, coordinates);
             } else if (sourceType instanceof DurationType) {
-                return evaluateDateTimeMember(source, member, location);
+                return evaluateDateTimeMember(source, member, coordinates);
             } else if (sourceType instanceof RangeType) {
-                return evaluateRangeMember(source, member, location);
+                return evaluateRangeMember(source, member, coordinates);
             } else if (sourceType instanceof AnyType) {
                 // source is Context
                 List<String> aliases = Collections.emptyList();
@@ -1166,9 +1163,9 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         }
     }
 
-    protected abstract Object evaluateDateTimeMember(Object source, String member, FEELExpressionLocation location);
+    protected abstract Object evaluateDateTimeMember(Object source, String member, ModelCoordinates coordinates);
 
-    private Object evaluateRangeMember(Object source, String member, FEELExpressionLocation location) {
+    private Object evaluateRangeMember(Object source, String member, ModelCoordinates coordinates) {
         if ("start".equals(member)) {
             return ((Range<?>) source).getStart();
         } else if ("end".equals(member)) {
@@ -1179,7 +1176,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
             return ((Range<?>) source).isEndIncluded();
         } else {
             String errorMessage = String.format("Cannot resolve method '%s' for date time", member);
-            handleDMNError(location, errorMessage);
+            handleDMNError(coordinates, errorMessage);
             return null;
         }
     }
@@ -1320,19 +1317,19 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         return null;
     }
 
-    protected String functionName(Object function, ModelLocation modelLocation) {
+    protected String functionName(Object function, ModelCoordinates modelCoordinates) {
         try {
             List<Declaration> declarations = ((BuiltinFunction) function).getDeclarations();
             return declarations.get(0).getName();
         } catch (Exception e) {
             String errorMessage = String.format("Cannot find name of builtin function '%s'", function);
-            handleDMNError(modelLocation, errorMessage);
+            handleDMNError(modelCoordinates, errorMessage);
             return null;
         }
     }
 
-    private void handleDMNError(ModelLocation modelLocation, String errorMessage) {
-        SemanticError error = ErrorFactory.makeDMNError(modelLocation, errorMessage);
+    private void handleDMNError(ModelCoordinates modelCoordinates, String errorMessage) {
+        SemanticError error = ErrorFactory.makeDMNError(modelCoordinates, errorMessage);
         handleError(error);
     }
 

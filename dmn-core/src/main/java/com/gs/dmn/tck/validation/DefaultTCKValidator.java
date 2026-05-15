@@ -133,7 +133,7 @@ class DefaultTCKValidatorVisitor extends TraversalVisitor<ValidationContext> {
         }
         // The id of a test case must be unique
         validateUnique(
-                new ArrayList<>(element.getTestCase()), "TestCase", Arrays.asList(new Pair<>("id", TestCase::getId)), null, context
+                new ArrayList<>(element.getTestCase()), "TestCase", List.of(new Pair<>("id", TestCase::getId)), null, context
         );
     }
 
@@ -154,13 +154,13 @@ class DefaultTCKValidatorVisitor extends TraversalVisitor<ValidationContext> {
             this.validator.addValidationError(context, element, errorMessage);
         }
         // Validate that the input nodes and result nodes have unique names
-        List<Pair<String, Function<InputNode, String>>> inputNodeKey = Arrays.asList(
+        List<Pair<String, Function<InputNode, String>>> inputNodeKey = List.of(
                 new Pair<>("namespace, name", this::getQName)
         );
         validateUnique(
                 new ArrayList<>(element.getInputNode()), "InputNode", inputNodeKey, null, context
         );
-        List<Pair<String, Function<ResultNode, String>>> resultNodeKey = Arrays.asList(
+        List<Pair<String, Function<ResultNode, String>>> resultNodeKey = List.of(
                 new Pair<>("namespace, name", this::getQName)
         );
         validateUnique(

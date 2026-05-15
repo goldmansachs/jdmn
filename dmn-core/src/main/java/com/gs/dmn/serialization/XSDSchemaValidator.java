@@ -12,11 +12,11 @@
  */
 package com.gs.dmn.serialization;
 
+import com.gs.dmn.ErrorFactory;
+import com.gs.dmn.ModelCoordinates;
 import com.gs.dmn.ast.TDefinitions;
-import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.SyntaxErrorException;
 import com.gs.dmn.error.ValidationError;
-import com.gs.dmn.feel.ModelLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
@@ -57,8 +57,8 @@ public class XSDSchemaValidator {
                     errors.add(errorMessage);
                 }
             }
-            ModelLocation modelLocation = makeModelLocation(source);
-            return errors.stream().map(e -> new ValidationError(ErrorFactory.makeDMNError(modelLocation, e), RULE_NAME)).collect(Collectors.toList());
+            ModelCoordinates modelCoordinates = makeModelLocation(source);
+            return errors.stream().map(e -> new ValidationError(ErrorFactory.makeDMNError(modelCoordinates, e), RULE_NAME)).collect(Collectors.toList());
         } catch (Exception e) {
             String errorMessage = "Validation failed due to a critical error: " + e.getMessage();
             LOGGER.error(errorMessage);
@@ -66,9 +66,9 @@ public class XSDSchemaValidator {
         }
     }
 
-    private ModelLocation makeModelLocation(Source source) {
+    private ModelCoordinates makeModelLocation(Source source) {
         String systemId = source.getSystemId();
-        ModelLocation modelLocation = null;
+        ModelCoordinates modelCoordinates = null;
         if (systemId != null && systemId.endsWith(DMNConstants.DMN_FILE_EXTENSION)) {
             // Determine file name
             String fileName;
@@ -84,9 +84,9 @@ public class XSDSchemaValidator {
             TDefinitions model = new TDefinitions();
             model.setName(modelName);
 
-            modelLocation = new ModelLocation(model, null);
+            modelCoordinates = new ModelCoordinates(model, null);
         }
-        return modelLocation;
+        return modelCoordinates;
     }
 
     private Validator makeValidator(String schemaPath) throws MalformedURLException, URISyntaxException, SAXException {
