@@ -29,9 +29,9 @@ import java.util.List;
 
 public abstract class AbstractMissingItemDefinitionsTransformer extends SimpleDMNTransformer<TestLab> {
     // Pre-condition: one single model
-    private static TDefinitions getModel(DMNModelRepository repository) {
+    private static TDefinitions getDefinitions(DMNModelRepository repository) {
         List<TDefinitions> models = repository.getAllDefinitions();
-        TDefinitions model = null;
+        TDefinitions model;
         if (models.size() == 1) {
             model = models.get(0);
         } else {
@@ -49,7 +49,7 @@ public abstract class AbstractMissingItemDefinitionsTransformer extends SimpleDM
     }
 
     protected DMNModelRepository addNewDefinitions(DMNModelRepository repository, List<TItemDefinition> itemDefinitionList) {
-        TDefinitions model = getModel(repository);
+        TDefinitions model = getDefinitions(repository);
         for (TItemDefinition definition : itemDefinitionList) {
             TItemDefinition existingDefinition = repository.lookupItemDefinition(model, QualifiedName.toQualifiedName(model, definition.getName()));
             if (existingDefinition != null) {
