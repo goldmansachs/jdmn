@@ -21,7 +21,7 @@ import com.gs.dmn.tck.ast.ResultNode;
 import com.gs.dmn.tck.ast.TestCase;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.tck.serialization.xstream.XMLTCKSerializer;
-import com.gs.dmn.transformation.AbstractFileTransformerTest;
+import com.gs.dmn.AbstractFileTransformerTest;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;

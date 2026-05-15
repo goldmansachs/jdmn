@@ -14,7 +14,7 @@ package com.gs.dmn.serialization;
 
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
-import com.gs.dmn.transformation.AbstractFileTransformerTest;
+import com.gs.dmn.AbstractFileTransformerTest;
 
 import java.io.*;
 import java.nio.charset.Charset;

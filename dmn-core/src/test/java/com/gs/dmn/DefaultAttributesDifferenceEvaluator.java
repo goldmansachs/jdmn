@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.transformation;
+package com.gs.dmn;
 
 import com.gs.dmn.serialization.DMNVersion;
 import org.w3c.dom.Node;
@@ -37,7 +37,7 @@ public class DefaultAttributesDifferenceEvaluator implements DifferenceEvaluator
     //     <xsd:attribute name="isCollapsed" type="xsd:boolean" use="optional" default="false"/>
     // DMN 1.3
     //     <xsd:attribute name="kind" type="tFunctionKind" default="FEEL"/>
-    private static final Map<String, List<QName>> dmnNodeToAttribute = new LinkedHashMap<String, List<QName>>() {{
+    private static final Map<String, List<QName>> dmnNodeToAttribute = new LinkedHashMap<>() {{
         put("definitions", Arrays.asList(new QName("expressionLanguage"), new QName("typeLanguage")));
         put("itemDefinition", Collections.singletonList(new QName("isCollection")));
         put("itemComponent", Collections.singletonList(new QName("isCollection")));
@@ -47,7 +47,7 @@ public class DefaultAttributesDifferenceEvaluator implements DifferenceEvaluator
         put("DMNShape", Collections.singletonList(new QName("isCollapsed")));
         put("encapsulatedLogic", Collections.singletonList(new QName("kind")));
     }};
-    private static final Map<QName, String> dmnAttributeToDefaultValue = new LinkedHashMap<QName, String>() {{
+    private static final Map<QName, String> dmnAttributeToDefaultValue = new LinkedHashMap<>() {{
            put(new QName("expressionLanguage"), DMNVersion.LATEST.getFeelNamespace());
            put(new QName("typeLanguage"), DMNVersion.LATEST.getFeelNamespace());
            put(new QName("isCollection"), "false");
@@ -62,12 +62,12 @@ public class DefaultAttributesDifferenceEvaluator implements DifferenceEvaluator
     // The following TCK attributes have default values
     //     <xs:attribute name="errorResult" type="xs:boolean" default="false"/>
     //     <xs:attribute name="type" type="testCaseType"/>
-    private static final Map<String, List<QName>> tckNodesToAttributes = new LinkedHashMap<String, List<QName>>() {{
+    private static final Map<String, List<QName>> tckNodesToAttributes = new LinkedHashMap<>() {{
             put("resultNode", Collections.singletonList(new QName("errorResult")));
             put("testCase", Collections.singletonList(new QName("type")));
     }};
 
-    private static final Map<QName, String> tckAttributeToDefaultValue = new LinkedHashMap<QName, String>() {{
+    private static final Map<QName, String> tckAttributeToDefaultValue = new LinkedHashMap<>() {{
         put(new QName("errorResult"), "false");
         put(new QName("type"), "decision");
     }};

@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.transformation;
 
+import com.gs.dmn.AbstractFileTransformerTest;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;

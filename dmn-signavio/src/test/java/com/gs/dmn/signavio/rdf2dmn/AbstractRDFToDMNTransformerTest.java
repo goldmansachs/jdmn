@@ -16,7 +16,7 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.signavio.SignavioTestConstants;
-import com.gs.dmn.signavio.transformation.AbstractSignavioFileTransformerTest;
+import com.gs.dmn.signavio.AbstractSignavioFileTransformerTest;
 import com.gs.dmn.transformation.FileTransformer;
 import com.gs.dmn.transformation.InputParameters;
 import org.apache.commons.io.FileUtils;
@@ -41,10 +41,6 @@ public abstract class AbstractRDFToDMNTransformerTest extends AbstractSignavioFi
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractRDFToDMNTransformerTest.class));
 
     private final String schemaVersion = "1.1";
-
-    protected void doTestFolder() throws Exception {
-        doTestFolder(getInputPath(), getOutputPath(), getExpectedPath());
-    }
 
     protected void doTest(String diagramName) throws Exception {
         String outputPath = getOutputPath();
@@ -99,9 +95,10 @@ public abstract class AbstractRDFToDMNTransformerTest extends AbstractSignavioFi
         File file = new File("src/test/resources" +
                 (resourcePath.startsWith("/") ? resourcePath : "/" + resourcePath));
         FileUtils.writeStringToFile(file,
-                "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
-                "<dmn:definitions xmlns:dmn=\"http://www.omg.org/spec/DMN/20151101/dmn.xsd\" xmlns:cip=\"http://www.gs.com/cip\" xmlns:feel=\"http://www.omg.org/spec/FEEL/20140401\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" namespace=\"http://www.omg.org/spec/DMN/20151101/dmn.xsd\" name=\"XXX\">\n" +
-                "</dmn:definitions>",
+                """
+                        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+                        <dmn:definitions xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:cip="http://www.gs.com/cip" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:xsd="http://www.w3.org/2001/XMLSchema" namespace="http://www.omg.org/spec/DMN/20151101/dmn.xsd" name="XXX">
+                        </dmn:definitions>""",
                 this.inputParameters.getCharset()
         )
         ;

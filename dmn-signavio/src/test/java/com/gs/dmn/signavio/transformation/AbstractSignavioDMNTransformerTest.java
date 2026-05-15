@@ -14,6 +14,7 @@ package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.signavio.AbstractSignavioFileTransformerTest;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.SignavioTestConstants;
 import com.gs.dmn.signavio.testlab.TestLab;

@@ -20,7 +20,7 @@ import com.gs.dmn.error.SyntaxErrorException;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
 import com.gs.dmn.serialization.xstream.extensions.test.*;
-import com.gs.dmn.transformation.AbstractFileTransformerTest;
+import com.gs.dmn.AbstractFileTransformerTest;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;

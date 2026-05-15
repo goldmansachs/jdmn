@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.transformation;
 
+import com.gs.dmn.AbstractFileTransformerTest;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.runtime.DMNRuntimeException;

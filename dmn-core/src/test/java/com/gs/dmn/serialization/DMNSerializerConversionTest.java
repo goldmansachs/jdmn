@@ -19,7 +19,7 @@ import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.serialization.jackson.JsonDMNSerializer;
 import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
 import com.gs.dmn.serialization.xstream.extensions.test.TestRegister;
-import com.gs.dmn.transformation.AbstractFileTransformerTest;
+import com.gs.dmn.AbstractFileTransformerTest;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.namespace.QName;

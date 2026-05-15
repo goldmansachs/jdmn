@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.signavio.transformation;
 
+import com.gs.dmn.signavio.AbstractSignavioFileTransformerTest;
 import com.gs.dmn.signavio.SignavioTestConstants;
 import com.gs.dmn.transformation.InputParameters;
 import org.junit.jupiter.api.Test;

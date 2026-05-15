@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.serialization;
 
-import com.gs.dmn.transformation.AbstractFileTransformerTest;
+import com.gs.dmn.AbstractFileTransformerTest;
 import org.xmlunit.validation.Languages;
 import org.xmlunit.validation.ValidationProblem;
 import org.xmlunit.validation.ValidationResult;

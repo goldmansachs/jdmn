@@ -10,13 +10,13 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.signavio.transformation;
+package com.gs.dmn.signavio;
 
 import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.serialization.TestSerializer;
 import com.gs.dmn.signavio.dialect.JavaTimeSignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.testlab.TestLab;
-import com.gs.dmn.transformation.AbstractFileTransformerTest;
+import com.gs.dmn.AbstractFileTransformerTest;
 
 import java.util.Map;
 

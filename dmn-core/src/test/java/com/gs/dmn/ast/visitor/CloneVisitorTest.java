@@ -20,7 +20,7 @@ import com.gs.dmn.serialization.DMNMarshaller;
 import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
 import com.gs.dmn.serialization.xstream.extensions.kie.DecisionServicesRegister;
 import com.gs.dmn.serialization.xstream.extensions.kie.KieTestRegister;
-import com.gs.dmn.transformation.AbstractFileTransformerTest;
+import com.gs.dmn.AbstractFileTransformerTest;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
