@@ -19,33 +19,30 @@ import com.gs.dmn.QualifiedName;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.error.SemanticErrorException;
 import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.EvaluationContext;
 import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.tck.ast.*;
+import com.gs.dmn.tck.error.TestLocation;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.FEELParameter;
 import com.gs.dmn.transformation.basic.NativeParameter;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(TCKUtil.class);
-
     public static String getModelName(String fileName) {
         if (StringUtils.isBlank(fileName)) {
-            throw new DMNRuntimeException("Missing model name");
+            throw new SemanticErrorException("Missing model name");
         }
 
         // Remove extension
@@ -55,7 +52,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     public static String getTestCasesName(String fileName) {
         if (StringUtils.isBlank(fileName)) {
-            throw new DMNRuntimeException("Missing test cases name");
+            throw new SemanticErrorException("Missing test cases name");
         }
 
         // Remove extension
@@ -138,13 +135,15 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             String namespace = getNamespace(testCases, testCase, inputNode);
             DRGElementReference<? extends TDRGElement> reference = extractInfoFromModel(definitions, namespace, inputNode.getName());
             if (reference == null) {
-                throw new DMNRuntimeException(String.format("Cannot find DRG element for InputNode '%s' for TestCase '%s' in TestCases '%s'", inputNode.getName(), testCase.getId(), testCases.getModelName()));
+                TestLocation location = new TestLocation(testCases.getTestCasesName(), testCase.getId(), testCases.getModelName());
+                throw new SemanticErrorException(String.format("%s: Cannot find DRG element for InputNode '%s' in  namespace '%s'", location, inputNode.getName(), namespace));
             }
             return new InputNodeInfo(testCases.getModelName(), inputNode.getName(), NodeInfo.nodeTypeFrom(reference), reference, inputNode);
         } else {
             Pair<DRGElementReference<? extends TDRGElement>, ValueType> pair = extractInfoFromValue(definitions, inputNode);
             if (pair == null || pair.getLeft() == null) {
-                throw new DMNRuntimeException(String.format("Cannot find DRG element for InputNode '%s' for TestCase '%s' in TestCases '%s'", inputNode.getName(), testCase.getId(), testCases.getModelName()));
+                TestLocation location = new TestLocation(testCases.getTestCasesName(), testCase.getId(), testCases.getModelName());
+                throw new SemanticErrorException(String.format("%s: Cannot find DRG element for InputNode '%s'", location, inputNode.getName()));
             }
             return new InputNodeInfo(testCases.getModelName(), inputNode.getName(), NodeInfo.nodeTypeFrom(pair.getLeft()), pair.getLeft(), pair.getRight());
         }
@@ -232,7 +231,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             }
         }
         if (element == null) {
-            throw new DMNRuntimeException(String.format("Cannot find DRG element for node '%s'", node.getName()));
+            throw new SemanticErrorException(String.format("Cannot find DRG element for node '%s'", node.getName()));
         }
 
         // Make result
@@ -312,7 +311,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     public String inputDataVariableName(InputNodeInfo info) {
         TDRGElement element = info.getReference().getElement();
         if (element == null) {
-            throw new DMNRuntimeException(String.format("Cannot find element '%s'", info.getNodeName()));
+            throw new SemanticErrorException(String.format("Cannot find element '%s'", info.getNodeName()));
         } else {
             return this.transformer.drgElementReferenceVariableName(info.getReference());
         }
@@ -321,7 +320,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     public String displayName(InputNodeInfo info) {
         TDRGElement element = info.getReference().getElement();
         if (element == null) {
-            throw new DMNRuntimeException(String.format("Cannot find element '%s'", info.getNodeName()));
+            throw new SemanticErrorException(String.format("Cannot find element '%s'", info.getNodeName()));
         } else {
             return this.transformer.displayName(info.getReference());
         }
@@ -337,7 +336,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             TDRGElement element = info.getReference().getElement();
             return this.transformer.drgElementOutputFEELType(element);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot resolve FEEL type for node '%s'", info.getNodeName()), e);
+            throw new SemanticErrorException(String.format("Cannot resolve FEEL type for node '%s'", info.getNodeName()), e);
         }
     }
 
@@ -388,7 +387,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     public String qualifiedName(NodeInfo info) {
         TDRGElement element = info.getReference().getElement();
         if (element == null) {
-            throw new DMNRuntimeException(String.format("Cannot find DRG Element for node '%s'", info.getNodeName()));
+            throw new SemanticErrorException(String.format("Cannot find DRG Element for node '%s'", info.getNodeName()));
         }
         if (info.isDecision()) {
             String pkg = this.transformer.nativeModelPackageName(info.getRootModelName());
@@ -397,7 +396,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         } else if (info.isBKM() || info.isDS()) {
             return this.transformer.singletonInvocableInstance((TInvocable) element);
         } else {
-            throw new DMNRuntimeException(String.format("Not supported '%s' in '%s'", info.getNodeType(), info.getNodeName()));
+            throw new SemanticErrorException(String.format("Not supported '%s' in '%s'", info.getNodeType(), info.getNodeName()));
         }
     }
 
@@ -418,7 +417,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             }
             return builder.toString();
         } else {
-            throw new DMNRuntimeException(String.format("Not supported node type '%s'", info.getNodeType()));
+            throw new SemanticErrorException(String.format("Not supported node type '%s'", info.getNodeType()));
         }
     }
 
@@ -427,7 +426,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         if (info.isDecision() || info.isBKM() || info.isDS()) {
             return this.transformer.drgElementArgumentList(info.getReference());
         } else {
-            throw new DMNRuntimeException(String.format("Not supported node type '%s'", info.getNodeType()));
+            throw new SemanticErrorException(String.format("Not supported node type '%s'", info.getNodeType()));
         }
     }
 
@@ -435,7 +434,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         if (info.isDecision() || info.isBKM() || info.isDS()) {
             return String.format("%s, %s", this.inputVariableName(), this.executionContextVariableName());
         } else {
-            throw new DMNRuntimeException(String.format("Not supported node type '%s'", info.getNodeType()));
+            throw new SemanticErrorException(String.format("Not supported node type '%s'", info.getNodeType()));
         }
     }
 
@@ -444,7 +443,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             TDRGElement element = resultNode.getReference().getElement();
             return this.transformer.drgElementOutputFEELType(element);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot resolve FEEL type for node '%s'", resultNode.getNodeName()), e);
+            throw new SemanticErrorException(String.format("Cannot resolve FEEL type for node '%s'", resultNode.getNodeName()), e);
         }
     }
 
@@ -526,7 +525,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         DRGElementReference<? extends TDRGElement> reference = info.getReference();
         TDRGElement element = reference.getElement();
         if (element == null) {
-            throw new DMNRuntimeException(String.format("Cannot find DRG elements for node '%s'", info.getNodeName()));
+            throw new SemanticErrorException(String.format("Cannot find DRG elements for node '%s'", info.getNodeName()));
         } else if (element instanceof TDecision) {
             Map<QualifiedName, Object> informationRequirements = makeInputs(testCases, testCase);
             return interpreter.evaluateDecision(reference.getNamespace(), reference.getElementName(), EvaluationContext.makeDecisionEvaluationContext(element, informationRequirements));
@@ -536,7 +535,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             EvaluationContext functionContext = EvaluationContext.makeFunctionInvocationContext(element, arguments, this.transformer.makeGlobalContext(element));
             return interpreter.evaluateInvocable(reference.getNamespace(), reference.getElementName(), functionContext);
         } else {
-            throw new DMNRuntimeException(String.format("'%s' is not supported yet", element.getClass().getSimpleName()));
+            throw new SemanticErrorException(String.format("'%s' is not supported yet", element.getClass().getSimpleName()));
         }
     }
 
@@ -562,8 +561,9 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
                     inputs.put(QualifiedName.toQualifiedName((String) null, simpleName), value);
                 }
             } catch (Exception e) {
-                LOGGER.error("Cannot extract inputs ", e);
-                throw new DMNRuntimeException(String.format("Cannot process input node '%s' for TestCase %d for DM '%s'", simpleName, i, testCase.getName()), e);
+                String errorMessage = String.format("Cannot extract inputs for inputNode '%s'", simpleName);
+                TestLocation testLocation = new TestLocation(testCases.getTestCasesName(), testCase.getId(), testCases.getModelName());
+                throw new SemanticErrorException(String.format("%s: %s", testLocation, errorMessage), e);
             }
         }
         return inputs;
@@ -601,20 +601,26 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             definitions = this.dmnModelRepository.findModelByNamespace(namespace);
         }
         if (definitions == null) {
-            throw new DMNRuntimeException(String.format("Cannot find DM '%s' for TestCases", testCases.getModelName()));
+            TestLocation location = new TestLocation(testCases.getTestCasesName(), null, testCases.getModelName());
+            throw new SemanticErrorException(String.format("%s: Cannot find DM", location, testCases.getModelName()));
         } else {
             return definitions;
         }
     }
 
     private TDRGElement findDRGElement(TestCases testCases, TestCase testCase, ResultNode node) {
-        String namespace = getNamespace(testCases, testCase, node);
-        String name = drgElementName(testCases, testCase, node);
-        if (!StringUtils.isBlank(namespace)) {
-            return this.dmnModelRepository.findDRGElementByName(namespace, name);
-        } else {
-            TDefinitions rootModel = getRootModel(testCases);
-            return this.dmnModelRepository.findDRGElementByName(rootModel, name);
+        try {
+            String namespace = getNamespace(testCases, testCase, node);
+            String name = drgElementName(testCases, testCase, node);
+            if (!StringUtils.isBlank(namespace)) {
+                return this.dmnModelRepository.findDRGElementByName(namespace, name);
+            } else {
+                TDefinitions rootModel = getRootModel(testCases);
+                return this.dmnModelRepository.findDRGElementByName(rootModel, name);
+            }
+        } catch (Exception e) {
+            TestLocation testLocation = new TestLocation(testCases.getTestCasesName(), testCase.getId(), testCases.getModelName());
+            throw new SemanticErrorException(String.format("%s: %s", testLocation, e.getMessage()), e);
         }
     }
 

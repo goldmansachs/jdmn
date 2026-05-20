@@ -94,7 +94,7 @@ public class XSDSchemaValidator {
             // Determine test cases name
             int dotIndex = fileName.lastIndexOf('.');
             String testCasesName = fileName.substring(0, dotIndex);
-            testLocation = new TestLocation(testCasesName, null);
+            testLocation = new TestLocation(testCasesName, null, null);
         }
         return testLocation;
     }

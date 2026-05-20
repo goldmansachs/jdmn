@@ -17,19 +17,18 @@ import com.gs.dmn.tck.ast.TestCases;
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class CompositeTCKValidatorTest extends AbstractValidatorTest {
     private final TCKValidator validator = new CompositeTCKValidator(
-            Arrays.asList(new DefaultTCKValidator())
+            List.of(new DefaultTCKValidator())
     );
 
     @Test
     public void testValidateWhenTestCasesNameIsMissing() {
-        List<String> expectedErrors = Arrays.asList(
-                "[ERROR] Missing testCasesName for element TestCases"
+        List<String> expectedErrors = List.of(
+                "[ERROR] (modelName = '0020-vacation-days.dmn'): Missing testCasesName for element TestCases"
         );
         validate("default-tck-validator", validator, tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days-test-01.xml"), expectedErrors);
     }
@@ -43,7 +42,7 @@ public class CompositeTCKValidatorTest extends AbstractValidatorTest {
 
     @Test
     public void testValidateException() {
-        CompositeTCKValidator validator = new CompositeTCKValidator(Arrays.asList(new SimpleTCKValidator() {
+        CompositeTCKValidator validator = new CompositeTCKValidator(List.of(new SimpleTCKValidator() {
             @Override
             public List<ValidationError> validate(TestCases testCases) {
                 throw new RuntimeException("Exception Stacktrace");
@@ -54,7 +53,7 @@ public class CompositeTCKValidatorTest extends AbstractValidatorTest {
                 return "exception-validator";
             }
         }));
-        List<String> expectedErrors = Arrays.asList(
+        List<String> expectedErrors = List.of(
                 "[ERROR] Fatal error in validator 'exception-validator' Exception Stacktrace"
         );
         URI fileURI = tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days-test-01.xml");

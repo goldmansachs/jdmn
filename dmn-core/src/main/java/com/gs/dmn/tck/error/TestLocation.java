@@ -20,15 +20,18 @@ import java.util.Map;
 public class TestLocation extends ErrorLocation {
     private final String testCasesName;
     private final String testCasesId;
+    private final String modelName;
 
-    public TestLocation(String testCasesName, String testCasesId) {
+    public TestLocation(String testCasesName, String testCasesId, String modelName) {
         this.testCasesName = testCasesName;
         this.testCasesId = testCasesId;
+        this.modelName = modelName;
 
         // Derive the textual representation
         Map<String, String> parts = new LinkedHashMap<>();
         addPart("testCasesName", testCasesName, parts);
         addPart("testCase", testCasesId, parts);
+        addPart("modelName", modelName, parts);
         initText(parts);
     }
 
@@ -38,5 +41,9 @@ public class TestLocation extends ErrorLocation {
 
     public String getTestCasesId() {
         return testCasesId;
+    }
+
+    public String getModelName() {
+        return modelName;
     }
 }

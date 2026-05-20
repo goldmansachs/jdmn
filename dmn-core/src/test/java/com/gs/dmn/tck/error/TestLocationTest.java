@@ -20,14 +20,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class TestLocationTest {
     @Test
     void testToText() {
-        assertEquals("", new TestLocation((String) null, null).toText());
-        assertEquals("(testCasesName = 'test case')", new TestLocation("test case", null).toText());
-        assertEquals("(testCasesName = 'test case', testCase = '001')", new TestLocation("test case", "001").toText());
+        assertEquals("", new TestLocation(null, null, null).toText());
+        assertEquals("(testCasesName = 'test case')", new TestLocation("test case", null, null).toText());
+        assertEquals("(testCasesName = 'test case', testCase = '001', modelName = 'model name')", new TestLocation("test case", "001", "model name").toText());
     }
 
     @Test
     void testSerialization() throws Exception {
-        TestLocation location = new TestLocation("test case", "001");
-        assertEquals("{\"testCasesName\":\"test case\",\"testCasesId\":\"001\"}", new ObjectMapper().writeValueAsString(location));
+        TestLocation location = new TestLocation("test case", "001", "model name");
+        assertEquals("{\"testCasesName\":\"test case\",\"testCasesId\":\"001\",\"modelName\":\"model name\"}", new ObjectMapper().writeValueAsString(location));
     }
 }
