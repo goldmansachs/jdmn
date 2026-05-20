@@ -50,7 +50,15 @@ public class PositionalParameterTypes<T> extends ParameterTypes<T> {
 
     @Override
     public String toString() {
-        String opd = this.types.stream().map(t -> String.format("%s", t)).collect(Collectors.joining(", "));
+        String opd = this.types.stream()
+                .map(t -> {
+                    try {
+                        return String.format("%s", t);
+                    } catch (RuntimeException e) {
+                        return "?";
+                    }
+                })
+                .collect(Collectors.joining(", "));
         return String.format("%s(%s)", getClass().getSimpleName(), opd);
     }
 }
