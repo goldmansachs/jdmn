@@ -29,36 +29,42 @@ class ModelElementRegistryTest {
 
     @Test
     void testRegistration() {
+        // register
         ModelElementRegistry registry = new ModelElementRegistry();
         registry.register(qName, className);
 
+        // check keys
         Set<String> expectKeys = new LinkedHashSet<>(Collections.singletonList(qName));
         assertEquals(expectKeys, registry.keys());
     }
 
     @Test
     void testRegistrationForNulls() {
+        // register
         ModelElementRegistry registry = new ModelElementRegistry();
 
-        Assertions.assertThrows(NullPointerException.class, () -> registry.register(null, className));
-
-        Assertions.assertThrows(NullPointerException.class, () -> registry.register(qName, null));
+        // check null arguments
+        Assertions.assertThrows(DMNRuntimeException.class, () -> registry.register(null, className));
+        Assertions.assertThrows(DMNRuntimeException.class, () -> registry.register(qName, null));
     }
 
     @Test
     void testRegistrationForExistingWithDifferentValue() {
+        // register
         ModelElementRegistry registry = new ModelElementRegistry();
-
         registry.register(qName, "otherName");
-        Assertions.assertThrows(DMNRuntimeException.class, () -> registry.register(qName, className));
 
+        // check different class name
+        Assertions.assertThrows(DMNRuntimeException.class, () -> registry.register(qName, className));
     }
 
     @Test
     void testRegistrationForExistingWithSameValue() {
+        // register
         ModelElementRegistry registry = new ModelElementRegistry();
-
         registry.register(qName, className);
+
+        // check if cached
         assertEquals(1, registry.keys().size());
         registry.register(qName, className);
         assertEquals(1, registry.keys().size());
@@ -66,55 +72,128 @@ class ModelElementRegistryTest {
 
     @Test
     void testDiscoveryForDecision() {
+        // register decision
         ModelElementRegistry registry = new ModelElementRegistry();
         registry.register("elementName", NopDecision.class.getName());
 
-        ExecutableDRGElement<Object> element = registry.discover("elementName", Object.class);
-        assertInstanceOf(NopDecision.class, element);
+        // check discover decision
+        ExecutableDRGElement<Object> element1 = registry.discover("elementName", Object.class);
+        assertInstanceOf(NopDecision.class, element1);
+
+        // check if it is cached
+        ExecutableDRGElement<Object> element2 = registry.discover("elementName", Object.class);
+        assertSame(element1, element2);
     }
 
     @Test
     void testDiscoveryForBKM() {
+        // register bkm
         ModelElementRegistry registry = new ModelElementRegistry();
         registry.register("elementName", NopBKM.class.getName());
 
-        ExecutableDRGElement<Object> element = registry.discover("elementName", Object.class);
-        assertInstanceOf(NopBKM.class, element);
+        // discover BKM
+        ExecutableDRGElement<Object> element1 = registry.discover("elementName", Object.class);
+        assertInstanceOf(NopBKM.class, element1);
+
+        // check it is cached
+        ExecutableDRGElement<Object> element2 = registry.discover("elementName", Object.class);
+        assertSame(element1, element2);
     }
 
     @Test
     void testDiscoveryForDS() {
+        // register DS
         ModelElementRegistry registry = new ModelElementRegistry();
         registry.register("elementName", NopDS.class.getName());
 
-        ExecutableDRGElement<Object> element = registry.discover("elementName", Object.class);
-        assertInstanceOf(NopDS.class, element);
+        // discover DS
+        ExecutableDRGElement<Object> element1 = registry.discover("elementName", Object.class);
+        assertInstanceOf(NopDS.class, element1);
+
+        // check it is cached
+        ExecutableDRGElement<Object> element2 = registry.discover("elementName", Object.class);
+        assertSame(element1, element2);
     }
 
     @Test
-    void testDiscoveryForMissingElement() {
+    void testDiscoverSingletonForDecision() {
+        // register decision
         ModelElementRegistry registry = new ModelElementRegistry();
-        registry.register("elementName", "com.gs.dmn.runtime.discovery.ExecutableElement");
+        registry.register("elementName", NopDecision.class.getName());
 
-        assertThrows(DMNRuntimeException.class, () -> registry.discover("elementName", Object.class));
+        // check when singleton not generated
+        DMNRuntimeException exception = assertThrows(DMNRuntimeException.class, () -> registry.discoverSingleton("elementName", Object.class));
+        assertEquals("Cannot instantiate class '" + NopDecision.class.getName() + "' for name 'elementName'", exception.getMessage());
+    }
+
+    @Test
+    void testDiscoverSingletonForBKM() {
+        // register BKM
+        ModelElementRegistry registry = new ModelElementRegistry();
+        registry.register("elementName", NopBKM.class.getName());
+
+        // check discovery
+        ExecutableDRGElement<Object> element1 = registry.discoverSingleton("elementName", Object.class);
+        assertInstanceOf(NopBKM.class, element1);
+
+        // check it is cached
+        ExecutableDRGElement<Object> element2 = registry.discoverSingleton("elementName", Object.class);
+        assertSame(element1, element2);
+    }
+
+    @Test
+    void testDiscoverSingletonForDS() {
+        // register DS
+        ModelElementRegistry registry = new ModelElementRegistry();
+        registry.register("elementName", NopDS.class.getName());
+
+        // discover DS
+        ExecutableDRGElement<Object> element1 = registry.discoverSingleton("elementName", Object.class);
+        assertInstanceOf(NopDS.class, element1);
+
+        // check it is cached
+        ExecutableDRGElement<Object> element2 = registry.discoverSingleton("elementName", Object.class);
+        assertSame(element1, element2);
     }
 
     @Test
     void testDiscoverWhenNotRegistered() {
+        // register
         ModelElementRegistry registry = new ModelElementRegistry();
 
+        // check discover for not registered elements
         DMNRuntimeException exception = assertThrows(DMNRuntimeException.class, () -> registry.discover("elementName", Object.class));
+        assertEquals("Element 'elementName' is not registered. Registered elements are []", exception.getMessage());
+        exception = assertThrows(DMNRuntimeException.class, () -> registry.discoverSingleton("elementName", Object.class));
         assertEquals("Element 'elementName' is not registered. Registered elements are []", exception.getMessage());
     }
 
     @Test
     void testDiscoverWhenRegisteredClassDoesNotExist() {
+        // register
         ModelElementRegistry registry = new ModelElementRegistry();
         registry.register("elementName", "com.gs.dmn.runtime.MissingExecutableElement");
 
+        // check discover
         DMNRuntimeException exception = assertThrows(DMNRuntimeException.class, () -> registry.discover("elementName", Object.class));
         assertEquals("Cannot instantiate class 'com.gs.dmn.runtime.MissingExecutableElement' for name 'elementName'", exception.getMessage());
+        exception = assertThrows(DMNRuntimeException.class, () -> registry.discoverSingleton("elementName", Object.class));
+        assertEquals("Cannot instantiate class 'com.gs.dmn.runtime.MissingExecutableElement' for name 'elementName'", exception.getMessage());
     }
+
+    @Test
+    void testDiscoverWhenClassIsNotDMNElement() {
+        // register
+        ModelElementRegistry registry = new ModelElementRegistry();
+        registry.register("elementName", "com.gs.dmn.runtime.discovery.ExecutableElement");
+
+        // check discover
+        DMNRuntimeException exception = assertThrows(DMNRuntimeException.class, () -> registry.discover("elementName", Object.class));
+        assertEquals("Cannot instantiate class 'com.gs.dmn.runtime.discovery.ExecutableElement' for name 'elementName'", exception.getMessage());
+        exception = assertThrows(DMNRuntimeException.class, () -> registry.discoverSingleton("elementName", Object.class));
+        assertEquals("Cannot instantiate class 'com.gs.dmn.runtime.discovery.ExecutableElement' for name 'elementName'", exception.getMessage());
+    }
+
 }
 
 class ExecutableElement implements ExecutableDRGElement<Object> {
