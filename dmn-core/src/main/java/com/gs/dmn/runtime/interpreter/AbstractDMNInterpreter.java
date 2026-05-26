@@ -424,76 +424,11 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
     // Binding
     //
     private Object lookupBinding(DMNContext context, DRGElementReference<? extends TDRGElement> reference) {
-        if (this.dmnTransformer.isSingletonInputData()) {
-            return context.lookupBinding(this.dmnTransformer.bindingName(reference));
-        } else {
-            ImportPath importPath = reference.getImportPath();
-            String name = reference.getElementName();
-
-            if (ImportPath.isEmpty(importPath)) {
-                return context.lookupBinding(name);
-            } else {
-                List<String> pathElements = importPath.getPathElements();
-                // Lookup root context
-                String rootName = pathElements.get(0);
-                Object obj = context.lookupBinding(rootName);
-                if (obj instanceof Context) {
-                    // Lookup inner contexts
-                    Context parentContext = (Context) obj;
-                    for (int i = 1; i < pathElements.size(); i++) {
-                        String childName = pathElements.get(i);
-                        Context childContext = (Context) parentContext.get(childName);
-                        if (childContext == null) {
-                            childContext = new Context();
-                            parentContext.add(childName, childContext);
-                        }
-                        parentContext = childContext;
-                    }
-                    // lookup name
-                    return parentContext.get(name);
-                } else {
-                    throw new SemanticErrorException(String.format("Context value expected, found '%s'", obj.getClass().getSimpleName()));
-                }
-            }
-        }
+        return context.lookupBinding(this.dmnTransformer.bindingName(reference));
     }
 
     private void bind(DMNContext context, DRGElementReference<? extends TDRGElement> reference, Object value) {
-        if (this.dmnTransformer.isSingletonInputData()) {
-            context.bind(this.dmnTransformer.bindingName(reference), value);
-        } else {
-            ImportPath importPath = reference.getImportPath();
-            String name = reference.getElementName();
-
-            if (ImportPath.isEmpty(importPath)) {
-                context.bind(name, value);
-            } else {
-                try {
-                    List<String> pathElements = importPath.getPathElements();
-                    // lookup or bind root context
-                    String rootName = pathElements.get(0);
-                    Context parentContext = (Context) context.lookupBinding(rootName);
-                    if (parentContext == null) {
-                        parentContext = new Context();
-                        context.bind(rootName, parentContext);
-                    }
-                    // lookup or bind inner contexts
-                    for (int i = 1; i < pathElements.size(); i++) {
-                        String childName = pathElements.get(i);
-                        Context childContext = (Context) parentContext.get(childName);
-                        if (childContext == null) {
-                            childContext = new Context();
-                            parentContext.add(childName, childContext);
-                        }
-                        parentContext = childContext;
-                    }
-                    // bind name -> value
-                    parentContext.add(name, value);
-                } catch (Exception e) {
-                    throw new SemanticErrorException(String.format("cannot bind value to '%s.%s'", importPath.asString(), name), e);
-                }
-            }
-        }
+        context.bind(this.dmnTransformer.bindingName(reference), value);
     }
 
     // Add binding required by parent: importName.elementName
@@ -504,27 +439,19 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
 
     // Add binding required by parent: importName.elementName
     private void addBinding(DMNContext context, DRGElementReference<? extends TDRGElement> reference, ImportPath relativeImportPath, Object value) {
-        if (this.dmnTransformer.isSingletonInputData()) {
-            String name = reference.getElementName();
-            if (ImportPath.isEmpty(relativeImportPath)) {
-                context.bind(name, value);
-            } else {
-                // Lookup / bind import name
-                String importName = ImportPath.getImportName(relativeImportPath);
-                Context parentContext = (Context) context.lookupBinding(importName);
-                if (parentContext == null) {
-                    parentContext = new Context();
-                    context.bind(importName, parentContext);
-                }
-                // bind name -> value
-                parentContext.add(name, value);
-            }
+        String name = reference.getElementName();
+        if (ImportPath.isEmpty(relativeImportPath)) {
+            context.bind(name, value);
         } else {
-            if (ImportPath.isEmpty(relativeImportPath)) {
-                context.bind(reference.getElementName(), value);
-            } else {
-                bind(context, this.repository.makeDRGElementReference(relativeImportPath, reference.getElement()), value);
+            // Lookup / bind import name
+            String importName = ImportPath.getImportName(relativeImportPath);
+            Context parentContext = (Context) context.lookupBinding(importName);
+            if (parentContext == null) {
+                parentContext = new Context();
+                context.bind(importName, parentContext);
             }
+            // bind name -> value
+            parentContext.add(name, value);
         }
     }
 

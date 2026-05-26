@@ -72,8 +72,6 @@ public interface BasicDMNToNativeTransformer<T, C> {
     //
     boolean isOnePackage();
 
-    boolean isSingletonInputData();
-
     boolean isStrongTyping();
 
     //

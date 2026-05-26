@@ -24,20 +24,20 @@ public class EvaluatingSayHello extends com.gs.dmn.runtime.JavaTimeDMNBaseDecisi
         -1
     );
 
-    private final model_a.GreetThePerson modela_greetThePerson;
+    private final model_a.GreetThePerson model_a_greetThePerson;
 
     public EvaluatingSayHello() {
         this(new model_a.GreetThePerson());
     }
 
-    public EvaluatingSayHello(model_a.GreetThePerson modela_greetThePerson) {
-        this.modela_greetThePerson = modela_greetThePerson;
+    public EvaluatingSayHello(model_a.GreetThePerson model_a_greetThePerson) {
+        this.model_a_greetThePerson = model_a_greetThePerson;
     }
 
     @java.lang.Override()
     public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("modelA.Person name"), context_);
+            return apply(input_.get("Model A.Person name"), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'EvaluatingSayHello'", e);
             return null;
@@ -47,7 +47,7 @@ public class EvaluatingSayHello extends com.gs.dmn.runtime.JavaTimeDMNBaseDecisi
     @java.lang.Override()
     public String applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(((EvaluatingSayHelloInput_)input_).getModela_personName(), context_);
+            return apply(((EvaluatingSayHelloInput_)input_).getModel_a_personName(), context_);
         } catch (Exception e) {
             logError("Cannot apply element 'EvaluatingSayHello'", e);
             return null;
@@ -64,7 +64,7 @@ public class EvaluatingSayHello extends com.gs.dmn.runtime.JavaTimeDMNBaseDecisi
         }
     }
 
-    public String apply(String modela_personName, com.gs.dmn.runtime.ExecutionContext context_) {
+    public String apply(String model_a_personName, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'Evaluating Say Hello'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -73,11 +73,11 @@ public class EvaluatingSayHello extends com.gs.dmn.runtime.JavaTimeDMNBaseDecisi
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long evaluatingSayHelloStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments evaluatingSayHelloArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            evaluatingSayHelloArguments_.put("modelA.Person name", modela_personName);
+            evaluatingSayHelloArguments_.put("Model A.Person name", model_a_personName);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, evaluatingSayHelloArguments_);
 
             // Evaluate decision 'Evaluating Say Hello'
-            String output_ = lambda.apply(modela_personName, context_);
+            String output_ = lambda.apply(model_a_personName, context_);
 
             // End decision 'Evaluating Say Hello'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, evaluatingSayHelloArguments_, output_, (System.currentTimeMillis() - evaluatingSayHelloStartTime_));
@@ -92,7 +92,7 @@ public class EvaluatingSayHello extends com.gs.dmn.runtime.JavaTimeDMNBaseDecisi
     public com.gs.dmn.runtime.LambdaExpression<String> lambda =
         new com.gs.dmn.runtime.LambdaExpression<String>() {
             public String apply(Object... args_) {
-                String modela_personName = 0 < args_.length ? (String) args_[0] : null;
+                String model_a_personName = 0 < args_.length ? (String) args_[0] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 1 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[1] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
                 com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
@@ -100,9 +100,9 @@ public class EvaluatingSayHello extends com.gs.dmn.runtime.JavaTimeDMNBaseDecisi
                 com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
                 // Apply child decisions
-                String modela_greetThePerson = EvaluatingSayHello.this.modela_greetThePerson.apply(modela_personName, context_);
+                String model_a_greetThePerson = EvaluatingSayHello.this.model_a_greetThePerson.apply(model_a_personName, context_);
 
-                return stringAdd("Evaluating Say Hello to: ", modela_greetThePerson);
+                return stringAdd("Evaluating Say Hello to: ", model_a_greetThePerson);
             }
         };
 }

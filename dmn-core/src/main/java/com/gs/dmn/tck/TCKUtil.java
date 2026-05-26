@@ -131,23 +131,13 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     public InputNodeInfo extractInputNodeInfo(TestCases testCases, TestCase testCase, InputNode inputNode) {
         TDefinitions definitions = getRootModel(testCases);
-        if (this.transformer.isSingletonInputData()) {
-            String namespace = getNamespace(testCases, testCase, inputNode);
-            DRGElementReference<? extends TDRGElement> reference = extractInfoFromModel(definitions, namespace, inputNode.getName());
-            if (reference == null) {
-                TestLocation location = new TestLocation(testCases.getTestCasesName(), testCase.getId(), testCases.getModelName());
-                throw new SemanticErrorException(String.format("%s: Cannot find DRG element for InputNode '%s' in  namespace '%s'", location, inputNode.getName(), namespace));
-            }
-            return new InputNodeInfo(testCases.getModelName(), inputNode.getName(), NodeInfo.nodeTypeFrom(reference), reference, inputNode);
-        } else {
-            Pair<DRGElementReference<? extends TDRGElement>, ValueType> pair = extractInfoFromValue(definitions, inputNode);
-            if (pair == null || pair.getLeft() == null) {
-                TestLocation location = new TestLocation(testCases.getTestCasesName(), testCase.getId(), testCases.getModelName());
-                throw new SemanticErrorException(String.format("%s: Cannot find DRG element for InputNode '%s'", location, inputNode.getName()));
-            }
-            return new InputNodeInfo(testCases.getModelName(), inputNode.getName(), NodeInfo.nodeTypeFrom(pair.getLeft()), pair.getLeft(), pair.getRight());
+        String namespace = getNamespace(testCases, testCase, inputNode);
+        DRGElementReference<? extends TDRGElement> reference = extractInfoFromModel(definitions, namespace, inputNode.getName());
+        if (reference == null) {
+            TestLocation location = new TestLocation(testCases.getTestCasesName(), testCase.getId(), testCases.getModelName());
+            throw new SemanticErrorException(String.format("%s: Cannot find DRG element for InputNode '%s' in  namespace '%s'", location, inputNode.getName(), namespace));
         }
-
+        return new InputNodeInfo(testCases.getModelName(), inputNode.getName(), NodeInfo.nodeTypeFrom(reference), reference, inputNode);
     }
 
     private DRGElementReference<? extends TDRGElement> extractInfoFromModel(TDefinitions rootDefinitions, String elementNamespace, String elementName) {
@@ -551,15 +541,10 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             InputNode input = inputNode.get(i);
             String simpleName = input.getName();
             try {
-                if (this.transformer.isSingletonInputData()) {
-                    InputNodeInfo info = extractInputNodeInfo(testCases, testCase, input);
-                    Object value = this.tckValueInterpreter.makeValue(info.getValue());
-                    DRGElementReference<? extends TDRGElement> reference = info.getReference();
-                    inputs.put(QualifiedName.toQualifiedName(reference.getNamespace(), reference.getElementName()), value);
-                } else {
-                    Object value = this.tckValueInterpreter.makeValue(input);
-                    inputs.put(QualifiedName.toQualifiedName((String) null, simpleName), value);
-                }
+                InputNodeInfo info = extractInputNodeInfo(testCases, testCase, input);
+                Object value = this.tckValueInterpreter.makeValue(info.getValue());
+                DRGElementReference<? extends TDRGElement> reference = info.getReference();
+                inputs.put(QualifiedName.toQualifiedName(reference.getNamespace(), reference.getElementName()), value);
             } catch (Exception e) {
                 String errorMessage = String.format("Cannot extract inputs for inputNode '%s'", simpleName);
                 TestLocation testLocation = new TestLocation(testCases.getTestCasesName(), testCase.getId(), testCases.getModelName());
@@ -602,7 +587,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         }
         if (definitions == null) {
             TestLocation location = new TestLocation(testCases.getTestCasesName(), null, testCases.getModelName());
-            throw new SemanticErrorException(String.format("%s: Cannot find DM", location, testCases.getModelName()));
+            throw new SemanticErrorException(String.format("%s: Cannot find DM %s", location, testCases.getModelName()));
         } else {
             return definitions;
         }

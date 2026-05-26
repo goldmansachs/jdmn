@@ -3030,7 +3030,6 @@
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0006_multiple_input_data</javaRootPackage>
-                                <singletonInputData>false</singletonInputData>
                                 <caching>false</caching>
                             </inputParameters>
                         </configuration>
@@ -3047,7 +3046,6 @@
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0006_multiple_input_data</javaRootPackage>
-                                <singletonInputData>false</singletonInputData>
                                 <caching>false</caching>
                             </inputParameters>
                         </configuration>
@@ -3096,7 +3094,6 @@
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0008_name_conflicts_same_decision_no_singleton</javaRootPackage>
-                                <singletonInputData>false</singletonInputData>
                                 <caching>false</caching>
                             </inputParameters>
                         </configuration>
@@ -3113,7 +3110,6 @@
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0008_name_conflicts_same_decision_no_singleton</javaRootPackage>
-                                <singletonInputData>false</singletonInputData>
                                 <caching>false</caching>
                             </inputParameters>
                         </configuration>
@@ -3133,7 +3129,6 @@
                             </lazyEvaluationDetectors>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.lazy_composite_0008_name_conflicts_same_decision_no_singleton</javaRootPackage>
-                                <singletonInputData>false</singletonInputData>
                                 <caching>false</caching>
                             </inputParameters>
                         </configuration>
@@ -3153,7 +3148,6 @@
                             </lazyEvaluationDetectors>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.lazy_composite_0008_name_conflicts_same_decision_no_singleton</javaRootPackage>
-                                <singletonInputData>false</singletonInputData>
                                 <caching>false</caching>
                             </inputParameters>
                         </configuration>

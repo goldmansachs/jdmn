@@ -56,14 +56,6 @@ public class DRGElementReference<T extends TDRGElement> {
         return String.format("%s#%s", this.namespace, id);
     }
 
-    public String getQualifiedImportName() {
-        if (ImportPath.isEmpty(this.importPath)) {
-            return getElementName();
-        } else {
-            return String.format("%s.%s", String.join(".", this.importPath.getPathElements()), getElementName());
-        }
-    }
-
     @Override
     public String toString() {
         return String.format("DMNReference(import='%s', namespace='%s', model='%s', element='%s')", this.importPath, this.namespace, this.modelName, this.element.getName());

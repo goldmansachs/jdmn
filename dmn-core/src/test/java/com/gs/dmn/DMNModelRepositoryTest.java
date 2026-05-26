@@ -80,7 +80,7 @@ public class DMNModelRepositoryTest extends AbstractTest {
     @Test
     public void testAllInputDatas() {
         TDRGElement root = this.dmnModelRepository.findDRGElementByName(definitions, "Pre-bureauAffordability");
-        List<DRGElementReference<TInputData>> references = this.dmnModelRepository.inputDataClosure(makeRootReference(root), new DRGElementFilter(true));
+        List<DRGElementReference<TInputData>> references = this.dmnModelRepository.inputDataClosure(makeRootReference(root), new DRGElementFilter());
         this.dmnModelRepository.sortNamedElementReferences(references);
 
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());

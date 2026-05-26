@@ -307,17 +307,12 @@ public abstract class AbstractCL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIM
     @Disabled("incorrect DS type")
     @Test
     public void test_12_cl3_0086_import() {
-        doFolderTest("1.2", "0086-import", new Pair<>("singletonInputData", "false"));
+        doFolderTest("1.2", "0086-import");
     }
 
     @Test
     public void test_12_cl3_0087_chapter_11_example() {
         doFolderTest("1.2", "0087-chapter-11-example");
-    }
-
-    @Test
-    public void test_12_cl3_0089_nested_inputdata_imports() {
-        doFolderTest("1.2", "0089-nested-inputdata-imports", new Pair<>("singletonInputData", "false"));
     }
 
     //
@@ -326,7 +321,7 @@ public abstract class AbstractCL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIM
 
     @Test
     public void test_13_cl3_0004_lending() {
-        doFolderTest("1.3", "0004-lending", new Pair<>("singletonInputData", "false"));
+        doFolderTest("1.3", "0004-lending");
     }
 
     @Test
@@ -401,7 +396,7 @@ public abstract class AbstractCL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIM
 
     @Test
     public void test_13_cl3_0086_import() {
-        doFolderTest("1.3", "0086-import", new Pair<>("singletonInputData", "false"));
+        doFolderTest("1.3", "0086-import");
     }
 
     @Test
@@ -495,7 +490,7 @@ public abstract class AbstractCL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIM
 
     @Test
     public void test_14_cl3_0086_import() {
-        doFolderTest("1.4", "0086-import", new Pair<>("singletonInputData", "false"));
+        doFolderTest("1.4", "0086-import");
     }
 
     @Test
@@ -640,6 +635,11 @@ public abstract class AbstractCL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIM
     @Test
     public void test_15_cl3_0084_feel_for_loops() {
         doFolderTest("1.5", "0084-feel-for-loops");
+    }
+
+    @Test
+    public void test_15_cl3_0089_nested_inputdata_imports() {
+        doFolderTest("1.5", "0089-nested-inputdata-imports");
     }
 
     @Test

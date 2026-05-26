@@ -20,14 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class DRGElementFilter {
-    private final boolean singletonInputData;
-
     public DRGElementFilter() {
-        this(true);
-    }
-
-    public DRGElementFilter(boolean singletonInputData) {
-        this.singletonInputData = singletonInputData;
     }
 
     public List<DRGElementReference<TInputData>> filterInputs(List<DRGElementReference<TInputData>> elements) {
@@ -41,11 +34,6 @@ public class DRGElementFilter {
     }
 
     private String getQualifiedName(DRGElementReference<? extends TDRGElement> reference) {
-        if (this.singletonInputData) {
-            return reference.getQualifiedHref();
-        } else {
-            return reference.getQualifiedImportName();
-        }
+        return reference.getQualifiedHref();
     }
-
 }

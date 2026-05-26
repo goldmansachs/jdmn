@@ -88,7 +88,6 @@ public class InputParametersTest {
 
         assertNull(inputParameters.getJavaRootPackage());
         assertFalse(inputParameters.isOnePackage());
-        assertTrue(inputParameters.isSingletonInputData());
         assertFalse(inputParameters.isSingletonDecision());
         assertTrue(inputParameters.isStrongTyping());
 
@@ -120,7 +119,6 @@ public class InputParametersTest {
 
         String javaRootPackage = "javaRootPackage";
         String onePackage = "false";
-        String singletonInputData = "false";
         String singletonDecision = "false";
         String strongTyping = "false";
 
@@ -150,7 +148,6 @@ public class InputParametersTest {
 
             put("javaRootPackage", javaRootPackage);
             put("onePackage", onePackage);
-            put("singletonInputData", singletonInputData);
             put("singletonDecision", singletonDecision);
             put("strongTyping", strongTyping);
 
@@ -181,7 +178,6 @@ public class InputParametersTest {
 
         assertEquals(javaRootPackage, inputParameters.getJavaRootPackage());
         assertFalse(inputParameters.isOnePackage());
-        assertFalse(inputParameters.isSingletonInputData());
         assertFalse(inputParameters.isSingletonDecision());
         assertFalse(inputParameters.isStrongTyping());
 

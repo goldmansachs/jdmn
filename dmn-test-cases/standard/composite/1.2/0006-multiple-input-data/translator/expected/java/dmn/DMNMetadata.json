@@ -125,17 +125,6 @@
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
       }
-    }, {
-      "@kind" : "inputData",
-      "id" : "http://www.trisotech.com/definitions/_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9#_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
-      "javaParameterName" : "personName",
-      "javaTypeName" : "String",
-      "name" : "Person name",
-      "namespace" : "http://www.trisotech.com/definitions/_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9",
-      "typeRef" : {
-        "localName" : "string",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
-      }
     } ],
     "typeRef" : {
       "localName" : "Any",

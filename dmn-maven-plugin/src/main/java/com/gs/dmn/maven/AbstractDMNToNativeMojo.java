@@ -79,13 +79,8 @@ public abstract class AbstractDMNToNativeMojo<NUMBER, DATE, TIME, DATE_TIME, DUR
 
     private void validateParameters(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dmnDialect, DMNValidator dmnValidator, DMNTransformer<TEST> dmnTransformer, TemplateProvider templateProvider, InputParameters inputParameters) {
         boolean onePackage = inputParameters.isOnePackage();
-        boolean singletonInputData = inputParameters.isSingletonInputData();
-        boolean caching = inputParameters.isCaching();
         if (onePackage) {
             this.getLog().warn("Use 'onePackage' carefully, names must be unique across all the DMs.");
-        }
-        if (!singletonInputData && caching) {
-            this.getLog().error(String.format("Incompatible 'singletonInputData=%s' and 'caching=%s'", singletonInputData, caching));
         }
     }
 }

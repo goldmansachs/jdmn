@@ -112,7 +112,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         setDMNEnvironmentFactory(this);
         setExpressionToNativeTransformer(this);
 
-        this.drgElementFilter = new DRGElementFilter(this.inputParameters.isSingletonInputData());
+        this.drgElementFilter = new DRGElementFilter();
         this.nativeTypeMemoizer = new JavaTypeMemoizer();
     }
 
@@ -183,11 +183,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public boolean isOnePackage() {
         return this.onePackage;
-    }
-
-    @Override
-    public boolean isSingletonInputData() {
-        return this.inputParameters.isSingletonInputData();
     }
 
     @Override
@@ -1176,13 +1171,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     private Pair<List<String>, String> qualifiedName(ImportPath importPath, String modelName, String elementName) {
         if (this.onePackage) {
             return new Pair<>(Collections.emptyList(), elementName);
-        } else if (this.inputParameters.isSingletonInputData()) {
+        } else {
             if (ImportPath.isEmpty(importPath)) {
                 modelName = "";
             }
             return new Pair<>(Collections.singletonList(modelName), elementName);
-        } else {
-            return new Pair<>(importPath.getPathElements(), elementName);
         }
     }
 

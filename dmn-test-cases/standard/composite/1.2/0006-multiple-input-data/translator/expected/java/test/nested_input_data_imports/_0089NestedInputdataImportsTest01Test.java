@@ -15,17 +15,15 @@ public class _0089NestedInputdataImportsTest01Test extends com.gs.dmn.runtime.Ja
     @com.gs.dmn.runtime.annotation.TestCase(id = "001", resultNode = "Model C Decision based on Bs")
     public void testCase001_1() {
         // Initialize inputs
-        String model_b_modela_personName = "B.A.John";
-        String model_b2_modela_personName = "B2.A.John2";
+        String model_a_personName = "B.A.John";
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("Model B.modelA.Person name", model_b_modela_personName);
-        input_.add("Model B2.modelA.Person name", model_b2_modela_personName);
+        input_.add("Model A.Person name", model_a_personName);
 
         // Check 'Model C Decision based on Bs'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
-        checkValues("B: Evaluating Say Hello to: Hello, B.A.John; B2: Evaluating Say Hello to: Hello, B2.A.John2", new nested_input_data_imports.ModelCDecisionBasedOnBs().applyContext(input_, context_));
+        checkValues("B: Evaluating Say Hello to: Hello, B.A.John; B2: Evaluating Say Hello to: Hello, B.A.John", new nested_input_data_imports.ModelCDecisionBasedOnBs().applyContext(input_, context_));
     }
 
     private void checkValues(Object expected, Object actual) {

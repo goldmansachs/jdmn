@@ -102,8 +102,6 @@ public class InputParameters {
     //
     // Whether recursive calls are supported for BKMs.
     private final boolean recursiveCalls;
-    // Whether the inputs imported several times are treated as the same.
-    private final boolean singletonInputData;
     // Whether the generated code supported the singleton pattern for decisions.
     private final boolean singletonDecision;
     // Whether to use strong typing during semantic analyses.
@@ -164,7 +162,6 @@ public class InputParameters {
         // Semantics
         this.strongTyping = InputParameters.getOptionalBooleanParam(inputParameters, "strongTyping", "true");
         this.recursiveCalls = InputParameters.getOptionalBooleanParam(inputParameters, "recursiveCalls", "true");
-        this.singletonInputData = InputParameters.getOptionalBooleanParam(inputParameters, "singletonInputData", "true");
         this.singletonDecision = InputParameters.getOptionalBooleanParam(inputParameters, "singletonDecision", "false");
         this.checkConstraints = InputParameters.getOptionalBooleanParam(inputParameters, "checkConstraints", "false");
 
@@ -249,10 +246,6 @@ public class InputParameters {
 
     public boolean isOnePackage() {
         return onePackage;
-    }
-
-    public boolean isSingletonInputData() {
-        return singletonInputData;
     }
 
     public boolean isSingletonDecision() {

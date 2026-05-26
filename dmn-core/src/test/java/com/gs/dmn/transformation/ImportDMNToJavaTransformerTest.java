@@ -33,9 +33,8 @@ public class ImportDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
         doFolderTest("1.2","0003-name-conflicts");
         doFolderTest("1.2","0004-decision-tables");
         doFolderTest("1.2","0005-decision-tables-name-conflicts");
-        doFolderTest("1.2","0006-multiple-input-data", new Pair<>("singletonInputData", "false"));
+        doFolderTest("1.2","0006-multiple-input-data");
         doFolderTest("1.2","0007-name-conflicts-same-decision-singleton");
-        doFolderTest("1.2","0008-name-conflicts-same-decision-no-singleton", new Pair<>("singletonInputData", "false"));
         doFolderTest("1.2","0009-type-name-conflicts", new Pair<>("onePackage", "true"));
         doFolderTest("1.2","0010-bkm-name-conflicts");
     }
