@@ -38,20 +38,18 @@ public class NodeInfo {
         return OTHER_TYPE;
     }
 
-    protected final String rootModelName;
     protected final String nodeType;
     protected final String nodeName;
     protected final DRGElementReference<? extends TDRGElement> reference;
 
-    public NodeInfo(String rootModelName, String nodeType, String nodeName, DRGElementReference<? extends TDRGElement> reference) {
-        this.rootModelName = rootModelName;
+    public NodeInfo(String nodeType, String nodeName, DRGElementReference<? extends TDRGElement> reference) {
         this.nodeType = nodeType;
         this.nodeName = nodeName;
         this.reference = reference;
     }
 
-    public String getRootModelName() {
-        return rootModelName;
+    public String getModelName() {
+        return reference.getModelName();
     }
 
     public String getNodeName() {
