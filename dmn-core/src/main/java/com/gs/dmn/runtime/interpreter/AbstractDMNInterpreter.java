@@ -355,7 +355,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
     private DMNContext makeDecisionGlobalContext(TDRGElement element, Map<QualifiedName, Object> informationRequirements) {
         DMNContext globalContext = this.dmnTransformer.makeGlobalContext(element);
         for (Map.Entry<QualifiedName, Object> entry : informationRequirements.entrySet()) {
-            String key = this.dmnTransformer.bindingName(entry.getKey());
+            String key = this.dmnTransformer.qualifiedName(entry.getKey());
             globalContext.bind(key, entry.getValue());
         }
         return globalContext;
@@ -415,7 +415,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             value = Result.value(result);
 
             // Variable declaration already exists
-            serviceContext.bind(this.dmnTransformer.bindingName(this.repository.makeDRGElementReference(inputs.get(i))), value);
+            serviceContext.bind(this.dmnTransformer.qualifiedName(this.repository.makeDRGElementReference(inputs.get(i))), value);
             serviceContext.bind(name, value);
         }
     }
@@ -424,11 +424,11 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
     // Binding
     //
     private Object lookupBinding(DMNContext context, DRGElementReference<? extends TDRGElement> reference) {
-        return context.lookupBinding(this.dmnTransformer.bindingName(reference));
+        return context.lookupBinding(this.dmnTransformer.qualifiedName(reference));
     }
 
     private void bind(DMNContext context, DRGElementReference<? extends TDRGElement> reference, Object value) {
-        context.bind(this.dmnTransformer.bindingName(reference), value);
+        context.bind(this.dmnTransformer.qualifiedName(reference), value);
     }
 
     // Add binding required by parent: importName.elementName
@@ -479,7 +479,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             EVENT_LISTENER.startDRGElement(drgElementAnnotation, decisionArguments);
 
             // Check if has already been evaluated
-            String bindingKey = getBasicDMNTransformer().bindingName(reference);
+            String bindingKey = getBasicDMNTransformer().qualifiedName(reference);
             Result result;
             // Always evaluate in loops
             if (dagOptimisation() && decisionContext.isBound(bindingKey)) {

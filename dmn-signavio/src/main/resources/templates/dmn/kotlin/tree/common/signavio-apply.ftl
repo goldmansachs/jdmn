@@ -149,9 +149,9 @@
         <#assign aggregator = multiInstanceDecision.aggregator/>
         <#assign topLevelDecision = multiInstanceDecision.topLevelDecision/>
         <#assign sourceList = transformer.iterationExpressionToNative(drgElement, iterationExpression) />
-        <#assign lambdaParamName = transformer.namedElementVariableName(iterator) />
-        <#assign lambdaBody = "${transformer.namedElementVariableName(topLevelDecision)}.apply(${transformer.drgElementConvertedArgumentList(topLevelDecision)})" />
-        val ${transformer.namedElementVariableName(topLevelDecision)}: ${transformer.qualifiedName(nativePackageName, transformer.drgElementClassName(topLevelDecision))} = ${transformer.qualifiedName(nativePackageName, transformer.drgElementClassName(topLevelDecision))}()
+        <#assign lambdaParamName = transformer.nativeVariableName(iterator) />
+        <#assign lambdaBody = "${transformer.nativeVariableName(topLevelDecision)}.apply(${transformer.drgElementConvertedArgumentList(topLevelDecision)})" />
+        val ${transformer.nativeVariableName(topLevelDecision)}: ${transformer.qualifiedNativeName(nativePackageName, transformer.drgElementClassName(topLevelDecision))} = ${transformer.qualifiedNativeName(nativePackageName, transformer.drgElementClassName(topLevelDecision))}()
         <#if aggregator == "COLLECT">
         return ${sourceList}?.${transformer.getStream()}?.map({${lambdaParamName} -> ${lambdaBody}})?.collect(Collectors.toList())
         <#elseif aggregator == "SUM">
@@ -386,9 +386,9 @@
         ${extraIndent}// Apply child decisions
         <#items as subDecision>
             <#if transformer.isLazyEvaluated(subDecision)>
-        ${extraIndent}val ${transformer.drgElementReferenceVariableName(subDecision)}: ${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> = ${transformer.lazyEvalClassName()}({ this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)}) })
+        ${extraIndent}val ${transformer.nativeVariableName(subDecision)}: ${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> = ${transformer.lazyEvalClassName()}({ this.${transformer.nativeVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)}) })
             <#else>
-        ${extraIndent}val ${transformer.drgElementReferenceVariableName(subDecision)}: ${transformer.drgElementOutputType(subDecision)} = this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)})
+        ${extraIndent}val ${transformer.nativeVariableName(subDecision)}: ${transformer.drgElementOutputType(subDecision)} = this.${transformer.nativeVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)})
             </#if>
         </#items>
 

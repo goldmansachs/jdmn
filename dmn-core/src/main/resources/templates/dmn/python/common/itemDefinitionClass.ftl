@@ -20,7 +20,7 @@ import isodate
 
 
 # Generated(value = {"itemDefinition.ftl", "${modelRepository.name(itemDefinition)}"})
-<#assign qualifiedInterfaceName = transformer.qualifiedName(nativePackageName, transformer.itemDefinitionNativeSimpleInterfaceName(nativeClassName))/>
+<#assign qualifiedInterfaceName = transformer.qualifiedNativeName(nativePackageName, transformer.itemDefinitionNativeSimpleInterfaceName(nativeClassName))/>
 class ${nativeClassName}(${qualifiedInterfaceName}):
     def __init__(self, ${transformer.itemDefinitionSignature(itemDefinition)}):
         ${qualifiedInterfaceName}.__init__(self)
@@ -31,7 +31,7 @@ class ${nativeClassName}(${qualifiedInterfaceName}):
     <@addToString itemDefinition />
 <#macro addAssignmentForFields itemDefinition>
     <#list itemDefinition.itemComponent as child>
-        self.${transformer.namedElementVariableName(child)} = ${transformer.namedElementVariableName(child)}
+        self.${transformer.nativeVariableName(child)} = ${transformer.nativeVariableName(child)}
     </#list>
 </#macro>
 

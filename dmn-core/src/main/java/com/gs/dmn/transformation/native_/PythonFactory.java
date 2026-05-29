@@ -301,7 +301,7 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     @Override
     public String decisionConstructorParameter(DRGElementReference<TDecision> d) {
         String defaultValue = "None";
-        return String.format("%s: %s = %s", this.transformer.drgElementReferenceVariableName(d), this.transformer.qualifiedName(d), defaultValue);
+        return String.format("%s: %s = %s", this.transformer.nativeVariableName(d), this.transformer.qualifiedNativeName(d), defaultValue);
     }
 
     //

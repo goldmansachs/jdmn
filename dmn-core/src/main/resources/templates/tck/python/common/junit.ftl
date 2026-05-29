@@ -92,7 +92,7 @@ class ${testClassName}(unittest.TestCase, ${decisionBaseClass}):
 
 <#macro checkResult inputNodeInfoList resultInfo>
         # Check '${resultInfo.nodeName}'
-        <#assign elementQName = tckUtil.qualifiedName(resultInfo)>
+        <#assign elementQName = tckUtil.qualifiedNativeName(resultInfo)>
         <#assign expectedValue = tckUtil.toNativeExpression(resultInfo)>
         <#assign parentArgList = tckUtil.drgElementArgumentList(resultInfo)>
         <#if resultInfo.isDecision()>
@@ -125,7 +125,7 @@ import ${module}
     <#list tckUtil.findDRGElementsUnderTest(testCases)>
 # DRG Elements to test
         <#items as element>
-import ${transformer.qualifiedModuleName(element)}
+import ${transformer.qualifiedNativeModuleName(element)}
         </#items>
     </#list>
 </#macro>

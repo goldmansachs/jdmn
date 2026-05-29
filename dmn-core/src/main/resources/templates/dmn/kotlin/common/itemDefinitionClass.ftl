@@ -32,7 +32,7 @@ class ${nativeClassName} : ${transformer.itemDefinitionNativeSimpleInterfaceName
 }
 <#macro addFields itemDefinition>
     <#list itemDefinition.itemComponent as child>
-        <#assign memberName = transformer.namedElementVariableName(child)/>
+        <#assign memberName = transformer.nativeVariableName(child)/>
         <#assign memberType = transformer.itemDefinitionNativeQualifiedInterfaceName(child)/>
     @get:com.fasterxml.jackson.annotation.JsonGetter("${transformer.escapeInString(modelRepository.displayName(child))}")
     @set:com.fasterxml.jackson.annotation.JsonGetter("${transformer.escapeInString(modelRepository.displayName(child))}")
@@ -43,7 +43,7 @@ class ${nativeClassName} : ${transformer.itemDefinitionNativeSimpleInterfaceName
 
 <#macro addAssignmentForFields itemDefinition>
     <#list itemDefinition.itemComponent as child>
-        this.${transformer.namedElementVariableName(child)} = ${transformer.namedElementVariableName(child)}
+        this.${transformer.nativeVariableName(child)} = ${transformer.nativeVariableName(child)}
     </#list>
 </#macro>
 

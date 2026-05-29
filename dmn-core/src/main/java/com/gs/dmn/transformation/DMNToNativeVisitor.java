@@ -125,7 +125,7 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
     }
 
     private void transformItemDefinition(TDefinitions definitions, TItemDefinition itemDefinition, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, String baseTemplatePath, String itemDefinitionTemplate, List<String> generatedClasses, OutputRepository outputRepository, String typePackageName, String typeName) {
-        String qualifiedName = dmnTransformer.qualifiedName(typePackageName, typeName);
+        String qualifiedName = dmnTransformer.qualifiedNativeName(typePackageName, typeName);
         if (generatedClasses.contains(qualifiedName)) {
             this.logger.warn(String.format("Class '%s' has already been generated", typeName));
         } else {
@@ -233,7 +233,7 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
     }
 
     private void checkDuplicate(List<String> generatedClasses, String pkg, String className, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
-        String qualifiedName = dmnTransformer.qualifiedName(pkg, className);
+        String qualifiedName = dmnTransformer.qualifiedNativeName(pkg, className);
         if (generatedClasses.contains(qualifiedName)) {
             throw new DMNRuntimeException(String.format("Class '%s' has already been generated", qualifiedName));
         } else {

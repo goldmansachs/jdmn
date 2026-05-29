@@ -26,7 +26,7 @@
     <#list modelRepository.directSubDecisions(drgElement)>
 
         <#items as subDecision>
-    private final ${transformer.qualifiedName(subDecision)} ${transformer.drgElementReferenceVariableName(subDecision)};
+    private final ${transformer.qualifiedNativeName(subDecision)} ${transformer.nativeVariableName(subDecision)};
         </#items>
     </#list>
 </#macro>
@@ -34,7 +34,7 @@
 <#macro setSubDecisionFields drgElement>
     <#list modelRepository.directSubDecisions(drgElement)>
         <#items as subDecision>
-        this.${transformer.drgElementReferenceVariableName(subDecision)} = ${transformer.drgElementReferenceVariableName(subDecision)};
+        this.${transformer.nativeVariableName(subDecision)} = ${transformer.nativeVariableName(subDecision)};
         </#items>
     </#list>
 </#macro>

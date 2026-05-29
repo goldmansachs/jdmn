@@ -154,9 +154,9 @@
         <#assign aggregator = multiInstanceDecision.aggregator/>
         <#assign topLevelDecision = multiInstanceDecision.topLevelDecision/>
         <#assign sourceList = transformer.iterationExpressionToNative(drgElement, iterationExpression) />
-        <#assign lambdaParamName = transformer.namedElementVariableName(iterator) />
-        <#assign lambdaBody = "${transformer.namedElementVariableName(topLevelDecision)}.apply(${transformer.drgElementConvertedArgumentList(topLevelDecision)})" />
-        ${transformer.qualifiedName(nativePackageName, transformer.drgElementClassName(topLevelDecision))} ${transformer.namedElementVariableName(topLevelDecision)} = new ${transformer.qualifiedName(nativePackageName, transformer.drgElementClassName(topLevelDecision))}();
+        <#assign lambdaParamName = transformer.nativeVariableName(iterator) />
+        <#assign lambdaBody = "${transformer.nativeVariableName(topLevelDecision)}.apply(${transformer.drgElementConvertedArgumentList(topLevelDecision)})" />
+        ${transformer.qualifiedNativeName(nativePackageName, transformer.drgElementClassName(topLevelDecision))} ${transformer.nativeVariableName(topLevelDecision)} = new ${transformer.qualifiedNativeName(nativePackageName, transformer.drgElementClassName(topLevelDecision))}();
         <#if aggregator == "COLLECT">
         return ${sourceList}.${transformer.getStream()}.map(${lambdaParamName} -> ${lambdaBody}).collect(Collectors.toList());
         <#elseif aggregator == "SUM">
@@ -198,7 +198,7 @@
     <#list modelRepository.directSubDecisions(drgElement)>
 
         <#items as subDecision>
-    private final ${transformer.qualifiedName(subDecision)} ${transformer.drgElementReferenceVariableName(subDecision)};
+    private final ${transformer.qualifiedNativeName(subDecision)} ${transformer.nativeVariableName(subDecision)};
         </#items>
     </#list>
 </#macro>
@@ -206,7 +206,7 @@
 <#macro setSubDecisionFields drgElement>
     <#list modelRepository.directSubDecisions(drgElement)>
         <#items as subDecision>
-        this.${transformer.drgElementReferenceVariableName(subDecision)} = ${transformer.drgElementReferenceVariableName(subDecision)};
+        this.${transformer.nativeVariableName(subDecision)} = ${transformer.nativeVariableName(subDecision)};
         </#items>
     </#list>
 </#macro>
@@ -411,9 +411,9 @@
         ${extraIndent}// Apply child decisions
         <#items as subDecision>
             <#if transformer.isLazyEvaluated(subDecision)>
-        ${extraIndent}${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> ${transformer.drgElementReferenceVariableName(subDecision)} = new ${transformer.lazyEvalClassName()}<>(() -> this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)}));
+        ${extraIndent}${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> ${transformer.nativeVariableName(subDecision)} = new ${transformer.lazyEvalClassName()}<>(() -> this.${transformer.nativeVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)}));
             <#else>
-        ${extraIndent}${transformer.drgElementOutputType(subDecision)} ${transformer.drgElementReferenceVariableName(subDecision)} = this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)});
+        ${extraIndent}${transformer.drgElementOutputType(subDecision)} ${transformer.nativeVariableName(subDecision)} = this.${transformer.nativeVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)});
             </#if>
         </#items>
 

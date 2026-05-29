@@ -57,11 +57,11 @@
 <#macro setSubDecisionFields drgElement>
     <#list modelRepository.directSubDecisions(drgElement)>
         <#items as subDecision>
-        <#assign member = transformer.drgElementReferenceVariableName(subDecision)>
+        <#assign member = transformer.nativeVariableName(subDecision)>
         <#if transformer.isSingletonDecision()>
-            <#assign defaultValue = transformer.singletonDecisionInstance(transformer.qualifiedName(subDecision))/>
+            <#assign defaultValue = transformer.singletonDecisionInstance(transformer.qualifiedNativeName(subDecision))/>
         <#else>
-            <#assign defaultValue = transformer.defaultConstructor(transformer.qualifiedName(subDecision))/>
+            <#assign defaultValue = transformer.defaultConstructor(transformer.qualifiedNativeName(subDecision))/>
         </#if>
         self.${member} = ${defaultValue} if ${member} is None else ${member}
         </#items>

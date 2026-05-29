@@ -112,7 +112,7 @@ public class ${testClassName} extends ${decisionBaseClass}<Object> {
 <#macro checkResult inputNodeInfoList resultInfo>
         // Check '${resultInfo.nodeName}'
         ${tckUtil.executionContextClassName()} ${tckUtil.executionContextVariableName()} = ${tckUtil.executionContextBuilderClassName()}.executionContext().withEventListener(listener).build();
-        <#assign elementQName = tckUtil.qualifiedName(resultInfo)/>
+        <#assign elementQName = tckUtil.qualifiedNativeName(resultInfo)/>
         <#assign expectedValue = tckUtil.toNativeExpression(resultInfo)/>
         <#assign parentArgList = tckUtil.drgElementArgumentListApplyContext(resultInfo)/>
         <#if resultInfo.isDecision()>
@@ -142,8 +142,8 @@ public class ${testClassName} extends ${decisionBaseClass}<Object> {
 <#macro instantiateSubDecisions inputNodeInfoList resultInfo>
     <#list tckUtil.directSubDecisions(resultInfo)>
         <#items as reference>
-            <#assign subDecisionQName = tckUtil.qualifiedName(reference)/>
-            <#assign subDecisionVarName = tckUtil.drgElementReferenceVariableName(reference)/>
+            <#assign subDecisionQName = tckUtil.qualifiedNativeName(reference)/>
+            <#assign subDecisionVarName = tckUtil.nativeVariableName(reference)/>
             <#if tckUtil.hasInputNodeInfo(reference, inputNodeInfoList)>
                 <#assign subDecisionInputInfo = tckUtil.findInputNodeInfo(reference, inputNodeInfoList)/>
                 <#assign inputValue = tckUtil.toNativeExpression(subDecisionInputInfo)/>

@@ -67,7 +67,7 @@ import ${transformer.jdmnRootPackage()}.runtime.listener.Rule
 <@importRecursiveBKM drgElement/>
 <#if modelRepository.isDecisionTableExpression(drgElement)>
 
-import ${transformer.qualifiedModuleName(nativePackageName, transformer.ruleOutputClassName(drgElement))}
+import ${transformer.qualifiedNativeModuleName(nativePackageName, transformer.ruleOutputClassName(drgElement))}
 </#if>
 </#macro>
 
@@ -82,7 +82,7 @@ import ${module}
 <#macro importSubDecisions drgElement>
     <#list modelRepository.directSubDecisions(drgElement)>
         <#items as subDecision>
-import ${transformer.qualifiedModuleName(subDecision)}
+import ${transformer.qualifiedNativeModuleName(subDecision)}
         </#items>
     </#list>
 </#macro>
@@ -90,7 +90,7 @@ import ${transformer.qualifiedModuleName(subDecision)}
 <#macro importSubInvocables drgElement>
     <#list modelRepository.directSubInvocables(drgElement)>
         <#items as bkm>
-import ${transformer.qualifiedModuleName(bkm)}
+import ${transformer.qualifiedNativeModuleName(bkm)}
         </#items>
     </#list>
 </#macro>
@@ -98,6 +98,6 @@ import ${transformer.qualifiedModuleName(bkm)}
 <#macro importRecursiveBKM drgElement>
     <#if modelRepository.isRecursiveBKM(drgElement)>
 
-import ${transformer.qualifiedModuleName(drgElement)}
+import ${transformer.qualifiedNativeModuleName(drgElement)}
     </#if>
 </#macro>

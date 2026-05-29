@@ -156,7 +156,7 @@ public class TemplateProcessor {
         params.put("modelName", definitions.getName());
         params.put("itemDefinition", itemDefinition);
 
-        String qualifiedName = dmnTransformer.qualifiedName(nativePackageName, dmnTransformer.itemDefinitionNativeSimpleInterfaceName(itemDefinition));
+        String qualifiedName = dmnTransformer.qualifiedNativeName(nativePackageName, dmnTransformer.itemDefinitionNativeSimpleInterfaceName(itemDefinition));
         String serializationClass = this.typeDeserializationConfigurer.deserializeTypeAs(qualifiedName);
         params.put("serializationClass", serializationClass);
 

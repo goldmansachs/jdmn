@@ -201,7 +201,7 @@
 <#macro addConversionMethod drgElement>
     <#if modelRepository.isCompoundDecisionTable(drgElement)>
 
-    def toDecisionOutput(self, ruleOutput_: ${transformer.qualifiedName(nativePackageName, transformer.ruleOutputClassName(drgElement))}) -> ${transformer.drgElementOutputInterfaceName(drgElement)}:
+    def toDecisionOutput(self, ruleOutput_: ${transformer.qualifiedNativeName(nativePackageName, transformer.ruleOutputClassName(drgElement))}) -> ${transformer.drgElementOutputInterfaceName(drgElement)}:
         <#assign className = transformer.drgElementOutputClassName(drgElement)>
         result_: ${className} = ${transformer.defaultConstructor(className)}
         <#assign expression = modelRepository.expression(drgElement)>
@@ -280,12 +280,12 @@
     <#list modelRepository.directSubDecisions(drgElement)>
         ${extraIndent}# Apply child decisions
         <#items as subDecision>
-        <#assign result>self.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)})</#assign>
+        <#assign result>self.${transformer.nativeVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)})</#assign>
             <#if transformer.isLazyEvaluated(subDecision)>
         <#assign lazyEvalClassQName>${transformer.lazyEvalClassName()}</#assign>
-        ${extraIndent}${transformer.drgElementReferenceVariableName(subDecision)}: ${lazyEvalClassQName} = ${lazyEvalClassQName}(lambda: ${result})
+        ${extraIndent}${transformer.nativeVariableName(subDecision)}: ${lazyEvalClassQName} = ${lazyEvalClassQName}(lambda: ${result})
             <#else>
-        ${extraIndent}${transformer.drgElementReferenceVariableName(subDecision)}: ${transformer.drgElementOutputType(subDecision)} = ${result}
+        ${extraIndent}${transformer.nativeVariableName(subDecision)}: ${transformer.drgElementOutputType(subDecision)} = ${result}
             </#if>
         </#items>
 
@@ -303,7 +303,7 @@
     <#list modelRepository.directInputDecisions(drgElement)>
             ${extraIndent}# Bind input decisions
         <#items as inputDecision>
-            ${extraIndent}${transformer.cacheVariableName()}.bind("${modelRepository.name(inputDecision.element)}", ${transformer.drgElementReferenceVariableName(inputDecision)})
+            ${extraIndent}${transformer.cacheVariableName()}.bind("${modelRepository.name(inputDecision.element)}", ${transformer.nativeVariableName(inputDecision)})
         </#items>
 
     </#list>

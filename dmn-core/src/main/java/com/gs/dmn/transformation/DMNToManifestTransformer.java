@@ -160,7 +160,7 @@ public class DMNToManifestTransformer {
         String label = inputData.getLabel();
         String diagramId = getDiagramId(inputData);
         String shapeId = getShapeId(inputData);
-        String javaParameterName = this.dmnTransformer.namedElementVariableName(inputData);
+        String javaParameterName = this.dmnTransformer.nativeVariableName(inputData);
         String javaTypeName = getJavaTypeName(inputData);
         QName typeRef = makeMetadataTypeRef(containingModel, QualifiedName.toQualifiedName(containingModel, inputData.getVariable().getTypeRef()));
         return new InputData(namespace, id, name, label, diagramId, shapeId, javaParameterName, javaTypeName, typeRef);
@@ -173,8 +173,8 @@ public class DMNToManifestTransformer {
         String label = bkm.getLabel();
         String diagramId = getDiagramId(bkm);
         String shapeId = getShapeId(bkm);
-        String javaParameterName = this.dmnTransformer.namedElementVariableName(bkm);
-        String javaTypeName = this.dmnTransformer.qualifiedName(this.dmnTransformer.nativeModelPackageName(containingModel.getName()), this.dmnTransformer.drgElementClassName(bkm));
+        String javaParameterName = this.dmnTransformer.nativeVariableName(bkm);
+        String javaTypeName = this.dmnTransformer.qualifiedNativeName(this.dmnTransformer.nativeModelPackageName(containingModel.getName()), this.dmnTransformer.drgElementClassName(bkm));
         String javaOutputTypeName = getJavaTypeName(bkm);
         QName typeRef = makeMetadataTypeRef(containingModel, QualifiedName.toQualifiedName(containingModel, bkm.getVariable().getTypeRef()));
         List<DRGElementReference> knowledgeReferences = makeMetadataKnowledgeReferences(bkm.getKnowledgeRequirement(), containingModel, multiModels);
@@ -188,8 +188,8 @@ public class DMNToManifestTransformer {
         String shapeId = getShapeId(decision);
         String name = decision.getName();
         String label = decision.getLabel();
-        String nativeParameterName = this.dmnTransformer.namedElementVariableName(decision);
-        String nativeTypeName = this.dmnTransformer.qualifiedName(this.dmnTransformer.nativeModelPackageName(containingModels.getName()), this.dmnTransformer.drgElementClassName(decision));
+        String nativeParameterName = this.dmnTransformer.nativeVariableName(decision);
+        String nativeTypeName = this.dmnTransformer.qualifiedNativeName(this.dmnTransformer.nativeModelPackageName(containingModels.getName()), this.dmnTransformer.drgElementClassName(decision));
         String nativeOutputTypeName = getJavaTypeName(decision);
         QName typeRef = makeMetadataTypeRef(containingModels, QualifiedName.toQualifiedName(containingModels, decision.getVariable().getTypeRef()));
         List<DRGElementReference> references = makeMetadataInformationReferences(decision.getInformationRequirement(), containingModels, multiModels);

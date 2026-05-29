@@ -83,7 +83,7 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
         List<TItemDefinition> itemComponents = itemDefinition.getItemComponent();
         this.dmnModelRepository.sortNamedElements(itemComponents);
         for (TItemDefinition child : itemComponents) {
-            parameters.add(new Pair<>(namedElementVariableName(child), itemDefinitionNativeQualifiedInterfaceName(child)));
+            parameters.add(new Pair<>(nativeVariableName(child), itemDefinitionNativeQualifiedInterfaceName(child)));
         }
         return parameters.stream().map(p -> this.nativeFactory.nullableParameter(p.getRight(), p.getLeft()) + " = None").collect(Collectors.joining(", "));
     }
@@ -121,6 +121,46 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
     // NamedElement functions
     //
     @Override
+    public String qualifiedNativeName(String pkg, String clsName) {
+        String pythonClsPath = String.format("%s.%s", clsName, clsName);
+        if (StringUtils.isBlank(pkg)) {
+            return pythonClsPath;
+        } else {
+            return String.format("%s.%s", pkg, pythonClsPath);
+        }
+    }
+
+    @Override
+    public String qualifiedNativeName(Class<?> cls) {
+        String qName = String.format("%s.%s", cls.getName(), cls.getSimpleName());
+        String superRoot = super.jdmnRootPackage();
+        qName = qName.replace(superRoot, jdmnRootPackage());
+        return qName;
+    }
+
+    @Override
+    public String qualifiedNativeModuleName(TDRGElement element) {
+        TDefinitions definitions = this.dmnModelRepository.getModel(element);
+        String pkg = this.nativeModelPackageName(definitions.getName());
+        String name = drgElementClassName(element);
+        return qualifiedNativeModuleName(pkg, name);
+    }
+
+    @Override
+    public String qualifiedNativeModuleName(DRGElementReference<? extends TDRGElement> reference) {
+        return qualifiedNativeModuleName(reference.getElement());
+    }
+
+    @Override
+    public String qualifiedNativeModuleName(String pkg, String moduleName) {
+        if (StringUtils.isBlank(pkg)) {
+            return moduleName;
+        } else {
+            return String.format("%s.%s", pkg, moduleName);
+        }
+    }
+
+    @Override
     public String lambdaApplySignature() {
         return "*" + lambdaArgsVariableName();
     }
@@ -143,7 +183,7 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
     //
     @Override
     public String singletonInvocableInstance(TInvocable invocable) {
-        return String.format("%s.%s", qualifiedName(invocable), "instance()");
+        return String.format("%s.%s", qualifiedNativeName(invocable), "instance()");
     }
 
     //
@@ -164,7 +204,7 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
 
     @Override
     public String rangeClassName() {
-        return qualifiedName(Range.class);
+        return this.qualifiedNativeName(Range.class);
     }
 
     @Override
@@ -186,45 +226,6 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
         return "jdmn";
     }
 
-    @Override
-    public String qualifiedName(String pkg, String clsName) {
-        String pythonClsPath = String.format("%s.%s", clsName, clsName);
-        if (StringUtils.isBlank(pkg)) {
-            return pythonClsPath;
-        } else {
-            return String.format("%s.%s", pkg, pythonClsPath);
-        }
-    }
-
-    @Override
-    public String qualifiedName(Class<?> cls) {
-        String qName = String.format("%s.%s", cls.getName(), cls.getSimpleName());
-        String superRoot = super.jdmnRootPackage();
-        qName = qName.replace(superRoot, jdmnRootPackage());
-        return qName;
-    }
-
-    @Override
-    public String qualifiedModuleName(DRGElementReference<? extends TDRGElement> reference) {
-        return qualifiedModuleName(reference.getElement());
-    }
-
-    @Override
-    public String qualifiedModuleName(TDRGElement element) {
-        TDefinitions definitions = this.dmnModelRepository.getModel(element);
-        String pkg = this.nativeModelPackageName(definitions.getName());
-        String name = drgElementClassName(element);
-        return qualifiedModuleName(pkg, name);
-    }
-
-    @Override
-    public String qualifiedModuleName(String pkg, String moduleName) {
-        if (StringUtils.isBlank(pkg)) {
-            return moduleName;
-        } else {
-            return String.format("%s.%s", pkg, moduleName);
-        }
-    }
 
     @Override
     public String getter(String name) {

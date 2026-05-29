@@ -201,8 +201,8 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return this.transformer.getDMNModelRepository().directSubDecisions(resultInfo.getReference().getElement());
     }
 
-    public String drgElementReferenceVariableName(DRGElementReference<TDecision> reference) {
-        return this.transformer.drgElementReferenceVariableName(reference);
+    public String nativeVariableName(DRGElementReference<TDecision> reference) {
+        return this.transformer.nativeVariableName(reference);
     }
 
     public String toNativeType(InputNodeInfo info) {
@@ -215,7 +215,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         if (element == null) {
             throw new SemanticErrorException(String.format("Cannot find element '%s'", info.getNodeName()));
         } else {
-            return this.transformer.drgElementReferenceVariableName(info.getReference());
+            return this.transformer.nativeVariableName(info.getReference());
         }
     }
 
@@ -296,7 +296,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         }
     }
 
-    public String qualifiedName(NodeInfo info) {
+    public String qualifiedNativeName(NodeInfo info) {
         TDRGElement element = info.getReference().getElement();
         if (element == null) {
             throw new SemanticErrorException(String.format("Cannot find DRG Element for node '%s'", info.getNodeName()));
@@ -304,7 +304,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         if (info.isDecision()) {
             String pkg = this.transformer.nativeModelPackageName(info.getModelName());
             String cls = this.transformer.drgElementClassName(element);
-            return this.transformer.qualifiedName(pkg, cls);
+            return this.transformer.qualifiedNativeName(pkg, cls);
         } else if (info.isBKM() || info.isDS()) {
             return this.transformer.singletonInvocableInstance((TInvocable) element);
         } else {
@@ -312,8 +312,8 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         }
     }
 
-    public String qualifiedName(DRGElementReference<? extends TDRGElement> reference) {
-        return this.transformer.qualifiedName(reference);
+    public String qualifiedNativeName(DRGElementReference<? extends TDRGElement> reference) {
+        return this.transformer.qualifiedNativeName(reference);
     }
 
     // For apply() for child elements in java
@@ -472,7 +472,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     }
 
     public String constructor(ResultNodeInfo resultInfo) {
-        String nativeQName = qualifiedName(resultInfo);
+        String nativeQName = qualifiedNativeName(resultInfo);
         String args = this.transformer.drgElementConstructorArguments(resultInfo.getReference().getElement());
         return this.transformer.constructor(nativeQName, args);
     }

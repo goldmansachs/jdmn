@@ -34,7 +34,7 @@ public class ${nativeClassName} implements ${transformer.itemDefinitionNativeSim
 }
 <#macro addFields itemDefinition>
     <#list itemDefinition.itemComponent as child>
-        <#assign memberName = transformer.namedElementVariableName(child)/>
+        <#assign memberName = transformer.nativeVariableName(child)/>
         <#assign memberType = transformer.itemDefinitionNativeQualifiedInterfaceName(child)/>
         private ${memberType} ${memberName};
     </#list>
@@ -42,13 +42,13 @@ public class ${nativeClassName} implements ${transformer.itemDefinitionNativeSim
 
 <#macro addAssignmentForFields itemDefinition>
     <#list itemDefinition.itemComponent as child>
-        this.${transformer.setter(child, "${transformer.namedElementVariableName(child)}")};
+        this.${transformer.setter(child, "${transformer.nativeVariableName(child)}")};
     </#list>
 </#macro>
 
 <#macro addAccessors itemDefinition>
     <#list itemDefinition.itemComponent as child>
-        <#assign memberName = transformer.namedElementVariableName(child)/>
+        <#assign memberName = transformer.nativeVariableName(child)/>
         <#assign memberType = transformer.itemDefinitionNativeQualifiedInterfaceName(child)/>
     @com.fasterxml.jackson.annotation.JsonGetter("${transformer.escapeInString(modelRepository.displayName(child))}")
     public ${memberType} ${transformer.getter(child)} {

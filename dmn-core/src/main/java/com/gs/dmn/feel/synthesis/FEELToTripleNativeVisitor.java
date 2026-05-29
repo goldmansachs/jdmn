@@ -735,7 +735,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
                     if (drgElement instanceof TInvocable) {
                         String drgElementName = drgElement.getName();
                         if (drgElementName.equals(name)) {
-                            String qualifiedName = this.dmnTransformer.qualifiedName(drgElement);
+                            String qualifiedName = this.dmnTransformer.qualifiedNativeName(drgElement);
                             return this.triples.makeLambdaAccessor(String.format("%s.instance().lambda", qualifiedName));
                         }
                     }
@@ -796,7 +796,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
                 if (drgElement instanceof TInvocable) {
                     return this.triples.singletonInvocableInstance(this.dmnTransformer.singletonInvocableInstance((TBusinessKnowledgeModel) drgElement));
                 } else {
-                    String qualifiedName = this.dmnTransformer.drgReferenceQualifiedName(memberReference);
+                    String qualifiedName = this.dmnTransformer.nativeVariableName(memberReference);
                     return nameToTriple(memberReference.getElementName(), qualifiedName);
                 }
             }

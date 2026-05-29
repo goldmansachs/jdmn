@@ -247,15 +247,15 @@ public class DMNExpressionToNativeTransformer {
         String clsName = this.dmnTransformer.upperCaseFirst(element.getName() + DECISION_RULE_OUTPUT_CLASS_SUFFIX);
         String modelName = this.dmnModelRepository.getModelName(element);
         String nativePackage = this.dmnTransformer.nativeModelPackageName(modelName);
-        return this.dmnTransformer.qualifiedName(nativePackage, clsName);
+        return this.dmnTransformer.qualifiedNativeName(nativePackage, clsName);
     }
 
     String abstractRuleOutputClassName() {
-        return this.dmnTransformer.qualifiedName(RuleOutput.class);
+        return this.dmnTransformer.qualifiedNativeName(RuleOutput.class);
     }
 
     String ruleOutputListClassName() {
-        return this.dmnTransformer.qualifiedName(RuleOutputList.class);
+        return this.dmnTransformer.qualifiedNativeName(RuleOutputList.class);
     }
 
     String ruleId(List<TDecisionRule> rules, TDecisionRule rule) {
@@ -306,7 +306,7 @@ public class DMNExpressionToNativeTransformer {
         List<String> arguments = new ArrayList<>();
         List<TInformationItem> formalParameters = bkm.getEncapsulatedLogic().getFormalParameter();
         for (TInformationItem element : formalParameters) {
-            String argumentName = this.dmnTransformer.namedElementVariableName(element);
+            String argumentName = this.dmnTransformer.nativeVariableName(element);
             arguments.add(argumentName);
         }
         String argumentList = String.join(", ", arguments);
@@ -314,15 +314,15 @@ public class DMNExpressionToNativeTransformer {
     }
 
     String ruleParameterName(DRGElementReference<? extends TDRGElement> reference) {
-        return this.dmnTransformer.drgElementReferenceVariableName(reference);
+        return this.dmnTransformer.nativeVariableName(reference);
     }
 
     String ruleParameterName(TInformationItem element) {
-        return this.dmnTransformer.namedElementVariableName(element);
+        return this.dmnTransformer.nativeVariableName(element);
     }
 
     String ruleArgumentName(DRGElementReference<? extends TDRGElement> reference) {
-        return this.dmnTransformer.drgElementReferenceVariableName(reference);
+        return this.dmnTransformer.nativeVariableName(reference);
     }
 
     //
@@ -421,11 +421,11 @@ public class DMNExpressionToNativeTransformer {
     }
 
     String ruleAnnotationClassName() {
-        return this.dmnTransformer.qualifiedName(Rule.class);
+        return this.dmnTransformer.qualifiedNativeName(Rule.class);
     }
 
     String hitPolicyAnnotationClassName() {
-        return this.dmnTransformer.qualifiedName(HitPolicy.class);
+        return this.dmnTransformer.qualifiedNativeName(HitPolicy.class);
     }
 
     //
@@ -492,7 +492,7 @@ public class DMNExpressionToNativeTransformer {
         } else {
             // Make complex type value
             String complexJavaType = this.dmnTransformer.drgElementOutputType(element);
-            String complexTypeVariable = this.dmnTransformer.namedElementVariableName(element);
+            String complexTypeVariable = this.dmnTransformer.nativeVariableName(element);
             String expressionText;
             AssignmentStatement expressionStatement;
             if (returnType instanceof ItemDefinitionType) {

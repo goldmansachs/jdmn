@@ -172,7 +172,7 @@
     <#list modelRepository.directInputDecisions(drgElement)>
             ${extraIndent}// Bind input decisions
         <#items as inputDecision>
-            ${extraIndent}${transformer.cacheVariableName()}.bind("${modelRepository.name(inputDecision.element)}", ${transformer.drgElementReferenceVariableName(inputDecision)});
+            ${extraIndent}${transformer.cacheVariableName()}.bind("${modelRepository.name(inputDecision.element)}", ${transformer.nativeVariableName(inputDecision)});
         </#items>
 
     </#list>
@@ -424,9 +424,9 @@
         ${extraIndent}// Apply child decisions
         <#items as subDecision>
             <#if transformer.isLazyEvaluated(subDecision)>
-        ${extraIndent}${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> ${transformer.drgElementReferenceVariableName(subDecision)} = new ${transformer.lazyEvalClassName()}<>(() -> ${nativeClassName}.this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)}));
+        ${extraIndent}${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> ${transformer.nativeVariableName(subDecision)} = new ${transformer.lazyEvalClassName()}<>(() -> ${nativeClassName}.this.${transformer.nativeVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)}));
             <#else>
-        ${extraIndent}${transformer.drgElementOutputType(subDecision)} ${transformer.drgElementReferenceVariableName(subDecision)} = ${nativeClassName}.this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)});
+        ${extraIndent}${transformer.drgElementOutputType(subDecision)} ${transformer.nativeVariableName(subDecision)} = ${nativeClassName}.this.${transformer.nativeVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)});
             </#if>
         </#items>
 

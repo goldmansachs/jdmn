@@ -293,9 +293,9 @@
         ${extraIndent}// Apply child decisions
         <#items as subDecision>
             <#if transformer.isLazyEvaluated(subDecision)>
-        ${extraIndent}val ${transformer.drgElementReferenceVariableName(subDecision)}: ${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> = ${transformer.lazyEvalClassName()}({ this@${nativeClassName}.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)}) })
+        ${extraIndent}val ${transformer.nativeVariableName(subDecision)}: ${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> = ${transformer.lazyEvalClassName()}({ this@${nativeClassName}.${transformer.nativeVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)}) })
             <#else>
-        ${extraIndent}val ${transformer.drgElementReferenceVariableName(subDecision)}: ${transformer.drgElementOutputType(subDecision)} = this@${nativeClassName}.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)})
+        ${extraIndent}val ${transformer.nativeVariableName(subDecision)}: ${transformer.drgElementOutputType(subDecision)} = this@${nativeClassName}.${transformer.nativeVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)})
             </#if>
         </#items>
 

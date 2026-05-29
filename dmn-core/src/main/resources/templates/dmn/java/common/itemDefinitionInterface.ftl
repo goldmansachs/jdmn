@@ -36,7 +36,7 @@ public interface ${nativeClassName} extends ${transformer.dmnTypeClassName()} {
         } else if (other instanceof ${transformer.contextClassName()}) {
             ${transformer.itemDefinitionNativeClassName(nativeClassName)} result_ = new ${transformer.itemDefinitionNativeClassName(nativeClassName)}();
         <#list itemDefinition.itemComponent as child>
-            <#assign memberName = transformer.namedElementVariableName(child) />
+            <#assign memberName = transformer.nativeVariableName(child) />
             <#assign castToMemberType = "(${transformer.itemDefinitionNativeQualifiedInterfaceName(child)})" />
             <#assign castToContext = "(${transformer.contextClassName()})" />
             <#assign nameString = "\"${modelRepository.name(child)}\"" />
@@ -67,7 +67,7 @@ public interface ${nativeClassName} extends ${transformer.dmnTypeClassName()} {
 
 <#macro addAccessors itemDefinition>
     <#list itemDefinition.itemComponent as child>
-        <#assign memberName = transformer.namedElementVariableName(child)/>
+        <#assign memberName = transformer.nativeVariableName(child)/>
         <#assign memberType = transformer.itemDefinitionNativeQualifiedInterfaceName(child)/>
     @com.fasterxml.jackson.annotation.JsonGetter("${transformer.escapeInString(modelRepository.displayName(child))}")
     ${memberType} ${transformer.getter(child)};
@@ -79,7 +79,7 @@ public interface ${nativeClassName} extends ${transformer.dmnTypeClassName()} {
     default ${transformer.contextClassName()} toContext() {
         ${transformer.contextClassName()} context = ${transformer.defaultConstructor(transformer.contextClassName())};
         <#list itemDefinition.itemComponent as child>
-            <#assign memberName = transformer.namedElementVariableName(child)/>
+            <#assign memberName = transformer.nativeVariableName(child)/>
             <#assign member = transformer.getter(child)/>
         context.add("${memberName}", ${member});
         </#list>

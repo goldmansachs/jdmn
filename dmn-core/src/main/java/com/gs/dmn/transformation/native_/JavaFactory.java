@@ -325,7 +325,7 @@ public class JavaFactory implements NativeFactory {
 
     @Override
     public String decisionConstructorParameter(DRGElementReference<TDecision> d) {
-        return String.format("%s %s", this.transformer.qualifiedName(d), this.transformer.drgElementReferenceVariableName(d));
+        return String.format("%s %s", this.transformer.qualifiedNativeName(d), this.transformer.nativeVariableName(d));
     }
 
     //

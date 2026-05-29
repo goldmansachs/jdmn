@@ -27,7 +27,7 @@ public class ${nativeClassName} extends ${transformer.registryClassName()} {
         // Register elements from model '${definitions.name}'
     <#list modelRepository.findDRGElements(definitions) as element>
         <#if element.class.simpleName != "TInputData">
-        register("${transformer.registryId(element)}", "${transformer.qualifiedName(element)}");
+        register("${transformer.registryName(element)}", "${transformer.qualifiedNativeName(element)}");
         </#if>
     </#list>
 </#list>

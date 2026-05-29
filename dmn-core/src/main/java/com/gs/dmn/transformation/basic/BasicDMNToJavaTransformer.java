@@ -67,8 +67,8 @@ import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
 public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Type, DMNContext> {
     protected static final Logger LOGGER = LoggerFactory.getLogger(BasicDMNToJavaTransformer.class);
 
-    public static final String QUALIFIED_NAME_SEPARATOR = ".";
-    public static final String QUALIFIED_NATIVE_NAME_SEPARATOR = "_";
+    public static final String NATIVE_QUALIFIED_NAME_SEPARATOR = ".";
+    public static final String NATIVE_QUALIFIED_VARIABLE_NAME_SEPARATOR = "_";
 
     private final DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect;
     protected final DMNModelRepository dmnModelRepository;
@@ -235,7 +235,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         List<TItemDefinition> itemComponents = itemDefinition.getItemComponent();
         this.dmnModelRepository.sortNamedElements(itemComponents);
         for (TItemDefinition child : itemComponents) {
-            parameters.add(new Pair<>(namedElementVariableName(child), itemDefinitionNativeQualifiedInterfaceName(child)));
+            parameters.add(new Pair<>(nativeVariableName(child), itemDefinitionNativeQualifiedInterfaceName(child)));
         }
         return parameters.stream().map(p -> this.nativeFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
     }
@@ -250,12 +250,12 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String getter(TItemDefinition itemDefinition) {
-        return getter(namedElementVariableName(itemDefinition));
+        return getter(nativeVariableName(itemDefinition));
     }
 
     @Override
     public String setter(TItemDefinition itemDefinition, String args) {
-        return setter(namedElementVariableName(itemDefinition), args);
+        return setter(nativeVariableName(itemDefinition), args);
     }
 
     //
@@ -298,15 +298,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String drgElementClassName(TDRGElement element) {
         return upperCaseFirst(element.getName());
-    }
-
-    @Override
-    public String drgElementReferenceVariableName(DRGElementReference<? extends TDRGElement> reference) {
-        String name = reference.getElementName();
-        if (name == null) {
-            throw new SemanticErrorException(String.format("Variable name cannot be null. Decision id '%s'", reference.getElement().getId()));
-        }
-        return drgReferenceQualifiedName(reference);
     }
 
     @Override
@@ -464,7 +455,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String drgElementInputPojoInterfaceName() {
-        return qualifiedName(ExecutableDRGElementInput.class);
+        return qualifiedNativeName(ExecutableDRGElementInput.class);
     }
 
     @Override
@@ -609,9 +600,9 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             for (ItemDefinitionType node : types) {
                 String packageName = nativeTypePackageName(node.getModelName());
                 String moduleName = this.upperCaseFirst(node.getName());
-                result.add(qualifiedModuleName(packageName, moduleName));
+                result.add(qualifiedNativeModuleName(packageName, moduleName));
                 if (addClass) {
-                    result.add(qualifiedModuleName(packageName, itemDefinitionNativeClassName(moduleName)));
+                    result.add(qualifiedNativeModuleName(packageName, itemDefinitionNativeClassName(moduleName)));
                 }
             }
         }
@@ -681,52 +672,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public String elementName(Object obj) {
-        if (obj instanceof DRGElementReference<? extends TDRGElement> reference) {
-            String elementName = this.dmnModelRepository.name(reference.getElement());
-            return drgReferenceQualifiedDisplayName(reference.getImportPath(), reference.getModelName(), elementName);
-        } else if (obj instanceof TNamedElement) {
-            return this.dmnModelRepository.name((TNamedElement) obj);
-        }
-        throw new SemanticErrorException(String.format("Variable name cannot be null for '%s'", obj));
-    }
-
-    @Override
-    public String displayName(Object obj) {
-        if (this.inputParameters.isUseNames()) {
-            return elementName(obj);
-        } else {
-            if (obj instanceof DRGElementReference<? extends TDRGElement> reference) {
-                String elementName = this.dmnModelRepository.displayName(reference.getElement());
-                return drgReferenceQualifiedDisplayName(reference.getImportPath(), reference.getModelName(), elementName);
-            } else if (obj instanceof TNamedElement) {
-                return this.dmnModelRepository.displayName((TNamedElement) obj);
-            }
-            throw new SemanticErrorException(String.format("Variable name cannot be null for '%s'", obj));
-        }
-    }
-
-    @Override
-    public String nativeName(Object obj) {
-        if (obj instanceof DRGElementReference) {
-            return drgElementReferenceVariableName((DRGElementReference<? extends TDRGElement>) obj);
-        } else if (obj instanceof TNamedElement) {
-            return namedElementVariableName((TNamedElement) obj);
-        }
-        throw new SemanticErrorException(String.format("Variable name cannot be null for '%s'", obj));
-    }
-
-    @Override
-    public String lambdaApplySignature() {
-        return "Object... " + lambdaArgsVariableName();
-    }
-
-    @Override
-    public String lambdaArgsVariableName() {
-        return "args_";
-    }
-
-    @Override
     public boolean hasComplexInputDatas(TDRGElement element) {
         return !this.drgElementComplexInputClassNames(element).isEmpty();
     }
@@ -752,7 +697,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     public String drgElementConstructorArguments(TDRGElement element) {
         List<DRGElementReference<TDecision>> subDecisionReferences = this.dmnModelRepository.directSubDecisions(element);
         this.dmnModelRepository.sortNamedElementReferences(subDecisionReferences);
-        return subDecisionReferences.stream().map(this::drgElementReferenceVariableName).collect(Collectors.joining(", "));
+        return subDecisionReferences.stream().map(this::nativeVariableName).collect(Collectors.joining(", "));
     }
 
     @Override
@@ -761,7 +706,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         this.dmnModelRepository.sortNamedElementReferences(directSubDecisionReferences);
         return directSubDecisionReferences
                 .stream()
-                .map(r -> String.format("%s", defaultConstructor(qualifiedName(r))))
+                .map(r -> String.format("%s", defaultConstructor(qualifiedNativeName(r))))
                 .collect(Collectors.joining(", "));
     }
 
@@ -779,7 +724,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             this.dmnModelRepository.sortNamedElementReferences(directSubDecisionReferences);
             String arguments = directSubDecisionReferences
                     .stream()
-                    .map(r -> singletonDecisionInstance(qualifiedName(r)))
+                    .map(r -> singletonDecisionInstance(qualifiedNativeName(r)))
                     .collect(Collectors.joining(", "));
             return constructor(nativeClassName, arguments);
         }
@@ -793,13 +738,169 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     //
     // NamedElement related functions
     //
+    //
+    // API methods
+    //
     @Override
-    public String namedElementVariableName(TNamedElement element) {
-        String name = element.getName();
+    public String registryName(TDRGElement element) {
+        TDefinitions model = this.dmnModelRepository.getModel(element);
+        String modelId = model.getNamespace();
+        return qualifiedName(modelId, element.getName());
+    }
+
+    //
+    // Model names
+    //
+    @Override
+    public String elementName(TNamedElement element) {
+        return this.dmnModelRepository.name(element);
+    }
+
+    @Override
+    public String elementName(DRGElementReference<? extends TDRGElement> reference) {
+        String elementName = this.dmnModelRepository.name(reference.getElement());
+        return qualifiedModelName(reference.getImportPath(), reference.getModelName(), elementName);
+    }
+
+    @Override
+    public String displayName(TNamedElement element) {
+        if (this.inputParameters.isUseNames()) {
+            return elementName(element);
+        } else {
+            return this.dmnModelRepository.displayName(element);
+        }
+    }
+
+    @Override
+    public String displayName(DRGElementReference<? extends TDRGElement> reference) {
+        if (this.inputParameters.isUseNames()) {
+            return elementName(reference);
+        } else {
+            String elementName = this.dmnModelRepository.displayName(reference.getElement());
+            return qualifiedModelName(reference.getImportPath(), reference.getModelName(), elementName);
+        }
+    }
+
+    private String qualifiedModelName(ImportPath importPath, String modelName, String elementName) {
+        Pair<List<String>, String> qName = qualifiedNameParts(importPath, modelName, elementName);
+
+        String modelPrefix = String.join(NATIVE_QUALIFIED_NAME_SEPARATOR, qName.getLeft());
+        String localName = qName.getRight();
+        if (StringUtils.isBlank(modelPrefix)) {
+            return localName;
+        } else {
+            return String.format("%s%s%s", modelPrefix, NATIVE_QUALIFIED_NAME_SEPARATOR, localName);
+        }
+    }
+
+    @Override
+    public String qualifiedName(DRGElementReference<? extends TDRGElement> reference) {
+        return qualifiedName(reference.getNamespace(), reference.getElementName());
+    }
+
+    @Override
+    public String qualifiedName(QualifiedName reference) {
+        return qualifiedName(reference.getNamespace(), reference.getLocalPart());
+    }
+
+    private static String qualifiedName(String namespace, String elementName) {
+        if (StringUtils.isBlank(namespace)) {
+            return elementName;
+        } else {
+            return String.format("%s%s%s", namespace, DMNModelRepository.HREF_SEPARATOR, elementName);
+        }
+    }
+
+    //
+    // Native names
+    //
+    @Override
+    public String nativeVariableName(TNamedElement element) {
+        String name = elementName(element);
         if (StringUtils.isBlank(name)) {
             throw new SemanticErrorException(String.format("Variable name cannot be null. ItemDefinition id '%s'", element.getId()));
         }
         return lowerCaseFirst(name);
+    }
+
+    @Override
+    public String nativeVariableName(DRGElementReference<? extends TDRGElement> reference) {
+        String name = reference.getElementName();
+        if (name == null) {
+            throw new SemanticErrorException(String.format("Variable name cannot be null. Element id '%s'", reference.getElement().getId()));
+        }
+        Pair<List<String>, String> qName = qualifiedNameParts(reference.getImportPath(), reference.getModelName(), reference.getElementName());
+
+        String nativePrefix = qName.getLeft().stream().map(this::nativePackageName).collect(Collectors.joining(NATIVE_QUALIFIED_VARIABLE_NAME_SEPARATOR));
+        String nativeName = lowerCaseFirst(qName.getRight());
+        if (StringUtils.isBlank(nativePrefix)) {
+            return nativeName;
+        } else {
+            return String.format("%s%s%s", nativePrefix, NATIVE_QUALIFIED_VARIABLE_NAME_SEPARATOR, nativeName);
+        }
+    }
+
+    private Pair<List<String>, String> qualifiedNameParts(ImportPath importPath, String modelName, String elementName) {
+        if (this.onePackage) {
+            return new Pair<>(Collections.emptyList(), elementName);
+        } else {
+            if (ImportPath.isEmpty(importPath)) {
+                modelName = "";
+            }
+            return new Pair<>(Collections.singletonList(modelName), elementName);
+        }
+    }
+
+    @Override
+    public String qualifiedNativeName(TDRGElement element) {
+        TDefinitions definitions = this.dmnModelRepository.getModel(element);
+        String pkg = this.nativeModelPackageName(definitions.getName());
+        String name = drgElementClassName(element);
+        return qualifiedNativeName(pkg, name);
+    }
+
+    @Override
+    public String qualifiedNativeName(DRGElementReference<? extends TDRGElement> reference) {
+        return qualifiedNativeName(reference.getElement());
+    }
+
+    @Override
+    public String qualifiedNativeName(String pkg, String clsName) {
+        if (StringUtils.isBlank(pkg)) {
+            return clsName;
+        } else {
+            return String.format("%s.%s", pkg, clsName);
+        }
+    }
+
+    @Override
+    public String qualifiedNativeName(Class<?> cls) {
+        return cls.getName();
+    }
+
+    @Override
+    public String qualifiedNativeModuleName(TDRGElement element) {
+        throw new SemanticErrorException("Not supported yet");
+    }
+
+    @Override
+    public String qualifiedNativeModuleName(DRGElementReference<? extends TDRGElement> reference) {
+        throw new SemanticErrorException("Not supported yet");
+    }
+
+    @Override
+    public String qualifiedNativeModuleName(String pkg, String moduleName) {
+        throw new SemanticErrorException("Not supported yet");
+    }
+
+    @Override
+    public String lambdaApplySignature() {
+        return "Object... " + lambdaArgsVariableName();
+    }
+
+    @Override
+    public String lambdaArgsVariableName() {
+        return "args_";
     }
 
     //
@@ -872,7 +973,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     //
     @Override
     public String singletonInvocableInstance(TInvocable invocable) {
-        return qualifiedName(qualifiedName(invocable), "instance()");
+        return qualifiedNativeName(qualifiedNativeName(invocable), "instance()");
     }
 
     @Override
@@ -940,7 +1041,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         List<TInformationItem> formalParameters = encapsulatedLogic.getFormalParameter();
         for (TInformationItem parameter : formalParameters) {
             String displayName = this.displayName(parameter);
-            String nativeName = this.nativeName(parameter);
+            String nativeName = this.nativeVariableName(parameter);
             Type parameterType = informationItemType(bkm, parameter);
             parameters.add(new FEELParameter(displayName, nativeName, parameterType));
         }
@@ -1007,7 +1108,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             ImportPath importPath = this.dmnModelRepository.findRelativeImportPath(service, er);
             DRGElementReference<TInputData> drgElementReference = this.dmnModelRepository.makeDRGElementReference(importPath, inputData);
             String displayName = displayName(drgElementReference);
-            String nativeName = nativeName(drgElementReference);
+            String nativeName = nativeVariableName(drgElementReference);
             Type parameterType = toFEELType(inputData);
             parameters.add(new FEELParameter(displayName, nativeName, parameterType));
         }
@@ -1016,7 +1117,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             ImportPath importPath = this.dmnModelRepository.findRelativeImportPath(service, er);
             DRGElementReference<TDecision> drgElementReference = this.dmnModelRepository.makeDRGElementReference(importPath, decision);
             String displayName = displayName(drgElementReference);
-            String nativeName = nativeName(drgElementReference);
+            String nativeName = nativeVariableName(drgElementReference);
             Type parameterType = drgElementOutputFEELType(decision);
             parameters.add(new FEELParameter(displayName, nativeName, parameterType));
         }
@@ -1102,7 +1203,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         List<FEELParameter> parameters = new ArrayList<>();
         for (DRGElementReference<TInputData> inputDataReference : allInputDataReferences) {
             String displayName = displayName(inputDataReference);
-            String nativeName = nativeName(inputDataReference);
+            String nativeName = nativeVariableName(inputDataReference);
             TInputData element = inputDataReference.getElement();
             Type parameterType = toFEELType(element);
             parameters.add(new FEELParameter(displayName, nativeName, parameterType));
@@ -1115,71 +1216,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         List<DRGElementReference<TInputData>> allInputDataReferences = this.dmnModelRepository.inputDataClosure(reference, this.drgElementFilter);
         this.dmnModelRepository.sortNamedElementReferences(allInputDataReferences);
         return allInputDataReferences;
-    }
-
-    @Override
-    public String drgReferenceQualifiedName(DRGElementReference<? extends TDRGElement> reference) {
-        return drgReferenceQualifiedName(reference.getImportPath(), reference.getModelName(), reference.getElementName());
-    }
-
-    private String drgReferenceQualifiedName(ImportPath importPath, String modelName, String elementName) {
-        Pair<List<String>, String> qName = qualifiedName(importPath, modelName, elementName);
-
-        String nativePrefix = qName.getLeft().stream().map(this::nativePackageName).collect(Collectors.joining(QUALIFIED_NATIVE_NAME_SEPARATOR));
-        String nativeName = lowerCaseFirst(qName.getRight());
-        if (StringUtils.isBlank(nativePrefix)) {
-            return nativeName;
-        } else {
-            return String.format("%s%s%s", nativePrefix, QUALIFIED_NATIVE_NAME_SEPARATOR, nativeName);
-        }
-    }
-
-    private String drgReferenceQualifiedDisplayName(ImportPath importPath, String modelName, String elementName) {
-        Pair<List<String>, String> qName = qualifiedName(importPath, modelName, elementName);
-
-        String modelPrefix = String.join(QUALIFIED_NAME_SEPARATOR, qName.getLeft());
-        String localName = qName.getRight();
-        if (StringUtils.isBlank(modelPrefix)) {
-            return localName;
-        } else {
-            return String.format("%s%s%s", modelPrefix, QUALIFIED_NAME_SEPARATOR, localName);
-        }
-    }
-
-    @Override
-    public String registryId(TDRGElement element) {
-        TDefinitions model = this.dmnModelRepository.getModel(element);
-        String modelId = model.getNamespace();
-        return bindingName(modelId, element.getName());
-    }
-
-    @Override
-    public String bindingName(QualifiedName reference) {
-        return bindingName(reference.getNamespace(), reference.getLocalPart());
-    }
-
-    @Override
-    public String bindingName(DRGElementReference<? extends TDRGElement> reference) {
-        return bindingName(reference.getNamespace(), reference.getElementName());
-    }
-
-    private static String bindingName(String namespace, String elementName) {
-        if (StringUtils.isBlank(namespace)) {
-            return elementName;
-        } else {
-            return String.format("%s%s%s", namespace, DMNModelRepository.HREF_SEPARATOR, elementName);
-        }
-    }
-
-    private Pair<List<String>, String> qualifiedName(ImportPath importPath, String modelName, String elementName) {
-        if (this.onePackage) {
-            return new Pair<>(Collections.emptyList(), elementName);
-        } else {
-            if (ImportPath.isEmpty(importPath)) {
-                modelName = "";
-            }
-            return new Pair<>(Collections.singletonList(modelName), elementName);
-        }
     }
 
     @Override
@@ -1244,42 +1280,42 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String pairClassName() {
-        return qualifiedName(Pair.class);
+        return qualifiedNativeName(Pair.class);
     }
 
     @Override
     public String pairComparatorClassName() {
-        return qualifiedName(PairComparator.class);
+        return qualifiedNativeName(PairComparator.class);
     }
 
     @Override
     public String argumentsClassName() {
-        return qualifiedName(Arguments.class);
+        return qualifiedNativeName(Arguments.class);
     }
 
     @Override
     public String argumentsVariableName(TDRGElement element) {
-        return String.format("%sArguments_", namedElementVariableName(element));
+        return String.format("%sArguments_", nativeVariableName(element));
     }
 
     @Override
     public String dmnTypeClassName() {
-        return qualifiedName(DMNType.class);
+        return qualifiedNativeName(DMNType.class);
     }
 
     @Override
     public String dmnRuntimeExceptionClassName() {
-        return qualifiedName(DMNRuntimeException.class);
+        return qualifiedNativeName(DMNRuntimeException.class);
     }
 
     @Override
     public String lazyEvalClassName() {
-        return qualifiedName(LazyEval.class);
+        return qualifiedNativeName(LazyEval.class);
     }
 
     @Override
     public String contextClassName() {
-        return qualifiedName(Context.class);
+        return qualifiedNativeName(Context.class);
     }
 
     @Override
@@ -1289,26 +1325,26 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String rangeClassName() {
-        return qualifiedName(Range.class);
+        return qualifiedNativeName(Range.class);
     }
 
     @Override
     public String registryClassName() {
-        return qualifiedName(ModelElementRegistry.class);
+        return qualifiedNativeName(ModelElementRegistry.class);
     }
 
     @Override
     public String executableDRGElementClassName() {
-        return qualifiedName(ExecutableDRGElement.class);
+        return qualifiedNativeName(ExecutableDRGElement.class);
     }
 
     protected String inputMapClassName() {
-        return qualifiedName(Map.class) + "<String, String>";
+        return qualifiedNativeName(Map.class) + "<String, String>";
     }
 
     @Override
     public String executionContextClassName() {
-        return qualifiedName(ExecutionContext.class);
+        return qualifiedNativeName(ExecutionContext.class);
     }
 
     @Override
@@ -1318,12 +1354,12 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String executionContextBuilderClassName() {
-        return qualifiedName(ExecutionContextBuilder.class);
+        return qualifiedNativeName(ExecutionContextBuilder.class);
     }
 
     @Override
     public String annotationSetClassName() {
-        return qualifiedName(AnnotationSet.class);
+        return qualifiedNativeName(AnnotationSet.class);
     }
 
     @Override
@@ -1333,7 +1369,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String eventListenerClassName() {
-        return qualifiedName(EventListener.class);
+        return qualifiedNativeName(EventListener.class);
     }
 
     @Override
@@ -1343,22 +1379,22 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String defaultEventListenerClassName() {
-        return qualifiedName(NopEventListener.class);
+        return qualifiedNativeName(NopEventListener.class);
     }
 
     @Override
     public String loggingEventListenerClassName() {
-        return qualifiedName(LoggingEventListener.class);
+        return qualifiedNativeName(LoggingEventListener.class);
     }
 
     @Override
     public String treeTraceEventListenerClassName() {
-        return qualifiedName(TreeTraceEventListener.class);
+        return qualifiedNativeName(TreeTraceEventListener.class);
     }
 
     @Override
     public String externalExecutorClassName() {
-        return qualifiedName(ExternalFunctionExecutor.class);
+        return qualifiedNativeName(ExternalFunctionExecutor.class);
     }
 
     @Override
@@ -1368,12 +1404,12 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String defaultExternalExecutorClassName() {
-        return qualifiedName(DefaultExternalFunctionExecutor.class);
+        return qualifiedNativeName(DefaultExternalFunctionExecutor.class);
     }
 
     @Override
     public String cacheInterfaceName() {
-        return qualifiedName(Cache.class);
+        return qualifiedNativeName(Cache.class);
     }
 
     @Override
@@ -1383,7 +1419,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String defaultCacheClassName() {
-        return qualifiedName(DefaultCache.class);
+        return qualifiedNativeName(DefaultCache.class);
     }
 
     @Override
@@ -1411,22 +1447,22 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String drgElementAnnotationClassName() {
-        return qualifiedName(com.gs.dmn.runtime.annotation.DRGElement.class);
+        return qualifiedNativeName(com.gs.dmn.runtime.annotation.DRGElement.class);
     }
 
     @Override
     public String elementKindAnnotationClassName() {
-        return qualifiedName(DRGElementKind.class);
+        return qualifiedNativeName(DRGElementKind.class);
     }
 
     @Override
     public String expressionKindAnnotationClassName() {
-        return qualifiedName(ExpressionKind.class);
+        return qualifiedNativeName(ExpressionKind.class);
     }
 
     @Override
     public String drgElementMetadataClassName() {
-        return qualifiedName(com.gs.dmn.runtime.listener.DRGElement.class);
+        return qualifiedNativeName(com.gs.dmn.runtime.listener.DRGElement.class);
     }
 
     @Override
@@ -1436,7 +1472,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String drgRuleMetadataClassName() {
-        return qualifiedName(com.gs.dmn.runtime.listener.Rule.class);
+        return qualifiedNativeName(com.gs.dmn.runtime.listener.Rule.class);
     }
 
     @Override
@@ -1446,22 +1482,22 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String assertClassName() {
-        return qualifiedName(Assert.class);
+        return qualifiedNativeName(Assert.class);
     }
 
     @Override
     public String javaExternalFunctionClassName() {
-        return qualifiedName(JavaExternalFunction.class);
+        return qualifiedNativeName(JavaExternalFunction.class);
     }
 
     @Override
     public String lambdaExpressionClassName() {
-        return qualifiedName(LambdaExpression.class);
+        return qualifiedNativeName(LambdaExpression.class);
     }
 
     @Override
     public String javaFunctionInfoClassName() {
-        return qualifiedName(JavaFunctionInfo.class);
+        return qualifiedNativeName(JavaFunctionInfo.class);
     }
 
     //
@@ -1646,7 +1682,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             return this.nativeFactory.makeExpressionStatement(this.nativeFactory.nullLiteral(), NullType.NULL);
         } else if (size == 1) {
             TDecision decision = outputDecisions.get(0).getElement();
-            String decisionVarName = namedElementVariableName(decision);
+            String decisionVarName = nativeVariableName(decision);
             Statement statement = this.nativeFactory.makeExpressionStatement(decisionVarName, drgElementOutputFEELType(decision));
 
             // Implicit conversions
@@ -1664,7 +1700,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             // Add members
             for (DRGElementReference<TDecision> ref : outputDecisions) {
                 TDecision od = ref.getElement();
-                String add = this.nativeFactory.makeContextMemberAssignment(outputVar, elementName(od), namedElementVariableName(od));
+                String add = this.nativeFactory.makeContextMemberAssignment(outputVar, elementName(od), nativeVariableName(od));
                 statement.add(this.nativeFactory.makeExpressionStatement(add, null));
             }
             // Return output
@@ -1840,7 +1876,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             }
             if (type instanceof ItemDefinitionType) {
                 String modelName = ((ItemDefinitionType) type).getModelName();
-                return qualifiedName(nativeTypePackageName(modelName), upperCaseFirst(typeName));
+                return qualifiedNativeName(nativeTypePackageName(modelName), upperCaseFirst(typeName));
             } else {
                 String primitiveType = this.nativeTypeFactory.toNativeType(typeName);
                 if (!StringUtils.isBlank(primitiveType)) {
@@ -1921,48 +1957,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String jdmnRootPackage() {
         return "com.gs.dmn";
-    }
-
-    @Override
-    public String qualifiedName(String pkg, String clsName) {
-        if (StringUtils.isBlank(pkg)) {
-            return clsName;
-        } else {
-            return String.format("%s.%s", pkg, clsName);
-        }
-    }
-
-    @Override
-    public String qualifiedName(DRGElementReference<? extends TDRGElement> reference) {
-        return qualifiedName(reference.getElement());
-    }
-
-    @Override
-    public String qualifiedName(TDRGElement element) {
-        TDefinitions definitions = this.dmnModelRepository.getModel(element);
-        String pkg = this.nativeModelPackageName(definitions.getName());
-        String name = drgElementClassName(element);
-        return qualifiedName(pkg, name);
-    }
-
-    @Override
-    public String qualifiedName(Class<?> cls) {
-        return cls.getName();
-    }
-
-    @Override
-    public String qualifiedModuleName(DRGElementReference<? extends TDRGElement> reference) {
-        throw new SemanticErrorException("Not supported yet");
-    }
-
-    @Override
-    public String qualifiedModuleName(TDRGElement element) {
-        throw new SemanticErrorException("Not supported yet");
-    }
-
-    @Override
-    public String qualifiedModuleName(String pkg, String moduleName) {
-        throw new SemanticErrorException("Not supported yet");
     }
 
     @Override

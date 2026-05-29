@@ -111,8 +111,6 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String drgElementClassName(TDRGElement element);
 
-    String drgElementReferenceVariableName(DRGElementReference<? extends TDRGElement> reference);
-
     String drgElementOutputType(DRGElementReference<? extends TDRGElement> reference);
 
     String drgElementOutputType(TDRGElement element);
@@ -213,13 +211,46 @@ public interface BasicDMNToNativeTransformer<T, C> {
     //
     // NamedElement functions
     //
-    String namedElementVariableName(TNamedElement element);
+    //
+    // API methods
+    //
+    String registryName(TDRGElement element);
 
-    String elementName(Object obj);
+    //
+    // Model names
+    //
+    String elementName(TNamedElement element);
 
-    String displayName(Object obj);
+    String elementName(DRGElementReference<? extends TDRGElement> reference);
 
-    String nativeName(Object obj);
+    String displayName(TNamedElement element);
+
+    String displayName(DRGElementReference<? extends TDRGElement> reference);
+
+    String qualifiedName(QualifiedName qName);
+
+    String qualifiedName(DRGElementReference<? extends TDRGElement> reference);
+
+    //
+    // Native names
+    //
+    String nativeVariableName(TNamedElement element);
+
+    String nativeVariableName(DRGElementReference<? extends TDRGElement> reference);
+
+    String qualifiedNativeName(TDRGElement element);
+
+    String qualifiedNativeName(DRGElementReference<? extends TDRGElement> reference);
+
+    String qualifiedNativeName(String pkg, String name);
+
+    String qualifiedNativeName(Class<?> cls);
+
+    String qualifiedNativeModuleName(TDRGElement element);
+
+    String qualifiedNativeModuleName(DRGElementReference<? extends TDRGElement> reference);
+
+    String qualifiedNativeModuleName(String pkg, String moduleName);
 
     String lambdaApplySignature();
 
@@ -287,14 +318,6 @@ public interface BasicDMNToNativeTransformer<T, C> {
     List<DRGElementReference<TInputData>> inputDataClosure(DRGElementReference<TDecision> reference);
 
     List<FEELParameter> inputDataParametersClosure(DRGElementReference<TDecision> reference);
-
-    String drgReferenceQualifiedName(DRGElementReference<? extends TDRGElement> reference);
-
-    String registryId(TDRGElement element);
-
-    String bindingName(QualifiedName qName);
-
-    String bindingName(DRGElementReference<? extends TDRGElement> reference);
 
     String parameterNativeType(TDefinitions model, TInformationItem element);
 
@@ -518,20 +541,6 @@ public interface BasicDMNToNativeTransformer<T, C> {
     String nullableType(String type);
 
     String jdmnRootPackage();
-
-    String qualifiedName(String pkg, String name);
-
-    String qualifiedName(DRGElementReference<? extends TDRGElement> reference);
-
-    String qualifiedName(TDRGElement element);
-
-    String qualifiedName(Class<?> cls);
-
-    String qualifiedModuleName(DRGElementReference<? extends TDRGElement> reference);
-
-    String qualifiedModuleName(TDRGElement element);
-
-    String qualifiedModuleName(String pkg, String moduleName);
 
     String getterName(String name);
 

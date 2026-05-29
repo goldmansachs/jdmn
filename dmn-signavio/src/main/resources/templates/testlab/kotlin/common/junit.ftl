@@ -25,7 +25,7 @@ class ${testClassName} : ${decisionBaseClass}<Object>() {
     <@addTestCases />
 }
 <#macro addDecisionField>
-    private val ${testLabUtil.drgElementVariableName(rootOutputParameter)} = ${testLabUtil.qualifiedName(testLab, rootOutputParameter)}()
+    private val ${testLabUtil.drgElementVariableName(rootOutputParameter)} = ${testLabUtil.qualifiedNativeName(testLab, rootOutputParameter)}()
 </#macro>
 
 <#macro addTestCases>

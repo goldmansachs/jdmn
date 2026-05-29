@@ -18,7 +18,7 @@
         <#list transformer.extractExtraParametersFromExecutionContext() as stm>
             ${stm}
         </#list>
-            ${transformer.namedElementVariableName(drgElement)}StartTime_ = <@currentTimeMillis/>
+            ${transformer.nativeVariableName(drgElement)}StartTime_ = <@currentTimeMillis/>
             ${transformer.argumentsVariableName(drgElement)} = ${transformer.defaultConstructor(transformer.argumentsClassName())}
             <#assign elementNames = transformer.drgElementArgumentDisplayNameList(drgElement)/>
             <#list transformer.drgElementArgumentNameList(drgElement)>
@@ -35,7 +35,7 @@
 
 <#macro endDRGElementIndent extraIndent drgElement output>
             ${extraIndent}# ${transformer.endElementCommentText(drgElement)}
-            ${extraIndent}${transformer.eventListenerVariableName()}.endDRGElement(<@drgElementAnnotation drgElement/>, ${transformer.argumentsVariableName(drgElement)}, ${output}, (<@currentTimeMillis/> - ${transformer.namedElementVariableName(drgElement)}StartTime_))
+            ${extraIndent}${transformer.eventListenerVariableName()}.endDRGElement(<@drgElementAnnotation drgElement/>, ${transformer.argumentsVariableName(drgElement)}, ${output}, (<@currentTimeMillis/> - ${transformer.nativeVariableName(drgElement)}StartTime_))
 </#macro>
 
 <#macro endDRGElementAndReturn drgElement output>

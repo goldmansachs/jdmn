@@ -26,7 +26,7 @@ class ${nativeClassName} : ${transformer.registryClassName()} {
 <#list definitionsList as definitions>
         // Register elements from model '${definitions.name}'
     <#list modelRepository.findDRGElements(definitions) as element>
-        register("${modelRepository.displayName(element)}", "${transformer.qualifiedName(element)}")
+        register("${modelRepository.displayName(element)}", "${transformer.qualifiedNativeName(element)}")
     </#list>
 </#list>
 </#macro>

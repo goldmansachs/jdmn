@@ -37,7 +37,7 @@ class ${nativeClassName}(${transformer.dmnTypeClassName()}):
     <@addToString itemDefinition />
 <#macro addAssignmentForFields itemDefinition>
     <#list itemDefinition.itemComponent as child>
-        self.${transformer.namedElementVariableName(child)} = None
+        self.${transformer.nativeVariableName(child)} = None
     </#list>
 </#macro>
 
@@ -53,9 +53,9 @@ class ${nativeClassName}(${transformer.dmnTypeClassName()}):
             <#assign name = "\"${modelRepository.name(child)}\"" />
             <#assign label = "\"${modelRepository.label(child)}\"" />
             <#if modelRepository.label(child)?has_content>
-            result_.${transformer.namedElementVariableName(child)} = other.get(${name}, ${label})
+            result_.${transformer.nativeVariableName(child)} = other.get(${name}, ${label})
             <#else>
-            result_.${transformer.namedElementVariableName(child)} = other.get(${name})
+            result_.${transformer.nativeVariableName(child)} = other.get(${name})
             </#if>
         </#list>
             return result_
@@ -70,7 +70,7 @@ class ${nativeClassName}(${transformer.dmnTypeClassName()}):
         context = ${transformer.defaultConstructor(transformer.contextClassName())}
         <#list itemDefinition.itemComponent as child>
             <#assign name = modelRepository.name(child)/>
-            <#assign memberName = transformer.namedElementVariableName(child)/>
+            <#assign memberName = transformer.nativeVariableName(child)/>
         context.add("${memberName}", self.${memberName})
         </#list>
         return context
@@ -84,7 +84,7 @@ class ${nativeClassName}(${transformer.dmnTypeClassName()}):
             return False
 
         <#list modelRepository.sortItemComponent(itemDefinition) as child>
-            <#assign member = transformer.namedElementVariableName(child)/>
+            <#assign member = transformer.nativeVariableName(child)/>
         if self.${member} != other.${member}:
             return False
         </#list>
@@ -94,7 +94,7 @@ class ${nativeClassName}(${transformer.dmnTypeClassName()}):
     def hashCode(self):
         result = 0
         <#list modelRepository.sortItemComponent(itemDefinition) as child>
-            <#assign member = transformer.namedElementVariableName(child)/>
+            <#assign member = transformer.nativeVariableName(child)/>
         result = 31 * result + (0 if self.${member} is None else hash(self.${member}))
         </#list>
         return result
@@ -105,7 +105,7 @@ class ${nativeClassName}(${transformer.dmnTypeClassName()}):
         result_ = "{"
     <#list modelRepository.sortItemComponent(itemDefinition) as child>
         <#assign label = transformer.escapeInString(modelRepository.displayName(child))/>
-        <#assign member = transformer.namedElementVariableName(child)/>
+        <#assign member = transformer.nativeVariableName(child)/>
         <#if child_index == 0>
         result_ += ("${label}=" + str(self.${member}))
         <#else>

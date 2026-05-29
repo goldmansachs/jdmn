@@ -66,7 +66,7 @@ public class TestLabUtil {
 
     public String drgElementVariableName(OutputParameterDefinition outputParameterDefinition) {
         TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
-        return transformer.namedElementVariableName(decision);
+        return transformer.nativeVariableName(decision);
     }
 
     public String drgElementOutputType(OutputParameterDefinition outputParameterDefinition) {
@@ -86,7 +86,7 @@ public class TestLabUtil {
 
     public String inputDataVariableName(InputParameterDefinition inputParameterDefinition) {
         TDRGElement element = findDRGElement(inputParameterDefinition);
-        return transformer.namedElementVariableName(element);
+        return transformer.nativeVariableName(element);
     }
 
     public String assertClassName() {
@@ -170,10 +170,10 @@ public class TestLabUtil {
         return transformer.getter(outputName);
     }
 
-    public String qualifiedName(TestLab testLab, OutputParameterDefinition rootOutputParameter) {
+    public String qualifiedNativeName(TestLab testLab, OutputParameterDefinition rootOutputParameter) {
         String pkg = transformer.nativeModelPackageName(rootOutputParameter.getModelName());
         String cls = drgElementClassName(rootOutputParameter);
-        return transformer.qualifiedName(pkg, cls);
+        return transformer.qualifiedNativeName(pkg, cls);
     }
 
     public TDRGElement findDRGElement(ParameterDefinition parameterDefinition) {

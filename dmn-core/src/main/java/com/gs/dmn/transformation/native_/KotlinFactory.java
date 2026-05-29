@@ -244,7 +244,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
 
     @Override
     public String decisionConstructorParameter(DRGElementReference<TDecision> d) {
-        return String.format("val %s : %s = %s", this.transformer.drgElementReferenceVariableName(d), this.transformer.qualifiedName(d), defaultConstructor(this.transformer.qualifiedName(d)));
+        return String.format("val %s : %s = %s", this.transformer.nativeVariableName(d), this.transformer.qualifiedNativeName(d), defaultConstructor(this.transformer.qualifiedNativeName(d)));
     }
 
     //

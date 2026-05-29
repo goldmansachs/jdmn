@@ -61,7 +61,7 @@ class ${testClassName} : ${decisionBaseClass}<Object>() {
 
 <#macro checkResult inputNodeInfoList resultInfo>
         // Check '${resultInfo.nodeName}'
-        <#assign elementQName = tckUtil.qualifiedName(resultInfo)>
+        <#assign elementQName = tckUtil.qualifiedNativeName(resultInfo)>
         <#assign expectedValue = tckUtil.toNativeExpression(resultInfo)>
         <#assign parentArgList = tckUtil.drgElementArgumentList(resultInfo)>
         checkValues(${expectedValue}, ${tckUtil.defaultConstructor(elementQName)}.apply(${parentArgList}))
