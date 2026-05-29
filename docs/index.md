@@ -7,7 +7,7 @@ Notes:
 
 ## Sections
 
-* [Contributing to jDMN](https://github.com/goldmansachs/jdmn/blob/master/CONTRIBUTING.md)
+* [Contributing to jDMN](https://github.com/goldmansachs/jdmn/blob/main/CONTRIBUTING.md)
 
 * [Getting Started with jDMN](getting-started.md)
 
@@ -15,7 +15,7 @@ Notes:
 
 # Building / releasing jDMN
 
-* [Building jDMN](https://github.com/goldmansachs/jdmn/blob/master/BUILD.md)
+* [Building jDMN](https://github.com/goldmansachs/jdmn/blob/main/BUILD.md)
 
 * [Releasing JDMN](releasing.md)
 

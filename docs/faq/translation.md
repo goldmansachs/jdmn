@@ -127,7 +127,7 @@ Sample:
     </plugin>
 ```
 
-More examples in the pom of the [dmn-tck-integration-tests](https://github.com/goldmansachs/jdmn/blob/master/dmn-tck-it/dmn-tck-it-translator/pom.xml) module.
+More examples in the pom of the [dmn-tck-integration-tests](https://github.com/goldmansachs/jdmn/blob/main/dmn-tck-it/dmn-tck-it-translator/pom.xml) module.
 
 ## How to evaluate a decision using the generated code?
 
@@ -217,4 +217,4 @@ In certain cases (e.g., iteration over lists) it makes sense to use parallel str
 ```
 
 
-More examples in the [dmn-tck-integration-tests](https://github.com/goldmansachs/jdmn/blob/master/dmn-tck-it/dmn-tck-it-translator) module.
+More examples in the [dmn-tck-integration-tests](https://github.com/goldmansachs/jdmn/blob/main/dmn-tck-it/dmn-tck-it-translator) module.

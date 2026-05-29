@@ -1,7 +1,7 @@
 # jDMN - Decision Model and Notation (DMN) execution engine implemented in Java
 
-[![Documentation](https://img.shields.io/badge/Documentation-online-brightgreen.svg)](https://github.com/goldmansachs/jdmn/blob/master/docs/index.md)
-[![Build Status](https://github.com/goldmansachs/jdmn/actions/workflows/build-main.yml/badge.svg?branch=master)](https://github.com/goldmansachs/jdmn/actions/workflows/build-main.yml)
+[![Documentation](https://img.shields.io/badge/Documentation-online-brightgreen.svg)](https://github.com/goldmansachs/jdmn/blob/main/docs/index.md)
+[![Build Status](https://github.com/goldmansachs/jdmn/actions/workflows/build-main.yml/badge.svg?branch=main)](https://github.com/goldmansachs/jdmn/actions/workflows/build-main.yml)
 [![Maven Central](https://img.shields.io/maven-central/v/com.goldmansachs.jdmn/jdmn-parent.svg?label=Maven%20Central)](https://search.maven.org/artifact/com.goldmansachs.jdmn/jdmn-parent)
 [![Releases](https://img.shields.io/github/release/goldmansachs/jdmn.svg)](https://github.com/goldmansachs/jdmn/releases)
 [![Apache License](https://img.shields.io/badge/License-Apache%202-blue.svg)](LICENSE.txt)
@@ -21,10 +21,10 @@
 
 ## Useful information
 
-* [Documentation](https://github.com/goldmansachs/jdmn/blob/master/docs/index.md)
-* [Getting started with jDMN](https://github.com/goldmansachs/jdmn/blob/master/docs/getting-started.md)
-* [FAQ](https://github.com/goldmansachs/jdmn/blob/master/docs/faq/index.md)
-* [Resources](https://github.com/goldmansachs/jdmn/blob/master/docs/resources.md)
+* [Documentation](https://github.com/goldmansachs/jdmn/blob/main/docs/index.md)
+* [Getting started with jDMN](https://github.com/goldmansachs/jdmn/blob/main/docs/getting-started.md)
+* [FAQ](https://github.com/goldmansachs/jdmn/blob/main/docs/faq/index.md)
+* [Resources](https://github.com/goldmansachs/jdmn/blob/main/docs/resources.md)
 * [Release notes](https://github.com/goldmansachs/jdmn/releases)
 
 

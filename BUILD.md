@@ -24,6 +24,6 @@ Finally, do a pull request in Github.
 #### When pulling changes from upstream
 
 ```
-git pull --rebase upstream master
+git pull --rebase upstream main
 git push -f
 ```
