@@ -53,7 +53,8 @@ public class DRGElementReference<T extends TDRGElement> {
 
     public String getQualifiedHref() {
         String id = this.element.getId();
-        return String.format("%s#%s", this.namespace, id);
+        String namespaceStr = this.namespace == null ? "" : this.namespace;
+        return String.format("%s%s%s", namespaceStr, DMNModelRepository.HREF_SEPARATOR, id);
     }
 
     @Override

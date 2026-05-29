@@ -44,7 +44,7 @@ public class DMNModelRepositoryTest extends AbstractTest {
     public void testFindDecisionByRef() {
         String id = "d_BureauCallType";
         String namespace = definitions.getNamespace();
-        TDecision decision = this.dmnModelRepository.findDecisionByRef(null, namespace + "#" + id);
+        TDecision decision = this.dmnModelRepository.findDecisionByRef(null, namespace + DMNModelRepository.HREF_SEPARATOR + id);
         assertEquals(id, decision.getId());
         assertEquals("BureauCallType", decision.getName());
     }

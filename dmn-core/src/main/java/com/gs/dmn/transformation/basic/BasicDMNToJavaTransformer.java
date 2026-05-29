@@ -480,8 +480,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     protected List<Pair<FEELParameter, NativeParameter>> drgElementArgumentListInputPojo(DRGElementReference<? extends TDRGElement> reference) {
         List<FEELParameter> parameters = drgElementTypeSignature(reference);
-        List<Pair<FEELParameter, NativeParameter>> elementSignature = parameters.stream().map(p -> makePair(p)).collect(Collectors.toList());
-        return elementSignature;
+        return parameters.stream().map(this::makePair).collect(Collectors.toList());
     }
 
     private Pair<FEELParameter, NativeParameter> makePair(FEELParameter p) {
@@ -604,8 +603,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         while (type instanceof ListType) {
             type = ((ListType) type).getElementType();
         }
-        if (type instanceof ItemDefinitionType) {
-            ItemDefinitionType itemType = (ItemDefinitionType) type;
+        if (type instanceof ItemDefinitionType itemType) {
             Set<ItemDefinitionType> types = new LinkedHashSet<>();
             collect(itemType, types);
             for (ItemDefinitionType node : types) {
@@ -684,8 +682,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String elementName(Object obj) {
-        if (obj instanceof DRGElementReference) {
-            DRGElementReference<? extends TDRGElement> reference = (DRGElementReference<? extends TDRGElement>) obj;
+        if (obj instanceof DRGElementReference<? extends TDRGElement> reference) {
             String elementName = this.dmnModelRepository.name(reference.getElement());
             return drgReferenceQualifiedDisplayName(reference.getImportPath(), reference.getModelName(), elementName);
         } else if (obj instanceof TNamedElement) {
@@ -699,8 +696,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         if (this.inputParameters.isUseNames()) {
             return elementName(obj);
         } else {
-            if (obj instanceof DRGElementReference) {
-                DRGElementReference<? extends TDRGElement> reference = (DRGElementReference<? extends TDRGElement>) obj;
+            if (obj instanceof DRGElementReference<? extends TDRGElement> reference) {
                 String elementName = this.dmnModelRepository.displayName(reference.getElement());
                 return drgReferenceQualifiedDisplayName(reference.getImportPath(), reference.getModelName(), elementName);
             } else if (obj instanceof TNamedElement) {
@@ -1151,6 +1147,13 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
+    public String registryId(TDRGElement element) {
+        TDefinitions model = this.dmnModelRepository.getModel(element);
+        String modelId = model.getNamespace();
+        return bindingName(modelId, element.getName());
+    }
+
+    @Override
     public String bindingName(QualifiedName reference) {
         return bindingName(reference.getNamespace(), reference.getLocalPart());
     }
@@ -1164,7 +1167,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         if (StringUtils.isBlank(namespace)) {
             return elementName;
         } else {
-            return String.format("%s#%s", namespace, elementName);
+            return String.format("%s%s%s", namespace, DMNModelRepository.HREF_SEPARATOR, elementName);
         }
     }
 
@@ -1177,13 +1180,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             }
             return new Pair<>(Collections.singletonList(modelName), elementName);
         }
-    }
-
-    @Override
-    public String registryId(TDRGElement element) {
-        TDefinitions model = this.dmnModelRepository.getModel(element);
-        String modelId = model.getNamespace();
-        return bindingName(modelId, element.getName());
     }
 
     @Override
@@ -1645,9 +1641,10 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public Statement serviceToNative(TDecisionService element) {
         List<DRGElementReference<TDecision>> outputDecisions = this.dmnModelRepository.directSubDecisions(element);
-        if (outputDecisions.size() == 0) {
+        int size = outputDecisions.size();
+        if (size == 0) {
             return this.nativeFactory.makeExpressionStatement(this.nativeFactory.nullLiteral(), NullType.NULL);
-        } else if (outputDecisions.size() == 1) {
+        } else if (size == 1) {
             TDecision decision = outputDecisions.get(0).getElement();
             String decisionVarName = namedElementVariableName(decision);
             Statement statement = this.nativeFactory.makeExpressionStatement(decisionVarName, drgElementOutputFEELType(decision));

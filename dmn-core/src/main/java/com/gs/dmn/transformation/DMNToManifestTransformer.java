@@ -32,12 +32,12 @@ public class DMNToManifestTransformer {
     public static String uniqueHref(String href, TDefinitions importingModel, boolean multiModels) {
         if (multiModels) {
             // Add missing namespace for references in the same model
-            if (href != null && href.startsWith("#")) {
+            if (href != null && href.startsWith(DMNModelRepository.HREF_SEPARATOR)) {
                 href = importingModel.getNamespace() + href;
             }
         } else {
             // Remove existing namespace: references in the same model
-            int i = href.indexOf("#");
+            int i = href.indexOf(DMNModelRepository.HREF_SEPARATOR);
             href = i != -1 ? href.substring(i + 1) : href;
         }
         return href;
@@ -46,7 +46,7 @@ public class DMNToManifestTransformer {
     // Unique IDss across multiple XML files
     public static String uniqueId(String id, TDefinitions containingModel, boolean multiModels) {
         if (multiModels) {
-            return String.format("%s#%s", containingModel.getNamespace(), id);
+            return String.format("%s%s%s", containingModel.getNamespace(), DMNModelRepository.HREF_SEPARATOR, id);
         } else {
             return id;
         }

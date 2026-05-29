@@ -20,6 +20,7 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.LogErrorHandler;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.discovery.ModelElementRegistry;
 import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
@@ -49,7 +50,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
 
     public static final String LIST_TYPE = "List";
 
-    private static final String REGISTRY_CLASS_NAME = "ModelElementRegistry";
+    private static final String REGISTRY_CLASS_NAME = ModelElementRegistry.class.getSimpleName();
 
     public static final List<String> SUPPORTED_LANGUAGES = Arrays.asList(DMNVersion.LATEST.getFeelNamespace(), DMNModelRepository.FREE_TEXT_LANGUAGE);
 

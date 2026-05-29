@@ -36,7 +36,9 @@ import static com.gs.dmn.ast.TBuiltinAggregator.COUNT;
 import static com.gs.dmn.ast.TBuiltinAggregator.SUM;
 
 public class DMNModelRepository {
+    public static final String HREF_SEPARATOR = "#";
     public static final String FREE_TEXT_LANGUAGE = "free_text";
+
     private static final Pattern WORD = Pattern.compile("\\w+");
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(DMNModelRepository.class);
@@ -221,15 +223,6 @@ public class DMNModelRepository {
             }
         }
         return names;
-    }
-
-    public TImport findImport(TDefinitions definitions, String name) {
-        for (TImport imp : definitions.getImport()) {
-            if (imp.getName().equals(name)) {
-                return imp;
-            }
-        }
-        return null;
     }
 
     public Graph<TDefinitions> createImportGraph() {
@@ -555,7 +548,7 @@ public class DMNModelRepository {
     private TDRGElement findDRGElementById(TDefinitions definitions, String id) {
         TDRGElement element = findDRGElementByFilter(definitions, id, this::sameId);
         if (element == null) {
-            throw new SemanticErrorException(String.format("Cannot find DRG element for id='%s' in model '%s#%s'", id, definitions.getNamespace(), definitions.getName()));
+            throw new SemanticErrorException(String.format("Cannot find DRG element for id='%s' in model '%s%s%s'", id, definitions.getNamespace(), HREF_SEPARATOR, definitions.getName()));
         } else {
             return element;
         }
@@ -824,10 +817,10 @@ public class DMNModelRepository {
         List<TDMNElementReference> references = new ArrayList<>();
         if (parent instanceof TDecision) {
             List<TInformationRequirement> informationRequirements = ((TDecision) parent).getInformationRequirement();
-            references.addAll(informationRequirements.stream().map(TInformationRequirement::getRequiredInput).filter(Objects::nonNull).collect(Collectors.toList()));
+            references.addAll(informationRequirements.stream().map(TInformationRequirement::getRequiredInput).filter(Objects::nonNull).toList());
         } else if (parent instanceof TDecisionService) {
             List<TDMNElementReference> inputData = ((TDecisionService) parent).getInputData();
-            references.addAll(inputData.stream().filter(Objects::nonNull).collect(Collectors.toList()));
+            references.addAll(inputData.stream().filter(Objects::nonNull).toList());
         }
         return references;
     }
@@ -836,14 +829,14 @@ public class DMNModelRepository {
         List<TDMNElementReference> references = new ArrayList<>();
         if (parent instanceof TDecision) {
             List<TInformationRequirement> informationRequirements = ((TDecision) parent).getInformationRequirement();
-            references.addAll(informationRequirements.stream().map(TInformationRequirement::getRequiredDecision).filter(Objects::nonNull).collect(Collectors.toList()));
+            references.addAll(informationRequirements.stream().map(TInformationRequirement::getRequiredDecision).filter(Objects::nonNull).toList());
         } else if (parent instanceof TDecisionService) {
             List<TDMNElementReference> inputDecisions = ((TDecisionService) parent).getInputDecision();
-            references.addAll(inputDecisions.stream().filter(Objects::nonNull).collect(Collectors.toList()));
+            references.addAll(inputDecisions.stream().filter(Objects::nonNull).toList());
             List<TDMNElementReference> outputDecisions = ((TDecisionService) parent).getOutputDecision();
-            references.addAll(outputDecisions.stream().filter(Objects::nonNull).collect(Collectors.toList()));
+            references.addAll(outputDecisions.stream().filter(Objects::nonNull).toList());
             List<TDMNElementReference> encapsulatedDecision = ((TDecisionService) parent).getEncapsulatedDecision();
-            references.addAll(encapsulatedDecision.stream().filter(Objects::nonNull).collect(Collectors.toList()));
+            references.addAll(encapsulatedDecision.stream().filter(Objects::nonNull).toList());
         }
         return references;
     }
@@ -1146,9 +1139,8 @@ public class DMNModelRepository {
                             }
                         }
                     }
-                } else if (expression instanceof TDecisionTable) {
+                } else if (expression instanceof TDecisionTable dt) {
                     // Derive from output clauses and rules
-                    TDecisionTable dt = (TDecisionTable) expression;
                     List<TOutputClause> outputList = dt.getOutput();
                     if (outputList.size() == 1) {
                         typeRef = QualifiedName.toQualifiedName(model, outputList.get(0).getTypeRef());
@@ -1355,39 +1347,22 @@ public class DMNModelRepository {
     protected String extractNamespaceURI(String href) {
         String namespace = null;
         if (isAbsoluteURI(href)) {
-            namespace = href.substring(0, href.indexOf('#'));
+            namespace = href.substring(0, href.indexOf(HREF_SEPARATOR));
         }
         return namespace;
     }
 
     public static String extractId(String href) {
         if (isAbsoluteURI(href)) {
-            href = href.substring(href.indexOf('#') + 1);
-        } else if (href != null && href.startsWith("#")) {
+            href = href.substring(href.indexOf(HREF_SEPARATOR) + 1);
+        } else if (href != null && href.startsWith(HREF_SEPARATOR)) {
             href = href.substring(1);
         }
         return href;
     }
 
     protected static boolean isAbsoluteURI(String href) {
-        return href != null && href.indexOf('#') > 0;
-    }
-
-    public List<TItemDefinition> compositeItemDefinitions(TDefinitions definitions) {
-        List<TItemDefinition> accumulator = new ArrayList<>();
-        collectCompositeItemDefinitions(definitions.getItemDefinition(), accumulator);
-        return accumulator;
-    }
-
-    private void collectCompositeItemDefinitions(List<TItemDefinition> itemDefinitions, List<TItemDefinition> accumulator) {
-        if (itemDefinitions != null) {
-            for (TItemDefinition itemDefinition : itemDefinitions) {
-                if (hasComponents(itemDefinition)) {
-                    accumulator.add(itemDefinition);
-                    collectCompositeItemDefinitions(itemDefinition.getItemComponent(), accumulator);
-                }
-            }
-        }
+        return href != null && href.indexOf(HREF_SEPARATOR) > 0;
     }
 
     private boolean isRecursive(TExpression exp, String bkm) {

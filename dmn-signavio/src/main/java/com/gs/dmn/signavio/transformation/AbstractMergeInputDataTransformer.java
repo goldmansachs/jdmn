@@ -173,7 +173,7 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
                                 String newInputDataName = representative.getName();
                                 logger.info(String.format("Replacing input '%s' with '%s' in decision '%s'", oldInputDataName, newInputDataName, decision.getName()));
 
-                                ir.getRequiredInput().setHref("#" + representative.getId());
+                                ir.getRequiredInput().setHref(DMNModelRepository.HREF_SEPARATOR + representative.getId());
 
                                 // Replace in body
                                 TExpression expression = decision.getExpression();

@@ -290,11 +290,11 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String drgReferenceQualifiedName(DRGElementReference<? extends TDRGElement> reference);
 
+    String registryId(TDRGElement element);
+
     String bindingName(QualifiedName qName);
 
     String bindingName(DRGElementReference<? extends TDRGElement> reference);
-
-    String registryId(TDRGElement element);
 
     String parameterNativeType(TDefinitions model, TInformationItem element);
 
