@@ -33,6 +33,9 @@ public class InputParameters {
     public static final String TCK_FORMAT_KEY = "tckFormat";
     public static final String TCK_FILE_EXTENSION_DEFAULT_VALUE = DMNConstants.XML_FILE_EXTENSION;
 
+    public static final String NAME_KIND_KEY = "nameKind";
+    public static final String NAME_KIND_DEFAULT_VALUE = NameKind.SimpleName.name();
+
     protected static String getRequiredParam(Map<String, String> parameters, String parameterKey) {
         if (parameters == null || parameters.get(parameterKey) == null || parameters.get(parameterKey).trim().isEmpty()) {
             throw new DMNRuntimeException("A '" + parameterKey + "' parameter is required.");
@@ -134,8 +137,8 @@ public class InputParameters {
     // Path to the libraries configuration file.
     private final String librariesConfigPath;
 
-    // Whether to use names or labels in applyMap() and applyContext() methods.
-    boolean useNames;
+    // What names to use in applyMap().
+    NameKind nameKind;
 
     public InputParameters() {
         this(new LinkedHashMap<>());
@@ -181,7 +184,7 @@ public class InputParameters {
 
         this.librariesConfigPath = InputParameters.getOptionalParam(inputParameters, "librariesConfigPath", "feel/library/libraries.json");
 
-        this.useNames = InputParameters.getOptionalBooleanParam(inputParameters, "useNames", "true");
+        this.nameKind = NameKind.valueOf(InputParameters.getOptionalParam(inputParameters, NAME_KIND_KEY, NAME_KIND_DEFAULT_VALUE));
     }
 
     public String getDmnVersion() {
@@ -284,7 +287,7 @@ public class InputParameters {
         return librariesConfigPath;
     }
 
-    public boolean isUseNames() {
-        return useNames;
+    public NameKind getNameKind() {
+        return nameKind;
     }
 }

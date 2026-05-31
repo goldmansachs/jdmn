@@ -48,6 +48,7 @@ import com.gs.dmn.runtime.listener.*;
 import com.gs.dmn.runtime.listener.EventListener;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.InputParameters;
+import com.gs.dmn.transformation.NameKind;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.LazyEvaluationOptimisation;
 import com.gs.dmn.transformation.native_.JavaFactory;
@@ -740,7 +741,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String displayName(TNamedElement element) {
-        if (this.inputParameters.isUseNames()) {
+        if (this.inputParameters.getNameKind() == NameKind.SimpleName) {
             return elementName(element);
         } else {
             return this.dmnModelRepository.displayName(element);
@@ -749,7 +750,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String displayName(DRGElementReference<? extends TDRGElement> reference) {
-        if (this.inputParameters.isUseNames()) {
+        if (this.inputParameters.getNameKind() == NameKind.SimpleName) {
             return elementName(reference);
         } else {
             String elementName = this.dmnModelRepository.displayName(reference.getElement());

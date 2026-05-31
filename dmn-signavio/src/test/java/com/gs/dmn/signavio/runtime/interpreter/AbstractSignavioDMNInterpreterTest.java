@@ -31,6 +31,8 @@ import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.dialect.JavaTimeSignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.testlab.TestLab;
+import com.gs.dmn.transformation.InputParameters;
+import com.gs.dmn.transformation.NameKind;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
@@ -93,6 +95,7 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
     protected Map<String, String> makeInputParametersMap() {
         Map<String, String> inputParams = super.makeInputParametersMap();
         inputParams.put("signavioSchemaNamespace", SIG_EXT_NAMESPACE);
+        inputParams.put(InputParameters.NAME_KIND_KEY, NameKind.DisplayName.name());
         return inputParams;
     }
 
