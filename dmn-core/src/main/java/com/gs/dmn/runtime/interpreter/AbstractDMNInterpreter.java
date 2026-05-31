@@ -43,6 +43,7 @@ import com.gs.dmn.runtime.function.Function;
 import com.gs.dmn.runtime.listener.*;
 import com.gs.dmn.runtime.listener.EventListener;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
+import com.gs.dmn.transformation.basic.FEELParameter;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -139,8 +140,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             for (Map.Entry<QualifiedName, Object> entry : informationRequirements.entrySet()) {
                 Object value = entry.getValue();
                 TDRGElement drgElementByName = findInputData(model, entry.getKey());
-                if (drgElementByName instanceof TInputData) {
-                    TInputData inputData = (TInputData) drgElementByName;
+                if (drgElementByName instanceof TInputData inputData) {
                     TInformationItem variable = inputData.getVariable();
                     String originalTypeRef = QualifiedName.toName(variable.getTypeRef());
                     if (Type.isNullOrAny(originalTypeRef)) {
@@ -1244,10 +1244,11 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
         private Arguments makeArguments(TDRGElement element, DMNContext context) {
             Arguments arguments = new Arguments();
             DRGElementReference<? extends TDRGElement> reference = repository.makeDRGElementReference(element);
-            List<String> parameters = dmnTransformer.drgElementArgumentDisplayNameList(reference);
-            for (String p : parameters) {
-                Object value = context.lookupBinding(p);
-                arguments.put(p, value);
+            List<FEELParameter> parameters = dmnTransformer.drgElementTypeSignature(reference);
+            for (FEELParameter p : parameters) {
+                String key = p.getDisplayName();
+                Object value = context.lookupBinding(key);
+                arguments.put(key, value);
             }
             return arguments;
         }

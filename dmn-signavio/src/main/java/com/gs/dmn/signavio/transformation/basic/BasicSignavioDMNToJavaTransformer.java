@@ -40,7 +40,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer {
@@ -144,8 +143,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
     @Override
     public List<FEELParameter> bkmParameters(DRGElementReference<TBusinessKnowledgeModel> reference) {
         TBusinessKnowledgeModel bkm = reference.getElement();
-        TFunctionDefinition encapsulatedLogic = bkm.getEncapsulatedLogic();
-        if (encapsulatedLogic == null) {
+        if (this.dmnModelRepository.isBKMLinkedToDecision(bkm)) {
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision(bkm);
             return this.drgElementTypeSignature(outputDecision);
         } else {
@@ -181,33 +179,12 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
         }
     }
 
-    @Override
-    public List<String> drgElementArgumentNameList(DRGElementReference<? extends TDRGElement> reference) {
-        TDRGElement element = reference.getElement();
-        if (this.dmnModelRepository.isBKMLinkedToDecision(element)) {
-            TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
-            return super.drgElementArgumentNameList(outputDecision);
-        } else {
-            return super.drgElementArgumentNameList(reference);
-        }
-    }
-
-    @Override
-    public List<String> drgElementArgumentDisplayNameList(DRGElementReference<? extends TDRGElement> reference) {
-        TDRGElement element = reference.getElement();
-        if (this.dmnModelRepository.isBKMLinkedToDecision(element)) {
-            TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
-            return super.drgElementArgumentDisplayNameList(outputDecision);
-        } else {
-            return super.drgElementArgumentDisplayNameList(reference);
-        }
-    }
-
     public String bkmLinkedToDecisionToNative(TBusinessKnowledgeModel bkm) {
         TDecision outputDecision = this.dmnModelRepository.getOutputDecision(bkm);
         String decisionClassName = drgElementClassName(outputDecision);
-        List<String> argNameList = drgElementArgumentNameList(outputDecision);
-        String decisionArgList = String.join(", ", argNameList);
+        List<FEELParameter> parameterList = drgElementTypeSignature(outputDecision);
+        List<String> argListName = parameterList.stream().map(FEELParameter::getNativeName).toList();
+        String decisionArgList = String.join(", ", argListName);
         decisionArgList = augmentArgumentList(decisionArgList);
         return String.format("%s.apply(%s)", defaultConstructor(decisionClassName), decisionArgList);
     }

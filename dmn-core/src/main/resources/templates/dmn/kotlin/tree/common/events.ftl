@@ -20,10 +20,9 @@
         </#list>
             val ${transformer.nativeVariableName(drgElement)}StartTime_ = <@currentTimeMillis/>
             val ${transformer.argumentsVariableName(drgElement)} = ${transformer.defaultConstructor(transformer.argumentsClassName())}
-            <#assign elementNames = transformer.drgElementArgumentDisplayNameList(drgElement)/>
-            <#list transformer.drgElementArgumentNameList(drgElement)>
-            <#items as arg>
-            ${transformer.argumentsVariableName(drgElement)}.put("${transformer.escapeInString(elementNames[arg?index])}", ${arg})
+            <#list transformer.drgElementTypeSignature(drgElement)>
+            <#items as parameter>
+            ${transformer.argumentsVariableName(drgElement)}.put("${transformer.escapeInString(parameter.displayName)}", ${parameter.nativeName})
             </#items>
             </#list>
             ${transformer.eventListenerVariableName()}.startDRGElement(<@drgElementAnnotation drgElement/>, ${transformer.argumentsVariableName(drgElement)})

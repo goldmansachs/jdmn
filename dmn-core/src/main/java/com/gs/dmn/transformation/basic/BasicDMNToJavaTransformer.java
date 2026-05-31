@@ -648,30 +648,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public List<String> drgElementArgumentNameList(TDRGElement element) {
-        DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
-        return drgElementArgumentNameList(reference);
-    }
-
-    @Override
-    public List<String> drgElementArgumentNameList(DRGElementReference<? extends TDRGElement> reference) {
-        List<FEELParameter> parameters = drgElementTypeSignature(reference);
-        return parameters.stream().map(FEELParameter::getNativeName).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<String> drgElementArgumentDisplayNameList(TDRGElement element) {
-        DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
-        return drgElementArgumentDisplayNameList(reference);
-    }
-
-    @Override
-    public List<String> drgElementArgumentDisplayNameList(DRGElementReference<? extends TDRGElement> reference) {
-        List<FEELParameter> parameters = drgElementTypeSignature(reference);
-        return parameters.stream().map(FEELParameter::getDisplayName).collect(Collectors.toList());
-    }
-
-    @Override
     public boolean hasComplexInputDatas(TDRGElement element) {
         return !this.drgElementComplexInputClassNames(element).isEmpty();
     }
