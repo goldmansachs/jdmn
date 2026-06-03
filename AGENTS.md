@@ -3,7 +3,7 @@ AGENTS for jdmn
 
 Purpose
 -------
-This document lists the automated subagents and guidance for using them when working with this repository. The project is a Maven-based Java project targeting Java 17. The subagents described here are intended to help with planning multi-step tasks and remediating CVEs in project dependencies.
+This document lists the automated subagents and guidance for using them when working with this repository. The project is a Maven-based Java project targeting Java 17 with forward compatibility testing on Java 21. The subagents described here are intended to help with planning multi-step tasks and remediating CVEs in project dependencies.
 
 Available subagents
 -------------------
@@ -15,18 +15,26 @@ Available subagents
 2. CVE Remediator
    - Purpose: Detects and fixes security vulnerabilities (CVEs) in project dependencies across supported ecosystems while preserving a working build.
    - When to use: Use for dependency security audits and automated fixes. It will attempt to update vulnerable dependencies, run the build and tests, and produce a patch or PR that fixes the issues.
-   - Example prompt: "CVE Remediator: scan the repository for CVEs and propose fixes that keep the project buildable on Java 17 and Maven."
+   - Example prompt: "CVE Remediator: scan the repository for CVEs and propose fixes that keep the project buildable on Java 17 and Maven 3.9.11 or higher."
 
 Guidance and best practices
 ---------------------------
 - Environment expectations
-  - JDK: Java 17 (builds and tests in CI expect Java 17)
-  - Build tool: Apache Maven (root pom.xml is present)
+  - JDK: Java 17 (primary target); Java 21 also tested in CI
+  - Build tool: Apache Maven 3.9.11 or higher (root pom.xml is present)
+  - Python 3.12 (used for code generation translation tests)
   - Typical commands:
 
     mvn -v
+    mvn clean install --show-version --batch-mode --errors
     mvn -DskipTests package
     mvn test
+
+- Project structure
+  - Multi-module Maven project with core modules: `dmn-runtime-api`, `dmn-runtime`, `dmn-core`, `dmn-maven-plugin`, `dmn-signavio`
+  - Integration test modules: `dmn-tck-it`, `dmn-signavio-it`, `dmn-jpa-it`
+  - Aggregate module: `dmn-aggregate` (for unified reporting)
+  - Key capabilities: DMN interpretation, translation to Java/Kotlin/Python, Signavio-specific extensions
 
 - Choosing an agent
   - Use "Plan" first for large or risky changes. The Plan agent will provide a checklist and suggested sequence of edits and tests.
@@ -34,7 +42,7 @@ Guidance and best practices
 
 - How to interact (recommended prompts)
   - Ask for a plan: "Plan: propose a step-by-step plan to add JUnit 5 tests for module X and migrate existing tests from JUnit 4. Include validation steps."
-  - Ask for CVE remediation: "CVE Remediator: scan and fix vulnerable Maven dependencies, prefer non-breaking upgrades and ensure mvn -DskipTests package succeeds."
+  - Ask for CVE remediation: "CVE Remediator: scan and fix vulnerable Maven dependencies, prefer non-breaking upgrades and ensure mvn clean install --show-version --batch-mode --errors succeeds."
 
 Examples and expected outputs
 -----------------------------
