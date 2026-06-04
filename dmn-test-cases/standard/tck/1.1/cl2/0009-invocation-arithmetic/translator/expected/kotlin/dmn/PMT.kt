@@ -61,7 +61,7 @@ class PMT : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<kotlin.Number?> {
 
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
-            "",
+            "http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11",
             "PMT",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.BUSINESS_KNOWLEDGE_MODEL,

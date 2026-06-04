@@ -65,7 +65,7 @@ class Bankrates() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<type.TLoanPr
 
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
-            "",
+            "http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719",
             "Bankrates",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

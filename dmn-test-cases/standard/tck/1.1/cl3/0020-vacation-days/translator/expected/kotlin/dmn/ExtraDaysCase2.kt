@@ -138,7 +138,7 @@ class ExtraDaysCase2() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<kotlin.Numbe
 
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
-            "",
+            "https://www.drools.org/kie-dmn",
             "Extra days case 2",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

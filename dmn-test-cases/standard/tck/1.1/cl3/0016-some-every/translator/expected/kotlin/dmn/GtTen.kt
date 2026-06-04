@@ -59,7 +59,7 @@ class GtTen : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boolean?> {
 
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
-            "",
+            "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70",
             "gtTen",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.BUSINESS_KNOWLEDGE_MODEL,

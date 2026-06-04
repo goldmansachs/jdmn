@@ -56,7 +56,7 @@ class BaseVacationDays() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<kotlin.Num
 
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
-            "",
+            "https://www.drools.org/kie-dmn",
             "Base Vacation Days",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

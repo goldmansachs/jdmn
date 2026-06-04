@@ -1,7 +1,7 @@
 [
   {
     "element": {
-      "namespace": "com.gs.dmn.generated.example_credit_decision",
+      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "name": "makeCreditDecision",
       "label": "Make credit decision",
       "elementKind": "DECISION",

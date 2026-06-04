@@ -57,7 +57,7 @@ class Sort1() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<kotlin.Number?>?
 
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
-            "",
+            "http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217",
             "sort1",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

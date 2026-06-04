@@ -57,7 +57,7 @@ class Decision3() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<String?>?>()
 
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
-            "",
+            "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a",
             "decision3",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

@@ -61,7 +61,7 @@ class PostBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = A
 
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
-            "",
+            "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
             "Post-bureauRiskCategory",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

@@ -209,7 +209,7 @@ class ApprovalStatus() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String?>() {
 
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
-            "",
+            "http://www.trisotech.com/definitions/_6cb03678-38e5-4ee3-826b-d6622c738563",
             "Approval Status",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

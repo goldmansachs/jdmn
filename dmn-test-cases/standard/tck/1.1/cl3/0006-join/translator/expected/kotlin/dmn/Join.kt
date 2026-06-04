@@ -59,7 +59,7 @@ class Join() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String?>() {
 
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
-            "",
+            "http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29",
             "Join",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

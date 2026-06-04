@@ -25,7 +25,7 @@
 
 <#macro elementMetadataField drgElement>
         val ${transformer.drgElementMetadataFieldName()} : ${transformer.drgElementMetadataClassName()} = ${transformer.drgElementMetadataClassName()}(
-            "${nativePackageName}",
+            "${modelRepository.namespace(drgElement)}",
             "${modelRepository.name(drgElement)}",
             "${modelRepository.label(drgElement)}",
             ${transformer.elementKindAnnotationClassName()}.${transformer.elementKind(drgElement)},

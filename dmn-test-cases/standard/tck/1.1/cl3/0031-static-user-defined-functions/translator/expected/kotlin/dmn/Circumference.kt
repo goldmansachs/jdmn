@@ -59,7 +59,7 @@ class Circumference : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<kotlin.Number?>
 
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
-            "",
+            "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
             "Circumference",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.BUSINESS_KNOWLEDGE_MODEL,

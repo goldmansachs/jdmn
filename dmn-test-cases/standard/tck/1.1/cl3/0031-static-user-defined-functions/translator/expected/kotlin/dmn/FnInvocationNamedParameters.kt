@@ -70,7 +70,7 @@ class FnInvocationNamedParameters(val fnLibrary : FnLibrary = FnLibrary()) : com
 
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
-            "",
+            "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
             "fn invocation named parameters",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
