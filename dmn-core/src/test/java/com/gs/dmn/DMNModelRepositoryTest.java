@@ -41,6 +41,61 @@ public class DMNModelRepositoryTest extends AbstractTest {
     }
 
     @Test
+    public void testName() {
+        // Get an existing DRG element from the loaded model to test
+        TDRGElement element = this.dmnModelRepository.findDRGElementByName(definitions, "BureauCallType");
+
+        // Test that name() returns the element's name
+        String result = this.dmnModelRepository.name(element);
+        assertEquals("BureauCallType", result);
+
+        // Test that name() throws exception when element is null
+        assertThrows(SemanticErrorException.class, () -> {
+            this.dmnModelRepository.name(null);
+        });
+    }
+
+    @Test
+    public void testLabel() {
+        // Get an existing DRG element from the loaded model
+        TDRGElement element = this.dmnModelRepository.findDRGElementByName(definitions, "BureauCallType");
+
+        // Test label() returns empty string when label is null
+        String result = this.dmnModelRepository.label(element);
+        assertNotNull(result);
+        assertEquals("", result);
+
+        // Test label() replaces double quotes with single quotes
+        element.setLabel("Test \"Label\"");
+        result = this.dmnModelRepository.label(element);
+        assertEquals("Test 'Label'", result);
+    }
+
+    @Test
+    public void testDisplayName() {
+        // Get an existing DRG element from the loaded model
+        TDRGElement element = this.dmnModelRepository.findDRGElementByName(definitions, "BureauCallType");
+
+        // Test displayName() returns name when label is null/blank
+        String result = this.dmnModelRepository.displayName(element);
+        assertEquals("BureauCallType", result);
+
+        // Test displayName() returns label when available
+        element.setLabel("Bureau Call Type Label");
+        result = this.dmnModelRepository.displayName(element);
+        assertEquals("Bureau Call Type Label", result);
+
+        // Test displayName() throws exception when both label and name are blank
+        TDecision testElement = new TDecision();
+        testElement.setId("test-id");
+        testElement.setName("");
+        testElement.setLabel(null);
+        assertThrows(SemanticErrorException.class, () -> {
+            this.dmnModelRepository.displayName(testElement);
+        });
+    }
+
+    @Test
     public void testFindDecisionByRef() {
         String id = "d_BureauCallType";
         String namespace = definitions.getNamespace();

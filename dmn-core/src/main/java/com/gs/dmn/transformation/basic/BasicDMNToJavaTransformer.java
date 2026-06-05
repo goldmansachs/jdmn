@@ -818,7 +818,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     private Pair<List<String>, String> qualifiedNameParts(ImportPath importPath, String modelName, String elementName) {
-        if (this.onePackage) {
+        if (isOnePackage()) {
             return new Pair<>(Collections.emptyList(), elementName);
         } else {
             if (ImportPath.isEmpty(importPath)) {
@@ -2020,7 +2020,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         if (modelName != null && modelName.endsWith(this.inputParameters.getDmnFileExtension())) {
             modelName = modelName.substring(0, modelName.length() - 4);
         }
-        if (this.onePackage) {
+        if (isOnePackage()) {
             modelName = "";
         }
 
