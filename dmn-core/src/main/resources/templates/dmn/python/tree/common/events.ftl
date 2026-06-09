@@ -22,7 +22,7 @@
             ${transformer.argumentsVariableName(drgElement)} = ${transformer.defaultConstructor(transformer.argumentsClassName())}
             <#list transformer.drgElementTypeSignature(drgElement)>
             <#items as parameter>
-            ${transformer.argumentsVariableName(drgElement)}.put("${transformer.escapeInString(parameter.displayName)}", ${parameter.nativeName})
+            ${transformer.argumentsVariableName(drgElement)}.put("${transformer.escapeInString(transformer.listenerArgumentsKey(parameter))}", ${transformer.nativeVariableName(parameter)})
             </#items>
             </#list>
             ${transformer.eventListenerVariableName()}.startDRGElement(<@drgElementAnnotation drgElement/>, ${transformer.argumentsVariableName(drgElement)})

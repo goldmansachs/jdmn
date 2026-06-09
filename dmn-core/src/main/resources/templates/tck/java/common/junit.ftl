@@ -96,7 +96,7 @@ public class ${testClassName} extends ${decisionBaseClass}<Object> {
         ${inputContextClassName} ${inputContextVariableName} = ${tckUtil.defaultConstructor(inputContextClassName)};
     <#list inputNodeInfoList>
         <#items as inputInfo>
-            <#assign displayName = tckUtil.displayName(inputInfo)/>
+            <#assign displayName = tckUtil.applyContextKey(inputInfo)/>
             <#assign memberVariableName = tckUtil.inputDataVariableName(inputInfo)/>
             <#if inputInfo.isInputData()>
         ${inputContextVariableName}.${tckUtil.contextSetter(displayName, memberVariableName)};

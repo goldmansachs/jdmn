@@ -44,7 +44,7 @@ public class ${nativeClassName} implements ${transformer.drgElementInputPojoInte
             <#assign nativeMemberName = argument.right.name/>
             <#assign nativeMemberType = argument.right.type/>
             <#assign feelMemberType = argument.left.type/>
-            <#assign memberKey = "\"${argument.left.displayName}\""/>
+            <#assign memberKey = "\"${transformer.applyContextKey(argument.left)}\""/>
             <#assign castToMemberType = "(${nativeMemberType})" />
             Object ${nativeMemberName} = input_.get(${memberKey});
             <#if transformer.isComplexType(feelMemberType)>

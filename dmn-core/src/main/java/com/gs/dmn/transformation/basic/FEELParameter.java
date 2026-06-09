@@ -3,22 +3,17 @@ package com.gs.dmn.transformation.basic;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 
 public class FEELParameter {
-    private final String displayName;
-    private final String nativeName;
+    // InformationItem or DRGElementReference
+    private final Object modelElement;
     private final Type type;
 
-    public FEELParameter(String displayName, String nativeName, Type type) {
-        this.displayName = displayName;
-        this.nativeName = nativeName;
+    public FEELParameter(Object modelElement, Type type) {
+        this.modelElement = modelElement;
         this.type = type;
     }
 
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public String getNativeName() {
-        return nativeName;
+    public Object getModelElement() {
+        return modelElement;
     }
 
     public Type getType() {

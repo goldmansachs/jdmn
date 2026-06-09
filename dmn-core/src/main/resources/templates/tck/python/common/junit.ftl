@@ -81,9 +81,10 @@ class ${testClassName}(unittest.TestCase, ${decisionBaseClass}):
         <#items as inputInfo>
         <#assign inputVariableName = tckUtil.inputDataVariableName(inputInfo)>
         <#assign inputValue = tckUtil.toNativeExpression(inputInfo)>
+        <#assign cacheKey = tckUtil.cacheKey(inputInfo)/>
         ${inputVariableName}: ${tckUtil.toNativeType(inputInfo)} = ${inputValue}
         <#if tckUtil.isCached(inputInfo)>
-        ${tckUtil.cacheVariableName()}.bind("${inputVariableName}", ${inputVariableName})
+        ${tckUtil.cacheVariableName()}.bind("${cacheKey}", ${inputVariableName})
         </#if>
         </#items>
     </#list>

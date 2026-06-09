@@ -96,6 +96,31 @@ public class DMNModelRepositoryTest extends AbstractTest {
     }
 
     @Test
+    public void testQualifiedName() {
+        // Test QualifiedName object
+        QualifiedName qName = QualifiedName.toQualifiedName(definitions.getNamespace(), "BureauCallType");
+        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType", this.dmnModelRepository.qualifiedName(qName));
+
+        // Test another QualifiedName
+        QualifiedName qName2 = QualifiedName.toQualifiedName(definitions.getNamespace(), "Eligibility");
+        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#Eligibility", this.dmnModelRepository.qualifiedName(qName2));
+
+        // Test QualifiedName with empty namespace
+        QualifiedName qName3 = QualifiedName.toQualifiedName("", "Eligibility");
+        assertEquals("Eligibility", this.dmnModelRepository.qualifiedName(qName3));
+
+        // Test NamedElement
+        TDRGElement element = this.dmnModelRepository.findDRGElementByName(definitions, "BureauCallType");
+        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType", this.dmnModelRepository.qualifiedName(element));
+
+        // Test DRGElementReference
+        DRGElementReference<TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
+        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType", this.dmnModelRepository.qualifiedName(reference));
+        reference = this.dmnModelRepository.makeDRGElementReference("prefix", element);
+        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType", this.dmnModelRepository.qualifiedName(reference));
+    }
+
+    @Test
     public void testFindDecisionByRef() {
         String id = "d_BureauCallType";
         String namespace = definitions.getNamespace();

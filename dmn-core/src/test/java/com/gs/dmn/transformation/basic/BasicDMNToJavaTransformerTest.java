@@ -15,10 +15,10 @@ package com.gs.dmn.transformation.basic;
 import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
-import com.gs.dmn.QualifiedName;
 import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.ast.TDecision;
 import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.ast.TInformationItem;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.JavaTimeDMNDialectDefinition;
 import com.gs.dmn.serialization.DMNSerializer;
@@ -59,77 +59,100 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
     }
 
     @Test
-    public void testRegistryName() {
-        // Test elementName() with TNamedElement
+    public void testRegistryKey() {
+        // Test TNamedElement
         TDRGElement element = this.repository.findDRGElementByName(definitions, "BureauCallType");
-        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType", transformer.registryName(element));
+        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType", transformer.registryKey(element));
 
-        // Test elementName() with another element
+        // Test another TNamedElement
         TDRGElement eligibility = this.repository.findDRGElementByName(definitions, "Eligibility");
-        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#Eligibility", transformer.registryName(eligibility));
+        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#Eligibility", transformer.registryKey(eligibility));
     }
 
     @Test
-    public void testElementName() {
-        // Test elementName() with TNamedElement
+    public void testApplyMapKey() {
+        // Test TNamedElement and DisplayName kind
         TDRGElement element = this.repository.findDRGElementByName(definitions, "BureauCallType");
-        assertEquals("BureauCallType", transformer.elementName(element));
+        assertEquals("BureauCallType", transformer.applyMapKey(new FEELParameter(element, null)));
 
-        // Test elementName() with another element
-        TDRGElement eligibility = this.repository.findDRGElementByName(definitions, "Eligibility");
-        assertEquals("Eligibility", transformer.elementName(eligibility));
-
-        // Test elementName() with DRGElementReference for single models
-        DRGElementReference<TDRGElement> reference = this.repository.makeDRGElementReference(element);
-        assertEquals("BureauCallType", transformer.elementName(reference));
-
-        // Test elementName() with DRGElementReference for multiple models
-        reference = this.repository.makeDRGElementReference("p", element);
-        assertEquals("0004-lending.BureauCallType", new MockTransformer(this.repository).elementName(reference));
-    }
-
-    @Test
-    public void testDisplayName() {
-        // Test displayName() with TNamedElement and DisplayName kind
-        TDRGElement element = this.repository.findDRGElementByName(definitions, "BureauCallType");
-        assertEquals("BureauCallType", transformer.displayName(element));
-
-        // Test displayName() with element that has a label, and DisplayName kind
+        // Test TNamedElement that has a label and DisplayName kind
         element.setLabel("Bureau Call Type Label");
-        assertEquals("Bureau Call Type Label", transformer.displayName(element));
-        assertEquals("BureauCallType", new MockTransformer(this.repository).displayName(element));
+        assertEquals("Bureau Call Type Label", transformer.applyMapKey(new FEELParameter(element, null)));
 
-        // Test displayName() with for references for single models and DisplayName kind
+        // Test TNamedElement that has a label and SimpleName kind
+        assertEquals("BureauCallType", new MockTransformer(this.repository).applyMapKey(new FEELParameter(element, null)));
+
+        // Test reference for single models and DisplayName kind
         DRGElementReference<TDRGElement> reference = this.repository.makeDRGElementReference(element);
-        assertEquals("Bureau Call Type Label", transformer.displayName(reference));
+        assertEquals("Bureau Call Type Label", transformer.applyMapKey(new FEELParameter(reference, null)));
 
-        // Test displayName() with for references for multiple models and SimpleName kind
+        // Test reference for multiple models and SimpleName kind
         reference = this.repository.makeDRGElementReference("", element);
-        assertEquals("BureauCallType", new MockTransformer(this.repository).displayName(reference));
+        assertEquals("BureauCallType", new MockTransformer(this.repository).applyMapKey(new FEELParameter(reference, null)));
         reference = this.repository.makeDRGElementReference("prefix", element);
-        assertEquals("0004-lending.BureauCallType", new MockTransformer(this.repository).displayName(reference));
+        assertEquals("0004-lending.BureauCallType", new MockTransformer(this.repository).applyMapKey(new FEELParameter(reference, null)));
     }
 
     @Test
-    public void testQualifiedName() {
-        // Test qualifiedName() with QualifiedName object
+    public void testApplyContextKey() {
+        // Test TNamedElement and DisplayName kind
         TDRGElement element = this.repository.findDRGElementByName(definitions, "BureauCallType");
-        QualifiedName qName = QualifiedName.toQualifiedName(definitions.getNamespace(), "BureauCallType");
-        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType", transformer.qualifiedName(qName));
+        assertEquals("BureauCallType", transformer.applyContextKey(new FEELParameter(element, null)));
 
-        // Test qualifiedName() with another QualifiedName
-        QualifiedName qName2 = QualifiedName.toQualifiedName(definitions.getNamespace(), "Eligibility");
-        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#Eligibility", transformer.qualifiedName(qName2));
+        // Test TNamedElement that has a label and DisplayName kind
+        element.setLabel("Bureau Call Type Label");
+        assertEquals("Bureau Call Type Label", transformer.applyContextKey(new FEELParameter(element, null)));
 
-        // Test qualifiedName() with QualifiedName with empty namespace
-        QualifiedName qName3 = QualifiedName.toQualifiedName("", "Eligibility");
-        assertEquals("Eligibility", transformer.qualifiedName(qName3));
+        // Test TNamedElement that has a label, and SimpleName kind
+        assertEquals("BureauCallType", new MockTransformer(this.repository).applyContextKey(new FEELParameter(element, null)));
 
-        // Test qualifiedName() with DRGElementReference
+        // Test reference for single models and DisplayName kind
         DRGElementReference<TDRGElement> reference = this.repository.makeDRGElementReference(element);
-        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType", transformer.qualifiedName(reference));
+        assertEquals("Bureau Call Type Label", transformer.applyContextKey(new FEELParameter(reference, null)));
+
+        // Test reference for multiple models and SimpleName kind
+        reference = this.repository.makeDRGElementReference("", element);
+        assertEquals("BureauCallType", new MockTransformer(this.repository).applyContextKey(new FEELParameter(reference, null)));
         reference = this.repository.makeDRGElementReference("prefix", element);
-        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType", transformer.qualifiedName(reference));
+        assertEquals("0004-lending.BureauCallType", new MockTransformer(this.repository).applyContextKey(new FEELParameter(reference, null)));
+    }
+
+    @Test
+    public void testCacheKey() {
+        // Test TNamedElement and DisplayName kind
+        TDRGElement element = this.repository.findDRGElementByName(definitions, "BureauCallType");
+        assertEquals("BureauCallType", transformer.cacheKey(element));
+
+        // Test TNamedElement that has a label, and DisplayName kind
+        element.setLabel("Bureau Call Type Label");
+        assertEquals("BureauCallType", transformer.cacheKey(element));
+
+        // Test TNamedElement that has a label, and SimpleName kind
+        assertEquals("BureauCallType", new MockTransformer(this.repository).cacheKey(element));
+    }
+
+    @Test
+    public void testListenerArgumentsKey() {
+        // Test TNamedElement and DisplayName kind
+        TDRGElement element = this.repository.findDRGElementByName(definitions, "BureauCallType");
+        assertEquals("BureauCallType", transformer.listenerArgumentsKey(new FEELParameter(element, null)));
+
+        // Test TNamedElement that has a label, and DisplayName kind
+        element.setLabel("Bureau Call Type Label");
+        assertEquals("Bureau Call Type Label", transformer.listenerArgumentsKey(new FEELParameter(element, null)));
+
+        // Test TNamedElement that has a label, and SimpleName kind
+        assertEquals("BureauCallType", new MockTransformer(this.repository).listenerArgumentsKey(new FEELParameter(element, null)));
+
+        // Test reference for single models and DisplayName kind
+        DRGElementReference<TDRGElement> reference = this.repository.makeDRGElementReference(element);
+        assertEquals("Bureau Call Type Label", transformer.listenerArgumentsKey(new FEELParameter(reference, null)));
+
+        // Test reference for multiple models and SimpleName kind
+        reference = this.repository.makeDRGElementReference("", element);
+        assertEquals("BureauCallType", new MockTransformer(this.repository).listenerArgumentsKey(new FEELParameter(reference, null)));
+        reference = this.repository.makeDRGElementReference("prefix", element);
+        assertEquals("0004-lending.BureauCallType", new MockTransformer(this.repository).listenerArgumentsKey(new FEELParameter(reference, null)));
     }
 
     @Test
@@ -137,20 +160,25 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
         // Get existing DRG element from the loaded model
         TDRGElement element = this.repository.findDRGElementByName(definitions, "BureauCallType");
 
-        // Test nativeVariableName() with TNamedElement
+        // Test TNamedElement and DisplayName kind
         assertEquals("bureauCallType", transformer.nativeVariableName(element));
 
-        // Test nativeVariableName() with element that has a label, and DisplayName kind
+        // Test TNamedElement that has a label, and DisplayName kind
         element.setLabel("Bureau Call Type Label");
         assertEquals("bureauCallType", transformer.nativeVariableName(element));
 
-        // Test nativeVariableName() with for references for single models, and DisplayName kind
-        DRGElementReference<TDRGElement> reference = this.repository.makeDRGElementReference(element);
-        assertEquals("bureauCallType", transformer.nativeVariableName(reference));
+        // Test TInformationItem that has a label, and DisplayName kind
+        element.setLabel("Bureau Call Type Label");
+        TInformationItem variable = ((TDecision) element).getVariable();
+        assertEquals("bureauCallType", transformer.nativeVariableName(new FEELParameter(variable, null)));
 
-        // Test nativeVariableName() with for references for multiple models, and DisplayName kind
+        // Test reference for single models and DisplayName kind
+        DRGElementReference<TDRGElement> reference = this.repository.makeDRGElementReference(element);
+        assertEquals("bureauCallType", transformer.nativeVariableName(new FEELParameter(reference, null)));
+
+        // Test reference for multiple models and SimpleName kind
         reference = this.repository.makeDRGElementReference("prefix", element);
-        assertEquals("p_0004_lending_bureauCallType", new MockTransformer(this.repository).nativeVariableName(reference));
+        assertEquals("p_0004_lending_bureauCallType", new MockTransformer(this.repository).nativeVariableName(new FEELParameter(reference, null)));
     }
 
     @Test
@@ -264,7 +292,7 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
     @Override
     protected Map<String, String> makeInputParametersMap() {
         Map<String, String> inputParams = super.makeInputParametersMap();
-        inputParams.put(InputParameters.NAME_KIND_KEY, NameKind.DisplayName.name());
+        inputParams.put(InputParameters.APPLY_NAME_KIND_KEY, "DisplayName");
         return inputParams;
     }
 
@@ -289,6 +317,7 @@ class MockTransformer extends BasicDMNToJavaTransformer {
         inputParams.put("dmnVersion", "1.1");
         inputParams.put("modelVersion", "2.0");
         inputParams.put("platformVersion", "1.0");
+        inputParams.put(InputParameters.APPLY_NAME_KIND_KEY, NameKind.SimpleName.name());
         return inputParams;
     }
 }

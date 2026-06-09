@@ -133,7 +133,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
             DRGElementReference<TDecision> outputReference = this.dmnModelRepository.makeDRGElementReference(outputDecision);
             List<FEELParameter> parameters = inputDataParametersClosure(outputReference);
-            String decisionSignature = parameters.stream().map(p -> this.nativeFactory.nullableParameter(toNativeType(p.getType()), p.getNativeName())).collect(Collectors.joining(", "));
+            String decisionSignature = parameters.stream().map(p -> this.nativeFactory.nullableParameter(toNativeType(p.getType()), this.nativeVariableName(p))).collect(Collectors.joining(", "));
             return augmentSignature(decisionSignature);
         } else {
             return super.drgElementSignature(reference);
@@ -158,7 +158,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
             DRGElementReference<TDecision> outputReference = this.dmnModelRepository.makeDRGElementReference(outputDecision);
             List<FEELParameter> parameters = inputDataParametersClosure(outputReference);
-            String arguments = parameters.stream().map(p -> String.format("%s", p.getNativeName())).collect(Collectors.joining(", "));
+            String arguments = parameters.stream().map(p -> String.format("%s", this.nativeVariableName(p))).collect(Collectors.joining(", "));
             return augmentArgumentList(arguments);
         } else {
             return super.drgElementArgumentList(reference);
@@ -172,7 +172,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
             DRGElementReference<TDecision> outputReference = this.dmnModelRepository.makeDRGElementReference(outputDecision);
             List<FEELParameter> parameters = inputDataParametersClosure(outputReference);
-            String arguments = parameters.stream().map(p -> String.format("%s", convertDecisionArgument(p.getNativeName(), p.getType()))).collect(Collectors.joining(", "));
+            String arguments = parameters.stream().map(p -> String.format("%s", convertDecisionArgument(this.nativeVariableName(p), p.getType()))).collect(Collectors.joining(", "));
             return augmentArgumentList(arguments);
         } else {
             return super.drgElementConvertedArgumentList(reference);
@@ -183,7 +183,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
         TDecision outputDecision = this.dmnModelRepository.getOutputDecision(bkm);
         String decisionClassName = drgElementClassName(outputDecision);
         List<FEELParameter> parameterList = drgElementTypeSignature(outputDecision);
-        List<String> argListName = parameterList.stream().map(FEELParameter::getNativeName).toList();
+        List<String> argListName = parameterList.stream().map(this::nativeVariableName).toList();
         String decisionArgList = String.join(", ", argListName);
         decisionArgList = augmentArgumentList(decisionArgList);
         return String.format("%s.apply(%s)", defaultConstructor(decisionClassName), decisionArgList);

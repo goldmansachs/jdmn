@@ -19,6 +19,7 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.transformation.InputParameters;
+import com.gs.dmn.transformation.NameKind;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
@@ -72,6 +73,7 @@ public abstract class AbstractTest {
         inputParams.put("dmnVersion", "1.1");
         inputParams.put("modelVersion", "2.0");
         inputParams.put("platformVersion", "1.0");
+        inputParams.put(InputParameters.APPLY_NAME_KIND_KEY, NameKind.SimpleName.name());
         return inputParams;
     }
 

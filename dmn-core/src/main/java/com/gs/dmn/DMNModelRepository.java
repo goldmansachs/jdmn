@@ -150,7 +150,7 @@ public class DMNModelRepository {
                 String key = entry.getKey();
                 TDecision drgElement = this.findDecisionByRef(parentMap.get(key), key);
                 if (drgElement != null) {
-                    result.add(name(drgElement));
+                    result.add(cacheKey(drgElement));
                 }
             }
         }
@@ -1288,6 +1288,32 @@ public class DMNModelRepository {
             throw new SemanticErrorException(String.format("Display name cannot be null for element '%s'", element.getId()));
         }
         return name.trim();
+    }
+
+    public String qualifiedName(QualifiedName qName) {
+        return qualifiedName(qName.getNamespace(), qName.getLocalPart());
+    }
+
+    public String qualifiedName(TNamedElement element) {
+        String namespace = namespace(element);
+        String name = name(element);
+        return qualifiedName(namespace, name);
+    }
+
+    public String qualifiedName(DRGElementReference<? extends TDRGElement> reference) {
+        return qualifiedName(reference.getNamespace(), reference.getElementName());
+    }
+
+    public String qualifiedName(String namespace, String elementName) {
+        if (StringUtils.isBlank(namespace)) {
+            return elementName;
+        } else {
+            return String.format("%s%s%s", namespace, DMNModelRepository.HREF_SEPARATOR, elementName);
+        }
+    }
+
+    public String cacheKey(TNamedElement element) {
+        return name(element);
     }
 
     public ImportPath findRelativeImportPath(TDRGElement parent, TDMNElementReference reference) {

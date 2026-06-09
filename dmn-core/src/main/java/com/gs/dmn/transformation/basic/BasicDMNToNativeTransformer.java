@@ -206,26 +206,23 @@ public interface BasicDMNToNativeTransformer<T, C> {
     //
     // API methods
     //
-    String registryName(TDRGElement element);
+    String registryKey(TDRGElement element);
 
-    //
-    // Model names
-    //
-    String elementName(TNamedElement element);
+    String applyMapKey(FEELParameter parameter);
 
-    String elementName(DRGElementReference<? extends TDRGElement> reference);
+    String applyContextKey(FEELParameter parameter);
 
-    String displayName(TNamedElement element);
+    String applyContextKey(DRGElementReference<? extends TDRGElement> reference);
 
-    String displayName(DRGElementReference<? extends TDRGElement> reference);
+    String cacheKey(TDRGElement element);
 
-    String qualifiedName(QualifiedName qName);
-
-    String qualifiedName(DRGElementReference<? extends TDRGElement> reference);
+    String listenerArgumentsKey(FEELParameter parameter);
 
     //
     // Native names
     //
+    String nativeVariableName(FEELParameter parameter);
+
     String nativeVariableName(TNamedElement element);
 
     String nativeVariableName(DRGElementReference<? extends TDRGElement> reference);
@@ -385,7 +382,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     boolean isCaching();
 
-    boolean isCached(String elementName);
+    boolean isCached(String cacheKey);
 
     boolean isParallelStream();
 

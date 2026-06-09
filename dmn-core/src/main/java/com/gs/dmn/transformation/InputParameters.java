@@ -33,8 +33,8 @@ public class InputParameters {
     public static final String TCK_FORMAT_KEY = "tckFormat";
     public static final String TCK_FILE_EXTENSION_DEFAULT_VALUE = DMNConstants.XML_FILE_EXTENSION;
 
-    public static final String NAME_KIND_KEY = "nameKind";
-    public static final String NAME_KIND_DEFAULT_VALUE = NameKind.SimpleName.name();
+    public static final String APPLY_NAME_KIND_KEY = "applyNameKind";
+    public static final String APPLY_NAME_KIND_DEFAULT_VALUE = NameKind.QualifiedName.name();
 
     protected static String getRequiredParam(Map<String, String> parameters, String parameterKey) {
         if (parameters == null || parameters.get(parameterKey) == null || parameters.get(parameterKey).trim().isEmpty()) {
@@ -138,7 +138,7 @@ public class InputParameters {
     private final String librariesConfigPath;
 
     // What names to use in applyMap().
-    NameKind nameKind;
+    NameKind applyNameKind;
 
     public InputParameters() {
         this(new LinkedHashMap<>());
@@ -184,7 +184,7 @@ public class InputParameters {
 
         this.librariesConfigPath = InputParameters.getOptionalParam(inputParameters, "librariesConfigPath", "feel/library/libraries.json");
 
-        this.nameKind = NameKind.valueOf(InputParameters.getOptionalParam(inputParameters, NAME_KIND_KEY, NAME_KIND_DEFAULT_VALUE));
+        this.applyNameKind = NameKind.valueOf(InputParameters.getOptionalParam(inputParameters, APPLY_NAME_KIND_KEY, APPLY_NAME_KIND_DEFAULT_VALUE));
     }
 
     public String getDmnVersion() {
@@ -287,7 +287,7 @@ public class InputParameters {
         return librariesConfigPath;
     }
 
-    public NameKind getNameKind() {
-        return nameKind;
+    public NameKind getApplyNameKind() {
+        return applyNameKind;
     }
 }

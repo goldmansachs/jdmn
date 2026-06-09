@@ -50,9 +50,12 @@ class ${testClassName} : ${decisionBaseClass}<Object>() {
     <#list inputNodeInfoList>
         // Initialize arguments
         <#items as inputInfo>
-        val ${tckUtil.inputDataVariableName(inputInfo)}: ${tckUtil.toNativeType(inputInfo)} = ${tckUtil.toNativeExpression(inputInfo)}
+        <#assign inputVariableName = tckUtil.inputDataVariableName(inputInfo)>
+        <#assign inputValue = tckUtil.toNativeExpression(inputInfo)>
+        <#assign cacheKey = tckUtil.cacheKey(inputInfo)/>
+        val ${inputVariableName}: ${tckUtil.toNativeType(inputInfo)} = ${inputValue}
         <#if tckUtil.isCached(inputInfo)>
-        ${tckUtil.cacheVariableName()}.bind("${tckUtil.inputDataVariableName(inputInfo)}", ${tckUtil.inputDataVariableName(inputInfo)})
+        ${tckUtil.cacheVariableName()}.bind("${cacheKey}", ${inputVariableName})
         </#if>
         </#items>
     </#list>

@@ -123,16 +123,17 @@
     Multi Instance drgElement
 -->
 <#macro multiInstanceDecisionApplyBody drgElement>
-        <#if transformer.isCached(modelRepository.name(drgElement))>
-            if (${transformer.cacheVariableName()}.contains("${modelRepository.name(drgElement)}")) {
+        <#assign cacheKey = transformer.cacheKey(drgElement)/>
+        <#if transformer.isCached(cacheKey)>
+            if (${transformer.cacheVariableName()}.contains("${cacheKey}")) {
                 // Retrieve value from cache
-                ${transformer.drgElementOutputType(drgElement)} output_ = (${transformer.drgElementOutputType(drgElement)})${transformer.cacheVariableName()}.lookup("${modelRepository.name(drgElement)}");
+                ${transformer.drgElementOutputType(drgElement)} output_ = (${transformer.drgElementOutputType(drgElement)})${transformer.cacheVariableName()}.lookup("${cacheKey}");
 
                 <@events.endDRGElementAndReturnIndent "    " drgElement "output_" />
             } else {
                 // Iterate and aggregate
                 ${transformer.drgElementOutputType(drgElement)} output_ = evaluate(${transformer.drgElementArgumentList(drgElement)});
-                ${transformer.cacheVariableName()}.bind("${modelRepository.name(drgElement)}", output_);
+                ${transformer.cacheVariableName()}.bind("${cacheKey}", output_);
 
                 <@events.endDRGElementAndReturnIndent "    " drgElement "output_" />
             }
@@ -357,16 +358,17 @@
     Expression
 -->
 <#macro expressionApplyBody drgElement>
-        <#if transformer.isCached(modelRepository.name(drgElement))>
-            if (${transformer.cacheVariableName()}.contains("${modelRepository.name(drgElement)}")) {
+        <#assign cacheKey = transformer.cacheKey(drgElement)/>
+        <#if transformer.isCached(cacheKey)>
+            if (${transformer.cacheVariableName()}.contains("${cacheKey}")) {
                 // Retrieve value from cache
-                ${transformer.drgElementOutputType(drgElement)} output_ = (${transformer.drgElementOutputType(drgElement)})${transformer.cacheVariableName()}.lookup("${modelRepository.name(drgElement)}");
+                ${transformer.drgElementOutputType(drgElement)} output_ = (${transformer.drgElementOutputType(drgElement)})${transformer.cacheVariableName()}.lookup("${cacheKey}");
 
                 <@events.endDRGElementAndReturnIndent "    " drgElement "output_" />
             } else {
                 // ${transformer.evaluateElementCommentText(drgElement)}
                 ${transformer.drgElementOutputType(drgElement)} output_ = evaluate(${transformer.drgElementArgumentList(drgElement)});
-                ${transformer.cacheVariableName()}.bind("${modelRepository.name(drgElement)}", output_);
+                ${transformer.cacheVariableName()}.bind("${cacheKey}", output_);
 
                 <@events.endDRGElementAndReturnIndent "    " drgElement "output_" />
             }

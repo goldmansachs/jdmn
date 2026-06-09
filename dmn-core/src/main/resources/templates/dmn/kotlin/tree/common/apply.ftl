@@ -239,16 +239,17 @@
     Expression
 -->
 <#macro expressionApplyBody drgElement>
-        <#if transformer.isCached(modelRepository.name(drgElement))>
+        <#assign cacheKey = transformer.cacheKey(drgElement)/>
+        <#if transformer.isCached(cacheKey)>
             if (${transformer.cacheVariableName()}.contains("${modelRepository.name(drgElement)}")) {
                 // Retrieve value from cache
-                var output_:${transformer.drgElementOutputType(drgElement)} = ${transformer.cacheVariableName()}.lookup("${modelRepository.name(drgElement)}") as ${transformer.drgElementOutputType(drgElement)}
+                var output_:${transformer.drgElementOutputType(drgElement)} = ${transformer.cacheVariableName()}.lookup("${cacheKey}") as ${transformer.drgElementOutputType(drgElement)}
 
                 <@events.endDRGElementAndReturnIndent "    " drgElement "output_" />
             } else {
                 // ${transformer.evaluateElementCommentText(drgElement)}
                 val output_: ${transformer.drgElementOutputType(drgElement)} = evaluate(${transformer.drgElementArgumentList(drgElement)})
-                ${transformer.cacheVariableName()}.bind("${modelRepository.name(drgElement)}", output_)
+                ${transformer.cacheVariableName()}.bind("${cacheKey}", output_)
 
                 <@events.endDRGElementAndReturnIndent "    " drgElement "output_" />
             }

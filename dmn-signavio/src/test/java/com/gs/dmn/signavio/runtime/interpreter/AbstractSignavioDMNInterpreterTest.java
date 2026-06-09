@@ -95,7 +95,7 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
     protected Map<String, String> makeInputParametersMap() {
         Map<String, String> inputParams = super.makeInputParametersMap();
         inputParams.put("signavioSchemaNamespace", SIG_EXT_NAMESPACE);
-        inputParams.put(InputParameters.NAME_KIND_KEY, NameKind.DisplayName.name());
+        inputParams.put(InputParameters.APPLY_NAME_KIND_KEY, NameKind.DisplayName.name());
         return inputParams;
     }
 

@@ -82,6 +82,7 @@
                         <platformVersion>${platform.version}</platformVersion>
                         <xsdValidation>true</xsdValidation>
                         <caching>true</caching>
+                        <applyNameKind>SimpleName</applyNameKind>
                     </inputParameters>
                 </configuration>
                 <executions>

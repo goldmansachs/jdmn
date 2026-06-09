@@ -140,16 +140,17 @@
 </#macro>
 
 <#macro expressionApplyBody drgElement>
-        <#if transformer.isCached(modelRepository.name(drgElement))>
-            if (${transformer.cacheVariableName()}.contains("${modelRepository.name(drgElement)}")) {
+        <#assign cacheKey = transformer.cacheKey(drgElement)/>
+        <#if transformer.isCached(cacheKey)>
+            if (${transformer.cacheVariableName()}.contains("${cacheKey}")) {
                 // Retrieve value from cache
-                ${transformer.drgElementOutputType(drgElement)} output_ = (${transformer.drgElementOutputType(drgElement)})${transformer.cacheVariableName()}.lookup("${modelRepository.name(drgElement)}");
+                ${transformer.drgElementOutputType(drgElement)} output_ = (${transformer.drgElementOutputType(drgElement)})${transformer.cacheVariableName()}.lookup("${cacheKey}");
 
                 <@events.endDRGElementAndReturnIndent "    " drgElement "output_" />
             } else {
                 // ${transformer.evaluateElementCommentText(drgElement)}
                 ${transformer.drgElementOutputType(drgElement)} output_ = lambda.apply(${transformer.drgElementArgumentList(drgElement)});
-                ${transformer.cacheVariableName()}.bind("${modelRepository.name(drgElement)}", output_);
+                ${transformer.cacheVariableName()}.bind("${cacheKey}", output_);
 
                 <@events.endDRGElementAndReturnIndent "    " drgElement "output_" />
             }
@@ -172,7 +173,7 @@
     <#list modelRepository.directInputDecisions(drgElement)>
             ${extraIndent}// Bind input decisions
         <#items as inputDecision>
-            ${extraIndent}${transformer.cacheVariableName()}.bind("${modelRepository.name(inputDecision.element)}", ${transformer.nativeVariableName(inputDecision)});
+            ${extraIndent}${transformer.cacheVariableName()}.bind("${transformer.cacheKey(inputDecision.element)}", ${transformer.nativeVariableName(inputDecision)});
         </#items>
 
     </#list>

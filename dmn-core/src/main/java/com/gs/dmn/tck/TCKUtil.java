@@ -170,9 +170,9 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
                 .toList();
         // Calculate missing arguments
         List<FEELParameter> parameters = this.transformer.drgElementTypeSignature(resultNodeInfo.getReference());
-        List<FEELParameter> missingParameters = parameters.stream().filter(pair -> !inputNames.contains(pair.getNativeName())).toList();
+        List<FEELParameter> missingParameters = parameters.stream().filter(p -> !inputNames.contains(transformer.nativeVariableName(p))).toList();
         List<NativeParameter> missingArgs = missingParameters.stream()
-                .map(p -> new NativeParameter(transformer.getNativeFactory().nullableParameterType(transformer.toNativeType(p.getType())), p.getNativeName()))
+                .map(p -> new NativeParameter(transformer.getNativeFactory().nullableParameterType(transformer.toNativeType(p.getType())), transformer.nativeVariableName(p)))
                 .toList();
 
         List<List<String>> result = new ArrayList<>();
@@ -219,12 +219,12 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         }
     }
 
-    public String displayName(InputNodeInfo info) {
+    public String applyContextKey(InputNodeInfo info) {
         TDRGElement element = info.getReference().getElement();
         if (element == null) {
             throw new SemanticErrorException(String.format("Cannot find element '%s'", info.getNodeName()));
         } else {
-            return this.transformer.displayName(info.getReference());
+            return this.transformer.applyContextKey(info.getReference());
         }
     }
 
@@ -482,7 +482,12 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     }
 
     public boolean isCached(InputNodeInfo info) {
-        return this.transformer.isCached(info.getReference().getElementName());
+        String cacheKey = this.transformer.cacheKey(info.getReference().getElement());
+        return this.transformer.isCached(cacheKey);
+    }
+
+    public String cacheKey(InputNodeInfo info) {
+        return this.transformer.cacheKey(info.getReference().getElement());
     }
 
     //
