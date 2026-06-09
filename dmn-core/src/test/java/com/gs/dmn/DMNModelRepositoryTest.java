@@ -132,13 +132,23 @@ public class DMNModelRepositoryTest extends AbstractTest {
     @Test
     public void testCachedElements() {
         Set<String> cachedElements = this.dmnModelRepository.computeCachedElements(true, 1);
-        List<String> expected = Arrays.asList("Pre-bureauRiskCategory", "RequiredMonthlyInstallment", "Post-bureauRiskCategory", "ApplicationRiskScore");
+        List<String> expected = Arrays.asList(
+                "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#Pre-bureauRiskCategory",
+                "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequiredMonthlyInstallment",
+                "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#Post-bureauRiskCategory",
+                "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicationRiskScore");
         assertEquals(expected, new ArrayList<>(cachedElements));
 
         cachedElements = this.dmnModelRepository.computeCachedElements(true, 0);
         expected = Arrays.asList(
-                "Pre-bureauRiskCategory", "Pre-bureauAffordability", "RequiredMonthlyInstallment", "Post-bureauRiskCategory", "ApplicationRiskScore",
-                "Post-bureauAffordability", "BureauCallType", "Eligibility");
+                "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#Pre-bureauRiskCategory",
+                "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#Pre-bureauAffordability",
+                "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequiredMonthlyInstallment",
+                "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#Post-bureauRiskCategory",
+                "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicationRiskScore",
+                "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#Post-bureauAffordability",
+                "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType",
+                "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#Eligibility");
         assertEquals(expected, new ArrayList<>(cachedElements));
     }
 

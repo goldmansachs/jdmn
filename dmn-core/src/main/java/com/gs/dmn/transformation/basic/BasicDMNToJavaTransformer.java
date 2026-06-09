@@ -740,14 +740,14 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         if (modelElement instanceof DRGElementReference<?> reference) {
             return applyContextKey(reference);
         } else if (modelElement instanceof TNamedElement namedElement) {
-            return displayName(namedElement);
+            return this.dmnModelRepository.qualifiedName(namedElement);
         }
         throw new SemanticErrorException(String.format("Cannot process apply context argument for element '%s'", modelElement == null ? "" : modelElement.getClass().getSimpleName()));
     }
 
     @Override
     public String applyContextKey(DRGElementReference<? extends TDRGElement> reference) {
-        return displayName(reference);
+        return this.dmnModelRepository.qualifiedName(reference);
     }
 
     @Override

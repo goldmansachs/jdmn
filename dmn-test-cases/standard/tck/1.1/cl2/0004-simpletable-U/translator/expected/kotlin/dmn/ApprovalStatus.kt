@@ -31,9 +31,9 @@ class ApprovalStatus() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String?>() {
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val approvalStatusStartTime_ = System.currentTimeMillis()
             val approvalStatusArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            approvalStatusArguments_.put("Age", age)
-            approvalStatusArguments_.put("RiskCategory", riskCategory)
-            approvalStatusArguments_.put("isAffordable", isAffordable)
+            approvalStatusArguments_.put("http://www.trisotech.com/definitions/_edbd2d8e-a5a8-4660-9bb9-adaa792d900c#Age", age)
+            approvalStatusArguments_.put("http://www.trisotech.com/definitions/_edbd2d8e-a5a8-4660-9bb9-adaa792d900c#RiskCategory", riskCategory)
+            approvalStatusArguments_.put("http://www.trisotech.com/definitions/_edbd2d8e-a5a8-4660-9bb9-adaa792d900c#isAffordable", isAffordable)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, approvalStatusArguments_)
 
             // Evaluate decision 'Approval Status'

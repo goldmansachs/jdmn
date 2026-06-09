@@ -45,8 +45,8 @@ public class Zip1 extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecisi
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long zip1StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments zip1Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            zip1Arguments_.put("A", a4);
-            zip1Arguments_.put("B", b);
+            zip1Arguments_.put("http://www.provider.com/dmn/1.1/diagram/2798610dcc0f4068861fcb0f4af25ac7.xml#a4", a4);
+            zip1Arguments_.put("http://www.provider.com/dmn/1.1/diagram/2798610dcc0f4068861fcb0f4af25ac7.xml#b", b);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, zip1Arguments_);
 
             // Evaluate decision 'zip1'

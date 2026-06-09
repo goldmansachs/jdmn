@@ -45,9 +45,9 @@ public class IsForexRateRequired extends com.gs.dmn.signavio.runtime.JavaTimeSig
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long isForexRateRequiredStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments isForexRateRequiredArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            isForexRateRequiredArguments_.put("DerivativeType", derivativeType);
-            isForexRateRequiredArguments_.put("TaxChargeType", taxChargeType);
-            isForexRateRequiredArguments_.put("TransactionTaxMetaData", transactionTaxMetaData);
+            isForexRateRequiredArguments_.put("http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml#derivativeType", derivativeType);
+            isForexRateRequiredArguments_.put("http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml#taxChargeType", taxChargeType);
+            isForexRateRequiredArguments_.put("http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml#transactionTaxMetaData", transactionTaxMetaData);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, isForexRateRequiredArguments_);
 
             // Evaluate decision 'isForexRateRequired'

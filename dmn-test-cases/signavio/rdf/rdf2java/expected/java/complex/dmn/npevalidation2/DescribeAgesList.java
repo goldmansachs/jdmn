@@ -45,7 +45,7 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.JavaTimeSignav
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long describeAgesListStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments describeAgesListArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            describeAgesListArguments_.put("ages", ages);
+            describeAgesListArguments_.put("http://www.omg.org/spec/DMN/20151101/dmn.xsd#ages", ages);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, describeAgesListArguments_);
 
             // Evaluate decision 'describeAgesList'

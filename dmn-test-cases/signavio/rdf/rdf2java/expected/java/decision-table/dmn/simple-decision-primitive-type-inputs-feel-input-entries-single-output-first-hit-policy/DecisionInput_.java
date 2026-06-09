@@ -17,19 +17,19 @@ public class DecisionInput_ implements com.gs.dmn.runtime.ExecutableDRGElementIn
 
     public DecisionInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object booleanInput = input_.get("BooleanInput");
+            Object booleanInput = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#booleanInput");
             setBooleanInput((Boolean)booleanInput);
-            Object dateAndTimeInput = input_.get("DateAndTimeInput");
+            Object dateAndTimeInput = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#dateAndTimeInput");
             setDateAndTimeInput((java.time.temporal.TemporalAccessor)dateAndTimeInput);
-            Object dateInput = input_.get("DateInput");
+            Object dateInput = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#dateInput");
             setDateInput((java.time.LocalDate)dateInput);
-            Object enumerationInput = input_.get("EnumerationInput");
+            Object enumerationInput = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#enumerationInput");
             setEnumerationInput((String)enumerationInput);
-            Object numberInput = input_.get("NumberInput");
+            Object numberInput = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#numberInput");
             setNumberInput((java.lang.Number)numberInput);
-            Object textInput = input_.get("TextInput");
+            Object textInput = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#textInput");
             setTextInput((String)textInput);
-            Object timeInput = input_.get("TimeInput");
+            Object timeInput = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#timeInput");
             setTimeInput((java.time.temporal.TemporalAccessor)timeInput);
         }
     }

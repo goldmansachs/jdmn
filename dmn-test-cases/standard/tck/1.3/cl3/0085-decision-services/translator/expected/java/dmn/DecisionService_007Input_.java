@@ -11,7 +11,7 @@ public class DecisionService_007Input_ implements com.gs.dmn.runtime.ExecutableD
 
     public DecisionService_007Input_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object decision_007_3 = input_.get("decision_007_3");
+            Object decision_007_3 = input_.get("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_007_3");
             setDecision_007_3((String)decision_007_3);
         }
     }

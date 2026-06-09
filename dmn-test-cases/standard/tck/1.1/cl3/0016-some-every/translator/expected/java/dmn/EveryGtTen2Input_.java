@@ -11,7 +11,7 @@ public class EveryGtTen2Input_ implements com.gs.dmn.runtime.ExecutableDRGElemen
 
     public EveryGtTen2Input_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object priceTable2 = input_.get("priceTable2");
+            Object priceTable2 = input_.get("http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70#priceTable2");
             setPriceTable2((List<type.TItemPrice>)((java.util.List)priceTable2).stream().map(x_ -> type.TItemPrice.toTItemPrice(x_)).collect(java.util.stream.Collectors.toList()));
         }
     }

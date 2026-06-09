@@ -13,11 +13,11 @@ public class ApprovalInput_ implements com.gs.dmn.runtime.ExecutableDRGElementIn
 
     public ApprovalInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object age = input_.get("Age");
+            Object age = input_.get("http://www.trisotech.com/definitions/_a3ebbd98-af09-42f3-9099-4ae2204a1f54#Age");
             setAge((java.lang.Number)age);
-            Object riskCategory = input_.get("RiskCategory");
+            Object riskCategory = input_.get("http://www.trisotech.com/definitions/_a3ebbd98-af09-42f3-9099-4ae2204a1f54#RiskCategory");
             setRiskCategory((String)riskCategory);
-            Object isAffordable = input_.get("isAffordable");
+            Object isAffordable = input_.get("http://www.trisotech.com/definitions/_a3ebbd98-af09-42f3-9099-4ae2204a1f54#isAffordable");
             setIsAffordable((Boolean)isAffordable);
         }
     }

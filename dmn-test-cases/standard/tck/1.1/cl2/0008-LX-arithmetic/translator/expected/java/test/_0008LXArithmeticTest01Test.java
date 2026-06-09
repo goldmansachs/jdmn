@@ -18,7 +18,7 @@ public class _0008LXArithmeticTest01Test extends com.gs.dmn.runtime.JavaTimeDMNB
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("loan", loan);
+        input_.add("http://www.trisotech.com/definitions/_1fedf2c0-0f4a-470c-bc66-a15528e8a49a#loan", loan);
 
         // Check 'payment'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -33,7 +33,7 @@ public class _0008LXArithmeticTest01Test extends com.gs.dmn.runtime.JavaTimeDMNB
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("loan", loan);
+        input_.add("http://www.trisotech.com/definitions/_1fedf2c0-0f4a-470c-bc66-a15528e8a49a#loan", loan);
 
         // Check 'payment'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -48,7 +48,7 @@ public class _0008LXArithmeticTest01Test extends com.gs.dmn.runtime.JavaTimeDMNB
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("loan", loan);
+        input_.add("http://www.trisotech.com/definitions/_1fedf2c0-0f4a-470c-bc66-a15528e8a49a#loan", loan);
 
         // Check 'payment'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();

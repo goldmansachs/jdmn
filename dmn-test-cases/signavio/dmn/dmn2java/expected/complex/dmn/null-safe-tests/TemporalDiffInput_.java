@@ -13,11 +13,11 @@ public class TemporalDiffInput_ implements com.gs.dmn.runtime.ExecutableDRGEleme
 
     public TemporalDiffInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object date = input_.get("date");
+            Object date = input_.get("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#date");
             setDate((java.time.LocalDate)date);
-            Object dateTime = input_.get("dateTime");
+            Object dateTime = input_.get("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#dateTime");
             setDateTime((java.time.temporal.TemporalAccessor)dateTime);
-            Object time = input_.get("time");
+            Object time = input_.get("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#time");
             setTime((java.time.temporal.TemporalAccessor)time);
         }
     }

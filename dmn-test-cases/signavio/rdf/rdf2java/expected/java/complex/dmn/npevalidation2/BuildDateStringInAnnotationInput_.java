@@ -13,11 +13,11 @@ public class BuildDateStringInAnnotationInput_ implements com.gs.dmn.runtime.Exe
 
     public BuildDateStringInAnnotationInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object day = input_.get("day");
+            Object day = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#day");
             setDay((java.lang.Number)day);
-            Object month = input_.get("month");
+            Object month = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#month");
             setMonth((java.lang.Number)month);
-            Object year = input_.get("year");
+            Object year = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#year");
             setYear((java.lang.Number)year);
         }
     }

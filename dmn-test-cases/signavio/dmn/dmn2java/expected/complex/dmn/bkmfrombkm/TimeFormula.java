@@ -45,8 +45,8 @@ public class TimeFormula extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBas
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long timeFormulaStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments timeFormulaArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            timeFormulaArguments_.put("time", time);
-            timeFormulaArguments_.put("time 2", time2);
+            timeFormulaArguments_.put("http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml#time", time);
+            timeFormulaArguments_.put("http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml#time2", time2);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, timeFormulaArguments_);
 
             // Evaluate decision 'timeFormula'

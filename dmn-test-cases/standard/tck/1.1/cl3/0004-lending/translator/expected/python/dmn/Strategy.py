@@ -68,8 +68,8 @@ class Strategy(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
             cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             strategyStartTime_ = int(time.time_ns()/1000)
             strategyArguments_ = jdmn.runtime.listener.Arguments.Arguments()
-            strategyArguments_.put("ApplicantData", applicantData)
-            strategyArguments_.put("RequestedProduct", requestedProduct)
+            strategyArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData)
+            strategyArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequestedProduct", requestedProduct)
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, strategyArguments_)
 
             # Evaluate decision 'Strategy'

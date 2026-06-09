@@ -11,7 +11,7 @@ public class EvaluatingB2SayHelloInput_ implements com.gs.dmn.runtime.Executable
 
     public EvaluatingB2SayHelloInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object personName = input_.get("personName");
+            Object personName = input_.get("http://www.provider.com/definitions/model-a#personName");
             setPersonName((String)personName);
         }
     }

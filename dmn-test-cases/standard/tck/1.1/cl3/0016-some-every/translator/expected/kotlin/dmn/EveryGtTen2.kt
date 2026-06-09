@@ -31,7 +31,7 @@ class EveryGtTen2() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boolean?>() {
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val everyGtTen2StartTime_ = System.currentTimeMillis()
             val everyGtTen2Arguments_ = com.gs.dmn.runtime.listener.Arguments()
-            everyGtTen2Arguments_.put("priceTable2", priceTable2)
+            everyGtTen2Arguments_.put("http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70#priceTable2", priceTable2)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, everyGtTen2Arguments_)
 
             // Evaluate decision 'everyGtTen2'

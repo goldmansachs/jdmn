@@ -65,7 +65,7 @@ public class AgeClassification extends com.gs.dmn.runtime.JavaTimeDMNBaseDecisio
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long ageClassificationStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments ageClassificationArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            ageClassificationArguments_.put("student", student);
+            ageClassificationArguments_.put("https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07#student", student);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, ageClassificationArguments_);
 
             // Evaluate decision 'ageClassification'

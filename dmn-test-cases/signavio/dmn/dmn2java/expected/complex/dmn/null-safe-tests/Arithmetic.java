@@ -45,9 +45,9 @@ public class Arithmetic extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBase
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long arithmeticStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments arithmeticArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arithmeticArguments_.put("numberA", numberA);
-            arithmeticArguments_.put("numberB", numberB);
-            arithmeticArguments_.put("numberList", numberList);
+            arithmeticArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberA", numberA);
+            arithmeticArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberB", numberB);
+            arithmeticArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberList", numberList);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arithmeticArguments_);
 
             // Evaluate decision 'arithmetic'

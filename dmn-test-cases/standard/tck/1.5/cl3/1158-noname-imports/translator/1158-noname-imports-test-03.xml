@@ -52,18 +52,20 @@
         </resultNode>
     </testCase>
 
-<!--    <testCase id="004_a">-->
-<!--        &lt;!&ndash; imported typeRef is a string, we test a number against it &ndash;&gt;-->
-<!--        <description>will not import a typeRef with name conflict</description>-->
-<!--        <inputNode name="input001">-->
-<!--            <value xsi:type="xsd:decimal">1234</value>-->
-<!--        </inputNode>-->
-<!--        <resultNode name="decision004" type="decision">-->
-<!--            <expected>-->
-<!--                <value xsi:nil="true"/>-->
-<!--            </expected>-->
-<!--        </resultNode>-->
-<!--    </testCase>-->
+<!--
+    <testCase id="004_a">
+        &lt;!&ndash; imported typeRef is a string, we test a number against it &ndash;&gt;
+        <description>will not import a typeRef with name conflict</description>
+        <inputNode name="input001">
+            <value xsi:type="xsd:decimal">1234</value>
+        </inputNode>
+        <resultNode name="decision004" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+-->
 
 
 </testCases>

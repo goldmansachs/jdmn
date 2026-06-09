@@ -45,7 +45,7 @@ public class KeepInputallFalse extends com.gs.dmn.signavio.runtime.JavaTimeSigna
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long keepInputallFalseStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments keepInputallFalseArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            keepInputallFalseArguments_.put("booleanAllFalse", booleanAllFalse_iterator);
+            keepInputallFalseArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#booleanAllFalse_iterator", booleanAllFalse_iterator);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, keepInputallFalseArguments_);
 
             // Evaluate decision 'keepInputallFalse'

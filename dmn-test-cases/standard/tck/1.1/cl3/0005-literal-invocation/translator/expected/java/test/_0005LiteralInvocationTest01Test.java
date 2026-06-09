@@ -19,8 +19,8 @@ public class _0005LiteralInvocationTest01Test extends com.gs.dmn.runtime.JavaTim
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("Loan", loan);
-        input_.add("fee", fee);
+        input_.add("http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11#Loan", loan);
+        input_.add("http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11#fee", fee);
 
         // Check 'MonthlyPayment'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -36,8 +36,8 @@ public class _0005LiteralInvocationTest01Test extends com.gs.dmn.runtime.JavaTim
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("Loan", loan);
-        input_.add("fee", fee);
+        input_.add("http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11#Loan", loan);
+        input_.add("http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11#fee", fee);
 
         // Check 'MonthlyPayment'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -53,8 +53,8 @@ public class _0005LiteralInvocationTest01Test extends com.gs.dmn.runtime.JavaTim
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("Loan", loan);
-        input_.add("fee", fee);
+        input_.add("http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11#Loan", loan);
+        input_.add("http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11#fee", fee);
 
         // Check 'MonthlyPayment'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();

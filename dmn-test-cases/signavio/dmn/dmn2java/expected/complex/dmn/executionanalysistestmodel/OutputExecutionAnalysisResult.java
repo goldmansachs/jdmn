@@ -45,7 +45,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.J
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long outputExecutionAnalysisResultStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments outputExecutionAnalysisResultArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            outputExecutionAnalysisResultArguments_.put("InputValue", inputValue);
+            outputExecutionAnalysisResultArguments_.put("http://www.provider.com/dmn/1.1/diagram/afb776a3dcf84f12b17e44405f5c80c5.xml#inputValue", inputValue);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, outputExecutionAnalysisResultArguments_);
 
             // Evaluate decision 'outputExecutionAnalysisResult'

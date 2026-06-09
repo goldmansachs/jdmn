@@ -12,7 +12,7 @@ public class GreetThePersonInput_ implements com.gs.dmn.runtime.ExecutableDRGEle
 
     public GreetThePersonInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object personName = input_.get("Person name");
+            Object personName = input_.get("http://www.trisotech.com/definitions/_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9#Person name");
             setPersonName((String)personName);
         }
     }

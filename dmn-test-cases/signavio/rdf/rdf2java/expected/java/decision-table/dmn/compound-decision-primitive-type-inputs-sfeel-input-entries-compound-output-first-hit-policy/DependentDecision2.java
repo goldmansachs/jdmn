@@ -45,7 +45,7 @@ public class DependentDecision2 extends com.gs.dmn.signavio.runtime.JavaTimeSign
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long dependentDecision2StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments dependentDecision2Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            dependentDecision2Arguments_.put("DD2 Number Input", dD2NumberInput);
+            dependentDecision2Arguments_.put("http://www.omg.org/spec/DMN/20151101/dmn.xsd#dD2NumberInput", dD2NumberInput);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, dependentDecision2Arguments_);
 
             // Evaluate decision 'dependentDecision2'

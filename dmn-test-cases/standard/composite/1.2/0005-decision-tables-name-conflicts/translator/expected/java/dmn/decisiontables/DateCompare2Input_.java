@@ -13,9 +13,9 @@ public class DateCompare2Input_ implements com.gs.dmn.runtime.ExecutableDRGEleme
 
     public DateCompare2Input_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object decisioninputs1_dateD = input_.get("decisionInputs1.dateD");
+            Object decisioninputs1_dateD = input_.get("http://www.provider.com/definitions/decision-inputs-1#dateD");
             setDecisioninputs1_dateD((java.time.LocalDate)decisioninputs1_dateD);
-            Object decisioninputs2_dateD = input_.get("decisionInputs2.dateD");
+            Object decisioninputs2_dateD = input_.get("http://www.provider.com/definitions/decision-inputs-2#dateD");
             setDecisioninputs2_dateD((java.time.LocalDate)decisioninputs2_dateD);
         }
     }

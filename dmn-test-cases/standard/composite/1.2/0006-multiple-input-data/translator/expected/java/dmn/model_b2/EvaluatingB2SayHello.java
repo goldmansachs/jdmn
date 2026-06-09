@@ -73,7 +73,7 @@ public class EvaluatingB2SayHello extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long evaluatingB2SayHelloStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments evaluatingB2SayHelloArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            evaluatingB2SayHelloArguments_.put("Model A.Person name", model_a_personName);
+            evaluatingB2SayHelloArguments_.put("http://www.trisotech.com/definitions/_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9#Person name", model_a_personName);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, evaluatingB2SayHelloArguments_);
 
             // Evaluate decision 'Evaluating B2 Say Hello'

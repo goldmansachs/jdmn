@@ -12,9 +12,9 @@ public class LoopInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput 
 
     public LoopInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object a4 = input_.get("A");
+            Object a4 = input_.get("http://www.provider.com/dmn/1.1/diagram/2798610dcc0f4068861fcb0f4af25ac7.xml#a4");
             setA4((List<java.lang.Number>)a4);
-            Object b = input_.get("B");
+            Object b = input_.get("http://www.provider.com/dmn/1.1/diagram/2798610dcc0f4068861fcb0f4af25ac7.xml#b");
             setB((List<java.lang.Number>)b);
         }
     }

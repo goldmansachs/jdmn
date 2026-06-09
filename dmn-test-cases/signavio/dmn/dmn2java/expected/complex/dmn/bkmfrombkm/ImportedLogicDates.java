@@ -52,7 +52,7 @@ public class ImportedLogicDates extends com.gs.dmn.signavio.runtime.JavaTimeSign
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long importedLogicDatesStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments importedLogicDatesArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            importedLogicDatesArguments_.put("date", date);
+            importedLogicDatesArguments_.put("http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml#date", date);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, importedLogicDatesArguments_);
 
             // Evaluate BKM 'importedLogicDates'

@@ -31,8 +31,8 @@ class Strategy(val bureauCallType : BureauCallType = BureauCallType(), val eligi
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val strategyStartTime_ = System.currentTimeMillis()
             val strategyArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            strategyArguments_.put("ApplicantData", applicantData)
-            strategyArguments_.put("RequestedProduct", requestedProduct)
+            strategyArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData)
+            strategyArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequestedProduct", requestedProduct)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, strategyArguments_)
 
             // Evaluate decision 'Strategy'

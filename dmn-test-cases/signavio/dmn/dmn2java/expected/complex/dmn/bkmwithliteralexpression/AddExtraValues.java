@@ -45,7 +45,7 @@ public class AddExtraValues extends com.gs.dmn.signavio.runtime.JavaTimeSignavio
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long addExtraValuesStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments addExtraValuesArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            addExtraValuesArguments_.put("ListOfNumbers", listOfNumbers);
+            addExtraValuesArguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#listOfNumbers", listOfNumbers);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, addExtraValuesArguments_);
 
             // Evaluate decision 'addExtraValues'

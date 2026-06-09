@@ -65,7 +65,7 @@ public class DateCompare1 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boo
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long dateCompare1StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments dateCompare1Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            dateCompare1Arguments_.put("dateD", dateD);
+            dateCompare1Arguments_.put("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#dateD", dateD);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, dateCompare1Arguments_);
 
             // Evaluate decision 'dateCompare1'

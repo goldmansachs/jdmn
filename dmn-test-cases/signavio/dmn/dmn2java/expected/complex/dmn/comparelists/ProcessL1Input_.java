@@ -12,9 +12,9 @@ public class ProcessL1Input_ implements com.gs.dmn.runtime.ExecutableDRGElementI
 
     public ProcessL1Input_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object l1 = input_.get("L1");
+            Object l1 = input_.get("http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml#l1");
             setL1((List<java.lang.Number>)l1);
-            Object l23 = input_.get("L2");
+            Object l23 = input_.get("http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml#l23");
             setL23((List<java.lang.Number>)l23);
         }
     }

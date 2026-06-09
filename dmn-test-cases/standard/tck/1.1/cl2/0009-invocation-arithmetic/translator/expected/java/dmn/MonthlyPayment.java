@@ -65,8 +65,8 @@ public class MonthlyPayment extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<j
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long monthlyPaymentStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments monthlyPaymentArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            monthlyPaymentArguments_.put("Loan", loan);
-            monthlyPaymentArguments_.put("fee", fee);
+            monthlyPaymentArguments_.put("http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11#Loan", loan);
+            monthlyPaymentArguments_.put("http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11#fee", fee);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, monthlyPaymentArguments_);
 
             // Evaluate decision 'MonthlyPayment'

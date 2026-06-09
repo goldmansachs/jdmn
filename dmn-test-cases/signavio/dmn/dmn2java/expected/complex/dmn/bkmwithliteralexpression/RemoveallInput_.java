@@ -12,9 +12,9 @@ public class RemoveallInput_ implements com.gs.dmn.runtime.ExecutableDRGElementI
 
     public RemoveallInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object blacklist = input_.get("blacklist");
+            Object blacklist = input_.get("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#blacklist");
             setBlacklist((List<String>)blacklist);
-            Object names = input_.get("names");
+            Object names = input_.get("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#names");
             setNames((List<String>)names);
         }
     }

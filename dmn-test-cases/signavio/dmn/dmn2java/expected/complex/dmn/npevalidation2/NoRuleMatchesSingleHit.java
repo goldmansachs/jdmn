@@ -45,7 +45,7 @@ public class NoRuleMatchesSingleHit extends com.gs.dmn.signavio.runtime.JavaTime
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long noRuleMatchesSingleHitStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments noRuleMatchesSingleHitArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            noRuleMatchesSingleHitArguments_.put("second", second);
+            noRuleMatchesSingleHitArguments_.put("http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml#second", second);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, noRuleMatchesSingleHitArguments_);
 
             // Evaluate decision 'noRuleMatchesSingleHit'

@@ -72,8 +72,8 @@ public class FnInvocationNamedParameters extends com.gs.dmn.runtime.JavaTimeDMNB
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long fnInvocationNamedParametersStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments fnInvocationNamedParametersArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            fnInvocationNamedParametersArguments_.put("inputA", inputA);
-            fnInvocationNamedParametersArguments_.put("inputB", inputB);
+            fnInvocationNamedParametersArguments_.put("http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions#inputA", inputA);
+            fnInvocationNamedParametersArguments_.put("http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions#inputB", inputB);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnInvocationNamedParametersArguments_);
 
             // Evaluate decision 'fn invocation named parameters'

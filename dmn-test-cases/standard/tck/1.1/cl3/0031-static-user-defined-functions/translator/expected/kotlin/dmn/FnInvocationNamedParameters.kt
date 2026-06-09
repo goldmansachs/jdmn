@@ -31,8 +31,8 @@ class FnInvocationNamedParameters(val fnLibrary : FnLibrary = FnLibrary()) : com
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val fnInvocationNamedParametersStartTime_ = System.currentTimeMillis()
             val fnInvocationNamedParametersArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            fnInvocationNamedParametersArguments_.put("inputA", inputA)
-            fnInvocationNamedParametersArguments_.put("inputB", inputB)
+            fnInvocationNamedParametersArguments_.put("http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions#inputA", inputA)
+            fnInvocationNamedParametersArguments_.put("http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions#inputB", inputB)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnInvocationNamedParametersArguments_)
 
             // Evaluate decision 'fn invocation named parameters'

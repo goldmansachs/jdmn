@@ -31,8 +31,8 @@ class ExtraDaysCase3() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<kotlin.Numbe
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val extraDaysCase3StartTime_ = System.currentTimeMillis()
             val extraDaysCase3Arguments_ = com.gs.dmn.runtime.listener.Arguments()
-            extraDaysCase3Arguments_.put("Age", age)
-            extraDaysCase3Arguments_.put("Years of Service", yearsOfService)
+            extraDaysCase3Arguments_.put("https://www.drools.org/kie-dmn#Age", age)
+            extraDaysCase3Arguments_.put("https://www.drools.org/kie-dmn#Years of Service", yearsOfService)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, extraDaysCase3Arguments_)
 
             // Evaluate decision 'Extra days case 3'

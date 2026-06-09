@@ -10,7 +10,7 @@
       "rulesCount": 5
     },
     "arguments": {
-      "Applicant": {
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
         "Age": 38,
         "Credit score": 100,
         "Name": "Amy",
@@ -123,8 +123,8 @@
       "rulesCount": -1
     },
     "arguments": {
-      "Current risk appetite": 50,
-      "Prior issue": -10
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#priorIssue_iterator": -10
     },
     "output": -5.00,
     "ruleNodes": [],
@@ -141,8 +141,8 @@
       "rulesCount": -1
     },
     "arguments": {
-      "Current risk appetite": 50,
-      "Prior issue": -5
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#priorIssue_iterator": -5
     },
     "output": -2.50,
     "ruleNodes": [],
@@ -159,7 +159,7 @@
       "rulesCount": -1
     },
     "arguments": {
-      "Applicant": {
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
         "Age": 38,
         "Credit score": 100,
         "Name": "Amy",
@@ -167,7 +167,7 @@
           "Late payment"
         ]
       },
-      "Current risk appetite": 50
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50
     },
     "output": -7.50,
     "ruleNodes": [],
@@ -184,7 +184,7 @@
       "rulesCount": 3
     },
     "arguments": {
-      "Applicant": {
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
         "Age": 38,
         "Credit score": 100,
         "Name": "Amy",
@@ -260,7 +260,7 @@
       "rulesCount": 2
     },
     "arguments": {
-      "Applicant": {
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
         "Age": 38,
         "Credit score": 100,
         "Name": "Amy",
@@ -268,8 +268,8 @@
           "Late payment"
         ]
       },
-      "Current risk appetite": 50,
-      "Lending threshold": 25
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#lendingThreshold": 25
     },
     "output": 27.50,
     "ruleNodes": [
@@ -325,7 +325,7 @@
       "rulesCount": 3
     },
     "arguments": {
-      "Applicant": {
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
         "Age": 38,
         "Credit score": 100,
         "Name": "Amy",
@@ -333,8 +333,8 @@
           "Late payment"
         ]
       },
-      "Current risk appetite": 50,
-      "Lending threshold": 25
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#lendingThreshold": 25
     },
     "output": "Accept",
     "ruleNodes": [
@@ -407,7 +407,7 @@
       "rulesCount": 5
     },
     "arguments": {
-      "Applicant": {
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
         "Age": 38,
         "Credit score": 100,
         "Name": "Amy",
@@ -520,8 +520,8 @@
       "rulesCount": -1
     },
     "arguments": {
-      "Current risk appetite": 50,
-      "Prior issue": -10
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#priorIssue_iterator": -10
     },
     "output": -5.00,
     "ruleNodes": [],
@@ -538,8 +538,8 @@
       "rulesCount": -1
     },
     "arguments": {
-      "Current risk appetite": 50,
-      "Prior issue": -5
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#priorIssue_iterator": -5
     },
     "output": -2.50,
     "ruleNodes": [],
@@ -556,7 +556,7 @@
       "rulesCount": -1
     },
     "arguments": {
-      "Applicant": {
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
         "Age": 38,
         "Credit score": 100,
         "Name": "Amy",
@@ -564,7 +564,7 @@
           "Late payment"
         ]
       },
-      "Current risk appetite": 50
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50
     },
     "output": -7.50,
     "ruleNodes": [],
@@ -581,7 +581,7 @@
       "rulesCount": 3
     },
     "arguments": {
-      "Applicant": {
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
         "Age": 38,
         "Credit score": 100,
         "Name": "Amy",
@@ -657,7 +657,7 @@
       "rulesCount": 2
     },
     "arguments": {
-      "Applicant": {
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
         "Age": 38,
         "Credit score": 100,
         "Name": "Amy",
@@ -665,8 +665,8 @@
           "Late payment"
         ]
       },
-      "Current risk appetite": 50,
-      "Lending threshold": 25
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#lendingThreshold": 25
     },
     "output": 27.50,
     "ruleNodes": [
@@ -718,7 +718,7 @@
       "rulesCount": 5
     },
     "arguments": {
-      "Applicant": {
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
         "Age": 38,
         "Credit score": 100,
         "Name": "Amy",
@@ -831,8 +831,8 @@
       "rulesCount": -1
     },
     "arguments": {
-      "Current risk appetite": 50,
-      "Prior issue": -10
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#priorIssue_iterator": -10
     },
     "output": -5.00,
     "ruleNodes": [],
@@ -849,8 +849,8 @@
       "rulesCount": -1
     },
     "arguments": {
-      "Current risk appetite": 50,
-      "Prior issue": -5
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#priorIssue_iterator": -5
     },
     "output": -2.50,
     "ruleNodes": [],
@@ -867,7 +867,7 @@
       "rulesCount": -1
     },
     "arguments": {
-      "Applicant": {
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
         "Age": 38,
         "Credit score": 100,
         "Name": "Amy",
@@ -875,7 +875,7 @@
           "Late payment"
         ]
       },
-      "Current risk appetite": 50
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50
     },
     "output": -7.50,
     "ruleNodes": [],
@@ -892,7 +892,7 @@
       "rulesCount": -1
     },
     "arguments": {
-      "Applicant": {
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
         "Age": 38,
         "Credit score": 100,
         "Name": "Amy",
@@ -900,8 +900,8 @@
           "Late payment"
         ]
       },
-      "Current risk appetite": 50,
-      "Lending threshold": 25
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#lendingThreshold": 25
     },
     "output": [
       {

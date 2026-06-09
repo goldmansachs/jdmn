@@ -11,7 +11,7 @@ public class RequiredMonthlyInstallmentInput_ implements com.gs.dmn.runtime.Exec
 
     public RequiredMonthlyInstallmentInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object requestedProduct = input_.get("RequestedProduct");
+            Object requestedProduct = input_.get("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequestedProduct");
             setRequestedProduct(type.TRequestedProduct.toTRequestedProduct(requestedProduct));
         }
     }

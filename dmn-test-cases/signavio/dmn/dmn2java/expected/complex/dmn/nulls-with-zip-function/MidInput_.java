@@ -12,9 +12,9 @@ public class MidInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
 
     public MidInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object inputA = input_.get("inputA");
+            Object inputA = input_.get("http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml#inputA");
             setInputA((List<String>)inputA);
-            Object inputB = input_.get("inputB");
+            Object inputB = input_.get("http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml#inputB");
             setInputB((List<java.lang.Number>)inputB);
         }
     }

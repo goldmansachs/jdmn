@@ -72,9 +72,9 @@ public class Adjudication extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Str
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long adjudicationStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments adjudicationArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            adjudicationArguments_.put("ApplicantData", applicantData);
-            adjudicationArguments_.put("BureauData", bureauData);
-            adjudicationArguments_.put("SupportingDocuments", supportingDocuments);
+            adjudicationArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData);
+            adjudicationArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauData", bureauData);
+            adjudicationArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#SupportingDocuments", supportingDocuments);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, adjudicationArguments_);
 
             // Evaluate decision 'Adjudication'

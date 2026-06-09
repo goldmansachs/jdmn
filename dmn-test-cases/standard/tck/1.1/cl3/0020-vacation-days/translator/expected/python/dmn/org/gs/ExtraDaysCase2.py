@@ -56,8 +56,8 @@ class ExtraDaysCase2(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision)
             cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             extraDaysCase2StartTime_ = int(time.time_ns()/1000)
             extraDaysCase2Arguments_ = jdmn.runtime.listener.Arguments.Arguments()
-            extraDaysCase2Arguments_.put("Age", age)
-            extraDaysCase2Arguments_.put("Years of Service", yearsOfService)
+            extraDaysCase2Arguments_.put("https://www.drools.org/kie-dmn#Age", age)
+            extraDaysCase2Arguments_.put("https://www.drools.org/kie-dmn#Years of Service", yearsOfService)
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, extraDaysCase2Arguments_)
 
             # Evaluate decision 'Extra days case 2'

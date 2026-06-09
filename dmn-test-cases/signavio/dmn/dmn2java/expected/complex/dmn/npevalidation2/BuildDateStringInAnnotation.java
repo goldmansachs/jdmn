@@ -45,9 +45,9 @@ public class BuildDateStringInAnnotation extends com.gs.dmn.signavio.runtime.Jav
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long buildDateStringInAnnotationStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments buildDateStringInAnnotationArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            buildDateStringInAnnotationArguments_.put("day", day);
-            buildDateStringInAnnotationArguments_.put("month", month);
-            buildDateStringInAnnotationArguments_.put("year", year);
+            buildDateStringInAnnotationArguments_.put("http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml#day", day);
+            buildDateStringInAnnotationArguments_.put("http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml#month", month);
+            buildDateStringInAnnotationArguments_.put("http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml#year", year);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, buildDateStringInAnnotationArguments_);
 
             // Evaluate decision 'buildDateStringInAnnotation'

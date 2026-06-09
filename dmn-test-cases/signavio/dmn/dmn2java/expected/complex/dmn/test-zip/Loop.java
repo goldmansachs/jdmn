@@ -52,8 +52,8 @@ public class Loop extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecisi
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long loopStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments loopArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            loopArguments_.put("A", a4);
-            loopArguments_.put("B", b);
+            loopArguments_.put("http://www.provider.com/dmn/1.1/diagram/2798610dcc0f4068861fcb0f4af25ac7.xml#a4", a4);
+            loopArguments_.put("http://www.provider.com/dmn/1.1/diagram/2798610dcc0f4068861fcb0f4af25ac7.xml#b", b);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, loopArguments_);
 
             // Iterate and aggregate

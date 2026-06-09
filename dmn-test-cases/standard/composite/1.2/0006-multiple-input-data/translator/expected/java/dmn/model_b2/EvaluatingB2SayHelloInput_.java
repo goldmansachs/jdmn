@@ -12,7 +12,7 @@ public class EvaluatingB2SayHelloInput_ implements com.gs.dmn.runtime.Executable
 
     public EvaluatingB2SayHelloInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object model_a_personName = input_.get("Model A.Person name");
+            Object model_a_personName = input_.get("http://www.trisotech.com/definitions/_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9#Person name");
             setModel_a_personName((String)model_a_personName);
         }
     }

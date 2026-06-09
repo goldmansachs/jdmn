@@ -11,7 +11,7 @@ public class MonthlyInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInp
 
     public MonthlyInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object loan = input_.get("Loan");
+            Object loan = input_.get("http://www.provider.com/dmn/1.1/diagram/701a4e318a6d4d4f823018c5feaa8f81.xml#loan");
             setLoan(type.Loan.toLoan(null));
         }
     }

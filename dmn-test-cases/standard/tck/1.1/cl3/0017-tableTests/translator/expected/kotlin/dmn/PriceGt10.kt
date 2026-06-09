@@ -31,7 +31,7 @@ class PriceGt10() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boolean?>() {
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val priceGt10StartTime_ = System.currentTimeMillis()
             val priceGt10Arguments_ = com.gs.dmn.runtime.listener.Arguments()
-            priceGt10Arguments_.put("structA", structA)
+            priceGt10Arguments_.put("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#structA", structA)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, priceGt10Arguments_)
 
             // Evaluate decision 'priceGt10'

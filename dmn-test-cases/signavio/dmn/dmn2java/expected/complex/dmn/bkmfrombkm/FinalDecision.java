@@ -54,8 +54,8 @@ public class FinalDecision extends com.gs.dmn.signavio.runtime.JavaTimeSignavioB
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long finalDecisionStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments finalDecisionArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            finalDecisionArguments_.put("date input", dateInput);
-            finalDecisionArguments_.put("time input", timeInput);
+            finalDecisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml#dateInput", dateInput);
+            finalDecisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml#timeInput", timeInput);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, finalDecisionArguments_);
 
             // Evaluate decision 'finalDecision'

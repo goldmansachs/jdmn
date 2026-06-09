@@ -31,8 +31,8 @@ class PostBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = A
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val postBureauRiskCategoryStartTime_ = System.currentTimeMillis()
             val postBureauRiskCategoryArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            postBureauRiskCategoryArguments_.put("ApplicantData", applicantData)
-            postBureauRiskCategoryArguments_.put("BureauData", bureauData)
+            postBureauRiskCategoryArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData)
+            postBureauRiskCategoryArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauData", bureauData)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, postBureauRiskCategoryArguments_)
 
             // Evaluate decision 'Post-bureauRiskCategory'

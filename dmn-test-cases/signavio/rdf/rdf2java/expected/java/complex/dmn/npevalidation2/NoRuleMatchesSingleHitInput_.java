@@ -11,7 +11,7 @@ public class NoRuleMatchesSingleHitInput_ implements com.gs.dmn.runtime.Executab
 
     public NoRuleMatchesSingleHitInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object second = input_.get("second");
+            Object second = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#second");
             setSecond((java.lang.Number)second);
         }
     }

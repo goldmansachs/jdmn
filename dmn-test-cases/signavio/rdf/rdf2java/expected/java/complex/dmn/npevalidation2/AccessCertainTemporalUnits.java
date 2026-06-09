@@ -52,12 +52,12 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Java
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long accessCertainTemporalUnitsStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments accessCertainTemporalUnitsArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            accessCertainTemporalUnitsArguments_.put("day", day);
-            accessCertainTemporalUnitsArguments_.put("hour", hour);
-            accessCertainTemporalUnitsArguments_.put("minute", minute);
-            accessCertainTemporalUnitsArguments_.put("month", month);
-            accessCertainTemporalUnitsArguments_.put("second", second);
-            accessCertainTemporalUnitsArguments_.put("year", year);
+            accessCertainTemporalUnitsArguments_.put("http://www.omg.org/spec/DMN/20151101/dmn.xsd#day", day);
+            accessCertainTemporalUnitsArguments_.put("http://www.omg.org/spec/DMN/20151101/dmn.xsd#hour", hour);
+            accessCertainTemporalUnitsArguments_.put("http://www.omg.org/spec/DMN/20151101/dmn.xsd#minute", minute);
+            accessCertainTemporalUnitsArguments_.put("http://www.omg.org/spec/DMN/20151101/dmn.xsd#month", month);
+            accessCertainTemporalUnitsArguments_.put("http://www.omg.org/spec/DMN/20151101/dmn.xsd#second", second);
+            accessCertainTemporalUnitsArguments_.put("http://www.omg.org/spec/DMN/20151101/dmn.xsd#year", year);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, accessCertainTemporalUnitsArguments_);
 
             // Evaluate decision 'accessCertainTemporalUnits'

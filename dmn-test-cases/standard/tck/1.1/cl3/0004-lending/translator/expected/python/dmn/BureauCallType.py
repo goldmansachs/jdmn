@@ -64,7 +64,7 @@ class BureauCallType(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision)
             cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             bureauCallTypeStartTime_ = int(time.time_ns()/1000)
             bureauCallTypeArguments_ = jdmn.runtime.listener.Arguments.Arguments()
-            bureauCallTypeArguments_.put("ApplicantData", applicantData)
+            bureauCallTypeArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData)
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, bureauCallTypeArguments_)
 
             # Evaluate decision 'BureauCallType'

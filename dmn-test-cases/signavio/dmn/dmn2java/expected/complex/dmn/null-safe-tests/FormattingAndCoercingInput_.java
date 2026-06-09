@@ -12,9 +12,9 @@ public class FormattingAndCoercingInput_ implements com.gs.dmn.runtime.Executabl
 
     public FormattingAndCoercingInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object numberB = input_.get("numberB");
+            Object numberB = input_.get("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberB");
             setNumberB((java.lang.Number)numberB);
-            Object string = input_.get("string");
+            Object string = input_.get("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#string");
             setString((String)string);
         }
     }

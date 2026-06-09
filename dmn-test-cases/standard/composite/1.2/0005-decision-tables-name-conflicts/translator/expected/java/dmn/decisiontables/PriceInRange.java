@@ -66,9 +66,9 @@ public class PriceInRange extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Str
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long priceInRangeStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments priceInRangeArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            priceInRangeArguments_.put("decisionInputs1.numB", decisioninputs1_numB);
-            priceInRangeArguments_.put("decisionInputs1.numC", decisioninputs1_numC);
-            priceInRangeArguments_.put("decisionInputs1.structA", decisioninputs1_structA);
+            priceInRangeArguments_.put("http://www.provider.com/definitions/decision-inputs-1#numB", decisioninputs1_numB);
+            priceInRangeArguments_.put("http://www.provider.com/definitions/decision-inputs-1#numC", decisioninputs1_numC);
+            priceInRangeArguments_.put("http://www.provider.com/definitions/decision-inputs-1#structA", decisioninputs1_structA);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, priceInRangeArguments_);
 
             // Evaluate decision 'priceInRange'

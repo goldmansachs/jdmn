@@ -65,7 +65,7 @@ public class Decision4 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long decision4StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decision4Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            decision4Arguments_.put("Employees", employees);
+            decision4Arguments_.put("http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a#Employees", employees);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decision4Arguments_);
 
             // Evaluate decision 'decision4'

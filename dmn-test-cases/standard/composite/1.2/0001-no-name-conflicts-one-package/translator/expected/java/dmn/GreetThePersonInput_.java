@@ -11,7 +11,7 @@ public class GreetThePersonInput_ implements com.gs.dmn.runtime.ExecutableDRGEle
 
     public GreetThePersonInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object personName = input_.get("personName");
+            Object personName = input_.get("http://www.provider.com/definitions/model-a#personName");
             setPersonName((String)personName);
         }
     }

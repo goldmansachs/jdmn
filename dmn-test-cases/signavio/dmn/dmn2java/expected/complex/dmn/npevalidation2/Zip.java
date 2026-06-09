@@ -64,14 +64,14 @@ public class Zip extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecisio
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long zipStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments zipArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            zipArguments_.put("ages", ages);
-            zipArguments_.put("day", day);
-            zipArguments_.put("hour", hour);
-            zipArguments_.put("minute", minute);
-            zipArguments_.put("month", month);
-            zipArguments_.put("names", names);
-            zipArguments_.put("second", second);
-            zipArguments_.put("year", year);
+            zipArguments_.put("http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml#ages", ages);
+            zipArguments_.put("http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml#day", day);
+            zipArguments_.put("http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml#hour", hour);
+            zipArguments_.put("http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml#minute", minute);
+            zipArguments_.put("http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml#month", month);
+            zipArguments_.put("http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml#names", names);
+            zipArguments_.put("http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml#second", second);
+            zipArguments_.put("http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml#year", year);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, zipArguments_);
 
             // Evaluate decision 'zip'

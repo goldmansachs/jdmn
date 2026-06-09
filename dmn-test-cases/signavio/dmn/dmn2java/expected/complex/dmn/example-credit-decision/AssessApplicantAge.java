@@ -45,7 +45,7 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.JavaTimeSign
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long assessApplicantAgeStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments assessApplicantAgeArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            assessApplicantAgeArguments_.put("Applicant", applicant);
+            assessApplicantAgeArguments_.put("http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant", applicant);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, assessApplicantAgeArguments_);
 
             // Evaluate decision 'assessApplicantAge'

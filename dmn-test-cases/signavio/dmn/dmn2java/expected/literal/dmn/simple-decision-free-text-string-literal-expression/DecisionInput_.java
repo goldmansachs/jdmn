@@ -15,15 +15,15 @@ public class DecisionInput_ implements com.gs.dmn.runtime.ExecutableDRGElementIn
 
     public DecisionInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object booleanInput = input_.get("BooleanInput");
+            Object booleanInput = input_.get("http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml#booleanInput");
             setBooleanInput((Boolean)booleanInput);
-            Object dateInput = input_.get("DateInput");
+            Object dateInput = input_.get("http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml#dateInput");
             setDateInput((java.time.LocalDate)dateInput);
-            Object enumerationInput = input_.get("EnumerationInput");
+            Object enumerationInput = input_.get("http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml#enumerationInput");
             setEnumerationInput((String)enumerationInput);
-            Object numberInput = input_.get("NumberInput");
+            Object numberInput = input_.get("http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml#numberInput");
             setNumberInput((java.lang.Number)numberInput);
-            Object stringInput = input_.get("StringInput");
+            Object stringInput = input_.get("http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml#stringInput");
             setStringInput((String)stringInput);
         }
     }

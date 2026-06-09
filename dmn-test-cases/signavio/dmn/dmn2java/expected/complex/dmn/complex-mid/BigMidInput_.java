@@ -11,7 +11,7 @@ public class BigMidInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInpu
 
     public BigMidInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object testPeopleType = input_.get("TestPeopleType");
+            Object testPeopleType = input_.get("http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml#testPeopleType");
             setTestPeopleType(type.TestPeopleType.toTestPeopleType(null));
         }
     }

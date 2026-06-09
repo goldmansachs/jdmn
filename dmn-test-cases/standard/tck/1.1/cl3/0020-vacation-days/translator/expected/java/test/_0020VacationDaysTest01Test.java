@@ -19,8 +19,8 @@ public class _0020VacationDaysTest01Test extends com.gs.dmn.runtime.JavaTimeDMNB
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("Age", age);
-        input_.add("Years of Service", yearsOfService);
+        input_.add("https://www.drools.org/kie-dmn#Age", age);
+        input_.add("https://www.drools.org/kie-dmn#Years of Service", yearsOfService);
 
         // Check 'Total Vacation Days'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -36,8 +36,8 @@ public class _0020VacationDaysTest01Test extends com.gs.dmn.runtime.JavaTimeDMNB
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("Age", age);
-        input_.add("Years of Service", yearsOfService);
+        input_.add("https://www.drools.org/kie-dmn#Age", age);
+        input_.add("https://www.drools.org/kie-dmn#Years of Service", yearsOfService);
 
         // Check 'Total Vacation Days'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -53,8 +53,8 @@ public class _0020VacationDaysTest01Test extends com.gs.dmn.runtime.JavaTimeDMNB
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("Age", age);
-        input_.add("Years of Service", yearsOfService);
+        input_.add("https://www.drools.org/kie-dmn#Age", age);
+        input_.add("https://www.drools.org/kie-dmn#Years of Service", yearsOfService);
 
         // Check 'Total Vacation Days'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -70,8 +70,8 @@ public class _0020VacationDaysTest01Test extends com.gs.dmn.runtime.JavaTimeDMNB
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("Age", age);
-        input_.add("Years of Service", yearsOfService);
+        input_.add("https://www.drools.org/kie-dmn#Age", age);
+        input_.add("https://www.drools.org/kie-dmn#Years of Service", yearsOfService);
 
         // Check 'Total Vacation Days'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -87,8 +87,8 @@ public class _0020VacationDaysTest01Test extends com.gs.dmn.runtime.JavaTimeDMNB
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("Age", age);
-        input_.add("Years of Service", yearsOfService);
+        input_.add("https://www.drools.org/kie-dmn#Age", age);
+        input_.add("https://www.drools.org/kie-dmn#Years of Service", yearsOfService);
 
         // Check 'Total Vacation Days'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -104,8 +104,8 @@ public class _0020VacationDaysTest01Test extends com.gs.dmn.runtime.JavaTimeDMNB
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("Age", age);
-        input_.add("Years of Service", yearsOfService);
+        input_.add("https://www.drools.org/kie-dmn#Age", age);
+        input_.add("https://www.drools.org/kie-dmn#Years of Service", yearsOfService);
 
         // Check 'Total Vacation Days'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -121,8 +121,8 @@ public class _0020VacationDaysTest01Test extends com.gs.dmn.runtime.JavaTimeDMNB
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("Age", age);
-        input_.add("Years of Service", yearsOfService);
+        input_.add("https://www.drools.org/kie-dmn#Age", age);
+        input_.add("https://www.drools.org/kie-dmn#Years of Service", yearsOfService);
 
         // Check 'Total Vacation Days'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();

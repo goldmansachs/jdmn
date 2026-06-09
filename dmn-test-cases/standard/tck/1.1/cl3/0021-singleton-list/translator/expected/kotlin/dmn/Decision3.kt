@@ -31,7 +31,7 @@ class Decision3() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<String?>?>()
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val decision3StartTime_ = System.currentTimeMillis()
             val decision3Arguments_ = com.gs.dmn.runtime.listener.Arguments()
-            decision3Arguments_.put("Employees", employees)
+            decision3Arguments_.put("http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a#Employees", employees)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decision3Arguments_)
 
             // Evaluate decision 'decision3'

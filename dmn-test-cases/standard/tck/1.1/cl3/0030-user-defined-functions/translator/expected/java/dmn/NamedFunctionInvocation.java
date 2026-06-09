@@ -65,8 +65,8 @@ public class NamedFunctionInvocation extends com.gs.dmn.runtime.JavaTimeDMNBaseD
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long namedFunctionInvocationStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments namedFunctionInvocationArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            namedFunctionInvocationArguments_.put("stringInputA", stringInputA);
-            namedFunctionInvocationArguments_.put("stringInputB", stringInputB);
+            namedFunctionInvocationArguments_.put("http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions#stringInputA", stringInputA);
+            namedFunctionInvocationArguments_.put("http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions#stringInputB", stringInputB);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, namedFunctionInvocationArguments_);
 
             // Evaluate decision 'named function invocation'

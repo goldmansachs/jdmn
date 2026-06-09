@@ -45,7 +45,7 @@ public class DependentDecision1 extends com.gs.dmn.signavio.runtime.JavaTimeSign
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long dependentDecision1StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments dependentDecision1Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            dependentDecision1Arguments_.put("DD1 Text Input", dd1TextInput);
+            dependentDecision1Arguments_.put("http://www.provider.com/dmn/1.1/diagram/b1489a504a724a1caf493a6cb5187c2c.xml#dd1TextInput", dd1TextInput);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, dependentDecision1Arguments_);
 
             // Evaluate decision 'dependentDecision1'

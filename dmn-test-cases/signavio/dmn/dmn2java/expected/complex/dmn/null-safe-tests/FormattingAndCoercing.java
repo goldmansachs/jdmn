@@ -45,8 +45,8 @@ public class FormattingAndCoercing extends com.gs.dmn.signavio.runtime.JavaTimeS
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long formattingAndCoercingStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments formattingAndCoercingArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            formattingAndCoercingArguments_.put("numberB", numberB);
-            formattingAndCoercingArguments_.put("string", string);
+            formattingAndCoercingArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberB", numberB);
+            formattingAndCoercingArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#string", string);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, formattingAndCoercingArguments_);
 
             // Evaluate decision 'formattingAndCoercing'

@@ -45,7 +45,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDe
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long decisionStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decisionArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            decisionArguments_.put("TestPersonType", testPersonType6_iterator);
+            decisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml#testPersonType6_iterator", testPersonType6_iterator);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decisionArguments_);
 
             // Evaluate decision 'decision'

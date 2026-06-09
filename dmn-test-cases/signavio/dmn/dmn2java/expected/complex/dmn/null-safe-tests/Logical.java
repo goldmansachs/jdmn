@@ -45,8 +45,8 @@ public class Logical extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDec
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long logicalStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments logicalArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            logicalArguments_.put("booleanA", booleanA);
-            logicalArguments_.put("booleanB", booleanB);
+            logicalArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#booleanA", booleanA);
+            logicalArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#booleanB", booleanB);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, logicalArguments_);
 
             // Evaluate decision 'logical'

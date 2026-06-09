@@ -56,7 +56,7 @@ public class PartA extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecis
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long partAStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments partAArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            partAArguments_.put("booleanList", booleanList);
+            partAArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#booleanList", booleanList);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, partAArguments_);
 
             // Evaluate decision 'partA'

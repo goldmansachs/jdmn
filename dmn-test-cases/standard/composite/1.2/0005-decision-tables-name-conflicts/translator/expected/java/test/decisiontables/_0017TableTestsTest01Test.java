@@ -19,7 +19,7 @@ public class _0017TableTestsTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("decisionInputs1.structA", decisioninputs1_structA);
+        input_.add("http://www.provider.com/definitions/decision-inputs-1#structA", decisioninputs1_structA);
 
         // Check 'priceGt10'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -36,9 +36,9 @@ public class _0017TableTestsTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("decisionInputs1.structA", decisioninputs1_structA);
-        input_.add("decisionInputs1.numB", decisioninputs1_numB);
-        input_.add("decisionInputs1.numC", decisioninputs1_numC);
+        input_.add("http://www.provider.com/definitions/decision-inputs-1#structA", decisioninputs1_structA);
+        input_.add("http://www.provider.com/definitions/decision-inputs-1#numB", decisioninputs1_numB);
+        input_.add("http://www.provider.com/definitions/decision-inputs-1#numC", decisioninputs1_numC);
 
         // Check 'priceInRange'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -53,7 +53,7 @@ public class _0017TableTestsTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("decisionInputs1.dateD", decisioninputs1_dateD);
+        input_.add("http://www.provider.com/definitions/decision-inputs-1#dateD", decisioninputs1_dateD);
 
         // Check 'dateCompare1'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -69,8 +69,8 @@ public class _0017TableTestsTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("decisionInputs1.dateD", decisioninputs1_dateD);
-        input_.add("decisionInputs2.dateD", decisioninputs2_dateD);
+        input_.add("http://www.provider.com/definitions/decision-inputs-1#dateD", decisioninputs1_dateD);
+        input_.add("http://www.provider.com/definitions/decision-inputs-2#dateD", decisioninputs2_dateD);
 
         // Check 'dateCompare2'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();

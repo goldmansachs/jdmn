@@ -58,11 +58,11 @@ public class PartC extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecis
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long partCStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments partCArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            partCArguments_.put("booleanA", booleanA);
-            partCArguments_.put("booleanB", booleanB);
-            partCArguments_.put("date", date);
-            partCArguments_.put("dateTime", dateTime);
-            partCArguments_.put("time", time);
+            partCArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#booleanA", booleanA);
+            partCArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#booleanB", booleanB);
+            partCArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#date", date);
+            partCArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#dateTime", dateTime);
+            partCArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#time", time);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, partCArguments_);
 
             // Evaluate decision 'partC'

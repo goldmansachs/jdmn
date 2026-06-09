@@ -54,10 +54,10 @@ public class Decide extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDeci
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long decideStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decideArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            decideArguments_.put("date", date);
-            decideArguments_.put("datetime", datetime);
-            decideArguments_.put("time", time);
-            decideArguments_.put("time 2", time2);
+            decideArguments_.put("http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml#date", date);
+            decideArguments_.put("http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml#datetime", datetime);
+            decideArguments_.put("http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml#time", time);
+            decideArguments_.put("http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml#time2", time2);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decideArguments_);
 
             // Evaluate decision 'decide'

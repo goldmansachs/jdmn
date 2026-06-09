@@ -53,7 +53,7 @@ public class SomethingElse extends com.gs.dmn.signavio.runtime.JavaTimeSignavioB
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long somethingElseStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments somethingElseArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            somethingElseArguments_.put("num", num);
+            somethingElseArguments_.put("http://www.provider.com/dmn/1.1/diagram/c3d5f975281b4d2f829ee2c77b320f01.xml#num", num);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, somethingElseArguments_);
 
             // Evaluate decision 'somethingElse'

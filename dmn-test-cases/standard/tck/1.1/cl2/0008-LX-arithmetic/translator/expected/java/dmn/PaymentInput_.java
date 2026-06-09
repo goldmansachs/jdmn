@@ -11,7 +11,7 @@ public class PaymentInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInp
 
     public PaymentInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object loan = input_.get("loan");
+            Object loan = input_.get("http://www.trisotech.com/definitions/_1fedf2c0-0f4a-470c-bc66-a15528e8a49a#loan");
             setLoan(type.TLoan.toTLoan(loan));
         }
     }

@@ -52,10 +52,10 @@ public class FetchForexRate extends com.gs.dmn.signavio.runtime.JavaTimeSignavio
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long fetchForexRateStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments fetchForexRateArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            fetchForexRateArguments_.put("DerivativeType", derivativeType);
-            fetchForexRateArguments_.put("TaxChargeType", taxChargeType);
-            fetchForexRateArguments_.put("Transaction", transaction);
-            fetchForexRateArguments_.put("TransactionTaxMetaData", transactionTaxMetaData);
+            fetchForexRateArguments_.put("http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml#derivativeType", derivativeType);
+            fetchForexRateArguments_.put("http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml#taxChargeType", taxChargeType);
+            fetchForexRateArguments_.put("http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml#transaction", transaction);
+            fetchForexRateArguments_.put("http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml#transactionTaxMetaData", transactionTaxMetaData);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fetchForexRateArguments_);
 
             // Evaluate decision 'fetchForexRate'

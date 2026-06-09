@@ -31,7 +31,7 @@ class Sort2() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<type.TRow?>?>() 
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val sort2StartTime_ = System.currentTimeMillis()
             val sort2Arguments_ = com.gs.dmn.runtime.listener.Arguments()
-            sort2Arguments_.put("tableB", tableB)
+            sort2Arguments_.put("http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217#tableB", tableB)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, sort2Arguments_)
 
             // Evaluate decision 'sort2'

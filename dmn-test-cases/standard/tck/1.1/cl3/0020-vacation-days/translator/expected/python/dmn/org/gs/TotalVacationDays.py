@@ -63,8 +63,8 @@ class TotalVacationDays(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecisi
             cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             totalVacationDaysStartTime_ = int(time.time_ns()/1000)
             totalVacationDaysArguments_ = jdmn.runtime.listener.Arguments.Arguments()
-            totalVacationDaysArguments_.put("Age", age)
-            totalVacationDaysArguments_.put("Years of Service", yearsOfService)
+            totalVacationDaysArguments_.put("https://www.drools.org/kie-dmn#Age", age)
+            totalVacationDaysArguments_.put("https://www.drools.org/kie-dmn#Years of Service", yearsOfService)
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, totalVacationDaysArguments_)
 
             # Evaluate decision 'Total Vacation Days'

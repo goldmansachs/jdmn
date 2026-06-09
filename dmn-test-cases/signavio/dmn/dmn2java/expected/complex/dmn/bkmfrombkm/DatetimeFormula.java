@@ -45,7 +45,7 @@ public class DatetimeFormula extends com.gs.dmn.signavio.runtime.JavaTimeSignavi
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long datetimeFormulaStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments datetimeFormulaArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            datetimeFormulaArguments_.put("datetime", datetime);
+            datetimeFormulaArguments_.put("http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml#datetime", datetime);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, datetimeFormulaArguments_);
 
             // Evaluate decision 'datetimeFormula'

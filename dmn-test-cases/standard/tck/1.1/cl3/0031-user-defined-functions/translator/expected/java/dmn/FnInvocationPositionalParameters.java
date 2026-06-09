@@ -72,8 +72,8 @@ public class FnInvocationPositionalParameters extends com.gs.dmn.runtime.JavaTim
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long fnInvocationPositionalParametersStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments fnInvocationPositionalParametersArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            fnInvocationPositionalParametersArguments_.put("inputA", inputA);
-            fnInvocationPositionalParametersArguments_.put("inputB", inputB);
+            fnInvocationPositionalParametersArguments_.put("http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions#inputA", inputA);
+            fnInvocationPositionalParametersArguments_.put("http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions#inputB", inputB);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnInvocationPositionalParametersArguments_);
 
             // Evaluate decision 'fn invocation positional parameters'

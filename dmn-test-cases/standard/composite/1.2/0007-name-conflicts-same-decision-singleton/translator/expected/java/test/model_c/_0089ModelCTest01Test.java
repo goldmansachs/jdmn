@@ -20,8 +20,8 @@ public class _0089ModelCTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDec
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("Model A.a", model_a_a);
-        input_.add("Model B.a", model_b_a);
+        input_.add("http://www.provider.com/definitions/model-a#a", model_a_a);
+        input_.add("http://www.provider.com/definitions/model-b#a", model_b_a);
 
         // Check 'c'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();

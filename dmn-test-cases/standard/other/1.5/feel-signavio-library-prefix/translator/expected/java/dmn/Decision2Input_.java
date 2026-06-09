@@ -11,7 +11,7 @@ public class Decision2Input_ implements com.gs.dmn.runtime.ExecutableDRGElementI
 
     public Decision2Input_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object inputDate = input_.get("inputDate");
+            Object inputDate = input_.get("http://www.montera.com.au/spec/DMN/feel-signavio-library-prefix#inputDate");
             setInputDate((java.time.LocalDate)inputDate);
         }
     }

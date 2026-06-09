@@ -12,7 +12,7 @@ public class PriceGt10Input_ implements com.gs.dmn.runtime.ExecutableDRGElementI
 
     public PriceGt10Input_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object decisioninputs_structA = input_.get("decisionInputs.structA");
+            Object decisioninputs_structA = input_.get("http://www.provider.com/definitions/decision-inputs#structA");
             setDecisioninputs_structA(decisioninputs.type.TA.toTA(decisioninputs_structA));
         }
     }

@@ -17,19 +17,19 @@ public class LitexpLogicInput_ implements com.gs.dmn.runtime.ExecutableDRGElemen
 
     public LitexpLogicInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object blacklist = input_.get("blacklist");
+            Object blacklist = input_.get("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#blacklist");
             setBlacklist((List<String>)blacklist);
-            Object listOfNumbers = input_.get("ListOfNumbers");
+            Object listOfNumbers = input_.get("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#listOfNumbers");
             setListOfNumbers((List<java.lang.Number>)listOfNumbers);
-            Object names = input_.get("names");
+            Object names = input_.get("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#names");
             setNames((List<String>)names);
-            Object rgb1 = input_.get("rgb1");
+            Object rgb1 = input_.get("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#rgb1");
             setRgb1((String)rgb1);
-            Object rgb1List = input_.get("rgb1 list");
+            Object rgb1List = input_.get("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#rgb1List");
             setRgb1List((List<String>)rgb1List);
-            Object rgb2 = input_.get("rgb2");
+            Object rgb2 = input_.get("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#rgb2");
             setRgb2((String)rgb2);
-            Object rgb2List = input_.get("rgb2 list");
+            Object rgb2List = input_.get("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#rgb2List");
             setRgb2List((List<String>)rgb2List);
         }
     }

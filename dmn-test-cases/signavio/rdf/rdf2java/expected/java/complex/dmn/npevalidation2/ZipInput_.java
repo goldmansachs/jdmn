@@ -18,21 +18,21 @@ public class ZipInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
 
     public ZipInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object ages = input_.get("ages");
+            Object ages = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#ages");
             setAges((List<java.lang.Number>)ages);
-            Object day = input_.get("day");
+            Object day = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#day");
             setDay((java.lang.Number)day);
-            Object hour = input_.get("hour");
+            Object hour = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#hour");
             setHour((java.lang.Number)hour);
-            Object minute = input_.get("minute");
+            Object minute = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#minute");
             setMinute((java.lang.Number)minute);
-            Object month = input_.get("month");
+            Object month = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#month");
             setMonth((java.lang.Number)month);
-            Object names = input_.get("names");
+            Object names = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#names");
             setNames((List<String>)names);
-            Object second = input_.get("second");
+            Object second = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#second");
             setSecond((java.lang.Number)second);
-            Object year = input_.get("year");
+            Object year = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#year");
             setYear((java.lang.Number)year);
         }
     }

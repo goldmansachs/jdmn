@@ -52,7 +52,7 @@ public class RemoveValues extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBa
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long removeValuesStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments removeValuesArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            removeValuesArguments_.put("ListOfNumbers", listOfNumbers);
+            removeValuesArguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#listOfNumbers", listOfNumbers);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, removeValuesArguments_);
 
             // Evaluate decision 'removeValues'

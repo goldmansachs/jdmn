@@ -45,8 +45,8 @@ public class ListHandling extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBa
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long listHandlingStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments listHandlingArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            listHandlingArguments_.put("numberB", numberB);
-            listHandlingArguments_.put("numberList", numberList);
+            listHandlingArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberB", numberB);
+            listHandlingArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberList", numberList);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, listHandlingArguments_);
 
             // Evaluate decision 'listHandling'

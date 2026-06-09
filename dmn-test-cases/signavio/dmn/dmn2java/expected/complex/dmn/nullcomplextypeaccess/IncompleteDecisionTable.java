@@ -45,7 +45,7 @@ public class IncompleteDecisionTable extends com.gs.dmn.signavio.runtime.JavaTim
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long incompleteDecisionTableStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments incompleteDecisionTableArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            incompleteDecisionTableArguments_.put("InputString", inputString);
+            incompleteDecisionTableArguments_.put("http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml#inputString", inputString);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, incompleteDecisionTableArguments_);
 
             // Evaluate decision 'incompleteDecisionTable'

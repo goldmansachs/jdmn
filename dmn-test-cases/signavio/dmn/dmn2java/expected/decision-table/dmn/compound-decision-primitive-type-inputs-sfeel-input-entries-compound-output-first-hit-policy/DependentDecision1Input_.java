@@ -11,7 +11,7 @@ public class DependentDecision1Input_ implements com.gs.dmn.runtime.ExecutableDR
 
     public DependentDecision1Input_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object dd1TextInput = input_.get("DD1 Text Input");
+            Object dd1TextInput = input_.get("http://www.provider.com/dmn/1.1/diagram/b1489a504a724a1caf493a6cb5187c2c.xml#dd1TextInput");
             setDd1TextInput((String)dd1TextInput);
         }
     }

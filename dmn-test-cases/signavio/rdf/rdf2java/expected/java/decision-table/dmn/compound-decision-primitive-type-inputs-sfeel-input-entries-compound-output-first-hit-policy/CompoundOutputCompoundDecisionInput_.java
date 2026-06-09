@@ -14,13 +14,13 @@ public class CompoundOutputCompoundDecisionInput_ implements com.gs.dmn.runtime.
 
     public CompoundOutputCompoundDecisionInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object booleanInput = input_.get("BooleanInput");
+            Object booleanInput = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#booleanInput");
             setBooleanInput((Boolean)booleanInput);
-            Object dD1TextInput = input_.get("DD1 Text Input");
+            Object dD1TextInput = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#dD1TextInput");
             setDD1TextInput((String)dD1TextInput);
-            Object dD2NumberInput = input_.get("DD2 Number Input");
+            Object dD2NumberInput = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#dD2NumberInput");
             setDD2NumberInput((java.lang.Number)dD2NumberInput);
-            Object enumerationInput = input_.get("EnumerationInput");
+            Object enumerationInput = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#enumerationInput");
             setEnumerationInput((String)enumerationInput);
         }
     }

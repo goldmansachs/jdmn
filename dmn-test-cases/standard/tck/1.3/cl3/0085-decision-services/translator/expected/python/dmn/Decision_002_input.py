@@ -56,9 +56,9 @@ class Decision_002_input(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecis
             decision_002_inputArguments_ = jdmn.runtime.listener.Arguments.Arguments()
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, decision_002_inputArguments_)
 
-            if cache_.contains("decision_002_input"):
+            if cache_.contains("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_002_input"):
                 # Retrieve value from cache
-                output_: typing.Optional[str] = cache_.lookup("decision_002_input")
+                output_: typing.Optional[str] = cache_.lookup("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_002_input")
 
                 # End decision 'decision_002_input'
                 eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, decision_002_inputArguments_, output_, (int(time.time_ns()/1000) - decision_002_inputStartTime_))
@@ -67,7 +67,7 @@ class Decision_002_input(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecis
             else:
                 # Evaluate decision 'decision_002_input'
                 output_: typing.Optional[str] = self.evaluate(context_)
-                cache_.bind("decision_002_input", output_)
+                cache_.bind("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_002_input", output_)
 
                 # End decision 'decision_002_input'
                 eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, decision_002_inputArguments_, output_, (int(time.time_ns()/1000) - decision_002_inputStartTime_))

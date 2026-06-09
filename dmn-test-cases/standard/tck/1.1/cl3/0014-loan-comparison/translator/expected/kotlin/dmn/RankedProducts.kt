@@ -31,7 +31,7 @@ class RankedProducts(val bankrates : Bankrates = Bankrates()) : com.gs.dmn.runti
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val rankedProductsStartTime_ = System.currentTimeMillis()
             val rankedProductsArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            rankedProductsArguments_.put("RequestedAmt", requestedAmt)
+            rankedProductsArguments_.put("http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719#RequestedAmt", requestedAmt)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, rankedProductsArguments_)
 
             // Evaluate decision 'RankedProducts'

@@ -20,9 +20,9 @@ public class _0006JoinTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("EmployeeTable", employeeTable);
-        input_.add("DeptTable", deptTable);
-        input_.add("LastName", lastName);
+        input_.add("http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29#EmployeeTable", employeeTable);
+        input_.add("http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29#DeptTable", deptTable);
+        input_.add("http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29#LastName", lastName);
 
         // Check 'Join'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();

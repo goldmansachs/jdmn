@@ -81,8 +81,8 @@ public class Eligibility extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Stri
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long eligibilityStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments eligibilityArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            eligibilityArguments_.put("ApplicantData", applicantData);
-            eligibilityArguments_.put("RequestedProduct", requestedProduct);
+            eligibilityArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData);
+            eligibilityArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequestedProduct", requestedProduct);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, eligibilityArguments_);
 
             // Evaluate decision 'Eligibility'

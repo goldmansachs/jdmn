@@ -70,9 +70,9 @@ class Routing(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
             cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             routingStartTime_ = int(time.time_ns()/1000)
             routingArguments_ = jdmn.runtime.listener.Arguments.Arguments()
-            routingArguments_.put("ApplicantData", applicantData)
-            routingArguments_.put("BureauData", bureauData)
-            routingArguments_.put("RequestedProduct", requestedProduct)
+            routingArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData)
+            routingArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauData", bureauData)
+            routingArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequestedProduct", requestedProduct)
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, routingArguments_)
 
             # Evaluate decision 'Routing'

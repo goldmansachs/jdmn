@@ -51,7 +51,7 @@ class _0085DecisionServicesTest01Test(unittest.TestCase, jdmn.runtime.DefaultDMN
         cache_ = context_.cache
         # Initialize arguments
         decision_002_input: typing.Optional[str] = "baz"
-        cache_.bind("decision_002_input", decision_002_input)
+        cache_.bind("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_002_input", decision_002_input)
 
         # Check 'decisionService_002'
         self.checkValues("foo baz", DecisionService_002.DecisionService_002.instance().apply(decision_002_input, context_))
@@ -61,9 +61,9 @@ class _0085DecisionServicesTest01Test(unittest.TestCase, jdmn.runtime.DefaultDMN
         cache_ = context_.cache
         # Initialize arguments
         decision_003_input_1: typing.Optional[str] = "B"
-        cache_.bind("decision_003_input_1", decision_003_input_1)
+        cache_.bind("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_003_input_1", decision_003_input_1)
         decision_003_input_2: typing.Optional[str] = "C"
-        cache_.bind("decision_003_input_2", decision_003_input_2)
+        cache_.bind("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_003_input_2", decision_003_input_2)
         inputData_003: typing.Optional[str] = "D"
 
         # Check 'decisionService_003'

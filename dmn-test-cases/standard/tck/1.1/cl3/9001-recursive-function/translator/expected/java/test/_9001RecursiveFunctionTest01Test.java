@@ -18,7 +18,7 @@ public class _9001RecursiveFunctionTest01Test extends com.gs.dmn.runtime.JavaTim
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("n", n);
+        input_.add("http://www.gs.com/spec/DMN/9001-recursive-function#n", n);
 
         // Check 'main'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -33,7 +33,7 @@ public class _9001RecursiveFunctionTest01Test extends com.gs.dmn.runtime.JavaTim
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("n", n);
+        input_.add("http://www.gs.com/spec/DMN/9001-recursive-function#n", n);
 
         // Check 'main'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -48,7 +48,7 @@ public class _9001RecursiveFunctionTest01Test extends com.gs.dmn.runtime.JavaTim
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("n", n);
+        input_.add("http://www.gs.com/spec/DMN/9001-recursive-function#n", n);
 
         // Check 'main'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -63,7 +63,7 @@ public class _9001RecursiveFunctionTest01Test extends com.gs.dmn.runtime.JavaTim
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("n", n);
+        input_.add("http://www.gs.com/spec/DMN/9001-recursive-function#n", n);
 
         // Check 'main'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();

@@ -31,8 +31,8 @@ class TotalVacationDays(val baseVacationDays : BaseVacationDays = BaseVacationDa
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val totalVacationDaysStartTime_ = System.currentTimeMillis()
             val totalVacationDaysArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            totalVacationDaysArguments_.put("Age", age)
-            totalVacationDaysArguments_.put("Years of Service", yearsOfService)
+            totalVacationDaysArguments_.put("https://www.drools.org/kie-dmn#Age", age)
+            totalVacationDaysArguments_.put("https://www.drools.org/kie-dmn#Years of Service", yearsOfService)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, totalVacationDaysArguments_)
 
             // Evaluate decision 'Total Vacation Days'

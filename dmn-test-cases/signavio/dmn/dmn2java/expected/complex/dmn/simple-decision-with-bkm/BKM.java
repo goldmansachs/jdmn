@@ -52,8 +52,8 @@ public class BKM extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecisio
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long bKMStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments bKMArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            bKMArguments_.put("A", a);
-            bKMArguments_.put("B", b);
+            bKMArguments_.put("http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml#a", a);
+            bKMArguments_.put("http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml#b", b);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bKMArguments_);
 
             // Evaluate BKM 'bKM'

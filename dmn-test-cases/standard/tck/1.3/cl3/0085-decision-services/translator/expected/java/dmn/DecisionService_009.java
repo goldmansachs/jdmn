@@ -79,11 +79,11 @@ public class DecisionService_009 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long decisionService_009StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decisionService_009Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            decisionService_009Arguments_.put("decision_009_3", decision_009_3);
+            decisionService_009Arguments_.put("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_009_3", decision_009_3);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decisionService_009Arguments_);
 
             // Bind input decisions
-            cache_.bind("decision_009_3", decision_009_3);
+            cache_.bind("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_009_3", decision_009_3);
 
             // Evaluate DS 'decisionService_009'
             String output_ = lambda.apply(decision_009_3, context_);

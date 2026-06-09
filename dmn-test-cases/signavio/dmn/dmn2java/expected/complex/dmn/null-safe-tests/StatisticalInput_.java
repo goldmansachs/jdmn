@@ -11,7 +11,7 @@ public class StatisticalInput_ implements com.gs.dmn.runtime.ExecutableDRGElemen
 
     public StatisticalInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object numberList = input_.get("numberList");
+            Object numberList = input_.get("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberList");
             setNumberList((List<java.lang.Number>)numberList);
         }
     }

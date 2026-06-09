@@ -65,8 +65,8 @@ public class SimpleFunctionInvocation extends com.gs.dmn.runtime.JavaTimeDMNBase
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long simpleFunctionInvocationStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments simpleFunctionInvocationArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            simpleFunctionInvocationArguments_.put("stringInputA", stringInputA);
-            simpleFunctionInvocationArguments_.put("stringInputB", stringInputB);
+            simpleFunctionInvocationArguments_.put("http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions#stringInputA", stringInputA);
+            simpleFunctionInvocationArguments_.put("http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions#stringInputB", stringInputB);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, simpleFunctionInvocationArguments_);
 
             // Evaluate decision 'simple function invocation'

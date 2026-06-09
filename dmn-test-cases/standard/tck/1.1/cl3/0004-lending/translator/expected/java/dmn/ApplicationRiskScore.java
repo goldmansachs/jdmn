@@ -65,7 +65,7 @@ public class ApplicationRiskScore extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long applicationRiskScoreStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments applicationRiskScoreArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            applicationRiskScoreArguments_.put("ApplicantData", applicantData);
+            applicationRiskScoreArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, applicationRiskScoreArguments_);
 
             // Evaluate decision 'ApplicationRiskScore'

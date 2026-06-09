@@ -18,7 +18,7 @@ public class _0016SomeEveryTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBase
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("priceTable2", priceTable2);
+        input_.add("http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70#priceTable2", priceTable2);
 
         // Check 'priceTable1'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -33,7 +33,7 @@ public class _0016SomeEveryTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBase
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("priceTable2", priceTable2);
+        input_.add("http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70#priceTable2", priceTable2);
 
         // Check 'everyGtTen1'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -48,7 +48,7 @@ public class _0016SomeEveryTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBase
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("priceTable2", priceTable2);
+        input_.add("http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70#priceTable2", priceTable2);
 
         // Check 'everyGtTen2'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -63,7 +63,7 @@ public class _0016SomeEveryTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBase
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("priceTable2", priceTable2);
+        input_.add("http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70#priceTable2", priceTable2);
 
         // Check 'someGtTen1'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -78,7 +78,7 @@ public class _0016SomeEveryTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBase
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("priceTable2", priceTable2);
+        input_.add("http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70#priceTable2", priceTable2);
 
         // Check 'someGtTen2'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -93,7 +93,7 @@ public class _0016SomeEveryTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBase
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("priceTable2", priceTable2);
+        input_.add("http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70#priceTable2", priceTable2);
 
         // Check 'everyGtTen3'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();

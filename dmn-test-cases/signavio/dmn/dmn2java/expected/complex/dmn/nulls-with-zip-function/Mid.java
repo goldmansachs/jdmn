@@ -52,8 +52,8 @@ public class Mid extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecisio
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long midStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments midArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            midArguments_.put("inputA", inputA);
-            midArguments_.put("inputB", inputB);
+            midArguments_.put("http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml#inputA", inputA);
+            midArguments_.put("http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml#inputB", inputB);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, midArguments_);
 
             // Iterate and aggregate

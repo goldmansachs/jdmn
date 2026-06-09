@@ -31,9 +31,9 @@ class Routing(val postBureauAffordability : PostBureauAffordability = PostBureau
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val routingStartTime_ = System.currentTimeMillis()
             val routingArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            routingArguments_.put("ApplicantData", applicantData)
-            routingArguments_.put("BureauData", bureauData)
-            routingArguments_.put("RequestedProduct", requestedProduct)
+            routingArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData)
+            routingArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauData", bureauData)
+            routingArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequestedProduct", requestedProduct)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, routingArguments_)
 
             // Evaluate decision 'Routing'

@@ -31,9 +31,9 @@ class Join() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String?>() {
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val joinStartTime_ = System.currentTimeMillis()
             val joinArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            joinArguments_.put("DeptTable", deptTable)
-            joinArguments_.put("EmployeeTable", employeeTable)
-            joinArguments_.put("LastName", lastName)
+            joinArguments_.put("http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29#DeptTable", deptTable)
+            joinArguments_.put("http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29#EmployeeTable", employeeTable)
+            joinArguments_.put("http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29#LastName", lastName)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, joinArguments_)
 
             // Evaluate decision 'Join'

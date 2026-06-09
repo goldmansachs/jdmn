@@ -45,7 +45,7 @@ public class KeepInputallTrue extends com.gs.dmn.signavio.runtime.JavaTimeSignav
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long keepInputallTrueStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments keepInputallTrueArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            keepInputallTrueArguments_.put("booleanAllTrue", booleanAllTrue_iterator);
+            keepInputallTrueArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#booleanAllTrue_iterator", booleanAllTrue_iterator);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, keepInputallTrueArguments_);
 
             // Evaluate decision 'keepInputallTrue'

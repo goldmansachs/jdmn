@@ -18,21 +18,21 @@ public class ZipInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
 
     public ZipInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object ages = input_.get("ages");
+            Object ages = input_.get("http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml#ages");
             setAges((List<java.lang.Number>)ages);
-            Object day = input_.get("day");
+            Object day = input_.get("http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml#day");
             setDay((java.lang.Number)day);
-            Object hour = input_.get("hour");
+            Object hour = input_.get("http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml#hour");
             setHour((java.lang.Number)hour);
-            Object minute = input_.get("minute");
+            Object minute = input_.get("http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml#minute");
             setMinute((java.lang.Number)minute);
-            Object month = input_.get("month");
+            Object month = input_.get("http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml#month");
             setMonth((java.lang.Number)month);
-            Object names = input_.get("names");
+            Object names = input_.get("http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml#names");
             setNames((List<String>)names);
-            Object second = input_.get("second");
+            Object second = input_.get("http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml#second");
             setSecond((java.lang.Number)second);
-            Object year = input_.get("year");
+            Object year = input_.get("http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml#year");
             setYear((java.lang.Number)year);
         }
     }

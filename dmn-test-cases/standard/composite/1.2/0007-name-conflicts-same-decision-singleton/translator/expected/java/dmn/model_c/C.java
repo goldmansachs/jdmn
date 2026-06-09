@@ -66,8 +66,8 @@ public class C extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String> {
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long cStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments cArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            cArguments_.put("Model A.a", model_a_a);
-            cArguments_.put("Model B.a", model_b_a);
+            cArguments_.put("http://www.provider.com/definitions/model-a#a", model_a_a);
+            cArguments_.put("http://www.provider.com/definitions/model-b#a", model_b_a);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, cArguments_);
 
             // Evaluate decision 'c'

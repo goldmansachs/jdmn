@@ -13,11 +13,11 @@ public class PickInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput 
 
     public PickInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object date = input_.get("date");
+            Object date = input_.get("http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml#date");
             setDate((java.time.LocalDate)date);
-            Object datetime = input_.get("datetime");
+            Object datetime = input_.get("http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml#datetime");
             setDatetime((java.time.temporal.TemporalAccessor)datetime);
-            Object time = input_.get("time");
+            Object time = input_.get("http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml#time");
             setTime((java.time.temporal.TemporalAccessor)time);
         }
     }

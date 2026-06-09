@@ -52,7 +52,7 @@ public class TestNullComplexTypeAccess extends com.gs.dmn.signavio.runtime.JavaT
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long testNullComplexTypeAccessStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments testNullComplexTypeAccessArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            testNullComplexTypeAccessArguments_.put("InputString", inputString);
+            testNullComplexTypeAccessArguments_.put("http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml#inputString", inputString);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, testNullComplexTypeAccessArguments_);
 
             // Evaluate decision 'testNullComplexTypeAccess'

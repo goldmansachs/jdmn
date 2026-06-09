@@ -15,15 +15,15 @@ public class DecisionInput_ implements com.gs.dmn.runtime.ExecutableDRGElementIn
 
     public DecisionInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object booleanInput = input_.get("BooleanInput");
+            Object booleanInput = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#booleanInput");
             setBooleanInput((Boolean)booleanInput);
-            Object dateInput = input_.get("DateInput");
+            Object dateInput = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#dateInput");
             setDateInput((java.time.LocalDate)dateInput);
-            Object enumerationInput = input_.get("EnumerationInput");
+            Object enumerationInput = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#enumerationInput");
             setEnumerationInput((String)enumerationInput);
-            Object numberInput = input_.get("NumberInput");
+            Object numberInput = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#numberInput");
             setNumberInput((java.lang.Number)numberInput);
-            Object stringInput = input_.get("StringInput");
+            Object stringInput = input_.get("http://www.omg.org/spec/DMN/20151101/dmn.xsd#stringInput");
             setStringInput((String)stringInput);
         }
     }

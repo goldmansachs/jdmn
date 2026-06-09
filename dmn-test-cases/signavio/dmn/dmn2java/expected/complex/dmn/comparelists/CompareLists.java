@@ -45,8 +45,8 @@ public class CompareLists extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBa
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long compareListsStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments compareListsArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            compareListsArguments_.put("L1", l12_iterator);
-            compareListsArguments_.put("L2", l2_iterator);
+            compareListsArguments_.put("http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml#l12_iterator", l12_iterator);
+            compareListsArguments_.put("http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml#l2_iterator", l2_iterator);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, compareListsArguments_);
 
             // Evaluate decision 'compareLists'

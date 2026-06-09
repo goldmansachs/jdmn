@@ -11,7 +11,7 @@ public class MainInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput 
 
     public MainInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object n = input_.get("n");
+            Object n = input_.get("http://www.gs.com/spec/DMN/9001-recursive-function#n");
             setN((java.lang.Number)n);
         }
     }

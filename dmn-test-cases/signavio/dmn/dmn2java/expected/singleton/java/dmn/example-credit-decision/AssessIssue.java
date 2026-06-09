@@ -52,8 +52,8 @@ public class AssessIssue extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBas
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long assessIssueStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments assessIssueArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            assessIssueArguments_.put("Current risk appetite", currentRiskAppetite);
-            assessIssueArguments_.put("Prior issue", priorIssue_iterator);
+            assessIssueArguments_.put("http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite", currentRiskAppetite);
+            assessIssueArguments_.put("http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#priorIssue_iterator", priorIssue_iterator);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, assessIssueArguments_);
 
             // Evaluate decision 'assessIssue'

@@ -52,9 +52,9 @@ public class StringHandlingComparator extends com.gs.dmn.signavio.runtime.JavaTi
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long stringHandlingComparatorStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments stringHandlingComparatorArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            stringHandlingComparatorArguments_.put("numberA", numberA);
-            stringHandlingComparatorArguments_.put("numberB", numberB);
-            stringHandlingComparatorArguments_.put("stringList", stringList);
+            stringHandlingComparatorArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberA", numberA);
+            stringHandlingComparatorArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberB", numberB);
+            stringHandlingComparatorArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#stringList", stringList);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, stringHandlingComparatorArguments_);
 
             // Evaluate decision 'stringHandlingComparator'

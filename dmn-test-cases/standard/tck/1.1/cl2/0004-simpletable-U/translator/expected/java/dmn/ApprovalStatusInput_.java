@@ -13,11 +13,11 @@ public class ApprovalStatusInput_ implements com.gs.dmn.runtime.ExecutableDRGEle
 
     public ApprovalStatusInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object age = input_.get("Age");
+            Object age = input_.get("http://www.trisotech.com/definitions/_edbd2d8e-a5a8-4660-9bb9-adaa792d900c#Age");
             setAge((java.lang.Number)age);
-            Object riskCategory = input_.get("RiskCategory");
+            Object riskCategory = input_.get("http://www.trisotech.com/definitions/_edbd2d8e-a5a8-4660-9bb9-adaa792d900c#RiskCategory");
             setRiskCategory((String)riskCategory);
-            Object isAffordable = input_.get("isAffordable");
+            Object isAffordable = input_.get("http://www.trisotech.com/definitions/_edbd2d8e-a5a8-4660-9bb9-adaa792d900c#isAffordable");
             setIsAffordable((Boolean)isAffordable);
         }
     }

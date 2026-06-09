@@ -52,13 +52,13 @@ public class LitexpLogic extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBas
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long litexpLogicStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments litexpLogicArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            litexpLogicArguments_.put("blacklist", blacklist);
-            litexpLogicArguments_.put("ListOfNumbers", listOfNumbers);
-            litexpLogicArguments_.put("names", names);
-            litexpLogicArguments_.put("rgb1", rgb1);
-            litexpLogicArguments_.put("rgb1 list", rgb1List);
-            litexpLogicArguments_.put("rgb2", rgb2);
-            litexpLogicArguments_.put("rgb2 list", rgb2List);
+            litexpLogicArguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#blacklist", blacklist);
+            litexpLogicArguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#listOfNumbers", listOfNumbers);
+            litexpLogicArguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#names", names);
+            litexpLogicArguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#rgb1", rgb1);
+            litexpLogicArguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#rgb1List", rgb1List);
+            litexpLogicArguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#rgb2", rgb2);
+            litexpLogicArguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#rgb2List", rgb2List);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, litexpLogicArguments_);
 
             // Evaluate BKM 'litexpLogic'

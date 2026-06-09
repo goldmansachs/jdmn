@@ -11,7 +11,7 @@ public class AbcInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
 
     public AbcInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object num = input_.get("num");
+            Object num = input_.get("http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml#num");
             setNum((java.lang.Number)num);
         }
     }

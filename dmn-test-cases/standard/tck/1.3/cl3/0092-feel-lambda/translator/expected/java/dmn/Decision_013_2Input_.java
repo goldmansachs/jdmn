@@ -11,7 +11,7 @@ public class Decision_013_2Input_ implements com.gs.dmn.runtime.ExecutableDRGEle
 
     public Decision_013_2Input_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object input_013_1 = input_.get("input_013_1");
+            Object input_013_1 = input_.get("http://www.montera.com.au/spec/DMN/0092-feel-lambda#input_013_1");
             setInput_013_1((java.lang.Number)input_013_1);
         }
     }

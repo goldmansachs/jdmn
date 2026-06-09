@@ -12,9 +12,9 @@ public class CalculateDotProductInput_ implements com.gs.dmn.runtime.ExecutableD
 
     public CalculateDotProductInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object a = input_.get("A");
+            Object a = input_.get("http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml#a");
             setA((List<java.lang.Number>)a);
-            Object b = input_.get("B");
+            Object b = input_.get("http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml#b");
             setB((List<java.lang.Number>)b);
         }
     }

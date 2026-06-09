@@ -65,7 +65,7 @@ public class PriceGt10 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boolea
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long priceGt10StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments priceGt10Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            priceGt10Arguments_.put("structA", structA);
+            priceGt10Arguments_.put("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#structA", structA);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, priceGt10Arguments_);
 
             // Evaluate decision 'priceGt10'

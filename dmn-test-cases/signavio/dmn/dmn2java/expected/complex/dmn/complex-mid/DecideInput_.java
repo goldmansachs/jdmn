@@ -11,7 +11,7 @@ public class DecideInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInpu
 
     public DecideInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object properties_iterator = input_.get("Properties");
+            Object properties_iterator = input_.get("http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml#properties_iterator");
             setProperties_iterator((String)properties_iterator);
         }
     }

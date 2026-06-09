@@ -64,14 +64,14 @@ public class Zip extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecisio
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long zipStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments zipArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            zipArguments_.put("ages", ages);
-            zipArguments_.put("day", day);
-            zipArguments_.put("hour", hour);
-            zipArguments_.put("minute", minute);
-            zipArguments_.put("month", month);
-            zipArguments_.put("names", names);
-            zipArguments_.put("second", second);
-            zipArguments_.put("year", year);
+            zipArguments_.put("http://www.omg.org/spec/DMN/20151101/dmn.xsd#ages", ages);
+            zipArguments_.put("http://www.omg.org/spec/DMN/20151101/dmn.xsd#day", day);
+            zipArguments_.put("http://www.omg.org/spec/DMN/20151101/dmn.xsd#hour", hour);
+            zipArguments_.put("http://www.omg.org/spec/DMN/20151101/dmn.xsd#minute", minute);
+            zipArguments_.put("http://www.omg.org/spec/DMN/20151101/dmn.xsd#month", month);
+            zipArguments_.put("http://www.omg.org/spec/DMN/20151101/dmn.xsd#names", names);
+            zipArguments_.put("http://www.omg.org/spec/DMN/20151101/dmn.xsd#second", second);
+            zipArguments_.put("http://www.omg.org/spec/DMN/20151101/dmn.xsd#year", year);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, zipArguments_);
 
             // Evaluate decision 'zip'

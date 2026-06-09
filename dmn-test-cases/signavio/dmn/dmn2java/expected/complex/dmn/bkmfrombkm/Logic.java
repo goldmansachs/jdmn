@@ -52,8 +52,8 @@ public class Logic extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecis
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long logicStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments logicArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            logicArguments_.put("date input", dateInput);
-            logicArguments_.put("time input", timeInput);
+            logicArguments_.put("http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml#dateInput", dateInput);
+            logicArguments_.put("http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml#timeInput", timeInput);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, logicArguments_);
 
             // Evaluate BKM 'logic'

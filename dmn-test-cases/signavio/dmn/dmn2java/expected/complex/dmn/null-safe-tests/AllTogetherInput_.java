@@ -21,27 +21,27 @@ public class AllTogetherInput_ implements com.gs.dmn.runtime.ExecutableDRGElemen
 
     public AllTogetherInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object booleanA = input_.get("booleanA");
+            Object booleanA = input_.get("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#booleanA");
             setBooleanA((Boolean)booleanA);
-            Object booleanB = input_.get("booleanB");
+            Object booleanB = input_.get("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#booleanB");
             setBooleanB((Boolean)booleanB);
-            Object booleanList = input_.get("booleanList");
+            Object booleanList = input_.get("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#booleanList");
             setBooleanList((List<Boolean>)booleanList);
-            Object date = input_.get("date");
+            Object date = input_.get("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#date");
             setDate((java.time.LocalDate)date);
-            Object dateTime = input_.get("dateTime");
+            Object dateTime = input_.get("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#dateTime");
             setDateTime((java.time.temporal.TemporalAccessor)dateTime);
-            Object numberA = input_.get("numberA");
+            Object numberA = input_.get("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberA");
             setNumberA((java.lang.Number)numberA);
-            Object numberB = input_.get("numberB");
+            Object numberB = input_.get("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberB");
             setNumberB((java.lang.Number)numberB);
-            Object numberList = input_.get("numberList");
+            Object numberList = input_.get("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberList");
             setNumberList((List<java.lang.Number>)numberList);
-            Object string = input_.get("string");
+            Object string = input_.get("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#string");
             setString((String)string);
-            Object stringList = input_.get("stringList");
+            Object stringList = input_.get("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#stringList");
             setStringList((List<String>)stringList);
-            Object time = input_.get("time");
+            Object time = input_.get("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#time");
             setTime((java.time.temporal.TemporalAccessor)time);
         }
     }

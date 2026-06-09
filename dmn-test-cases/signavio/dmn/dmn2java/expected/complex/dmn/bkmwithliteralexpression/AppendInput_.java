@@ -12,9 +12,9 @@ public class AppendInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInpu
 
     public AppendInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object rgb1 = input_.get("rgb1");
+            Object rgb1 = input_.get("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#rgb1");
             setRgb1((String)rgb1);
-            Object rgb2 = input_.get("rgb2");
+            Object rgb2 = input_.get("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#rgb2");
             setRgb2((String)rgb2);
         }
     }

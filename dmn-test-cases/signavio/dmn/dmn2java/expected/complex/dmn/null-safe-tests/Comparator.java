@@ -45,7 +45,7 @@ public class Comparator extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBase
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long comparatorStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments comparatorArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            comparatorArguments_.put("numberA", numberA);
+            comparatorArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberA", numberA);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, comparatorArguments_);
 
             // Evaluate decision 'comparator'

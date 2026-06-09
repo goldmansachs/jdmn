@@ -45,13 +45,13 @@ public class DecisionLitexp extends com.gs.dmn.signavio.runtime.JavaTimeSignavio
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long decisionLitexpStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decisionLitexpArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            decisionLitexpArguments_.put("censored", censored);
-            decisionLitexpArguments_.put("labels", labels);
-            decisionLitexpArguments_.put("numz", numz);
-            decisionLitexpArguments_.put("redgreenblue1", redgreenblue1);
-            decisionLitexpArguments_.put("redgreenblue2", redgreenblue2);
-            decisionLitexpArguments_.put("redgreenbluelist1", redgreenbluelist1);
-            decisionLitexpArguments_.put("redgreenbluelist2", redgreenbluelist2);
+            decisionLitexpArguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#censored", censored);
+            decisionLitexpArguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#labels", labels);
+            decisionLitexpArguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#numz", numz);
+            decisionLitexpArguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#redgreenblue1", redgreenblue1);
+            decisionLitexpArguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#redgreenblue2", redgreenblue2);
+            decisionLitexpArguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#redgreenbluelist1", redgreenbluelist1);
+            decisionLitexpArguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#redgreenbluelist2", redgreenbluelist2);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decisionLitexpArguments_);
 
             // Evaluate decision 'decisionLitexp'

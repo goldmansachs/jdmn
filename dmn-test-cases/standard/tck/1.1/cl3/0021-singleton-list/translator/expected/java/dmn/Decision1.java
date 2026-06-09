@@ -65,7 +65,7 @@ public class Decision1 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<S
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long decision1StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decision1Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            decision1Arguments_.put("Employees", employees);
+            decision1Arguments_.put("http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a#Employees", employees);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decision1Arguments_);
 
             // Evaluate decision 'decision1'

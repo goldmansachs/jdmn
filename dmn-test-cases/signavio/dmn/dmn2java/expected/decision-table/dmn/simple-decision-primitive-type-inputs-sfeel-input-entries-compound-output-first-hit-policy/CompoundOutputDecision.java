@@ -45,13 +45,13 @@ public class CompoundOutputDecision extends com.gs.dmn.signavio.runtime.JavaTime
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long compoundOutputDecisionStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments compoundOutputDecisionArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            compoundOutputDecisionArguments_.put("BooleanInput", booleanInput);
-            compoundOutputDecisionArguments_.put("DateAndTimeInput", dateAndTimeInput);
-            compoundOutputDecisionArguments_.put("DateInput", dateInput);
-            compoundOutputDecisionArguments_.put("EnumerationInput", enumerationInput);
-            compoundOutputDecisionArguments_.put("NumberInput", numberInput);
-            compoundOutputDecisionArguments_.put("TextInput", textInput);
-            compoundOutputDecisionArguments_.put("TimeInput", timeInput);
+            compoundOutputDecisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml#booleanInput", booleanInput);
+            compoundOutputDecisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml#dateAndTimeInput", dateAndTimeInput);
+            compoundOutputDecisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml#dateInput", dateInput);
+            compoundOutputDecisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml#enumerationInput", enumerationInput);
+            compoundOutputDecisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml#numberInput", numberInput);
+            compoundOutputDecisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml#textInput", textInput);
+            compoundOutputDecisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml#timeInput", timeInput);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, compoundOutputDecisionArguments_);
 
             // Evaluate decision 'compoundOutputDecision'

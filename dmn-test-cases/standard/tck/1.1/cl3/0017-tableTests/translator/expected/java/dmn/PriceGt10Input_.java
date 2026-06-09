@@ -11,7 +11,7 @@ public class PriceGt10Input_ implements com.gs.dmn.runtime.ExecutableDRGElementI
 
     public PriceGt10Input_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object structA = input_.get("structA");
+            Object structA = input_.get("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#structA");
             setStructA(type.TA.toTA(structA));
         }
     }

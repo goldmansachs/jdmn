@@ -12,9 +12,9 @@ public class CompareListsInput_ implements com.gs.dmn.runtime.ExecutableDRGEleme
 
     public CompareListsInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object l12_iterator = input_.get("L1");
+            Object l12_iterator = input_.get("http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml#l12_iterator");
             setL12_iterator((java.lang.Number)l12_iterator);
-            Object l2_iterator = input_.get("L2");
+            Object l2_iterator = input_.get("http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml#l2_iterator");
             setL2_iterator((java.lang.Number)l2_iterator);
         }
     }

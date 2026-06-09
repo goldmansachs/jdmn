@@ -45,7 +45,7 @@ public class NegateSecond extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBa
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long negateSecondStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments negateSecondArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            negateSecondArguments_.put("second", second);
+            negateSecondArguments_.put("http://www.omg.org/spec/DMN/20151101/dmn.xsd#second", second);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, negateSecondArguments_);
 
             // Evaluate decision 'negateSecond'

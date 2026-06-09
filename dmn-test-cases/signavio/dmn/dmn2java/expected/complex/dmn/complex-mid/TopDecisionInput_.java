@@ -11,7 +11,7 @@ public class TopDecisionInput_ implements com.gs.dmn.runtime.ExecutableDRGElemen
 
     public TopDecisionInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object testPersonType6_iterator = input_.get("TestPersonType");
+            Object testPersonType6_iterator = input_.get("http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml#testPersonType6_iterator");
             setTestPersonType6_iterator(type.TestPersonType.toTestPersonType(null));
         }
     }

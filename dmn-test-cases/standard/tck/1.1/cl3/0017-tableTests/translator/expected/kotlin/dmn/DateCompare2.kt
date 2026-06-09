@@ -31,8 +31,8 @@ class DateCompare2() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boolean?>() {
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val dateCompare2StartTime_ = System.currentTimeMillis()
             val dateCompare2Arguments_ = com.gs.dmn.runtime.listener.Arguments()
-            dateCompare2Arguments_.put("dateD", dateD)
-            dateCompare2Arguments_.put("dateE", dateE)
+            dateCompare2Arguments_.put("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#dateD", dateD)
+            dateCompare2Arguments_.put("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#dateE", dateE)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, dateCompare2Arguments_)
 
             // Evaluate decision 'dateCompare2'

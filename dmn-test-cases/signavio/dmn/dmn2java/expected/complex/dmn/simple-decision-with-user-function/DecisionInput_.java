@@ -11,7 +11,7 @@ public class DecisionInput_ implements com.gs.dmn.runtime.ExecutableDRGElementIn
 
     public DecisionInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object age = input_.get("Age");
+            Object age = input_.get("http://www.provider.com/dmn/1.1/diagram/de7a0645edac43999154e9b141c9d66a.xml#age");
             setAge((java.lang.Number)age);
         }
     }

@@ -12,9 +12,9 @@ public class CalculateDiscountedPriceInput_ implements com.gs.dmn.runtime.Execut
 
     public CalculateDiscountedPriceInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object price = input_.get("price");
+            Object price = input_.get("https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07#price");
             setPrice((java.lang.Number)price);
-            Object student = input_.get("student");
+            Object student = input_.get("https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07#student");
             setStudent(type.Student.toStudent(student));
         }
     }

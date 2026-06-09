@@ -11,7 +11,7 @@ public class IncompleteDecisionTableInput_ implements com.gs.dmn.runtime.Executa
 
     public IncompleteDecisionTableInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object inputString = input_.get("InputString");
+            Object inputString = input_.get("http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml#inputString");
             setInputString((String)inputString);
         }
     }

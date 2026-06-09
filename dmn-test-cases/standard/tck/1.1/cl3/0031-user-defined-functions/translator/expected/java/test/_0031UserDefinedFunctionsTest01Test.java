@@ -19,8 +19,8 @@ public class _0031UserDefinedFunctionsTest01Test extends com.gs.dmn.runtime.Java
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("inputA", inputA);
-        input_.add("inputB", inputB);
+        input_.add("http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions#inputA", inputA);
+        input_.add("http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions#inputB", inputB);
 
         // Check 'fn invocation positional parameters'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -36,8 +36,8 @@ public class _0031UserDefinedFunctionsTest01Test extends com.gs.dmn.runtime.Java
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("inputA", inputA);
-        input_.add("inputB", inputB);
+        input_.add("http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions#inputA", inputA);
+        input_.add("http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions#inputB", inputB);
 
         // Check 'fn invocation named parameters'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -53,8 +53,8 @@ public class _0031UserDefinedFunctionsTest01Test extends com.gs.dmn.runtime.Java
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("inputA", inputA);
-        input_.add("inputB", inputB);
+        input_.add("http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions#inputA", inputA);
+        input_.add("http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions#inputB", inputB);
 
         // Check 'fn invocation complex parameters'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();

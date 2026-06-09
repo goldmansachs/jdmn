@@ -45,13 +45,13 @@ public class Decision extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDe
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long decisionStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decisionArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            decisionArguments_.put("BooleanInput", booleanInput);
-            decisionArguments_.put("DateAndTimeInput", dateAndTimeInput);
-            decisionArguments_.put("DateInput", dateInput);
-            decisionArguments_.put("EnumerationInput", enumerationInput);
-            decisionArguments_.put("NumberInput", numberInput);
-            decisionArguments_.put("TextInput", textInput);
-            decisionArguments_.put("TimeInput", timeInput);
+            decisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/8e30fec88a0a49feac5e2d32d7188b9f.xml#booleanInput", booleanInput);
+            decisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/8e30fec88a0a49feac5e2d32d7188b9f.xml#dateAndTimeInput", dateAndTimeInput);
+            decisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/8e30fec88a0a49feac5e2d32d7188b9f.xml#dateInput", dateInput);
+            decisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/8e30fec88a0a49feac5e2d32d7188b9f.xml#enumerationInput", enumerationInput);
+            decisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/8e30fec88a0a49feac5e2d32d7188b9f.xml#numberInput", numberInput);
+            decisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/8e30fec88a0a49feac5e2d32d7188b9f.xml#textInput", textInput);
+            decisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/8e30fec88a0a49feac5e2d32d7188b9f.xml#timeInput", timeInput);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decisionArguments_);
 
             // Evaluate decision 'decision'

@@ -18,7 +18,7 @@ public class _0017TableTestsTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("structA", structA);
+        input_.add("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#structA", structA);
 
         // Check 'priceGt10'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -35,9 +35,9 @@ public class _0017TableTestsTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("structA", structA);
-        input_.add("numB", numB);
-        input_.add("numC", numC);
+        input_.add("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#structA", structA);
+        input_.add("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#numB", numB);
+        input_.add("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#numC", numC);
 
         // Check 'priceInRange'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -52,7 +52,7 @@ public class _0017TableTestsTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("dateD", dateD);
+        input_.add("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#dateD", dateD);
 
         // Check 'dateCompare1'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -68,8 +68,8 @@ public class _0017TableTestsTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("dateD", dateD);
-        input_.add("dateE", dateE);
+        input_.add("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#dateD", dateD);
+        input_.add("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#dateE", dateE);
 
         // Check 'dateCompare2'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();

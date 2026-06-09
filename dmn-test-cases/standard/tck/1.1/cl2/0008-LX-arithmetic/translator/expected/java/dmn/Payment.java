@@ -65,7 +65,7 @@ public class Payment extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<java.lan
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long paymentStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments paymentArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            paymentArguments_.put("loan", loan);
+            paymentArguments_.put("http://www.trisotech.com/definitions/_1fedf2c0-0f4a-470c-bc66-a15528e8a49a#loan", loan);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, paymentArguments_);
 
             // Evaluate decision 'payment'

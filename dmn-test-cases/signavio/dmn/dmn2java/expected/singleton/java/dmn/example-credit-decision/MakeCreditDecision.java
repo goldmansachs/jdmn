@@ -59,9 +59,9 @@ public class MakeCreditDecision extends com.gs.dmn.signavio.runtime.JavaTimeSign
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long makeCreditDecisionStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments makeCreditDecisionArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            makeCreditDecisionArguments_.put("Applicant", applicant);
-            makeCreditDecisionArguments_.put("Current risk appetite", currentRiskAppetite);
-            makeCreditDecisionArguments_.put("Lending threshold", lendingThreshold);
+            makeCreditDecisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant", applicant);
+            makeCreditDecisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite", currentRiskAppetite);
+            makeCreditDecisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#lendingThreshold", lendingThreshold);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, makeCreditDecisionArguments_);
 
             // Evaluate decision 'makeCreditDecision'

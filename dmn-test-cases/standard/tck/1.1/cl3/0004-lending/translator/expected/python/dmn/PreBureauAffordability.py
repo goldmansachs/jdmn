@@ -68,8 +68,8 @@ class PreBureauAffordability(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseD
             cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             preBureauAffordabilityStartTime_ = int(time.time_ns()/1000)
             preBureauAffordabilityArguments_ = jdmn.runtime.listener.Arguments.Arguments()
-            preBureauAffordabilityArguments_.put("ApplicantData", applicantData)
-            preBureauAffordabilityArguments_.put("RequestedProduct", requestedProduct)
+            preBureauAffordabilityArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData)
+            preBureauAffordabilityArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequestedProduct", requestedProduct)
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, preBureauAffordabilityArguments_)
 
             # Evaluate decision 'Pre-bureauAffordability'

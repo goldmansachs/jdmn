@@ -45,8 +45,8 @@ public class Removeall extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseD
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long removeallStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments removeallArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            removeallArguments_.put("blacklist", blacklist);
-            removeallArguments_.put("names", names);
+            removeallArguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#blacklist", blacklist);
+            removeallArguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#names", names);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, removeallArguments_);
 
             // Evaluate decision 'removeall'

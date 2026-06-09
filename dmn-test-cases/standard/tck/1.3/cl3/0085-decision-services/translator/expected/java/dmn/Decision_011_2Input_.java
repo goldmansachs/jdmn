@@ -12,9 +12,9 @@ public class Decision_011_2Input_ implements com.gs.dmn.runtime.ExecutableDRGEle
 
     public Decision_011_2Input_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object inputData_011_1 = input_.get("inputData_011_1");
+            Object inputData_011_1 = input_.get("http://www.montera.com.au/spec/DMN/0085-decision-services#inputData_011_1");
             setInputData_011_1((String)inputData_011_1);
-            Object inputData_011_2 = input_.get("inputData_011_2");
+            Object inputData_011_2 = input_.get("http://www.montera.com.au/spec/DMN/0085-decision-services#inputData_011_2");
             setInputData_011_2((String)inputData_011_2);
         }
     }

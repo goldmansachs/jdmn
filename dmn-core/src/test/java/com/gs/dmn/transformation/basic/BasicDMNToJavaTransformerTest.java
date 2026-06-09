@@ -97,62 +97,62 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
     public void testApplyContextKey() {
         // Test TNamedElement and DisplayName kind
         TDRGElement element = this.repository.findDRGElementByName(definitions, "BureauCallType");
-        assertEquals("BureauCallType", transformer.applyContextKey(new FEELParameter(element, null)));
+        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType", transformer.applyContextKey(new FEELParameter(element, null)));
 
         // Test TNamedElement that has a label and DisplayName kind
         element.setLabel("Bureau Call Type Label");
-        assertEquals("Bureau Call Type Label", transformer.applyContextKey(new FEELParameter(element, null)));
+        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType", transformer.applyContextKey(new FEELParameter(element, null)));
 
         // Test TNamedElement that has a label, and SimpleName kind
-        assertEquals("BureauCallType", new MockTransformer(this.repository).applyContextKey(new FEELParameter(element, null)));
+        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType", new MockTransformer(this.repository).applyContextKey(new FEELParameter(element, null)));
 
         // Test reference for single models and DisplayName kind
         DRGElementReference<TDRGElement> reference = this.repository.makeDRGElementReference(element);
-        assertEquals("Bureau Call Type Label", transformer.applyContextKey(new FEELParameter(reference, null)));
+        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType", transformer.applyContextKey(new FEELParameter(reference, null)));
 
         // Test reference for multiple models and SimpleName kind
         reference = this.repository.makeDRGElementReference("", element);
-        assertEquals("BureauCallType", new MockTransformer(this.repository).applyContextKey(new FEELParameter(reference, null)));
+        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType", new MockTransformer(this.repository).applyContextKey(new FEELParameter(reference, null)));
         reference = this.repository.makeDRGElementReference("prefix", element);
-        assertEquals("0004-lending.BureauCallType", new MockTransformer(this.repository).applyContextKey(new FEELParameter(reference, null)));
+        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType", new MockTransformer(this.repository).applyContextKey(new FEELParameter(reference, null)));
     }
 
     @Test
     public void testCacheKey() {
         // Test TNamedElement and DisplayName kind
         TDRGElement element = this.repository.findDRGElementByName(definitions, "BureauCallType");
-        assertEquals("BureauCallType", transformer.cacheKey(element));
+        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType", transformer.cacheKey(element));
 
         // Test TNamedElement that has a label, and DisplayName kind
         element.setLabel("Bureau Call Type Label");
-        assertEquals("BureauCallType", transformer.cacheKey(element));
+        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType", transformer.cacheKey(element));
 
         // Test TNamedElement that has a label, and SimpleName kind
-        assertEquals("BureauCallType", new MockTransformer(this.repository).cacheKey(element));
+        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType", new MockTransformer(this.repository).cacheKey(element));
     }
 
     @Test
     public void testListenerArgumentsKey() {
         // Test TNamedElement and DisplayName kind
         TDRGElement element = this.repository.findDRGElementByName(definitions, "BureauCallType");
-        assertEquals("BureauCallType", transformer.listenerArgumentsKey(new FEELParameter(element, null)));
+        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType", transformer.listenerArgumentsKey(new FEELParameter(element, null)));
 
         // Test TNamedElement that has a label, and DisplayName kind
         element.setLabel("Bureau Call Type Label");
-        assertEquals("Bureau Call Type Label", transformer.listenerArgumentsKey(new FEELParameter(element, null)));
+        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType", transformer.listenerArgumentsKey(new FEELParameter(element, null)));
 
         // Test TNamedElement that has a label, and SimpleName kind
-        assertEquals("BureauCallType", new MockTransformer(this.repository).listenerArgumentsKey(new FEELParameter(element, null)));
+        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType", new MockTransformer(this.repository).listenerArgumentsKey(new FEELParameter(element, null)));
 
         // Test reference for single models and DisplayName kind
         DRGElementReference<TDRGElement> reference = this.repository.makeDRGElementReference(element);
-        assertEquals("Bureau Call Type Label", transformer.listenerArgumentsKey(new FEELParameter(reference, null)));
+        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType", transformer.listenerArgumentsKey(new FEELParameter(reference, null)));
 
         // Test reference for multiple models and SimpleName kind
         reference = this.repository.makeDRGElementReference("", element);
-        assertEquals("BureauCallType", new MockTransformer(this.repository).listenerArgumentsKey(new FEELParameter(reference, null)));
+        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType", new MockTransformer(this.repository).listenerArgumentsKey(new FEELParameter(reference, null)));
         reference = this.repository.makeDRGElementReference("prefix", element);
-        assertEquals("0004-lending.BureauCallType", new MockTransformer(this.repository).listenerArgumentsKey(new FEELParameter(reference, null)));
+        assertEquals("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType", new MockTransformer(this.repository).listenerArgumentsKey(new FEELParameter(reference, null)));
     }
 
     @Test

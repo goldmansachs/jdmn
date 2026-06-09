@@ -31,7 +31,7 @@ class Payment() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<kotlin.Number?>() {
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val paymentStartTime_ = System.currentTimeMillis()
             val paymentArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            paymentArguments_.put("loan", loan)
+            paymentArguments_.put("http://www.trisotech.com/definitions/_1fedf2c0-0f4a-470c-bc66-a15528e8a49a#loan", loan)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, paymentArguments_)
 
             // Evaluate decision 'payment'

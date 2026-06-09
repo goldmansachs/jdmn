@@ -45,7 +45,7 @@ public class DoSomething extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBas
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long doSomethingStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments doSomethingArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            doSomethingArguments_.put("zip", zip4_iterator);
+            doSomethingArguments_.put("http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml#zip4_iterator", zip4_iterator);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, doSomethingArguments_);
 
             // Evaluate decision 'doSomething'

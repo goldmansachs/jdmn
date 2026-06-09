@@ -68,8 +68,8 @@ class Eligibility(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
             cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             eligibilityStartTime_ = int(time.time_ns()/1000)
             eligibilityArguments_ = jdmn.runtime.listener.Arguments.Arguments()
-            eligibilityArguments_.put("ApplicantData", applicantData)
-            eligibilityArguments_.put("RequestedProduct", requestedProduct)
+            eligibilityArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData)
+            eligibilityArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequestedProduct", requestedProduct)
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, eligibilityArguments_)
 
             # Evaluate decision 'Eligibility'

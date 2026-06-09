@@ -31,7 +31,7 @@ class ApplicationRiskScore() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<kotlin
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val applicationRiskScoreStartTime_ = System.currentTimeMillis()
             val applicationRiskScoreArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            applicationRiskScoreArguments_.put("ApplicantData", applicantData)
+            applicationRiskScoreArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, applicationRiskScoreArguments_)
 
             // Evaluate decision 'ApplicationRiskScore'

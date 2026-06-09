@@ -13,11 +13,11 @@ public class RoutingInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInp
 
     public RoutingInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object applicantData = input_.get("ApplicantData");
+            Object applicantData = input_.get("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData");
             setApplicantData(type.TApplicantData.toTApplicantData(applicantData));
-            Object bureauData = input_.get("BureauData");
+            Object bureauData = input_.get("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauData");
             setBureauData(type.TBureauData.toTBureauData(bureauData));
-            Object requestedProduct = input_.get("RequestedProduct");
+            Object requestedProduct = input_.get("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequestedProduct");
             setRequestedProduct(type.TRequestedProduct.toTRequestedProduct(requestedProduct));
         }
     }

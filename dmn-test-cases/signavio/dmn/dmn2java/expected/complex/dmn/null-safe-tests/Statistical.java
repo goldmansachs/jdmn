@@ -45,7 +45,7 @@ public class Statistical extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBas
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long statisticalStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments statisticalArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            statisticalArguments_.put("numberList", numberList);
+            statisticalArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberList", numberList);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, statisticalArguments_);
 
             // Evaluate decision 'statistical'

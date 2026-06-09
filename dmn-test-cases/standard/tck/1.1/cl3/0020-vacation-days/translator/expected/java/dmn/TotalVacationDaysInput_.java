@@ -12,9 +12,9 @@ public class TotalVacationDaysInput_ implements com.gs.dmn.runtime.ExecutableDRG
 
     public TotalVacationDaysInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object age = input_.get("Age");
+            Object age = input_.get("https://www.drools.org/kie-dmn#Age");
             setAge((java.lang.Number)age);
-            Object yearsOfService = input_.get("Years of Service");
+            Object yearsOfService = input_.get("https://www.drools.org/kie-dmn#Years of Service");
             setYearsOfService((java.lang.Number)yearsOfService);
         }
     }

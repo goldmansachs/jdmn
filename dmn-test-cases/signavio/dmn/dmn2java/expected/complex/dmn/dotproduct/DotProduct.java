@@ -52,8 +52,8 @@ public class DotProduct extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBase
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long dotProductStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments dotProductArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            dotProductArguments_.put("A", a);
-            dotProductArguments_.put("B", b);
+            dotProductArguments_.put("http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml#a", a);
+            dotProductArguments_.put("http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml#b", b);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, dotProductArguments_);
 
             // Evaluate decision 'dotProduct'

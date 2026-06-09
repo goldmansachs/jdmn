@@ -56,10 +56,10 @@ public class Sum extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecisio
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long sumStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments sumArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            sumArguments_.put("date", date);
-            sumArguments_.put("datetime", datetime);
-            sumArguments_.put("time", time);
-            sumArguments_.put("time 2", time2);
+            sumArguments_.put("http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml#date", date);
+            sumArguments_.put("http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml#datetime", datetime);
+            sumArguments_.put("http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml#time", time);
+            sumArguments_.put("http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml#time2", time2);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, sumArguments_);
 
             // Evaluate decision 'sum'

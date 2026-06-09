@@ -90,7 +90,7 @@ public class _0092FeelLambdaTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("input_007_1", input_007_1);
+        input_.add("http://www.montera.com.au/spec/DMN/0092-feel-lambda#input_007_1", input_007_1);
 
         // Check 'decision_007_1'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -153,7 +153,7 @@ public class _0092FeelLambdaTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("input_011_1", input_011_1);
+        input_.add("http://www.montera.com.au/spec/DMN/0092-feel-lambda#input_011_1", input_011_1);
 
         // Check 'decision_011_1'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -192,7 +192,7 @@ public class _0092FeelLambdaTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBas
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("input_017_1", input_017_1);
+        input_.add("http://www.montera.com.au/spec/DMN/0092-feel-lambda#input_017_1", input_017_1);
 
         // Check 'decision_017_1'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();

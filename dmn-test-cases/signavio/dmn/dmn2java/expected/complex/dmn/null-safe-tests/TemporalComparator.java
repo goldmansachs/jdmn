@@ -45,7 +45,7 @@ public class TemporalComparator extends com.gs.dmn.signavio.runtime.JavaTimeSign
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long temporalComparatorStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments temporalComparatorArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            temporalComparatorArguments_.put("dateTime", dateTime);
+            temporalComparatorArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#dateTime", dateTime);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, temporalComparatorArguments_);
 
             // Evaluate decision 'temporalComparator'

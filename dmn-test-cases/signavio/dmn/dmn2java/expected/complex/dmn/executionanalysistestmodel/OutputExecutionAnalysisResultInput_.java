@@ -11,7 +11,7 @@ public class OutputExecutionAnalysisResultInput_ implements com.gs.dmn.runtime.E
 
     public OutputExecutionAnalysisResultInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object inputValue = input_.get("InputValue");
+            Object inputValue = input_.get("http://www.provider.com/dmn/1.1/diagram/afb776a3dcf84f12b17e44405f5c80c5.xml#inputValue");
             setInputValue((java.lang.Number)inputValue);
         }
     }

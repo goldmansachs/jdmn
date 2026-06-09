@@ -45,12 +45,12 @@ public class Decision extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDe
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long decisionStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decisionArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            decisionArguments_.put("BooleanInput", booleanInput);
-            decisionArguments_.put("DateInput", dateInput);
-            decisionArguments_.put("EnumerationInput", enumerationInput);
-            decisionArguments_.put("NumberInput", numberInput);
-            decisionArguments_.put("Person", person);
-            decisionArguments_.put("StringInput", stringInput);
+            decisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml#booleanInput", booleanInput);
+            decisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml#dateInput", dateInput);
+            decisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml#enumerationInput", enumerationInput);
+            decisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml#numberInput", numberInput);
+            decisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml#person", person);
+            decisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml#stringInput", stringInput);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decisionArguments_);
 
             // Evaluate decision 'decision'

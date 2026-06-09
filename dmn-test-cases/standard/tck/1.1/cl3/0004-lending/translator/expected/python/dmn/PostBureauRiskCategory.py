@@ -66,8 +66,8 @@ class PostBureauRiskCategory(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseD
             cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             postBureauRiskCategoryStartTime_ = int(time.time_ns()/1000)
             postBureauRiskCategoryArguments_ = jdmn.runtime.listener.Arguments.Arguments()
-            postBureauRiskCategoryArguments_.put("ApplicantData", applicantData)
-            postBureauRiskCategoryArguments_.put("BureauData", bureauData)
+            postBureauRiskCategoryArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData)
+            postBureauRiskCategoryArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauData", bureauData)
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, postBureauRiskCategoryArguments_)
 
             # Evaluate decision 'Post-bureauRiskCategory'

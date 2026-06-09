@@ -52,8 +52,8 @@ public class CalculateDotProduct extends com.gs.dmn.signavio.runtime.JavaTimeSig
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long calculateDotProductStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments calculateDotProductArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            calculateDotProductArguments_.put("A", a);
-            calculateDotProductArguments_.put("B", b);
+            calculateDotProductArguments_.put("http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml#a", a);
+            calculateDotProductArguments_.put("http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml#b", b);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, calculateDotProductArguments_);
 
             // Iterate and aggregate

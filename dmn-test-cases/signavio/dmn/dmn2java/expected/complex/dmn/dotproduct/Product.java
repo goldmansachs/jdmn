@@ -45,7 +45,7 @@ public class Product extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDec
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long productStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments productArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            productArguments_.put("Componentwise", componentwise4_iterator);
+            productArguments_.put("http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml#componentwise4_iterator", componentwise4_iterator);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, productArguments_);
 
             // Evaluate decision 'product'

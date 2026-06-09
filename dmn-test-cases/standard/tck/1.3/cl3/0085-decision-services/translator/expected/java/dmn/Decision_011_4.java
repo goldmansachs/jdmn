@@ -67,9 +67,9 @@ public class Decision_011_4 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<S
             com.gs.dmn.runtime.listener.Arguments decision_011_4Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decision_011_4Arguments_);
 
-            if (cache_.contains("decision_011_4")) {
+            if (cache_.contains("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_011_4")) {
                 // Retrieve value from cache
-                String output_ = (String)cache_.lookup("decision_011_4");
+                String output_ = (String)cache_.lookup("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_011_4");
 
                 // End decision 'decision_011_4'
                 eventListener_.endDRGElement(DRG_ELEMENT_METADATA, decision_011_4Arguments_, output_, (System.currentTimeMillis() - decision_011_4StartTime_));
@@ -78,7 +78,7 @@ public class Decision_011_4 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<S
             } else {
                 // Evaluate decision 'decision_011_4'
                 String output_ = lambda.apply(context_);
-                cache_.bind("decision_011_4", output_);
+                cache_.bind("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_011_4", output_);
 
                 // End decision 'decision_011_4'
                 eventListener_.endDRGElement(DRG_ELEMENT_METADATA, decision_011_4Arguments_, output_, (System.currentTimeMillis() - decision_011_4StartTime_));

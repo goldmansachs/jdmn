@@ -45,7 +45,7 @@ public class BigMid extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDeci
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long bigMidStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments bigMidArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            bigMidArguments_.put("TestPeopleType", testPeopleType);
+            bigMidArguments_.put("http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml#testPeopleType", testPeopleType);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bigMidArguments_);
 
             // Iterate and aggregate

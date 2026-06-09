@@ -11,7 +11,7 @@ public class BodyInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput 
 
     public BodyInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object it_iterator = input_.get("it");
+            Object it_iterator = input_.get("http://www.provider.com/dmn/1.1/diagram/2798610dcc0f4068861fcb0f4af25ac7.xml#it_iterator");
             setIt_iterator(type.It.toIt(null));
         }
     }

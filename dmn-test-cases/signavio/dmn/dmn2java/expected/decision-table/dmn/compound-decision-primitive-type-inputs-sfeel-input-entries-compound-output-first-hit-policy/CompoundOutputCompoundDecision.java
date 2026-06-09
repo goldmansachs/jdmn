@@ -54,10 +54,10 @@ public class CompoundOutputCompoundDecision extends com.gs.dmn.signavio.runtime.
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long compoundOutputCompoundDecisionStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments compoundOutputCompoundDecisionArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            compoundOutputCompoundDecisionArguments_.put("BooleanInput", booleanInput);
-            compoundOutputCompoundDecisionArguments_.put("DD1 Text Input", dd1TextInput);
-            compoundOutputCompoundDecisionArguments_.put("DD2 Number Input", dd2NumberInput);
-            compoundOutputCompoundDecisionArguments_.put("EnumerationInput", enumerationInput);
+            compoundOutputCompoundDecisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/b1489a504a724a1caf493a6cb5187c2c.xml#booleanInput", booleanInput);
+            compoundOutputCompoundDecisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/b1489a504a724a1caf493a6cb5187c2c.xml#dd1TextInput", dd1TextInput);
+            compoundOutputCompoundDecisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/b1489a504a724a1caf493a6cb5187c2c.xml#dd2NumberInput", dd2NumberInput);
+            compoundOutputCompoundDecisionArguments_.put("http://www.provider.com/dmn/1.1/diagram/b1489a504a724a1caf493a6cb5187c2c.xml#enumerationInput", enumerationInput);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, compoundOutputCompoundDecisionArguments_);
 
             // Evaluate decision 'compoundOutputCompoundDecision'

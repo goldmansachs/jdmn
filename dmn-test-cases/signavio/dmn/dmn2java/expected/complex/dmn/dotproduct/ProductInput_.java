@@ -11,7 +11,7 @@ public class ProductInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInp
 
     public ProductInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object componentwise4_iterator = input_.get("Componentwise");
+            Object componentwise4_iterator = input_.get("http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml#componentwise4_iterator");
             setComponentwise4_iterator(type.Componentwise3.toComponentwise3(null));
         }
     }

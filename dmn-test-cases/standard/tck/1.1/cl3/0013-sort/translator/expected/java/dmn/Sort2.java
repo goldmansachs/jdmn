@@ -65,7 +65,7 @@ public class Sort2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<type.
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long sort2StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments sort2Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            sort2Arguments_.put("tableB", tableB);
+            sort2Arguments_.put("http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217#tableB", tableB);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, sort2Arguments_);
 
             // Evaluate decision 'sort2'

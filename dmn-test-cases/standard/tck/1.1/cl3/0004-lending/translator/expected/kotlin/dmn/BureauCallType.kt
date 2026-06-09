@@ -31,7 +31,7 @@ class BureauCallType(val preBureauRiskCategory : PreBureauRiskCategory = PreBure
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val bureauCallTypeStartTime_ = System.currentTimeMillis()
             val bureauCallTypeArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            bureauCallTypeArguments_.put("ApplicantData", applicantData)
+            bureauCallTypeArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bureauCallTypeArguments_)
 
             // Evaluate decision 'BureauCallType'

@@ -45,7 +45,7 @@ public class Abc extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecisio
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long abcStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments abcArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            abcArguments_.put("num", num);
+            abcArguments_.put("http://www.provider.com/dmn/1.1/diagram/e514b8c455264f77addcb9d04c542a78.xml#num", num);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, abcArguments_);
 
             // Evaluate decision 'abc'

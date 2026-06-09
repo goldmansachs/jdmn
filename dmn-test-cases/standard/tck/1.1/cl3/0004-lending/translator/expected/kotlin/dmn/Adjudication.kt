@@ -31,9 +31,9 @@ class Adjudication() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String?>() {
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val adjudicationStartTime_ = System.currentTimeMillis()
             val adjudicationArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            adjudicationArguments_.put("ApplicantData", applicantData)
-            adjudicationArguments_.put("BureauData", bureauData)
-            adjudicationArguments_.put("SupportingDocuments", supportingDocuments)
+            adjudicationArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData)
+            adjudicationArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauData", bureauData)
+            adjudicationArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#SupportingDocuments", supportingDocuments)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, adjudicationArguments_)
 
             // Evaluate decision 'Adjudication'

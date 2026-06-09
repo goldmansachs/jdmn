@@ -11,7 +11,7 @@ public class BureauCallTypeInput_ implements com.gs.dmn.runtime.ExecutableDRGEle
 
     public BureauCallTypeInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object applicantData = input_.get("ApplicantData");
+            Object applicantData = input_.get("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData");
             setApplicantData(type.TApplicantData.toTApplicantData(applicantData));
         }
     }

@@ -61,9 +61,9 @@ class Adjudication(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
             cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             adjudicationStartTime_ = int(time.time_ns()/1000)
             adjudicationArguments_ = jdmn.runtime.listener.Arguments.Arguments()
-            adjudicationArguments_.put("ApplicantData", applicantData)
-            adjudicationArguments_.put("BureauData", bureauData)
-            adjudicationArguments_.put("SupportingDocuments", supportingDocuments)
+            adjudicationArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData)
+            adjudicationArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauData", bureauData)
+            adjudicationArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#SupportingDocuments", supportingDocuments)
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, adjudicationArguments_)
 
             # Evaluate decision 'Adjudication'

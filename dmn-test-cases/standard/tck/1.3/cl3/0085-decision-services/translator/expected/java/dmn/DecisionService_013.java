@@ -79,12 +79,12 @@ public class DecisionService_013 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long decisionService_013StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decisionService_013Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            decisionService_013Arguments_.put("inputData_013_1", inputData_013_1);
-            decisionService_013Arguments_.put("decision_013_3", decision_013_3);
+            decisionService_013Arguments_.put("http://www.montera.com.au/spec/DMN/0085-decision-services#inputData_013_1", inputData_013_1);
+            decisionService_013Arguments_.put("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_013_3", decision_013_3);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decisionService_013Arguments_);
 
             // Bind input decisions
-            cache_.bind("decision_013_3", decision_013_3);
+            cache_.bind("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_013_3", decision_013_3);
 
             // Evaluate DS 'decisionService_013'
             String output_ = lambda.apply(inputData_013_1, decision_013_3, context_);

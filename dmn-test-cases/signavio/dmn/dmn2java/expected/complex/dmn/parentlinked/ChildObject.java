@@ -52,7 +52,7 @@ public class ChildObject extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBas
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long childObjectStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments childObjectArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            childObjectArguments_.put("num", num);
+            childObjectArguments_.put("http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml#num", num);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, childObjectArguments_);
 
             // Evaluate decision 'childObject'

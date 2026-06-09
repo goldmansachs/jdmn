@@ -45,7 +45,7 @@ public class Test extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecisi
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long testStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments testArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            testArguments_.put("StringInput", stringInput);
+            testArguments_.put("http://www.provider.com/dmn/1.1/diagram/85f2dd29e4774c2f84b883545afdd8cc.xml#stringInput", stringInput);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, testArguments_);
 
             // Evaluate decision 'test'

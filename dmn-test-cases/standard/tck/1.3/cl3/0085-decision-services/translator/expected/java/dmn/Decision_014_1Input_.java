@@ -11,7 +11,7 @@ public class Decision_014_1Input_ implements com.gs.dmn.runtime.ExecutableDRGEle
 
     public Decision_014_1Input_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object inputData_014_1 = input_.get("inputData_014_1");
+            Object inputData_014_1 = input_.get("http://www.montera.com.au/spec/DMN/0085-decision-services#inputData_014_1");
             setInputData_014_1((String)inputData_014_1);
         }
     }

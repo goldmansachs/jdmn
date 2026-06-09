@@ -12,9 +12,9 @@ public class MonthlyPaymentInput_ implements com.gs.dmn.runtime.ExecutableDRGEle
 
     public MonthlyPaymentInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object loan = input_.get("Loan");
+            Object loan = input_.get("http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11#Loan");
             setLoan(type.TLoan.toTLoan(loan));
-            Object fee = input_.get("fee");
+            Object fee = input_.get("http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11#fee");
             setFee((java.lang.Number)fee);
         }
     }

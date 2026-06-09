@@ -21,10 +21,10 @@ public class _0004LendingTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("ApplicantData", applicantData);
-        input_.add("RequestedProduct", requestedProduct);
-        input_.add("BureauData", bureauData);
-        input_.add("SupportingDocuments", supportingDocuments);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequestedProduct", requestedProduct);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauData", bureauData);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#SupportingDocuments", supportingDocuments);
 
         // Check 'Adjudication'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -42,10 +42,10 @@ public class _0004LendingTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("ApplicantData", applicantData);
-        input_.add("RequestedProduct", requestedProduct);
-        input_.add("BureauData", bureauData);
-        input_.add("SupportingDocuments", supportingDocuments);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequestedProduct", requestedProduct);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauData", bureauData);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#SupportingDocuments", supportingDocuments);
 
         // Check 'ApplicationRiskScore'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -63,10 +63,10 @@ public class _0004LendingTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("ApplicantData", applicantData);
-        input_.add("RequestedProduct", requestedProduct);
-        input_.add("BureauData", bureauData);
-        input_.add("SupportingDocuments", supportingDocuments);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequestedProduct", requestedProduct);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauData", bureauData);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#SupportingDocuments", supportingDocuments);
 
         // Check 'Pre-bureauRiskCategory'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -84,10 +84,10 @@ public class _0004LendingTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("ApplicantData", applicantData);
-        input_.add("RequestedProduct", requestedProduct);
-        input_.add("BureauData", bureauData);
-        input_.add("SupportingDocuments", supportingDocuments);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequestedProduct", requestedProduct);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauData", bureauData);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#SupportingDocuments", supportingDocuments);
 
         // Check 'BureauCallType'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -105,10 +105,10 @@ public class _0004LendingTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("ApplicantData", applicantData);
-        input_.add("RequestedProduct", requestedProduct);
-        input_.add("BureauData", bureauData);
-        input_.add("SupportingDocuments", supportingDocuments);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequestedProduct", requestedProduct);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauData", bureauData);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#SupportingDocuments", supportingDocuments);
 
         // Check 'Post-bureauRiskCategory'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -126,10 +126,10 @@ public class _0004LendingTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("ApplicantData", applicantData);
-        input_.add("RequestedProduct", requestedProduct);
-        input_.add("BureauData", bureauData);
-        input_.add("SupportingDocuments", supportingDocuments);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequestedProduct", requestedProduct);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauData", bureauData);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#SupportingDocuments", supportingDocuments);
 
         // Check 'RequiredMonthlyInstallment'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -147,10 +147,10 @@ public class _0004LendingTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("ApplicantData", applicantData);
-        input_.add("RequestedProduct", requestedProduct);
-        input_.add("BureauData", bureauData);
-        input_.add("SupportingDocuments", supportingDocuments);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequestedProduct", requestedProduct);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauData", bureauData);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#SupportingDocuments", supportingDocuments);
 
         // Check 'Pre-bureauAffordability'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -168,10 +168,10 @@ public class _0004LendingTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("ApplicantData", applicantData);
-        input_.add("RequestedProduct", requestedProduct);
-        input_.add("BureauData", bureauData);
-        input_.add("SupportingDocuments", supportingDocuments);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequestedProduct", requestedProduct);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauData", bureauData);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#SupportingDocuments", supportingDocuments);
 
         // Check 'Eligibility'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -189,10 +189,10 @@ public class _0004LendingTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("ApplicantData", applicantData);
-        input_.add("RequestedProduct", requestedProduct);
-        input_.add("BureauData", bureauData);
-        input_.add("SupportingDocuments", supportingDocuments);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequestedProduct", requestedProduct);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauData", bureauData);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#SupportingDocuments", supportingDocuments);
 
         // Check 'Strategy'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -210,10 +210,10 @@ public class _0004LendingTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("ApplicantData", applicantData);
-        input_.add("RequestedProduct", requestedProduct);
-        input_.add("BureauData", bureauData);
-        input_.add("SupportingDocuments", supportingDocuments);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequestedProduct", requestedProduct);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauData", bureauData);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#SupportingDocuments", supportingDocuments);
 
         // Check 'Post-bureauAffordability'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -231,10 +231,10 @@ public class _0004LendingTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("ApplicantData", applicantData);
-        input_.add("RequestedProduct", requestedProduct);
-        input_.add("BureauData", bureauData);
-        input_.add("SupportingDocuments", supportingDocuments);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequestedProduct", requestedProduct);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauData", bureauData);
+        input_.add("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#SupportingDocuments", supportingDocuments);
 
         // Check 'Routing'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();

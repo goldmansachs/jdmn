@@ -31,8 +31,8 @@ class PreBureauAffordability(val preBureauRiskCategory : PreBureauRiskCategory =
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val preBureauAffordabilityStartTime_ = System.currentTimeMillis()
             val preBureauAffordabilityArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            preBureauAffordabilityArguments_.put("ApplicantData", applicantData)
-            preBureauAffordabilityArguments_.put("RequestedProduct", requestedProduct)
+            preBureauAffordabilityArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData)
+            preBureauAffordabilityArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequestedProduct", requestedProduct)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, preBureauAffordabilityArguments_)
 
             // Evaluate decision 'Pre-bureauAffordability'

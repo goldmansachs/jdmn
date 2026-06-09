@@ -45,7 +45,7 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.JavaTimeSign
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long processPriorIssuesStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments processPriorIssuesArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            processPriorIssuesArguments_.put("Applicant", applicant);
+            processPriorIssuesArguments_.put("http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant", applicant);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, processPriorIssuesArguments_);
 
             // Evaluate decision 'processPriorIssues'

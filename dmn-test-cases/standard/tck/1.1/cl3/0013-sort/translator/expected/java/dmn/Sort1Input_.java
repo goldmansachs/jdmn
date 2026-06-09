@@ -11,7 +11,7 @@ public class Sort1Input_ implements com.gs.dmn.runtime.ExecutableDRGElementInput
 
     public Sort1Input_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object listA = input_.get("listA");
+            Object listA = input_.get("http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217#listA");
             setListA((List<java.lang.Number>)listA);
         }
     }

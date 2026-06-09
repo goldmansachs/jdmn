@@ -12,9 +12,9 @@ public class RemoveInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInpu
 
     public RemoveInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object rgb2 = input_.get("rgb2");
+            Object rgb2 = input_.get("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#rgb2");
             setRgb2((String)rgb2);
-            Object rgb2List = input_.get("rgb2 list");
+            Object rgb2List = input_.get("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#rgb2List");
             setRgb2List((List<String>)rgb2List);
         }
     }

@@ -19,7 +19,7 @@
         </literalExpression>
     </decision>
 
-    <businessKnowledgeModel name="bkm001" id="_model_b_bkm001">
+    <businessKnowledgeModel name="model_b_bkm001" id="_model_b_bkm001">
         <variable name="model_b_bkm001"/>
         <encapsulatedLogic>
             <literalExpression typeRef="string">

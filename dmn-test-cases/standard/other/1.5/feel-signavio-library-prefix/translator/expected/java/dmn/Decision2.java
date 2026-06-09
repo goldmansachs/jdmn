@@ -65,7 +65,7 @@ public class Decision2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<java.l
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long decision2StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decision2Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            decision2Arguments_.put("inputDate", inputDate);
+            decision2Arguments_.put("http://www.montera.com.au/spec/DMN/feel-signavio-library-prefix#inputDate", inputDate);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decision2Arguments_);
 
             // Evaluate decision 'Decision2'

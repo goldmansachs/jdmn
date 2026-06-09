@@ -64,7 +64,7 @@ class PreBureauRiskCategory(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDe
             cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             preBureauRiskCategoryStartTime_ = int(time.time_ns()/1000)
             preBureauRiskCategoryArguments_ = jdmn.runtime.listener.Arguments.Arguments()
-            preBureauRiskCategoryArguments_.put("ApplicantData", applicantData)
+            preBureauRiskCategoryArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData)
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, preBureauRiskCategoryArguments_)
 
             # Evaluate decision 'Pre-bureauRiskCategory'

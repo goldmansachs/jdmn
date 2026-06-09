@@ -81,8 +81,8 @@ public class Strategy extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String>
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long strategyStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments strategyArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            strategyArguments_.put("ApplicantData", applicantData);
-            strategyArguments_.put("RequestedProduct", requestedProduct);
+            strategyArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData);
+            strategyArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequestedProduct", requestedProduct);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, strategyArguments_);
 
             // Evaluate decision 'Strategy'

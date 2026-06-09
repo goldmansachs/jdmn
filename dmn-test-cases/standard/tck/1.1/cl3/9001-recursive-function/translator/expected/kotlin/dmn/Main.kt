@@ -31,7 +31,7 @@ class Main() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<kotlin.Number?>() {
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val mainStartTime_ = System.currentTimeMillis()
             val mainArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            mainArguments_.put("n", n)
+            mainArguments_.put("http://www.gs.com/spec/DMN/9001-recursive-function#n", n)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, mainArguments_)
 
             // Evaluate decision 'main'

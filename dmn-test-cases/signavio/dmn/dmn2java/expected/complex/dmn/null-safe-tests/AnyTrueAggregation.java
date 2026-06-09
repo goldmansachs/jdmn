@@ -45,7 +45,7 @@ public class AnyTrueAggregation extends com.gs.dmn.signavio.runtime.JavaTimeSign
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long anyTrueAggregationStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments anyTrueAggregationArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            anyTrueAggregationArguments_.put("booleanList", booleanList);
+            anyTrueAggregationArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#booleanList", booleanList);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, anyTrueAggregationArguments_);
 
             // Iterate and aggregate

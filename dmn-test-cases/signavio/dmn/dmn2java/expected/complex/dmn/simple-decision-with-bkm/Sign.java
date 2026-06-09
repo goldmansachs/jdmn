@@ -45,8 +45,8 @@ public class Sign extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecisi
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long signStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments signArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            signArguments_.put("A", a2);
-            signArguments_.put("B", b3);
+            signArguments_.put("http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml#a2", a2);
+            signArguments_.put("http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml#b3", b3);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, signArguments_);
 
             // Evaluate decision 'sign'

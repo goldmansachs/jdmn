@@ -11,7 +11,7 @@ public class DoSomethingInput_ implements com.gs.dmn.runtime.ExecutableDRGElemen
 
     public DoSomethingInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object zip4_iterator = input_.get("zip");
+            Object zip4_iterator = input_.get("http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml#zip4_iterator");
             setZip4_iterator(type.Zip3.toZip3(null));
         }
     }

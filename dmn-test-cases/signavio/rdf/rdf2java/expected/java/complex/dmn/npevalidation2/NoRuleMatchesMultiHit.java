@@ -45,7 +45,7 @@ public class NoRuleMatchesMultiHit extends com.gs.dmn.signavio.runtime.JavaTimeS
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long noRuleMatchesMultiHitStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments noRuleMatchesMultiHitArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            noRuleMatchesMultiHitArguments_.put("second", second);
+            noRuleMatchesMultiHitArguments_.put("http://www.omg.org/spec/DMN/20151101/dmn.xsd#second", second);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, noRuleMatchesMultiHitArguments_);
 
             // Evaluate decision 'noRuleMatchesMultiHit'

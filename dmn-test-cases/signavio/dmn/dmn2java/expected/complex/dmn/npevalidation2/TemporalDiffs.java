@@ -52,12 +52,12 @@ public class TemporalDiffs extends com.gs.dmn.signavio.runtime.JavaTimeSignavioB
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long temporalDiffsStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments temporalDiffsArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            temporalDiffsArguments_.put("day", day);
-            temporalDiffsArguments_.put("hour", hour);
-            temporalDiffsArguments_.put("minute", minute);
-            temporalDiffsArguments_.put("month", month);
-            temporalDiffsArguments_.put("second", second);
-            temporalDiffsArguments_.put("year", year);
+            temporalDiffsArguments_.put("http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml#day", day);
+            temporalDiffsArguments_.put("http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml#hour", hour);
+            temporalDiffsArguments_.put("http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml#minute", minute);
+            temporalDiffsArguments_.put("http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml#month", month);
+            temporalDiffsArguments_.put("http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml#second", second);
+            temporalDiffsArguments_.put("http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml#year", year);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, temporalDiffsArguments_);
 
             // Evaluate decision 'temporalDiffs'

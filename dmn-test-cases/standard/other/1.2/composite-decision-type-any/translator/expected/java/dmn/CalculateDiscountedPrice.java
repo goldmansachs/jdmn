@@ -72,8 +72,8 @@ public class CalculateDiscountedPrice extends com.gs.dmn.runtime.JavaTimeDMNBase
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long calculateDiscountedPriceStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments calculateDiscountedPriceArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            calculateDiscountedPriceArguments_.put("price", price);
-            calculateDiscountedPriceArguments_.put("student", student);
+            calculateDiscountedPriceArguments_.put("https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07#price", price);
+            calculateDiscountedPriceArguments_.put("https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07#student", student);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, calculateDiscountedPriceArguments_);
 
             // Evaluate decision 'calculateDiscountedPrice'

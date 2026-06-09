@@ -11,7 +11,7 @@ public class Decision_003Input_ implements com.gs.dmn.runtime.ExecutableDRGEleme
 
     public Decision_003Input_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object inputData_003 = input_.get("inputData_003");
+            Object inputData_003 = input_.get("http://www.montera.com.au/spec/DMN/0085-decision-services#inputData_003");
             setInputData_003((String)inputData_003);
         }
     }

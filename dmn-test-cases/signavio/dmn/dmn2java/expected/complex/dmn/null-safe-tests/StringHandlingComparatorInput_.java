@@ -13,11 +13,11 @@ public class StringHandlingComparatorInput_ implements com.gs.dmn.runtime.Execut
 
     public StringHandlingComparatorInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object numberA = input_.get("numberA");
+            Object numberA = input_.get("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberA");
             setNumberA((java.lang.Number)numberA);
-            Object numberB = input_.get("numberB");
+            Object numberB = input_.get("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberB");
             setNumberB((java.lang.Number)numberB);
-            Object stringList = input_.get("stringList");
+            Object stringList = input_.get("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#stringList");
             setStringList((List<String>)stringList);
         }
     }

@@ -12,9 +12,9 @@ public class EligibilityInput_ implements com.gs.dmn.runtime.ExecutableDRGElemen
 
     public EligibilityInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object applicantData = input_.get("ApplicantData");
+            Object applicantData = input_.get("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData");
             setApplicantData(type.TApplicantData.toTApplicantData(applicantData));
-            Object requestedProduct = input_.get("RequestedProduct");
+            Object requestedProduct = input_.get("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequestedProduct");
             setRequestedProduct(type.TRequestedProduct.toTRequestedProduct(requestedProduct));
         }
     }

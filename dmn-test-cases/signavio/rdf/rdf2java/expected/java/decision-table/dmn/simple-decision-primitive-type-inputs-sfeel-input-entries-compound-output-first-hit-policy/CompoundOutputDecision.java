@@ -45,13 +45,13 @@ public class CompoundOutputDecision extends com.gs.dmn.signavio.runtime.JavaTime
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long compoundOutputDecisionStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments compoundOutputDecisionArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            compoundOutputDecisionArguments_.put("BooleanInput", booleanInput);
-            compoundOutputDecisionArguments_.put("DateAndTimeInput", dateAndTimeInput);
-            compoundOutputDecisionArguments_.put("DateInput", dateInput);
-            compoundOutputDecisionArguments_.put("EnumerationInput", enumerationInput);
-            compoundOutputDecisionArguments_.put("NumberInput", numberInput);
-            compoundOutputDecisionArguments_.put("TextInput", textInput);
-            compoundOutputDecisionArguments_.put("TimeInput", timeInput);
+            compoundOutputDecisionArguments_.put("http://www.omg.org/spec/DMN/20151101/dmn.xsd#booleanInput", booleanInput);
+            compoundOutputDecisionArguments_.put("http://www.omg.org/spec/DMN/20151101/dmn.xsd#dateAndTimeInput", dateAndTimeInput);
+            compoundOutputDecisionArguments_.put("http://www.omg.org/spec/DMN/20151101/dmn.xsd#dateInput", dateInput);
+            compoundOutputDecisionArguments_.put("http://www.omg.org/spec/DMN/20151101/dmn.xsd#enumerationInput", enumerationInput);
+            compoundOutputDecisionArguments_.put("http://www.omg.org/spec/DMN/20151101/dmn.xsd#numberInput", numberInput);
+            compoundOutputDecisionArguments_.put("http://www.omg.org/spec/DMN/20151101/dmn.xsd#textInput", textInput);
+            compoundOutputDecisionArguments_.put("http://www.omg.org/spec/DMN/20151101/dmn.xsd#timeInput", timeInput);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, compoundOutputDecisionArguments_);
 
             // Evaluate decision 'compoundOutputDecision'

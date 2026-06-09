@@ -65,8 +65,8 @@ public class ExtraDaysCase2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<j
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long extraDaysCase2StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments extraDaysCase2Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            extraDaysCase2Arguments_.put("Age", age);
-            extraDaysCase2Arguments_.put("Years of Service", yearsOfService);
+            extraDaysCase2Arguments_.put("https://www.drools.org/kie-dmn#Age", age);
+            extraDaysCase2Arguments_.put("https://www.drools.org/kie-dmn#Years of Service", yearsOfService);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, extraDaysCase2Arguments_);
 
             // Evaluate decision 'Extra days case 2'

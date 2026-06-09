@@ -62,11 +62,11 @@ public class PartB extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecis
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long partBStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments partBArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            partBArguments_.put("numberA", numberA);
-            partBArguments_.put("numberB", numberB);
-            partBArguments_.put("numberList", numberList);
-            partBArguments_.put("string", string);
-            partBArguments_.put("stringList", stringList);
+            partBArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberA", numberA);
+            partBArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberB", numberB);
+            partBArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberList", numberList);
+            partBArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#string", string);
+            partBArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#stringList", stringList);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, partBArguments_);
 
             // Evaluate decision 'partB'

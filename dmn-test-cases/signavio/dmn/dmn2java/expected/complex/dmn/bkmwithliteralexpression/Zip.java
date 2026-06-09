@@ -56,13 +56,13 @@ public class Zip extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecisio
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long zipStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments zipArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            zipArguments_.put("blacklist", blacklist);
-            zipArguments_.put("ListOfNumbers", listOfNumbers);
-            zipArguments_.put("names", names);
-            zipArguments_.put("rgb1", rgb1);
-            zipArguments_.put("rgb1 list", rgb1List);
-            zipArguments_.put("rgb2", rgb2);
-            zipArguments_.put("rgb2 list", rgb2List);
+            zipArguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#blacklist", blacklist);
+            zipArguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#listOfNumbers", listOfNumbers);
+            zipArguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#names", names);
+            zipArguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#rgb1", rgb1);
+            zipArguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#rgb1List", rgb1List);
+            zipArguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#rgb2", rgb2);
+            zipArguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#rgb2List", rgb2List);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, zipArguments_);
 
             // Evaluate decision 'zip'

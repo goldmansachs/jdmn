@@ -1313,7 +1313,7 @@ public class DMNModelRepository {
     }
 
     public String cacheKey(TNamedElement element) {
-        return name(element);
+        return qualifiedName(element);
     }
 
     public ImportPath findRelativeImportPath(TDRGElement parent, TDMNElementReference reference) {

@@ -65,7 +65,7 @@ public class Main extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<java.lang.N
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long mainStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments mainArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            mainArguments_.put("n", n);
+            mainArguments_.put("http://www.gs.com/spec/DMN/9001-recursive-function#n", n);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, mainArguments_);
 
             // Evaluate decision 'main'

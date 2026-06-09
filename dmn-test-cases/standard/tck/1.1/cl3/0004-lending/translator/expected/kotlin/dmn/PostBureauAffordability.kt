@@ -31,9 +31,9 @@ class PostBureauAffordability(val postBureauRiskCategory : PostBureauRiskCategor
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val postBureauAffordabilityStartTime_ = System.currentTimeMillis()
             val postBureauAffordabilityArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            postBureauAffordabilityArguments_.put("ApplicantData", applicantData)
-            postBureauAffordabilityArguments_.put("BureauData", bureauData)
-            postBureauAffordabilityArguments_.put("RequestedProduct", requestedProduct)
+            postBureauAffordabilityArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData)
+            postBureauAffordabilityArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauData", bureauData)
+            postBureauAffordabilityArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequestedProduct", requestedProduct)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, postBureauAffordabilityArguments_)
 
             // Evaluate decision 'Post-bureauAffordability'

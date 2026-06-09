@@ -65,7 +65,7 @@ public class EveryGtTen2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Bool
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long everyGtTen2StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments everyGtTen2Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            everyGtTen2Arguments_.put("priceTable2", priceTable2);
+            everyGtTen2Arguments_.put("http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70#priceTable2", priceTable2);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, everyGtTen2Arguments_);
 
             // Evaluate decision 'everyGtTen2'

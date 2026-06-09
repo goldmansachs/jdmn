@@ -78,8 +78,8 @@ public class TotalVacationDays extends com.gs.dmn.runtime.JavaTimeDMNBaseDecisio
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long totalVacationDaysStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments totalVacationDaysArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            totalVacationDaysArguments_.put("Age", age);
-            totalVacationDaysArguments_.put("Years of Service", yearsOfService);
+            totalVacationDaysArguments_.put("https://www.drools.org/kie-dmn#Age", age);
+            totalVacationDaysArguments_.put("https://www.drools.org/kie-dmn#Years of Service", yearsOfService);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, totalVacationDaysArguments_);
 
             // Evaluate decision 'Total Vacation Days'

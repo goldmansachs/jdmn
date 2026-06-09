@@ -73,7 +73,7 @@ public class EvaluatingSayHello extends com.gs.dmn.runtime.JavaTimeDMNBaseDecisi
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long evaluatingSayHelloStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments evaluatingSayHelloArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            evaluatingSayHelloArguments_.put("model-a.personName", model_a_personName);
+            evaluatingSayHelloArguments_.put("http://www.provider.com/definitions/model-a#personName", model_a_personName);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, evaluatingSayHelloArguments_);
 
             // Evaluate decision 'evaluatingSayHello'

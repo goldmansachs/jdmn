@@ -52,7 +52,7 @@ public class ImportedLogicTime extends com.gs.dmn.signavio.runtime.JavaTimeSigna
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long importedLogicTimeStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments importedLogicTimeArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            importedLogicTimeArguments_.put("time", time);
+            importedLogicTimeArguments_.put("http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml#time", time);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, importedLogicTimeArguments_);
 
             // Evaluate BKM 'importedLogicTime'

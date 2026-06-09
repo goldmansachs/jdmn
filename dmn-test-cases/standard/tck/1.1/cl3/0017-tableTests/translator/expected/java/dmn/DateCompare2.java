@@ -65,8 +65,8 @@ public class DateCompare2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boo
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long dateCompare2StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments dateCompare2Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            dateCompare2Arguments_.put("dateD", dateD);
-            dateCompare2Arguments_.put("dateE", dateE);
+            dateCompare2Arguments_.put("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#dateD", dateD);
+            dateCompare2Arguments_.put("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#dateE", dateE);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, dateCompare2Arguments_);
 
             // Evaluate decision 'dateCompare2'

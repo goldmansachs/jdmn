@@ -45,7 +45,7 @@ public class SmallMid extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDe
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long smallMidStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments smallMidArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            smallMidArguments_.put("TestPersonType", testPersonType6_iterator);
+            smallMidArguments_.put("http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml#testPersonType6_iterator", testPersonType6_iterator);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, smallMidArguments_);
 
             // Iterate and aggregate

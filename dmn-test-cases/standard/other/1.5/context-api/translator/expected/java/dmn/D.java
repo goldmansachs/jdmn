@@ -65,8 +65,8 @@ public class D extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<type.Coun
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long dStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments dArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            dArguments_.put("Date", date);
-            dArguments_.put("Person", person);
+            dArguments_.put("https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB#Date", date);
+            dArguments_.put("https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB#Person", person);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, dArguments_);
 
             // Evaluate decision 'D'

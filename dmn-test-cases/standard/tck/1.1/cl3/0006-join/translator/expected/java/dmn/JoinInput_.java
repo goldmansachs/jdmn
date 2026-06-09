@@ -13,11 +13,11 @@ public class JoinInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput 
 
     public JoinInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object deptTable = input_.get("DeptTable");
+            Object deptTable = input_.get("http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29#DeptTable");
             setDeptTable((List<type.TDeptTable>)((java.util.List)deptTable).stream().map(x_ -> type.TDeptTable.toTDeptTable(x_)).collect(java.util.stream.Collectors.toList()));
-            Object employeeTable = input_.get("EmployeeTable");
+            Object employeeTable = input_.get("http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29#EmployeeTable");
             setEmployeeTable((List<type.TEmployeeTable>)((java.util.List)employeeTable).stream().map(x_ -> type.TEmployeeTable.toTEmployeeTable(x_)).collect(java.util.stream.Collectors.toList()));
-            Object lastName = input_.get("LastName");
+            Object lastName = input_.get("http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29#LastName");
             setLastName((String)lastName);
         }
     }

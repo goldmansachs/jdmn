@@ -61,9 +61,9 @@ public class CompareAgainstLendingThreshold extends com.gs.dmn.signavio.runtime.
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long compareAgainstLendingThresholdStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments compareAgainstLendingThresholdArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            compareAgainstLendingThresholdArguments_.put("Applicant", applicant);
-            compareAgainstLendingThresholdArguments_.put("Current risk appetite", currentRiskAppetite);
-            compareAgainstLendingThresholdArguments_.put("Lending threshold", lendingThreshold);
+            compareAgainstLendingThresholdArguments_.put("http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant", applicant);
+            compareAgainstLendingThresholdArguments_.put("http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite", currentRiskAppetite);
+            compareAgainstLendingThresholdArguments_.put("http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#lendingThreshold", lendingThreshold);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, compareAgainstLendingThresholdArguments_);
 
             // Evaluate decision 'compareAgainstLendingThreshold'

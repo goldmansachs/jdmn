@@ -13,11 +13,11 @@ public class CompileInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInp
 
     public CompileInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object name = input_.get("name");
+            Object name = input_.get("http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml#name");
             setName((String)name);
-            Object numbers = input_.get("numbers");
+            Object numbers = input_.get("http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml#numbers");
             setNumbers((List<java.lang.Number>)numbers);
-            Object trafficLight = input_.get("Traffic Light");
+            Object trafficLight = input_.get("http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml#trafficLight");
             setTrafficLight((List<String>)trafficLight);
         }
     }

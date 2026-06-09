@@ -45,8 +45,8 @@ public class Remove extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDeci
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long removeStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments removeArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            removeArguments_.put("rgb2", rgb2);
-            removeArguments_.put("rgb2 list", rgb2List);
+            removeArguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#rgb2", rgb2);
+            removeArguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#rgb2List", rgb2List);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, removeArguments_);
 
             // Evaluate decision 'remove'

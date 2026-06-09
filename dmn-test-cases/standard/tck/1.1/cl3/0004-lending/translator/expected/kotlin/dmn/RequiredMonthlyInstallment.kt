@@ -31,7 +31,7 @@ class RequiredMonthlyInstallment() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val requiredMonthlyInstallmentStartTime_ = System.currentTimeMillis()
             val requiredMonthlyInstallmentArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            requiredMonthlyInstallmentArguments_.put("RequestedProduct", requestedProduct)
+            requiredMonthlyInstallmentArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequestedProduct", requestedProduct)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, requiredMonthlyInstallmentArguments_)
 
             // Evaluate decision 'RequiredMonthlyInstallment'

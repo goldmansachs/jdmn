@@ -19,7 +19,7 @@ public class _0089ModelCTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDec
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("model-a.personName", model_a_personName);
+        input_.add("http://www.provider.com/definitions/model-a#personName", model_a_personName);
 
         // Check 'modelCDecisionBasedOnBs'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();

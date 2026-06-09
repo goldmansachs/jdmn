@@ -11,7 +11,7 @@ public class KeepInputallFalseInput_ implements com.gs.dmn.runtime.ExecutableDRG
 
     public KeepInputallFalseInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object booleanAllFalse_iterator = input_.get("booleanAllFalse");
+            Object booleanAllFalse_iterator = input_.get("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#booleanAllFalse_iterator");
             setBooleanAllFalse_iterator((Boolean)booleanAllFalse_iterator);
         }
     }

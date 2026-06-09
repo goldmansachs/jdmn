@@ -65,7 +65,7 @@ public class Sort1 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<java.
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long sort1StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments sort1Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            sort1Arguments_.put("listA", listA);
+            sort1Arguments_.put("http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217#listA", listA);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, sort1Arguments_);
 
             // Evaluate decision 'sort1'

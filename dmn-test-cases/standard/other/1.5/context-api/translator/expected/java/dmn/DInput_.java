@@ -12,9 +12,9 @@ public class DInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
 
     public DInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object date = input_.get("Date");
+            Object date = input_.get("https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB#Date");
             setDate((java.time.LocalDate)date);
-            Object person = input_.get("Person");
+            Object person = input_.get("https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB#Person");
             setPerson(type.Person.toPerson(person));
         }
     }

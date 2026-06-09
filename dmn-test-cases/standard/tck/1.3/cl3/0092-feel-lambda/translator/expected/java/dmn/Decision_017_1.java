@@ -65,7 +65,7 @@ public class Decision_017_1 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<L
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long decision_017_1StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decision_017_1Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            decision_017_1Arguments_.put("input_017_1", input_017_1);
+            decision_017_1Arguments_.put("http://www.montera.com.au/spec/DMN/0092-feel-lambda#input_017_1", input_017_1);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decision_017_1Arguments_);
 
             // Evaluate decision 'decision_017_1'

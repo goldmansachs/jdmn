@@ -20,9 +20,9 @@ public class _0013SortTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("listA", listA);
-        input_.add("stringList", stringList);
-        input_.add("tableB", tableB);
+        input_.add("http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217#listA", listA);
+        input_.add("http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217#stringList", stringList);
+        input_.add("http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217#tableB", tableB);
 
         // Check 'sort1'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -39,9 +39,9 @@ public class _0013SortTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("listA", listA);
-        input_.add("stringList", stringList);
-        input_.add("tableB", tableB);
+        input_.add("http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217#listA", listA);
+        input_.add("http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217#stringList", stringList);
+        input_.add("http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217#tableB", tableB);
 
         // Check 'sort2'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -58,9 +58,9 @@ public class _0013SortTest01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("listA", listA);
-        input_.add("stringList", stringList);
-        input_.add("tableB", tableB);
+        input_.add("http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217#listA", listA);
+        input_.add("http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217#stringList", stringList);
+        input_.add("http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217#tableB", tableB);
 
         // Check 'sort3'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();

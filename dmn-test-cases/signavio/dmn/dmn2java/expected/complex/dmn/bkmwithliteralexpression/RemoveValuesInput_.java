@@ -11,7 +11,7 @@ public class RemoveValuesInput_ implements com.gs.dmn.runtime.ExecutableDRGEleme
 
     public RemoveValuesInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object listOfNumbers = input_.get("ListOfNumbers");
+            Object listOfNumbers = input_.get("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#listOfNumbers");
             setListOfNumbers((List<java.lang.Number>)listOfNumbers);
         }
     }

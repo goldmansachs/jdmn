@@ -18,7 +18,7 @@ public class _0014LoanComparisonTest01Test extends com.gs.dmn.runtime.JavaTimeDM
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("RequestedAmt", requestedAmt);
+        input_.add("http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719#RequestedAmt", requestedAmt);
 
         // Check 'Bankrates'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -33,7 +33,7 @@ public class _0014LoanComparisonTest01Test extends com.gs.dmn.runtime.JavaTimeDM
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("RequestedAmt", requestedAmt);
+        input_.add("http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719#RequestedAmt", requestedAmt);
 
         // Check 'RankedProducts'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();

@@ -65,8 +65,8 @@ public class AppendAllTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Li
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long appendAllTestStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments appendAllTestArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            appendAllTestArguments_.put("list1", list1);
-            appendAllTestArguments_.put("list2", list2);
+            appendAllTestArguments_.put("http://www.montera.com.au/spec/DMN/feel-signavio-library#list1", list1);
+            appendAllTestArguments_.put("http://www.montera.com.au/spec/DMN/feel-signavio-library#list2", list2);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, appendAllTestArguments_);
 
             // Evaluate decision 'AppendAllTest'

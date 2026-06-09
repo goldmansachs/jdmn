@@ -45,9 +45,9 @@ public class StringHandling extends com.gs.dmn.signavio.runtime.JavaTimeSignavio
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long stringHandlingStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments stringHandlingArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            stringHandlingArguments_.put("numberA", numberA);
-            stringHandlingArguments_.put("numberB", numberB);
-            stringHandlingArguments_.put("stringList", stringList);
+            stringHandlingArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberA", numberA);
+            stringHandlingArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberB", numberB);
+            stringHandlingArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#stringList", stringList);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, stringHandlingArguments_);
 
             // Evaluate decision 'stringHandling'

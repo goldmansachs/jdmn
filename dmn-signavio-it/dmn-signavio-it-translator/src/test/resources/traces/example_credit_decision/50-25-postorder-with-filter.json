@@ -10,7 +10,7 @@
       "rulesCount": 3
     },
     "arguments": {
-      "Applicant": {
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
         "Age": 38,
         "Credit score": 100,
         "Name": "Amy",
@@ -18,8 +18,8 @@
           "Late payment"
         ]
       },
-      "Current risk appetite": 50,
-      "Lending threshold": 25
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#lendingThreshold": 25
     },
     "output": "Accept",
     "ruleNodes": [

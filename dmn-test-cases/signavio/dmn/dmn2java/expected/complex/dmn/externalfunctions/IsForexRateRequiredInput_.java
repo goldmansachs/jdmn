@@ -13,11 +13,11 @@ public class IsForexRateRequiredInput_ implements com.gs.dmn.runtime.ExecutableD
 
     public IsForexRateRequiredInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object derivativeType = input_.get("DerivativeType");
+            Object derivativeType = input_.get("http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml#derivativeType");
             setDerivativeType((String)derivativeType);
-            Object taxChargeType = input_.get("TaxChargeType");
+            Object taxChargeType = input_.get("http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml#taxChargeType");
             setTaxChargeType((String)taxChargeType);
-            Object transactionTaxMetaData = input_.get("TransactionTaxMetaData");
+            Object transactionTaxMetaData = input_.get("http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml#transactionTaxMetaData");
             setTransactionTaxMetaData(type.TransactionTaxMetaData.toTransactionTaxMetaData(null));
         }
     }

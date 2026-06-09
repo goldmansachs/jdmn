@@ -12,9 +12,9 @@ public class TimeFormulaInput_ implements com.gs.dmn.runtime.ExecutableDRGElemen
 
     public TimeFormulaInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object time = input_.get("time");
+            Object time = input_.get("http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml#time");
             setTime((java.time.temporal.TemporalAccessor)time);
-            Object time2 = input_.get("time 2");
+            Object time2 = input_.get("http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml#time2");
             setTime2((java.time.temporal.TemporalAccessor)time2);
         }
     }

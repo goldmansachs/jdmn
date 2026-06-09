@@ -33,7 +33,7 @@
 
     <testCase id="003">
         <description>will import an inputData</description>
-        <inputNode name="model_a_input001">
+        <inputNode name="model_a_input001" namespace="http://www.montera.com.au/spec/DMN/1159-prefix-imports-02-C">
             <value xsi:type="xsd:string">model_a_input001</value>
         </inputNode>
         <resultNode name="decision003" type="decision">
@@ -46,7 +46,7 @@
     <testCase id="004">
         <!-- imported typeRef is a string, we test a string against it -->
         <description>will import a typeRef</description>
-        <inputNode name="model_a_input001">
+        <inputNode name="model_a_input001" namespace="http://www.montera.com.au/spec/DMN/1159-prefix-imports-02-C">
             <value xsi:type="xsd:string">a string</value>
         </inputNode>
         <resultNode name="decision004" type="decision">
@@ -59,7 +59,7 @@
     <testCase id="004_a">
         <!-- imported typeRef is a string, we test a number against it -->
         <description>will import a typeRef</description>
-        <inputNode name="model_a_input001">
+        <inputNode name="model_a_input001" namespace="http://www.montera.com.au/spec/DMN/1159-prefix-imports-02-C">
             <value xsi:type="xsd:decimal">1234</value>
         </inputNode>
         <resultNode name="decision004" type="decision">

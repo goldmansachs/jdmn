@@ -45,8 +45,8 @@ public class Componentwise extends com.gs.dmn.signavio.runtime.JavaTimeSignavioB
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long componentwiseStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments componentwiseArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            componentwiseArguments_.put("A", a);
-            componentwiseArguments_.put("B", b);
+            componentwiseArguments_.put("http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml#a", a);
+            componentwiseArguments_.put("http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml#b", b);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, componentwiseArguments_);
 
             // Evaluate decision 'componentwise'

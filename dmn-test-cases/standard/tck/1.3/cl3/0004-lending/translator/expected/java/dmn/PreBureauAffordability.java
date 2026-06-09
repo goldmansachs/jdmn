@@ -81,8 +81,8 @@ public class PreBureauAffordability extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long preBureauAffordabilityStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments preBureauAffordabilityArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            preBureauAffordabilityArguments_.put("ApplicantData", applicantData);
-            preBureauAffordabilityArguments_.put("RequestedProduct", requestedProduct);
+            preBureauAffordabilityArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData);
+            preBureauAffordabilityArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#RequestedProduct", requestedProduct);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, preBureauAffordabilityArguments_);
 
             // Evaluate decision 'Pre-bureauAffordability'

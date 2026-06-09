@@ -42,7 +42,7 @@ public class _0085DecisionServicesTest01Test extends com.gs.dmn.runtime.JavaTime
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("decision_002_input", decision_002_input);
+        input_.add("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_002_input", decision_002_input);
 
         // Check 'decisionService_002'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -59,9 +59,9 @@ public class _0085DecisionServicesTest01Test extends com.gs.dmn.runtime.JavaTime
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("decision_003_input_1", decision_003_input_1);
-        input_.add("decision_003_input_2", decision_003_input_2);
-        input_.add("inputData_003", inputData_003);
+        input_.add("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_003_input_1", decision_003_input_1);
+        input_.add("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_003_input_2", decision_003_input_2);
+        input_.add("http://www.montera.com.au/spec/DMN/0085-decision-services#inputData_003", inputData_003);
 
         // Check 'decisionService_003'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -136,7 +136,7 @@ public class _0085DecisionServicesTest01Test extends com.gs.dmn.runtime.JavaTime
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("inputData_013_1", inputData_013_1);
+        input_.add("http://www.montera.com.au/spec/DMN/0085-decision-services#inputData_013_1", inputData_013_1);
 
         // Check 'decision_013_1'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -151,7 +151,7 @@ public class _0085DecisionServicesTest01Test extends com.gs.dmn.runtime.JavaTime
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("inputData_014_1", inputData_014_1);
+        input_.add("http://www.montera.com.au/spec/DMN/0085-decision-services#inputData_014_1", inputData_014_1);
 
         // Check 'decision_014_1'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();

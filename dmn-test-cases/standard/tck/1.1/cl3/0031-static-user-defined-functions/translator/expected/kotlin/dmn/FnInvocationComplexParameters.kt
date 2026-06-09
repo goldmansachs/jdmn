@@ -31,8 +31,8 @@ class FnInvocationComplexParameters(val fnLibrary : FnLibrary = FnLibrary()) : c
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val fnInvocationComplexParametersStartTime_ = System.currentTimeMillis()
             val fnInvocationComplexParametersArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            fnInvocationComplexParametersArguments_.put("inputA", inputA)
-            fnInvocationComplexParametersArguments_.put("inputB", inputB)
+            fnInvocationComplexParametersArguments_.put("http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions#inputA", inputA)
+            fnInvocationComplexParametersArguments_.put("http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions#inputB", inputB)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnInvocationComplexParametersArguments_)
 
             // Evaluate decision 'fn invocation complex parameters'

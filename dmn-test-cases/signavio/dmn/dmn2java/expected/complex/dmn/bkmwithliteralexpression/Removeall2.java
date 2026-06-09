@@ -45,8 +45,8 @@ public class Removeall2 extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBase
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long removeall2StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments removeall2Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            removeall2Arguments_.put("rgb1", rgb1);
-            removeall2Arguments_.put("rgb1 list", rgb1List);
+            removeall2Arguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#rgb1", rgb1);
+            removeall2Arguments_.put("http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml#rgb1List", rgb1List);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, removeall2Arguments_);
 
             // Evaluate decision 'removeall2'

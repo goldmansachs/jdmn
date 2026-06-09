@@ -20,9 +20,9 @@ public class _0007SimpletableP2Test01Test extends com.gs.dmn.runtime.JavaTimeDMN
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("Age", age);
-        input_.add("RiskCategory", riskCategory);
-        input_.add("isAffordable", isAffordable);
+        input_.add("http://www.trisotech.com/definitions/_501f6033-f4bc-4823-99aa-edaf29ac2e0b#Age", age);
+        input_.add("http://www.trisotech.com/definitions/_501f6033-f4bc-4823-99aa-edaf29ac2e0b#RiskCategory", riskCategory);
+        input_.add("http://www.trisotech.com/definitions/_501f6033-f4bc-4823-99aa-edaf29ac2e0b#isAffordable", isAffordable);
 
         // Check 'Approval Status'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -39,9 +39,9 @@ public class _0007SimpletableP2Test01Test extends com.gs.dmn.runtime.JavaTimeDMN
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("Age", age);
-        input_.add("RiskCategory", riskCategory);
-        input_.add("isAffordable", isAffordable);
+        input_.add("http://www.trisotech.com/definitions/_501f6033-f4bc-4823-99aa-edaf29ac2e0b#Age", age);
+        input_.add("http://www.trisotech.com/definitions/_501f6033-f4bc-4823-99aa-edaf29ac2e0b#RiskCategory", riskCategory);
+        input_.add("http://www.trisotech.com/definitions/_501f6033-f4bc-4823-99aa-edaf29ac2e0b#isAffordable", isAffordable);
 
         // Check 'Approval Status'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -58,9 +58,9 @@ public class _0007SimpletableP2Test01Test extends com.gs.dmn.runtime.JavaTimeDMN
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("Age", age);
-        input_.add("RiskCategory", riskCategory);
-        input_.add("isAffordable", isAffordable);
+        input_.add("http://www.trisotech.com/definitions/_501f6033-f4bc-4823-99aa-edaf29ac2e0b#Age", age);
+        input_.add("http://www.trisotech.com/definitions/_501f6033-f4bc-4823-99aa-edaf29ac2e0b#RiskCategory", riskCategory);
+        input_.add("http://www.trisotech.com/definitions/_501f6033-f4bc-4823-99aa-edaf29ac2e0b#isAffordable", isAffordable);
 
         // Check 'Approval Status'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();

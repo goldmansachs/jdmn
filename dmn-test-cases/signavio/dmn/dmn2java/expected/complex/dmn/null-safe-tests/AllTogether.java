@@ -56,17 +56,17 @@ public class AllTogether extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBas
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long allTogetherStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments allTogetherArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            allTogetherArguments_.put("booleanA", booleanA);
-            allTogetherArguments_.put("booleanB", booleanB);
-            allTogetherArguments_.put("booleanList", booleanList);
-            allTogetherArguments_.put("date", date);
-            allTogetherArguments_.put("dateTime", dateTime);
-            allTogetherArguments_.put("numberA", numberA);
-            allTogetherArguments_.put("numberB", numberB);
-            allTogetherArguments_.put("numberList", numberList);
-            allTogetherArguments_.put("string", string);
-            allTogetherArguments_.put("stringList", stringList);
-            allTogetherArguments_.put("time", time);
+            allTogetherArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#booleanA", booleanA);
+            allTogetherArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#booleanB", booleanB);
+            allTogetherArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#booleanList", booleanList);
+            allTogetherArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#date", date);
+            allTogetherArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#dateTime", dateTime);
+            allTogetherArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberA", numberA);
+            allTogetherArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberB", numberB);
+            allTogetherArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberList", numberList);
+            allTogetherArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#string", string);
+            allTogetherArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#stringList", stringList);
+            allTogetherArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#time", time);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, allTogetherArguments_);
 
             // Evaluate decision 'allTogether'

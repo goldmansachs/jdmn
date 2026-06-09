@@ -31,8 +31,8 @@ class NamedFunctionInvocation() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Str
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val namedFunctionInvocationStartTime_ = System.currentTimeMillis()
             val namedFunctionInvocationArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            namedFunctionInvocationArguments_.put("stringInputA", stringInputA)
-            namedFunctionInvocationArguments_.put("stringInputB", stringInputB)
+            namedFunctionInvocationArguments_.put("http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions#stringInputA", stringInputA)
+            namedFunctionInvocationArguments_.put("http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions#stringInputB", stringInputB)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, namedFunctionInvocationArguments_)
 
             // Evaluate decision 'named function invocation'

@@ -11,7 +11,7 @@ public class Sort3Input_ implements com.gs.dmn.runtime.ExecutableDRGElementInput
 
     public Sort3Input_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object stringList = input_.get("stringList");
+            Object stringList = input_.get("http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217#stringList");
             setStringList((List<String>)stringList);
         }
     }

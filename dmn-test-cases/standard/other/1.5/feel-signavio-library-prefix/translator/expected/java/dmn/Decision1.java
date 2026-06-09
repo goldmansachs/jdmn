@@ -65,7 +65,7 @@ public class Decision1 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boolea
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long decision1StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decision1Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            decision1Arguments_.put("inputString", inputString);
+            decision1Arguments_.put("http://www.montera.com.au/spec/DMN/feel-signavio-library-prefix#inputString", inputString);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decision1Arguments_);
 
             // Evaluate decision 'Decision1'

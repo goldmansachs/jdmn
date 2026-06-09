@@ -14,11 +14,11 @@ public class PriceInRangeInput_ implements com.gs.dmn.runtime.ExecutableDRGEleme
 
     public PriceInRangeInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object decisioninputs_numB = input_.get("decisionInputs.numB");
+            Object decisioninputs_numB = input_.get("http://www.provider.com/definitions/decision-inputs#numB");
             setDecisioninputs_numB((java.lang.Number)decisioninputs_numB);
-            Object decisioninputs_numC = input_.get("decisionInputs.numC");
+            Object decisioninputs_numC = input_.get("http://www.provider.com/definitions/decision-inputs#numC");
             setDecisioninputs_numC((java.lang.Number)decisioninputs_numC);
-            Object decisioninputs_structA = input_.get("decisionInputs.structA");
+            Object decisioninputs_structA = input_.get("http://www.provider.com/definitions/decision-inputs#structA");
             setDecisioninputs_structA(decisioninputs.type.TA.toTA(decisioninputs_structA));
         }
     }

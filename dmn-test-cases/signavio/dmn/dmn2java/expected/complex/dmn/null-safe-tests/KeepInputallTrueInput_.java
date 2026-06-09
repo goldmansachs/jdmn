@@ -11,7 +11,7 @@ public class KeepInputallTrueInput_ implements com.gs.dmn.runtime.ExecutableDRGE
 
     public KeepInputallTrueInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object booleanAllTrue_iterator = input_.get("booleanAllTrue");
+            Object booleanAllTrue_iterator = input_.get("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#booleanAllTrue_iterator");
             setBooleanAllTrue_iterator((Boolean)booleanAllTrue_iterator);
         }
     }

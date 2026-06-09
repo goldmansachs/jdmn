@@ -18,7 +18,7 @@ public class _0089ModelB1Test01Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("personName", personName);
+        input_.add("http://www.provider.com/definitions/model-a#personName", personName);
 
         // Check 'greetThePerson'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();

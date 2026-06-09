@@ -11,7 +11,7 @@ public class Sort2Input_ implements com.gs.dmn.runtime.ExecutableDRGElementInput
 
     public Sort2Input_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object tableB = input_.get("tableB");
+            Object tableB = input_.get("http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217#tableB");
             setTableB((List<type.TRow>)((java.util.List)tableB).stream().map(x_ -> type.TRow.toTRow(x_)).collect(java.util.stream.Collectors.toList()));
         }
     }

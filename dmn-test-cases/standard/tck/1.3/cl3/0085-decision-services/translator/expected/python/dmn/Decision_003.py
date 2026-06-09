@@ -59,7 +59,7 @@ class Decision_003(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
             cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             decision_003StartTime_ = int(time.time_ns()/1000)
             decision_003Arguments_ = jdmn.runtime.listener.Arguments.Arguments()
-            decision_003Arguments_.put("inputData_003", inputData_003)
+            decision_003Arguments_.put("http://www.montera.com.au/spec/DMN/0085-decision-services#inputData_003", inputData_003)
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, decision_003Arguments_)
 
             # Evaluate decision 'decision_003'

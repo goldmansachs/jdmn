@@ -18,7 +18,7 @@ public class _0021SingletonListTest01Test extends com.gs.dmn.runtime.JavaTimeDMN
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("Employees", employees);
+        input_.add("http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a#Employees", employees);
 
         // Check 'decision1'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -33,7 +33,7 @@ public class _0021SingletonListTest01Test extends com.gs.dmn.runtime.JavaTimeDMN
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("Employees", employees);
+        input_.add("http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a#Employees", employees);
 
         // Check 'decision2'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -48,7 +48,7 @@ public class _0021SingletonListTest01Test extends com.gs.dmn.runtime.JavaTimeDMN
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("Employees", employees);
+        input_.add("http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a#Employees", employees);
 
         // Check 'decision3'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -63,7 +63,7 @@ public class _0021SingletonListTest01Test extends com.gs.dmn.runtime.JavaTimeDMN
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("Employees", employees);
+        input_.add("http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a#Employees", employees);
 
         // Check 'decision4'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -78,7 +78,7 @@ public class _0021SingletonListTest01Test extends com.gs.dmn.runtime.JavaTimeDMN
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("Employees", employees);
+        input_.add("http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a#Employees", employees);
 
         // Check 'decision5'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();

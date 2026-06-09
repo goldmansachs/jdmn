@@ -11,7 +11,7 @@ public class DependentDecision2Input_ implements com.gs.dmn.runtime.ExecutableDR
 
     public DependentDecision2Input_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object dd2NumberInput = input_.get("DD2 Number Input");
+            Object dd2NumberInput = input_.get("http://www.provider.com/dmn/1.1/diagram/b1489a504a724a1caf493a6cb5187c2c.xml#dd2NumberInput");
             setDd2NumberInput((java.lang.Number)dd2NumberInput);
         }
     }

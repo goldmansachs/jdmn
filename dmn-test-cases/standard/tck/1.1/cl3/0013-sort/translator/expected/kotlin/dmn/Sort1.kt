@@ -31,7 +31,7 @@ class Sort1() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<kotlin.Number?>?
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val sort1StartTime_ = System.currentTimeMillis()
             val sort1Arguments_ = com.gs.dmn.runtime.listener.Arguments()
-            sort1Arguments_.put("listA", listA)
+            sort1Arguments_.put("http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217#listA", listA)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, sort1Arguments_)
 
             // Evaluate decision 'sort1'

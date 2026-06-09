@@ -11,7 +11,7 @@ public class ImportedLogicTimeInput_ implements com.gs.dmn.runtime.ExecutableDRG
 
     public ImportedLogicTimeInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object time = input_.get("time");
+            Object time = input_.get("http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml#time");
             setTime((java.time.temporal.TemporalAccessor)time);
         }
     }

@@ -68,11 +68,11 @@ class DecisionService_006(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDeci
             cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             decisionService_006StartTime_ = int(time.time_ns()/1000)
             decisionService_006Arguments_ = jdmn.runtime.listener.Arguments.Arguments()
-            decisionService_006Arguments_.put("decision_006_3", decision_006_3)
+            decisionService_006Arguments_.put("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_006_3", decision_006_3)
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, decisionService_006Arguments_)
 
             # Bind input decisions
-            cache_.bind("decision_006_3", decision_006_3)
+            cache_.bind("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_006_3", decision_006_3)
 
             # Evaluate DS 'decisionService_006'
             output_: typing.Optional[str] = self.evaluate(decision_006_3, context_)

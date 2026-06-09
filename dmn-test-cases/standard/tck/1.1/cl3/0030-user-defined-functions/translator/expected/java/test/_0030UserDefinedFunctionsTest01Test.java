@@ -19,8 +19,8 @@ public class _0030UserDefinedFunctionsTest01Test extends com.gs.dmn.runtime.Java
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("stringInputA", stringInputA);
-        input_.add("stringInputB", stringInputB);
+        input_.add("http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions#stringInputA", stringInputA);
+        input_.add("http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions#stringInputB", stringInputB);
 
         // Check 'simple function invocation'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
@@ -36,8 +36,8 @@ public class _0030UserDefinedFunctionsTest01Test extends com.gs.dmn.runtime.Java
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("stringInputA", stringInputA);
-        input_.add("stringInputB", stringInputB);
+        input_.add("http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions#stringInputA", stringInputA);
+        input_.add("http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions#stringInputB", stringInputB);
 
         // Check 'named function invocation'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();

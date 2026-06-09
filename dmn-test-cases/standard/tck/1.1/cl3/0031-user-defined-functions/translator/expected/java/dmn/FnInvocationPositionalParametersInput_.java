@@ -12,9 +12,9 @@ public class FnInvocationPositionalParametersInput_ implements com.gs.dmn.runtim
 
     public FnInvocationPositionalParametersInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object inputA = input_.get("inputA");
+            Object inputA = input_.get("http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions#inputA");
             setInputA((java.lang.Number)inputA);
-            Object inputB = input_.get("inputB");
+            Object inputB = input_.get("http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions#inputB");
             setInputB((java.lang.Number)inputB);
         }
     }

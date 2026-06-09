@@ -63,9 +63,9 @@ public class GenerateOutputData extends com.gs.dmn.signavio.runtime.JavaTimeSign
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long generateOutputDataStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments generateOutputDataArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            generateOutputDataArguments_.put("Applicant", applicant);
-            generateOutputDataArguments_.put("Current risk appetite", currentRiskAppetite);
-            generateOutputDataArguments_.put("Lending threshold", lendingThreshold);
+            generateOutputDataArguments_.put("http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant", applicant);
+            generateOutputDataArguments_.put("http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite", currentRiskAppetite);
+            generateOutputDataArguments_.put("http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#lendingThreshold", lendingThreshold);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, generateOutputDataArguments_);
 
             // Evaluate decision 'generateOutputData'

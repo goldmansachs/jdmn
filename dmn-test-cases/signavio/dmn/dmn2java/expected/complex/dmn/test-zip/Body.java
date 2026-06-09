@@ -45,7 +45,7 @@ public class Body extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecisi
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long bodyStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments bodyArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            bodyArguments_.put("it", it_iterator);
+            bodyArguments_.put("http://www.provider.com/dmn/1.1/diagram/2798610dcc0f4068861fcb0f4af25ac7.xml#it_iterator", it_iterator);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bodyArguments_);
 
             // Evaluate decision 'body'

@@ -31,9 +31,9 @@ class PriceInRange() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String?>() {
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val priceInRangeStartTime_ = System.currentTimeMillis()
             val priceInRangeArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            priceInRangeArguments_.put("numB", numB)
-            priceInRangeArguments_.put("numC", numC)
-            priceInRangeArguments_.put("structA", structA)
+            priceInRangeArguments_.put("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#numB", numB)
+            priceInRangeArguments_.put("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#numC", numC)
+            priceInRangeArguments_.put("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#structA", structA)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, priceInRangeArguments_)
 
             // Evaluate decision 'priceInRange'

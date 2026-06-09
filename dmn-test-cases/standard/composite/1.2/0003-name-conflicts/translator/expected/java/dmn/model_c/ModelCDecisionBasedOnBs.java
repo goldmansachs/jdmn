@@ -75,7 +75,7 @@ public class ModelCDecisionBasedOnBs extends com.gs.dmn.runtime.JavaTimeDMNBaseD
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long modelCDecisionBasedOnBsStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments modelCDecisionBasedOnBsArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            modelCDecisionBasedOnBsArguments_.put("model-a.personName", model_a_personName);
+            modelCDecisionBasedOnBsArguments_.put("http://www.provider.com/definitions/model-a#personName", model_a_personName);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, modelCDecisionBasedOnBsArguments_);
 
             // Evaluate decision 'modelCDecisionBasedOnBs'

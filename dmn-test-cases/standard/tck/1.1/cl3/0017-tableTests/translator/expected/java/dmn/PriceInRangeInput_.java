@@ -13,11 +13,11 @@ public class PriceInRangeInput_ implements com.gs.dmn.runtime.ExecutableDRGEleme
 
     public PriceInRangeInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object numB = input_.get("numB");
+            Object numB = input_.get("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#numB");
             setNumB((java.lang.Number)numB);
-            Object numC = input_.get("numC");
+            Object numC = input_.get("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#numC");
             setNumC((java.lang.Number)numC);
-            Object structA = input_.get("structA");
+            Object structA = input_.get("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#structA");
             setStructA(type.TA.toTA(structA));
         }
     }

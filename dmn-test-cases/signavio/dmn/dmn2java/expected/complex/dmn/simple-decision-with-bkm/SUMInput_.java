@@ -12,9 +12,9 @@ public class SUMInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
 
     public SUMInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object a = input_.get("A");
+            Object a = input_.get("http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml#a");
             setA((java.lang.Number)a);
-            Object b = input_.get("B");
+            Object b = input_.get("http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml#b");
             setB((java.lang.Number)b);
         }
     }

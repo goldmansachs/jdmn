@@ -9,8 +9,8 @@
     "rulesCount": -1
   },
   "arguments": {
-    "Age": 16,
-    "Years of Service": 1
+    "https://www.drools.org/kie-dmn#Age": 16,
+    "https://www.drools.org/kie-dmn#Years of Service": 1
   },
   "output": 27,
   "ruleNodes": [],
@@ -41,8 +41,8 @@
         "rulesCount": 2
       },
       "arguments": {
-        "Age": 16,
-        "Years of Service": 1
+        "https://www.drools.org/kie-dmn#Age": 16,
+        "https://www.drools.org/kie-dmn#Years of Service": 1
       },
       "output": 5,
       "ruleNodes": [
@@ -102,8 +102,8 @@
         "rulesCount": 2
       },
       "arguments": {
-        "Age": 16,
-        "Years of Service": 1
+        "https://www.drools.org/kie-dmn#Age": 16,
+        "https://www.drools.org/kie-dmn#Years of Service": 1
       },
       "output": 0,
       "ruleNodes": [
@@ -159,8 +159,8 @@
         "rulesCount": 2
       },
       "arguments": {
-        "Age": 16,
-        "Years of Service": 1
+        "https://www.drools.org/kie-dmn#Age": 16,
+        "https://www.drools.org/kie-dmn#Years of Service": 1
       },
       "output": 0,
       "ruleNodes": [

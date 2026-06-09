@@ -13,11 +13,11 @@ public class ArithmeticInput_ implements com.gs.dmn.runtime.ExecutableDRGElement
 
     public ArithmeticInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object numberA = input_.get("numberA");
+            Object numberA = input_.get("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberA");
             setNumberA((java.lang.Number)numberA);
-            Object numberB = input_.get("numberB");
+            Object numberB = input_.get("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberB");
             setNumberB((java.lang.Number)numberB);
-            Object numberList = input_.get("numberList");
+            Object numberList = input_.get("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#numberList");
             setNumberList((List<java.lang.Number>)numberList);
         }
     }

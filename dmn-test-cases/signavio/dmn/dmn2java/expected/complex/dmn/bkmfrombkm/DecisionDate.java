@@ -45,7 +45,7 @@ public class DecisionDate extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBa
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long decisionDateStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decisionDateArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            decisionDateArguments_.put("date input", dateInput);
+            decisionDateArguments_.put("http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml#dateInput", dateInput);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decisionDateArguments_);
 
             // Evaluate decision 'decisionDate'

@@ -45,9 +45,9 @@ public class Compile extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDec
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long compileStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments compileArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            compileArguments_.put("name", name);
-            compileArguments_.put("numbers", numbers);
-            compileArguments_.put("Traffic Light", trafficLight);
+            compileArguments_.put("http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml#name", name);
+            compileArguments_.put("http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml#numbers", numbers);
+            compileArguments_.put("http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml#trafficLight", trafficLight);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, compileArguments_);
 
             // Evaluate decision 'compile'

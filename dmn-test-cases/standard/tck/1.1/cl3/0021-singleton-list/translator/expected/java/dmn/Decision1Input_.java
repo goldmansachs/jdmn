@@ -11,7 +11,7 @@ public class Decision1Input_ implements com.gs.dmn.runtime.ExecutableDRGElementI
 
     public Decision1Input_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object employees = input_.get("Employees");
+            Object employees = input_.get("http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a#Employees");
             setEmployees((List<String>)employees);
         }
     }

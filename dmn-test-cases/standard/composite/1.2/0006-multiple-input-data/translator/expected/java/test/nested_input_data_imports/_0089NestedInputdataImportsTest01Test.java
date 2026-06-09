@@ -19,7 +19,7 @@ public class _0089NestedInputdataImportsTest01Test extends com.gs.dmn.runtime.Ja
 
         // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("Model A.Person name", model_a_personName);
+        input_.add("http://www.trisotech.com/definitions/_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9#Person name", model_a_personName);
 
         // Check 'Model C Decision based on Bs'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();

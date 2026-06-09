@@ -14,7 +14,7 @@
 
     <testCase id="001">
         <description>Only one binding is needed as per https://issues.omg.org/browse/DMN16-50</description>
-        <inputNode name="person">
+        <inputNode name="person" namespace="https://example.org/1160-multiple-imports-01-A">
             <component name="name">
                 <value xsi:type="xsd:string">Peter</value>
             </component>

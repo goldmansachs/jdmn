@@ -45,8 +45,8 @@ public class ProcessL2 extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseD
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long processL2StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments processL2Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            processL2Arguments_.put("L1", l12_iterator);
-            processL2Arguments_.put("L2", l23);
+            processL2Arguments_.put("http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml#l12_iterator", l12_iterator);
+            processL2Arguments_.put("http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml#l23", l23);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, processL2Arguments_);
 
             // Iterate and aggregate

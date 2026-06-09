@@ -61,7 +61,7 @@ class ApplicationRiskScore(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDec
             cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             applicationRiskScoreStartTime_ = int(time.time_ns()/1000)
             applicationRiskScoreArguments_ = jdmn.runtime.listener.Arguments.Arguments()
-            applicationRiskScoreArguments_.put("ApplicantData", applicantData)
+            applicationRiskScoreArguments_.put("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#ApplicantData", applicantData)
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, applicationRiskScoreArguments_)
 
             # Evaluate decision 'ApplicationRiskScore'

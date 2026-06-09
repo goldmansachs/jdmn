@@ -65,9 +65,9 @@ public class Approval extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<type.TA
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long approvalStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments approvalArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            approvalArguments_.put("Age", age);
-            approvalArguments_.put("RiskCategory", riskCategory);
-            approvalArguments_.put("isAffordable", isAffordable);
+            approvalArguments_.put("http://www.trisotech.com/definitions/_a3ebbd98-af09-42f3-9099-4ae2204a1f54#Age", age);
+            approvalArguments_.put("http://www.trisotech.com/definitions/_a3ebbd98-af09-42f3-9099-4ae2204a1f54#RiskCategory", riskCategory);
+            approvalArguments_.put("http://www.trisotech.com/definitions/_a3ebbd98-af09-42f3-9099-4ae2204a1f54#isAffordable", isAffordable);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, approvalArguments_);
 
             // Evaluate decision 'Approval'

@@ -12,9 +12,9 @@ public class SimpleFunctionInvocationInput_ implements com.gs.dmn.runtime.Execut
 
     public SimpleFunctionInvocationInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object stringInputA = input_.get("stringInputA");
+            Object stringInputA = input_.get("http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions#stringInputA");
             setStringInputA((String)stringInputA);
-            Object stringInputB = input_.get("stringInputB");
+            Object stringInputB = input_.get("http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions#stringInputB");
             setStringInputB((String)stringInputB);
         }
     }

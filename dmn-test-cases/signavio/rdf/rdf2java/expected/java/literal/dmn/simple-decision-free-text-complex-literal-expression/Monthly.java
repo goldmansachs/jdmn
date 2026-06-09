@@ -45,7 +45,7 @@ public class Monthly extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDec
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long monthlyStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments monthlyArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            monthlyArguments_.put("Loan", loan);
+            monthlyArguments_.put("http://www.omg.org/spec/DMN/20151101/dmn.xsd#loan", loan);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, monthlyArguments_);
 
             // Evaluate decision 'monthly'

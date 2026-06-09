@@ -45,9 +45,9 @@ public class TemporalDiff extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBa
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long temporalDiffStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments temporalDiffArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            temporalDiffArguments_.put("date", date);
-            temporalDiffArguments_.put("dateTime", dateTime);
-            temporalDiffArguments_.put("time", time);
+            temporalDiffArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#date", date);
+            temporalDiffArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#dateTime", dateTime);
+            temporalDiffArguments_.put("http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml#time", time);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, temporalDiffArguments_);
 
             // Evaluate decision 'temporalDiff'

@@ -12,9 +12,9 @@ public class DecisionInput_ implements com.gs.dmn.runtime.ExecutableDRGElementIn
 
     public DecisionInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object numberInput = input_.get("NumberInput");
+            Object numberInput = input_.get("http://www.provider.com/dmn/1.1/diagram/05d196e8d5c44e038717f3ceb9d60049.xml#numberInput");
             setNumberInput((java.lang.Number)numberInput);
-            Object textInput = input_.get("TextInput");
+            Object textInput = input_.get("http://www.provider.com/dmn/1.1/diagram/05d196e8d5c44e038717f3ceb9d60049.xml#textInput");
             setTextInput((String)textInput);
         }
     }
