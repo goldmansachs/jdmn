@@ -30,7 +30,7 @@ public class GreetThePerson extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<S
     @java.lang.Override()
     public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("Person name"), context_);
+            return apply(input_.get("http://www.trisotech.com/definitions/_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9#Person name"), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'GreetThePerson'", e);
             return null;

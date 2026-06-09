@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class Sort1() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<kotlin.Number?>?>() {
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): List<kotlin.Number?>? {
         try {
-            return apply(input_.get("listA")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<kotlin.Number?>?>() {}) }), context_)
+            return apply(input_.get("http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217#listA")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<kotlin.Number?>?>() {}) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'Sort1'", e)
             return null

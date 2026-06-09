@@ -29,7 +29,7 @@ public class PriceInRange extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Str
     @java.lang.Override()
     public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("numB") != null ? number(input_.get("numB")) : null), (input_.get("numC") != null ? number(input_.get("numC")) : null), (input_.get("structA") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("structA"), new com.fasterxml.jackson.core.type.TypeReference<type.TAImpl>() {}) : null), context_);
+            return apply((input_.get("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#numB") != null ? number(input_.get("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#numB")) : null), (input_.get("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#numC") != null ? number(input_.get("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#numC")) : null), (input_.get("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#structA") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#structA"), new com.fasterxml.jackson.core.type.TypeReference<type.TAImpl>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'PriceInRange'", e);
             return null;

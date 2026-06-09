@@ -29,7 +29,7 @@ public class Join extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String> {
     @java.lang.Override()
     public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("DeptTable") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("DeptTable"), new com.fasterxml.jackson.core.type.TypeReference<List<type.TDeptTable>>() {}) : null), (input_.get("EmployeeTable") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("EmployeeTable"), new com.fasterxml.jackson.core.type.TypeReference<List<type.TEmployeeTable>>() {}) : null), input_.get("LastName"), context_);
+            return apply((input_.get("http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29#DeptTable") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29#DeptTable"), new com.fasterxml.jackson.core.type.TypeReference<List<type.TDeptTable>>() {}) : null), (input_.get("http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29#EmployeeTable") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29#EmployeeTable"), new com.fasterxml.jackson.core.type.TypeReference<List<type.TEmployeeTable>>() {}) : null), input_.get("http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29#LastName"), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Join'", e);
             return null;

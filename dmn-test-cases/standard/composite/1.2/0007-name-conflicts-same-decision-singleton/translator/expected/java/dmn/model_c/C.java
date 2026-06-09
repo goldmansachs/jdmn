@@ -30,7 +30,7 @@ public class C extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String> {
     @java.lang.Override()
     public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("Model A.a"), input_.get("Model B.a"), context_);
+            return apply(input_.get("http://www.provider.com/definitions/model-a#a"), input_.get("http://www.provider.com/definitions/model-b#a"), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'C'", e);
             return null;

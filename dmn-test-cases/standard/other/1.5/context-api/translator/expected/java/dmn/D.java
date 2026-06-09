@@ -29,7 +29,7 @@ public class D extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<type.Coun
     @java.lang.Override()
     public List<type.Country> applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("Date") != null ? date(input_.get("Date")) : null), (input_.get("Person") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("Person"), new com.fasterxml.jackson.core.type.TypeReference<type.PersonImpl>() {}) : null), context_);
+            return apply((input_.get("https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB#Date") != null ? date(input_.get("https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB#Date")) : null), (input_.get("https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB#Person") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB#Person"), new com.fasterxml.jackson.core.type.TypeReference<type.PersonImpl>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'D'", e);
             return null;

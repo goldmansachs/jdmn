@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class NamedFunctionInvocation() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String?>() {
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         try {
-            return apply(input_.get("stringInputA"), input_.get("stringInputB"), context_)
+            return apply(input_.get("http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions#stringInputA"), input_.get("http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions#stringInputB"), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'NamedFunctionInvocation'", e)
             return null

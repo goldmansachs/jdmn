@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class Decision4() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String?>() {
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         try {
-            return apply(input_.get("Employees")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<String?>?>() {}) }), context_)
+            return apply(input_.get("http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a#Employees")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<String?>?>() {}) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'Decision4'", e)
             return null

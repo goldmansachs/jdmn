@@ -90,7 +90,7 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
         reference = this.repository.makeDRGElementReference("", element);
         assertEquals("BureauCallType", new MockTransformer(this.repository).applyMapKey(new FEELParameter(reference, null)));
         reference = this.repository.makeDRGElementReference("prefix", element);
-        assertEquals("0004-lending.BureauCallType", new MockTransformer(this.repository).applyMapKey(new FEELParameter(reference, null)));
+        assertEquals("BureauCallType", new MockTransformer(this.repository).applyMapKey(new FEELParameter(reference, null)));
     }
 
     @Test

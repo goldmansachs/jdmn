@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class DateCompare1() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boolean?>() {
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
         try {
-            return apply(input_.get("dateD")?.let({ date(it) }), context_)
+            return apply(input_.get("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#dateD")?.let({ date(it) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'DateCompare1'", e)
             return null

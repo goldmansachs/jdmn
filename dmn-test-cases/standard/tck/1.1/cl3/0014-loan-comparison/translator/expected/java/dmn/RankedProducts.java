@@ -36,7 +36,7 @@ public class RankedProducts extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<t
     @java.lang.Override()
     public type.TRankedProducts applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("RequestedAmt") != null ? number(input_.get("RequestedAmt")) : null), context_);
+            return apply((input_.get("http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719#RequestedAmt") != null ? number(input_.get("http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719#RequestedAmt")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'RankedProducts'", e);
             return null;

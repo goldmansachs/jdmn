@@ -29,7 +29,7 @@ public class Decision_007_2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<c
     @java.lang.Override()
     public com.gs.dmn.runtime.LambdaExpression<java.lang.Number> applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("input_007_1") != null ? number(input_.get("input_007_1")) : null), context_);
+            return apply((input_.get("http://www.montera.com.au/spec/DMN/0092-feel-lambda#input_007_1") != null ? number(input_.get("http://www.montera.com.au/spec/DMN/0092-feel-lambda#input_007_1")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Decision_007_2'", e);
             return null;

@@ -36,7 +36,7 @@ public class EvaluatingB1SayHello extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
     @java.lang.Override()
     public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("personName"), context_);
+            return apply(input_.get("http://www.provider.com/definitions/model-a#personName"), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'EvaluatingB1SayHello'", e);
             return null;

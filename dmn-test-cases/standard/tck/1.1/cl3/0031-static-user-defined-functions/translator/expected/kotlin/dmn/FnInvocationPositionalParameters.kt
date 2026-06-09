@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class FnInvocationPositionalParameters(val fnLibrary : FnLibrary = FnLibrary()) : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<type.TFnInvocationPositionalResult?>() {
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): type.TFnInvocationPositionalResult? {
         try {
-            return apply(input_.get("inputA")?.let({ number(it) }), input_.get("inputB")?.let({ number(it) }), context_)
+            return apply(input_.get("http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions#inputA")?.let({ number(it) }), input_.get("http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions#inputB")?.let({ number(it) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'FnInvocationPositionalParameters'", e)
             return null

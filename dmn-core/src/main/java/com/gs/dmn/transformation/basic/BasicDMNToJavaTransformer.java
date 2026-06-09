@@ -68,7 +68,6 @@ import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
 public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Type, DMNContext> {
     protected static final Logger LOGGER = LoggerFactory.getLogger(BasicDMNToJavaTransformer.class);
 
-    public static final String NATIVE_QUALIFIED_NAME_SEPARATOR = ".";
     public static final String NATIVE_QUALIFIED_VARIABLE_NAME_SEPARATOR = "_";
 
     private final DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect;
@@ -727,11 +726,22 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     public String applyMapKey(FEELParameter parameter) {
         Object modelElement = parameter.getModelElement();
         if (modelElement instanceof DRGElementReference<?> reference) {
-            return displayName(reference);
-        } else if (modelElement instanceof TNamedElement namedElement) {
-            return displayName(namedElement);
+            modelElement = reference.getElement();
         }
-        throw new SemanticErrorException(String.format("Cannot process apply context argument for element '%s'", modelElement == null ? "" : modelElement.getClass().getSimpleName()));
+        if (modelElement instanceof TNamedElement namedElement) {
+            return applyMapKey(namedElement);
+        }
+        throw new SemanticErrorException(String.format("Cannot process apply map argument for element '%s'", modelElement == null ? "" : modelElement.getClass().getSimpleName()));
+    }
+
+    private String applyMapKey(TNamedElement element) {
+        if (this.inputParameters.getApplyNameKind() == NameKind.SimpleName) {
+            return elementName(element);
+        } else if (this.inputParameters.getApplyNameKind() == NameKind.DisplayName) {
+            return displayName(element);
+        } else {
+            return this.dmnModelRepository.qualifiedName(element);
+        }
     }
 
     @Override
@@ -767,48 +777,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         return this.dmnModelRepository.name(element);
     }
 
-    private String elementName(DRGElementReference<? extends TDRGElement> reference) {
-        String elementName = this.dmnModelRepository.name(reference.getElement());
-        return qualifiedModelName(reference.getImportPath(), reference.getModelName(), elementName);
-    }
-
     private String displayName(TNamedElement element) {
         if (this.inputParameters.getApplyNameKind() == NameKind.SimpleName) {
             return elementName(element);
         } else {
             return this.dmnModelRepository.displayName(element);
-        }
-    }
-
-    private String displayName(DRGElementReference<? extends TDRGElement> reference) {
-        if (this.inputParameters.getApplyNameKind() == NameKind.SimpleName) {
-            return elementName(reference);
-        } else {
-            String elementName = this.dmnModelRepository.displayName(reference.getElement());
-            return qualifiedModelName(reference.getImportPath(), reference.getModelName(), elementName);
-        }
-    }
-
-    private String qualifiedModelName(ImportPath importPath, String modelName, String elementName) {
-        Pair<List<String>, String> qName = qualifiedNameParts(importPath, modelName, elementName);
-
-        String modelPrefix = String.join(NATIVE_QUALIFIED_NAME_SEPARATOR, qName.getLeft());
-        String localName = qName.getRight();
-        if (StringUtils.isBlank(modelPrefix)) {
-            return localName;
-        } else {
-            return String.format("%s%s%s", modelPrefix, NATIVE_QUALIFIED_NAME_SEPARATOR, localName);
-        }
-    }
-
-    private Pair<List<String>, String> qualifiedNameParts(ImportPath importPath, String modelName, String elementName) {
-        if (isOnePackage()) {
-            return new Pair<>(Collections.emptyList(), elementName);
-        } else {
-            if (ImportPath.isEmpty(importPath)) {
-                modelName = "";
-            }
-            return new Pair<>(Collections.singletonList(modelName), elementName);
         }
     }
 

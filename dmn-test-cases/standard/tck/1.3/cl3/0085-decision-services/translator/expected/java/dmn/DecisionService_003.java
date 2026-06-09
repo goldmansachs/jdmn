@@ -43,7 +43,7 @@ public class DecisionService_003 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
     @java.lang.Override()
     public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("inputData_003"), input_.get("decision_003_input_1"), input_.get("decision_003_input_2"), context_);
+            return apply(input_.get("http://www.montera.com.au/spec/DMN/0085-decision-services#inputData_003"), input_.get("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_003_input_1"), input_.get("http://www.montera.com.au/spec/DMN/0085-decision-services#decision_003_input_2"), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'DecisionService_003'", e);
             return null;

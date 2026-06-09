@@ -29,7 +29,7 @@ public class SimpleFunctionInvocation extends com.gs.dmn.runtime.JavaTimeDMNBase
     @java.lang.Override()
     public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("stringInputA"), input_.get("stringInputB"), context_);
+            return apply(input_.get("http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions#stringInputA"), input_.get("http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions#stringInputB"), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'SimpleFunctionInvocation'", e);
             return null;

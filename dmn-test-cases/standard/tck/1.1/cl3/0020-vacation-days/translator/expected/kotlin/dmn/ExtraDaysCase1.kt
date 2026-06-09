@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class ExtraDaysCase1() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<kotlin.Number?>() {
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         try {
-            return apply(input_.get("Age")?.let({ number(it) }), input_.get("Years of Service")?.let({ number(it) }), context_)
+            return apply(input_.get("https://www.drools.org/kie-dmn#Age")?.let({ number(it) }), input_.get("https://www.drools.org/kie-dmn#Years of Service")?.let({ number(it) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'ExtraDaysCase1'", e)
             return null

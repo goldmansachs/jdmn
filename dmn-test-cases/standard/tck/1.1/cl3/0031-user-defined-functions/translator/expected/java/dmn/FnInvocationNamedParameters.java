@@ -36,7 +36,7 @@ public class FnInvocationNamedParameters extends com.gs.dmn.runtime.JavaTimeDMNB
     @java.lang.Override()
     public type.TFnInvocationNamedResult applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("inputA") != null ? number(input_.get("inputA")) : null), (input_.get("inputB") != null ? number(input_.get("inputB")) : null), context_);
+            return apply((input_.get("http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions#inputA") != null ? number(input_.get("http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions#inputA")) : null), (input_.get("http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions#inputB") != null ? number(input_.get("http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions#inputB")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'FnInvocationNamedParameters'", e);
             return null;

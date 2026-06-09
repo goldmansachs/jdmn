@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class Sort3() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<String?>?>() {
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): List<String?>? {
         try {
-            return apply(input_.get("stringList")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<String?>?>() {}) }), context_)
+            return apply(input_.get("http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217#stringList")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<String?>?>() {}) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'Sort3'", e)
             return null

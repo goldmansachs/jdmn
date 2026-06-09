@@ -29,7 +29,7 @@ public class ExtraDaysCase1 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<j
     @java.lang.Override()
     public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("Age") != null ? number(input_.get("Age")) : null), (input_.get("Years of Service") != null ? number(input_.get("Years of Service")) : null), context_);
+            return apply((input_.get("https://www.drools.org/kie-dmn#Age") != null ? number(input_.get("https://www.drools.org/kie-dmn#Age")) : null), (input_.get("https://www.drools.org/kie-dmn#Years of Service") != null ? number(input_.get("https://www.drools.org/kie-dmn#Years of Service")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'ExtraDaysCase1'", e);
             return null;

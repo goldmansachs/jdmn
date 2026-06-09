@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class MonthlyPayment() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<kotlin.Number?>() {
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         try {
-            return apply(input_.get("Loan")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TLoanImpl>() {}) }), input_.get("fee")?.let({ number(it) }), context_)
+            return apply(input_.get("http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11#Loan")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TLoanImpl>() {}) }), input_.get("http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11#fee")?.let({ number(it) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'MonthlyPayment'", e)
             return null

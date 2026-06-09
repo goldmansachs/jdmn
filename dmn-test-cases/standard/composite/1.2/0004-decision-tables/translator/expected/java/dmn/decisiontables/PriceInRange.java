@@ -30,7 +30,7 @@ public class PriceInRange extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Str
     @java.lang.Override()
     public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("decisionInputs.numB") != null ? number(input_.get("decisionInputs.numB")) : null), (input_.get("decisionInputs.numC") != null ? number(input_.get("decisionInputs.numC")) : null), (input_.get("decisionInputs.structA") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("decisionInputs.structA"), new com.fasterxml.jackson.core.type.TypeReference<decisioninputs.type.TAImpl>() {}) : null), context_);
+            return apply((input_.get("http://www.provider.com/definitions/decision-inputs#numB") != null ? number(input_.get("http://www.provider.com/definitions/decision-inputs#numB")) : null), (input_.get("http://www.provider.com/definitions/decision-inputs#numC") != null ? number(input_.get("http://www.provider.com/definitions/decision-inputs#numC")) : null), (input_.get("http://www.provider.com/definitions/decision-inputs#structA") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("http://www.provider.com/definitions/decision-inputs#structA"), new com.fasterxml.jackson.core.type.TypeReference<decisioninputs.type.TAImpl>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'PriceInRange'", e);
             return null;

@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class PriceInRange() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String?>() {
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         try {
-            return apply(input_.get("numB")?.let({ number(it) }), input_.get("numC")?.let({ number(it) }), input_.get("structA")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TAImpl>() {}) }), context_)
+            return apply(input_.get("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#numB")?.let({ number(it) }), input_.get("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#numC")?.let({ number(it) }), input_.get("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#structA")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TAImpl>() {}) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'PriceInRange'", e)
             return null

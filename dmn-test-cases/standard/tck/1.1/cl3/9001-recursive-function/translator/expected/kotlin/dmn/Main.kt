@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class Main() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<kotlin.Number?>() {
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         try {
-            return apply(input_.get("n")?.let({ number(it) }), context_)
+            return apply(input_.get("http://www.gs.com/spec/DMN/9001-recursive-function#n")?.let({ number(it) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'Main'", e)
             return null

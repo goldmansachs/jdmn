@@ -29,7 +29,7 @@ public class Sort1 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<java.
     @java.lang.Override()
     public List<java.lang.Number> applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("listA") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("listA"), new com.fasterxml.jackson.core.type.TypeReference<List<java.lang.Number>>() {}) : null), context_);
+            return apply((input_.get("http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217#listA") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217#listA"), new com.fasterxml.jackson.core.type.TypeReference<List<java.lang.Number>>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Sort1'", e);
             return null;

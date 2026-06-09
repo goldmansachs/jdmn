@@ -30,7 +30,7 @@ public class PriceGt10 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boolea
     @java.lang.Override()
     public Boolean applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("decisionInputs1.structA") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("decisionInputs1.structA"), new com.fasterxml.jackson.core.type.TypeReference<decisioninputs1.type.TAImpl>() {}) : null), context_);
+            return apply((input_.get("http://www.provider.com/definitions/decision-inputs-1#structA") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("http://www.provider.com/definitions/decision-inputs-1#structA"), new com.fasterxml.jackson.core.type.TypeReference<decisioninputs1.type.TAImpl>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'PriceGt10'", e);
             return null;

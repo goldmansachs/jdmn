@@ -29,7 +29,7 @@ public class AgeClassification extends com.gs.dmn.runtime.JavaTimeDMNBaseDecisio
     @java.lang.Override()
     public com.gs.dmn.runtime.Context applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("student") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("student"), new com.fasterxml.jackson.core.type.TypeReference<type.StudentImpl>() {}) : null), context_);
+            return apply((input_.get("https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07#student") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07#student"), new com.fasterxml.jackson.core.type.TypeReference<type.StudentImpl>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'AgeClassification'", e);
             return null;

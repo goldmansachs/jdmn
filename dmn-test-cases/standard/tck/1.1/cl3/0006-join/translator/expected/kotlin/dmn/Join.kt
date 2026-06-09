@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class Join() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String?>() {
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         try {
-            return apply(input_.get("DeptTable")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<type.TDeptTable?>?>() {}) }), input_.get("EmployeeTable")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<type.TEmployeeTable?>?>() {}) }), input_.get("LastName"), context_)
+            return apply(input_.get("http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29#DeptTable")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<type.TDeptTable?>?>() {}) }), input_.get("http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29#EmployeeTable")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<type.TEmployeeTable?>?>() {}) }), input_.get("http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29#LastName"), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'Join'", e)
             return null

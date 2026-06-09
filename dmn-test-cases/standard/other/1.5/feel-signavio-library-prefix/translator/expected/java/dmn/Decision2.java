@@ -29,7 +29,7 @@ public class Decision2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<java.l
     @java.lang.Override()
     public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("inputDate") != null ? date(input_.get("inputDate")) : null), context_);
+            return apply((input_.get("http://www.montera.com.au/spec/DMN/feel-signavio-library-prefix#inputDate") != null ? date(input_.get("http://www.montera.com.au/spec/DMN/feel-signavio-library-prefix#inputDate")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Decision2'", e);
             return null;

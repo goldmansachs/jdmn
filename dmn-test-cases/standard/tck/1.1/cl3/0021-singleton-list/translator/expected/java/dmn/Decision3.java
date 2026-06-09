@@ -29,7 +29,7 @@ public class Decision3 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<S
     @java.lang.Override()
     public List<String> applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("Employees") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("Employees"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), context_);
+            return apply((input_.get("http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a#Employees") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a#Employees"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Decision3'", e);
             return null;

@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class RankedProducts(val bankrates : Bankrates = Bankrates()) : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<type.TRankedProducts?>() {
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): type.TRankedProducts? {
         try {
-            return apply(input_.get("RequestedAmt")?.let({ number(it) }), context_)
+            return apply(input_.get("http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719#RequestedAmt")?.let({ number(it) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'RankedProducts'", e)
             return null

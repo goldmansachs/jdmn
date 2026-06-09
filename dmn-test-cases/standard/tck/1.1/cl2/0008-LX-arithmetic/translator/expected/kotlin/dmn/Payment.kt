@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class Payment() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<kotlin.Number?>() {
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         try {
-            return apply(input_.get("loan")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TLoanImpl>() {}) }), context_)
+            return apply(input_.get("http://www.trisotech.com/definitions/_1fedf2c0-0f4a-470c-bc66-a15528e8a49a#loan")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TLoanImpl>() {}) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'Payment'", e)
             return null

@@ -29,7 +29,7 @@ public class Main extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<java.lang.N
     @java.lang.Override()
     public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("n") != null ? number(input_.get("n")) : null), context_);
+            return apply((input_.get("http://www.gs.com/spec/DMN/9001-recursive-function#n") != null ? number(input_.get("http://www.gs.com/spec/DMN/9001-recursive-function#n")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Main'", e);
             return null;

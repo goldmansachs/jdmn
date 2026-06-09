@@ -29,7 +29,7 @@ public class Sort2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<type.
     @java.lang.Override()
     public List<type.TRow> applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("tableB") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("tableB"), new com.fasterxml.jackson.core.type.TypeReference<List<type.TRow>>() {}) : null), context_);
+            return apply((input_.get("http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217#tableB") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217#tableB"), new com.fasterxml.jackson.core.type.TypeReference<List<type.TRow>>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Sort2'", e);
             return null;

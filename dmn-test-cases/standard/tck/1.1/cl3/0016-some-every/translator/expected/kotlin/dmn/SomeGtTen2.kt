@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class SomeGtTen2() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boolean?>() {
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
         try {
-            return apply(input_.get("priceTable2")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<type.TItemPrice?>?>() {}) }), context_)
+            return apply(input_.get("http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70#priceTable2")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<type.TItemPrice?>?>() {}) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'SomeGtTen2'", e)
             return null

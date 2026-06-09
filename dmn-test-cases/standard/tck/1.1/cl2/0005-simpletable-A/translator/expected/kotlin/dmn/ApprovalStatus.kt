@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class ApprovalStatus() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String?>() {
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         try {
-            return apply(input_.get("Age")?.let({ number(it) }), input_.get("RiskCategory"), input_.get("isAffordable")?.let({ it.toBoolean() }), context_)
+            return apply(input_.get("http://www.trisotech.com/definitions/_6cb03678-38e5-4ee3-826b-d6622c738563#Age")?.let({ number(it) }), input_.get("http://www.trisotech.com/definitions/_6cb03678-38e5-4ee3-826b-d6622c738563#RiskCategory"), input_.get("http://www.trisotech.com/definitions/_6cb03678-38e5-4ee3-826b-d6622c738563#isAffordable")?.let({ it.toBoolean() }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'ApprovalStatus'", e)
             return null

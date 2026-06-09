@@ -43,7 +43,7 @@ public class DecisionService_013_1 extends com.gs.dmn.runtime.JavaTimeDMNBaseDec
     @java.lang.Override()
     public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("input_013_1") != null ? number(input_.get("input_013_1")) : null), context_);
+            return apply((input_.get("http://www.montera.com.au/spec/DMN/0092-feel-lambda#input_013_1") != null ? number(input_.get("http://www.montera.com.au/spec/DMN/0092-feel-lambda#input_013_1")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'DecisionService_013_1'", e);
             return null;

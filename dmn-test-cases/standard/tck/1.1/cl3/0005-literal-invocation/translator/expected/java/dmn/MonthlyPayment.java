@@ -29,7 +29,7 @@ public class MonthlyPayment extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<j
     @java.lang.Override()
     public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("Loan") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("Loan"), new com.fasterxml.jackson.core.type.TypeReference<type.TLoanImpl>() {}) : null), (input_.get("fee") != null ? number(input_.get("fee")) : null), context_);
+            return apply((input_.get("http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11#Loan") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11#Loan"), new com.fasterxml.jackson.core.type.TypeReference<type.TLoanImpl>() {}) : null), (input_.get("http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11#fee") != null ? number(input_.get("http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11#fee")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'MonthlyPayment'", e);
             return null;

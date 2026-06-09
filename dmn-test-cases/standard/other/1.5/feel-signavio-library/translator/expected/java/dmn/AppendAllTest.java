@@ -29,7 +29,7 @@ public class AppendAllTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Li
     @java.lang.Override()
     public List<String> applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("list1") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("list1"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (input_.get("list2") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("list2"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), context_);
+            return apply((input_.get("http://www.montera.com.au/spec/DMN/feel-signavio-library#list1") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("http://www.montera.com.au/spec/DMN/feel-signavio-library#list1"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (input_.get("http://www.montera.com.au/spec/DMN/feel-signavio-library#list2") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("http://www.montera.com.au/spec/DMN/feel-signavio-library#list2"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'AppendAllTest'", e);
             return null;

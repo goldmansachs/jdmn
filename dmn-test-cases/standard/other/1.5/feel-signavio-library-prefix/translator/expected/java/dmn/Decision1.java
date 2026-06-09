@@ -29,7 +29,7 @@ public class Decision1 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boolea
     @java.lang.Override()
     public Boolean applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("inputString"), context_);
+            return apply(input_.get("http://www.montera.com.au/spec/DMN/feel-signavio-library-prefix#inputString"), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Decision1'", e);
             return null;

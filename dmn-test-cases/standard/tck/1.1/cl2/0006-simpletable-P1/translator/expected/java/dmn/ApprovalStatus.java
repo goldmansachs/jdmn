@@ -29,7 +29,7 @@ public class ApprovalStatus extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<S
     @java.lang.Override()
     public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("Age") != null ? number(input_.get("Age")) : null), input_.get("RiskCategory"), (input_.get("isAffordable") != null ? Boolean.valueOf(input_.get("isAffordable")) : null), context_);
+            return apply((input_.get("http://www.trisotech.com/definitions/_791b8e95-b7a7-40e7-9dd1-5ff12364f340#Age") != null ? number(input_.get("http://www.trisotech.com/definitions/_791b8e95-b7a7-40e7-9dd1-5ff12364f340#Age")) : null), input_.get("http://www.trisotech.com/definitions/_791b8e95-b7a7-40e7-9dd1-5ff12364f340#RiskCategory"), (input_.get("http://www.trisotech.com/definitions/_791b8e95-b7a7-40e7-9dd1-5ff12364f340#isAffordable") != null ? Boolean.valueOf(input_.get("http://www.trisotech.com/definitions/_791b8e95-b7a7-40e7-9dd1-5ff12364f340#isAffordable")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'ApprovalStatus'", e);
             return null;

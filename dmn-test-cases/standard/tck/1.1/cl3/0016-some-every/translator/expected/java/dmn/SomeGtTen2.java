@@ -29,7 +29,7 @@ public class SomeGtTen2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boole
     @java.lang.Override()
     public Boolean applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("priceTable2") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("priceTable2"), new com.fasterxml.jackson.core.type.TypeReference<List<type.TItemPrice>>() {}) : null), context_);
+            return apply((input_.get("http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70#priceTable2") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70#priceTable2"), new com.fasterxml.jackson.core.type.TypeReference<List<type.TItemPrice>>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'SomeGtTen2'", e);
             return null;

@@ -29,7 +29,7 @@ public class DateCompare2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boo
     @java.lang.Override()
     public Boolean applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("dateD") != null ? date(input_.get("dateD")) : null), (input_.get("dateE") != null ? date(input_.get("dateE")) : null), context_);
+            return apply((input_.get("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#dateD") != null ? date(input_.get("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#dateD")) : null), (input_.get("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#dateE") != null ? date(input_.get("http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6#dateE")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'DateCompare2'", e);
             return null;
