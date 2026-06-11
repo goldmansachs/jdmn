@@ -37,6 +37,7 @@ public class ToQuotedNameTransformer extends NameTransformer {
             } else if (NameUtils.isQuotedName(oldName)) {
                 return oldName;
             } else {
+                // Escape ' with ''
                 String newName = oldName.replace("'", "''");
                 return "'" + newName + "'";
             }

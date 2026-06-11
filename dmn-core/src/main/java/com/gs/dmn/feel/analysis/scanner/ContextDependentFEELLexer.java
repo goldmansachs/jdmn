@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.scanner;
 
+import com.gs.dmn.NameUtils;
 import com.gs.dmn.runtime.Pair;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonToken;
@@ -160,11 +161,22 @@ public class ContextDependentFEELLexer {
             do {
                 lexeme.appendCodePoint(ch);
                 ch = nextChar(inputTape);
-            } while (ch != '\'' && ch != '\r' && ch != '\n' && ch != -1);
-            if (ch == '\'') {
-                lexeme.appendCodePoint(ch);
-                nextChar(inputTape);
-            } else {
+                // Double single quotes, select only one
+                if (ch == '\'') {
+                    ch = nextChar(inputTape);
+                    if (ch == '\'') {
+                        // Double single quote - escape sequence, include two
+                        lexeme.appendCodePoint(ch);
+                        lexeme.appendCodePoint(ch);
+                        ch = nextChar(inputTape);
+                    } else {
+                        // Single quote - end of token, include one
+                        lexeme.append('\'');
+                        break;
+                    }
+                }
+            } while (ch != '\r' && ch != '\n' && ch != -1);
+            if (!NameUtils.isQuotedName(lexeme.toString())) {
                 code = BAD;
             }
             return new Pair<>(spacesBefore, new CommonToken(code, com.gs.dmn.NameUtils.removeSingleQuotes(lexeme.toString())));

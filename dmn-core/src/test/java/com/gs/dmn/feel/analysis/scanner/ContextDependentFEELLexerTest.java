@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.gs.dmn.feel.analysis.scanner.ContextDependentFEELLexer.BAD;
 import static com.gs.dmn.feel.analysis.syntax.antlrv4.FEELLexer.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -58,6 +59,10 @@ public class ContextDependentFEELLexerTest {
 
         check(lexicalContext, "a b c", NAME, "a b c");
         check(lexicalContext, "'a b c'", NAME, "a b c");
+        check(lexicalContext, "Student's name", NAME, "Student's name");
+        check(lexicalContext, "'Student''s name'", NAME, "Student's name");
+        // Test incorrect names
+        check(lexicalContext, "'Student''s name", BAD, "'Student''s name");
 
         // Test Unicode > U+FFFF with surrogate pairs
         String name = "\uD83D\uDC0E";
@@ -204,8 +209,8 @@ public class ContextDependentFEELLexerTest {
     public void testBad() {
         LexicalContext lexicalContext = new LexicalContext();
 
-        check(lexicalContext, "123.", ContextDependentFEELLexer.BAD, "123.");
-        check(lexicalContext, "\"123", ContextDependentFEELLexer.BAD, "\"123");
+        check(lexicalContext, "123.", BAD, "123.");
+        check(lexicalContext, "\"123", BAD, "\"123");
     }
 
     private void check(LexicalContext lexicalContext, String input, Integer code, String lexeme) {

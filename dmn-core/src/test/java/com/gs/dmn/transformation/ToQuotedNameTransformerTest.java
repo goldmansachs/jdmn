@@ -79,17 +79,41 @@ public class ToQuotedNameTransformerTest extends SimpleDMNTransformerTest {
     public void testTransformName() {
         ToQuotedNameTransformer transformer = (ToQuotedNameTransformer) getTransformer();
 
-        // Transform first name
-        String firstName = transformer.transformName("abc ? x");
-        assertEquals("'abc ? x'", firstName);
+        // empty names
+        String name = null;
+        assertEquals(null, transformer.transformName(name));
+        name = "";
+        assertEquals("", transformer.transformName(name));
 
-        // Transform second name
-        String secondName = transformer.transformName("abc?x");
-        assertEquals("'abc?x'", secondName);
+        // simple names
+        name = "abcd9_";
+        assertEquals("abcd9_", transformer.transformName(name));
+
+        // name with special characters
+        name = "abc?x";
+        assertEquals("'abc?x'", transformer.transformName(name));
+
+        // name with special characters and spaces
+        name = "abc ? x";
+        assertEquals("'abc ? x'", transformer.transformName(name));
+
+        // single quote in name should be escaped as '' and whole name should be quoted
+        name = "O'Hara";
+        assertEquals("'O''Hara'", transformer.transformName(name));
+
+        // multiple single quotes should all be doubled
+        name = "a'b'c";
+        assertEquals("'a''b''c'", transformer.transformName(name));
+
+        // quoted names
+        name = "'O''Hara'";
+        assertEquals("'O''Hara'", transformer.transformName(name));
+        name = "'a''b''c'";
+        assertEquals("'a''b''c'", transformer.transformName(name));
 
         // Transform names with unicode
-        String result = transformer.transformName("a \uD83D\uDC0E bc");
-        assertEquals("'a \uD83D\uDC0E bc'", result);
+        name = "a \uD83D\uDC0E bc";
+        assertEquals("'a \uD83D\uDC0E bc'", transformer.transformName(name));
     }
 
     @Test

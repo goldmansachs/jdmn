@@ -287,6 +287,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                     String newLexeme = lexeme;
                     for (String name: lexicalContext.getNames()) {
                         String transformedName = transformName(name);
+                        // Replace only if transformed name is not already present in the lexeme to avoid double transformation
                         if (!newLexeme.contains(transformedName)) {
                             String regExp = String.format("\\b%s\\b", name);
                             newLexeme = newLexeme.replaceAll(regExp, transformedName);
