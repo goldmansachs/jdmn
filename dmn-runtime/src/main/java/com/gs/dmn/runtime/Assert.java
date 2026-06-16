@@ -38,13 +38,12 @@ public class Assert {
         if (expected == null) {
             Assertions.assertEquals(expected, actual, message);
         } else if (isNumber(expected)) {
-            BigDecimal expectedBD = (BigDecimal) normalizeNumber(expected);
-            BigDecimal actualBD = (BigDecimal) normalizeNumber(actual);
             if (actual == null) {
                 Assertions.assertEquals(expected, actual, message);
             } else {
-                boolean condition = expectedBD.subtract(actualBD).abs().compareTo(NUMBER_COMPARISON_PRECISION) < 0;
-                Assertions.assertTrue(condition, String.format(message + ". Expected '%s' found '%s'", expectedBD, actualBD));
+                BigDecimal expectedBD = (BigDecimal) normalizeNumber(expected);
+                BigDecimal actualBD = (BigDecimal) normalizeNumber(actual);
+                Assertions.assertEquals(expectedBD.doubleValue(), actualBD.doubleValue(), NUMBER_COMPARISON_PRECISION.doubleValue(), message);
             }
         } else if (isBoolean(expected)) {
             Assertions.assertEquals(expected, actual, message);
@@ -56,9 +55,12 @@ public class Assert {
             if (actual == null) {
                 Assertions.assertEquals(expected, actual, message);
             } else {
-                Assertions.assertEquals(((List) expected).size(), ((List) actual).size(), (message == null ? "" : message)  + expected + " vs " + actual);
-                for (int i = 0; i < ((List) expected).size(); i++) {
-                    assertEquals(message, ((List) expected).get(i), ((List) actual).get(i));
+                int expectedSize = ((List) expected).size();
+                int actualSize = ((List) actual).size();
+                Assertions.assertEquals(expectedSize, actualSize, "Size of " + expected + " vs " + actual);
+                for (int i = 0; i < expectedSize; i++) {
+                    String errorMessage = String.format("%s vs %s at index %s", expected, actual, i + 1);
+                    assertEquals(errorMessage, ((List) expected).get(i), ((List) actual).get(i));
                 }
             }
         } else if (expected instanceof Context) {
@@ -68,7 +70,8 @@ public class Assert {
             for(Object key: ((Context) expected).keySet()) {
                 Object expectedMember = ((Context) expected).get(key);
                 Object actualMember = ((Context) actual).get(key);
-                assertEquals(message + String.format(" for member '%s'", key), expectedMember, actualMember);
+                String errorMessage = String.format("%s vs %s at member %s", expected, actual, key);
+                assertEquals(errorMessage, expectedMember, actualMember);
             }
         } else if (isComplex(expected)) {
             if (actual == null) {

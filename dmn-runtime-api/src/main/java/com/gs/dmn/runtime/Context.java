@@ -90,7 +90,9 @@ public class Context implements Serializable {
     @Override
     public String toString() {
         Set set = map.keySet();
-        if (!set.isEmpty() && set.iterator().next() instanceof String) {
+        if (set.isEmpty()) {
+            return "{}";
+        } else if (set.iterator().next() instanceof String) {
             ArrayList<String> orderedKeys = new ArrayList<>(set);
             orderedKeys.sort((s1, s2) -> s1 != null && s2 != null ? s1.compareTo(s2) : -1);
             StringBuilder result = new StringBuilder("{");
@@ -102,7 +104,7 @@ public class Context implements Serializable {
             result.append("}");
             return result.toString();
         } else {
-            return super.toString();
+            return set.toString();
         }
     }
 }
