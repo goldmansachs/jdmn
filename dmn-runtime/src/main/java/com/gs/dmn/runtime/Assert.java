@@ -14,6 +14,7 @@ package com.gs.dmn.runtime;
 
 import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.time.xml.BaseDefaultDurationType;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
 
 import javax.xml.datatype.Duration;
@@ -31,7 +32,7 @@ public class Assert {
     public static final BigDecimal NUMBER_COMPARISON_PRECISION = new BigDecimal("0.00000001");
 
     public static void assertEquals(Object expected, Object actual) {
-        assertEquals(null, expected, actual);
+        assertEquals("", expected, actual);
     }
 
     public static void assertEquals(String message, Object expected, Object actual) {
@@ -57,10 +58,11 @@ public class Assert {
             } else {
                 int expectedSize = ((List) expected).size();
                 int actualSize = ((List) actual).size();
-                Assertions.assertEquals(expectedSize, actualSize, "Size of " + expected + " vs " + actual);
+                String sizeErrorMessage = String.format("Size of %s vs %s", expected, actual);
+                Assertions.assertEquals(expectedSize, actualSize, appendMessage(message, sizeErrorMessage));
                 for (int i = 0; i < expectedSize; i++) {
-                    String errorMessage = String.format("%s vs %s at index %s", expected, actual, i + 1);
-                    assertEquals(errorMessage, ((List) expected).get(i), ((List) actual).get(i));
+                    String elementErrorMessage = String.format("%s vs %s at index %s", expected, actual, i + 1);
+                    assertEquals(appendMessage(message, elementErrorMessage), ((List) expected).get(i), ((List) actual).get(i));
                 }
             }
         } else if (expected instanceof Context) {
@@ -71,7 +73,7 @@ public class Assert {
                 Object expectedMember = ((Context) expected).get(key);
                 Object actualMember = ((Context) actual).get(key);
                 String errorMessage = String.format("%s vs %s at member %s", expected, actual, key);
-                assertEquals(errorMessage, expectedMember, actualMember);
+                assertEquals(appendMessage(message, errorMessage), expectedMember, actualMember);
             }
         } else if (isComplex(expected)) {
             if (actual == null) {
@@ -99,6 +101,16 @@ public class Assert {
             }
         } else {
             Assertions.assertEquals(expected, actual, message);
+        }
+    }
+
+    private static String appendMessage(String message1, String message2) {
+        if (StringUtils.isBlank(message1)) {
+            return message2;
+        } else if (StringUtils.isBlank(message2)) {
+            return message1;
+        } else {
+            return message1 + " " + message2;
         }
     }
 

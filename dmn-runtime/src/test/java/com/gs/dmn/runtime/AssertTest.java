@@ -67,6 +67,7 @@ class AssertTest {
         AssertionError assertionError = assertThrows(AssertionError.class, () -> {
             Assert.assertEquals(42, 43);
         });
+        assertEquals("expected: <42.0> but was: <43.0>", assertionError.getMessage());
     }
 
     @Test
@@ -118,6 +119,14 @@ class AssertTest {
         Assert.assertEquals("Numbers should be equal", 42, 42);
     }
 
+    @Test
+    void testAssertEqualsWithNumberAndMessageParameterFails() {
+        AssertionError assertionError = assertThrows(AssertionError.class, () -> {
+            Assert.assertEquals("Numbers should be equal", 42, 43);
+        });
+        assertEquals("Numbers should be equal ==> expected: <42.0> but was: <43.0>", assertionError.getMessage());
+    }
+
     // ============ Boolean Comparison Tests ============
 
     @Test
@@ -128,6 +137,14 @@ class AssertTest {
     @Test
     void testAssertEqualsWithBooleanFalse() {
         Assert.assertEquals(false, false);
+    }
+
+    @Test
+    void testAssertEqualsWithBooleanMismatchWithMessage() {
+        AssertionError assertionError = assertThrows(AssertionError.class, () -> {
+            Assert.assertEquals("Booleans should be equal", true, false);
+        });
+        assertEquals("Booleans should be equal ==> expected: <true> but was: <false>", assertionError.getMessage());
     }
 
     @Test
@@ -156,6 +173,14 @@ class AssertTest {
             Assert.assertEquals("hello", "world");
         });
         assertEquals("expected: <hello> but was: <world>", assertionError.getMessage());
+    }
+
+    @Test
+    void testAssertEqualsWithDifferentStringsWithMessage() {
+        AssertionError assertionError = assertThrows(AssertionError.class, () -> {
+            Assert.assertEquals("Strings should be equal", "hello", "world");
+        });
+        assertEquals("Strings should be equal ==> expected: <hello> but was: <world>", assertionError.getMessage());
     }
 
     @Test
@@ -237,6 +262,16 @@ class AssertTest {
     }
 
     @Test
+    void testAssertEqualsWithPeriodMismatchWithMessage() {
+        AssertionError assertionError = assertThrows(AssertionError.class, () -> {
+            Period period1 = Period.of(1, 2, 3);
+            Period period2 = Period.of(1, 2, 4);
+            Assert.assertEquals("Periods should be equal", period1, period2);
+        });
+        assertEquals("Periods should be equal ==> expected: <P1Y2M3D> but was: <P1Y2M4D>", assertionError.getMessage());
+    }
+
+    @Test
     void testAssertEqualsWithDateTimeAndMessage() {
         OffsetTime time1 = OffsetTime.of(14, 30, 0, 0, ZoneOffset.UTC);
         OffsetTime time2 = OffsetTime.of(14, 30, 0, 0, ZoneOffset.UTC);
@@ -268,6 +303,16 @@ class AssertTest {
     }
 
     @Test
+    void testAssertEqualsWithListsDifferentSizeWithMessage() {
+        AssertionError assertionError = assertThrows(AssertionError.class, () -> {
+            List<Integer> list1 = Arrays.asList(1, 2, 3);
+            List<Integer> list2 = Arrays.asList(1, 2);
+            Assert.assertEquals("Lists should be equal", list1, list2);
+        });
+        Assertions.assertEquals("Lists should be equal Size of [1, 2, 3] vs [1, 2] ==> expected: <3> but was: <2>", assertionError.getMessage());
+    }
+
+    @Test
     void testAssertEqualsWithListsDifferentElements() {
         AssertionError assertionError = assertThrows(AssertionError.class, () -> {
             List<Integer> list1 = Arrays.asList(1, 2, 3);
@@ -275,6 +320,16 @@ class AssertTest {
             Assert.assertEquals(list1, list2);
         });
         assertEquals("[1, 2, 3] vs [1, 2, 4] at index 3 ==> expected: <3.0> but was: <4.0>", assertionError.getMessage());
+    }
+
+    @Test
+    void testAssertEqualsWithListsDifferentElementsWithMessage() {
+        AssertionError assertionError = assertThrows(AssertionError.class, () -> {
+            List<Integer> list1 = Arrays.asList(1, 2, 3);
+            List<Integer> list2 = Arrays.asList(1, 2, 4);
+            Assert.assertEquals("Lists should be equal", list1, list2);
+        });
+        assertEquals("Lists should be equal [1, 2, 3] vs [1, 2, 4] at index 3 ==> expected: <3.0> but was: <4.0>", assertionError.getMessage());
     }
 
     @Test
@@ -310,7 +365,23 @@ class AssertTest {
             );
             Assert.assertEquals(list1, list2);
         });
-        assertEquals("[3, 4] vs [3, 5] at index 2 ==> expected: <4.0> but was: <5.0>", assertionError.getMessage());
+        assertEquals("[[1, 2], [3, 4]] vs [[1, 2], [3, 5]] at index 2 [3, 4] vs [3, 5] at index 2 ==> expected: <4.0> but was: <5.0>", assertionError.getMessage());
+    }
+
+    @Test
+    void testAssertEqualsWithNestedListsMismatchWithMessage() {
+        AssertionError assertionError = assertThrows(AssertionError.class, () -> {
+            List<List<Integer>> list1 = Arrays.asList(
+                    Arrays.asList(1, 2),
+                    Arrays.asList(3, 4)
+            );
+            List<List<Integer>> list2 = Arrays.asList(
+                    Arrays.asList(1, 2),
+                    Arrays.asList(3, 5)
+            );
+            Assert.assertEquals("Nested lists should be equal", list1, list2);
+        });
+        assertEquals("Nested lists should be equal [[1, 2], [3, 4]] vs [[1, 2], [3, 5]] at index 2 [3, 4] vs [3, 5] at index 2 ==> expected: <4.0> but was: <5.0>", assertionError.getMessage());
     }
 
     @Test
