@@ -228,7 +228,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
     public Triple visit(FunctionDefinition<Type> element, DMNContext context) {
         if (element.isStaticTyped()) {
             Triple body = (Triple) element.getBody().accept(this, context);
-            return this.triples.makeFunctionDefinition((TDRGElement) context.getElement(), element, false, body);
+            return this.triples.makeFunctionDefinition(context.getElement(), element, false, body);
         } else {
             SemanticError error = makeELExpressionError(context, element, "Dynamic typing for FEEL functions not supported yet");
             handleError(error);
@@ -749,7 +749,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
 
     private Triple inputExpressionToNative(DMNContext context) {
         if (context.isExpressionContext()) {
-            TNamedElement element = context.getElement();
+            TDRGElement element = context.getElement();
             TDefinitions model = this.dmnModelRepository.getModel(element);
             SemanticError error = ErrorFactory.makeDMNError(new ModelCoordinates(model, element), String.format("Missing inputExpression in context of element '%s'", context.getElementName()));
             handleError(error);
@@ -787,8 +787,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
     }
 
     protected Triple makeNavigation(Expression<Type> element, Type sourceType, Triple source, String memberName, String memberVariableName, DMNContext context) {
-        if (sourceType instanceof ImportContextType) {
-            ImportContextType importContextType = (ImportContextType) sourceType;
+        if (sourceType instanceof ImportContextType importContextType) {
             // Try imported DRG element
             DRGElementReference<? extends TDRGElement> memberReference = importContextType.getMemberReference(memberName);
             if (memberReference != null) {

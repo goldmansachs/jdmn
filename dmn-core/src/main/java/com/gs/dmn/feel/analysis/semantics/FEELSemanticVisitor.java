@@ -14,8 +14,8 @@ package com.gs.dmn.feel.analysis.semantics;
 
 import com.gs.dmn.ErrorFactory;
 import com.gs.dmn.ModelCoordinates;
+import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.ast.TDefinitions;
-import com.gs.dmn.ast.TNamedElement;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.Declaration;
 import com.gs.dmn.context.environment.VariableDeclaration;
@@ -77,7 +77,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         functions.forEach(f -> f.accept(this, context));
 
         // Calculate declarations
-        List<Declaration> decls = functions.stream().map(this::makeDeclaration).collect(Collectors.toList());
+        List<Declaration> decls = functions.stream().map(this::makeDeclaration).toList();
         element.getDeclarations().addAll(decls);
 
         return element;
@@ -431,7 +431,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
             handleError(error);
             return null;
         } else if (com.gs.dmn.el.analysis.semantics.type.Type.isNullType(thenType) && com.gs.dmn.el.analysis.semantics.type.Type.isNullType(elseType)) {
-            TNamedElement dmnElement = context.getElement();
+            TDRGElement dmnElement = context.getElement();
             TDefinitions definitions = this.dmnModelRepository.getModel(dmnElement);
             SemanticError error = makeELExpressionError(context, element, ErrorFactory.makeIfError(new ModelCoordinates(definitions, dmnElement), thenType, elseType).getErrorMessage());
             handleError(error);
@@ -749,13 +749,13 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
             FunctionType functionType = (FunctionType) function.getType();
 
             FunctionInvocationUtils.setInvocationType(element, functionType);
+            ParameterConversions<Type> parameterConversions;
             if (parameters instanceof NamedParameters) {
-                ParameterConversions<Type> parameterConversions = new NamedParameterConversions<>(functionType.getParameters());
-                parameters.setParameterConversions(parameterConversions);
+                parameterConversions = new NamedParameterConversions<>(functionType.getParameters());
             } else {
-                ParameterConversions<Type> parameterConversions = new PositionalParameterConversions<>(functionType.getParameterTypes());
-                parameters.setParameterConversions(parameterConversions);
+                parameterConversions = new PositionalParameterConversions<>(functionType.getParameterTypes());
             }
+            parameters.setParameterConversions(parameterConversions);
             parameters.setConvertedParameterTypes(parameters.getSignature());
         }
 
@@ -865,8 +865,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
 
     private void inferMissingTypesInFEELFunction(Expression<Type> function, Parameters<Type> arguments, DMNContext context) {
         Type functionType = function.getType();
-        if (functionType instanceof FEELFunctionType) {
-            FEELFunctionType feelFunctionType = (FEELFunctionType) functionType;
+        if (functionType instanceof FEELFunctionType feelFunctionType) {
             if (!feelFunctionType.isFullySpecified()) {
                 // Bind names to types in function type
                 bindNameToTypes(feelFunctionType.getParameters(), arguments);
@@ -1008,9 +1007,9 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     private void checkListElementTypes(ListLiteral<Type> element) {
-        List<Type> types = element.getExpressionList().stream().map(Expression::getType).collect(Collectors.toList());
+        List<Type> types = element.getExpressionList().stream().map(Expression::getType).toList();
         // Find root type if possible
-        if (types.size() == 0) {
+        if (types.isEmpty()) {
             element.setType(ListType.ANY_LIST);
         } else {
             Type rooType = types.get(0);

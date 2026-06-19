@@ -645,7 +645,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
                 parentContext,
                 DMNContextKind.UNARY_TEST,
                 parentContext.getElement(),
-                getDMNEnvironmentFactory().makeUnaryTestEnvironment((TDRGElement) parentContext.getElement(), inputExpression),
+                getDMNEnvironmentFactory().makeUnaryTestEnvironment(parentContext.getElement(), inputExpression),
                 RuntimeEnvironment.of());
     }
 

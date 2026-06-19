@@ -14,7 +14,7 @@ package com.gs.dmn.feel.synthesis;
 
 import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.ast.TNamedElement;
+import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.DMNContextKind;
 import com.gs.dmn.context.environment.EnvironmentFactory;
@@ -115,7 +115,7 @@ public class FEELToTripleNativeVisitorTest extends AbstractTest {
         return new DMNModelRepository();
     }
 
-    protected TNamedElement getElement() {
+    protected TDRGElement getElement() {
         return null;
     }
 }

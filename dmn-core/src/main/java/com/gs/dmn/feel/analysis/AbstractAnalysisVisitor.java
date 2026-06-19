@@ -15,8 +15,8 @@ package com.gs.dmn.feel.analysis;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ErrorFactory;
 import com.gs.dmn.ModelCoordinates;
+import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.ast.TDefinitions;
-import com.gs.dmn.ast.TNamedElement;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.el.analysis.semantics.type.Type;
@@ -89,13 +89,13 @@ public abstract class AbstractAnalysisVisitor<T, C, R> extends AbstractVisitor<T
     }
 
     protected ModelCoordinates makeModelCoordinates(DMNContext context) {
-        TNamedElement element = context == null ? null : context.getElement();
+        TDRGElement element = context == null ? null : context.getElement();
         TDefinitions model = this.dmnModelRepository.getModel(element);
         return new ModelCoordinates(model, element);
     }
 
     protected ModelCoordinates makeExpressionCoordinates(DMNContext context, Expression<Type> expression) {
-        TNamedElement element = context == null ? null : context.getElement();
+        TDRGElement element = context == null ? null : context.getElement();
         TDefinitions definitions = this.dmnModelRepository.getModel(element);
         return new ModelCoordinates(definitions, element, expression);
     }

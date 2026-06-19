@@ -14,7 +14,7 @@ package com.gs.dmn.context;
 
 import com.gs.dmn.ErrorFactory;
 import com.gs.dmn.ModelCoordinates;
-import com.gs.dmn.ast.TNamedElement;
+import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.context.environment.Declaration;
 import com.gs.dmn.context.environment.Environment;
 import com.gs.dmn.context.environment.RuntimeEnvironment;
@@ -34,15 +34,15 @@ public class DMNContext {
     private final DMNContext parent;
 
     private final DMNContextKind kind;
-    private final TNamedElement element;
+    private final TDRGElement element;
     private final Environment environment;
     private final RuntimeEnvironment runtimeEnvironment;
 
-    public static DMNContext of(DMNContext parent, DMNContextKind kind, TNamedElement element, Environment environment, RuntimeEnvironment runtimeEnvironment) {
+    public static DMNContext of(DMNContext parent, DMNContextKind kind, TDRGElement element, Environment environment, RuntimeEnvironment runtimeEnvironment) {
         return new DMNContext(parent, kind, element, environment, runtimeEnvironment);
     }
 
-    private DMNContext(DMNContext parent, DMNContextKind kind, TNamedElement element, Environment environment, RuntimeEnvironment runtimeEnvironment) {
+    private DMNContext(DMNContext parent, DMNContextKind kind, TDRGElement element, Environment environment, RuntimeEnvironment runtimeEnvironment) {
         this.parent = parent;
         this.kind = kind;
         this.element = element;
@@ -50,7 +50,7 @@ public class DMNContext {
         this.runtimeEnvironment = runtimeEnvironment;
     }
 
-    public TNamedElement getElement() {
+    public TDRGElement getElement() {
         return this.element;
     }
 

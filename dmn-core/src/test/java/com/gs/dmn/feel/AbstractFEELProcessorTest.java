@@ -14,7 +14,7 @@ package com.gs.dmn.feel;
 
 import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.ast.TNamedElement;
+import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.DMNContextKind;
 import com.gs.dmn.context.environment.EnvironmentFactory;
@@ -3334,7 +3334,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         return context;
     }
 
-    protected TNamedElement getElement() {
+    protected TDRGElement getElement() {
         return null;
     }
 
