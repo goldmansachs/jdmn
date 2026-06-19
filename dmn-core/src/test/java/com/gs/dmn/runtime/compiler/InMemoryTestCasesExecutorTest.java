@@ -110,6 +110,24 @@ public abstract class InMemoryTestCasesExecutorTest {
     }
 
     @Test
+    void testExecuteWithMockedDecisions() throws Exception {
+        // Repositories
+        Path inputPath = Paths.get("../dmn-test-cases", "standard/tck/1.5/cl3/1162-import-same-name/translator/");
+        File inputFile = inputPath.toFile();
+        Path outputPath = Paths.get("target", "in-memory", "shared");
+        File outputFolder = outputPath.resolve("java").toFile();
+        InputRepository inputRepository = new InputRepository(inputFile);
+        OutputRepository outputRepository = makeOutputRepository(outputFolder);
+
+        // Run tests
+        DMNToJavaTranslator translator = makeTranslator(inputRepository);
+        TestRunResult testRunResult = runTests(translator, inputRepository, outputRepository, new NopExecutionListener());
+
+        // Check results
+        assertEquals(0, testRunResult.getFailures().size());
+    }
+
+    @Test
     void testExecuteSharedFoldersWithListener() throws Exception {
         // Repositories
         Path inputPath = Paths.get("../dmn-test-cases", "standard/tck/1.4/cl3/0020-vacation-days");

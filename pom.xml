@@ -98,6 +98,8 @@
         <log4j2.version>2.25.4</log4j2.version>
 
         <junit.version>5.10.1</junit.version>
+        <junit.launcher>1.10.1</junit.launcher>
+        <mockito.version>5.20.0</mockito.version>
 
         <jacoco.plugin.version>0.8.8</jacoco.plugin.version>
         <sonar.language>java</sonar.language>
@@ -484,7 +486,7 @@ specific language governing permissions and limitations under the License.]]></i
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
-                <version>5.20.0</version>
+                <version>${mockito.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
@@ -529,6 +531,11 @@ specific language governing permissions and limitations under the License.]]></i
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
             <scope>test</scope>
         </dependency>
 
