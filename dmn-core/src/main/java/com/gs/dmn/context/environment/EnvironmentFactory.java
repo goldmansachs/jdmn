@@ -12,17 +12,22 @@
  */
 package com.gs.dmn.context.environment;
 
+import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 
-public interface  EnvironmentFactory {
+public interface EnvironmentFactory {
     default Environment emptyEnvironment() {
         return new Environment();
     }
 
     default Environment makeEnvironment(Expression inputExpression) {
         return new Environment(inputExpression);
+    }
+
+    default Declaration makeVariableDeclaration(TDRGElement element, String name, Type type) {
+        return new VariableDeclaration(element, name, type);
     }
 
     default Declaration makeVariableDeclaration(String name, Type type) {

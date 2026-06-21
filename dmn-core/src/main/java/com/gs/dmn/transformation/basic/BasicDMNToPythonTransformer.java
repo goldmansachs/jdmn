@@ -169,8 +169,8 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
     // Decision related functions
     //
     @Override
-    public String lazyEvaluationType(TDRGElement input, String inputNativeType) {
-        return isLazyEvaluated(input) ? String.format("%s", lazyEvalClassName()) : inputNativeType;
+    public String lazyEvaluationType(TDRGElement input, String inputNativeType, TDRGElement parent) {
+        return isLazyEvaluated(input, parent) ? String.format("%s", lazyEvalClassName()) : inputNativeType;
     }
 
     @Override

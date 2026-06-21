@@ -12,16 +12,28 @@
  */
 package com.gs.dmn.context.environment;
 
+import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 
 import java.util.Objects;
 
 public class VariableDeclaration extends Declaration {
+    private TDRGElement element;
     private Type type;
+
+    public VariableDeclaration(TDRGElement element, String name, Type type) {
+        super(name);
+        this.element = element;
+        this.type = type;
+    }
 
     public VariableDeclaration(String name, Type type) {
         super(name);
         this.type = type;
+    }
+
+    public TDRGElement getElement() {
+        return element;
     }
 
     @Override

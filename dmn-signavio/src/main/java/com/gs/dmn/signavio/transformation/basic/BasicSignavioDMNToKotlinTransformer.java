@@ -76,8 +76,8 @@ public class BasicSignavioDMNToKotlinTransformer extends BasicSignavioDMNToJavaT
     }
 
     @Override
-    public String lazyEvaluation(String elementName, String nativeName) {
-        return isLazyEvaluated(elementName) ? String.format("%s?.getOrCompute()", nativeName) : nativeName;
+    public String lazyEvaluation(String lazyEvaluationKey, String nativeVariableName, TDRGElement parent) {
+        return isLazyEvaluated(lazyEvaluationKey, parent) ? String.format("%s?.getOrCompute()", nativeVariableName) : nativeVariableName;
     }
 
     @Override

@@ -270,7 +270,7 @@ public class DMNExpressionToNativeTransformer {
         for (DRGElementReference<? extends TDRGElement> reference : references) {
             TDRGElement element = reference.getElement();
             String parameterName = ruleParameterName(reference);
-            String parameterNativeType = this.dmnTransformer.lazyEvaluationType(element, this.dmnTransformer.parameterNativeType(element));
+            String parameterNativeType = this.dmnTransformer.lazyEvaluationType(element, this.dmnTransformer.parameterNativeType(element), decision);
             parameters.add(new Pair<>(parameterName, parameterNativeType));
         }
         String signature = parameters.stream().map(p -> this.nativeFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
@@ -741,7 +741,7 @@ public class DMNExpressionToNativeTransformer {
         String javaType = this.dmnTransformer.drgElementOutputInterfaceName(element);
 
         // Constructor argument names
-        List<String> argNameList = relation.getColumn().stream().map(c -> this.dmnTransformer.nativeFriendlyVariableName(c.getName())).collect(Collectors.toList());
+        List<String> argNameList = relation.getColumn().stream().map(c -> this.dmnTransformer.nativeFriendlyVariableName(c.getName())).toList();
 
         // Scan relation and translate each row to a constructor invocation
         List<String> rowValues = new ArrayList<>();

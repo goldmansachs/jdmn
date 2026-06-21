@@ -13,21 +13,32 @@
 package com.gs.dmn.transformation.lazy;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.TDecision;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.transformation.InputParameters;
 
-public class NopLazyEvaluationDetector extends SimpleLazyEvaluationDetector {
-    public NopLazyEvaluationDetector() {
+public class AllLazyEvaluationDetector extends SimpleLazyEvaluationDetector {
+    public AllLazyEvaluationDetector() {
         this(new InputParameters(), new Slf4jBuildLogger(LOGGER));
     }
 
-    public NopLazyEvaluationDetector(InputParameters inputParameters, BuildLogger logger) {
+    public AllLazyEvaluationDetector(InputParameters inputParameters, BuildLogger logger) {
         super(logger, inputParameters);
     }
 
     @Override
     public LazyEvaluationOptimisation detect(DMNModelRepository modelRepository) {
-        return new LazyEvaluationOptimisation();
+        LazyEvaluationOptimisation lazyEvaluationOptimisation = new LazyEvaluationOptimisation();
+
+        logger.info("Scanning for lazy evaluation decisions ...");
+
+        for (TDecision decision : modelRepository.findAllDecisions()) {
+            lazyEvaluationOptimisation.addLazyEvaluatedDecision(modelRepository.lazyEvaluationKey(decision));
+        }
+
+        logger.info(String.format("Decisions to be lazy evaluated: '%s'", String.join(", ", lazyEvaluationOptimisation.getLazyEvaluatedDecisions())));
+
+        return lazyEvaluationOptimisation;
     }
 }

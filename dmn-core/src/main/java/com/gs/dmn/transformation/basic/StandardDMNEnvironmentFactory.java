@@ -135,8 +135,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         if (declaredType == null) {
             return inferredType;
         }
-        if (declaredType instanceof ItemDefinitionType && inferredType instanceof CompositeDataType) {
-            ItemDefinitionType oldType = (ItemDefinitionType) declaredType;
+        if (declaredType instanceof ItemDefinitionType oldType && inferredType instanceof CompositeDataType) {
             ItemDefinitionType newType = new ItemDefinitionType(oldType.getName(), oldType.getModelName());
             for (String member: oldType.getMembers()) {
                 Type oldMemberType = oldType.getMemberType(member);
@@ -263,13 +262,12 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 SemanticError error = makeDMNError(model, element, errorMessage);
                 throw new SemanticErrorException(error.toText());
             }
-        } else if (expression instanceof TDecisionTable) {
+        } else if (expression instanceof TDecisionTable dt) {
             if (!this.dmnModelRepository.isNullOrAny(typeRef)) {
                 return toFEELType(model, typeRef);
             }
 
             // Derive from outputClauses clauses and rules
-            TDecisionTable dt = (TDecisionTable) expression;
             List<TOutputClause> outputClauses = dt.getOutput();
             List<TLiteralExpression> outputEntries = outputEntries(dt);
             Map<String, Type> members = new LinkedHashMap<>();
@@ -474,13 +472,12 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     public Type toFEELType(TDRGElement element, TOutputClause outputClause, int index) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         TExpression expression = this.dmnModelRepository.expression(element);
-        if (!(expression instanceof TDecisionTable)) {
+        if (!(expression instanceof TDecisionTable dt)) {
             String errorMessage = String.format("Expected Decision Table in element '%s', found '%s'", element.getName(), expression == null ? null : expression.getClass().getName());
             SemanticError error = makeDMNError(model, element, errorMessage);
             throw new SemanticErrorException(error.toText());
         }
 
-        TDecisionTable dt = (TDecisionTable) expression;
         List<TLiteralExpression> outputEntries = this.outputEntries(dt);
         DMNContext context = this.dmnTransformer.makeGlobalContext(element);
         return this.toFEELType(model, element, outputEntries, outputClause, index, context);
@@ -951,21 +948,21 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     }
 
     @Override
-    public Declaration makeVariableDeclaration(TDRGElement element, TInformationItem variable) {
+    public Declaration makeVariableDeclaration(TDRGElement element, TInformationItem elementVariable) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         // Check variable
         String name = element.getName();
-        if (StringUtils.isBlank(name) && variable != null) {
-            name = variable.getName();
+        if (StringUtils.isBlank(name) && elementVariable != null) {
+            name = elementVariable.getName();
         }
-        if (StringUtils.isBlank(name) || variable == null) {
-            String errorMessage = String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable);
+        if (StringUtils.isBlank(name) || elementVariable == null) {
+            String errorMessage = String.format("Name and variable cannot be null. Found '%s' and '%s'", name, elementVariable);
             SemanticError error = makeDMNError(model, element, errorMessage);
             throw new SemanticErrorException(error.toText());
         }
 
         Type variableType = drgElementVariableFEELType(element);
-        return this.environmentFactory.makeVariableDeclaration(name, variableType);
+        return this.environmentFactory.makeVariableDeclaration(element, name, variableType);
     }
 
     protected Declaration makeInvocableDeclaration(TInvocable invocable) {

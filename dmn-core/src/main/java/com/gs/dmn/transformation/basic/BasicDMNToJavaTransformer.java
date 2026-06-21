@@ -1232,28 +1232,28 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public boolean isLazyEvaluated(DRGElementReference<? extends TDRGElement> reference) {
-        return this.isLazyEvaluated(reference.getElement());
+    public boolean isLazyEvaluated(DRGElementReference<? extends TDRGElement> reference, TDRGElement parent) {
+        return this.isLazyEvaluated(reference.getElement(), parent);
     }
 
     @Override
-    public boolean isLazyEvaluated(TDRGElement element) {
-        return this.isLazyEvaluated(element.getName());
+    public boolean isLazyEvaluated(TDRGElement child, TDRGElement parent) {
+        return this.isLazyEvaluated(this.dmnModelRepository.lazyEvaluationKey(child), parent);
     }
 
     @Override
-    public boolean isLazyEvaluated(String name) {
-        return this.lazyEvaluationOptimisation.isLazyEvaluated(name);
+    public boolean isLazyEvaluated(String lazyEvaluationKey, TDRGElement parent) {
+        return this.lazyEvaluationOptimisation.isLazyEvaluated(lazyEvaluationKey) && this.dmnModelRepository.isDecisionTableExpression(parent);
     }
 
     @Override
-    public String lazyEvaluationType(TDRGElement input, String inputNativeType) {
-        return isLazyEvaluated(input) ? String.format("%s<%s>", lazyEvalClassName(), inputNativeType) : inputNativeType;
+    public String lazyEvaluationType(TDRGElement input, String inputNativeType, TDRGElement parent) {
+        return isLazyEvaluated(input, parent) ? String.format("%s<%s>", lazyEvalClassName(), inputNativeType) : inputNativeType;
     }
 
     @Override
-    public String lazyEvaluation(String elementName, String nativeName) {
-        return isLazyEvaluated(elementName) ? String.format("%s.getOrCompute()", nativeName) : nativeName;
+    public String lazyEvaluation(String lazyEvaluationKey, String nativeVariableName, TDRGElement parent) {
+        return isLazyEvaluated(lazyEvaluationKey, parent) ? String.format("%s.getOrCompute()", nativeVariableName) : nativeVariableName;
     }
 
     @Override
@@ -1660,8 +1660,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             return this.nativeFactory.makeExpressionStatement(this.nativeFactory.nullLiteral(), NullType.NULL);
         } else if (size == 1) {
             TDecision decision = outputDecisions.get(0).getElement();
-            String decisionVarName = nativeVariableName(decision);
-            Statement statement = this.nativeFactory.makeExpressionStatement(decisionVarName, drgElementOutputFEELType(decision));
+            String text = lazyEvaluation(this.dmnModelRepository.lazyEvaluationKey(decision), nativeVariableName(decision), element);
+            Statement statement = this.nativeFactory.makeExpressionStatement(text, drgElementOutputFEELType(decision));
 
             // Implicit conversions
             Type expectedType = drgElementOutputFEELType(element);
@@ -1678,7 +1678,9 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             // Add members
             for (DRGElementReference<TDecision> ref : outputDecisions) {
                 TDecision od = ref.getElement();
-                String add = this.nativeFactory.makeContextMemberAssignment(outputVar, elementName(od), nativeVariableName(od));
+                String nativeVariableName = nativeVariableName(od);
+                String text = lazyEvaluation(this.dmnModelRepository.lazyEvaluationKey(od), nativeVariableName, element);
+                String add = this.nativeFactory.makeContextMemberAssignment(outputVar, elementName(od), text);
                 statement.add(this.nativeFactory.makeExpressionStatement(add, null));
             }
             // Return output

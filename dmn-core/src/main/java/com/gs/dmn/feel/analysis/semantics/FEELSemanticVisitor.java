@@ -77,15 +77,21 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         functions.forEach(f -> f.accept(this, context));
 
         // Calculate declarations
-        List<Declaration> decls = functions.stream().map(this::makeDeclaration).toList();
+        List<Declaration> decls = functions.stream().map(f -> makeLibraryFunctionDeclaration(f, context)).toList();
         element.getDeclarations().addAll(decls);
 
         return element;
     }
 
-    private Declaration makeDeclaration(FunctionDeclaration<?> decl) {
-        LibraryFunctionType type = (LibraryFunctionType) decl.getType();
-        return this.environmentFactory.makeVariableDeclaration(decl.getName(), type);
+    private Declaration makeLibraryFunctionDeclaration(FunctionDeclaration<Type> decl, DMNContext context) {
+        Type functionType = decl.getType();
+        if (functionType instanceof LibraryFunctionType libraryFunctionType) {
+            return this.environmentFactory.makeVariableDeclaration(decl.getName(), libraryFunctionType);
+        } else {
+            SemanticError error = makeDMNError(context, String.format("Expected library function type but found '%s' for '%s'", functionType, decl.getName()));
+            handleError(error);
+            return null;
+        }
     }
 
     @Override

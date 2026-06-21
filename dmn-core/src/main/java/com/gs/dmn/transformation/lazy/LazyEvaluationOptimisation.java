@@ -18,12 +18,12 @@ import java.util.Set;
 public class LazyEvaluationOptimisation {
     private final Set<String> lazyEvaluatedDecisions = new LinkedHashSet<>();
 
-    public void addLazyEvaluatedDecision(String name) {
-        this.lazyEvaluatedDecisions.add(name);
+    public void addLazyEvaluatedDecision(String lazyEvaluationKey) {
+        this.lazyEvaluatedDecisions.add(lazyEvaluationKey);
     }
 
-    public boolean isLazyEvaluated(String name) {
-        return this.lazyEvaluatedDecisions.contains(name);
+    public boolean isLazyEvaluated(String lazyEvaluationKey) {
+        return this.lazyEvaluatedDecisions.contains(lazyEvaluationKey);
     }
 
     public Set<String> getLazyEvaluatedDecisions() {

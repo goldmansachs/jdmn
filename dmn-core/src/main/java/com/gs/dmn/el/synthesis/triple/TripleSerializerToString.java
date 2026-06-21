@@ -301,7 +301,7 @@ public class TripleSerializerToString implements Visitor<Triples, String> {
 
     @Override
     public String visit(LazyEvaluationTriple triple, Triples context) {
-        return this.dmnTransformer.lazyEvaluation(triple.getName(), triple.getNativeName());
+        return this.dmnTransformer.lazyEvaluation(triple.getLazyEvaluationKey(), triple.getNativeName(), triple.getParent());
     }
 
     @Override

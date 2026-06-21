@@ -326,799 +326,6 @@
   {
     "element": {
       "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-      "name": "assessApplicantAge",
-      "label": "Assess applicant age",
-      "elementKind": "DECISION",
-      "expressionKind": "DECISION_TABLE",
-      "hitPolicy": "UNIQUE",
-      "rulesCount": 3
-    },
-    "arguments": {
-      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
-        "Age": 38,
-        "Credit score": 100,
-        "Name": "Amy",
-        "Prior issues": [
-          "Late payment"
-        ]
-      }
-    },
-    "output": 60,
-    "ruleNodes": [
-      {
-        "rule": {
-          "index": 1,
-          "annotation": ""
-        },
-        "matched": false,
-        "result": {
-          "matched": false,
-          "assessApplicantAge": null
-        },
-        "columnNodes": [
-          {
-            "columnIndex": 1,
-            "result": false
-          }
-        ]
-      },
-      {
-        "rule": {
-          "index": 2,
-          "annotation": ""
-        },
-        "matched": false,
-        "result": {
-          "matched": false,
-          "assessApplicantAge": null
-        },
-        "columnNodes": [
-          {
-            "columnIndex": 1,
-            "result": false
-          }
-        ]
-      },
-      {
-        "rule": {
-          "index": 3,
-          "annotation": ""
-        },
-        "matched": true,
-        "result": {
-          "matched": true,
-          "compareAgainstLendingThreshold": 27.50
-        },
-        "columnNodes": [
-          {
-            "columnIndex": 1,
-            "result": true
-          }
-        ]
-      }
-    ],
-    "children": []
-  },
-  {
-    "element": {
-      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-      "name": "compareAgainstLendingThreshold",
-      "label": "Compare against lending threshold",
-      "elementKind": "DECISION",
-      "expressionKind": "DECISION_TABLE",
-      "hitPolicy": "ANY",
-      "rulesCount": 2
-    },
-    "arguments": {
-      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
-        "Age": 38,
-        "Credit score": 100,
-        "Name": "Amy",
-        "Prior issues": [
-          "Late payment"
-        ]
-      },
-      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
-      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#lendingThreshold": 25
-    },
-    "output": 27.50,
-    "ruleNodes": [
-      {
-        "rule": {
-          "index": 3,
-          "annotation": ""
-        },
-        "matched": true,
-        "result": {
-          "matched": true,
-          "compareAgainstLendingThreshold": 27.50
-        },
-        "columnNodes": [
-          {
-            "columnIndex": 1,
-            "result": true
-          }
-        ]
-      },
-      {
-        "rule": {
-          "index": 2,
-          "annotation": "string(\"Error: threshold undefined\")"
-        },
-        "matched": false,
-        "result": {
-          "matched": false,
-          "makeCreditDecision": null
-        },
-        "columnNodes": [
-          {
-            "columnIndex": 1,
-            "result": false
-          },
-          {
-            "columnIndex": 1,
-            "result": false
-          }
-        ]
-      }
-    ],
-    "children": [
-      {
-        "element": {
-          "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-          "name": "assessIssueRisk",
-          "label": "Assess issue risk",
-          "elementKind": "DECISION",
-          "expressionKind": "OTHER",
-          "hitPolicy": "UNKNOWN",
-          "rulesCount": -1
-        },
-        "arguments": {
-          "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
-            "Age": 38,
-            "Credit score": 100,
-            "Name": "Amy",
-            "Prior issues": [
-              "Late payment"
-            ]
-          },
-          "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50
-        },
-        "output": -7.50,
-        "ruleNodes": [],
-        "children": [
-          {
-            "element": {
-              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-              "name": "processPriorIssues",
-              "label": "Process prior issues",
-              "elementKind": "DECISION",
-              "expressionKind": "DECISION_TABLE",
-              "hitPolicy": "COLLECT",
-              "rulesCount": 5
-            },
-            "arguments": {
-              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
-                "Age": 38,
-                "Credit score": 100,
-                "Name": "Amy",
-                "Prior issues": [
-                  "Late payment"
-                ]
-              }
-            },
-            "output": [
-              -10,
-              -5
-            ],
-            "ruleNodes": [
-              {
-                "rule": {
-                  "index": 1,
-                  "annotation": ""
-                },
-                "matched": true,
-                "result": {
-                  "matched": true,
-                  "processPriorIssues": -10
-                },
-                "columnNodes": [
-                  {
-                    "columnIndex": 1,
-                    "result": true
-                  }
-                ]
-              },
-              {
-                "rule": {
-                  "index": 2,
-                  "annotation": ""
-                },
-                "matched": false,
-                "result": {
-                  "matched": false,
-                  "processPriorIssues": null
-                },
-                "columnNodes": [
-                  {
-                    "columnIndex": 1,
-                    "result": false
-                  }
-                ]
-              },
-              {
-                "rule": {
-                  "index": 3,
-                  "annotation": ""
-                },
-                "matched": false,
-                "result": {
-                  "matched": false,
-                  "processPriorIssues": null
-                },
-                "columnNodes": [
-                  {
-                    "columnIndex": 1,
-                    "result": false
-                  }
-                ]
-              },
-              {
-                "rule": {
-                  "index": 4,
-                  "annotation": ""
-                },
-                "matched": false,
-                "result": {
-                  "matched": false,
-                  "processPriorIssues": null
-                },
-                "columnNodes": [
-                  {
-                    "columnIndex": 1,
-                    "result": false
-                  }
-                ]
-              },
-              {
-                "rule": {
-                  "index": 5,
-                  "annotation": ""
-                },
-                "matched": true,
-                "result": {
-                  "matched": true,
-                  "processPriorIssues": -5
-                },
-                "columnNodes": [
-                  {
-                    "columnIndex": 1,
-                    "result": true
-                  }
-                ]
-              }
-            ],
-            "children": []
-          },
-          {
-            "element": {
-              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-              "name": "assessIssue",
-              "label": "Assess issue",
-              "elementKind": "DECISION",
-              "expressionKind": "LITERAL_EXPRESSION",
-              "hitPolicy": "UNKNOWN",
-              "rulesCount": -1
-            },
-            "arguments": {
-              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
-              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#priorIssue_iterator": -10
-            },
-            "output": -5.00,
-            "ruleNodes": [],
-            "children": []
-          },
-          {
-            "element": {
-              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-              "name": "assessIssue",
-              "label": "Assess issue",
-              "elementKind": "DECISION",
-              "expressionKind": "LITERAL_EXPRESSION",
-              "hitPolicy": "UNKNOWN",
-              "rulesCount": -1
-            },
-            "arguments": {
-              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
-              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#priorIssue_iterator": -5
-            },
-            "output": -2.50,
-            "ruleNodes": [],
-            "children": []
-          }
-        ]
-      },
-      {
-        "element": {
-          "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-          "name": "assessApplicantAge",
-          "label": "Assess applicant age",
-          "elementKind": "DECISION",
-          "expressionKind": "DECISION_TABLE",
-          "hitPolicy": "UNIQUE",
-          "rulesCount": 3
-        },
-        "arguments": {
-          "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
-            "Age": 38,
-            "Credit score": 100,
-            "Name": "Amy",
-            "Prior issues": [
-              "Late payment"
-            ]
-          }
-        },
-        "output": 60,
-        "ruleNodes": [
-          {
-            "rule": {
-              "index": 1,
-              "annotation": ""
-            },
-            "matched": false,
-            "result": {
-              "matched": false,
-              "assessApplicantAge": null
-            },
-            "columnNodes": [
-              {
-                "columnIndex": 1,
-                "result": false
-              }
-            ]
-          },
-          {
-            "rule": {
-              "index": 2,
-              "annotation": ""
-            },
-            "matched": false,
-            "result": {
-              "matched": false,
-              "assessApplicantAge": null
-            },
-            "columnNodes": [
-              {
-                "columnIndex": 1,
-                "result": false
-              }
-            ]
-          },
-          {
-            "rule": {
-              "index": 3,
-              "annotation": ""
-            },
-            "matched": true,
-            "result": {
-              "matched": true,
-              "compareAgainstLendingThreshold": 27.50
-            },
-            "columnNodes": [
-              {
-                "columnIndex": 1,
-                "result": true
-              }
-            ]
-          }
-        ],
-        "children": []
-      }
-    ]
-  },
-  {
-    "element": {
-      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-      "name": "makeCreditDecision",
-      "label": "Make credit decision",
-      "elementKind": "DECISION",
-      "expressionKind": "DECISION_TABLE",
-      "hitPolicy": "UNIQUE",
-      "rulesCount": 3
-    },
-    "arguments": {
-      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
-        "Age": 38,
-        "Credit score": 100,
-        "Name": "Amy",
-        "Prior issues": [
-          "Late payment"
-        ]
-      },
-      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
-      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#lendingThreshold": 25
-    },
-    "output": "Accept",
-    "ruleNodes": [
-      {
-        "rule": {
-          "index": 2,
-          "annotation": "string(\"Error: threshold undefined\")"
-        },
-        "matched": false,
-        "result": {
-          "matched": false,
-          "makeCreditDecision": null
-        },
-        "columnNodes": [
-          {
-            "columnIndex": 1,
-            "result": false
-          },
-          {
-            "columnIndex": 1,
-            "result": false
-          }
-        ]
-      },
-      {
-        "rule": {
-          "index": 2,
-          "annotation": ""
-        },
-        "matched": false,
-        "result": {
-          "matched": false,
-          "makeCreditDecision": null
-        },
-        "columnNodes": [
-          {
-            "columnIndex": 1,
-            "result": false
-          }
-        ]
-      },
-      {
-        "rule": {
-          "index": 3,
-          "annotation": ""
-        },
-        "matched": true,
-        "result": {
-          "matched": true,
-          "makeCreditDecision": "Accept"
-        },
-        "columnNodes": [
-          {
-            "columnIndex": 1,
-            "result": true
-          }
-        ]
-      }
-    ],
-    "children": [
-      {
-        "element": {
-          "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-          "name": "compareAgainstLendingThreshold",
-          "label": "Compare against lending threshold",
-          "elementKind": "DECISION",
-          "expressionKind": "DECISION_TABLE",
-          "hitPolicy": "ANY",
-          "rulesCount": 2
-        },
-        "arguments": {
-          "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
-            "Age": 38,
-            "Credit score": 100,
-            "Name": "Amy",
-            "Prior issues": [
-              "Late payment"
-            ]
-          },
-          "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
-          "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#lendingThreshold": 25
-        },
-        "output": 27.50,
-        "ruleNodes": [
-          {
-            "rule": {
-              "index": 3,
-              "annotation": ""
-            },
-            "matched": true,
-            "result": {
-              "matched": true,
-              "compareAgainstLendingThreshold": 27.50
-            },
-            "columnNodes": [
-              {
-                "columnIndex": 1,
-                "result": true
-              }
-            ]
-          },
-          {
-            "rule": {
-              "index": 2,
-              "annotation": "string(\"Error: threshold undefined\")"
-            },
-            "matched": false,
-            "result": {
-              "matched": false,
-              "makeCreditDecision": null
-            },
-            "columnNodes": [
-              {
-                "columnIndex": 1,
-                "result": false
-              },
-              {
-                "columnIndex": 1,
-                "result": false
-              }
-            ]
-          }
-        ],
-        "children": [
-          {
-            "element": {
-              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-              "name": "assessIssueRisk",
-              "label": "Assess issue risk",
-              "elementKind": "DECISION",
-              "expressionKind": "OTHER",
-              "hitPolicy": "UNKNOWN",
-              "rulesCount": -1
-            },
-            "arguments": {
-              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
-                "Age": 38,
-                "Credit score": 100,
-                "Name": "Amy",
-                "Prior issues": [
-                  "Late payment"
-                ]
-              },
-              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50
-            },
-            "output": -7.50,
-            "ruleNodes": [],
-            "children": [
-              {
-                "element": {
-                  "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-                  "name": "processPriorIssues",
-                  "label": "Process prior issues",
-                  "elementKind": "DECISION",
-                  "expressionKind": "DECISION_TABLE",
-                  "hitPolicy": "COLLECT",
-                  "rulesCount": 5
-                },
-                "arguments": {
-                  "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
-                    "Age": 38,
-                    "Credit score": 100,
-                    "Name": "Amy",
-                    "Prior issues": [
-                      "Late payment"
-                    ]
-                  }
-                },
-                "output": [
-                  -10,
-                  -5
-                ],
-                "ruleNodes": [
-                  {
-                    "rule": {
-                      "index": 1,
-                      "annotation": ""
-                    },
-                    "matched": true,
-                    "result": {
-                      "matched": true,
-                      "processPriorIssues": -10
-                    },
-                    "columnNodes": [
-                      {
-                        "columnIndex": 1,
-                        "result": true
-                      }
-                    ]
-                  },
-                  {
-                    "rule": {
-                      "index": 2,
-                      "annotation": ""
-                    },
-                    "matched": false,
-                    "result": {
-                      "matched": false,
-                      "processPriorIssues": null
-                    },
-                    "columnNodes": [
-                      {
-                        "columnIndex": 1,
-                        "result": false
-                      }
-                    ]
-                  },
-                  {
-                    "rule": {
-                      "index": 3,
-                      "annotation": ""
-                    },
-                    "matched": false,
-                    "result": {
-                      "matched": false,
-                      "processPriorIssues": null
-                    },
-                    "columnNodes": [
-                      {
-                        "columnIndex": 1,
-                        "result": false
-                      }
-                    ]
-                  },
-                  {
-                    "rule": {
-                      "index": 4,
-                      "annotation": ""
-                    },
-                    "matched": false,
-                    "result": {
-                      "matched": false,
-                      "processPriorIssues": null
-                    },
-                    "columnNodes": [
-                      {
-                        "columnIndex": 1,
-                        "result": false
-                      }
-                    ]
-                  },
-                  {
-                    "rule": {
-                      "index": 5,
-                      "annotation": ""
-                    },
-                    "matched": true,
-                    "result": {
-                      "matched": true,
-                      "processPriorIssues": -5
-                    },
-                    "columnNodes": [
-                      {
-                        "columnIndex": 1,
-                        "result": true
-                      }
-                    ]
-                  }
-                ],
-                "children": []
-              },
-              {
-                "element": {
-                  "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-                  "name": "assessIssue",
-                  "label": "Assess issue",
-                  "elementKind": "DECISION",
-                  "expressionKind": "LITERAL_EXPRESSION",
-                  "hitPolicy": "UNKNOWN",
-                  "rulesCount": -1
-                },
-                "arguments": {
-                  "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
-                  "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#priorIssue_iterator": -10
-                },
-                "output": -5.00,
-                "ruleNodes": [],
-                "children": []
-              },
-              {
-                "element": {
-                  "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-                  "name": "assessIssue",
-                  "label": "Assess issue",
-                  "elementKind": "DECISION",
-                  "expressionKind": "LITERAL_EXPRESSION",
-                  "hitPolicy": "UNKNOWN",
-                  "rulesCount": -1
-                },
-                "arguments": {
-                  "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
-                  "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#priorIssue_iterator": -5
-                },
-                "output": -2.50,
-                "ruleNodes": [],
-                "children": []
-              }
-            ]
-          },
-          {
-            "element": {
-              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-              "name": "assessApplicantAge",
-              "label": "Assess applicant age",
-              "elementKind": "DECISION",
-              "expressionKind": "DECISION_TABLE",
-              "hitPolicy": "UNIQUE",
-              "rulesCount": 3
-            },
-            "arguments": {
-              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
-                "Age": 38,
-                "Credit score": 100,
-                "Name": "Amy",
-                "Prior issues": [
-                  "Late payment"
-                ]
-              }
-            },
-            "output": 60,
-            "ruleNodes": [
-              {
-                "rule": {
-                  "index": 1,
-                  "annotation": ""
-                },
-                "matched": false,
-                "result": {
-                  "matched": false,
-                  "assessApplicantAge": null
-                },
-                "columnNodes": [
-                  {
-                    "columnIndex": 1,
-                    "result": false
-                  }
-                ]
-              },
-              {
-                "rule": {
-                  "index": 2,
-                  "annotation": ""
-                },
-                "matched": false,
-                "result": {
-                  "matched": false,
-                  "assessApplicantAge": null
-                },
-                "columnNodes": [
-                  {
-                    "columnIndex": 1,
-                    "result": false
-                  }
-                ]
-              },
-              {
-                "rule": {
-                  "index": 3,
-                  "annotation": ""
-                },
-                "matched": true,
-                "result": {
-                  "matched": true,
-                  "compareAgainstLendingThreshold": 27.50
-                },
-                "columnNodes": [
-                  {
-                    "columnIndex": 1,
-                    "result": true
-                  }
-                ]
-              }
-            ],
-            "children": []
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "element": {
-      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "name": "processPriorIssues",
       "label": "Process prior issues",
       "elementKind": "DECISION",
@@ -2156,6 +1363,799 @@
   {
     "element": {
       "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+      "name": "assessApplicantAge",
+      "label": "Assess applicant age",
+      "elementKind": "DECISION",
+      "expressionKind": "DECISION_TABLE",
+      "hitPolicy": "UNIQUE",
+      "rulesCount": 3
+    },
+    "arguments": {
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
+        "Age": 38,
+        "Credit score": 100,
+        "Name": "Amy",
+        "Prior issues": [
+          "Late payment"
+        ]
+      }
+    },
+    "output": 60,
+    "ruleNodes": [
+      {
+        "rule": {
+          "index": 1,
+          "annotation": ""
+        },
+        "matched": false,
+        "result": {
+          "matched": false,
+          "assessApplicantAge": null
+        },
+        "columnNodes": [
+          {
+            "columnIndex": 1,
+            "result": false
+          }
+        ]
+      },
+      {
+        "rule": {
+          "index": 2,
+          "annotation": ""
+        },
+        "matched": false,
+        "result": {
+          "matched": false,
+          "assessApplicantAge": null
+        },
+        "columnNodes": [
+          {
+            "columnIndex": 1,
+            "result": false
+          }
+        ]
+      },
+      {
+        "rule": {
+          "index": 3,
+          "annotation": ""
+        },
+        "matched": true,
+        "result": {
+          "matched": true,
+          "compareAgainstLendingThreshold": 27.50
+        },
+        "columnNodes": [
+          {
+            "columnIndex": 1,
+            "result": true
+          }
+        ]
+      }
+    ],
+    "children": []
+  },
+  {
+    "element": {
+      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+      "name": "compareAgainstLendingThreshold",
+      "label": "Compare against lending threshold",
+      "elementKind": "DECISION",
+      "expressionKind": "DECISION_TABLE",
+      "hitPolicy": "ANY",
+      "rulesCount": 2
+    },
+    "arguments": {
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
+        "Age": 38,
+        "Credit score": 100,
+        "Name": "Amy",
+        "Prior issues": [
+          "Late payment"
+        ]
+      },
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#lendingThreshold": 25
+    },
+    "output": 27.50,
+    "ruleNodes": [
+      {
+        "rule": {
+          "index": 3,
+          "annotation": ""
+        },
+        "matched": true,
+        "result": {
+          "matched": true,
+          "compareAgainstLendingThreshold": 27.50
+        },
+        "columnNodes": [
+          {
+            "columnIndex": 1,
+            "result": true
+          }
+        ]
+      },
+      {
+        "rule": {
+          "index": 2,
+          "annotation": "string(\"Error: threshold undefined\")"
+        },
+        "matched": false,
+        "result": {
+          "matched": false,
+          "makeCreditDecision": null
+        },
+        "columnNodes": [
+          {
+            "columnIndex": 1,
+            "result": false
+          },
+          {
+            "columnIndex": 1,
+            "result": false
+          }
+        ]
+      }
+    ],
+    "children": [
+      {
+        "element": {
+          "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+          "name": "assessIssueRisk",
+          "label": "Assess issue risk",
+          "elementKind": "DECISION",
+          "expressionKind": "OTHER",
+          "hitPolicy": "UNKNOWN",
+          "rulesCount": -1
+        },
+        "arguments": {
+          "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
+            "Age": 38,
+            "Credit score": 100,
+            "Name": "Amy",
+            "Prior issues": [
+              "Late payment"
+            ]
+          },
+          "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50
+        },
+        "output": -7.50,
+        "ruleNodes": [],
+        "children": [
+          {
+            "element": {
+              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+              "name": "processPriorIssues",
+              "label": "Process prior issues",
+              "elementKind": "DECISION",
+              "expressionKind": "DECISION_TABLE",
+              "hitPolicy": "COLLECT",
+              "rulesCount": 5
+            },
+            "arguments": {
+              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
+                "Age": 38,
+                "Credit score": 100,
+                "Name": "Amy",
+                "Prior issues": [
+                  "Late payment"
+                ]
+              }
+            },
+            "output": [
+              -10,
+              -5
+            ],
+            "ruleNodes": [
+              {
+                "rule": {
+                  "index": 1,
+                  "annotation": ""
+                },
+                "matched": true,
+                "result": {
+                  "matched": true,
+                  "processPriorIssues": -10
+                },
+                "columnNodes": [
+                  {
+                    "columnIndex": 1,
+                    "result": true
+                  }
+                ]
+              },
+              {
+                "rule": {
+                  "index": 2,
+                  "annotation": ""
+                },
+                "matched": false,
+                "result": {
+                  "matched": false,
+                  "processPriorIssues": null
+                },
+                "columnNodes": [
+                  {
+                    "columnIndex": 1,
+                    "result": false
+                  }
+                ]
+              },
+              {
+                "rule": {
+                  "index": 3,
+                  "annotation": ""
+                },
+                "matched": false,
+                "result": {
+                  "matched": false,
+                  "processPriorIssues": null
+                },
+                "columnNodes": [
+                  {
+                    "columnIndex": 1,
+                    "result": false
+                  }
+                ]
+              },
+              {
+                "rule": {
+                  "index": 4,
+                  "annotation": ""
+                },
+                "matched": false,
+                "result": {
+                  "matched": false,
+                  "processPriorIssues": null
+                },
+                "columnNodes": [
+                  {
+                    "columnIndex": 1,
+                    "result": false
+                  }
+                ]
+              },
+              {
+                "rule": {
+                  "index": 5,
+                  "annotation": ""
+                },
+                "matched": true,
+                "result": {
+                  "matched": true,
+                  "processPriorIssues": -5
+                },
+                "columnNodes": [
+                  {
+                    "columnIndex": 1,
+                    "result": true
+                  }
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "element": {
+              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+              "name": "assessIssue",
+              "label": "Assess issue",
+              "elementKind": "DECISION",
+              "expressionKind": "LITERAL_EXPRESSION",
+              "hitPolicy": "UNKNOWN",
+              "rulesCount": -1
+            },
+            "arguments": {
+              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
+              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#priorIssue_iterator": -10
+            },
+            "output": -5.00,
+            "ruleNodes": [],
+            "children": []
+          },
+          {
+            "element": {
+              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+              "name": "assessIssue",
+              "label": "Assess issue",
+              "elementKind": "DECISION",
+              "expressionKind": "LITERAL_EXPRESSION",
+              "hitPolicy": "UNKNOWN",
+              "rulesCount": -1
+            },
+            "arguments": {
+              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
+              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#priorIssue_iterator": -5
+            },
+            "output": -2.50,
+            "ruleNodes": [],
+            "children": []
+          }
+        ]
+      },
+      {
+        "element": {
+          "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+          "name": "assessApplicantAge",
+          "label": "Assess applicant age",
+          "elementKind": "DECISION",
+          "expressionKind": "DECISION_TABLE",
+          "hitPolicy": "UNIQUE",
+          "rulesCount": 3
+        },
+        "arguments": {
+          "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
+            "Age": 38,
+            "Credit score": 100,
+            "Name": "Amy",
+            "Prior issues": [
+              "Late payment"
+            ]
+          }
+        },
+        "output": 60,
+        "ruleNodes": [
+          {
+            "rule": {
+              "index": 1,
+              "annotation": ""
+            },
+            "matched": false,
+            "result": {
+              "matched": false,
+              "assessApplicantAge": null
+            },
+            "columnNodes": [
+              {
+                "columnIndex": 1,
+                "result": false
+              }
+            ]
+          },
+          {
+            "rule": {
+              "index": 2,
+              "annotation": ""
+            },
+            "matched": false,
+            "result": {
+              "matched": false,
+              "assessApplicantAge": null
+            },
+            "columnNodes": [
+              {
+                "columnIndex": 1,
+                "result": false
+              }
+            ]
+          },
+          {
+            "rule": {
+              "index": 3,
+              "annotation": ""
+            },
+            "matched": true,
+            "result": {
+              "matched": true,
+              "compareAgainstLendingThreshold": 27.50
+            },
+            "columnNodes": [
+              {
+                "columnIndex": 1,
+                "result": true
+              }
+            ]
+          }
+        ],
+        "children": []
+      }
+    ]
+  },
+  {
+    "element": {
+      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+      "name": "makeCreditDecision",
+      "label": "Make credit decision",
+      "elementKind": "DECISION",
+      "expressionKind": "DECISION_TABLE",
+      "hitPolicy": "UNIQUE",
+      "rulesCount": 3
+    },
+    "arguments": {
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
+        "Age": 38,
+        "Credit score": 100,
+        "Name": "Amy",
+        "Prior issues": [
+          "Late payment"
+        ]
+      },
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
+      "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#lendingThreshold": 25
+    },
+    "output": "Accept",
+    "ruleNodes": [
+      {
+        "rule": {
+          "index": 2,
+          "annotation": "string(\"Error: threshold undefined\")"
+        },
+        "matched": false,
+        "result": {
+          "matched": false,
+          "makeCreditDecision": null
+        },
+        "columnNodes": [
+          {
+            "columnIndex": 1,
+            "result": false
+          },
+          {
+            "columnIndex": 1,
+            "result": false
+          }
+        ]
+      },
+      {
+        "rule": {
+          "index": 2,
+          "annotation": ""
+        },
+        "matched": false,
+        "result": {
+          "matched": false,
+          "makeCreditDecision": null
+        },
+        "columnNodes": [
+          {
+            "columnIndex": 1,
+            "result": false
+          }
+        ]
+      },
+      {
+        "rule": {
+          "index": 3,
+          "annotation": ""
+        },
+        "matched": true,
+        "result": {
+          "matched": true,
+          "makeCreditDecision": "Accept"
+        },
+        "columnNodes": [
+          {
+            "columnIndex": 1,
+            "result": true
+          }
+        ]
+      }
+    ],
+    "children": [
+      {
+        "element": {
+          "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+          "name": "compareAgainstLendingThreshold",
+          "label": "Compare against lending threshold",
+          "elementKind": "DECISION",
+          "expressionKind": "DECISION_TABLE",
+          "hitPolicy": "ANY",
+          "rulesCount": 2
+        },
+        "arguments": {
+          "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
+            "Age": 38,
+            "Credit score": 100,
+            "Name": "Amy",
+            "Prior issues": [
+              "Late payment"
+            ]
+          },
+          "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
+          "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#lendingThreshold": 25
+        },
+        "output": 27.50,
+        "ruleNodes": [
+          {
+            "rule": {
+              "index": 3,
+              "annotation": ""
+            },
+            "matched": true,
+            "result": {
+              "matched": true,
+              "compareAgainstLendingThreshold": 27.50
+            },
+            "columnNodes": [
+              {
+                "columnIndex": 1,
+                "result": true
+              }
+            ]
+          },
+          {
+            "rule": {
+              "index": 2,
+              "annotation": "string(\"Error: threshold undefined\")"
+            },
+            "matched": false,
+            "result": {
+              "matched": false,
+              "makeCreditDecision": null
+            },
+            "columnNodes": [
+              {
+                "columnIndex": 1,
+                "result": false
+              },
+              {
+                "columnIndex": 1,
+                "result": false
+              }
+            ]
+          }
+        ],
+        "children": [
+          {
+            "element": {
+              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+              "name": "assessIssueRisk",
+              "label": "Assess issue risk",
+              "elementKind": "DECISION",
+              "expressionKind": "OTHER",
+              "hitPolicy": "UNKNOWN",
+              "rulesCount": -1
+            },
+            "arguments": {
+              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
+                "Age": 38,
+                "Credit score": 100,
+                "Name": "Amy",
+                "Prior issues": [
+                  "Late payment"
+                ]
+              },
+              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50
+            },
+            "output": -7.50,
+            "ruleNodes": [],
+            "children": [
+              {
+                "element": {
+                  "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+                  "name": "processPriorIssues",
+                  "label": "Process prior issues",
+                  "elementKind": "DECISION",
+                  "expressionKind": "DECISION_TABLE",
+                  "hitPolicy": "COLLECT",
+                  "rulesCount": 5
+                },
+                "arguments": {
+                  "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
+                    "Age": 38,
+                    "Credit score": 100,
+                    "Name": "Amy",
+                    "Prior issues": [
+                      "Late payment"
+                    ]
+                  }
+                },
+                "output": [
+                  -10,
+                  -5
+                ],
+                "ruleNodes": [
+                  {
+                    "rule": {
+                      "index": 1,
+                      "annotation": ""
+                    },
+                    "matched": true,
+                    "result": {
+                      "matched": true,
+                      "processPriorIssues": -10
+                    },
+                    "columnNodes": [
+                      {
+                        "columnIndex": 1,
+                        "result": true
+                      }
+                    ]
+                  },
+                  {
+                    "rule": {
+                      "index": 2,
+                      "annotation": ""
+                    },
+                    "matched": false,
+                    "result": {
+                      "matched": false,
+                      "processPriorIssues": null
+                    },
+                    "columnNodes": [
+                      {
+                        "columnIndex": 1,
+                        "result": false
+                      }
+                    ]
+                  },
+                  {
+                    "rule": {
+                      "index": 3,
+                      "annotation": ""
+                    },
+                    "matched": false,
+                    "result": {
+                      "matched": false,
+                      "processPriorIssues": null
+                    },
+                    "columnNodes": [
+                      {
+                        "columnIndex": 1,
+                        "result": false
+                      }
+                    ]
+                  },
+                  {
+                    "rule": {
+                      "index": 4,
+                      "annotation": ""
+                    },
+                    "matched": false,
+                    "result": {
+                      "matched": false,
+                      "processPriorIssues": null
+                    },
+                    "columnNodes": [
+                      {
+                        "columnIndex": 1,
+                        "result": false
+                      }
+                    ]
+                  },
+                  {
+                    "rule": {
+                      "index": 5,
+                      "annotation": ""
+                    },
+                    "matched": true,
+                    "result": {
+                      "matched": true,
+                      "processPriorIssues": -5
+                    },
+                    "columnNodes": [
+                      {
+                        "columnIndex": 1,
+                        "result": true
+                      }
+                    ]
+                  }
+                ],
+                "children": []
+              },
+              {
+                "element": {
+                  "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+                  "name": "assessIssue",
+                  "label": "Assess issue",
+                  "elementKind": "DECISION",
+                  "expressionKind": "LITERAL_EXPRESSION",
+                  "hitPolicy": "UNKNOWN",
+                  "rulesCount": -1
+                },
+                "arguments": {
+                  "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
+                  "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#priorIssue_iterator": -10
+                },
+                "output": -5.00,
+                "ruleNodes": [],
+                "children": []
+              },
+              {
+                "element": {
+                  "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+                  "name": "assessIssue",
+                  "label": "Assess issue",
+                  "elementKind": "DECISION",
+                  "expressionKind": "LITERAL_EXPRESSION",
+                  "hitPolicy": "UNKNOWN",
+                  "rulesCount": -1
+                },
+                "arguments": {
+                  "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
+                  "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#priorIssue_iterator": -5
+                },
+                "output": -2.50,
+                "ruleNodes": [],
+                "children": []
+              }
+            ]
+          },
+          {
+            "element": {
+              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+              "name": "assessApplicantAge",
+              "label": "Assess applicant age",
+              "elementKind": "DECISION",
+              "expressionKind": "DECISION_TABLE",
+              "hitPolicy": "UNIQUE",
+              "rulesCount": 3
+            },
+            "arguments": {
+              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
+                "Age": 38,
+                "Credit score": 100,
+                "Name": "Amy",
+                "Prior issues": [
+                  "Late payment"
+                ]
+              }
+            },
+            "output": 60,
+            "ruleNodes": [
+              {
+                "rule": {
+                  "index": 1,
+                  "annotation": ""
+                },
+                "matched": false,
+                "result": {
+                  "matched": false,
+                  "assessApplicantAge": null
+                },
+                "columnNodes": [
+                  {
+                    "columnIndex": 1,
+                    "result": false
+                  }
+                ]
+              },
+              {
+                "rule": {
+                  "index": 2,
+                  "annotation": ""
+                },
+                "matched": false,
+                "result": {
+                  "matched": false,
+                  "assessApplicantAge": null
+                },
+                "columnNodes": [
+                  {
+                    "columnIndex": 1,
+                    "result": false
+                  }
+                ]
+              },
+              {
+                "rule": {
+                  "index": 3,
+                  "annotation": ""
+                },
+                "matched": true,
+                "result": {
+                  "matched": true,
+                  "compareAgainstLendingThreshold": 27.50
+                },
+                "columnNodes": [
+                  {
+                    "columnIndex": 1,
+                    "result": true
+                  }
+                ]
+              }
+            ],
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "element": {
+      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "name": "generateOutputData",
       "label": "Generate output data",
       "elementKind": "DECISION",
@@ -2184,6 +2184,494 @@
     ],
     "ruleNodes": [],
     "children": [
+      {
+        "element": {
+          "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+          "name": "assessIssueRisk",
+          "label": "Assess issue risk",
+          "elementKind": "DECISION",
+          "expressionKind": "OTHER",
+          "hitPolicy": "UNKNOWN",
+          "rulesCount": -1
+        },
+        "arguments": {
+          "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
+            "Age": 38,
+            "Credit score": 100,
+            "Name": "Amy",
+            "Prior issues": [
+              "Late payment"
+            ]
+          },
+          "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50
+        },
+        "output": -7.50,
+        "ruleNodes": [],
+        "children": [
+          {
+            "element": {
+              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+              "name": "processPriorIssues",
+              "label": "Process prior issues",
+              "elementKind": "DECISION",
+              "expressionKind": "DECISION_TABLE",
+              "hitPolicy": "COLLECT",
+              "rulesCount": 5
+            },
+            "arguments": {
+              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
+                "Age": 38,
+                "Credit score": 100,
+                "Name": "Amy",
+                "Prior issues": [
+                  "Late payment"
+                ]
+              }
+            },
+            "output": [
+              -10,
+              -5
+            ],
+            "ruleNodes": [
+              {
+                "rule": {
+                  "index": 1,
+                  "annotation": ""
+                },
+                "matched": true,
+                "result": {
+                  "matched": true,
+                  "processPriorIssues": -10
+                },
+                "columnNodes": [
+                  {
+                    "columnIndex": 1,
+                    "result": true
+                  }
+                ]
+              },
+              {
+                "rule": {
+                  "index": 2,
+                  "annotation": ""
+                },
+                "matched": false,
+                "result": {
+                  "matched": false,
+                  "processPriorIssues": null
+                },
+                "columnNodes": [
+                  {
+                    "columnIndex": 1,
+                    "result": false
+                  }
+                ]
+              },
+              {
+                "rule": {
+                  "index": 3,
+                  "annotation": ""
+                },
+                "matched": false,
+                "result": {
+                  "matched": false,
+                  "processPriorIssues": null
+                },
+                "columnNodes": [
+                  {
+                    "columnIndex": 1,
+                    "result": false
+                  }
+                ]
+              },
+              {
+                "rule": {
+                  "index": 4,
+                  "annotation": ""
+                },
+                "matched": false,
+                "result": {
+                  "matched": false,
+                  "processPriorIssues": null
+                },
+                "columnNodes": [
+                  {
+                    "columnIndex": 1,
+                    "result": false
+                  }
+                ]
+              },
+              {
+                "rule": {
+                  "index": 5,
+                  "annotation": ""
+                },
+                "matched": true,
+                "result": {
+                  "matched": true,
+                  "processPriorIssues": -5
+                },
+                "columnNodes": [
+                  {
+                    "columnIndex": 1,
+                    "result": true
+                  }
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "element": {
+              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+              "name": "assessIssue",
+              "label": "Assess issue",
+              "elementKind": "DECISION",
+              "expressionKind": "LITERAL_EXPRESSION",
+              "hitPolicy": "UNKNOWN",
+              "rulesCount": -1
+            },
+            "arguments": {
+              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
+              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#priorIssue_iterator": -10
+            },
+            "output": -5.00,
+            "ruleNodes": [],
+            "children": []
+          },
+          {
+            "element": {
+              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+              "name": "assessIssue",
+              "label": "Assess issue",
+              "elementKind": "DECISION",
+              "expressionKind": "LITERAL_EXPRESSION",
+              "hitPolicy": "UNKNOWN",
+              "rulesCount": -1
+            },
+            "arguments": {
+              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
+              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#priorIssue_iterator": -5
+            },
+            "output": -2.50,
+            "ruleNodes": [],
+            "children": []
+          }
+        ]
+      },
+      {
+        "element": {
+          "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+          "name": "compareAgainstLendingThreshold",
+          "label": "Compare against lending threshold",
+          "elementKind": "DECISION",
+          "expressionKind": "DECISION_TABLE",
+          "hitPolicy": "ANY",
+          "rulesCount": 2
+        },
+        "arguments": {
+          "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
+            "Age": 38,
+            "Credit score": 100,
+            "Name": "Amy",
+            "Prior issues": [
+              "Late payment"
+            ]
+          },
+          "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
+          "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#lendingThreshold": 25
+        },
+        "output": 27.50,
+        "ruleNodes": [
+          {
+            "rule": {
+              "index": 3,
+              "annotation": ""
+            },
+            "matched": true,
+            "result": {
+              "matched": true,
+              "compareAgainstLendingThreshold": 27.50
+            },
+            "columnNodes": [
+              {
+                "columnIndex": 1,
+                "result": true
+              }
+            ]
+          },
+          {
+            "rule": {
+              "index": 2,
+              "annotation": "string(\"Error: threshold undefined\")"
+            },
+            "matched": false,
+            "result": {
+              "matched": false,
+              "compareAgainstLendingThreshold": null
+            },
+            "columnNodes": [
+              {
+                "columnIndex": 1,
+                "result": false
+              }
+            ]
+          }
+        ],
+        "children": [
+          {
+            "element": {
+              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+              "name": "assessIssueRisk",
+              "label": "Assess issue risk",
+              "elementKind": "DECISION",
+              "expressionKind": "OTHER",
+              "hitPolicy": "UNKNOWN",
+              "rulesCount": -1
+            },
+            "arguments": {
+              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
+                "Age": 38,
+                "Credit score": 100,
+                "Name": "Amy",
+                "Prior issues": [
+                  "Late payment"
+                ]
+              },
+              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50
+            },
+            "output": -7.50,
+            "ruleNodes": [],
+            "children": [
+              {
+                "element": {
+                  "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+                  "name": "processPriorIssues",
+                  "label": "Process prior issues",
+                  "elementKind": "DECISION",
+                  "expressionKind": "DECISION_TABLE",
+                  "hitPolicy": "COLLECT",
+                  "rulesCount": 5
+                },
+                "arguments": {
+                  "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
+                    "Age": 38,
+                    "Credit score": 100,
+                    "Name": "Amy",
+                    "Prior issues": [
+                      "Late payment"
+                    ]
+                  }
+                },
+                "output": [
+                  -10,
+                  -5
+                ],
+                "ruleNodes": [
+                  {
+                    "rule": {
+                      "index": 1,
+                      "annotation": ""
+                    },
+                    "matched": true,
+                    "result": {
+                      "matched": true,
+                      "processPriorIssues": -10
+                    },
+                    "columnNodes": [
+                      {
+                        "columnIndex": 1,
+                        "result": true
+                      }
+                    ]
+                  },
+                  {
+                    "rule": {
+                      "index": 2,
+                      "annotation": ""
+                    },
+                    "matched": false,
+                    "result": {
+                      "matched": false,
+                      "processPriorIssues": null
+                    },
+                    "columnNodes": [
+                      {
+                        "columnIndex": 1,
+                        "result": false
+                      }
+                    ]
+                  },
+                  {
+                    "rule": {
+                      "index": 3,
+                      "annotation": ""
+                    },
+                    "matched": false,
+                    "result": {
+                      "matched": false,
+                      "processPriorIssues": null
+                    },
+                    "columnNodes": [
+                      {
+                        "columnIndex": 1,
+                        "result": false
+                      }
+                    ]
+                  },
+                  {
+                    "rule": {
+                      "index": 4,
+                      "annotation": ""
+                    },
+                    "matched": false,
+                    "result": {
+                      "matched": false,
+                      "processPriorIssues": null
+                    },
+                    "columnNodes": [
+                      {
+                        "columnIndex": 1,
+                        "result": false
+                      }
+                    ]
+                  },
+                  {
+                    "rule": {
+                      "index": 5,
+                      "annotation": ""
+                    },
+                    "matched": true,
+                    "result": {
+                      "matched": true,
+                      "processPriorIssues": -5
+                    },
+                    "columnNodes": [
+                      {
+                        "columnIndex": 1,
+                        "result": true
+                      }
+                    ]
+                  }
+                ],
+                "children": []
+              },
+              {
+                "element": {
+                  "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+                  "name": "assessIssue",
+                  "label": "Assess issue",
+                  "elementKind": "DECISION",
+                  "expressionKind": "LITERAL_EXPRESSION",
+                  "hitPolicy": "UNKNOWN",
+                  "rulesCount": -1
+                },
+                "arguments": {
+                  "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
+                  "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#priorIssue_iterator": -10
+                },
+                "output": -5.00,
+                "ruleNodes": [],
+                "children": []
+              },
+              {
+                "element": {
+                  "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+                  "name": "assessIssue",
+                  "label": "Assess issue",
+                  "elementKind": "DECISION",
+                  "expressionKind": "LITERAL_EXPRESSION",
+                  "hitPolicy": "UNKNOWN",
+                  "rulesCount": -1
+                },
+                "arguments": {
+                  "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
+                  "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#priorIssue_iterator": -5
+                },
+                "output": -2.50,
+                "ruleNodes": [],
+                "children": []
+              }
+            ]
+          },
+          {
+            "element": {
+              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+              "name": "assessApplicantAge",
+              "label": "Assess applicant age",
+              "elementKind": "DECISION",
+              "expressionKind": "DECISION_TABLE",
+              "hitPolicy": "UNIQUE",
+              "rulesCount": 3
+            },
+            "arguments": {
+              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
+                "Age": 38,
+                "Credit score": 100,
+                "Name": "Amy",
+                "Prior issues": [
+                  "Late payment"
+                ]
+              }
+            },
+            "output": 60,
+            "ruleNodes": [
+              {
+                "rule": {
+                  "index": 1,
+                  "annotation": ""
+                },
+                "matched": false,
+                "result": {
+                  "matched": false,
+                  "assessApplicantAge": null
+                },
+                "columnNodes": [
+                  {
+                    "columnIndex": 1,
+                    "result": false
+                  }
+                ]
+              },
+              {
+                "rule": {
+                  "index": 2,
+                  "annotation": ""
+                },
+                "matched": false,
+                "result": {
+                  "matched": false,
+                  "assessApplicantAge": null
+                },
+                "columnNodes": [
+                  {
+                    "columnIndex": 1,
+                    "result": false
+                  }
+                ]
+              },
+              {
+                "rule": {
+                  "index": 3,
+                  "annotation": ""
+                },
+                "matched": true,
+                "result": {
+                  "matched": true,
+                  "compareAgainstLendingThreshold": 27.50
+                },
+                "columnNodes": [
+                  {
+                    "columnIndex": 1,
+                    "result": true
+                  }
+                ]
+              }
+            ],
+            "children": []
+          }
+        ]
+      },
       {
         "element": {
           "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
@@ -2581,494 +3069,6 @@
                 "children": []
               }
             ]
-          }
-        ]
-      },
-      {
-        "element": {
-          "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-          "name": "compareAgainstLendingThreshold",
-          "label": "Compare against lending threshold",
-          "elementKind": "DECISION",
-          "expressionKind": "DECISION_TABLE",
-          "hitPolicy": "ANY",
-          "rulesCount": 2
-        },
-        "arguments": {
-          "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
-            "Age": 38,
-            "Credit score": 100,
-            "Name": "Amy",
-            "Prior issues": [
-              "Late payment"
-            ]
-          },
-          "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
-          "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#lendingThreshold": 25
-        },
-        "output": 27.50,
-        "ruleNodes": [
-          {
-            "rule": {
-              "index": 3,
-              "annotation": ""
-            },
-            "matched": true,
-            "result": {
-              "matched": true,
-              "compareAgainstLendingThreshold": 27.50
-            },
-            "columnNodes": [
-              {
-                "columnIndex": 1,
-                "result": true
-              }
-            ]
-          },
-          {
-            "rule": {
-              "index": 2,
-              "annotation": "string(\"Error: threshold undefined\")"
-            },
-            "matched": false,
-            "result": {
-              "matched": false,
-              "compareAgainstLendingThreshold": null
-            },
-            "columnNodes": [
-              {
-                "columnIndex": 1,
-                "result": false
-              }
-            ]
-          }
-        ],
-        "children": [
-          {
-            "element": {
-              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-              "name": "assessIssueRisk",
-              "label": "Assess issue risk",
-              "elementKind": "DECISION",
-              "expressionKind": "OTHER",
-              "hitPolicy": "UNKNOWN",
-              "rulesCount": -1
-            },
-            "arguments": {
-              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
-                "Age": 38,
-                "Credit score": 100,
-                "Name": "Amy",
-                "Prior issues": [
-                  "Late payment"
-                ]
-              },
-              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50
-            },
-            "output": -7.50,
-            "ruleNodes": [],
-            "children": [
-              {
-                "element": {
-                  "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-                  "name": "processPriorIssues",
-                  "label": "Process prior issues",
-                  "elementKind": "DECISION",
-                  "expressionKind": "DECISION_TABLE",
-                  "hitPolicy": "COLLECT",
-                  "rulesCount": 5
-                },
-                "arguments": {
-                  "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
-                    "Age": 38,
-                    "Credit score": 100,
-                    "Name": "Amy",
-                    "Prior issues": [
-                      "Late payment"
-                    ]
-                  }
-                },
-                "output": [
-                  -10,
-                  -5
-                ],
-                "ruleNodes": [
-                  {
-                    "rule": {
-                      "index": 1,
-                      "annotation": ""
-                    },
-                    "matched": true,
-                    "result": {
-                      "matched": true,
-                      "processPriorIssues": -10
-                    },
-                    "columnNodes": [
-                      {
-                        "columnIndex": 1,
-                        "result": true
-                      }
-                    ]
-                  },
-                  {
-                    "rule": {
-                      "index": 2,
-                      "annotation": ""
-                    },
-                    "matched": false,
-                    "result": {
-                      "matched": false,
-                      "processPriorIssues": null
-                    },
-                    "columnNodes": [
-                      {
-                        "columnIndex": 1,
-                        "result": false
-                      }
-                    ]
-                  },
-                  {
-                    "rule": {
-                      "index": 3,
-                      "annotation": ""
-                    },
-                    "matched": false,
-                    "result": {
-                      "matched": false,
-                      "processPriorIssues": null
-                    },
-                    "columnNodes": [
-                      {
-                        "columnIndex": 1,
-                        "result": false
-                      }
-                    ]
-                  },
-                  {
-                    "rule": {
-                      "index": 4,
-                      "annotation": ""
-                    },
-                    "matched": false,
-                    "result": {
-                      "matched": false,
-                      "processPriorIssues": null
-                    },
-                    "columnNodes": [
-                      {
-                        "columnIndex": 1,
-                        "result": false
-                      }
-                    ]
-                  },
-                  {
-                    "rule": {
-                      "index": 5,
-                      "annotation": ""
-                    },
-                    "matched": true,
-                    "result": {
-                      "matched": true,
-                      "processPriorIssues": -5
-                    },
-                    "columnNodes": [
-                      {
-                        "columnIndex": 1,
-                        "result": true
-                      }
-                    ]
-                  }
-                ],
-                "children": []
-              },
-              {
-                "element": {
-                  "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-                  "name": "assessIssue",
-                  "label": "Assess issue",
-                  "elementKind": "DECISION",
-                  "expressionKind": "LITERAL_EXPRESSION",
-                  "hitPolicy": "UNKNOWN",
-                  "rulesCount": -1
-                },
-                "arguments": {
-                  "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
-                  "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#priorIssue_iterator": -10
-                },
-                "output": -5.00,
-                "ruleNodes": [],
-                "children": []
-              },
-              {
-                "element": {
-                  "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-                  "name": "assessIssue",
-                  "label": "Assess issue",
-                  "elementKind": "DECISION",
-                  "expressionKind": "LITERAL_EXPRESSION",
-                  "hitPolicy": "UNKNOWN",
-                  "rulesCount": -1
-                },
-                "arguments": {
-                  "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
-                  "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#priorIssue_iterator": -5
-                },
-                "output": -2.50,
-                "ruleNodes": [],
-                "children": []
-              }
-            ]
-          },
-          {
-            "element": {
-              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-              "name": "assessApplicantAge",
-              "label": "Assess applicant age",
-              "elementKind": "DECISION",
-              "expressionKind": "DECISION_TABLE",
-              "hitPolicy": "UNIQUE",
-              "rulesCount": 3
-            },
-            "arguments": {
-              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
-                "Age": 38,
-                "Credit score": 100,
-                "Name": "Amy",
-                "Prior issues": [
-                  "Late payment"
-                ]
-              }
-            },
-            "output": 60,
-            "ruleNodes": [
-              {
-                "rule": {
-                  "index": 1,
-                  "annotation": ""
-                },
-                "matched": false,
-                "result": {
-                  "matched": false,
-                  "assessApplicantAge": null
-                },
-                "columnNodes": [
-                  {
-                    "columnIndex": 1,
-                    "result": false
-                  }
-                ]
-              },
-              {
-                "rule": {
-                  "index": 2,
-                  "annotation": ""
-                },
-                "matched": false,
-                "result": {
-                  "matched": false,
-                  "assessApplicantAge": null
-                },
-                "columnNodes": [
-                  {
-                    "columnIndex": 1,
-                    "result": false
-                  }
-                ]
-              },
-              {
-                "rule": {
-                  "index": 3,
-                  "annotation": ""
-                },
-                "matched": true,
-                "result": {
-                  "matched": true,
-                  "compareAgainstLendingThreshold": 27.50
-                },
-                "columnNodes": [
-                  {
-                    "columnIndex": 1,
-                    "result": true
-                  }
-                ]
-              }
-            ],
-            "children": []
-          }
-        ]
-      },
-      {
-        "element": {
-          "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-          "name": "assessIssueRisk",
-          "label": "Assess issue risk",
-          "elementKind": "DECISION",
-          "expressionKind": "OTHER",
-          "hitPolicy": "UNKNOWN",
-          "rulesCount": -1
-        },
-        "arguments": {
-          "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
-            "Age": 38,
-            "Credit score": 100,
-            "Name": "Amy",
-            "Prior issues": [
-              "Late payment"
-            ]
-          },
-          "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50
-        },
-        "output": -7.50,
-        "ruleNodes": [],
-        "children": [
-          {
-            "element": {
-              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-              "name": "processPriorIssues",
-              "label": "Process prior issues",
-              "elementKind": "DECISION",
-              "expressionKind": "DECISION_TABLE",
-              "hitPolicy": "COLLECT",
-              "rulesCount": 5
-            },
-            "arguments": {
-              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#applicant": {
-                "Age": 38,
-                "Credit score": 100,
-                "Name": "Amy",
-                "Prior issues": [
-                  "Late payment"
-                ]
-              }
-            },
-            "output": [
-              -10,
-              -5
-            ],
-            "ruleNodes": [
-              {
-                "rule": {
-                  "index": 1,
-                  "annotation": ""
-                },
-                "matched": true,
-                "result": {
-                  "matched": true,
-                  "processPriorIssues": -10
-                },
-                "columnNodes": [
-                  {
-                    "columnIndex": 1,
-                    "result": true
-                  }
-                ]
-              },
-              {
-                "rule": {
-                  "index": 2,
-                  "annotation": ""
-                },
-                "matched": false,
-                "result": {
-                  "matched": false,
-                  "processPriorIssues": null
-                },
-                "columnNodes": [
-                  {
-                    "columnIndex": 1,
-                    "result": false
-                  }
-                ]
-              },
-              {
-                "rule": {
-                  "index": 3,
-                  "annotation": ""
-                },
-                "matched": false,
-                "result": {
-                  "matched": false,
-                  "processPriorIssues": null
-                },
-                "columnNodes": [
-                  {
-                    "columnIndex": 1,
-                    "result": false
-                  }
-                ]
-              },
-              {
-                "rule": {
-                  "index": 4,
-                  "annotation": ""
-                },
-                "matched": false,
-                "result": {
-                  "matched": false,
-                  "processPriorIssues": null
-                },
-                "columnNodes": [
-                  {
-                    "columnIndex": 1,
-                    "result": false
-                  }
-                ]
-              },
-              {
-                "rule": {
-                  "index": 5,
-                  "annotation": ""
-                },
-                "matched": true,
-                "result": {
-                  "matched": true,
-                  "processPriorIssues": -5
-                },
-                "columnNodes": [
-                  {
-                    "columnIndex": 1,
-                    "result": true
-                  }
-                ]
-              }
-            ],
-            "children": []
-          },
-          {
-            "element": {
-              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-              "name": "assessIssue",
-              "label": "Assess issue",
-              "elementKind": "DECISION",
-              "expressionKind": "LITERAL_EXPRESSION",
-              "hitPolicy": "UNKNOWN",
-              "rulesCount": -1
-            },
-            "arguments": {
-              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
-              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#priorIssue_iterator": -10
-            },
-            "output": -5.00,
-            "ruleNodes": [],
-            "children": []
-          },
-          {
-            "element": {
-              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-              "name": "assessIssue",
-              "label": "Assess issue",
-              "elementKind": "DECISION",
-              "expressionKind": "LITERAL_EXPRESSION",
-              "hitPolicy": "UNKNOWN",
-              "rulesCount": -1
-            },
-            "arguments": {
-              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#currentRiskAppetite": 50,
-              "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml#priorIssue_iterator": -5
-            },
-            "output": -2.50,
-            "ruleNodes": [],
-            "children": []
           }
         ]
       }

@@ -19,6 +19,7 @@ import com.gs.dmn.NameUtils;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.Declaration;
+import com.gs.dmn.context.environment.VariableDeclaration;
 import com.gs.dmn.el.analysis.semantics.type.AnyType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.synthesis.triple.Triple;
@@ -743,7 +744,14 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
             }
             // Other names
             String variableName = nativeFriendlyVariableName(name);
-            return nameToTriple(name, variableName);
+            String key = name;
+            if (declaration instanceof VariableDeclaration vd && vd.getElement() != null) {
+                TDRGElement element = vd.getElement();
+                if (element != null) {
+                    key = this.dmnModelRepository.lazyEvaluationKey(element);
+                }
+            }
+            return nameToTriple(key, variableName, context.getElement());
         }
     }
 
@@ -795,8 +803,8 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
                 if (drgElement instanceof TInvocable) {
                     return this.triples.singletonInvocableInstance(this.dmnTransformer.singletonInvocableInstance((TBusinessKnowledgeModel) drgElement));
                 } else {
-                    String qualifiedName = this.dmnTransformer.nativeVariableName(memberReference);
-                    return nameToTriple(memberReference.getElementName(), qualifiedName);
+                    String nativeVariableName = this.dmnTransformer.nativeVariableName(memberReference);
+                    return nameToTriple(this.dmnModelRepository.lazyEvaluationKey(drgElement), nativeVariableName, context.getElement());
                 }
             }
             // Try imported library
@@ -903,11 +911,15 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
         }
     }
 
-    private Triple nameToTriple(String name, String nativeName) {
-        if (this.dmnTransformer.isLazyEvaluated(name)) {
-            return this.triples.lazyEvaluation(name, nativeName);
+    private Triple nameToTriple(String lazyEvaluationKey, String nativeName, TNamedElement parent) {
+        if (parent instanceof TDRGElement || parent == null) {
+            if (this.dmnTransformer.isLazyEvaluated(lazyEvaluationKey, (TDRGElement) parent)) {
+                return this.triples.lazyEvaluation(lazyEvaluationKey, nativeName, (TDRGElement) parent);
+            } else {
+                return this.triples.name(nativeName);
+            }
         } else {
-            return this.triples.name(nativeName);
+            throw new DMNRuntimeException(String.format("Expected DRG element found element '%s'", parent));
         }
     }
 

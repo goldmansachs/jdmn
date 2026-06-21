@@ -282,7 +282,7 @@
         ${extraIndent}# Apply child decisions
         <#items as subDecision>
         <#assign result>self.${transformer.nativeVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)})</#assign>
-            <#if transformer.isLazyEvaluated(subDecision)>
+            <#if transformer.isLazyEvaluated(subDecision, drgElement)>
         <#assign lazyEvalClassQName>${transformer.lazyEvalClassName()}</#assign>
         ${extraIndent}${transformer.nativeVariableName(subDecision)}: ${lazyEvalClassQName} = ${lazyEvalClassQName}(lambda: ${result})
             <#else>

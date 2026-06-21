@@ -12,21 +12,29 @@
  */
 package com.gs.dmn.el.synthesis.triple;
 
-public class LazyEvaluationTriple extends Triple {
-    private final String name;
-    private final String nativeName;
+import com.gs.dmn.ast.TDRGElement;
 
-    LazyEvaluationTriple(String exp, String nativeName) {
-        this.name = exp;
+public class LazyEvaluationTriple extends Triple {
+    private final String lazyEvaluationKey;
+    private final String nativeName;
+    private final TDRGElement parent;
+
+    LazyEvaluationTriple(String lazyEvaluationKey, String nativeName, TDRGElement parent) {
+        this.lazyEvaluationKey = lazyEvaluationKey;
         this.nativeName = nativeName;
+        this.parent = parent;
     }
 
-    String getName() {
-        return name;
+    String getLazyEvaluationKey() {
+        return lazyEvaluationKey;
     }
 
     String getNativeName() {
         return nativeName;
+    }
+
+    TDRGElement getParent() {
+        return parent;
     }
 
     @Override
@@ -36,6 +44,6 @@ public class LazyEvaluationTriple extends Triple {
 
     @Override
     public String toString() {
-        return String.format("LazyEvaluation(%s, %s)", name, nativeName);
+        return String.format("LazyEvaluation(%s, %s)", lazyEvaluationKey, nativeName);
     }
 }

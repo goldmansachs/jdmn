@@ -1741,7 +1741,11 @@
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0085_decision_services</javaRootPackage>
+                                <caching>true</caching>
                             </inputParameters>
+                            <lazyEvaluationDetectors>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.AllLazyEvaluationDetector</lazyEvaluatorDetector>
+                            </lazyEvaluationDetectors>
                         </configuration>
                     </execution>
                     <execution>

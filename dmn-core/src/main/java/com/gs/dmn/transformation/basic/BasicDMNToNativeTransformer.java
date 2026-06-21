@@ -314,15 +314,15 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String extractParameterFromArgs(NativeParameter parameter, int index);
 
-    boolean isLazyEvaluated(DRGElementReference<? extends TDRGElement> reference);
+    boolean isLazyEvaluated(DRGElementReference<? extends TDRGElement> reference, TDRGElement parent);
 
-    boolean isLazyEvaluated(TDRGElement element);
+    boolean isLazyEvaluated(TDRGElement child, TDRGElement parent);
 
-    boolean isLazyEvaluated(String name);
+    boolean isLazyEvaluated(String lazyEvaluationKey, TDRGElement parent);
 
-    String lazyEvaluationType(TDRGElement input, String inputJavaType);
+    String lazyEvaluationType(TDRGElement input, String inputJavaType, TDRGElement parent);
 
-    String lazyEvaluation(String elementName, String nativeName);
+    String lazyEvaluation(String lazyEvaluationKey, String nativeVariableName, TDRGElement parent);
 
     String pairClassName();
 

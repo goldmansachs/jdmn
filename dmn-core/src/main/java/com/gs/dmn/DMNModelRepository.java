@@ -1269,7 +1269,7 @@ public class DMNModelRepository {
             name = element.getName();
         }
         if (StringUtils.isBlank(name)) {
-            throw new SemanticErrorException(String.format("Display name cannot be null for element '%s'", element == null ? null : element.getId()));
+            throw new SemanticErrorException(String.format("Name cannot be null for element '%s'", element == null ? null : element.getId()));
         }
         return name.trim();
     }
@@ -1313,6 +1313,10 @@ public class DMNModelRepository {
     }
 
     public String cacheKey(TNamedElement element) {
+        return qualifiedName(element);
+    }
+
+    public String lazyEvaluationKey(TDRGElement element) {
         return qualifiedName(element);
     }
 

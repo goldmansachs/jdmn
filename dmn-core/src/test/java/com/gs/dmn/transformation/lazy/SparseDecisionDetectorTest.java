@@ -26,8 +26,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -44,6 +44,18 @@ public class SparseDecisionDetectorTest extends AbstractTest {
     }
 
     @Test
+    public void testLazyEvaluationOptimisationWithDefaultConstructor() {
+        this.detector = new SparseDecisionDetector();
+        LazyEvaluationOptimisation lazyEvaluationOptimisation = this.detector.detect(this.dmnModelRepository);
+
+        List<String> expectedDecisions = List.of(
+                "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType",
+                "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#Eligibility"
+        );
+        assertEquals(expectedDecisions, new ArrayList<>(lazyEvaluationOptimisation.getLazyEvaluatedDecisions()));
+    }
+
+    @Test
     public void testLazyEvaluationOptimisation() {
         Map<String, String> inputParametersMap = new LinkedHashMap<>() {{
             put("sparsityThreshold", "0.10");
@@ -51,7 +63,11 @@ public class SparseDecisionDetectorTest extends AbstractTest {
         this.detector = new SparseDecisionDetector(makeInputParameters(inputParametersMap), LOGGER);
         LazyEvaluationOptimisation lazyEvaluationOptimisation = this.detector.detect(this.dmnModelRepository);
 
-        assertEquals(Arrays.asList("BureauCallType", "Eligibility"), new ArrayList<>(lazyEvaluationOptimisation.getLazyEvaluatedDecisions()));
+        List<String> expectedDecisions = List.of(
+                "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType",
+                "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#Eligibility"
+        );
+        assertEquals(expectedDecisions, new ArrayList<>(lazyEvaluationOptimisation.getLazyEvaluatedDecisions()));
     }
 
     @Test

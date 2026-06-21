@@ -33,7 +33,8 @@ public class SparseDecisionDetector extends SimpleLazyEvaluationDetector {
     @Override
     public LazyEvaluationOptimisation detect(DMNModelRepository modelRepository) {
         LazyEvaluationOptimisation lazyEvaluationOptimisation = new LazyEvaluationOptimisation();
-        logger.info("Scanning for sparse decisions ...");
+
+        logger.info("Scanning for sparse decision tables ...");
 
         for (TDefinitions definitions: modelRepository.getAllDefinitions()) {
             for (TDecision decision : modelRepository.findDecisions(definitions)) {
@@ -47,7 +48,7 @@ public class SparseDecisionDetector extends SimpleLazyEvaluationDetector {
                             String href = requiredDecision.getHref();
                             TDecision drgElement = modelRepository.findDecisionByRef(decision, href);
                             if (drgElement != null) {
-                                lazyEvaluationOptimisation.addLazyEvaluatedDecision(drgElement.getName());
+                                lazyEvaluationOptimisation.addLazyEvaluatedDecision(modelRepository.lazyEvaluationKey(drgElement));
                             }
                         }
                     }
@@ -56,6 +57,7 @@ public class SparseDecisionDetector extends SimpleLazyEvaluationDetector {
         }
 
         logger.info(String.format("Decisions to be lazy evaluated: '%s'", String.join(", ", lazyEvaluationOptimisation.getLazyEvaluatedDecisions())));
+
         return lazyEvaluationOptimisation;
     }
 

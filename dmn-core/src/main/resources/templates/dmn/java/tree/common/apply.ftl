@@ -424,7 +424,7 @@
     <#list modelRepository.directSubDecisions(drgElement)>
         ${extraIndent}// Apply child decisions
         <#items as subDecision>
-            <#if transformer.isLazyEvaluated(subDecision)>
+            <#if transformer.isLazyEvaluated(subDecision, drgElement)>
         ${extraIndent}${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> ${transformer.nativeVariableName(subDecision)} = new ${transformer.lazyEvalClassName()}<>(() -> ${nativeClassName}.this.${transformer.nativeVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)}));
             <#else>
         ${extraIndent}${transformer.drgElementOutputType(subDecision)} ${transformer.nativeVariableName(subDecision)} = ${nativeClassName}.this.${transformer.nativeVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)});

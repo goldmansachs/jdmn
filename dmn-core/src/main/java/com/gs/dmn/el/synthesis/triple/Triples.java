@@ -268,8 +268,8 @@ public class Triples {
         return addTriple(triple);
     }
 
-    public Triple lazyEvaluation(String name, String nativeName) {
-        Triple triple = new LazyEvaluationTriple(name, nativeName);
+    public Triple lazyEvaluation(String lazyEvaluationKey, String nativeName, TDRGElement parent) {
+        Triple triple = new LazyEvaluationTriple(lazyEvaluationKey, nativeName, parent);
         return addTriple(triple);
     }
 
