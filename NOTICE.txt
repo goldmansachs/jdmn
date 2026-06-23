@@ -6,3 +6,4 @@ This product includes software developed at
 The Apache Software Foundation (http://www.apache.org/).
 
 This product contains code copyright Cerebral Adaptive Forecasting, licensed under Apache 2.0 license.
+This product contains code copyright Anatoliy O., licensed under Apache 2.0 license.
