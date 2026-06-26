@@ -148,6 +148,44 @@
             </rule>
         </decisionTable>
     </decision>
+    	<decision name="Prioritized Waiting List" id="d_PrioritizedWaitingList">
+    		<variable name="Prioritized Waiting List" typeRef="kie:tPassengerTable"/>
+    		<informationRequirement>
+    			<requiredInput href="#i_Passenger_List"/>
+    		</informationRequirement>
+    		<informationRequirement>
+    			<requiredInput href="#i_Flight_List"/>
+    		</informationRequirement>
+    		<knowledgeRequirement>
+    			<requiredKnowledge href="#b_PassengerPriority"/>
+    		</knowledgeRequirement>
+    		<context>
+    			<contextEntry>
+    				<variable name="Cancelled Flights" typeRef="kie:tFlightNumberList"/>
+    				<literalExpression>
+    					<text>Flight List[ Status = "cancelled" ].Flight Number</text>
+    				</literalExpression>
+    			</contextEntry>
+    			<contextEntry>
+    				<variable name="Waiting List" typeRef="kie:tPassengerTable"/>
+    				<literalExpression>
+    					<text>Passenger List[ list contains( Cancelled Flights, Flight Number ) ]</text>
+    				</literalExpression>
+    			</contextEntry>
+    			<contextEntry>
+    				<variable name="Waiting List" typeRef="kie:tPassengerTable"/>
+    				<literalExpression>
+    					<text>Passenger List[ list contains( Cancelled Flights, Flight Number ) ]</text>
+    				</literalExpression>
+    			</contextEntry>
+    			<contextEntry>
+    				<literalExpression>
+    					<text>sort( Waiting List, passenger priority )</text>
+    				</literalExpression>
+    			</contextEntry>
+    		</context>
+    	</decision>
+
     <inputData name="CIP Assessments" id="id-input-1" label="String">
         <variable typeRef="string" name="string" id="id-input-1_variable"/>
     </inputData>

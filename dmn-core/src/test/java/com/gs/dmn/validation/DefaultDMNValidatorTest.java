@@ -37,7 +37,8 @@ public class DefaultDMNValidatorTest extends AbstractValidatorTest {
                 "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions'): The name of a ItemDefinition must be unique. Found duplicates for 'itemDefinition'.",
                 "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions', elementName = 'CIP Assessments', elementId = 'cip-assessments'): Missing variable",
                 "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions', elementName = 'CIP Assessments', elementId = 'cip-assessments1'): Missing variable",
-                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions', elementName = 'CIP Assessments', elementId = 'id-input-1'): DRGElement name and variable name should be the same. Found 'CIP Assessments' and 'string'"
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions', elementName = 'CIP Assessments', elementId = 'id-input-1'): DRGElement name and variable name should be the same. Found 'CIP Assessments' and 'string'",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions'): The name of a TContextEntry must be unique. Found duplicates for 'Waiting List'."
         );
         validate(validator, resource("dmn/input/1.1/test-dmn-with-duplicates.dmn"), expectedErrors);
     }

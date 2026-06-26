@@ -256,22 +256,18 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
             String errorMessage = "Missing expression";
             addValidationError(context, definitions, element, errorMessage);
         } else {
-            if (expression instanceof TList) {
-                TList listExp = (TList) expression;
+            if (expression instanceof TList listExp) {
                 for (TExpression childExp : listExp.getExpression()) {
                     validateExpression(definitions, element, childExp, context);
                 }
-            } else if (expression instanceof TFunctionDefinition) {
-                TFunctionDefinition functionDefinitionExp = (TFunctionDefinition) expression;
+            } else if (expression instanceof TFunctionDefinition functionDefinitionExp) {
                 validateExpression(definitions, element, functionDefinitionExp.getExpression(), context);
-            } else if (expression instanceof TRelation) {
-                TRelation relationExp = (TRelation) expression;
-                if (((TRelation) expression).getColumn() == null && relationExp.getRow() == null) {
+            } else if (expression instanceof TRelation relationExp) {
+                if (relationExp.getColumn() == null && relationExp.getRow() == null) {
                     String errorMessage = "Empty relation";
                     addValidationError(context, definitions, element, errorMessage);
                 }
-            } else if (expression instanceof TUnaryTests) {
-                TUnaryTests unaryTests = (TUnaryTests) expression;
+            } else if (expression instanceof TUnaryTests unaryTests) {
                 String expressionLanguage = unaryTests.getExpressionLanguage();
                 if (!isSupported(expressionLanguage)) {
                     String errorMessage = String.format("Not supported expression language '%s'", expressionLanguage);
@@ -281,31 +277,25 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
                     String errorMessage = "Missing text of unary tests";
                     addValidationError(context, definitions, element, errorMessage);
                 }
-            } else if (expression instanceof TConditional) {
-                TConditional conditionalExp = (TConditional) expression;
+            } else if (expression instanceof TConditional conditionalExp) {
                 checkChildExpression(definitions, element, conditionalExp.getIf(), "conditional", "if", context);
                 checkChildExpression(definitions, element, conditionalExp.getThen(), "conditional", "then", context);
                 checkChildExpression(definitions, element, conditionalExp.getElse(), "conditional", "else", context);
-            } else if (expression instanceof TDecisionTable) {
-                TDecisionTable decisionTable = (TDecisionTable) expression;
+            } else if (expression instanceof TDecisionTable decisionTable) {
                 validateDecisionTable(definitions, element, decisionTable, context);
-            } else if (expression instanceof TSome) {
-                TQuantified quantifiedExp = (TQuantified) expression;
+            } else if (expression instanceof TSome quantifiedExp) {
                 String parentName = "some";
                 checkChildExpression(definitions, element, quantifiedExp.getIn(), parentName, "in", context);
                 checkChildExpression(definitions, element, quantifiedExp.getSatisfies(), parentName, "satisfies", context);
-            } else if (expression instanceof TEvery) {
-                TQuantified quantifiedExp = (TQuantified) expression;
+            } else if (expression instanceof TEvery quantifiedExp) {
                 String parentName = "every";
                 checkChildExpression(definitions, element, quantifiedExp.getIn(), parentName, "in", context);
                 checkChildExpression(definitions, element, quantifiedExp.getSatisfies(), parentName, "satisfies", context);
-            } else if (expression instanceof TFor) {
-                TFor forExp = (TFor) expression;
+            } else if (expression instanceof TFor forExp) {
                 checkChildExpression(definitions, element, forExp.getIn(), "for", "in", context);
                 checkChildExpression(definitions, element, forExp.getReturn(), "for", "return", context);
-            } else if (expression instanceof TLiteralExpression) {
-                TLiteralExpression literalExpression = (TLiteralExpression) expression;
-                String expressionLanguage = ((TLiteralExpression) expression).getExpressionLanguage();
+            } else if (expression instanceof TLiteralExpression literalExpression) {
+                String expressionLanguage = literalExpression.getExpressionLanguage();
                 if (!isSupported(expressionLanguage)) {
                     String errorMessage = String.format("Not supported expression language '%s'", expressionLanguage);
                     addValidationError(context, definitions, element, errorMessage);
@@ -314,23 +304,34 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
                     String errorMessage = "Missing text of literal expression";
                     addValidationError(context, definitions, element, errorMessage);
                 }
-            } else if (expression instanceof TFilter) {
-                TFilter filterExp = (TFilter) expression;
+            } else if (expression instanceof TFilter filterExp) {
                 checkChildExpression(definitions, element, filterExp.getIn(), "filter", "in", context);
                 checkChildExpression(definitions, element, filterExp.getMatch(), "filter", "match", context);
-            } else if (expression instanceof TContext) {
-                TContext contextExp = (TContext) expression;
+            } else if (expression instanceof TContext contextExp) {
                 List<TContextEntry> contextEntryList = contextExp.getContextEntry();
                 if (contextEntryList.isEmpty()) {
                     String errorMessage = "Missing entries in context expression";
                     addValidationError(context, definitions, element, errorMessage);
+                } else {
+                    validateUnique(
+                            definitions, contextEntryList, "TContextEntry", "name", false,
+                            entryAccessor, null, context
+                    );
                 }
-            } else if (expression instanceof TInvocation) {
-                TInvocation invocation = (TInvocation) expression;
+            } else if (expression instanceof TInvocation invocation) {
                 validateExpression(definitions, element, invocation.getExpression(), context);
             }
         }
     }
+
+    private final Function<TDMNElement, String> entryAccessor = (TDMNElement e) -> {
+        TContextEntry entry = (TContextEntry) e;
+        if (entry.getVariable() != null) {
+            return entry.getVariable().getName();
+        } else {
+            return null;
+        }
+    };
 
     private void validateDecisionTable(TDefinitions definitions, TDMNElement element, TDecisionTable decisionTable, ValidationContext context) {
         List<TInputClause> input = decisionTable.getInput();
