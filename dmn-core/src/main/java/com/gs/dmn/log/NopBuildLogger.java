@@ -18,7 +18,15 @@ public final class NopBuildLogger implements BuildLogger {
     }
 
     @Override
+    public void debug(String charSequence, Throwable throwable) {
+    }
+
+    @Override
     public void info(String charSequence) {
+    }
+
+    @Override
+    public void info(String charSequence, Throwable throwable) {
     }
 
     @Override
@@ -26,6 +34,14 @@ public final class NopBuildLogger implements BuildLogger {
     }
 
     @Override
+    public void warn(String charSequence, Throwable throwable) {
+    }
+
+    @Override
     public void error(String charSequence) {
+    }
+
+    @Override
+    public void error(String charSequence, Throwable throwable) {
     }
 }

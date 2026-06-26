@@ -215,7 +215,7 @@ public class DMNToManifestTransformer {
         try {
             return this.dmnTransformer.drgElementOutputType(element);
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.error(e.getMessage(), e);
             return Object.class.getName();
         }
     }

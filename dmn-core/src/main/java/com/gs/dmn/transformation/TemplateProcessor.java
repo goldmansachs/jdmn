@@ -60,7 +60,7 @@ public class TemplateProcessor {
             }
             outElement.writeText(text, inputParameters.getCharset());
         } catch (Exception e) {
-            logger.error(String.format("Formatting error for file %s", outElement.getName()));
+            logger.error(String.format("Formatting error for file %s", outElement.getName()), e);
         }
     }
 

@@ -62,7 +62,7 @@ public class TypeRefValidator extends SimpleDMNValidator {
                 definitions.accept(visitor, context);
             } catch (Exception e) {
                 String errorMessage = String.format("Error during validation of typeRefs for model '%s': %s", definitions.getName(), e.getMessage());
-                logger.error(errorMessage);
+                logger.error(errorMessage, e);
             }
         }
         return errorReport;

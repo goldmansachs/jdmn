@@ -23,21 +23,57 @@ public final class Slf4jBuildLogger implements BuildLogger {
 
     @Override
     public void debug(String charSequence) {
-        this.logger.debug(charSequence);
+        if (logger.isDebugEnabled()) {
+            logger.debug(charSequence);
+        }
+    }
+
+    @Override
+    public void debug(String charSequence, Throwable throwable) {
+        if (logger.isDebugEnabled()) {
+            logger.debug(charSequence, throwable);
+        }
     }
 
     @Override
     public void info(String charSequence) {
-        this.logger.info(charSequence);
+        if (logger.isInfoEnabled()) {
+            logger.info(charSequence);
+        }
+    }
+
+    @Override
+    public void info(String charSequence, Throwable throwable) {
+        if (logger.isInfoEnabled()) {
+            logger.info(charSequence, throwable);
+        }
     }
 
     @Override
     public void warn(String charSequence) {
-        this.logger.warn(charSequence);
+        if (logger.isWarnEnabled()) {
+            logger.warn(charSequence);
+        }
+    }
+
+    @Override
+    public void warn(String charSequence, Throwable throwable) {
+        if (logger.isWarnEnabled()) {
+            logger.warn(charSequence, throwable);
+        }
     }
 
     @Override
     public void error(String charSequence) {
-        this.logger.error(charSequence);
+        if (logger.isErrorEnabled()) {
+            logger.error(charSequence);
+        }
+    }
+
+    @Override
+    public void error(String charSequence, Throwable throwable) {
+        if (logger.isErrorEnabled()) {
+            logger.error(charSequence, throwable);
+        }
     }
 }

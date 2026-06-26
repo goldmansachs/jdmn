@@ -33,7 +33,6 @@ import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.tck.serialization.xstream.XMLTCKSerializer;
 import com.gs.dmn.transformation.*;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.LoggerFactory;
 
@@ -134,9 +133,8 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
                     Assert.assertEquals(errorFlagMessage, res.isErrorResult(), actualResult.hasErrors());
                 }
             } catch (Exception e) {
-                String stackTrace = ExceptionUtils.getStackTrace(e);
-                LOGGER.error(stackTrace);
                 String errorMessage = String.format("%s ResultNode '%s' output mismatch, expected '%s' actual '%s'", testLocation, res.getName(), expectedValue, actualValue);
+                LOGGER.error(errorMessage, e);
                 Assertions.fail(errorMessage + ". Exception thrown while testing");
             }
         }
