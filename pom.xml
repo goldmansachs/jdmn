@@ -84,7 +84,7 @@
         <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
 
         <java.version>17</java.version>
-        <maven.version>3.9.4</maven.version>
+        <maven.version>3.9.10</maven.version>
 
         <antlr4.version>4.13.1</antlr4.version>
 
