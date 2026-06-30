@@ -90,7 +90,6 @@ public class ValueType extends TCKBaseElement {
      * <p>
      * the map is keyed by the name of the attribute and
      * the value is the string value of the attribute.
-     *
      * the map returned by this method is live, and you can add new attribute
      * by updating the map directly. Because of this design, there's no setter.
      *
@@ -108,5 +107,16 @@ public class ValueType extends TCKBaseElement {
     @Override
     public <C, R> R accept(Visitor<C, R> visitor, C context) {
         return visitor.visit(this, context);
+    }
+
+    @Override
+    public String toString() {
+        if (isSimpleValue(this)) {
+            return getValue().toString();
+        } else if (isListValue(this)) {
+            return getList().toString();
+        } else {
+            return getComponent().toString();
+        }
     }
 }

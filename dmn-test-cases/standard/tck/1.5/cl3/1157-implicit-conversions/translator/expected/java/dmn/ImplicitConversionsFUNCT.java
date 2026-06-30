@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class ImplicitConversionsFUNCT extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String> {
+public class ImplicitConversionsFUNCT extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<?>> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
         "Implicit Conversions FUNCT",
@@ -27,7 +27,7 @@ public class ImplicitConversionsFUNCT extends com.gs.dmn.runtime.JavaTimeDMNBase
     }
 
     @java.lang.Override()
-    public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<?> applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(context_);
         } catch (Exception e) {
@@ -37,7 +37,7 @@ public class ImplicitConversionsFUNCT extends com.gs.dmn.runtime.JavaTimeDMNBase
     }
 
     @java.lang.Override()
-    public String applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<?> applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(context_);
         } catch (Exception e) {
@@ -47,7 +47,7 @@ public class ImplicitConversionsFUNCT extends com.gs.dmn.runtime.JavaTimeDMNBase
     }
 
     @java.lang.Override()
-    public String applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<?> applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return applyPojo(new ImplicitConversionsFUNCTInput_(input_), context_);
         } catch (Exception e) {
@@ -56,7 +56,7 @@ public class ImplicitConversionsFUNCT extends com.gs.dmn.runtime.JavaTimeDMNBase
         }
     }
 
-    public String apply(com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<?> apply(com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'Implicit Conversions FUNCT'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -68,7 +68,7 @@ public class ImplicitConversionsFUNCT extends com.gs.dmn.runtime.JavaTimeDMNBase
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, implicitConversionsFUNCTArguments_);
 
             // Evaluate decision 'Implicit Conversions FUNCT'
-            String output_ = lambda.apply(context_);
+            List<?> output_ = lambda.apply(context_);
 
             // End decision 'Implicit Conversions FUNCT'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, implicitConversionsFUNCTArguments_, output_, (System.currentTimeMillis() - implicitConversionsFUNCTStartTime_));
@@ -80,9 +80,9 @@ public class ImplicitConversionsFUNCT extends com.gs.dmn.runtime.JavaTimeDMNBase
         }
     }
 
-    public com.gs.dmn.runtime.LambdaExpression<String> lambda =
-        new com.gs.dmn.runtime.LambdaExpression<String>() {
-            public String apply(Object... args_) {
+    public com.gs.dmn.runtime.LambdaExpression<List<?>> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<List<?>>() {
+            public List<?> apply(Object... args_) {
                 com.gs.dmn.runtime.ExecutionContext context_ = 0 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[0] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
                 com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;

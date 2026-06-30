@@ -139,7 +139,7 @@ public class _1157ImplicitConversionsTest01Test extends com.gs.dmn.runtime.JavaT
 
         // Check 'Implicit Conversions CE'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
-        checkValues("[1]-2-2000-12-01T00:00:00@UTC", new ImplicitConversionsCE().applyContext(input_, context_));
+        checkValues(asList(asList(number("1")), number("2"), dateAndTime("2000-12-01T00:00:00Z")), new ImplicitConversionsCE().applyContext(input_, context_));
     }
 
     @org.junit.jupiter.api.Test
@@ -151,7 +151,7 @@ public class _1157ImplicitConversionsTest01Test extends com.gs.dmn.runtime.JavaT
 
         // Check 'Implicit Conversions FUNCT'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withEventListener(listener).build();
-        checkValues("[1]-2-2000-02-01T00:00:00@UTC", new ImplicitConversionsFUNCT().applyContext(input_, context_));
+        checkValues(asList(asList(number("1")), number("2"), dateAndTime("2000-02-01T00:00:00Z")), new ImplicitConversionsFUNCT().applyContext(input_, context_));
     }
 
     private void checkValues(Object expected, Object actual) {

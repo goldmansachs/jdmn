@@ -58,6 +58,7 @@
                     <dmnDialect>com.gs.dmn.dialect.JavaTimeDMNDialectDefinition</dmnDialect>
                     <dmnTransformers>
                         <dmnTransformer>com.gs.dmn.transformation.ToQuotedNameTransformer</dmnTransformer>
+                        <dmnTransformer>com.gs.dmn.transformation.TestCaseTransformer</dmnTransformer>
                     </dmnTransformers>
                     <inputParameters>
                         <dmnVersion>${dmn.version}</dmnVersion>

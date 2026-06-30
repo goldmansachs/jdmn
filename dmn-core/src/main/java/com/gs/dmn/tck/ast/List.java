@@ -33,4 +33,9 @@ public class List extends TCKBaseElement {
     public <C, R> R accept(Visitor<C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s(%s)", this.getClass().getSimpleName(), getItem());
+    }
 }

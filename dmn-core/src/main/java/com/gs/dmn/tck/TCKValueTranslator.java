@@ -14,6 +14,7 @@ package com.gs.dmn.tck;
 
 import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.el.analysis.semantics.type.AnyType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.lib.FEELLib;
@@ -66,7 +67,7 @@ public class TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
                 throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
             }
         } else if (ValueType.isListValue(valueType)) {
-            return toNativeExpression(valueType.getList(), (ListType) type, element);
+            return toNativeExpression(valueType.getList(), type, element);
         } else if (ValueType.isComplexValue(valueType)) {
             if (type instanceof ItemDefinitionType) {
                 return toNativeExpression(valueType.getComponent(), (ItemDefinitionType) type, element);
@@ -83,9 +84,12 @@ public class TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
         return this.nativeFactory.makeBuiltinFunctionInvocation(function, String.format("\"%s\"", text.trim()));
     }
 
-    private String toNativeExpression(com.gs.dmn.tck.ast.List list, ListType listType, TDRGElement element) {
+    private String toNativeExpression(com.gs.dmn.tck.ast.List list, Type listType, TDRGElement element) {
         List<String> javaList = new ArrayList<>();
-        Type elementType = listType.getElementType();
+        Type elementType = AnyType.ANY;
+        if (listType instanceof ListType) {
+            elementType = ((ListType) listType).getElementType();
+        }
         for (ValueType listValueType : list.getItem()) {
             String value = toNativeExpression(listValueType, elementType, element);
             javaList.add(value);

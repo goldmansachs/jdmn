@@ -37,4 +37,9 @@ public class Component extends ValueType {
     public <C, R> R accept(Visitor<C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s(%s, %s)", this.getClass().getSimpleName(), name, super.toString());
+    }
 }

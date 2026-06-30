@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class ImplicitConversionsCE extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String> {
+public class ImplicitConversionsCE extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<?>> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
         "Implicit Conversions CE",
@@ -27,7 +27,7 @@ public class ImplicitConversionsCE extends com.gs.dmn.runtime.JavaTimeDMNBaseDec
     }
 
     @java.lang.Override()
-    public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<?> applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(context_);
         } catch (Exception e) {
@@ -37,7 +37,7 @@ public class ImplicitConversionsCE extends com.gs.dmn.runtime.JavaTimeDMNBaseDec
     }
 
     @java.lang.Override()
-    public String applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<?> applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(context_);
         } catch (Exception e) {
@@ -47,7 +47,7 @@ public class ImplicitConversionsCE extends com.gs.dmn.runtime.JavaTimeDMNBaseDec
     }
 
     @java.lang.Override()
-    public String applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<?> applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return applyPojo(new ImplicitConversionsCEInput_(input_), context_);
         } catch (Exception e) {
@@ -56,7 +56,7 @@ public class ImplicitConversionsCE extends com.gs.dmn.runtime.JavaTimeDMNBaseDec
         }
     }
 
-    public String apply(com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<?> apply(com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'Implicit Conversions CE'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -68,7 +68,7 @@ public class ImplicitConversionsCE extends com.gs.dmn.runtime.JavaTimeDMNBaseDec
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, implicitConversionsCEArguments_);
 
             // Evaluate decision 'Implicit Conversions CE'
-            String output_ = lambda.apply(context_);
+            List<?> output_ = lambda.apply(context_);
 
             // End decision 'Implicit Conversions CE'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, implicitConversionsCEArguments_, output_, (System.currentTimeMillis() - implicitConversionsCEStartTime_));
@@ -80,9 +80,9 @@ public class ImplicitConversionsCE extends com.gs.dmn.runtime.JavaTimeDMNBaseDec
         }
     }
 
-    public com.gs.dmn.runtime.LambdaExpression<String> lambda =
-        new com.gs.dmn.runtime.LambdaExpression<String>() {
-            public String apply(Object... args_) {
+    public com.gs.dmn.runtime.LambdaExpression<List<?>> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<List<?>>() {
+            public List<?> apply(Object... args_) {
                 com.gs.dmn.runtime.ExecutionContext context_ = 0 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[0] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
                 com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
@@ -92,7 +92,7 @@ public class ImplicitConversionsCE extends com.gs.dmn.runtime.JavaTimeDMNBaseDec
                 List<java.lang.Number> numberList = asList(number("1"));
                 java.lang.Number number = ((java.lang.Number) asElement(asList(number("2"))));
                 java.time.temporal.TemporalAccessor dateTime = toDateTime(date("2000-12-01"));
-                return stringJoin(asList(string(numberList), string(number), string(dateTime)), "-");
+                return asList(numberList, number, dateTime);
             }
         };
 }

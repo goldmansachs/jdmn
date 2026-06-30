@@ -6,6 +6,16 @@
   "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "referenceType",
+    "id" : "_BE37FED2-B548-444C-93A8-8F558F23263B",
+    "isCollection" : true,
+    "name" : "anyList",
+    "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
+    "typeRef" : {
+      "localName" : "Any",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
     "id" : "_7546A1B0-00DF-40AB-B2CD-6ED845798BAA",
     "isCollection" : true,
     "name" : "dateList",
@@ -68,7 +78,7 @@
   "elements" : [ {
     "@kind" : "bkm",
     "id" : "_77A8EFC6-CE7B-4113-BB9F-7CEAC4B3273F",
-    "javaOutputTypeName" : "String",
+    "javaOutputTypeName" : "List<?>",
     "javaParameterName" : "fUNCT",
     "javaTypeName" : "FUNCT",
     "knowledgeReferences" : [ ],
@@ -207,7 +217,7 @@
     "@kind" : "decision",
     "id" : "_1DE77D02-F541-4853-B405-041FC704228C",
     "informationReferences" : [ ],
-    "javaOutputTypeName" : "String",
+    "javaOutputTypeName" : "List<?>",
     "javaParameterName" : "implicitConversionsCE",
     "javaTypeName" : "ImplicitConversionsCE",
     "knowledgeReferences" : [ ],
@@ -215,14 +225,14 @@
     "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
-      "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "localName" : "anyList",
+      "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D"
     }
   }, {
     "@kind" : "decision",
     "id" : "_628DFC7D-B42C-4473-9DDE-03ED44E538E5",
     "informationReferences" : [ ],
-    "javaOutputTypeName" : "String",
+    "javaOutputTypeName" : "List<?>",
     "javaParameterName" : "implicitConversionsFUNCT",
     "javaTypeName" : "ImplicitConversionsFUNCT",
     "knowledgeReferences" : [ {
@@ -234,8 +244,8 @@
     "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
-      "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "localName" : "anyList",
+      "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D"
     }
   }, {
     "@kind" : "decision",

@@ -28,6 +28,9 @@
   <itemDefinition id="_84B1A679-21B7-48ED-9F88-68078F0CE72D" name="stringList" isCollection="true" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
     <typeRef>string</typeRef>
   </itemDefinition>
+  <itemDefinition id="_BE37FED2-B548-444C-93A8-8F558F23263B" name="anyList" isCollection="true" typeLanguage="https://www.omg.org/spec/DMN/20240513/FEEL/">
+    <typeRef>Any</typeRef>
+  </itemDefinition>
   <decision name="To Singleton List" id="_02780B09-B61A-4219-975B-ABA04FFDABE1">
     <variable name="To Singleton List" id="_A29D233B-9C89-44E7-BAEB-194BCBA54585" typeRef="stringList" />
     <literalExpression id="_270B6641-1C19-449D-9FE6-1953A35A9878" typeRef="stringList" label="To Singleton List">
@@ -107,8 +110,8 @@
     </literalExpression>
   </decision>
   <decision name="Implicit Conversions CE" id="_1DE77D02-F541-4853-B405-041FC704228C">
-    <variable name="Implicit Conversions CE" id="_4FF83730-4825-463C-9EEF-A438C56A0ABC" typeRef="string" />
-    <context id="_2A28C28B-5BA7-48D0-BDB2-2B870B23B548" typeRef="string" label="Implicit Conversions CE">
+    <variable name="Implicit Conversions CE" id="_4FF83730-4825-463C-9EEF-A438C56A0ABC" typeRef="anyList" />
+    <context id="_2A28C28B-5BA7-48D0-BDB2-2B870B23B548" typeRef="anyList" label="Implicit Conversions CE">
       <contextEntry id="_2B3A96E9-5188-4094-A8AA-CBEF15E6F7DA">
         <variable id="_5E94CE51-8643-4A2F-AD35-580B394706EF" name="numberList" typeRef="numberList" />
         <literalExpression id="_0DBEBB0C-C5E6-49FA-96E3-66B8179DEB8F" typeRef="number">
@@ -129,13 +132,13 @@
       </contextEntry>
       <contextEntry id="_54CBE434-17E5-40AE-809D-2D752224816E">
         <literalExpression id="_13EACA86-4864-43EA-887F-05AED410A8E5" label="To Singleton List CE">
-          <text>string join([string(numberList), string(number), string(dateTime)], &quot;-&quot;)</text>
+          <text>[numberList, number, dateTime]</text>
         </literalExpression>
       </contextEntry>
     </context>
   </decision>
   <decision name="Implicit Conversions FUNCT" id="_628DFC7D-B42C-4473-9DDE-03ED44E538E5">
-    <variable name="Implicit Conversions FUNCT" id="_C85B69A6-484F-49B2-8339-50B58D7A3A5A" typeRef="string" />
+    <variable name="Implicit Conversions FUNCT" id="_C85B69A6-484F-49B2-8339-50B58D7A3A5A" typeRef="anyList" />
     <knowledgeRequirement id="_B5E914B9-D44C-4ACB-AD95-1FBFCA64230A">
       <requiredKnowledge href="#_77A8EFC6-CE7B-4113-BB9F-7CEAC4B3273F" />
     </knowledgeRequirement>
@@ -170,7 +173,7 @@
       <formalParameter id="_D9612DAB-9ACA-47C7-A536-1E6E53B53ACE" name="number" typeRef="number" />
       <formalParameter id="_382BECDA-3DCE-4167-BF28-8088C8AD8CBF" name="dateTime" typeRef="date and time" />
       <literalExpression id="_C8673BF7-2DB0-44FD-9CF6-96FA884773B1" label="Return">
-        <text>string join([string(numberList), string(number), string(dateTime)], &quot;-&quot;)</text>
+        <text>[numberList, number, dateTime]</text>
       </literalExpression>
     </encapsulatedLogic>
   </businessKnowledgeModel>
