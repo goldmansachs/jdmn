@@ -1061,8 +1061,14 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                 Expression<Type> inputExpression = inputClauseList.get(index).getExpression();
                 DMNContext testContext = dmnTransformer.makeUnaryTestContext(inputExpression, context);
                 testContext.bind(DMNContext.INPUT_ENTRY_PLACE_HOLDER, inputClauseList.get(index).getValue());
-                Expression<Type> ast = elInterpreter.analyzeUnaryTests(text, testContext);
-                Result result = elInterpreter.evaluateUnaryTests((UnaryTests<Type>) ast, testContext);
+                Result result;
+                try {
+                    Expression<Type> ast = elInterpreter.analyzeUnaryTests(text, testContext);
+                    result = elInterpreter.evaluateUnaryTests((UnaryTests<Type>) ast, testContext);
+                } catch (Exception e) {
+                    handleError(model, element, String.format("Incorrect unary tests in column %d", index + 1), e);
+                    result = Result.of(null, NullType.NULL);
+                }
                 Object testMatched = Result.value(result);
                 if (isFalse(testMatched)) {
                     ruleMatched = false;

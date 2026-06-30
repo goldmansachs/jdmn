@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>1163-unarytests-decisiontable.dmn</modelName>
+
+    <testCase id="001">
+        <description>positive unary tests</description>
+        <resultNode name="positiveUnaryTests" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">success</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="001_a">
+        <description>output values: result satisfies output values</description>
+        <resultNode name="positiveUnaryTests_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">success</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="002">
+        <description>negate positive unary tests</description>
+        <resultNode name="negatedUnaryTests" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">success</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="003">
+        <description>'-' test</description>
+        <resultNode name="anyTest" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">success</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="004">
+        <description>operator test &lt; 200</description>
+        <resultNode name="operatorTest" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">success</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="005">
+        <description>range test</description>
+        <resultNode name="rangeTest" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">success</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="006">
+        <description>list test</description>
+        <resultNode name="listTest" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">failure</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="007">
+        <description>value test</description>
+        <resultNode name="valueTest" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">success</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="007_a">
+        <description>boolean value test</description>
+        <resultNode name="booleanValueTest" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">failure</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="007_b">
+        <description>boolean value</description>
+        <resultNode name="booleanValueTest_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">success</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="007_c">
+        <description>boolean value</description>
+        <resultNode name="booleanValueTest_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">failure</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="007_d">
+        <description>list value</description>
+        <resultNode name="listValueTest" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">success</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="008">
+        <description>null test</description>
+        <resultNode name="nullTest" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">failure</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="009">
+        <description>'?' symbol with built-in function</description>
+        <!-- also shows input values unary tests can call built-in functions -->
+        <resultNode name="expressionTest" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">success</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="009_a">
+        <description>'?' inside literal string</description>
+        <resultNode name="expressionTest_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">failure</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="009_b">
+        <description>input values: "?" symbol alone is not satisfied</description>
+        <resultNode name="expressionTest_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">failure</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="009_c">
+        <description>input values: "?" symbol alone will be satisfied a true value</description>
+        <resultNode name="expressionTest_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">success</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="009_d">
+        <description>input values: ? used in expression outside of unary tests expressions</description>
+        <resultNode name="expressionTest_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">failure</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>

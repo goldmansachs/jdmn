@@ -14,6 +14,8 @@ package com.gs.dmn.feel.lib;
 
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.listener.NopEventListener;
+import com.gs.dmn.runtime.listener.Rule;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -23,6 +25,41 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
+    @Test
+    public void testRuleMatches() {
+        BaseFEELLib lib = (BaseFEELLib) getLib();
+        NopEventListener listener = new NopEventListener();
+
+        // Null or empty operands - should return false (no operands means no match)
+        assertFalse(lib.ruleMatches(listener, new Rule(0, "Rule 1")));
+        assertFalse(lib.ruleMatches(listener, new Rule(0, "Rule 1"), (Object[]) null));
+
+        // All operands are true - should return true
+        assertTrue(lib.ruleMatches(listener, new Rule(0, "Rule 1"), true));
+        assertTrue(lib.ruleMatches(listener, new Rule(1, "Rule 2"), true, true));
+        assertTrue(lib.ruleMatches(listener, new Rule(2, "Rule 3"), true, true, true));
+
+        // Any operand is false - should return false immediately
+        assertFalse(lib.ruleMatches(listener, new Rule(0, "Rule 1"), false));
+        assertFalse(lib.ruleMatches(listener, new Rule(1, "Rule 2"), true, false));
+        assertFalse(lib.ruleMatches(listener, new Rule(2, "Rule 3"), true, true, false));
+
+        // Boolean objects (not primitives) - TRUE should match
+        assertTrue(lib.ruleMatches(listener, new Rule(0, "Rule 1"), Boolean.TRUE, Boolean.TRUE));
+        assertFalse(lib.ruleMatches(listener, new Rule(0, "Rule 1"), Boolean.TRUE, Boolean.FALSE));
+        assertFalse(lib.ruleMatches(listener, new Rule(0, "Rule 1"), Boolean.FALSE));
+
+        // Non-boolean operands should be treated as false
+        assertFalse(lib.ruleMatches(listener, new Rule(0, "Rule 1"), "string"));
+        assertFalse(lib.ruleMatches(listener, new Rule(0, "Rule 1"), 123));
+        assertFalse(lib.ruleMatches(listener, new Rule(0, "Rule 1"), null));
+
+        // Mixed operands where first is non-boolean - should return false
+        assertFalse(lib.ruleMatches(listener, new Rule(0, "Rule 1"), "string", true));
+        assertFalse(lib.ruleMatches(listener, new Rule(0, "Rule 1"), 123, true, true));
+        assertFalse(lib.ruleMatches(listener, new Rule(0, "Rule 1"), true, null));
+    }
+
     //
     // Conversion functions
     //

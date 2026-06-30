@@ -1610,7 +1610,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
                 // Column index starts first 1
                 eventListener.matchColumn(rule, i + 1, operand);
 
-                if (operand == null || operand == Boolean.FALSE) {
+                if (!(operand instanceof Boolean) || operand == Boolean.FALSE) {
                     return false;
                 }
             }

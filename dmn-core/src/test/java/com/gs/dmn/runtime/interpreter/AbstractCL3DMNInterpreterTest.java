@@ -691,4 +691,9 @@ public abstract class AbstractCL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIM
     public void test_15_cl3_1162_import_same_name() {
         doFolderTest("1.5", "1162-import-same-name");
     }
+
+    @Test
+    public void test_15_cl3_1163_unarytests_decisiontable() {
+        doFolderTest("1.5", "1163-unarytests-decisiontable");
+    }
 }

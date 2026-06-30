@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.montera.com.au/spec/DMN/1163-unarytests-decisiontable"
+             name="1163-unarytests-decisiontable"
+             id="_i9fboPUUEeesLuP4RHs4vA"
+             xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/"
+>
+    <description>UnaryTests for decision tables</description>
+
+    <!--
+        7.3.2 UnaryTests Metamodel
+        A UnaryTests is satisfied if and only if one of the following alternatives is true:
+            a) One of the expressions in the UnaryTests evaluates to a value, and the implicit value is equal to that value.
+            b) One of the expressions in the UnaryTests evaluates to a list of values, and the implicit value is equal to at least one of the values in that list.
+            c) One of the expressions in the UnaryTests evaluates to true when the implicit value is applied to it.
+            d) One of the expressions in the UnaryTests is a boolean expression using the special ‘?’ variable and that expression evaluates to true when the implicit value is assigned to ‘?’.
+    -->
+
+    <decision name="positiveUnaryTests" id="_positiveUnaryTests">
+        <!-- unary test is a sequence of positive unary tests -->
+        <variable name="positiveUnaryTests"/>
+        <decisionTable hitPolicy="FIRST">
+            <input>
+                <inputExpression>
+                    <text>123</text>
+                </inputExpression>
+            </input>
+            <output/>
+            <rule>
+                <inputEntry>
+                    <text>123,456</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"success"</text>
+                </outputEntry>
+            </rule>
+            <rule>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"failure"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+
+    <decision name="positiveUnaryTests_a" id="_positiveUnaryTests_a">
+        <!-- different types -->
+        <variable name="positiveUnaryTests_a"/>
+        <decisionTable hitPolicy="FIRST">
+            <input>
+                <inputExpression>
+                    <text>123</text>
+                </inputExpression>
+            </input>
+            <output>
+                <outputValues>
+                    <text>"success","failure"</text>
+                </outputValues>
+            </output>
+            <rule>
+                <inputEntry>
+                    <text>123</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"success"</text>
+                </outputEntry>
+            </rule>
+            <rule>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"failure"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+
+    <decision name="negatedUnaryTests" id="_negatedUnaryTests">
+        <!-- unary test is a not() -->
+        <variable name="negatedUnaryTests"/>
+        <decisionTable hitPolicy="FIRST">
+            <input>
+                <inputExpression>
+                    <text>123</text>
+                </inputExpression>
+            </input>
+            <output/>
+            <rule>
+                <inputEntry>
+                    <text>not(456,789)</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"success"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+
+    <decision name="anyTest" id="_anyTest">
+        <!-- unary test is '-' -->
+        <variable name="anyTest"/>
+        <decisionTable hitPolicy="FIRST">
+            <input>
+                <inputExpression>
+                    <text>123</text>
+                </inputExpression>
+            </input>
+            <output/>
+            <rule>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"success"</text>
+                </outputEntry>
+            </rule>
+            <rule>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"failure"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+
+    <decision name="operatorTest" id="_operatorTest">
+        <!-- unary test is endpoint test -->
+        <variable name="operatorTest"/>
+        <decisionTable hitPolicy="FIRST">
+            <input>
+                <inputExpression>
+                    <text>123</text>
+                </inputExpression>
+            </input>
+            <output/>
+            <rule>
+                <inputEntry>
+                    <text>&lt; 200</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"success"</text>
+                </outputEntry>
+            </rule>
+            <rule>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"failure"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+
+    <decision name="rangeTest" id="_rangeTest">
+        <!-- unary test is range -->
+        <variable name="rangeTest"/>
+        <decisionTable hitPolicy="FIRST">
+            <input>
+                <inputExpression>
+                    <text>123</text>
+                </inputExpression>
+            </input>
+            <output/>
+            <rule>
+                <inputEntry>
+                    <text>[1..1000]</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"success"</text>
+                </outputEntry>
+            </rule>
+            <rule>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"failure"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+
+    <decision name="listTest" id="_listTest">
+        <!-- unary test is list -->
+        <variable name="listTest"/>
+        <decisionTable hitPolicy="FIRST">
+            <input>
+                <inputExpression>
+                    <text>123</text>
+                </inputExpression>
+            </input>
+            <output/>
+            <rule>
+                <inputEntry>
+                    <text>[1, 2, 1000]</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"success"</text>
+                </outputEntry>
+            </rule>
+            <rule>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"failure"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+
+    <decision name="valueTest" id="_valueTest">
+        <!-- unary test is a value -->
+        <variable name="valueTest"/>
+        <decisionTable hitPolicy="FIRST">
+            <input>
+                <inputExpression>
+                    <text>123</text>
+                </inputExpression>
+            </input>
+            <output/>
+            <rule>
+                <inputEntry>
+                    <text>123</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"success"</text>
+                </outputEntry>
+            </rule>
+            <rule>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"failure"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+
+<!--
+    <decision name="booleanValueTest" id="_booleanValueTest">
+        &lt;!&ndash; unary test is a boolean value &ndash;&gt;
+        <variable name="booleanValueTest"/>
+        <decisionTable hitPolicy="FIRST">
+            <input>
+                <inputExpression>
+                    <text>false</text>
+                </inputExpression>
+            </input>
+            <output/>
+            <rule>
+                <inputEntry>
+                    <text>"123", true</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"success"</text>
+                </outputEntry>
+            </rule>
+            <rule>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"failure"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+-->
+
+    <decision name="booleanValueTest_a" id="_booleanValueTest_a">
+        <!-- unary test is a boolean value -->
+        <variable name="booleanValueTest_a"/>
+        <decisionTable hitPolicy="FIRST">
+            <input>
+                <inputExpression>
+                    <text>false</text>
+                </inputExpression>
+            </input>
+            <output/>
+            <rule>
+                <inputEntry>
+                    <text>true</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"fail"</text>
+                </outputEntry>
+            </rule>
+            <rule>
+                <inputEntry>
+                    <text>false</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"success"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+
+    <decision name="booleanValueTest_b" id="_booleanValueTest_b">
+        <!-- unary test is a boolean constant expression -->
+        <variable name="booleanValueTest_b"/>
+        <decisionTable hitPolicy="FIRST">
+            <input>
+                <inputExpression>
+                    <text>false</text>
+                </inputExpression>
+            </input>
+            <output/>
+            <rule>
+                <inputEntry>
+                    <text>1==1</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"success"</text>
+                </outputEntry>
+            </rule>
+            <rule>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"failure"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+
+<!--
+    <decision name="listValueTest" id="_listValueTest">
+        &lt;!&ndash; unary test is a list value &ndash;&gt;
+        <variable name="listValueTest"/>
+        <decisionTable hitPolicy="FIRST">
+            <input>
+                <inputExpression>
+                    <text>[1, 2]</text>
+                </inputExpression>
+            </input>
+            <output/>
+            <rule>
+                <inputEntry>
+                    <text>[1, 2]</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"success"</text>
+                </outputEntry>
+            </rule>
+            <rule>
+                <inputEntry>
+                    <text>false</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"failure"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+-->
+
+    <decision name="nullTest" id="_nullTest">
+        <!-- unary test is null -->
+        <variable name="nullTest"/>
+        <decisionTable hitPolicy="FIRST">
+            <input>
+                <inputExpression>
+                    <text>123</text>
+                </inputExpression>
+            </input>
+            <output/>
+            <rule>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"success"</text>
+                </outputEntry>
+            </rule>
+            <rule>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"failure"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+
+    <decision name="expressionTest" id="_expressionTest">
+        <!-- unary test is a logical expression containing '?' -->
+        <variable name="expressionTest"/>
+        <decisionTable hitPolicy="FIRST">
+            <input>
+                <inputExpression>
+                    <text>"foo"</text>
+                </inputExpression>
+            </input>
+            <output/>
+            <rule>
+                <inputEntry>
+                    <text>"bar", string length(?) = 3</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"success"</text>
+                </outputEntry>
+            </rule>
+            <rule>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"failure"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+
+<!--
+    <decision name="expressionTest_a" id="_expressionTest_a">
+        &lt;!&ndash; unary test contains '?' in a string literal &ndash;&gt;
+        <variable name="expressionTest_a"/>
+        <decisionTable hitPolicy="FIRST">
+            <input>
+                <inputExpression>
+                    <text>"foo"</text>
+                </inputExpression>
+            </input>
+            <output/>
+            <rule>
+                <inputEntry>
+                    <text>"bar", string length("?") = 1</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"success"</text>
+                </outputEntry>
+            </rule>
+            <rule>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"failure"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+-->
+
+    <decision name="expressionTest_b" id="_expressionTest6_b">
+        <!-- unary test contains standalone '?' -->
+        <variable name="expressionTest_b"/>
+        <decisionTable hitPolicy="FIRST">
+            <input>
+                <inputExpression>
+                    <text>"foo"</text>
+                </inputExpression>
+            </input>
+            <output/>
+            <rule>
+                <inputEntry>
+                    <text>?</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"success"</text>
+                </outputEntry>
+            </rule>
+            <rule>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"failure"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+
+    <decision name="expressionTest_c" id="_expressionTest_c">
+        <!-- input expression is checked against standalone '?' symbol -->
+        <variable name="expressionTest_c"/>
+        <decisionTable hitPolicy="FIRST">
+            <input>
+                <inputExpression>
+                    <text>true</text>
+                </inputExpression>
+            </input>
+            <output/>
+            <rule>
+                <inputEntry>
+                    <text>?</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"success"</text>
+                </outputEntry>
+            </rule>
+            <rule>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"failure"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    
+    <decision name="expressionTest_d" id="_expressionTest_d">
+        <!-- ? is used in an expression, but is not one of the unary tests expressions -->
+        <variable name="expressionTest_d"/>
+        <decisionTable hitPolicy="FIRST">
+            <input>
+                <inputExpression>
+                    <text>123</text>
+                </inputExpression>
+            </input>
+            <output/>
+            <rule>
+                <inputEntry>
+                    <text>[345, ? = 123, 456]</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"success"</text>
+                </outputEntry>
+            </rule>
+            <rule>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"failure"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+
+</definitions>
+
