@@ -1,13 +1,13 @@
-Benchmark                                 Mode     Cnt       Score    Error   Units
-StringLibBenchmarkTest.testLib           thrpt      20       0.748 ±  0.197  ops/ms
-StringLibBenchmarkTest.testLib            avgt      20       8.654 ± 28.135   ms/op
-StringLibBenchmarkTest.testLib          sample  162842       2.891 ±  5.473   ms/op
-StringLibBenchmarkTest.testLib:p0.00    sample               0.876            ms/op
-StringLibBenchmarkTest.testLib:p0.50    sample               1.083            ms/op
-StringLibBenchmarkTest.testLib:p0.90    sample               1.532            ms/op
-StringLibBenchmarkTest.testLib:p0.95    sample               1.880            ms/op
-StringLibBenchmarkTest.testLib:p0.99    sample               3.367            ms/op
-StringLibBenchmarkTest.testLib:p0.999   sample               6.668            ms/op
-StringLibBenchmarkTest.testLib:p0.9999  sample              19.802            ms/op
-StringLibBenchmarkTest.testLib:p1.00    sample          270851.375            ms/op
-StringLibBenchmarkTest.testLib              ss      20       6.809 ±  0.613   ms/op
+Benchmark                                 Mode     Cnt   Score   Error   Units
+StringLibBenchmarkTest.testLib           thrpt      20   1.423 ± 0.129  ops/ms
+StringLibBenchmarkTest.testLib            avgt      20   0.807 ± 0.113   ms/op
+StringLibBenchmarkTest.testLib          sample  234419   0.853 ± 0.002   ms/op
+StringLibBenchmarkTest.testLib:p0.00    sample           0.588           ms/op
+StringLibBenchmarkTest.testLib:p0.50    sample           0.786           ms/op
+StringLibBenchmarkTest.testLib:p0.90    sample           1.104           ms/op
+StringLibBenchmarkTest.testLib:p0.95    sample           1.266           ms/op
+StringLibBenchmarkTest.testLib:p0.99    sample           1.683           ms/op
+StringLibBenchmarkTest.testLib:p0.999   sample           2.905           ms/op
+StringLibBenchmarkTest.testLib:p0.9999  sample           6.177           ms/op
+StringLibBenchmarkTest.testLib:p1.00    sample          13.451           ms/op
+StringLibBenchmarkTest.testLib              ss      20   4.089 ± 0.700   ms/op
