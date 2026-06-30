@@ -36,6 +36,15 @@
 
     <testCase id="002">
         <description>null inputs</description>
+        <inputNode name="A">
+            <value xsi:nil="true"/>
+        </inputNode>
+        <inputNode name="B">
+            <value xsi:nil="true"/>
+        </inputNode>
+        <inputNode name="C">
+            <value xsi:nil="true"/>
+        </inputNode>
         <resultNode name="BList" type="decision">
             <expected>
                 <list>
