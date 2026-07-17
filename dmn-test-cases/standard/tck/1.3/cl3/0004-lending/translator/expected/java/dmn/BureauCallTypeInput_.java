@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "BureauCallType"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "BureauCallType"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class BureauCallTypeInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private type.TApplicantData applicantData;

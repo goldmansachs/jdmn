@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "payment"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "payment"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class PaymentInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private type.TLoan loan;

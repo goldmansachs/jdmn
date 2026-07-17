@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "bigMid"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "bigMid"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class BigMidInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private type.TestPeopleType testPeopleType;

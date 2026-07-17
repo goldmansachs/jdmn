@@ -2,7 +2,7 @@
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["junit.ftl", "0009-invocation-arithmetic.dmn"])
+@javax.annotation.Generated(value = ["junit.ftl", "", "0009-invocation-arithmetic.dmn"])
 class _0009InvocationArithmeticTest01Test : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object>() {
     @org.junit.jupiter.api.Test
     fun testCase001_1() {

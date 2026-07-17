@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "allFalseAggregation"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "allFalseAggregation"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class AllFalseAggregationInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private List<Boolean> booleanList;

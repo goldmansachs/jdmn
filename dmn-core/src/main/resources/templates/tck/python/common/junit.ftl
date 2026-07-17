@@ -28,7 +28,7 @@ import ${transformer.jdmnRootPackage()}.runtime.listener.NopEventListener
 <@importElements testCases/>
 
 
-# Generated(value = ["junit.ftl", "${testCases.modelName}"])
+# Generated(value = ["junit.ftl", "${tckUtil.escapeInString(testCases.testCaseName)}", "${tckUtil.escapeInString(testCases.modelName)}"])
 class ${testClassName}(unittest.TestCase, ${decisionBaseClass}):
     <#if tckUtil.isMockTesting()>
     # Default values for mock tests

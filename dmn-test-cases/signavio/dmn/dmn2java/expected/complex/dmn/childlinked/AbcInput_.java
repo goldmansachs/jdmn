@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "abc"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "abc"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class AbcInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.lang.Number num;

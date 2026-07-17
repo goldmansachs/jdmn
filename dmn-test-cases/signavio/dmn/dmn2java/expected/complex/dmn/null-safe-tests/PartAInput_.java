@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "partA"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "partA"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class PartAInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private List<Boolean> booleanList;

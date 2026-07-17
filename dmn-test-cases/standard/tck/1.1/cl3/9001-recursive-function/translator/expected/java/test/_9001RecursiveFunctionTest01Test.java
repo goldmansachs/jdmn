@@ -2,7 +2,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"junit.ftl", "9001-recursive-function.dmn"})
+@javax.annotation.Generated(value = {"junit.ftl", "", "9001-recursive-function.dmn"})
 @com.gs.dmn.runtime.annotation.TestCases(
     testCasesName = "",
     modelName = "9001-recursive-function.dmn"

@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "decisionService_013_1"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "decisionService_013_1"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class DecisionService_013_1Input_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.lang.Number input_013_1;

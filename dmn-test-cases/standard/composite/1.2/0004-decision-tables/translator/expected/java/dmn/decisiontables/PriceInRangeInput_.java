@@ -2,7 +2,7 @@ package decisiontables;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "priceInRange"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "priceInRange"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class PriceInRangeInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.lang.Number decisioninputs_numB;

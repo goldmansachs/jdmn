@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "calculateDotProduct"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "calculateDotProduct"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class CalculateDotProductInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private List<java.lang.Number> a;

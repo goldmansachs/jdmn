@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "statistical"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "statistical"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class StatisticalInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private List<java.lang.Number> numberList;

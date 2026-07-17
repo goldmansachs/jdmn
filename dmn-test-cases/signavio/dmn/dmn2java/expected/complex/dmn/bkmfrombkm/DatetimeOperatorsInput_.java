@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "datetimeOperators"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "datetimeOperators"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class DatetimeOperatorsInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.time.temporal.TemporalAccessor datetime;

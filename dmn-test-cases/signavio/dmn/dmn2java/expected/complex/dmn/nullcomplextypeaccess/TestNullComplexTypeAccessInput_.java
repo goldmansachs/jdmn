@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "testNullComplexTypeAccess"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "testNullComplexTypeAccess"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TestNullComplexTypeAccessInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private String inputString;

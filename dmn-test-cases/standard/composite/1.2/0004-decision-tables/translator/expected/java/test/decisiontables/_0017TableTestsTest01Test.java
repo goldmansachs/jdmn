@@ -3,7 +3,7 @@ package decisiontables;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"junit.ftl", "decisionTables"})
+@javax.annotation.Generated(value = {"junit.ftl", "", "decisionTables"})
 @com.gs.dmn.runtime.annotation.TestCases(
     testCasesName = "",
     modelName = "decisionTables"

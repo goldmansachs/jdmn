@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "appendall"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "appendall"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class AppendallInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private String rgb1;

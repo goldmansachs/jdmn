@@ -2,7 +2,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"junit.ftl", "0076-feel-external-java.dmn"})
+@javax.annotation.Generated(value = {"junit.ftl", "", "0076-feel-external-java.dmn"})
 @com.gs.dmn.runtime.annotation.TestCases(
     testCasesName = "",
     modelName = "0076-feel-external-java.dmn"

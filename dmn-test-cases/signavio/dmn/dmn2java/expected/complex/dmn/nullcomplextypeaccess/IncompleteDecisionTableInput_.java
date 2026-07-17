@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "incompleteDecisionTable"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "incompleteDecisionTable"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class IncompleteDecisionTableInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private String inputString;

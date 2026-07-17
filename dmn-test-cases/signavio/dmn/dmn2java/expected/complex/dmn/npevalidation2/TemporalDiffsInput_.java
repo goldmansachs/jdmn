@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "temporalDiffs"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "temporalDiffs"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TemporalDiffsInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.lang.Number day;

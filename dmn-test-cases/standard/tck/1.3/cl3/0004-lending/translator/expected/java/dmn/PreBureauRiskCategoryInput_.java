@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "Pre-bureauRiskCategory"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "Pre-bureauRiskCategory"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class PreBureauRiskCategoryInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private type.TApplicantData applicantData;

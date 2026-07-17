@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "product"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "product"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class ProductInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private type.Componentwise3 componentwise4_iterator;

@@ -36,7 +36,7 @@ import PostBureauAffordability
 import Routing
 
 
-# Generated(value = ["junit.ftl", "0004-lending.dmn"])
+# Generated(value = ["junit.ftl", "", "0004-lending.dmn"])
 class _0004LendingTest01Test(unittest.TestCase, jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     def __init__(self, methodName="runTest"):
         unittest.TestCase.__init__(self, methodName)

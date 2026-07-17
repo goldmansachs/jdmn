@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "sUM"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "sUM"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class SUMInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.lang.Number a;

@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "RankedProducts"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "RankedProducts"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class RankedProductsInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.lang.Number requestedAmt;

@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "noRuleMatchesMultiHit"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "noRuleMatchesMultiHit"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class NoRuleMatchesMultiHitInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.lang.Number second;

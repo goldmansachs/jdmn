@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "Circumference"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "Circumference"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class CircumferenceInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.lang.Number radius;

@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "AppendAllTest"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "AppendAllTest"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class AppendAllTestInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private List<String> list1;

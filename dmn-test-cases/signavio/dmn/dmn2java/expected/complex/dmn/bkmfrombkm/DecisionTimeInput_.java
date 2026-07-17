@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "decisionTime"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "decisionTime"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class DecisionTimeInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.time.temporal.TemporalAccessor timeInput;

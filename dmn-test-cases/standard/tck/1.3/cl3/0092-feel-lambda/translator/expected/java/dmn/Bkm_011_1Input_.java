@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "bkm_011_1"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "bkm_011_1"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class Bkm_011_1Input_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private com.gs.dmn.runtime.LambdaExpression<java.lang.Number> fn1;

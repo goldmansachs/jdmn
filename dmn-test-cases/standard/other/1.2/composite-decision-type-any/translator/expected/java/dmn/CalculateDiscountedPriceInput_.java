@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "calculateDiscountedPrice"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "calculateDiscountedPrice"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class CalculateDiscountedPriceInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.lang.Number price;

@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "zip1"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "zip1"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class Zip1Input_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private List<java.lang.Number> a4;

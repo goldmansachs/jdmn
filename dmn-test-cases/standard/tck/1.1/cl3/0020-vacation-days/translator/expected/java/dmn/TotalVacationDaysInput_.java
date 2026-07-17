@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "Total Vacation Days"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "Total Vacation Days"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TotalVacationDaysInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.lang.Number age;

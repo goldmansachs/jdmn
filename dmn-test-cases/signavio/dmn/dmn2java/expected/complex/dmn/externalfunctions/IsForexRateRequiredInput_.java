@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "isForexRateRequired"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "isForexRateRequired"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class IsForexRateRequiredInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private String derivativeType;

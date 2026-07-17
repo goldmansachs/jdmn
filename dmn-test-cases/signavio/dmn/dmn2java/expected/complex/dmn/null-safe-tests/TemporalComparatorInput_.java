@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "temporalComparator"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "temporalComparator"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TemporalComparatorInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.time.temporal.TemporalAccessor dateTime;

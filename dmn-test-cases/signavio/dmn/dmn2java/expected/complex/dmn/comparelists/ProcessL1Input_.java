@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "processL1"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "processL1"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class ProcessL1Input_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private List<java.lang.Number> l1;

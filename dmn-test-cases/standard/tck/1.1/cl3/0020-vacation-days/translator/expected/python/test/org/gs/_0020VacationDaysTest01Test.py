@@ -16,7 +16,7 @@ import jdmn.runtime.listener.NopEventListener
 import org.gs.TotalVacationDays
 
 
-# Generated(value = ["junit.ftl", "0020-vacation-days.dmn"])
+# Generated(value = ["junit.ftl", "", "0020-vacation-days.dmn"])
 class _0020VacationDaysTest01Test(unittest.TestCase, jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     def __init__(self, methodName="runTest"):
         unittest.TestCase.__init__(self, methodName)

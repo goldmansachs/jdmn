@@ -2,7 +2,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"junit.ftl", "1157-implicit-conversions.dmn"})
+@javax.annotation.Generated(value = {"junit.ftl", "", "1157-implicit-conversions.dmn"})
 @com.gs.dmn.runtime.annotation.TestCases(
     testCasesName = "",
     modelName = "1157-implicit-conversions.dmn"

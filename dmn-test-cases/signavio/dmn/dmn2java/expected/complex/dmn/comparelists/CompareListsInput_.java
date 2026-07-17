@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "compareLists"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "compareLists"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class CompareListsInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.lang.Number l12_iterator;

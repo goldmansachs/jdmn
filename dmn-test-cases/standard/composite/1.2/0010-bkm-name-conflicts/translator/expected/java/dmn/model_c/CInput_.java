@@ -2,7 +2,7 @@ package model_c;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "c"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "c"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class CInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.lang.Number aa;

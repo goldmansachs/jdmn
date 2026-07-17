@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "dateCompare2"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "dateCompare2"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class DateCompare2Input_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.time.LocalDate dateD;

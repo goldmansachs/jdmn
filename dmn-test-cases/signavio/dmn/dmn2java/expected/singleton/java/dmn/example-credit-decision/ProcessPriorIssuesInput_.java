@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "processPriorIssues"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "processPriorIssues"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class ProcessPriorIssuesInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private type.Applicant applicant;

@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "FUNCT"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "FUNCT"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class FUNCTInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private List<java.lang.Number> numberList;

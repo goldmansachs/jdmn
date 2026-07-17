@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "simple function invocation"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "simple function invocation"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class SimpleFunctionInvocationInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private String stringInputA;

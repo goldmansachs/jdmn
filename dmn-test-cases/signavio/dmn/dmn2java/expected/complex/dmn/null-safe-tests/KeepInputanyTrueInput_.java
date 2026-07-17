@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "keepInputanyTrue"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "keepInputanyTrue"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class KeepInputanyTrueInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private Boolean booleanAnyTrue_iterator;

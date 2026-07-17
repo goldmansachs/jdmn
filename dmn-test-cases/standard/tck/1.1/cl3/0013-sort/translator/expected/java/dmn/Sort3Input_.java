@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "sort3"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "sort3"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class Sort3Input_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private List<String> stringList;

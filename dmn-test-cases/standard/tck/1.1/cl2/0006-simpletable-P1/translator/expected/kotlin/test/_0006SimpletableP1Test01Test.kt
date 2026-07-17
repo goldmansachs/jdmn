@@ -2,7 +2,7 @@
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["junit.ftl", "0006-simpletable-P1.dmn"])
+@javax.annotation.Generated(value = ["junit.ftl", "", "0006-simpletable-P1.dmn"])
 class _0006SimpletableP1Test01Test : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object>() {
     @org.junit.jupiter.api.Test
     fun testCase001_1() {

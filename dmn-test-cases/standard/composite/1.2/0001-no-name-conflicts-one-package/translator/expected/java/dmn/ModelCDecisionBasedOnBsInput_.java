@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "modelCDecisionBasedOnBs"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "modelCDecisionBasedOnBs"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class ModelCDecisionBasedOnBsInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private String personName;

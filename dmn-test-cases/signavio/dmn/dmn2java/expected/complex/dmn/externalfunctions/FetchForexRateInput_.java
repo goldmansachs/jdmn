@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "fetchForexRate"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "fetchForexRate"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class FetchForexRateInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private String derivativeType;

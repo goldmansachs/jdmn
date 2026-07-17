@@ -2,7 +2,7 @@ package model_b2;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "evaluatingSayHello"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "evaluatingSayHello"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class EvaluatingSayHelloInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private String model_a_personName;

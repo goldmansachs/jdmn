@@ -2,7 +2,7 @@ package nested_input_data_imports;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "Model C Decision based on Bs"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "Model C Decision based on Bs"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class ModelCDecisionBasedOnBsInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private String model_a_personName;

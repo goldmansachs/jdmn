@@ -16,7 +16,7 @@ package ${nativePackageName};
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "${transformer.escapeInString(modelRepository.name(drgElement))}"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "${transformer.escapeInString(modelRepository.name(drgElement))}"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class ${nativeClassName} implements ${transformer.drgElementInputPojoInterfaceName()} {
     <#assign inputArguments = transformer.drgElementArgumentListInputPojo(drgElement) />

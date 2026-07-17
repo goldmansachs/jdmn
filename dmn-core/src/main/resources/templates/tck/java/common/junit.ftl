@@ -17,7 +17,7 @@ package ${packageName};
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"junit.ftl", "${testCases.modelName}"})
+@javax.annotation.Generated(value = {"junit.ftl", "${tckUtil.escapeInString(testCases.testCaseName)}", "${tckUtil.escapeInString(testCases.modelName)}"})
 @${tckUtil.testAnnotationTestCasesName()}(
     testCasesName = "${tckUtil.escapeInString(testCases.testCaseName)}",
     modelName = "${tckUtil.escapeInString(testCases.modelName)}"

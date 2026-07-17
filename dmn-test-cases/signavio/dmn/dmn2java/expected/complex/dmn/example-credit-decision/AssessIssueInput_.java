@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "assessIssue"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "assessIssue"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class AssessIssueInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.lang.Number currentRiskAppetite;

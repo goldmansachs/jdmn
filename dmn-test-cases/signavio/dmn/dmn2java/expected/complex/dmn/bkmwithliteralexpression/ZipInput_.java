@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "zip"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "zip"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class ZipInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private List<String> blacklist;

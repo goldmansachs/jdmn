@@ -26,7 +26,7 @@ import Decision_014_1
 import DecisionService_015
 
 
-# Generated(value = ["junit.ftl", "0085-decision-services.dmn"])
+# Generated(value = ["junit.ftl", "", "0085-decision-services.dmn"])
 class _0085DecisionServicesTest01Test(unittest.TestCase, jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     def __init__(self, methodName="runTest"):
         unittest.TestCase.__init__(self, methodName)

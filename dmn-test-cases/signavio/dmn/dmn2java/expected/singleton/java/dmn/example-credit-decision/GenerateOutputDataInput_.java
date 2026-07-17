@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "generateOutputData"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "generateOutputData"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class GenerateOutputDataInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private type.Applicant applicant;

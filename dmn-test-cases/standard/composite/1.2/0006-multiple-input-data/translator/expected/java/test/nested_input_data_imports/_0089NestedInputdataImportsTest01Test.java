@@ -3,7 +3,7 @@ package nested_input_data_imports;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"junit.ftl", "Nested Input Data Imports"})
+@javax.annotation.Generated(value = {"junit.ftl", "", "Nested Input Data Imports"})
 @com.gs.dmn.runtime.annotation.TestCases(
     testCasesName = "",
     modelName = "Nested Input Data Imports"

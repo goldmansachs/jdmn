@@ -2,7 +2,7 @@
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["junit.ftl", "0010-multi-output-U.dmn"])
+@javax.annotation.Generated(value = ["junit.ftl", "", "0010-multi-output-U.dmn"])
 class _0010MultiOutputUTest01Test : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object>() {
     @org.junit.jupiter.api.Test
     fun testCase001_1() {

@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "equity36Mo"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "equity36Mo"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class Equity36MoInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.lang.Number p;

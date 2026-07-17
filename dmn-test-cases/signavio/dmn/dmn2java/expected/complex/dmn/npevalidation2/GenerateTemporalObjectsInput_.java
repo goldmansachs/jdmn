@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "generateTemporalObjects"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "generateTemporalObjects"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class GenerateTemporalObjectsInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.lang.Number day;

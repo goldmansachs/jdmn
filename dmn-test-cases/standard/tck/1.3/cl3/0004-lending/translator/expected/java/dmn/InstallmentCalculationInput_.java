@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "InstallmentCalculation"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "InstallmentCalculation"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class InstallmentCalculationInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private String productType;

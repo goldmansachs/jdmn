@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "arithmetic"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "arithmetic"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class ArithmeticInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.lang.Number numberA;

@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "topDecision"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "topDecision"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TopDecisionInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private type.TestPersonType testPersonType6_iterator;

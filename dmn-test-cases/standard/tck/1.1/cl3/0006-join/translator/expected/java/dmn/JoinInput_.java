@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "Join"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "Join"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class JoinInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private List<type.TDeptTable> deptTable;

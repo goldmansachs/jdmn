@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "allTogether"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "allTogether"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class AllTogetherInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private Boolean booleanA;

@@ -3,7 +3,7 @@ package model_c;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"junit.ftl", "Model C"})
+@javax.annotation.Generated(value = {"junit.ftl", "", "Model C"})
 @com.gs.dmn.runtime.annotation.TestCases(
     testCasesName = "",
     modelName = "Model C"

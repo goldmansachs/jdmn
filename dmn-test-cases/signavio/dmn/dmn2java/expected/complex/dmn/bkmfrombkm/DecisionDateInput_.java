@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "decisionDate"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "decisionDate"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class DecisionDateInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.time.LocalDate dateInput;

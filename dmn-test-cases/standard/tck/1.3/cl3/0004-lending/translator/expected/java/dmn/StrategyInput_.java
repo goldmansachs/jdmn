@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "Strategy"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "Strategy"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class StrategyInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private type.TApplicantData applicantData;

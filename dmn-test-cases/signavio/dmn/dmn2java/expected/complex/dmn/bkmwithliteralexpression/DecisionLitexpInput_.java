@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "decisionLitexp"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "decisionLitexp"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class DecisionLitexpInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private List<String> censored;

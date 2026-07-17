@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "componentwise"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "componentwise"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class ComponentwiseInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private List<java.lang.Number> a;

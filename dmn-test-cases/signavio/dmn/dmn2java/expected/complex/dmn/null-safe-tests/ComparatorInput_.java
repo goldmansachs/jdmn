@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"inputElement.ftl", "comparator"})
+@javax.annotation.Generated(value = {"elementInput.ftl", "comparator"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class ComparatorInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.lang.Number numberA;
