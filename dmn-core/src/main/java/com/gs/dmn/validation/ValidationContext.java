@@ -13,6 +13,7 @@
 package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.error.ValidationError;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import java.util.List;
 
 public class ValidationContext {
     protected final DMNModelRepository repository;
+    protected TDefinitions definitions;
     protected final List<ValidationError> errors;
 
     public ValidationContext(DMNModelRepository repository) {
@@ -29,6 +31,14 @@ public class ValidationContext {
 
     public DMNModelRepository getRepository() {
         return repository;
+    }
+
+    public TDefinitions getDefinitions() {
+        return definitions;
+    }
+
+    public void setDefinitions(TDefinitions definitions) {
+        this.definitions = definitions;
     }
 
     public List<ValidationError> getErrors() {

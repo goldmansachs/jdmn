@@ -44,6 +44,11 @@ public class ErrorFactory {
         return makeDMNError(coordinates, String.format("Types of then and else branches are incompatible, found '%s' and '%s'", thenType, elseType));
     }
 
+    public static SemanticError makeDMNWarning(ModelCoordinates coordinates, String errorMessage) {
+        ModelLocation location = makeLocation(coordinates);
+        return new SemanticError(SeverityLevel.WARNING, location, errorMessage);
+    }
+
     private static ModelLocation makeLocation(ModelCoordinates coordinates) {
         if (coordinates == null) {
             return null;

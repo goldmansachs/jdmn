@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:feel="https://www.omg.org/spec/DMN/20230324/FEEL/"
+             id="test-dmn-modelling-style" name="test-dmn-modelling-style"
+             namespace="http://test.example.com/test-dmn-modelling-style">
+
+     <itemDefinition id="primitiveType" name="primitiveType">
+        <typeRef>string</typeRef>
+     </itemDefinition>
+
+     <itemDefinition id="primitiveTypeList" name="primitiveTypeList" isCollection="true">
+        <typeRef>string</typeRef>
+     </itemDefinition>
+
+    <itemDefinition id="person" name="person">
+        <itemComponent id="name" name="name">
+            <typeRef>string</typeRef>
+        </itemComponent>
+        <itemComponent id="address" name="address">
+            <itemComponent id="street" name="street">
+                <typeRef>string</typeRef>
+            </itemComponent>
+        </itemComponent>
+    </itemDefinition>
+
+    <decision id="contextWithLiteralEntries" name="contextWithLiteralEntries">
+        <variable id="contextWithLiteralEntries_var" name="contextWithLiteralEntries" typeRef="person"/>
+        <context>
+            <contextEntry id="nameEntry">
+                <variable id="nameEntry_var" name="name" typeRef="string"/>
+                <literalExpression>
+                    <text>"John"</text>
+                </literalExpression>
+            </contextEntry>
+            <contextEntry id="ageEntry">
+                <variable id="ageEntry_var" name="age" typeRef="number"/>
+                <literalExpression>
+                    <text>30</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+
+    <decision id="contextWithContextEntry" name="contextWithContextEntry">
+        <variable id="contextWithContextEntry_var" name="contextWithContextEntry" typeRef="person"/>
+        <context>
+            <contextEntry id="nameEntry">
+                <variable id="nameEntry_var" name="name" typeRef="string"/>
+                <literalExpression>
+                    <text>"John"</text>
+                </literalExpression>
+            </contextEntry>
+            <contextEntry id="addressEntry">
+                <variable id="addressEntry_var" name="address" typeRef="address"/>
+                <context>
+                    <contextEntry id="streetEntry">
+                        <variable id="streetEntry_var" name="street" typeRef="string"/>
+                        <literalExpression>
+                            <text>"Main Street"</text>
+                        </literalExpression>
+                    </contextEntry>
+                </context>
+            </contextEntry>
+        </context>
+    </decision>
+</definitions>
