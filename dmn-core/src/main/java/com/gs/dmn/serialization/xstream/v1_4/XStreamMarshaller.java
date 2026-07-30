@@ -17,6 +17,7 @@ import com.gs.dmn.ast.dmndi.*;
 import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.xstream.*;
 import com.gs.dmn.serialization.xstream.v1_1.*;
+import com.gs.dmn.serialization.xstream.v1_2.*;
 import com.gs.dmn.serialization.xstream.v1_2.AuthorityRequirementConverter;
 import com.gs.dmn.serialization.xstream.v1_2.BusinessKnowledgeModelConverter;
 import com.gs.dmn.serialization.xstream.v1_2.ContextEntryConverter;
@@ -28,7 +29,6 @@ import com.gs.dmn.serialization.xstream.v1_2.ImportConverter;
 import com.gs.dmn.serialization.xstream.v1_2.ImportedValuesConverter;
 import com.gs.dmn.serialization.xstream.v1_2.InformationRequirementConverter;
 import com.gs.dmn.serialization.xstream.v1_2.KnowledgeRequirementConverter;
-import com.gs.dmn.serialization.xstream.v1_2.*;
 import com.gs.dmn.serialization.xstream.v1_3.DefinitionsConverter;
 import com.gs.dmn.serialization.xstream.v1_3.FunctionItemConverter;
 import com.gs.dmn.serialization.xstream.v1_3.GroupConverter;
@@ -58,7 +58,7 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
     private static final StaxDriver STAX_DRIVER;
 
     static {
-        STAX_DRIVER = new StaxDriver() {
+        STAX_DRIVER = new SafeStaxDriver() {
             @Override
             public AbstractPullReader createStaxReader(XMLStreamReader in) {
                 return new CustomStaxReader(getQnameMap(), in);
@@ -150,8 +150,7 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
                 CustomStaxWriter hsWriter = (CustomStaxWriter) STAX_DRIVER.createWriter(writer)) {
 
             XStream xStream = newXStream();
-            if (o instanceof DMNBaseElement) {
-                DMNBaseElement base = (DMNBaseElement) o;
+            if (o instanceof DMNBaseElement base) {
                 String dmnPrefix = base.getElementInfo().getNsContext().entrySet().stream().filter(kv -> DMNVersion.DMN_14.getNamespace().equals(kv.getValue())).findFirst().map(Map.Entry::getKey).orElse("");
                 hsWriter.getQNameMap().setDefaultPrefix(dmnPrefix);
             }

@@ -41,7 +41,7 @@ import static com.gs.dmn.serialization.DMNVersion.*;
 
 public class XStreamMarshaller implements DMNMarshaller {
     private static final Logger LOGGER = LoggerFactory.getLogger(XStreamMarshaller.class);
-    private static final StaxDriver STAX_DRIVER = new StaxDriver();
+    private static final StaxDriver STAX_DRIVER = new SafeStaxDriver();
 
     public static DMNVersion inferDMNVersion(DMNBaseElement from) {
         DMNVersion result = null;
@@ -125,7 +125,7 @@ public class XStreamMarshaller implements DMNMarshaller {
     public TDefinitions unmarshal(String input, boolean validateSchema) {
         try (Reader firstStringReader = new StringReader(input); Reader secondStringReader = new StringReader(input)) {
             DMNVersion dmnVersion = inferDMNVersion(firstStringReader);
-            if (validateSchema && dmnVersion != null) {
+            if (validateSchema) {
                 try (StringReader reader = new StringReader(input)) {
                     List<ValidationError> errors = new XSDSchemaValidator().validateXSDSchema(new StreamSource(reader), dmnVersion);
                     if (!errors.isEmpty()) {

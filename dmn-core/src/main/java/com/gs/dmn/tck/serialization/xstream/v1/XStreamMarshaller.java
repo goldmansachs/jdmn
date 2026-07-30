@@ -43,7 +43,7 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
     private static final StaxDriver STAX_DRIVER;
 
     static {
-        STAX_DRIVER = new StaxDriver() {
+        STAX_DRIVER = new SafeStaxDriver() {
             @Override
             public AbstractPullReader createStaxReader(XMLStreamReader in) {
                 return new CustomStaxReader(getQnameMap(), in);

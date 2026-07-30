@@ -40,7 +40,7 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
     private static final StaxDriver STAX_DRIVER;
 
     static {
-        STAX_DRIVER = new StaxDriver() {
+        STAX_DRIVER = new SafeStaxDriver() {
             @Override
             public AbstractPullReader createStaxReader(XMLStreamReader in) {
                 return new CustomStaxReader(getQnameMap(), in);
@@ -132,8 +132,7 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
                 CustomStaxWriter hsWriter = (CustomStaxWriter) STAX_DRIVER.createWriter(writer)) {
 
             XStream xStream = newXStream();
-            if (o instanceof DMNBaseElement) {
-                DMNBaseElement base = (DMNBaseElement) o;
+            if (o instanceof DMNBaseElement base) {
                 String dmnPrefix = base.getElementInfo().getNsContext().entrySet().stream().filter(kv -> DMNVersion.DMN_11.getNamespace().equals(kv.getValue())).findFirst().map(Map.Entry::getKey).orElse("");
                 hsWriter.getQNameMap().setDefaultPrefix(dmnPrefix);
             }
