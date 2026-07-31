@@ -15,7 +15,10 @@ package com.gs.dmn.serialization.xstream.v1_4;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.ast.dmndi.*;
 import com.gs.dmn.serialization.DMNVersion;
-import com.gs.dmn.serialization.xstream.*;
+import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
+import com.gs.dmn.serialization.xstream.DMNXStream;
+import com.gs.dmn.serialization.xstream.VersionXStreamMarshaller;
+import com.gs.dmn.serialization.xstream.XStreamUtils;
 import com.gs.dmn.serialization.xstream.v1_1.*;
 import com.gs.dmn.serialization.xstream.v1_2.*;
 import com.gs.dmn.serialization.xstream.v1_2.AuthorityRequirementConverter;
@@ -34,165 +37,26 @@ import com.gs.dmn.serialization.xstream.v1_3.FunctionItemConverter;
 import com.gs.dmn.serialization.xstream.v1_3.GroupConverter;
 import com.gs.dmn.serialization.xstream.v1_3.ItemDefinitionConverter;
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.AbstractPullReader;
-import com.thoughtworks.xstream.io.xml.QNameMap;
+import com.thoughtworks.xstream.io.HierarchicalStreamDriver;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
-import com.thoughtworks.xstream.io.xml.StaxWriter;
 import com.thoughtworks.xstream.security.TypeHierarchyPermission;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.namespace.QName;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import javax.xml.stream.XMLStreamWriter;
-import java.io.*;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-public class XStreamMarshaller implements SimpleDMNMarshaller {
-    private static final Logger LOGGER = LoggerFactory.getLogger(XStreamMarshaller.class);
-
-    private static final StaxDriver STAX_DRIVER;
-
-    static {
-        STAX_DRIVER = new SafeStaxDriver() {
-            @Override
-            public AbstractPullReader createStaxReader(XMLStreamReader in) {
-                return new CustomStaxReader(getQnameMap(), in);
-            }
-
-            @Override
-            public StaxWriter createStaxWriter(XMLStreamWriter out, boolean writeStartEndDocument) throws XMLStreamException {
-                return new CustomStaxWriter(newQNameMap(), out, false, isRepairingNamespace(), getNameCoder());
-            }
-
-            public QNameMap newQNameMap() {
-                QNameMap qmap = new QNameMap();
-                configureQNameMap(qmap);
-                return qmap;
-            }
-        };
-        QNameMap nameMap = new QNameMap();
-        configureQNameMap(nameMap);
-        STAX_DRIVER.setQnameMap(nameMap);
-        STAX_DRIVER.setRepairingNamespace(false);
-    }
-
-    public static void configureQNameMap(QNameMap nameMap) {
-        nameMap.setDefaultNamespace(DMNVersion.DMN_14.getNamespace());
-    }
-
-    private final List<DMNExtensionRegister> extensionRegisters = new ArrayList<>();
+public class XStreamMarshaller extends VersionXStreamMarshaller {
+    private static final StaxDriver STAX_DRIVER = makeStaxDriver(DMNVersion.DMN_14);
 
     public XStreamMarshaller() {
+        super(DMNVersion.DMN_14);
     }
 
     public XStreamMarshaller(List<DMNExtensionRegister> extensionRegisters) {
-        this.extensionRegisters.addAll(extensionRegisters);
+        super(DMNVersion.DMN_14, extensionRegisters);
     }
 
     @Override
-    public Object unmarshal(String input) {
-        return unmarshal(new StringReader(input));
-    }
-
-    @Override
-    public Object unmarshal(File input) {
-        try {
-            XStream xStream = newXStream();
-            return xStream.fromXML(input);
-        } catch (Exception e) {
-            LOGGER.error(String.format("Error unmarshalling DMN model from file '%s'.", input.getAbsolutePath()), e);
-        }
-        return null;
-    }
-
-    @Override
-    public Object unmarshal(URL input) {
-        try {
-            XStream xStream = newXStream();
-            return xStream.fromXML(input);
-        } catch (Exception e) {
-            LOGGER.error(String.format("Error unmarshalling DMN model from file '%s'.", input), e);
-        }
-        return null;
-    }
-
-    @Override
-    public Object unmarshal(InputStream input) {
-        try {
-            XStream xStream = newXStream();
-            return xStream.fromXML(input);
-        } catch (Exception e) {
-            LOGGER.error("Error unmarshalling DMN model from input.", e);
-        }
-        return null;
-    }
-
-    @Override
-    public Object unmarshal(Reader input) {
-        try {
-            XStream xStream = newXStream();
-            return xStream.fromXML(input);
-        } catch (Exception e) {
-            LOGGER.error("Error unmarshalling DMN model from reader.", e);
-        }
-        return null;
-    }
-
-    @Override
-    public String marshal(Object o) {
-        try (
-                Writer writer = new StringWriter();
-                CustomStaxWriter hsWriter = (CustomStaxWriter) STAX_DRIVER.createWriter(writer)) {
-
-            XStream xStream = newXStream();
-            if (o instanceof DMNBaseElement base) {
-                String dmnPrefix = base.getElementInfo().getNsContext().entrySet().stream().filter(kv -> DMNVersion.DMN_14.getNamespace().equals(kv.getValue())).findFirst().map(Map.Entry::getKey).orElse("");
-                hsWriter.getQNameMap().setDefaultPrefix(dmnPrefix);
-            }
-            extensionRegisters.forEach(r -> r.beforeMarshal(o, hsWriter.getQNameMap()));
-            xStream.marshal(o, hsWriter);
-            hsWriter.flush();
-            return writer.toString();
-        } catch (Exception e) {
-            LOGGER.error("Error marshalling DMN model to XML.", e);
-        }
-        return null;
-    }
-
-    @Override
-    public void marshal(Object o, File output) {
-        try (FileWriter fileWriter = new FileWriter(output)) {
-            marshal(o, fileWriter);
-        } catch (IOException e) {
-            LOGGER.error("Error marshalling DMN model to XML.", e);
-        }
-    }
-
-    @Override
-    public void marshal(Object o, OutputStream output) {
-        try (OutputStreamWriter streamWriter = new OutputStreamWriter(output)) {
-            marshal(o, streamWriter);
-        } catch (Exception e) {
-            LOGGER.error("Error marshalling DMN model to XML.", e);
-        }
-    }
-
-    @Override
-    public void marshal(Object o, Writer output) {
-        try {
-            output.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-            output.write(marshal(o));
-        } catch (Exception e) {
-            LOGGER.error("Error marshalling DMN model to XML.", e);
-        }
-    }
-
-    private XStream newXStream() {
+    protected XStream newXStream() {
         XStream xStream = XStreamUtils.createNonTrustingXStream(STAX_DRIVER, TDefinitions.class.getClassLoader(), DMNXStream::from);
         xStream.addPermission(new TypeHierarchyPermission(QName.class));
         xStream.addPermission(new TypeHierarchyPermission(DMNBaseElement.class));
@@ -291,32 +155,32 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
 
         xStream.alias("annotation", TRuleAnnotationClause.class);
         xStream.alias("annotationEntry", TRuleAnnotation.class);
-        xStream.registerConverter(new RuleAnnotationClauseConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new RuleAnnotationConverter(xStream, DMNVersion.DMN_14));
+        xStream.registerConverter(new RuleAnnotationClauseConverter(xStream, this.version));
+        xStream.registerConverter(new RuleAnnotationConverter(xStream, this.version));
         xStream.alias("DMNDI", DMNDI.class);
-        xStream.registerConverter(new DMNDIConverter(xStream, DMNVersion.DMN_14));
+        xStream.registerConverter(new DMNDIConverter(xStream, this.version));
         xStream.alias("DMNDiagram", DMNDiagram.class);
-        xStream.registerConverter(new DMNDiagramConverter(xStream, DMNVersion.DMN_14));
+        xStream.registerConverter(new DMNDiagramConverter(xStream, this.version));
         xStream.alias("DMNStyle", DMNStyle.class);
-        xStream.registerConverter(new DMNStyleConverter(xStream, DMNVersion.DMN_14));
+        xStream.registerConverter(new DMNStyleConverter(xStream, this.version));
         xStream.alias("Size", Dimension.class);
-        xStream.registerConverter(new DimensionConverter(xStream, DMNVersion.DMN_14));
+        xStream.registerConverter(new DimensionConverter(xStream, this.version));
         xStream.alias("DMNShape", DMNShape.class);
-        xStream.registerConverter(new DMNShapeConverter(xStream, DMNVersion.DMN_14));
+        xStream.registerConverter(new DMNShapeConverter(xStream, this.version));
         xStream.alias("FillColor", Color.class);
         xStream.alias("StrokeColor", Color.class);
         xStream.alias("FontColor", Color.class);
-        xStream.registerConverter(new ColorConverter(xStream, DMNVersion.DMN_14));
+        xStream.registerConverter(new ColorConverter(xStream, this.version));
         xStream.alias("Bounds", Bounds.class);
-        xStream.registerConverter(new BoundsConverter(xStream, DMNVersion.DMN_14));
+        xStream.registerConverter(new BoundsConverter(xStream, this.version));
         xStream.alias("DMNLabel", DMNLabel.class);
-        xStream.registerConverter(new DMNLabelConverter(xStream, DMNVersion.DMN_14));
+        xStream.registerConverter(new DMNLabelConverter(xStream, this.version));
         xStream.alias("DMNEdge", DMNEdge.class);
-        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_3.DMNEdgeConverter(xStream, DMNVersion.DMN_14));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_3.DMNEdgeConverter(xStream, this.version));
         xStream.alias("DMNDecisionServiceDividerLine", DMNDecisionServiceDividerLine.class);
-        xStream.registerConverter(new DMNDecisionServiceDividerLineConverter(xStream, DMNVersion.DMN_14));
+        xStream.registerConverter(new DMNDecisionServiceDividerLineConverter(xStream, this.version));
         xStream.alias("waypoint", Point.class);
-        xStream.registerConverter(new PointConverter(xStream, DMNVersion.DMN_14));
+        xStream.registerConverter(new PointConverter(xStream, this.version));
         xStream.alias("extension", DiagramElement.Extension.class);
         xStream.alias(DMNLabelConverter.TEXT, String.class);
 
@@ -326,52 +190,52 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
         xStream.alias("conditional", TConditional.class);
         xStream.alias("filter", TFilter.class);
 
-        xStream.registerConverter(new AssociationConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new AuthorityRequirementConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new BindingConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new BusinessKnowledgeModelConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new ContextConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new ContextEntryConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new DecisionConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new DecisionRuleConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new DecisionServiceConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new DecisionTableConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new DefinitionsConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new DMNElementReferenceConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new GroupConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new FunctionDefinitionConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new ImportConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new ImportedValuesConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new InformationItemConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new InformationRequirementConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new InputClauseConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new InputDataConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new InvocationConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new ItemDefinitionConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new KnowledgeRequirementConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new KnowledgeSourceConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new LiteralExpressionConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new OrganizationUnitConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new OutputClauseConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new PerformanceIndicatorConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new RelationConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new TextAnnotationConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new UnaryTestsConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new FunctionItemConverter(xStream, DMNVersion.DMN_14));
+        xStream.registerConverter(new AssociationConverter(xStream, this.version));
+        xStream.registerConverter(new AuthorityRequirementConverter(xStream, this.version));
+        xStream.registerConverter(new BindingConverter(xStream, this.version));
+        xStream.registerConverter(new BusinessKnowledgeModelConverter(xStream, this.version));
+        xStream.registerConverter(new ContextConverter(xStream, this.version));
+        xStream.registerConverter(new ContextEntryConverter(xStream, this.version));
+        xStream.registerConverter(new DecisionConverter(xStream, this.version));
+        xStream.registerConverter(new DecisionRuleConverter(xStream, this.version));
+        xStream.registerConverter(new DecisionServiceConverter(xStream, this.version));
+        xStream.registerConverter(new DecisionTableConverter(xStream, this.version));
+        xStream.registerConverter(new DefinitionsConverter(xStream, this.version));
+        xStream.registerConverter(new DMNElementReferenceConverter(xStream, this.version));
+        xStream.registerConverter(new GroupConverter(xStream, this.version));
+        xStream.registerConverter(new FunctionDefinitionConverter(xStream, this.version));
+        xStream.registerConverter(new ImportConverter(xStream, this.version));
+        xStream.registerConverter(new ImportedValuesConverter(xStream, this.version));
+        xStream.registerConverter(new InformationItemConverter(xStream, this.version));
+        xStream.registerConverter(new InformationRequirementConverter(xStream, this.version));
+        xStream.registerConverter(new InputClauseConverter(xStream, this.version));
+        xStream.registerConverter(new InputDataConverter(xStream, this.version));
+        xStream.registerConverter(new InvocationConverter(xStream, this.version));
+        xStream.registerConverter(new ItemDefinitionConverter(xStream, this.version));
+        xStream.registerConverter(new KnowledgeRequirementConverter(xStream, this.version));
+        xStream.registerConverter(new KnowledgeSourceConverter(xStream, this.version));
+        xStream.registerConverter(new LiteralExpressionConverter(xStream, this.version));
+        xStream.registerConverter(new OrganizationUnitConverter(xStream, this.version));
+        xStream.registerConverter(new OutputClauseConverter(xStream, this.version));
+        xStream.registerConverter(new PerformanceIndicatorConverter(xStream, this.version));
+        xStream.registerConverter(new RelationConverter(xStream, this.version));
+        xStream.registerConverter(new TextAnnotationConverter(xStream, this.version));
+        xStream.registerConverter(new UnaryTestsConverter(xStream, this.version));
+        xStream.registerConverter(new FunctionItemConverter(xStream, this.version));
 
-        xStream.registerConverter(new ChildExpressionConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new TypedChildExpressionConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new ForConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new EveryConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new SomeConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new ConditionalConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new FilterConverter(xStream, DMNVersion.DMN_14));
+        xStream.registerConverter(new ChildExpressionConverter(xStream, this.version));
+        xStream.registerConverter(new TypedChildExpressionConverter(xStream, this.version));
+        xStream.registerConverter(new ForConverter(xStream, this.version));
+        xStream.registerConverter(new EveryConverter(xStream, this.version));
+        xStream.registerConverter(new SomeConverter(xStream, this.version));
+        xStream.registerConverter(new ConditionalConverter(xStream, this.version));
+        xStream.registerConverter(new FilterConverter(xStream, this.version));
 
-        xStream.registerConverter(new QNameConverter(DMNVersion.DMN_14));
-        xStream.registerConverter(new DMNListConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new ElementCollectionConverter(xStream, DMNVersion.DMN_14));
-        xStream.registerConverter(new ExtensionElementsConverter(xStream, DMNVersion.DMN_14, extensionRegisters));
-        xStream.registerConverter(new DiagramElementExtensionConverter(xStream, DMNVersion.DMN_14, extensionRegisters));
+        xStream.registerConverter(new QNameConverter(this.version));
+        xStream.registerConverter(new DMNListConverter(xStream, this.version));
+        xStream.registerConverter(new ElementCollectionConverter(xStream, this.version));
+        xStream.registerConverter(new ExtensionElementsConverter(xStream, this.version, extensionRegisters));
+        xStream.registerConverter(new DiagramElementExtensionConverter(xStream, this.version, extensionRegisters));
 
         for (DMNExtensionRegister extensionRegister : extensionRegisters) {
             extensionRegister.registerExtensionConverters(xStream);
@@ -379,5 +243,10 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
 
         xStream.ignoreUnknownElements();
         return xStream;
+    }
+
+    @Override
+    protected HierarchicalStreamDriver getStaxDriver() {
+        return STAX_DRIVER;
     }
 }
