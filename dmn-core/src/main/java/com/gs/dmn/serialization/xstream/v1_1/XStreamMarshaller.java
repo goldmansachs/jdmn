@@ -37,6 +37,7 @@ public class XStreamMarshaller extends VersionXStreamMarshaller {
         super(DMNVersion.DMN_11, extensionRegisters);
     }
 
+    @Override
     protected XStream newXStream() {
         XStream xStream = XStreamUtils.createNonTrustingXStream(STAX_DRIVER, TDefinitions.class.getClassLoader(), DMNXStream::from);
         xStream.addPermission(new TypeHierarchyPermission(QName.class));
@@ -72,7 +73,6 @@ public class XStreamMarshaller extends VersionXStreamMarshaller {
         xStream.alias("definitions", TDefinitions.class);
         xStream.alias("drgElement", TDMNElementReference.class);
         xStream.alias("elementCollection", TElementCollection.class);
-        xStream.alias("elementCollection", TElementCollection.class);
         xStream.alias("encapsulatedDecision", TDMNElementReference.class);
         xStream.alias("encapsulatedLogic", TFunctionDefinition.class);
         xStream.alias("expression", TExpression.class);
@@ -82,9 +82,9 @@ public class XStreamMarshaller extends VersionXStreamMarshaller {
         xStream.alias("impactingDecision", TDMNElementReference.class);
         xStream.alias("import", TImport.class);
         xStream.alias("import", TImport.class);
-        xStream.alias("importedElement", String.class); // TODO where?
+        xStream.alias("importedElement", String.class);
         xStream.alias("importedValues", TImportedValues.class);
-        xStream.alias("TInformationItem", TInformationItem.class);
+        xStream.alias("informationItem", TInformationItem.class);
         xStream.alias("informationRequirement", TInformationRequirement.class);
         xStream.alias("input", TInputClause.class);
         xStream.alias("inputData", TInputData.class);

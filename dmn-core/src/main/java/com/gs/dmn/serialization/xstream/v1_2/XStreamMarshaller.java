@@ -29,11 +29,7 @@ import javax.xml.namespace.QName;
 import java.util.List;
 
 public class XStreamMarshaller extends VersionXStreamMarshaller {
-    private static final StaxDriver STAX_DRIVER;
-
-    static {
-        STAX_DRIVER = makeStaxDriver(DMNVersion.DMN_12);
-    }
+    private static final StaxDriver STAX_DRIVER = makeStaxDriver(DMNVersion.DMN_12);
 
     public XStreamMarshaller() {
         super(DMNVersion.DMN_12);
