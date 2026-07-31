@@ -69,8 +69,7 @@ class XStreamMarshallerTest {
 
         // Check XSD validation
         SyntaxErrorException exception = assertThrows(SyntaxErrorException.class, () -> {
-            TDefinitions def = marshaller.unmarshal(maliciousDmn, true);
-            assertEquals("VERY_SECRET_12345", def.getDescription());
+            marshaller.unmarshal(maliciousDmn, true);
         });
         assertTrue(exception.getMessage().contains("Validation failed due to a critical error: External Entity: Failed to read external document"));
 

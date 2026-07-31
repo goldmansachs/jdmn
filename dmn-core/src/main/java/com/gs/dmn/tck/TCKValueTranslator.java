@@ -84,11 +84,11 @@ public class TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
         return this.nativeFactory.makeBuiltinFunctionInvocation(function, String.format("\"%s\"", text.trim()));
     }
 
-    private String toNativeExpression(com.gs.dmn.tck.ast.List list, Type listType, TDRGElement element) {
+    private String toNativeExpression(com.gs.dmn.tck.ast.List list, Type type, TDRGElement element) {
         List<String> javaList = new ArrayList<>();
         Type elementType = AnyType.ANY;
-        if (listType instanceof ListType) {
-            elementType = ((ListType) listType).getElementType();
+        if (type instanceof ListType listType) {
+            elementType = listType.getElementType();
         }
         for (ValueType listValueType : list.getItem()) {
             String value = toNativeExpression(listValueType, elementType, element);

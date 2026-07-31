@@ -63,11 +63,11 @@ public abstract class VersionXStreamMarshaller implements SimpleDMNMarshaller {
     protected final DMNVersion version;
     protected final List<DMNExtensionRegister> extensionRegisters = new ArrayList<>();
 
-    public VersionXStreamMarshaller(DMNVersion version) {
+    protected VersionXStreamMarshaller(DMNVersion version) {
         this.version = version;
     }
 
-    public VersionXStreamMarshaller(DMNVersion version, List<DMNExtensionRegister> extensionRegisters) {
+    protected VersionXStreamMarshaller(DMNVersion version, List<DMNExtensionRegister> extensionRegisters) {
         this.version = version;
         this.extensionRegisters.addAll(extensionRegisters);
     }
