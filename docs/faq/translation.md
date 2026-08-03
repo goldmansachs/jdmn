@@ -197,6 +197,17 @@ Configure the lazy evaluation detectors and the threshold.
 
 ```
 
+To lazily evaluate the direct child decisions of every decision table without applying a sparsity threshold, configure the decision table detector:
+
+```
+        . . .
+        <configuration>
+            <lazyEvaluationDetectors>
+                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.DecisionTableLazyEvaluationDetector</lazyEvaluatorDetector>
+            </lazyEvaluationDetectors>
+        </configuration>
+```
+
 ### Lazy evaluation of Input Data
 
 In certain cases (e.g., input data is retrieved from a database and is used in a decision table with hit policy FIRST) it makes sense to retrieve child input data on demand. Module dmn-jpa-it contains an example for this optimization. 
