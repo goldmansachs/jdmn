@@ -19,7 +19,6 @@ import org.junit.jupiter.api.Test;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 class CompositeDMNValidatorTest extends AbstractValidatorTest {
@@ -29,13 +28,13 @@ class CompositeDMNValidatorTest extends AbstractValidatorTest {
 
     @Test
     public void testValidateWhenCorrect() {
-        List<String> expectedErrors = Collections.emptyList();
+        List<String> expectedErrors = List.of();
         validate(validator, tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn"), expectedErrors);
     }
 
     @Test
     public void testValidateEmptyRepo() {
-        List<String> expectedErrors = Collections.emptyList();
+        List<String> expectedErrors = List.of();
         List<ValidationError> actualErrors = validator.validate(null);
         checkErrors(validator.ruleName(), expectedErrors, actualErrors);
 
@@ -45,7 +44,7 @@ class CompositeDMNValidatorTest extends AbstractValidatorTest {
 
     @Test
     public void testValidateException() {
-        CompositeDMNValidator validator = new CompositeDMNValidator(Arrays.asList(new SimpleDMNValidator() {
+        CompositeDMNValidator validator = new CompositeDMNValidator(List.of(new SimpleDMNValidator() {
             @Override
             public List<ValidationError> validate(DMNModelRepository dmnModelRepository) {
                 throw new RuntimeException("Exception Stacktrace");
@@ -56,7 +55,7 @@ class CompositeDMNValidatorTest extends AbstractValidatorTest {
                 return "exception-validator";
             }
         }));
-        List<String> expectedErrors = Arrays.asList(
+        List<String> expectedErrors = List.of(
                 "[ERROR] Fatal error in validator 'exception-validator' Exception Stacktrace"
         );
         URI fileURI = tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn");

@@ -118,7 +118,6 @@ public class XStreamMarshaller extends VersionXStreamMarshaller {
         xStream.alias("itemDefinition", TItemDefinition.class);
         xStream.alias("knowledgeRequirement", TKnowledgeRequirement.class);
         xStream.alias("knowledgeSource", TKnowledgeSource.class);
-        xStream.alias("literalExpression", TLiteralExpression.class);
         xStream.alias("namedElement", TNamedElement.class);
         xStream.alias("organizationUnit", TOrganizationUnit.class);
         xStream.alias("output", TOutputClause.class);

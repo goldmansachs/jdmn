@@ -336,12 +336,12 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
     private void validateDecisionTable(TDefinitions definitions, TDMNElement element, TDecisionTable decisionTable, ValidationContext context) {
         List<TInputClause> input = decisionTable.getInput();
         if (input == null || input.isEmpty()) {
-            String errorMessage = "Missing input clauses";
+            String errorMessage = "Missing input clauses in decision table";
             addValidationError(context, definitions, element, errorMessage);
         }
         List<TOutputClause> output = decisionTable.getOutput();
         if (output == null || output.isEmpty()) {
-            String errorMessage = "Missing output clauses";
+            String errorMessage = "Missing output clauses in decision table";
             addValidationError(context, definitions, element, errorMessage);
         }
         validateHitPolicy(definitions, element, decisionTable, context);

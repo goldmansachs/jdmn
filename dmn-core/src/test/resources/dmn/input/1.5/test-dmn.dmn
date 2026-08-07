@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" id="definitions" name="test-dmn"
-             namespace="http://camunda.org/schema/1.0/dmn">
+             namespace="http://example.org/dmn">
     <import name="dec1" namespace="" importType=""/>
 
     <itemDefinition name="test-empty-container">

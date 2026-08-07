@@ -32,9 +32,9 @@ public class UniqueNameValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateDefinitionsWhenNotUniqueNames() {
         List<String> expectedErrors = Arrays.asList(
-                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions'): The 'name' of a 'DRGElement' must be unique. Found 3 duplicates for 'CIP Assessments'.",
-                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions'): The 'name' of a 'DRGElement' must be unique. Found 2 duplicates for 'Input'.",
-                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions'): The 'name' of a 'ItemDefinition' must be unique. Found 2 duplicates for 'itemDefinition'."
+                "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions'): The 'name' of a 'DRGElement' must be unique. Found 3 duplicates for 'CIP Assessments'.",
+                "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions'): The 'name' of a 'DRGElement' must be unique. Found 2 duplicates for 'Input'.",
+                "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions'): The 'name' of a 'ItemDefinition' must be unique. Found 2 duplicates for 'itemDefinition'."
         );
         validate(validator, resource("dmn/input/1.1/test-dmn-with-duplicates.dmn"), expectedErrors);
     }

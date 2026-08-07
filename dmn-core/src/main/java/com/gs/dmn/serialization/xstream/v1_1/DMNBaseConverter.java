@@ -160,16 +160,18 @@ public abstract class DMNBaseConverter extends AbstractCollectionConverter {
     }
 
     protected void mvDownConvertAnotherMvUpAssignChildElement(HierarchicalStreamReader reader, UnmarshallingContext context, Object parent, String expectedNodeName, Class<? extends DMNBaseElement> type) {
-        reader.moveDown();
-        String nodeName = reader.getNodeName();
-        if (!expectedNodeName.equals(nodeName)) throw new IllegalStateException();
-        Object object = context.convertAnother(null, type);
-        if (object instanceof DMNBaseElement) {
-            ((DMNBaseElement) object).setParent((DMNBaseElement) parent);
-            ((DMNBaseElement) parent).addChildren((DMNBaseElement) object);
+        if (reader.hasMoreChildren()) {
+            reader.moveDown();
+            String nodeName = reader.getNodeName();
+            if (!expectedNodeName.equals(nodeName)) throw new IllegalStateException();
+            Object object = context.convertAnother(null, type);
+            if (object instanceof DMNBaseElement) {
+                ((DMNBaseElement) object).setParent((DMNBaseElement) parent);
+                ((DMNBaseElement) parent).addChildren((DMNBaseElement) object);
+            }
+            reader.moveUp();
+            assignChildElement(parent, nodeName, object);
         }
-        reader.moveUp();
-        assignChildElement(parent, nodeName, object);
     }
 
     protected abstract DMNBaseElement createModelObject();

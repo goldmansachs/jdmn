@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" id="definitions" name="test-boxed-expressions"
+             namespace="http://example.org/dmn">
+
+    <!-- literal expression -->
+    <decision id="lit1" name="lit1">
+        <variable id="lit1Var" name="lit1" typeRef="string"/>
+        <literalExpression id="lit1Expr" expressionLanguage="unsupportedLang">
+            <text></text>
+        </literalExpression>
+    </decision>
+
+    <decision id="lit2" name="lit2">
+        <variable id="lit2Var" name="lit2" typeRef="string"/>
+        <literalExpression id="lit2Expr">
+            <text>123</text>
+        </literalExpression>
+    </decision>
+
+    <!-- decision table -->
+    <decision id="dt1" name="dt1">
+        <variable id="dt1Var" name="dt1" typeRef="string"/>
+        <decisionTable id="dt1Table"/>
+    </decision>
+
+    <decision id="dt2" name="dt2">
+        <variable id="dt2Var" name="dt2" typeRef="string"/>
+        <decisionTable id="dt2Table">
+            <output/>
+        </decisionTable>
+    </decision>
+
+    <decision id="dt3" name="dt3">
+        <variable id="dt3Var" name="dt3" typeRef="string"/>
+        <decisionTable id="dt3Table">
+            <rule>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>11</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+
+    <!-- context -->
+    <decision id="ctx1" name="ctx1">
+        <variable id="ctx1Var" name="ctx1" typeRef="string"/>
+        <context id="ctxExpr1"/>
+    </decision>
+
+    <decision id="ctx2" name="ctx2">
+        <variable id="ctx2Var" name="ctx2" typeRef="string"/>
+        <context id="ctxExpr2">
+            <contextEntry id="ctxEntry1">
+                <variable id="ctxEntryVar1" name="a" typeRef="string"/>
+                <literalExpression id="ctxEntryExpr1">
+                    <text>1</text>
+                </literalExpression>
+            </contextEntry>
+            <contextEntry id="ctxEntry2">
+                <variable id="ctxEntryVar2" name="a" typeRef="string"/>
+                <literalExpression id="ctxEntryExpr2">
+                    <text>2</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+
+    <!-- list -->
+    <decision id="emptyList" name="emptyList">
+        <variable id="emptyListVar" name="emptyList" typeRef="string"/>
+        <list id="emptyListExpr"/>
+    </decision>
+
+    <decision id="notEmptyList" name="notEmptyList">
+        <variable id="notEmptyListVar" name="notEmptyList" typeRef="string"/>
+        <list id="notEmptyListExpr">
+            <literalExpression id="notEmptyListItem">
+                <text></text>
+            </literalExpression>
+        </list>
+    </decision>
+
+    <!-- relation -->
+    <decision id="emptyRel" name="emptyRel">
+        <variable id="emptyRelVar" name="emptyRel" typeRef="string"/>
+        <relation id="emptyRelExpr"/>
+    </decision>
+
+    <decision id="notEmptyRel" name="notEmptyRel">
+        <variable id="notEmptyRelVar" name="notEmptyRel" typeRef="string"/>
+        <relation id="notEmptyRelExpr">
+            <column id="col1"/>
+            <row id="row1">
+                <list>
+                    <literalExpression id="cell1">
+                        <text>value</text>
+                    </literalExpression>
+                </list>
+            </row>
+        </relation>
+    </decision>
+
+    <!-- function invocation and definition -->
+    <decision id="inv" name="inv">
+        <variable id="invVar" name="inv" typeRef="string"/>
+        <invocation id="invExpr">
+            <literalExpression id="invRef">
+                <text>someFunction</text>
+            </literalExpression>
+        </invocation>
+    </decision>
+
+    <decision id="def" name="def">
+        <variable id="defVar" name="def" typeRef="string"/>
+        <functionDefinition id="defExpr">
+            <formalParameter name="x"/>
+            <formalParameter/>
+            <literalExpression id="defBody">
+                <text>1</text>
+            </literalExpression>
+        </functionDefinition>
+    </decision>
+
+    <!--
+      TODO: Uncomment when the XSD schema to allow unary tests as expressions (define element unaryTests as a subtype of expression).
+      <decision id="unary1" name="unary1">
+        <variable id="unary1Var" name="unary1" typeRef="string"/>
+        <unaryTests id="unary1Expr" expressionLanguage="unsupportedLang"><text></text></unaryTests>
+      </decision>
+
+      <decision id="unary2" name="unary2">
+        <variable id="unary2Var" name="unary2" typeRef="string"/>
+        <unaryTests id="unary2Expr"><text>text</text></unaryTests>
+      </decision>
+    -->
+
+    <!-- conditional, some, every, for, filter -->
+    <decision id="cond" name="cond">
+        <variable id="condVar" name="cond" typeRef="string"/>
+        <conditional id="condExpr"/>
+    </decision>
+
+    <decision id="some" name="some">
+        <variable id="someVar" name="some" typeRef="string"/>
+        <some id="someExpr"/>
+    </decision>
+
+    <decision id="every" name="every">
+        <variable id="everyVar" name="every" typeRef="string"/>
+        <every id="everyExpr"/>
+    </decision>
+
+    <decision id="for" name="for">
+        <variable id="forVar" name="for" typeRef="string"/>
+        <for id="forExpr"/>
+    </decision>
+
+    <decision id="filter" name="filter">
+        <variable id="filterVar" name="filter" typeRef="string"/>
+        <filter id="filterExpr"/>
+    </decision>
+
+</definitions>
