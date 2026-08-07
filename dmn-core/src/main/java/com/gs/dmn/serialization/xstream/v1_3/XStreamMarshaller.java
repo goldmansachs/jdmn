@@ -16,9 +16,7 @@ import com.gs.dmn.ast.*;
 import com.gs.dmn.ast.dmndi.*;
 import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
-import com.gs.dmn.serialization.xstream.DMNXStream;
 import com.gs.dmn.serialization.xstream.VersionXStreamMarshaller;
-import com.gs.dmn.serialization.xstream.XStreamUtils;
 import com.gs.dmn.serialization.xstream.v1_1.*;
 import com.gs.dmn.serialization.xstream.v1_2.*;
 import com.gs.dmn.serialization.xstream.v1_2.AuthorityRequirementConverter;
@@ -35,7 +33,6 @@ import com.gs.dmn.serialization.xstream.v1_2.KnowledgeRequirementConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.HierarchicalStreamDriver;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
-import com.thoughtworks.xstream.security.TypeHierarchyPermission;
 
 import javax.xml.namespace.QName;
 import java.util.List;
@@ -53,9 +50,7 @@ public class XStreamMarshaller extends VersionXStreamMarshaller {
 
     @Override
     protected XStream newXStream() {
-        XStream xStream = XStreamUtils.createNonTrustingXStream(STAX_DRIVER, TDefinitions.class.getClassLoader(), DMNXStream::from);
-        xStream.addPermission(new TypeHierarchyPermission(QName.class));
-        xStream.addPermission(new TypeHierarchyPermission(DMNBaseElement.class));
+        XStream xStream = createXStream();
 
         xStream.alias("artifact", TArtifact.class);
         xStream.alias("definitions", TDefinitions.class);
@@ -219,11 +214,10 @@ public class XStreamMarshaller extends VersionXStreamMarshaller {
         xStream.registerConverter(new ExtensionElementsConverter(xStream, this.version, extensionRegisters));
         xStream.registerConverter(new DiagramElementExtensionConverter(xStream, this.version, extensionRegisters));
 
-        for (DMNExtensionRegister extensionRegister : extensionRegisters) {
-            extensionRegister.registerExtensionConverters(xStream);
-        }
-
         xStream.ignoreUnknownElements();
+
+        registerExtensionConverters(xStream);
+
         return xStream;
     }
 

@@ -13,6 +13,7 @@
 package com.gs.dmn.serialization.xstream;
 
 import com.gs.dmn.ast.DMNBaseElement;
+import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.HierarchicalStreamDriver;
@@ -20,9 +21,11 @@ import com.thoughtworks.xstream.io.xml.AbstractPullReader;
 import com.thoughtworks.xstream.io.xml.QNameMap;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 import com.thoughtworks.xstream.io.xml.StaxWriter;
+import com.thoughtworks.xstream.security.TypeHierarchyPermission;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
@@ -167,6 +170,19 @@ public abstract class VersionXStreamMarshaller implements SimpleDMNMarshaller {
             output.write(marshal(o));
         } catch (Exception e) {
             LOGGER.error("Error marshalling DMN model to XML.", e);
+        }
+    }
+
+    protected XStream createXStream() {
+        XStream xStream = XStreamUtils.createNonTrustingXStream(getStaxDriver(), TDefinitions.class.getClassLoader(), DMNXStream::from);
+        xStream.addPermission(new TypeHierarchyPermission(QName.class));
+        xStream.addPermission(new TypeHierarchyPermission(DMNBaseElement.class));
+        return xStream;
+    }
+
+    protected void registerExtensionConverters(XStream xStream) {
+        for (DMNExtensionRegister extensionRegister : extensionRegisters) {
+            extensionRegister.registerExtensionConverters(xStream);
         }
     }
 
