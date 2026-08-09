@@ -17,7 +17,6 @@ import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
 import com.gs.dmn.serialization.xstream.VersionXStreamMarshaller;
 import com.gs.dmn.serialization.xstream.v1_1.*;
-import com.gs.dmn.serialization.xstream.v1_2.*;
 import com.gs.dmn.serialization.xstream.v1_2.AuthorityRequirementConverter;
 import com.gs.dmn.serialization.xstream.v1_2.BusinessKnowledgeModelConverter;
 import com.gs.dmn.serialization.xstream.v1_2.ContextEntryConverter;
@@ -56,22 +55,13 @@ public class XStreamMarshaller extends VersionXStreamMarshaller {
 
         registerCommonAliases(xStream);
 
-        xStream.alias("annotation", TRuleAnnotationClause.class);
-        xStream.alias("annotationEntry", TRuleAnnotation.class);
-        xStream.registerConverter(new RuleAnnotationClauseConverter(xStream, this.version));
-        xStream.registerConverter(new RuleAnnotationConverter(xStream, this.version));
+        registerNew12Parts(xStream);
 
-        xStream.alias("functionItem", TFunctionItem.class);
-        xStream.alias("group", TGroup.class);
-        xStream.alias("parameters", TInformationItem.class);
+        registerNew13Parts(xStream);
+
+        registerNew14Parts(xStream);
 
         register13DMNDIParts(xStream);
-
-        xStream.alias("for", TFor.class);
-        xStream.alias("every", TEvery.class);
-        xStream.alias("some", TSome.class);
-        xStream.alias("conditional", TConditional.class);
-        xStream.alias("filter", TFilter.class);
 
         xStream.registerConverter(new AssociationConverter(xStream, this.version));
         xStream.registerConverter(new AuthorityRequirementConverter(xStream, this.version));
@@ -125,6 +115,7 @@ public class XStreamMarshaller extends VersionXStreamMarshaller {
 
         return xStream;
     }
+
 
     @Override
     protected HierarchicalStreamDriver getStaxDriver() {

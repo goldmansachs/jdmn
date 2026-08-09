@@ -278,6 +278,27 @@ public abstract class VersionXStreamMarshaller implements SimpleDMNMarshaller {
         xStream.alias(com.gs.dmn.serialization.xstream.v1_1.DMNElementConverter.DESCRIPTION, String.class);
     }
 
+    protected void registerNew12Parts(XStream xStream) {
+        xStream.alias("annotation", TRuleAnnotationClause.class);
+        xStream.alias("annotationEntry", TRuleAnnotation.class);
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_2.RuleAnnotationClauseConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_2.RuleAnnotationConverter(xStream, this.version));
+    }
+
+    protected void registerNew13Parts(XStream xStream) {
+        xStream.alias("functionItem", TFunctionItem.class);
+        xStream.alias("group", TGroup.class);
+        xStream.alias("parameters", TInformationItem.class);
+    }
+
+    protected void registerNew14Parts(XStream xStream) {
+        xStream.alias("for", TFor.class);
+        xStream.alias("every", TEvery.class);
+        xStream.alias("some", TSome.class);
+        xStream.alias("conditional", TConditional.class);
+        xStream.alias("filter", TFilter.class);
+    }
+
     protected void registerCommonDMNDIParts(XStream xStream) {
         xStream.alias("DMNDI", DMNDI.class);
         xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_2.DMNDIConverter(xStream, this.version));

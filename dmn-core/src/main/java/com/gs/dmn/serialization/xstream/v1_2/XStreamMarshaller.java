@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.serialization.xstream.v1_2;
 
-import com.gs.dmn.ast.*;
 import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
 import com.gs.dmn.serialization.xstream.VersionXStreamMarshaller;
@@ -40,10 +39,7 @@ public class XStreamMarshaller extends VersionXStreamMarshaller {
 
         registerCommonAliases(xStream);
 
-        xStream.alias("annotation", TRuleAnnotationClause.class);
-        xStream.alias("annotationEntry", TRuleAnnotation.class);
-        xStream.registerConverter(new RuleAnnotationClauseConverter(xStream, this.version));
-        xStream.registerConverter(new RuleAnnotationConverter(xStream, this.version));
+        registerNew12Parts(xStream);
 
         registerCommonDMNDIParts(xStream);
         xStream.registerConverter(new DMNEdgeConverter(xStream, this.version));

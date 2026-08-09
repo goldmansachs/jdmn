@@ -12,12 +12,10 @@
  */
 package com.gs.dmn.serialization.xstream.v1_3;
 
-import com.gs.dmn.ast.*;
 import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
 import com.gs.dmn.serialization.xstream.VersionXStreamMarshaller;
 import com.gs.dmn.serialization.xstream.v1_1.*;
-import com.gs.dmn.serialization.xstream.v1_2.*;
 import com.gs.dmn.serialization.xstream.v1_2.AuthorityRequirementConverter;
 import com.gs.dmn.serialization.xstream.v1_2.BusinessKnowledgeModelConverter;
 import com.gs.dmn.serialization.xstream.v1_2.ContextEntryConverter;
@@ -52,14 +50,9 @@ public class XStreamMarshaller extends VersionXStreamMarshaller {
 
         registerCommonAliases(xStream);
 
-        xStream.alias("annotation", TRuleAnnotationClause.class);
-        xStream.alias("annotationEntry", TRuleAnnotation.class);
-        xStream.registerConverter(new RuleAnnotationClauseConverter(xStream, this.version));
-        xStream.registerConverter(new RuleAnnotationConverter(xStream, this.version));
+        registerNew12Parts(xStream);
 
-        xStream.alias("functionItem", TFunctionItem.class);
-        xStream.alias("group", TGroup.class);
-        xStream.alias("parameters", TInformationItem.class);
+        registerNew13Parts(xStream);
 
         register13DMNDIParts(xStream);
 
