@@ -14,6 +14,7 @@ package com.gs.dmn.serialization.xstream;
 
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.ast.dmndi.*;
 import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.HierarchicalStreamDriver;
@@ -187,6 +188,40 @@ public abstract class VersionXStreamMarshaller implements SimpleDMNMarshaller {
     }
 
     protected abstract XStream newXStream();
+
+    protected void registerCommonDMNDIParts(XStream xStream) {
+        xStream.alias("DMNDI", DMNDI.class);
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_2.DMNDIConverter(xStream, this.version));
+        xStream.alias("DMNDiagram", DMNDiagram.class);
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_2.DMNDiagramConverter(xStream, this.version));
+        xStream.alias("DMNStyle", DMNStyle.class);
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_2.DMNStyleConverter(xStream, this.version));
+        xStream.alias("Size", Dimension.class);
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_2.DimensionConverter(xStream, this.version));
+        xStream.alias("DMNShape", DMNShape.class);
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_2.DMNShapeConverter(xStream, this.version));
+        xStream.alias("FillColor", Color.class);
+        xStream.alias("StrokeColor", Color.class);
+        xStream.alias("FontColor", Color.class);
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_2.ColorConverter(xStream, this.version));
+        xStream.alias("Bounds", Bounds.class);
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_2.BoundsConverter(xStream, this.version));
+        xStream.alias("DMNLabel", DMNLabel.class);
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_2.DMNLabelConverter(xStream, this.version));
+        xStream.alias("DMNEdge", DMNEdge.class);
+        xStream.alias("DMNDecisionServiceDividerLine", DMNDecisionServiceDividerLine.class);
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_2.DMNDecisionServiceDividerLineConverter(xStream, this.version));
+        xStream.alias("waypoint", Point.class);
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_2.PointConverter(xStream, this.version));
+        xStream.alias("extension", DiagramElement.Extension.class);
+        xStream.alias(com.gs.dmn.serialization.xstream.v1_2.DMNLabelConverter.TEXT, String.class);
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_2.DiagramElementExtensionConverter(xStream, this.version, extensionRegisters));
+    }
+
+    protected void register13DMNDIParts(XStream xStream) {
+        registerCommonDMNDIParts(xStream);
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_3.DMNEdgeConverter(xStream, this.version));
+    }
 
     protected abstract HierarchicalStreamDriver getStaxDriver();
 }

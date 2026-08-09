@@ -13,7 +13,6 @@
 package com.gs.dmn.serialization.xstream.v1_4;
 
 import com.gs.dmn.ast.*;
-import com.gs.dmn.ast.dmndi.*;
 import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
 import com.gs.dmn.serialization.xstream.VersionXStreamMarshaller;
@@ -151,32 +150,8 @@ public class XStreamMarshaller extends VersionXStreamMarshaller {
         xStream.alias("annotationEntry", TRuleAnnotation.class);
         xStream.registerConverter(new RuleAnnotationClauseConverter(xStream, this.version));
         xStream.registerConverter(new RuleAnnotationConverter(xStream, this.version));
-        xStream.alias("DMNDI", DMNDI.class);
-        xStream.registerConverter(new DMNDIConverter(xStream, this.version));
-        xStream.alias("DMNDiagram", DMNDiagram.class);
-        xStream.registerConverter(new DMNDiagramConverter(xStream, this.version));
-        xStream.alias("DMNStyle", DMNStyle.class);
-        xStream.registerConverter(new DMNStyleConverter(xStream, this.version));
-        xStream.alias("Size", Dimension.class);
-        xStream.registerConverter(new DimensionConverter(xStream, this.version));
-        xStream.alias("DMNShape", DMNShape.class);
-        xStream.registerConverter(new DMNShapeConverter(xStream, this.version));
-        xStream.alias("FillColor", Color.class);
-        xStream.alias("StrokeColor", Color.class);
-        xStream.alias("FontColor", Color.class);
-        xStream.registerConverter(new ColorConverter(xStream, this.version));
-        xStream.alias("Bounds", Bounds.class);
-        xStream.registerConverter(new BoundsConverter(xStream, this.version));
-        xStream.alias("DMNLabel", DMNLabel.class);
-        xStream.registerConverter(new DMNLabelConverter(xStream, this.version));
-        xStream.alias("DMNEdge", DMNEdge.class);
-        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_3.DMNEdgeConverter(xStream, this.version));
-        xStream.alias("DMNDecisionServiceDividerLine", DMNDecisionServiceDividerLine.class);
-        xStream.registerConverter(new DMNDecisionServiceDividerLineConverter(xStream, this.version));
-        xStream.alias("waypoint", Point.class);
-        xStream.registerConverter(new PointConverter(xStream, this.version));
-        xStream.alias("extension", DiagramElement.Extension.class);
-        xStream.alias(DMNLabelConverter.TEXT, String.class);
+
+        register13DMNDIParts(xStream);
 
         xStream.alias("for", TFor.class);
         xStream.alias("every", TEvery.class);
@@ -229,7 +204,6 @@ public class XStreamMarshaller extends VersionXStreamMarshaller {
         xStream.registerConverter(new DMNListConverter(xStream, this.version));
         xStream.registerConverter(new ElementCollectionConverter(xStream, this.version));
         xStream.registerConverter(new ExtensionElementsConverter(xStream, this.version, extensionRegisters));
-        xStream.registerConverter(new DiagramElementExtensionConverter(xStream, this.version, extensionRegisters));
 
         xStream.ignoreUnknownElements();
 

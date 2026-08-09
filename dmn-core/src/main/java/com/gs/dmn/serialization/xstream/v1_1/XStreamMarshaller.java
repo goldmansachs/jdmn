@@ -123,11 +123,12 @@ public class XStreamMarshaller extends VersionXStreamMarshaller {
 
         // Manually imported TEXT = String
         xStream.alias(LiteralExpressionConverter.TEXT, String.class);
-        xStream.alias(TextAnnotationConverter.TEXT, String.class);
-        xStream.alias(UnaryTestsConverter.TEXT, String.class);
         xStream.alias(DecisionConverter.QUESTION, String.class);
         xStream.alias(DecisionConverter.ALLOWED_ANSWERS, String.class);
         xStream.alias(DMNElementConverter.DESCRIPTION, String.class);
+
+        xStream.alias(TextAnnotationConverter.TEXT, String.class);
+        xStream.alias(UnaryTestsConverter.TEXT, String.class);
 
         xStream.registerConverter(new AssociationConverter(xStream, this.version));
         xStream.registerConverter(new AuthorityRequirementConverter(xStream, this.version));
