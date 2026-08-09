@@ -37,7 +37,6 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.HierarchicalStreamDriver;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 
-import javax.xml.namespace.QName;
 import java.util.List;
 
 public class XStreamMarshaller extends VersionXStreamMarshaller {
@@ -55,101 +54,16 @@ public class XStreamMarshaller extends VersionXStreamMarshaller {
     protected XStream newXStream() {
         XStream xStream = createXStream();
 
-        xStream.alias("artifact", TArtifact.class);
-        xStream.alias("definitions", TDefinitions.class);
-        xStream.alias("inputData", TInputData.class);
-        xStream.alias("decision", TDecision.class);
-        xStream.alias("variable", TInformationItem.class);
-        xStream.alias("informationRequirement", TInformationRequirement.class);
-        xStream.alias("requiredInput", TDMNElementReference.class);
-        xStream.alias("literalExpression", TLiteralExpression.class);
-
-        xStream.alias("allowedValues", TUnaryTests.class);
-        xStream.alias("artifact", TArtifact.class);
-        xStream.alias("association", TAssociation.class);
-        xStream.alias("authorityRequirement", TAuthorityRequirement.class);
-        xStream.alias("binding", TBinding.class);
-        xStream.alias("businessContextElement", TBusinessContextElement.class);
-        xStream.alias("businessKnowledgeModel", TBusinessKnowledgeModel.class);
-        xStream.alias("column", TInformationItem.class);
-        xStream.alias("context", TContext.class);
-        xStream.alias("contextEntry", TContextEntry.class);
-        xStream.alias("decision", TDecision.class);
-        xStream.alias("decisionMade", TDMNElementReference.class);
-        xStream.alias("decisionMaker", TDMNElementReference.class);
-        xStream.alias("decisionOwned", TDMNElementReference.class);
-        xStream.alias("decisionOwner", TDMNElementReference.class);
-        xStream.alias("decisionService", TDecisionService.class);
-        xStream.alias("decisionTable", TDecisionTable.class);
-        xStream.alias("defaultOutputEntry", TLiteralExpression.class);
-        xStream.alias("definitions", TDefinitions.class);
-        xStream.alias("drgElement", TDMNElementReference.class);
-        xStream.alias("elementCollection", TElementCollection.class);
-        xStream.alias("encapsulatedDecision", TDMNElementReference.class);
-        xStream.alias("encapsulatedLogic", TFunctionDefinition.class);
-        xStream.alias("expression", TExpression.class);
-        xStream.alias("formalParameter", TInformationItem.class);
-        xStream.alias("functionItem", TFunctionItem.class);
-        xStream.alias("functionDefinition", TFunctionDefinition.class);
-        xStream.alias("group", TGroup.class);
-        xStream.alias("impactedPerformanceIndicator", TDMNElementReference.class);
-        xStream.alias("impactingDecision", TDMNElementReference.class);
-        xStream.alias("import", TImport.class);
-        xStream.alias("import", TImport.class);
-        xStream.alias("importedElement", String.class);
-        xStream.alias("importedValues", TImportedValues.class);
-        xStream.alias("informationItem", TInformationItem.class);
-        xStream.alias("informationRequirement", TInformationRequirement.class);
-        xStream.alias("input", TInputClause.class);
-        xStream.alias("inputData", TInputData.class);
-        xStream.alias("inputDecision", TDMNElementReference.class);
-        xStream.alias("inputEntry", TUnaryTests.class);
-        xStream.alias("inputExpression", TLiteralExpression.class);
-        xStream.alias("inputValues", TUnaryTests.class);
-        xStream.alias("invocation", TInvocation.class);
-        xStream.alias("itemComponent", TItemDefinition.class);
-        xStream.alias("itemDefinition", TItemDefinition.class);
-        xStream.alias("knowledgeRequirement", TKnowledgeRequirement.class);
-        xStream.alias("knowledgeSource", TKnowledgeSource.class);
-        xStream.alias("namedElement", TNamedElement.class);
-        xStream.alias("organizationUnit", TOrganizationUnit.class);
-        xStream.alias("output", TOutputClause.class);
-        xStream.alias("outputDecision", TDMNElementReference.class);
-        xStream.alias("outputEntry", TLiteralExpression.class);
-        xStream.alias("outputValues", TUnaryTests.class);
-        xStream.alias("owner", TDMNElementReference.class);
-        xStream.alias("parameter", TInformationItem.class);
-        xStream.alias("parameters", TInformationItem.class);
-        xStream.alias("performanceIndicator", TPerformanceIndicator.class);
-        xStream.alias("relation", TRelation.class);
-        xStream.alias("requiredAuthority", TDMNElementReference.class);
-        xStream.alias("requiredDecision", TDMNElementReference.class);
-        xStream.alias("requiredInput", TDMNElementReference.class);
-        xStream.alias("requiredKnowledge", TDMNElementReference.class);
-        xStream.alias("rule", TDecisionRule.class);
-        xStream.alias("sourceRef", TDMNElementReference.class);
-        xStream.alias("supportedObjective", TDMNElementReference.class);
-        xStream.alias("targetRef", TDMNElementReference.class);
-        xStream.alias("textAnnotation", TTextAnnotation.class);
-        xStream.alias("type", String.class);
-        xStream.alias("typeRef", QName.class);
-        xStream.alias("usingProcess", TDMNElementReference.class);
-        xStream.alias("usingTask", TDMNElementReference.class);
-        xStream.alias("variable", TInformationItem.class);
-        xStream.alias("row", TList.class);
-        xStream.alias("list", TList.class);
-        xStream.alias("extensionElements", TDMNElement.ExtensionElements.class);
-
-        // Manually imported TEXT = String
-        xStream.alias(LiteralExpressionConverter.TEXT, String.class);
-        xStream.alias(DecisionConverter.QUESTION, String.class);
-        xStream.alias(DecisionConverter.ALLOWED_ANSWERS, String.class);
-        xStream.alias(DMNElementConverter.DESCRIPTION, String.class);
+        registerCommonAliases(xStream);
 
         xStream.alias("annotation", TRuleAnnotationClause.class);
         xStream.alias("annotationEntry", TRuleAnnotation.class);
         xStream.registerConverter(new RuleAnnotationClauseConverter(xStream, this.version));
         xStream.registerConverter(new RuleAnnotationConverter(xStream, this.version));
+
+        xStream.alias("functionItem", TFunctionItem.class);
+        xStream.alias("group", TGroup.class);
+        xStream.alias("parameters", TInformationItem.class);
 
         register13DMNDIParts(xStream);
 

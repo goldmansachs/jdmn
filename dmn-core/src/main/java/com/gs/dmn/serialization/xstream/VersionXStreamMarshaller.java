@@ -12,8 +12,7 @@
  */
 package com.gs.dmn.serialization.xstream;
 
-import com.gs.dmn.ast.DMNBaseElement;
-import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.ast.dmndi.*;
 import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
@@ -188,6 +187,96 @@ public abstract class VersionXStreamMarshaller implements SimpleDMNMarshaller {
     }
 
     protected abstract XStream newXStream();
+
+    protected void registerCommonAliases(XStream xStream) {
+        xStream.alias("artifact", TArtifact.class);
+        xStream.alias("definitions", TDefinitions.class);
+        xStream.alias("inputData", TInputData.class);
+        xStream.alias("decision", TDecision.class);
+        xStream.alias("variable", TInformationItem.class);
+        xStream.alias("informationRequirement", TInformationRequirement.class);
+        xStream.alias("requiredInput", TDMNElementReference.class);
+
+        xStream.alias("allowedValues", TUnaryTests.class);
+        xStream.alias("artifact", TArtifact.class);
+        xStream.alias("association", TAssociation.class);
+        xStream.alias("authorityRequirement", TAuthorityRequirement.class);
+        xStream.alias("binding", TBinding.class);
+        xStream.alias("businessContextElement", TBusinessContextElement.class);
+        xStream.alias("businessKnowledgeModel", TBusinessKnowledgeModel.class);
+        xStream.alias("column", TInformationItem.class);
+        xStream.alias("context", TContext.class);
+        xStream.alias("contextEntry", TContextEntry.class);
+        xStream.alias("decision", TDecision.class);
+        xStream.alias("decisionMade", TDMNElementReference.class);
+        xStream.alias("decisionMaker", TDMNElementReference.class);
+        xStream.alias("decisionOwned", TDMNElementReference.class);
+        xStream.alias("decisionOwner", TDMNElementReference.class);
+        xStream.alias("decisionService", TDecisionService.class);
+        xStream.alias("decisionTable", TDecisionTable.class);
+        xStream.alias("defaultOutputEntry", TLiteralExpression.class);
+        xStream.alias("definitions", TDefinitions.class);
+        xStream.alias("drgElement", TDMNElementReference.class);
+        xStream.alias("elementCollection", TElementCollection.class);
+        xStream.alias("encapsulatedDecision", TDMNElementReference.class);
+        xStream.alias("encapsulatedLogic", TFunctionDefinition.class);
+        xStream.alias("expression", TExpression.class);
+        xStream.alias("formalParameter", TInformationItem.class);
+        xStream.alias("functionDefinition", TFunctionDefinition.class);
+        xStream.alias("impactedPerformanceIndicator", TDMNElementReference.class);
+        xStream.alias("impactingDecision", TDMNElementReference.class);
+        xStream.alias("import", TImport.class);
+        xStream.alias("import", TImport.class);
+        xStream.alias("importedElement", String.class);
+        xStream.alias("importedValues", TImportedValues.class);
+        xStream.alias("informationItem", TInformationItem.class);
+        xStream.alias("informationRequirement", TInformationRequirement.class);
+        xStream.alias("input", TInputClause.class);
+        xStream.alias("inputData", TInputData.class);
+        xStream.alias("inputDecision", TDMNElementReference.class);
+        xStream.alias("inputEntry", TUnaryTests.class);
+        xStream.alias("inputExpression", TLiteralExpression.class);
+        xStream.alias("inputValues", TUnaryTests.class);
+        xStream.alias("invocation", TInvocation.class);
+        xStream.alias("itemComponent", TItemDefinition.class);
+        xStream.alias("itemDefinition", TItemDefinition.class);
+        xStream.alias("knowledgeRequirement", TKnowledgeRequirement.class);
+        xStream.alias("knowledgeSource", TKnowledgeSource.class);
+        xStream.alias("literalExpression", TLiteralExpression.class);
+        xStream.alias("namedElement", TNamedElement.class);
+        xStream.alias("organizationUnit", TOrganizationUnit.class);
+        xStream.alias("output", TOutputClause.class);
+        xStream.alias("outputDecision", TDMNElementReference.class);
+        xStream.alias("outputEntry", TLiteralExpression.class);
+        xStream.alias("outputValues", TUnaryTests.class);
+        xStream.alias("owner", TDMNElementReference.class);
+        xStream.alias("parameter", TInformationItem.class);
+        xStream.alias("performanceIndicator", TPerformanceIndicator.class);
+        xStream.alias("relation", TRelation.class);
+        xStream.alias("requiredAuthority", TDMNElementReference.class);
+        xStream.alias("requiredDecision", TDMNElementReference.class);
+        xStream.alias("requiredInput", TDMNElementReference.class);
+        xStream.alias("requiredKnowledge", TDMNElementReference.class);
+        xStream.alias("rule", TDecisionRule.class);
+        xStream.alias("sourceRef", TDMNElementReference.class);
+        xStream.alias("supportedObjective", TDMNElementReference.class);
+        xStream.alias("targetRef", TDMNElementReference.class);
+        xStream.alias("textAnnotation", TTextAnnotation.class);
+        xStream.alias("type", String.class);
+        xStream.alias("typeRef", QName.class);
+        xStream.alias("usingProcess", TDMNElementReference.class);
+        xStream.alias("usingTask", TDMNElementReference.class);
+        xStream.alias("variable", TInformationItem.class);
+        xStream.alias("row", TList.class);
+        xStream.alias("list", TList.class);
+        xStream.alias("extensionElements", TDMNElement.ExtensionElements.class);
+
+        // Manually imported TEXT = String
+        xStream.alias(com.gs.dmn.serialization.xstream.v1_1.LiteralExpressionConverter.TEXT, String.class);
+        xStream.alias(com.gs.dmn.serialization.xstream.v1_1.DecisionConverter.QUESTION, String.class);
+        xStream.alias(com.gs.dmn.serialization.xstream.v1_1.DecisionConverter.ALLOWED_ANSWERS, String.class);
+        xStream.alias(com.gs.dmn.serialization.xstream.v1_1.DMNElementConverter.DESCRIPTION, String.class);
+    }
 
     protected void registerCommonDMNDIParts(XStream xStream) {
         xStream.alias("DMNDI", DMNDI.class);
