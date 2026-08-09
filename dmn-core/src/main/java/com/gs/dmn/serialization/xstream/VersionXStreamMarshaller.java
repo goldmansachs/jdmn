@@ -278,6 +278,62 @@ public abstract class VersionXStreamMarshaller implements SimpleDMNMarshaller {
         xStream.alias(com.gs.dmn.serialization.xstream.v1_1.DMNElementConverter.DESCRIPTION, String.class);
     }
 
+    protected void registerCommon11Converters(XStream xStream) {
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_1.AssociationConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_1.BindingConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_1.ContextConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_1.DecisionConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_1.DMNElementReferenceConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_1.InformationItemConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_1.InputClauseConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_1.InputDataConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_1.InvocationConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_1.KnowledgeSourceConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_1.LiteralExpressionConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_1.OrganizationUnitConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_1.OutputClauseConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_1.PerformanceIndicatorConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_1.RelationConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_1.TextAnnotationConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_1.UnaryTestsConverter(xStream, this.version));
+
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_1.QNameConverter(this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_1.DMNListConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_1.ElementCollectionConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_1.ExtensionElementsConverter(xStream, this.version, extensionRegisters));
+    }
+
+    protected void registerCommon12Converters(XStream xStream) {
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_2.AuthorityRequirementConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_2.BusinessKnowledgeModelConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_2.ContextEntryConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_2.DecisionRuleConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_2.DecisionServiceConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_2.DecisionTableConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_2.FunctionDefinitionConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_2.ImportConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_2.ImportedValuesConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_2.InformationRequirementConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_2.KnowledgeRequirementConverter(xStream, this.version));
+    }
+
+    protected void registerCommon13Converters(XStream xStream) {
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_3.DefinitionsConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_3.GroupConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_3.ItemDefinitionConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_3.FunctionItemConverter(xStream, this.version));
+    }
+
+    protected void registerCommon14Converters(XStream xStream) {
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_4.ChildExpressionConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_4.TypedChildExpressionConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_4.ForConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_4.EveryConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_4.SomeConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_4.ConditionalConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_4.FilterConverter(xStream, this.version));
+    }
+
     protected void registerNew12Parts(XStream xStream) {
         xStream.alias("annotation", TRuleAnnotationClause.class);
         xStream.alias("annotationEntry", TRuleAnnotation.class);

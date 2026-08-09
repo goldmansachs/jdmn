@@ -15,7 +15,6 @@ package com.gs.dmn.serialization.xstream.v1_2;
 import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
 import com.gs.dmn.serialization.xstream.VersionXStreamMarshaller;
-import com.gs.dmn.serialization.xstream.v1_1.*;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.HierarchicalStreamDriver;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
@@ -37,48 +36,19 @@ public class XStreamMarshaller extends VersionXStreamMarshaller {
     protected XStream newXStream() {
         XStream xStream = createXStream();
 
+        // Common 1.2 registrations
         registerCommonAliases(xStream);
+        registerCommon11Converters(xStream);
+        registerCommon12Converters(xStream);
 
+        // 1.2 specific registrations
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_1.ItemDefinitionConverter(xStream, this.version));
+        xStream.registerConverter(new com.gs.dmn.serialization.xstream.v1_2.DefinitionsConverter(xStream, this.version));
         registerNew12Parts(xStream);
 
+        // DMNDI registrations
         registerCommonDMNDIParts(xStream);
         xStream.registerConverter(new DMNEdgeConverter(xStream, this.version));
-
-        xStream.registerConverter(new AssociationConverter(xStream, this.version));
-        xStream.registerConverter(new AuthorityRequirementConverter(xStream, this.version));
-        xStream.registerConverter(new BindingConverter(xStream, this.version));
-        xStream.registerConverter(new BusinessKnowledgeModelConverter(xStream, this.version));
-        xStream.registerConverter(new ContextConverter(xStream, this.version));
-        xStream.registerConverter(new ContextEntryConverter(xStream, this.version));
-        xStream.registerConverter(new DecisionConverter(xStream, this.version));
-        xStream.registerConverter(new DecisionRuleConverter(xStream, this.version));
-        xStream.registerConverter(new DecisionServiceConverter(xStream, this.version));
-        xStream.registerConverter(new DecisionTableConverter(xStream, this.version));
-        xStream.registerConverter(new DefinitionsConverter(xStream, this.version));
-        xStream.registerConverter(new DMNElementReferenceConverter(xStream, this.version));
-        xStream.registerConverter(new FunctionDefinitionConverter(xStream, this.version));
-        xStream.registerConverter(new ImportConverter(xStream, this.version));
-        xStream.registerConverter(new ImportedValuesConverter(xStream, this.version));
-        xStream.registerConverter(new InformationItemConverter(xStream, this.version));
-        xStream.registerConverter(new InformationRequirementConverter(xStream, this.version));
-        xStream.registerConverter(new InputClauseConverter(xStream, this.version));
-        xStream.registerConverter(new InputDataConverter(xStream, this.version));
-        xStream.registerConverter(new InvocationConverter(xStream, this.version));
-        xStream.registerConverter(new ItemDefinitionConverter(xStream, this.version));
-        xStream.registerConverter(new KnowledgeRequirementConverter(xStream, this.version));
-        xStream.registerConverter(new KnowledgeSourceConverter(xStream, this.version));
-        xStream.registerConverter(new LiteralExpressionConverter(xStream, this.version));
-        xStream.registerConverter(new OrganizationUnitConverter(xStream, this.version));
-        xStream.registerConverter(new OutputClauseConverter(xStream, this.version));
-        xStream.registerConverter(new PerformanceIndicatorConverter(xStream, this.version));
-        xStream.registerConverter(new RelationConverter(xStream, this.version));
-        xStream.registerConverter(new TextAnnotationConverter(xStream, this.version));
-        xStream.registerConverter(new UnaryTestsConverter(xStream, this.version));
-
-        xStream.registerConverter(new QNameConverter(this.version));
-        xStream.registerConverter(new DMNListConverter(xStream, this.version));
-        xStream.registerConverter(new ElementCollectionConverter(xStream, this.version));
-        xStream.registerConverter(new ExtensionElementsConverter(xStream, this.version, extensionRegisters));
 
         xStream.ignoreUnknownElements();
 

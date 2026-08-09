@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.serialization.xstream.v1_1;
 
-import com.gs.dmn.ast.*;
 import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
 import com.gs.dmn.serialization.xstream.VersionXStreamMarshaller;
@@ -37,52 +36,37 @@ public class XStreamMarshaller extends VersionXStreamMarshaller {
     protected XStream newXStream() {
         XStream xStream = createXStream();
 
+        // Common 1.1 registrations
         registerCommonAliases(xStream);
+        registerCommon11Converters(xStream);
 
+        // 1.1 specific registrations
         xStream.alias(TextAnnotationConverter.TEXT, String.class);
         xStream.alias(UnaryTestsConverter.TEXT, String.class);
-
-        xStream.registerConverter(new AssociationConverter(xStream, this.version));
-        xStream.registerConverter(new AuthorityRequirementConverter(xStream, this.version));
-        xStream.registerConverter(new BindingConverter(xStream, this.version));
-        xStream.registerConverter(new BusinessKnowledgeModelConverter(xStream, this.version));
-        xStream.registerConverter(new ContextConverter(xStream, this.version));
-        xStream.registerConverter(new ContextEntryConverter(xStream, this.version));
-        xStream.registerConverter(new DecisionConverter(xStream, this.version));
-        xStream.registerConverter(new DecisionRuleConverter(xStream, this.version));
-        xStream.registerConverter(new DecisionServiceConverter(xStream, this.version));
-        xStream.registerConverter(new DecisionTableConverter(xStream, this.version));
-        xStream.registerConverter(new DefinitionsConverter(xStream, this.version));
-        xStream.registerConverter(new DMNElementReferenceConverter(xStream, this.version));
-        xStream.registerConverter(new FunctionDefinitionConverter(xStream, this.version));
-        xStream.registerConverter(new ImportConverter(xStream, this.version));
-        xStream.registerConverter(new ImportedValuesConverter(xStream, this.version));
-        xStream.registerConverter(new InformationItemConverter(xStream, this.version));
-        xStream.registerConverter(new InformationRequirementConverter(xStream, this.version));
-        xStream.registerConverter(new InputClauseConverter(xStream, this.version));
-        xStream.registerConverter(new InputDataConverter(xStream, this.version));
-        xStream.registerConverter(new InvocationConverter(xStream, this.version));
-        xStream.registerConverter(new ItemDefinitionConverter(xStream, this.version));
-        xStream.registerConverter(new KnowledgeRequirementConverter(xStream, this.version));
-        xStream.registerConverter(new KnowledgeSourceConverter(xStream, this.version));
-        xStream.registerConverter(new LiteralExpressionConverter(xStream, this.version));
-        xStream.registerConverter(new OrganizationUnitConverter(xStream, this.version));
-        xStream.registerConverter(new OutputClauseConverter(xStream, this.version));
-        xStream.registerConverter(new PerformanceIndicatorConverter(xStream, this.version));
-        xStream.registerConverter(new RelationConverter(xStream, this.version));
-        xStream.registerConverter(new TextAnnotationConverter(xStream, this.version));
-        xStream.registerConverter(new UnaryTestsConverter(xStream, this.version));
-
-        xStream.registerConverter(new QNameConverter(this.version));
-        xStream.registerConverter(new DMNListConverter(xStream, this.version));
-        xStream.registerConverter(new ElementCollectionConverter(xStream, this.version));
-        xStream.registerConverter(new ExtensionElementsConverter(xStream, this.version, extensionRegisters));
+        register11SpecificConverters(xStream);
 
         xStream.ignoreUnknownElements();
 
         registerExtensionConverters(xStream);
 
         return xStream;
+    }
+
+    private void register11SpecificConverters(XStream xStream) {
+        xStream.registerConverter(new AuthorityRequirementConverter(xStream, this.version));
+        xStream.registerConverter(new BusinessKnowledgeModelConverter(xStream, this.version));
+        xStream.registerConverter(new ContextEntryConverter(xStream, this.version));
+        xStream.registerConverter(new DecisionRuleConverter(xStream, this.version));
+        xStream.registerConverter(new DecisionServiceConverter(xStream, this.version));
+        xStream.registerConverter(new DecisionTableConverter(xStream, this.version));
+        xStream.registerConverter(new DefinitionsConverter(xStream, this.version));
+        xStream.registerConverter(new FunctionDefinitionConverter(xStream, this.version));
+        xStream.registerConverter(new ImportConverter(xStream, this.version));
+        xStream.registerConverter(new ImportedValuesConverter(xStream, this.version));
+        xStream.registerConverter(new InformationItemConverter(xStream, this.version));
+        xStream.registerConverter(new InformationRequirementConverter(xStream, this.version));
+        xStream.registerConverter(new ItemDefinitionConverter(xStream, this.version));
+        xStream.registerConverter(new KnowledgeRequirementConverter(xStream, this.version));
     }
 
     @Override
