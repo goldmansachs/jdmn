@@ -14,12 +14,18 @@ package com.gs.dmn.serialization.xstream.v1_5;
 
 import com.gs.dmn.serialization.AbstractXStreamUnmarshalMarshalTest;
 import com.gs.dmn.serialization.diff.XMLDifferenceEvaluator;
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
 import org.xmlunit.diff.DifferenceEvaluator;
 import org.xmlunit.diff.DifferenceEvaluators;
 
 import javax.xml.transform.stream.StreamSource;
+import java.io.*;
+import java.net.URI;
+import java.nio.charset.Charset;
 import java.util.Objects;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
     @Test
@@ -90,6 +96,46 @@ public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
     @Test
     public void testSampleQuantified() throws Exception {
         testRoundTrip("xstream/v1_5/sampleQuantified.dmn");
+    }
+
+    @Test
+    public void testUnmarshallMethods() throws Exception {
+        URI uri = resource("xstream/v1_5/simple.dmn");
+        File inputFile = new File(uri);
+        XStreamMarshaller marshaller = new XStreamMarshaller();
+
+        // URL
+        assertNotNull(marshaller.unmarshal(uri.toURL()));
+        // File
+        assertNotNull(marshaller.unmarshal(inputFile));
+        // String
+        assertNotNull(marshaller.unmarshal(FileUtils.readFileToString(inputFile, Charset.defaultCharset())));
+        // InputStream
+        assertNotNull(marshaller.unmarshal(new FileInputStream(inputFile)));
+        // Reader
+        assertNotNull(marshaller.unmarshal(new FileReader(inputFile)));
+    }
+
+    @Test
+    public void testMarshallMethods() throws Exception {
+        URI uri = resource("xstream/v1_5/simple.dmn");
+        XStreamMarshaller marshaller = new XStreamMarshaller();
+        Object model = marshaller.unmarshal(uri.toURL());
+
+        // String
+        assertNotNull(marshaller.marshal(model));
+        // File
+        File outputFile1 = File.createTempFile("xstream1", ".dmn");
+        marshaller.marshal(model, outputFile1);
+        assertNotNull(FileUtils.readFileToString(outputFile1, Charset.defaultCharset()));
+        // OutputStream
+        File outputFile2 = File.createTempFile("xstream2", ".dmn");
+        marshaller.marshal(model, new FileOutputStream(outputFile2));
+        assertNotNull(FileUtils.readFileToString(outputFile2, Charset.defaultCharset()));
+        // Writer
+        File outputFile3 = File.createTempFile("xstream3", ".dmn");
+        marshaller.marshal(model, new FileOutputStream(outputFile3));
+        assertNotNull(FileUtils.readFileToString(outputFile3, Charset.defaultCharset()));
     }
 
     @Override
