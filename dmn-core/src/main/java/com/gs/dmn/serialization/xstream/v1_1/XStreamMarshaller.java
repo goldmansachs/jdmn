@@ -33,7 +33,7 @@ public class XStreamMarshaller extends VersionXStreamMarshaller {
     }
 
     @Override
-    protected XStream newXStream() {
+    public XStream newXStream() {
         XStream xStream = createXStream();
 
         // Common 1.1 registrations

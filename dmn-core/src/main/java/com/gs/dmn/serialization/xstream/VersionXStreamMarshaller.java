@@ -30,12 +30,11 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
 import java.io.*;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public abstract class VersionXStreamMarshaller implements SimpleDMNMarshaller {
+public abstract class VersionXStreamMarshaller implements SimpleXStreamMarshaller {
     private static final Logger LOGGER = LoggerFactory.getLogger(VersionXStreamMarshaller.class);
 
     protected static StaxDriver makeStaxDriver(DMNVersion version) {
@@ -76,55 +75,6 @@ public abstract class VersionXStreamMarshaller implements SimpleDMNMarshaller {
     }
 
     @Override
-    public Object unmarshal(String input) {
-        return unmarshal(new StringReader(input));
-    }
-
-    @Override
-    public Object unmarshal(File input) {
-        try {
-            XStream xStream = newXStream();
-            return xStream.fromXML(input);
-        } catch (Exception e) {
-            LOGGER.error(String.format("Error unmarshalling DMN model from file '%s'.", input.getAbsolutePath()), e);
-        }
-        return null;
-    }
-
-    @Override
-    public Object unmarshal(URL input) {
-        try {
-            XStream xStream = newXStream();
-            return xStream.fromXML(input);
-        } catch (Exception e) {
-            LOGGER.error(String.format("Error unmarshalling DMN model from url '%s'.", input), e);
-        }
-        return null;
-    }
-
-    @Override
-    public Object unmarshal(InputStream input) {
-        try {
-            XStream xStream = newXStream();
-            return xStream.fromXML(input);
-        } catch (Exception e) {
-            LOGGER.error("Error unmarshalling DMN model from input stream.", e);
-        }
-        return null;
-    }
-
-    @Override
-    public Object unmarshal(Reader input) {
-        try {
-            XStream xStream = newXStream();
-            return xStream.fromXML(input);
-        } catch (Exception e) {
-            LOGGER.error("Error unmarshalling DMN model from reader.", e);
-        }
-        return null;
-    }
-
-    @Override
     public String marshal(Object o) {
         try (
                 Writer writer = new StringWriter();
@@ -140,37 +90,24 @@ public abstract class VersionXStreamMarshaller implements SimpleDMNMarshaller {
             hsWriter.flush();
             return writer.toString();
         } catch (Exception e) {
-            LOGGER.error("Error marshalling DMN model to XML.", e);
+            logError("Error marshalling {} to string.", artifactName(), e);
         }
         return null;
     }
 
     @Override
-    public void marshal(Object o, File output) {
-        try (FileWriter fileWriter = new FileWriter(output)) {
-            marshal(o, fileWriter);
-        } catch (IOException e) {
-            LOGGER.error("Error marshalling DMN model to XML.", e);
-        }
+    public void logError(String message, Object argument1, Exception exception) {
+        LOGGER.error(message, argument1, exception);
     }
 
     @Override
-    public void marshal(Object o, OutputStream output) {
-        try (OutputStreamWriter streamWriter = new OutputStreamWriter(output)) {
-            marshal(o, streamWriter);
-        } catch (Exception e) {
-            LOGGER.error("Error marshalling DMN model to XML.", e);
-        }
+    public void logError(String message, Object argument1, Object argument2, Exception exception) {
+        LOGGER.error(message, argument1, argument2, exception);
     }
 
     @Override
-    public void marshal(Object o, Writer output) {
-        try {
-            output.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-            output.write(marshal(o));
-        } catch (Exception e) {
-            LOGGER.error("Error marshalling DMN model to XML.", e);
-        }
+    public String artifactName() {
+        return "DMN model";
     }
 
     protected XStream createXStream() {
@@ -185,8 +122,6 @@ public abstract class VersionXStreamMarshaller implements SimpleDMNMarshaller {
             extensionRegister.registerExtensionConverters(xStream);
         }
     }
-
-    protected abstract XStream newXStream();
 
     protected void registerCommonAliases(XStream xStream) {
         xStream.alias("artifact", TArtifact.class);

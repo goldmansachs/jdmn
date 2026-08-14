@@ -32,18 +32,17 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
 import java.io.*;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class XStreamMarshaller implements SimpleDMNMarshaller {
+public class XStreamMarshaller implements SimpleXStreamMarshaller {
     private static final Logger LOGGER = LoggerFactory.getLogger(XStreamMarshaller.class);
 
-    private static final StaxDriver STAX_DRIVER;
+    private static final StaxDriver STAX_DRIVER = makeStaxDriver();
 
-    static {
-        STAX_DRIVER = new SafeStaxDriver() {
+    protected static StaxDriver makeStaxDriver() {
+        StaxDriver driver = new SafeStaxDriver() {
             @Override
             public AbstractPullReader createStaxReader(XMLStreamReader in) {
                 return new CustomStaxReader(getQnameMap(), in);
@@ -51,23 +50,20 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
 
             @Override
             public StaxWriter createStaxWriter(XMLStreamWriter out, boolean writeStartEndDocument) throws XMLStreamException {
-                return new CustomStaxWriter(newQNameMap(), out, false, isRepairingNamespace(), getNameCoder());
-            }
-
-            public QNameMap newQNameMap() {
-                QNameMap qmap = new QNameMap();
-                configureQNameMap(qmap);
-                return qmap;
+                return new CustomStaxWriter(newQNameMap(TCKVersion.TCK_1), out, false, isRepairingNamespace(), getNameCoder());
             }
         };
-        QNameMap nameMap = new QNameMap();
-        configureQNameMap(nameMap);
-        STAX_DRIVER.setQnameMap(nameMap);
-        STAX_DRIVER.setRepairingNamespace(false);
+        QNameMap nameMap = newQNameMap(TCKVersion.TCK_1);
+        driver.setQnameMap(nameMap);
+        driver.setRepairingNamespace(false);
+
+        return driver;
     }
 
-    public static void configureQNameMap(QNameMap nameMap) {
-        nameMap.setDefaultNamespace(TCKVersion.TCK_1.getNamespace());
+    private static QNameMap newQNameMap(TCKVersion version) {
+        QNameMap nameMap = new QNameMap();
+        nameMap.setDefaultNamespace(version.getNamespace());
+        return nameMap;
     }
 
     private final List<DMNExtensionRegister> extensionRegisters = new ArrayList<>();
@@ -77,55 +73,6 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
 
     public XStreamMarshaller(List<DMNExtensionRegister> extensionRegisters) {
         this.extensionRegisters.addAll(extensionRegisters);
-    }
-
-    @Override
-    public Object unmarshal(String input) {
-        return unmarshal(new StringReader(input));
-    }
-
-    @Override
-    public Object unmarshal(File input) {
-        try {
-            XStream xStream = newXStream();
-            return xStream.fromXML(input);
-        } catch (Exception e) {
-            LOGGER.error("Error unmarshalling DMN model from file '{}'.", input.getAbsolutePath(), e);
-        }
-        return null;
-    }
-
-    @Override
-    public Object unmarshal(URL input) {
-        try {
-            XStream xStream = newXStream();
-            return xStream.fromXML(input);
-        } catch (Exception e) {
-            LOGGER.error("Error unmarshalling DMN model from file '{}'.", input, e);
-        }
-        return null;
-    }
-
-    @Override
-    public Object unmarshal(InputStream input) {
-        try {
-            XStream xStream = newXStream();
-            return xStream.fromXML(input);
-        } catch (Exception e) {
-            LOGGER.error("Error unmarshalling DMN model from input.", e);
-        }
-        return null;
-    }
-
-    @Override
-    public Object unmarshal(Reader input) {
-        try {
-            XStream xStream = newXStream();
-            return xStream.fromXML(input);
-        } catch (Exception e) {
-            LOGGER.error("Error unmarshalling DMN model from reader.", e);
-        }
-        return null;
     }
 
     @Override
@@ -144,40 +91,28 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
             hsWriter.flush();
             return writer.toString();
         } catch (Exception e) {
-            LOGGER.error("Error marshalling DMN model to XML.", e);
+            logError("Error marshalling {} to XML.", artifactName(), e);
         }
         return null;
     }
 
     @Override
-    public void marshal(Object o, File output) {
-        try (FileWriter fileWriter = new FileWriter(output)) {
-            marshal(o, fileWriter);
-        } catch (IOException e) {
-            LOGGER.error("Error marshalling DMN model to XML.", e);
-        }
+    public void logError(String message, Object argument1, Exception exception) {
+        LOGGER.error(message, argument1, exception);
     }
 
     @Override
-    public void marshal(Object o, OutputStream output) {
-        try (OutputStreamWriter streamWriter = new OutputStreamWriter(output)) {
-            marshal(o, streamWriter);
-        } catch (Exception e) {
-            LOGGER.error("Error marshalling DMN model to XML.", e);
-        }
+    public void logError(String message, Object argument1, Object argument2, Exception exception) {
+        LOGGER.error(message, argument1, argument2, exception);
     }
 
     @Override
-    public void marshal(Object o, Writer output) {
-        try {
-            output.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-            output.write(marshal(o));
-        } catch (Exception e) {
-            LOGGER.error("Error marshalling DMN model to XML.", e);
-        }
+    public String artifactName() {
+        return "TCK model";
     }
 
-    private XStream newXStream() {
+    @Override
+    public XStream newXStream() {
         XStream xStream = XStreamUtils.createNonTrustingXStream(STAX_DRIVER, TestCases.class.getClassLoader(), DMNXStream::from);
         xStream.addPermission(new TypeHierarchyPermission(QName.class));
         xStream.addPermission(new TypeHierarchyPermission(TCKBaseElement.class));
