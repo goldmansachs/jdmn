@@ -12,13 +12,12 @@
  */
 package com.gs.dmn.transformation.lazy;
 
-import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.transformation.InputParameters;
 
-public class SparseDecisionDetector extends SimpleLazyEvaluationDetector {
+public class SparseDecisionDetector extends DecisionTableLazyEvaluationDetector {
     private final double sparsityThreshold;
 
     public SparseDecisionDetector() {
@@ -26,42 +25,16 @@ public class SparseDecisionDetector extends SimpleLazyEvaluationDetector {
     }
 
     public SparseDecisionDetector(InputParameters inputParameters, BuildLogger logger) {
-        super(logger, inputParameters);
+        super(inputParameters, logger);
         this.sparsityThreshold = inputParameters.getSparsityThreshold();
     }
 
     @Override
-    public LazyEvaluationOptimisation detect(DMNModelRepository modelRepository) {
-        LazyEvaluationOptimisation lazyEvaluationOptimisation = new LazyEvaluationOptimisation();
-
-        logger.info("Scanning for sparse decision tables ...");
-
-        for (TDefinitions definitions: modelRepository.getAllDefinitions()) {
-            for (TDecision decision : modelRepository.findDecisions(definitions)) {
-                TExpression expression = decision.getExpression();
-                if (expression instanceof TDecisionTable && isSparseDecisionTable((TDecisionTable) expression, sparsityThreshold)) {
-                    logger.info(String.format("Found sparse decision '%s'", decision.getName()));
-
-                    for (TInformationRequirement ir : decision.getInformationRequirement()) {
-                        TDMNElementReference requiredDecision = ir.getRequiredDecision();
-                        if (requiredDecision != null) {
-                            String href = requiredDecision.getHref();
-                            TDecision drgElement = modelRepository.findDecisionByRef(decision, href);
-                            if (drgElement != null) {
-                                lazyEvaluationOptimisation.addLazyEvaluatedDecision(modelRepository.lazyEvaluationKey(drgElement));
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        logger.info(String.format("Decisions to be lazy evaluated: '%s'", String.join(", ", lazyEvaluationOptimisation.getLazyEvaluatedDecisions())));
-
-        return lazyEvaluationOptimisation;
+    protected boolean applicable(TDecision decision, TExpression expression) {
+        return isSparseDecisionTable((TDecisionTable) expression, sparsityThreshold);
     }
 
-    boolean isSparseDecisionTable(TDecisionTable expression, double sparsityThreshold) {
+    protected boolean isSparseDecisionTable(TDecisionTable expression, double sparsityThreshold) {
         int columnNo = expression.getInput().size();
         int lineNo = expression.getRule().size();
         int anyMatchCount = 0;

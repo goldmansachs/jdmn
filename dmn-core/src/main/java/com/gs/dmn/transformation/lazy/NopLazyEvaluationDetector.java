@@ -23,7 +23,7 @@ public class NopLazyEvaluationDetector extends SimpleLazyEvaluationDetector {
     }
 
     public NopLazyEvaluationDetector(InputParameters inputParameters, BuildLogger logger) {
-        super(logger, inputParameters);
+        super(inputParameters, logger);
     }
 
     @Override

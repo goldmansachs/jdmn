@@ -12,19 +12,23 @@
  */
 package com.gs.dmn.transformation.lazy;
 
+import com.gs.dmn.ast.TDecision;
+import com.gs.dmn.ast.TExpression;
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.transformation.InputParameters;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-public abstract class SimpleLazyEvaluationDetector implements LazyEvaluationDetector {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(SparseDecisionDetector.class);
+public class AlwaysLazyEvaluationDetector extends DecisionTableLazyEvaluationDetector {
+    public AlwaysLazyEvaluationDetector() {
+        this(new InputParameters(), new Slf4jBuildLogger(LOGGER));
+    }
 
-    protected final BuildLogger logger;
-    protected final InputParameters inputParameters;
+    public AlwaysLazyEvaluationDetector(InputParameters inputParameters, BuildLogger logger) {
+        super(inputParameters, logger);
+    }
 
-    protected SimpleLazyEvaluationDetector(InputParameters inputParameters, BuildLogger logger) {
-        this.logger = logger;
-        this.inputParameters = inputParameters;
+    @Override
+    protected boolean applicable(TDecision decision, TExpression expression) {
+        return true;
     }
 }

@@ -22,12 +22,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AllLazyEvaluationDetectorTest extends AbstractTest {
+public class AlwaysLazyEvaluationDetectorTest extends AbstractTest {
     private DMNModelRepository dmnModelRepository;
     private final DMNSerializer dmnReader = new XMLDMNSerializer(LOGGER, this.inputParameters);
 
@@ -39,19 +38,27 @@ public class AllLazyEvaluationDetectorTest extends AbstractTest {
 
     @Test
     public void testLazyEvaluationOptimisationWithDefaultConstructor() {
-        AllLazyEvaluationDetector detector = new AllLazyEvaluationDetector();
+        AlwaysLazyEvaluationDetector detector = new AlwaysLazyEvaluationDetector();
         LazyEvaluationOptimisation lazyEvaluationOptimisation = detector.detect(this.dmnModelRepository);
 
-        assertEquals(this.dmnModelRepository.findAllDecisions().size(), lazyEvaluationOptimisation.getLazyEvaluatedDecisions().size());
+        List<String> expected = List.of(
+                "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType",
+                "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#Eligibility"
+        );
+        assertEquals(expected, normalize(lazyEvaluationOptimisation.getLazyEvaluatedDecisions()));
     }
 
     @Test
     public void testLazyEvaluationOptimisation() {
         Map<String, String> inputParametersMap = new LinkedHashMap<>();
-        AllLazyEvaluationDetector detector = new AllLazyEvaluationDetector(makeInputParameters(inputParametersMap), LOGGER);
+        AlwaysLazyEvaluationDetector detector = new AlwaysLazyEvaluationDetector(makeInputParameters(inputParametersMap), LOGGER);
         LazyEvaluationOptimisation lazyEvaluationOptimisation = detector.detect(this.dmnModelRepository);
 
-        assertEquals(this.dmnModelRepository.findAllDecisions().size(), lazyEvaluationOptimisation.getLazyEvaluatedDecisions().size());
+        List<String> expected = List.of(
+                "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#BureauCallType",
+                "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b#Eligibility"
+        );
+        assertEquals(expected, normalize(lazyEvaluationOptimisation.getLazyEvaluatedDecisions()));
     }
 
     private DMNModelRepository readDMN(String pathName) {
@@ -68,5 +75,11 @@ public class AllLazyEvaluationDetectorTest extends AbstractTest {
         Map<String, String> map = super.makeInputParametersMap();
         map.putAll(inputParameters);
         return map;
+    }
+
+    private List<String> normalize(Set<String> lazyEvaluatedDecisions) {
+        ArrayList<String> names = new ArrayList<>(lazyEvaluatedDecisions);
+        names.sort(String::compareTo);
+        return names;
     }
 }

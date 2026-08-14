@@ -13,32 +13,37 @@
 package com.gs.dmn.transformation.lazy;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.ast.TDecision;
+import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.transformation.InputParameters;
 
-public class AllLazyEvaluationDetector extends SimpleLazyEvaluationDetector {
-    public AllLazyEvaluationDetector() {
-        this(new InputParameters(), new Slf4jBuildLogger(LOGGER));
-    }
-
-    public AllLazyEvaluationDetector(InputParameters inputParameters, BuildLogger logger) {
-        super(logger, inputParameters);
+public abstract class DecisionTableLazyEvaluationDetector extends SimpleLazyEvaluationDetector {
+    public DecisionTableLazyEvaluationDetector(InputParameters inputParameters, BuildLogger logger) {
+        super(inputParameters, logger);
     }
 
     @Override
     public LazyEvaluationOptimisation detect(DMNModelRepository modelRepository) {
         LazyEvaluationOptimisation lazyEvaluationOptimisation = new LazyEvaluationOptimisation();
 
-        logger.info("Scanning for lazy evaluation decisions ...");
+        logger.info("Scanning for decisions ...");
 
         for (TDecision decision : modelRepository.findAllDecisions()) {
-            lazyEvaluationOptimisation.addLazyEvaluatedDecision(modelRepository.lazyEvaluationKey(decision));
+            TExpression expression = decision.getExpression();
+            if (modelRepository.isDecisionTableExpression(decision) && applicable(decision, expression)) {
+                logger.info(String.format("Found candidate parent decision '%s'", modelRepository.qualifiedName(decision)));
+
+                for (DRGElementReference<TDecision> reference : modelRepository.directSubDecisions(decision)) {
+                    lazyEvaluationOptimisation.addLazyEvaluatedDecision(modelRepository.lazyEvaluationKey(reference.getElement()));
+                }
+            }
         }
 
         logger.info(String.format("Decisions to be lazy evaluated: '%s'", String.join(", ", lazyEvaluationOptimisation.getLazyEvaluatedDecisions())));
 
         return lazyEvaluationOptimisation;
     }
+
+    protected abstract boolean applicable(TDecision decision, TExpression expression);
 }

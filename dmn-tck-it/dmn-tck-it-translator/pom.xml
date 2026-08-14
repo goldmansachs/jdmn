@@ -1745,7 +1745,7 @@
                                 <caching>true</caching>
                             </inputParameters>
                             <lazyEvaluationDetectors>
-                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.AllLazyEvaluationDetector</lazyEvaluatorDetector>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.AlwaysLazyEvaluationDetector</lazyEvaluatorDetector>
                             </lazyEvaluationDetectors>
                         </configuration>
                     </execution>
