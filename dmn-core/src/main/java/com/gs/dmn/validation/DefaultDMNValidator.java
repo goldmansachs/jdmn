@@ -148,6 +148,12 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         validateReferences(definitions, element, element.getInputDecision(), context);
         validateReferences(definitions, element, element.getOutputDecision(), context);
         validateReferences(definitions, element, element.getEncapsulatedDecision(), context);
+        // Validate cardinality
+        List<TDMNElementReference> outputDecision = element.getOutputDecision();
+        if (outputDecision.isEmpty()) {
+            String errorMessage = String.format("DecisionService '%s' must have at least 1 output decisions", element.getName());
+            addValidationError(context, definitions, element, errorMessage);
+        }
     }
 
     protected void validateUnique(TDefinitions definitions, List<? extends TDMNElement> elements, String elementType, String property, boolean isOptionalProperty, Function<TDMNElement, String> accessor, String errorMessage, ValidationContext context) {
