@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/" namespace="decision-a" id="_DA62E295-5F16-4369-9879-9532348B3DD2" name="decision-a">
+  <import name="prefix" importType="https://www.omg.org/spec/DMN/20230324/MODEL/" namespace="decision-b"/>
+
+  <decision name="DecisionA" id="_DA001">
+    <variable name="DecisionA" id="_DA002"/>
+    <informationRequirement id="_DA003">
+      <requiredDecision href="decision-b#_DB001" />
+    </informationRequirement>
+    <literalExpression>
+      <text>prefix.DecisionB + 1</text>
+    </literalExpression>
+  </decision>
+</definitions>
