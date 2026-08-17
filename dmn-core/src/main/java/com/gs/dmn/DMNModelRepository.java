@@ -883,93 +883,84 @@ public class DMNModelRepository {
     }
 
     public TItemDefinition lookupItemDefinition(TDefinitions model, QualifiedName qualifiedName) {
-        return lookupItemDefinitionWithCycleDetection(model, qualifiedName, new ArrayList<>());
+        return lookupItemDefinition( model, qualifiedName, new ArrayList<>());
     }
 
-    private TItemDefinition lookupItemDefinitionWithCycleDetection(TDefinitions model, QualifiedName qualifiedName, List<TDefinitions> path) {
-        // Check inputs
-        Objects.requireNonNull(model, "Missing DMN model for typeRef '%s'".formatted(qualifiedName));
-        Objects.requireNonNull(qualifiedName, "Missing typeRef in model '%s'".formatted(model));
+    public TItemDefinition lookupItemDefinition(TDefinitions parentModel, QualifiedName qName, List<TDefinitions> path) {
+        if (parentModel == null || qName == null) {
+            return null;
+        }
 
-        // Check for cycles
-        if (path.contains(model)) {
-            List<TDefinitions> newPath = new ArrayList<>(path);
-            newPath.add(model);
+        // Check for import cycles
+        if (path.contains(parentModel)) {
+            List<TDefinitions> newPath = makeNewPath(path, parentModel);
             LOGGER.warn("Import cycle detected '%s'".formatted(newPath.stream().map(TNamedElement::getName).collect(Collectors.joining(", "))));
             return null;
         }
 
-        // Check feel types
-        String importName = qualifiedName.getNamespace();
-        if (importName == null) {
-            importName = "";
-        }
-        if (DMNVersion.LATEST.getFeelPrefix().equals(importName)) {
-            return null;
-        }
+        // Check user types
+        String prefix = qName.getNamespace();
+        String localPart = qName.getLocalPart();
+        if (StringUtils.isBlank(prefix)) {
+            // Search local item definition in parent model
+            TItemDefinition referencedItemDef = findLocalItemDefinition(parentModel, localPart);
+            if (referencedItemDef != null) {
+                return referencedItemDef;
+            }
 
-        // Search in models, current and imported
-        if (importName.isEmpty()) {
-            // Lookup in current model
-            TItemDefinition result = lookupItemDefinition(findTopLevelItemDefinitions(model), qualifiedName);
-            if (result == null) {
-                // Lookup in models imported with empty prefix
-                List<TDefinitions> newPath = new ArrayList<>(path);
-                newPath.add(model);
-                for (TImport import_ : model.getImport()) {
-                    if (isDMNImport(import_)) {
-                        if (StringUtils.isBlank(import_.getName())) {
-                            String childNamespace = import_.getNamespace();
-                            TDefinitions childModel = this.findModelByNamespace(childNamespace);
-                            if (childModel == null) {
-                                throw new SemanticErrorException(String.format("Cannot find DM for '%s'", childNamespace));
-                            }
-                            result = lookupItemDefinitionWithCycleDetection(childModel, qualifiedName, newPath);
-                            if (result != null) {
-                                return result;
-                            }
+            // Search in imported models with empty prefix
+            List<TImport> importList = parentModel.getImport();
+            List<TDefinitions> newPath = makeNewPath(path, parentModel);
+            for (TImport import_ :importList) {
+                if (isDMNImport(import_)) {
+                    if (StringUtils.isBlank(import_.getName())) {
+                        TDefinitions importedModel = findModelByNamespace(import_.getNamespace());
+                        referencedItemDef = lookupItemDefinition(importedModel, QualifiedName.toQualifiedName(importedModel, localPart), newPath);
+                        if (referencedItemDef != null) {
+                            return referencedItemDef;
                         }
                     }
                 }
-                return null;
-            } else {
-                return result;
             }
         } else {
-            // Find model for importName
-            String childNamespace = null;
-            for (TImport import_ : model.getImport()) {
+            // Search in imported model with the same prefix
+            List<TImport> importList = parentModel.getImport();
+            for (TImport import_ :importList){
                 if (isDMNImport(import_)) {
-                    if (import_.getName().equals(importName)) {
-                        childNamespace = import_.getNamespace();
-                        break;
+                    if (import_.getName().equals(prefix)) {
+                        // Check imported models
+                        TDefinitions importedModel = findModelByNamespace(import_.getNamespace());
+                        List<TDefinitions> newPath = makeNewPath(path, parentModel);
+                        TItemDefinition referencedItemDef = lookupItemDefinition(importedModel, QualifiedName.toQualifiedName(importedModel, localPart), newPath);
+                        if (referencedItemDef != null) {
+                            return referencedItemDef;
+                        }
                     }
                 }
             }
-            TDefinitions childModel = this.findModelByNamespace(childNamespace);
-            if (childModel == null) {
-                throw new SemanticErrorException(String.format("Cannot find DM for '%s'", childNamespace));
-            }
-            // Lookup typeRef in model
-            return lookupItemDefinition(findTopLevelItemDefinitions(childModel), qualifiedName);
         }
+
+        return null;
     }
 
-    private TItemDefinition lookupItemDefinition(List<TItemDefinition> itemDefinitionList, QualifiedName typeRef) {
-        String name = typeRef == null ? null : typeRef.getLocalPart();
-        return lookupItemDefinition(itemDefinitionList, name);
-    }
-
-    private TItemDefinition lookupItemDefinition(List<TItemDefinition> itemDefinitionList, String name) {
-        if (name == null) {
+    private TItemDefinition findLocalItemDefinition(TDefinitions definitions, String name) {
+        if (definitions == null) {
             return null;
         }
-        for (TItemDefinition itemDefinition : itemDefinitionList) {
-            if (name.equals(itemDefinition.getName())) {
-                return itemDefinition;
+
+        List<TItemDefinition> itemDefinitionList = findTopLevelItemDefinitions(definitions);
+        for (TItemDefinition itemDef : itemDefinitionList) {
+            if (itemDef.getName().equals(name)) {
+                return itemDef;
             }
         }
         return null;
+    }
+
+    private List<TDefinitions> makeNewPath(List<TDefinitions> path, TDefinitions model) {
+        List<TDefinitions> newPath = new ArrayList<>(path);
+        newPath.add(model);
+        return newPath;
     }
 
     public List<DRGElementReference<? extends TDRGElement>> sortedUniqueInputs(TDecision decision, DRGElementFilter drgElementFilter) {

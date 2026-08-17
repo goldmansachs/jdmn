@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
+             xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/"
+             xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/"
+             xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/"
+             expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/"
+             typeLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/"
+             namespace="http://www.example.com/definitions/item-definition-cycle"
+             name="item-definition-cycle"
+             id="item-definition-cycle"
+             >
+
+    <import namespace="http://www.example.com/definitions/item-definition-cycle-model-a"
+            name="modela"
+            importType="https://www.omg.org/spec/DMN/20191111/MODEL/"/>
+    <import namespace="http://www.example.com/definitions/item-definition-cycle-model-a"
+            name=""
+            importType="https://www.omg.org/spec/DMN/20191111/MODEL/"/>
+
+    <itemDefinition isCollection="false" name="string">
+        <typeRef>number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="number">
+        <typeRef>boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="boolean">
+        <typeRef>string</typeRef>
+    </itemDefinition>
+
+    <itemDefinition isCollection="false" name="TypeA1">
+        <typeRef>TypeB1</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="TypeB1">
+        <typeRef>TypeC1</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="TypeC1">
+        <typeRef>TypeA1</typeRef>
+    </itemDefinition>
+
+    <itemDefinition isCollection="false" name="NestedType">
+        <typeRef>modela.modelb.Other</typeRef>
+    </itemDefinition>
+
+</definitions>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
+             xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/"
+             xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/"
+             xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/"
+             expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/"
+             typeLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/"
+             namespace="http://www.example.com/definitions/item-definition-cycle-model-a"
+             name="item-definition-cycle-model-a"
+             id="item-definition-cycle-model-a"
+             >
+
+    <import namespace="http://www.example.com/definitions/item-definition-cycle-model-b"
+            name="modelb"
+            importType="https://www.omg.org/spec/DMN/20191111/MODEL/"/>
+
+    <itemDefinition isCollection="false" name="TypeA">
+        <typeRef>modelb.TypeB</typeRef>
+    </itemDefinition>
+</definitions>

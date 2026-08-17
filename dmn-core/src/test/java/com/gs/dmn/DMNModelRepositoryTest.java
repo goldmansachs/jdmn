@@ -287,14 +287,30 @@ public class DMNModelRepositoryTest extends AbstractTest {
     }
 
     @Test
-    public void testLookupForCyclicTypRefsWhenNoPrefix() {
+    public void testLookupItemDefinitionForNestedImports() {
+        DMNModelRepository repository = readModels("other/1.5/cycles-item-definitions/translator");
+
+        // Test import with prefixes
+        TDefinitions model = repository.findModelByNamespace("http://www.example.com/definitions/item-definition-cycle");
+        QualifiedName qName1 = QualifiedName.toQualifiedName(model, "modela.modelb.Other");
+        TItemDefinition itemDefinition1 = repository.lookupItemDefinition(model, qName1);
+        assertEquals("Other", itemDefinition1.getName());
+
+        // Test import with one empty prefix
+        QualifiedName qName2 = QualifiedName.toQualifiedName(model, "modelb.Other");
+        TItemDefinition itemDefinition2 = repository.lookupItemDefinition(model, qName2);
+        assertEquals("Other", itemDefinition2.getName());
+    }
+
+    @Test
+    public void testLookupItemDefinitionForCyclicTypRefsWhenNoPrefix() {
         // Read test models
         this.dmnModelRepository = readModels("other/1.5/cycles-no-prefix/translator/");
         doTest("", "");
     }
 
     @Test
-    public void testLookupForCyclicTypRefsWhenPrefix() {
+    public void testLookupItemDefinitionForCyclicTypRefsWhenPrefix() {
         // Read test models
         this.dmnModelRepository = readModels("other/1.5/cycles-with-prefix/translator/");
         doTest("a", "b");

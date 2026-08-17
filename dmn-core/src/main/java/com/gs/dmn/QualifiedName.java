@@ -38,19 +38,13 @@ public class QualifiedName {
         if (qName == null || qName.isEmpty()) {
             return null;
         }
-        // Check the FEEL prefix
-        if (qName.startsWith(DMNVersion.LATEST.getFeelPrefix() + ".")) {
-            String prefix = DMNVersion.LATEST.getFeelPrefix();
-            String localPart = qName.substring(qName.indexOf('.') + 1);
-            return new QualifiedName(prefix, localPart);
-        }
-        if (model == null) {
-            return new QualifiedName(null, qName);
-        } else {
+
+        // Check user defined types
+        if (model != null) {
             // Check the imports
             for (TImport import_: model.getImport()) {
                 String importName = import_.getName();
-                if (qName.startsWith(importName + '.')) {
+                if (hasPrefix(qName, importName)) {
                     String localPart = qName.substring(qName.indexOf('.') + 1);
                     return new QualifiedName(importName, localPart);
                 }
@@ -61,17 +55,29 @@ public class QualifiedName {
                     return new QualifiedName(null, qName);
                 }
             }
-            // Check the FEEL types
+        }
+
+        // Check FEEL types with and without prefix
+        if (hasPrefix(qName, DMNVersion.LATEST.getFeelPrefix())) {
+            String prefix = DMNVersion.LATEST.getFeelPrefix();
+            String localPart = qName.substring(qName.indexOf('.') + 1);
+            return new QualifiedName(prefix, localPart);
+        } else {
             if (FEELType.FEEL_TYPE_NAMES.contains(qName)) {
                 return new QualifiedName(DMNVersion.LATEST.getFeelPrefix(), qName);
+            } else {
+                return new QualifiedName(null, qName);
             }
-
-            return new QualifiedName(null, qName);
         }
+
     }
 
     public static QualifiedName toQualifiedName(String namespace, String localName) {
         return new QualifiedName(namespace, localName);
+    }
+
+    private static boolean hasPrefix(String qName, String importName) {
+        return qName.startsWith(importName + '.');
     }
 
     private final String namespace;
