@@ -100,8 +100,45 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         validateVariable(definitions, element, element.getVariable(), false, context);
         List<TDMNElementReference> krs = element.getKnowledgeRequirement().stream().map(TKnowledgeRequirement::getRequiredKnowledge).collect(Collectors.toList());
         validateReferences(definitions, element, krs, context);
-        validateExpression(definitions, element, element.getEncapsulatedLogic(), context);
         validateTypeRef(definitions, element.getVariable(), element.getEncapsulatedLogic(), context);
+        validateEncapsulatedLogic(definitions, element, context);
+    }
+
+    private void validateEncapsulatedLogic(TDefinitions definitions, TBusinessKnowledgeModel element, ValidationContext context) {
+        TFunctionDefinition encapsulatedLogic = element.getEncapsulatedLogic();
+        if (encapsulatedLogic == null) {
+            String errorMessage = "Missing expression";
+            addValidationError(context, definitions, element, errorMessage);
+        } else {
+            // Chack typeRef for formal parameters
+            List<TInformationItem> formalParameters = encapsulatedLogic.getFormalParameter();
+            if (formalParameters != null) {
+                for (TInformationItem param : formalParameters) {
+                    if (param == null) {
+                        String errorMessage = String.format("Missing parameter in BusinessKnowledgeModel '%s'", element.getName());
+                        addValidationError(context, definitions, param, errorMessage);
+                    } else {
+                        QName typeRef = param.getTypeRef();
+                        if (!hasTypeRef(typeRef)) {
+                            String errorMessage = String.format("Missing typeRef for parameter '%s' in BusinessKnowledgeModel '%s'", param.getName(), element.getName());
+                            addValidationError(context, definitions, param, errorMessage);
+                        }
+                    }
+                }
+            }
+            // Check typeRef of body
+            TExpression body = encapsulatedLogic.getExpression();
+            if (body == null) {
+                String errorMessage = String.format("Missing body in BusinessKnowledgeModel '%s'", element.getName());
+                addValidationError(context, definitions, body, errorMessage);
+            } else {
+                QName typeRef = body.getTypeRef();
+                if (!hasTypeRef(typeRef)) {
+                    String errorMessage = String.format("Missing typeRef for body in BusinessKnowledgeModel '%s'", element.getName());
+                    addValidationError(context, definitions, body, errorMessage);
+                }
+            }
+        }
     }
 
     protected void validateDecisionService(TDefinitions definitions, TDecisionService element, ValidationContext context) {

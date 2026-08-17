@@ -124,4 +124,17 @@
         <inputDecision/>
         <outputDecision/>
     </decisionService>
+
+    <businessKnowledgeModel id="bkm-params" name="bkm2">
+        <variable id="bkmVar" name="bkmVar" typeRef="Any"/>
+        <encapsulatedLogic>
+            <formalParameter id="paramMissingType" name="paramMissingType"/>
+            <formalParameter id="paramUnknownType" name="paramUnknownType" typeRef=""/>
+            <formalParameter id="paramGood" name="paramGood" typeRef="string"/>
+            <literalExpression>
+                <text>paramGood + 1</text>
+            </literalExpression>
+        </encapsulatedLogic>
+    </businessKnowledgeModel>
+
 </definitions>
