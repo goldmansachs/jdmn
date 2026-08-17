@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/" namespace="bkm-b" id="_CD62E295-5F16-4369-9879-9532348B3DD3" name="bkm-b">
+  <import name="prefix" importType="https://www.omg.org/spec/DMN/20230324/MODEL/" namespace="bkm-a"/>
+
+  <businessKnowledgeModel name="BKMB" id="_B001">
+    <variable name="BKMB" id="_B002" />
+    <knowledgeRequirement id="_B003">
+      <requiredKnowledge href="_C001" />
+    </knowledgeRequirement>
+  </businessKnowledgeModel>
+
+ <businessKnowledgeModel name="BKMC" id="_C001">
+    <variable name="BKMC" id="_C002" />
+    <knowledgeRequirement id="_C003">
+      <requiredKnowledge href="bkm-a#_A001" />
+    </knowledgeRequirement>
+  </businessKnowledgeModel>
+</definitions>

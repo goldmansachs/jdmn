@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/" namespace="bkm-a" id="_DA62E295-5F16-4369-9879-9532348B3DD2" name="bkm-a">
+  <import name="prefix" importType="https://www.omg.org/spec/DMN/20230324/MODEL/" namespace="bkm-b"/>
+
+  <businessKnowledgeModel name="BKMA" id="_A001">
+    <variable name="BKMA" id="_A002"/>
+    <encapsulatedLogic>
+      <literalExpression typeRef="number">
+        <text>123</text>
+      </literalExpression>
+    </encapsulatedLogic>
+    <knowledgeRequirement id="_A003">
+      <requiredKnowledge href="bkm-b#_B001" />
+    </knowledgeRequirement>
+  </businessKnowledgeModel>
+</definitions>
