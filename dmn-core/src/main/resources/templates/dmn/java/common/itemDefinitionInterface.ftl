@@ -17,8 +17,12 @@ package ${nativePackageName};
 import java.util.*;
 
 @javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "${modelRepository.name(itemDefinition)}"})
+<#if transformer.isGenerateJsonAnnotations()>
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
+</#if>
+<#if transformer.isGenerateJsonAnnotations()>
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = ${serializationClass}.class)
+</#if>
 public interface ${nativeClassName} extends ${transformer.dmnTypeClassName()} {
     <@addConvertMethod itemDefinition />
 
@@ -69,7 +73,9 @@ public interface ${nativeClassName} extends ${transformer.dmnTypeClassName()} {
     <#list itemDefinition.itemComponent as child>
         <#assign memberName = transformer.nativeVariableName(child)/>
         <#assign memberType = transformer.itemDefinitionNativeQualifiedInterfaceName(child)/>
+<#if transformer.isGenerateJsonAnnotations()>
     @com.fasterxml.jackson.annotation.JsonGetter("${transformer.escapeInString(modelRepository.displayName(child))}")
+</#if>
     ${memberType} ${transformer.getter(child)};
 
     </#list>
