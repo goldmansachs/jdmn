@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.runtime;
 
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.Objects;
 
