@@ -185,6 +185,10 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         return this.onePackage;
     }
 
+    public boolean isGenerateJsonAnnotations() {
+        return this.inputParameters.isGenerateJsonAnnotations();
+    }
+
     @Override
     public boolean isStrongTyping() {
         return this.inputParameters.isStrongTyping();

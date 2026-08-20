@@ -17,7 +17,9 @@ package ${nativePackageName};
 import java.util.*;
 
 @javax.annotation.Generated(value = {"itemDefinition.ftl", "${modelRepository.name(itemDefinition)}"})
+<#if transformer.isGenerateJsonAnnotations()>
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
+</#if>
 public class ${nativeClassName} implements ${transformer.itemDefinitionNativeSimpleInterfaceName(nativeClassName)} {
     <@addFields itemDefinition />
 
@@ -50,12 +52,16 @@ public class ${nativeClassName} implements ${transformer.itemDefinitionNativeSim
     <#list itemDefinition.itemComponent as child>
         <#assign memberName = transformer.nativeVariableName(child)/>
         <#assign memberType = transformer.itemDefinitionNativeQualifiedInterfaceName(child)/>
+<#if transformer.isGenerateJsonAnnotations()>
     @com.fasterxml.jackson.annotation.JsonGetter("${transformer.escapeInString(modelRepository.displayName(child))}")
+</#if>
     public ${memberType} ${transformer.getter(child)} {
         return this.${memberName};
     }
 
+<#if transformer.isGenerateJsonAnnotations()>
     @com.fasterxml.jackson.annotation.JsonSetter("${transformer.escapeInString(modelRepository.displayName(child))}")
+</#if>
     public void ${transformer.setter(child, "${memberType} ${memberName}")} {
         this.${memberName} = ${memberName};
     }
