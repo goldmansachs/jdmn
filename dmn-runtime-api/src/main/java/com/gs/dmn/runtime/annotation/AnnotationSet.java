@@ -12,7 +12,8 @@
  */
 package com.gs.dmn.runtime.annotation;
 
-import org.apache.commons.lang3.StringUtils;
+import com.gs.dmn.runtime.StringUtils;
+
 
 import java.util.LinkedHashSet;
 import java.util.LinkedList;

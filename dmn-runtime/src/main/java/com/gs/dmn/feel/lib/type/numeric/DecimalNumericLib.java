@@ -12,8 +12,9 @@
  */
 package com.gs.dmn.feel.lib.type.numeric;
 
+import com.gs.dmn.runtime.StringUtils;
+
 import com.gs.dmn.runtime.DMNRuntimeException;
-import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

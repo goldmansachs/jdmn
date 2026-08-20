@@ -12,8 +12,11 @@
  */
 package com.gs.dmn.runtime;
 
-import org.apache.commons.lang3.SerializationUtils;
-
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
 
@@ -22,10 +25,25 @@ public class Context implements Serializable {
         // shallow copy
         if (context != null) {
             Context deepCopy = new Context(context.name);
-            deepCopy.map.putAll(SerializationUtils.clone((LinkedHashMap) context.map));
+            deepCopy.map.putAll(deepClone((LinkedHashMap) context.map));
             return deepCopy;
         } else {
             return null;
+        }
+    }
+
+    private static LinkedHashMap deepClone(LinkedHashMap map) {
+        // deep clone via serialization round trip, values must be Serializable
+        try {
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            try (ObjectOutputStream out = new ObjectOutputStream(bytes)) {
+                out.writeObject(map);
+            }
+            try (ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(bytes.toByteArray()))) {
+                return (LinkedHashMap) in.readObject();
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            throw new IllegalStateException("Cannot clone context", e);
         }
     }
 
