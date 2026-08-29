@@ -109,6 +109,7 @@ public class InputParameters {
     private final boolean singletonDecision;
     // Whether to use strong typing during semantic analyses.
     private final boolean strongTyping;
+    private final boolean generateJsonAnnotations;
     // Whether to check constraints during evaluation / code generation.
     private final boolean checkConstraints;
 
@@ -171,6 +172,7 @@ public class InputParameters {
         // Translation and execution
         this.javaRootPackage = InputParameters.getOptionalParam(inputParameters, "javaRootPackage");
         this.onePackage = InputParameters.getOptionalBooleanParam(inputParameters, "onePackage", "false");
+        this.generateJsonAnnotations = InputParameters.getOptionalBooleanParam(inputParameters, "generateJsonAnnotations", "true");
         this.caching = InputParameters.getOptionalBooleanParam(inputParameters, "caching");
         String cachingThresholdParam = InputParameters.getOptionalParam(inputParameters, "cachingThreshold", "1");
         this.cachingThreshold = Integer.parseInt(cachingThresholdParam);
@@ -237,6 +239,10 @@ public class InputParameters {
 
     public boolean isStrongTyping() {
         return strongTyping;
+    }
+
+    public boolean isGenerateJsonAnnotations() {
+        return generateJsonAnnotations;
     }
 
     public boolean isRecursiveCalls() {

@@ -48,12 +48,16 @@ public class ${nativeClassName} extends ${transformer.abstractRuleOutputClassNam
 <#macro addAccessors drgElement>
     <#assign expression = modelRepository.expression(drgElement)>
     <#list expression.output as output>
+<#if transformer.isGenerateJsonAnnotations()>
     @com.fasterxml.jackson.annotation.JsonGetter("${transformer.escapeInString(transformer.outputClauseName(drgElement, output))}")
+</#if>
     public ${transformer.outputClauseClassName(drgElement, output, output?index)} ${transformer.outputClauseGetter(drgElement, output)} {
         return this.${transformer.outputClauseVariableName(drgElement, output)};
     }
 
+<#if transformer.isGenerateJsonAnnotations()>
     @com.fasterxml.jackson.annotation.JsonSetter("${transformer.escapeInString(transformer.outputClauseName(drgElement, output))}")
+</#if>
     <#assign outputClassName = transformer.outputClauseClassName(drgElement, output, output?index) />
     public void ${transformer.outputClauseSetter(drgElement, output, "${outputClassName} ${transformer.outputClauseVariableName(drgElement, output)}")} {
         this.${transformer.outputClauseVariableName(drgElement, output)} = ${transformer.outputClauseVariableName(drgElement, output)};
