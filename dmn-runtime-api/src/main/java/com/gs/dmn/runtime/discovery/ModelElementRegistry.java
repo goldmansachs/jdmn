@@ -12,11 +12,12 @@
  */
 package com.gs.dmn.runtime.discovery;
 
+import com.gs.dmn.runtime.StringUtils;
+
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.ExecutableDRGElement;
 import com.gs.dmn.runtime.annotation.DRGElement;
 import com.gs.dmn.runtime.annotation.DRGElementKind;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

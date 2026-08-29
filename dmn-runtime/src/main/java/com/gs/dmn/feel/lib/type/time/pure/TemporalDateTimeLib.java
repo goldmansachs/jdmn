@@ -12,10 +12,11 @@
  */
 package com.gs.dmn.feel.lib.type.time.pure;
 
+import com.gs.dmn.runtime.StringUtils;
+
 import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
 import com.gs.dmn.feel.lib.type.time.DateTimeLib;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

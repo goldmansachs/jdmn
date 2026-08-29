@@ -12,8 +12,9 @@
  */
 package com.gs.dmn.feel.lib.reference;
 
+import com.gs.dmn.runtime.StringUtils;
+
 import com.gs.dmn.runtime.DMNRuntimeException;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
 

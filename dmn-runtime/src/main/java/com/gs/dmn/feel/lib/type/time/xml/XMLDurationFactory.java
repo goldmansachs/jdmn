@@ -12,8 +12,9 @@
  */
 package com.gs.dmn.feel.lib.type.time.xml;
 
+import com.gs.dmn.runtime.StringUtils;
+
 import com.gs.dmn.runtime.DMNRuntimeException;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
