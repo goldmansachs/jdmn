@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -533,6 +534,20 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
 
         assertEquals("", getLib().upper(""));
         assertEquals("ABC1", getLib().upper("aBc1"));
+    }
+
+    @Test
+    public void testCaseConversionIsLocaleIndependent() {
+        Locale defaultLocale = Locale.getDefault();
+        try {
+            // in the Turkish locale the default case mapping turns 'i' into a dotted capital I
+            Locale.setDefault(new Locale("tr", "TR"));
+
+            assertEquals("IDENTIFIER", getLib().upper("identifier"));
+            assertEquals("title", getLib().lower("TITLE"));
+        } finally {
+            Locale.setDefault(defaultLocale);
+        }
     }
 
     @Test
