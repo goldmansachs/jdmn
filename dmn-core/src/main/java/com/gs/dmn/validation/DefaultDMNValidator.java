@@ -13,7 +13,7 @@
 package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.QualifiedName;
+import com.gs.dmn.TypeReference;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.ast.visitor.TraversalVisitor;
 import com.gs.dmn.error.ErrorHandler;
@@ -263,7 +263,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         }
         // validate element/variable/@typeRef
         if (validateTypeRef) {
-            QualifiedName typeRef = QualifiedName.toQualifiedName(definitions, variable.getTypeRef());
+            TypeReference typeRef = TypeReference.toTypeReference(definitions, variable.getTypeRef());
             if (repository.isNull(typeRef)) {
                 String errorMessage = "Missing typRef of variable";
                 addValidationError(context, definitions, element, errorMessage);

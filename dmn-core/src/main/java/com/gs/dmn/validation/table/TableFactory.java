@@ -13,7 +13,7 @@
 package com.gs.dmn.validation.table;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.QualifiedName;
+import com.gs.dmn.TypeReference;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
@@ -95,9 +95,9 @@ public class TableFactory {
             } else {
                 // Retrieve allowed values for enumerations
                 TDefinitions model = repository.getModel(element);
-                TItemDefinition itemDefinition = repository.lookupItemDefinition(model, QualifiedName.toQualifiedName(model, inputTypeRef));
+                TItemDefinition itemDefinition = repository.lookupItemDefinition(model, TypeReference.toTypeReference(model, inputTypeRef));
                 if (itemDefinition != null) {
-                    String typeRef = QualifiedName.toName(itemDefinition.getTypeRef());
+                    String typeRef = TypeReference.toName(itemDefinition.getTypeRef());
                     if ("string".equals(typeRef)) {
                         List<String> allowedValues = findAllowedValues(repository, element, decisionTable, columnIndex);
                         if (!allowedValues.isEmpty()) {
@@ -272,10 +272,10 @@ public class TableFactory {
             TInputClause inputClause = input.get(columnIndex);
             TLiteralExpression inputExpression = inputClause.getInputExpression();
             if (inputExpression != null) {
-                String typeRef = QualifiedName.toName(inputExpression.getTypeRef());
+                String typeRef = TypeReference.toName(inputExpression.getTypeRef());
                 if (!StringUtils.isBlank(typeRef)) {
                     TDefinitions model = repository.getModel(element);
-                    TItemDefinition tItemDefinition = repository.lookupItemDefinition(model, QualifiedName.toQualifiedName(model, typeRef));
+                    TItemDefinition tItemDefinition = repository.lookupItemDefinition(model, TypeReference.toTypeReference(model, typeRef));
                     if (tItemDefinition != null) {
                         TUnaryTests allowedValues = tItemDefinition.getAllowedValues();
                         if (allowedValues != null) {
@@ -306,7 +306,7 @@ public class TableFactory {
             if (inputClause != null) {
                 TLiteralExpression inputExpression = inputClause.getInputExpression();
                 if (inputExpression != null) {
-                    typeRef = QualifiedName.toName(inputExpression.getTypeRef());
+                    typeRef = TypeReference.toName(inputExpression.getTypeRef());
                 }
             }
         }

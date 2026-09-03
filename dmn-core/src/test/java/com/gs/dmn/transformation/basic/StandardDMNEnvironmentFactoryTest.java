@@ -14,7 +14,7 @@ package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.QualifiedName;
+import com.gs.dmn.TypeReference;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.context.DMNContext;
@@ -93,9 +93,9 @@ class StandardDMNEnvironmentFactoryTest extends AbstractTest {
         });
         assertEquals(StringType.STRING, this.environmentFactory.toFEELType(modelB, "def"));
         assertThrows(SemanticErrorException.class, () -> {
-            assertEquals(StringType.STRING, this.environmentFactory.toFEELType(modelA, QualifiedName.toQualifiedName("", "key")));
+            assertEquals(StringType.STRING, this.environmentFactory.toFEELType(modelA, TypeReference.toTypeReference("", "key")));
         });
-        assertEquals(StringType.STRING, this.environmentFactory.toFEELType(modelB, QualifiedName.toQualifiedName("", "def")));
+        assertEquals(StringType.STRING, this.environmentFactory.toFEELType(modelB, TypeReference.toTypeReference("", "def")));
     }
 
     private TItemDefinition findItemDefinition(TDefinitions modelA, String name) {

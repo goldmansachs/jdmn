@@ -12,10 +12,7 @@
  */
 package com.gs.dmn.tck;
 
-import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.DRGElementReference;
-import com.gs.dmn.ImportPath;
-import com.gs.dmn.QualifiedName;
+import com.gs.dmn.*;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
@@ -526,7 +523,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             List<FormalParameter<Type>> formalParameters = this.transformer.invocableFEELParameters(drgElement);
             for (FormalParameter<Type> parameter: formalParameters) {
                 for (Map.Entry<QualifiedName, Object> entry : inputs.entrySet()) {
-                    if (entry.getKey().getLocalPart().equals(parameter.getName())) {
+                    if (entry.getKey().getName().equals(parameter.getName())) {
                         args.add(entry.getValue());
                     }
                 }

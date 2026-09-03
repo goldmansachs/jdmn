@@ -14,7 +14,7 @@ package com.gs.dmn.signavio.transformation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.QualifiedName;
+import com.gs.dmn.TypeReference;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.runtime.DMNRuntimeException;
@@ -118,7 +118,7 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractSigna
                     .stream().filter(x -> x.getName().equals(definitionName)).findFirst()
                     .orElseThrow(() -> new DMNRuntimeException("Cannot locate new definition"));
 
-            Assertions.assertEquals("number", QualifiedName.toName(definition.getTypeRef()), "Definition type reference is not correct");
+            Assertions.assertEquals("number", TypeReference.toName(definition.getTypeRef()), "Definition type reference is not correct");
         }
     }
 

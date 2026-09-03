@@ -13,7 +13,6 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.QualifiedName;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.log.BuildLogger;
@@ -96,14 +95,14 @@ public class DMNToManifestTransformer {
         String name = itemDefinition.getName();
         String label = itemDefinition.getLabel();
         boolean isCollection = itemDefinition.isIsCollection();
-        QName typeRef = makeMetadataTypeRef(containingModel, QualifiedName.toQualifiedName(containingModel, itemDefinition.getTypeRef()));
+        QName typeRef = makeMetadataTypeRef(containingModel, com.gs.dmn.TypeReference.toTypeReference(containingModel, itemDefinition.getTypeRef()));
         String allowedValues = makeMetadataAllowedValues(itemDefinition.getAllowedValues());
 
         List<TItemDefinition> children = itemDefinition.getItemComponent();
         String namespace = containingModel.getNamespace();
         Type type;
         if (children == null || children.isEmpty()) {
-            type = new TypeReference(namespace, id, name, label, isCollection, typeRef, allowedValues);
+            type = new com.gs.dmn.runtime.metadata.TypeReference(namespace, id, name, label, isCollection, typeRef, allowedValues);
         } else {
             List<Type> subTypes = new ArrayList<>();
             for (TItemDefinition child : children) {
@@ -114,13 +113,13 @@ public class DMNToManifestTransformer {
         return type;
     }
 
-    protected QName makeMetadataTypeRef(TDefinitions model, QualifiedName typeRef) {
+    protected QName makeMetadataTypeRef(TDefinitions model, com.gs.dmn.TypeReference typeRef) {
         if (this.dmnModelRepository.isNull(typeRef)) {
             return null;
         }
-        String importName = typeRef.getNamespace();
+        String importName = typeRef.getPrefix();
         String namespace = findNamespace(model, importName);
-        return new QName(namespace, typeRef.getLocalPart());
+        return new QName(namespace, typeRef.getName());
     }
 
     private String makeMetadataAllowedValues(TUnaryTests allowedValues) {
@@ -162,7 +161,7 @@ public class DMNToManifestTransformer {
         String shapeId = getShapeId(inputData);
         String javaParameterName = this.dmnTransformer.nativeVariableName(inputData);
         String javaTypeName = getJavaTypeName(inputData);
-        QName typeRef = makeMetadataTypeRef(containingModel, QualifiedName.toQualifiedName(containingModel, inputData.getVariable().getTypeRef()));
+        QName typeRef = makeMetadataTypeRef(containingModel, com.gs.dmn.TypeReference.toTypeReference(containingModel, inputData.getVariable().getTypeRef()));
         return new InputData(namespace, id, name, label, diagramId, shapeId, javaParameterName, javaTypeName, typeRef);
     }
 
@@ -176,7 +175,7 @@ public class DMNToManifestTransformer {
         String javaParameterName = this.dmnTransformer.nativeVariableName(bkm);
         String javaTypeName = this.dmnTransformer.qualifiedNativeName(this.dmnTransformer.nativeModelPackageName(containingModel.getName()), this.dmnTransformer.drgElementClassName(bkm));
         String javaOutputTypeName = getJavaTypeName(bkm);
-        QName typeRef = makeMetadataTypeRef(containingModel, QualifiedName.toQualifiedName(containingModel, bkm.getVariable().getTypeRef()));
+        QName typeRef = makeMetadataTypeRef(containingModel, com.gs.dmn.TypeReference.toTypeReference(containingModel, bkm.getVariable().getTypeRef()));
         List<DRGElementReference> knowledgeReferences = makeMetadataKnowledgeReferences(bkm.getKnowledgeRequirement(), containingModel, multiModels);
         return new BKM(namespace, id, name, label, diagramId, shapeId, javaParameterName, javaTypeName, javaOutputTypeName, typeRef, knowledgeReferences);
     }
@@ -191,7 +190,7 @@ public class DMNToManifestTransformer {
         String nativeParameterName = this.dmnTransformer.nativeVariableName(decision);
         String nativeTypeName = this.dmnTransformer.qualifiedNativeName(this.dmnTransformer.nativeModelPackageName(containingModels.getName()), this.dmnTransformer.drgElementClassName(decision));
         String nativeOutputTypeName = getJavaTypeName(decision);
-        QName typeRef = makeMetadataTypeRef(containingModels, QualifiedName.toQualifiedName(containingModels, decision.getVariable().getTypeRef()));
+        QName typeRef = makeMetadataTypeRef(containingModels, com.gs.dmn.TypeReference.toTypeReference(containingModels, decision.getVariable().getTypeRef()));
         List<DRGElementReference> references = makeMetadataInformationReferences(decision.getInformationRequirement(), containingModels, multiModels);
         List<DRGElementReference> knowledgeReferences = makeMetadataKnowledgeReferences(decision.getKnowledgeRequirement(), containingModels, multiModels);
         List<ExtensionElement> extensions = getExtensions(decision, containingModels, multiModels);

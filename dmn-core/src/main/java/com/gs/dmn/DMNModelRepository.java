@@ -456,7 +456,7 @@ public class DMNModelRepository {
             return null;
         }
         TDefinitions model = getModel(itemDefinition);
-        return lookupItemDefinition(model, QualifiedName.toQualifiedName(model, itemDefinition.getTypeRef()));
+        return lookupItemDefinition(model, TypeReference.toTypeReference(model, itemDefinition.getTypeRef()));
     }
 
     protected void sortDRGElements(List<? extends TDRGElement> elements) {
@@ -870,23 +870,23 @@ public class DMNModelRepository {
         return typeRef == null;
     }
 
-    public boolean isNull(QualifiedName typeRef) {
+    public boolean isNull(TypeReference typeRef) {
         return typeRef == null;
     }
 
-    public boolean isAny(QualifiedName typeRef) {
-        return typeRef != null && "Any".equals(typeRef.getLocalPart());
+    public boolean isAny(TypeReference typeRef) {
+        return typeRef != null && "Any".equals(typeRef.getName());
     }
 
-    public boolean isNullOrAny(QualifiedName typeRef) {
+    public boolean isNullOrAny(TypeReference typeRef) {
         return isNull(typeRef) || isAny(typeRef);
     }
 
-    public TItemDefinition lookupItemDefinition(TDefinitions model, QualifiedName qualifiedName) {
-        return lookupItemDefinition( model, qualifiedName, new ArrayList<>());
+    public TItemDefinition lookupItemDefinition(TDefinitions model, TypeReference typeReference) {
+        return lookupItemDefinition( model, typeReference, new ArrayList<>());
     }
 
-    public TItemDefinition lookupItemDefinition(TDefinitions parentModel, QualifiedName qName, List<TDefinitions> path) {
+    public TItemDefinition lookupItemDefinition(TDefinitions parentModel, TypeReference qName, List<TDefinitions> path) {
         if (parentModel == null || qName == null) {
             return null;
         }
@@ -899,8 +899,8 @@ public class DMNModelRepository {
         }
 
         // Check user types
-        String prefix = qName.getNamespace();
-        String localPart = qName.getLocalPart();
+        String prefix = qName.getPrefix();
+        String localPart = qName.getName();
         if (StringUtils.isBlank(prefix)) {
             // Search local item definition in parent model
             TItemDefinition referencedItemDef = findLocalItemDefinition(parentModel, localPart);
@@ -915,7 +915,7 @@ public class DMNModelRepository {
                 if (isDMNImport(import_)) {
                     if (StringUtils.isBlank(import_.getName())) {
                         TDefinitions importedModel = findModelByNamespace(import_.getNamespace());
-                        referencedItemDef = lookupItemDefinition(importedModel, QualifiedName.toQualifiedName(importedModel, localPart), newPath);
+                        referencedItemDef = lookupItemDefinition(importedModel, TypeReference.toTypeReference(importedModel, localPart), newPath);
                         if (referencedItemDef != null) {
                             return referencedItemDef;
                         }
@@ -931,7 +931,7 @@ public class DMNModelRepository {
                         // Check imported models
                         TDefinitions importedModel = findModelByNamespace(import_.getNamespace());
                         List<TDefinitions> newPath = makeNewPath(path, parentModel);
-                        TItemDefinition referencedItemDef = lookupItemDefinition(importedModel, QualifiedName.toQualifiedName(importedModel, localPart), newPath);
+                        TItemDefinition referencedItemDef = lookupItemDefinition(importedModel, TypeReference.toTypeReference(importedModel, localPart), newPath);
                         if (referencedItemDef != null) {
                             return referencedItemDef;
                         }
@@ -1086,14 +1086,14 @@ public class DMNModelRepository {
         return list == null || list.isEmpty();
     }
 
-    public QualifiedName variableTypeRef(TDefinitions model, TInformationItem element) {
+    public TypeReference variableTypeRef(TDefinitions model, TInformationItem element) {
         TInformationItem variable = variable(element);
-        return variable == null ? null : QualifiedName.toQualifiedName(model, variable.getTypeRef());
+        return variable == null ? null : TypeReference.toTypeReference(model, variable.getTypeRef());
     }
 
-    public QualifiedName variableTypeRef(TDefinitions model, TDRGElement element) {
+    public TypeReference variableTypeRef(TDefinitions model, TDRGElement element) {
         TInformationItem variable = variable(element);
-        QualifiedName typeRef = variable == null ? null : QualifiedName.toQualifiedName(model, variable.getTypeRef());
+        TypeReference typeRef = variable == null ? null : TypeReference.toTypeReference(model, variable.getTypeRef());
         // Derive from expression
         if (isNull(typeRef) && element instanceof TDecision) {
             typeRef = inferExpressionTypeRef(model, element);
@@ -1101,10 +1101,10 @@ public class DMNModelRepository {
         return typeRef;
     }
 
-    public QualifiedName outputTypeRef(TDefinitions model, TDRGElement element) {
+    public TypeReference outputTypeRef(TDefinitions model, TDRGElement element) {
         // Derive from variable
         TInformationItem variable = variable(element);
-        QualifiedName typeRef = variable == null ? null : QualifiedName.toQualifiedName(model, variable.getTypeRef());
+        TypeReference typeRef = variable == null ? null : TypeReference.toTypeReference(model, variable.getTypeRef());
         // Derive from expression
         if (isNull(typeRef)) {
             typeRef = inferExpressionTypeRef(model, element);
@@ -1112,12 +1112,12 @@ public class DMNModelRepository {
         return typeRef;
     }
 
-    public QualifiedName inferExpressionTypeRef(TDefinitions model, TDRGElement element) {
-        QualifiedName typeRef = null;
+    public TypeReference inferExpressionTypeRef(TDefinitions model, TDRGElement element) {
+        TypeReference typeRef = null;
         // Derive from expression
         TExpression expression = expression(element);
         if (expression != null) {
-            typeRef = QualifiedName.toQualifiedName(model, expression.getTypeRef());
+            typeRef = TypeReference.toTypeReference(model, expression.getTypeRef());
             if (isNull(typeRef)) {
                 if (expression instanceof TContext) {
                     // Derive from return entry
@@ -1126,7 +1126,7 @@ public class DMNModelRepository {
                         if (ce.getVariable() == null) {
                             TExpression returnExp = ce.getExpression();
                             if (returnExp != null) {
-                                typeRef = QualifiedName.toQualifiedName(model, returnExp.getTypeRef());
+                                typeRef = TypeReference.toTypeReference(model, returnExp.getTypeRef());
                             }
                         }
                     }
@@ -1134,12 +1134,12 @@ public class DMNModelRepository {
                     // Derive from output clauses and rules
                     List<TOutputClause> outputList = dt.getOutput();
                     if (outputList.size() == 1) {
-                        typeRef = QualifiedName.toQualifiedName(model, outputList.get(0).getTypeRef());
+                        typeRef = TypeReference.toTypeReference(model, outputList.get(0).getTypeRef());
                         if (isNull(typeRef)) {
                             // Derive from rules
                             List<TDecisionRule> ruleList = dt.getRule();
                             List<TLiteralExpression> outputEntry = ruleList.get(0).getOutputEntry();
-                            typeRef = QualifiedName.toQualifiedName(model, outputEntry.get(0).getTypeRef());
+                            typeRef = TypeReference.toTypeReference(model, outputEntry.get(0).getTypeRef());
                         }
                         // Apply aggregation and hit policy
                         if (dt.getHitPolicy() == THitPolicy.COLLECT) {
@@ -1148,7 +1148,7 @@ public class DMNModelRepository {
                         }
                         TBuiltinAggregator aggregation = dt.getAggregation();
                         if (aggregation == SUM || aggregation == COUNT) {
-                            typeRef = QualifiedName.toQualifiedName((TDefinitions) null, "number");
+                            typeRef = TypeReference.toTypeReference((TDefinitions) null, "number");
                         }
                     }
                 }
@@ -1282,7 +1282,7 @@ public class DMNModelRepository {
     }
 
     public String qualifiedName(QualifiedName qName) {
-        return qualifiedName(qName.getNamespace(), qName.getLocalPart());
+        return qualifiedName(qName.getNamespace(), qName.getName());
     }
 
     public String qualifiedName(TNamedElement element) {

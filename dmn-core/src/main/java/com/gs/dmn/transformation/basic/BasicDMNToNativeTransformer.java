@@ -12,10 +12,7 @@
  */
 package com.gs.dmn.transformation.basic;
 
-import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.DRGElementFilter;
-import com.gs.dmn.DRGElementReference;
-import com.gs.dmn.QualifiedName;
+import com.gs.dmn.*;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.DMNContextKind;
@@ -254,7 +251,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String evaluateElementCommentText(TDRGElement element);
 
-    QualifiedName drgElementOutputTypeRef(TDRGElement element);
+    TypeReference drgElementOutputTypeRef(TDRGElement element);
 
     //
     // InputData related functions
@@ -506,7 +503,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     Type toFEELType(TDefinitions model, String typeName);
 
-    Type toFEELType(TDefinitions model, QualifiedName typeRef);
+    Type toFEELType(TDefinitions model, TypeReference typeRef);
 
     Type toFEELType(TItemDefinition itemDefinition);
 
@@ -691,7 +688,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
         TDefinitions model = getDMNModelRepository().getModel(parentContext.getElement());
         FunctionType functionType = null;
         if (functionTypeRef != null) {
-            functionType = (FunctionType) getDMNEnvironmentFactory().toFEELType(model, QualifiedName.toQualifiedName(model, functionTypeRef));
+            functionType = (FunctionType) getDMNEnvironmentFactory().toFEELType(model, TypeReference.toTypeReference(model, functionTypeRef));
         }
         // Add parameter declarations
         List<TInformationItem> formalParameterList = functionDefinition.getFormalParameter();
@@ -701,7 +698,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
             QName paramTypeRef = param.getTypeRef();
             Type paramType = null;
             if (paramTypeRef != null) {
-                paramType = getDMNEnvironmentFactory().toFEELType(model, QualifiedName.toQualifiedName(model, paramTypeRef));
+                paramType = getDMNEnvironmentFactory().toFEELType(model, TypeReference.toTypeReference(model, paramTypeRef));
             }
             if (paramType == null && functionType != null) {
                 // Infer from function type

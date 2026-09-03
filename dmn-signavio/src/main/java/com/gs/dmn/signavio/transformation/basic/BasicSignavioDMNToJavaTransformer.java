@@ -14,7 +14,7 @@ package com.gs.dmn.signavio.transformation.basic;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
-import com.gs.dmn.QualifiedName;
+import com.gs.dmn.TypeReference;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
@@ -209,7 +209,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
     }
 
     @Override
-    public QualifiedName drgElementOutputTypeRef(TDRGElement element) {
+    public TypeReference drgElementOutputTypeRef(TDRGElement element) {
         if (this.dmnModelRepository.isBKMLinkedToDecision(element)) {
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
             return drgElementOutputTypeRef(outputDecision);

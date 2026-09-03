@@ -12,10 +12,7 @@
  */
 package com.gs.dmn.validation;
 
-import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.ErrorFactory;
-import com.gs.dmn.ModelCoordinates;
-import com.gs.dmn.QualifiedName;
+import com.gs.dmn.*;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.ast.visitor.TraversalVisitor;
 import com.gs.dmn.error.ErrorHandler;
@@ -138,7 +135,7 @@ class TypeRefValidatorVisitor extends TraversalVisitor<TypeRefValidationContext>
             return null;
         }
 
-        String typeRef1 = QualifiedName.toName(typeRef);
+        String typeRef1 = TypeReference.toName(typeRef);
         // Ignore primitive types
         if (isPrimitiveType(typeRef1) || StringUtils.isEmpty(typeRef1)) {
             return typeRef;
@@ -146,8 +143,8 @@ class TypeRefValidatorVisitor extends TraversalVisitor<TypeRefValidationContext>
         TDefinitions model = context.getModel();
         try {
             // Lookup for itemDefinitions starting from the current model
-            QualifiedName qualifiedName = QualifiedName.toQualifiedName(model, typeRef1);
-            TItemDefinition itemDefinition = context.getRepository().lookupItemDefinition(model, qualifiedName);
+            TypeReference typeReference = TypeReference.toTypeReference(model, typeRef1);
+            TItemDefinition itemDefinition = context.getRepository().lookupItemDefinition(model, typeReference);
             if (itemDefinition == null) {
                 // Record error
                 TNamedElement element = context.getElement();

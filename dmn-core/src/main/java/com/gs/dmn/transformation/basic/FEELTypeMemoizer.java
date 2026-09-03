@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.transformation.basic;
 
-import com.gs.dmn.QualifiedName;
+import com.gs.dmn.TypeReference;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
@@ -28,17 +28,17 @@ public class FEELTypeMemoizer {
     private final Map<String, Type> typeOfQName = new LinkedHashMap<>();
     private final Map<TItemDefinition, Type> typeOfItemDefinition = new LinkedHashMap<>();
 
-    public boolean contains(TDefinitions model, QualifiedName qName) {
+    public boolean contains(TDefinitions model, TypeReference qName) {
         String key = makeKey(model, qName);
         return this.typeOfQName.containsKey(key);
     }
 
-    public Type get(TDefinitions model, QualifiedName qName) {
+    public Type get(TDefinitions model, TypeReference qName) {
         String key = makeKey(model, qName);
         return this.typeOfQName.get(key);
     }
 
-    public void put(TDefinitions model, QualifiedName qName, Type type) {
+    public void put(TDefinitions model, TypeReference qName, Type type) {
         String key = makeKey(model, qName);
         this.typeOfQName.put(key, type);
     }
@@ -55,8 +55,8 @@ public class FEELTypeMemoizer {
         this.typeOfItemDefinition.put(itemDefinition, type);
     }
 
-    private String makeKey(TDefinitions model, QualifiedName qName) {
-        return String.format("%s:%s:%s", getModelNamespace(model), qName.getNamespace(), qName.getLocalPart());
+    private String makeKey(TDefinitions model, TypeReference qName) {
+        return String.format("%s:%s:%s", getModelNamespace(model), qName.getPrefix(), qName.getName());
     }
 
     private String getModelNamespace(TDefinitions model) {

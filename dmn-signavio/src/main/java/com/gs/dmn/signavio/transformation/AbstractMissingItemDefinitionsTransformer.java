@@ -13,7 +13,7 @@
 package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.QualifiedName;
+import com.gs.dmn.TypeReference;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.log.BuildLogger;
@@ -51,7 +51,7 @@ public abstract class AbstractMissingItemDefinitionsTransformer extends SimpleDM
     protected DMNModelRepository addNewDefinitions(DMNModelRepository repository, List<TItemDefinition> itemDefinitionList) {
         TDefinitions model = getDefinitions(repository);
         for (TItemDefinition definition : itemDefinitionList) {
-            TItemDefinition existingDefinition = repository.lookupItemDefinition(model, QualifiedName.toQualifiedName(model, definition.getName()));
+            TItemDefinition existingDefinition = repository.lookupItemDefinition(model, TypeReference.toTypeReference(model, definition.getName()));
             if (existingDefinition != null) {
                 if (definitionsAreEquivalent(definition, existingDefinition)) {
                     logger.warn(String.format("Matching definition already exists for \"%s\"; no definition will be generated", definition.getName()));

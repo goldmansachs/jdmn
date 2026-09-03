@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.transformation.basic;
 
-import com.gs.dmn.QualifiedName;
+import com.gs.dmn.TypeReference;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.Declaration;
@@ -51,7 +51,7 @@ public interface DMNEnvironmentFactory {
     //
     Type toFEELType(TDefinitions model, String typeName);
 
-    Type toFEELType(TDefinitions model, QualifiedName typeRef);
+    Type toFEELType(TDefinitions model, TypeReference typeRef);
 
     Type toFEELType(TItemDefinition itemDefinition);
 

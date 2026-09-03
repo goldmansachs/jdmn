@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.serialization.xstream;
 
-import com.gs.dmn.QualifiedName;
+import com.gs.dmn.TypeReference;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.serialization.AbstractDMNSerializationTest;
 import com.gs.dmn.serialization.DMNSerializer;
@@ -92,7 +92,7 @@ public class XMLDMNSerializerTest extends AbstractDMNSerializationTest {
         List<TOutputClause> outputList = table.getOutput();
         assertEquals(1, outputList.size());
         TOutputClause output = outputList.get(0);
-        assertEquals(stringType, QualifiedName.toName(output.getTypeRef()));
+        assertEquals(stringType, TypeReference.toName(output.getTypeRef()));
         assertEquals("output1", output.getId());
         assertEquals("", output.getName());
 
@@ -112,7 +112,7 @@ public class XMLDMNSerializerTest extends AbstractDMNSerializationTest {
 
     private void assertLiteralExpression(TLiteralExpression inputExpression, String stringType, String id, String text) {
         assertEquals(id, inputExpression.getId());
-        assertEquals(stringType, QualifiedName.toName(inputExpression.getTypeRef()));
+        assertEquals(stringType, TypeReference.toName(inputExpression.getTypeRef()));
         assertEquals(text, inputExpression.getText());
     }
 

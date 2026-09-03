@@ -13,7 +13,7 @@
 package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.QualifiedName;
+import com.gs.dmn.TypeReference;
 import com.gs.dmn.ast.TDecision;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.ast.TItemDefinition;
@@ -89,8 +89,8 @@ public class SimplifyTypesForMIDTransformer extends SimpleDMNTransformer<TestLab
                     MultiInstanceDecisionLogic midLogic = signavioRepository.getExtension().multiInstanceDecisionLogic(decision);
                     TDecision bodyDecision = midLogic.getTopLevelDecision();
                     TDefinitions bodyDecisionModel = repository.getModel(bodyDecision);
-                    QualifiedName midDecisionTypeRef = signavioRepository.outputTypeRef(decisionModel, decision);
-                    QualifiedName bodyDecisionTypeRef = signavioRepository.outputTypeRef(bodyDecisionModel, bodyDecision);
+                    TypeReference midDecisionTypeRef = signavioRepository.outputTypeRef(decisionModel, decision);
+                    TypeReference bodyDecisionTypeRef = signavioRepository.outputTypeRef(bodyDecisionModel, bodyDecision);
                     Type midType = basicTransformer.toFEELType(decisionModel, midDecisionTypeRef);
                     Type bodyDecisionType = basicTransformer.toFEELType(bodyDecisionModel, bodyDecisionTypeRef);
                     if (midType instanceof ListType) {
@@ -98,11 +98,11 @@ public class SimplifyTypesForMIDTransformer extends SimpleDMNTransformer<TestLab
                         if (com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(midElementType, bodyDecisionType)
                                 && (basicTransformer.isComplexType(bodyDecisionType) || basicTransformer.isListOfComplexType(bodyDecisionType))) {
                             TItemDefinition midItemDefinitionType = signavioRepository.lookupItemDefinition(decisionModel, midDecisionTypeRef);
-                            String importName = bodyDecisionTypeRef.getNamespace();
+                            String importName = bodyDecisionTypeRef.getPrefix();
                             if (StringUtils.isEmpty(importName)) {
-                                midItemDefinitionType.setTypeRef(new QName(String.format("%s", bodyDecisionTypeRef.getLocalPart())));
+                                midItemDefinitionType.setTypeRef(new QName(String.format("%s", bodyDecisionTypeRef.getName())));
                             } else {
-                                midItemDefinitionType.setTypeRef(new QName(String.format("%s.%s", importName, bodyDecisionTypeRef.getLocalPart())));
+                                midItemDefinitionType.setTypeRef(new QName(String.format("%s.%s", importName, bodyDecisionTypeRef.getName())));
                             }
                             midItemDefinitionType.getItemComponent().clear();
                         }

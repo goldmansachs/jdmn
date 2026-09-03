@@ -263,10 +263,10 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     //
     private Type informationItemType(TBusinessKnowledgeModel bkm, TInformationItem element) {
         TDefinitions model = this.dmnModelRepository.getModel(bkm);
-        String typeRef = QualifiedName.toName(element.getTypeRef());
+        String typeRef = TypeReference.toName(element.getTypeRef());
         Type type = null;
         if (!StringUtils.isEmpty(typeRef)) {
-            type = toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
+            type = toFEELType(model, TypeReference.toTypeReference(model, typeRef));
         }
         return type;
     }
@@ -932,9 +932,9 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public QualifiedName drgElementOutputTypeRef(TDRGElement element) {
+    public TypeReference drgElementOutputTypeRef(TDRGElement element) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
-        QualifiedName typeRef = this.dmnModelRepository.outputTypeRef(model, element);
+        TypeReference typeRef = this.dmnModelRepository.outputTypeRef(model, element);
         if (this.dmnModelRepository.isNull(typeRef)) {
             throw new SemanticErrorException(String.format("Cannot infer return type for BKM '%s'", element.getName()));
         }
@@ -1005,10 +1005,10 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         // Infer from expression
         List<FormalParameter<Type>> parameters = new ArrayList<>();
         for (TInformationItem p : bkm.getEncapsulatedLogic().getFormalParameter()) {
-            String typeRef = QualifiedName.toName(p.getTypeRef());
+            String typeRef = TypeReference.toName(p.getTypeRef());
             Type type = null;
             if (!StringUtils.isEmpty(typeRef)) {
-                type = toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
+                type = toFEELType(model, TypeReference.toTypeReference(model, typeRef));
             }
             parameters.add(new FormalParameter<>(p.getName(), type));
         }
@@ -1223,7 +1223,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     private String parameterType(TDefinitions model, TInformationItem element) {
-        QualifiedName typeRef = this.dmnModelRepository.variableTypeRef(model, element);
+        TypeReference typeRef = this.dmnModelRepository.variableTypeRef(model, element);
         if (this.dmnModelRepository.isNull(typeRef)) {
             throw new IllegalArgumentException(String.format("Cannot resolve typeRef for element '%s'", element.getName()));
         }
@@ -1801,7 +1801,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public Type toFEELType(TDefinitions model, QualifiedName typeRef) {
+    public Type toFEELType(TDefinitions model, TypeReference typeRef) {
         return this.dmnEnvironmentFactory.toFEELType(model, typeRef);
     }
 

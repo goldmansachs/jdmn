@@ -13,7 +13,7 @@
 package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.QualifiedName;
+import com.gs.dmn.TypeReference;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
@@ -87,7 +87,7 @@ public class InferMissingItemDefinitionsTransformer extends AbstractMissingItemD
                 } else if (isPrimitive(type) || isListOfPrimitive(type)) {
                     if (!resolvedElements.contains(element)) {
                         // Create ItemDefinition and add it
-                        String name = QualifiedName.toName(repository.variable(element).getTypeRef());
+                        String name = TypeReference.toName(repository.variable(element).getTypeRef());
                         boolean isCollection = type instanceof ListType;
                         String typeRef = getTypeRef(type);
                         TItemDefinition itemDefinition = makeItemDefinition(idSequence, name, isCollection, typeRef);
@@ -172,7 +172,7 @@ public class InferMissingItemDefinitionsTransformer extends AbstractMissingItemD
     private Type inferType(TDRGElement element, DMNModelRepository repository, BasicDMNToJavaTransformer dmnTransformer, DMNEnvironmentFactory dmnEnvironmentFactory) {
         Type type = null;
         try {
-            QualifiedName typeRef = null;
+            TypeReference typeRef = null;
             TDefinitions model = repository.getModel(element);
             if (element instanceof TDecision) {
                 typeRef = repository.inferExpressionTypeRef(model, element);

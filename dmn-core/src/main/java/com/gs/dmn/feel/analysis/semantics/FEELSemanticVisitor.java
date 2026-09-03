@@ -14,6 +14,7 @@ package com.gs.dmn.feel.analysis.semantics;
 
 import com.gs.dmn.ErrorFactory;
 import com.gs.dmn.ModelCoordinates;
+import com.gs.dmn.TypeReference;
 import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.context.DMNContext;
@@ -1109,7 +1110,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         if (context != null && context.getElement() != null) {
             model = this.dmnModelRepository.getModel(context.getElement());
         }
-        com.gs.dmn.QualifiedName typeRef = com.gs.dmn.QualifiedName.toQualifiedName(model, element.getQualifiedName());
+        TypeReference typeRef = TypeReference.toTypeReference(model, element.getQualifiedName());
         element.setType(this.dmnTransformer.toFEELType(model, typeRef));
         return element;
     }

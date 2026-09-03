@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.runtime.interpreter;
 
-import com.gs.dmn.QualifiedName;
+import com.gs.dmn.TypeReference;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.Declaration;
@@ -73,8 +73,7 @@ public class TypeChecker {
             actualType = YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION;
         } else if (value instanceof DMNType) {
             return valueType(((DMNType) value).toContext(), expectedType);
-        } else if (value instanceof Context) {
-            Context context = (Context) value;
+        } else if (value instanceof Context context) {
             ContextType contextType = new ContextType();
             for (Object key : context.keySet()) {
                 String member = (String) key;
@@ -185,7 +184,7 @@ public class TypeChecker {
         }
 
         // Check result
-        QualifiedName typeRef = QualifiedName.toQualifiedName(model, variable.getTypeRef());
+        TypeReference typeRef = TypeReference.toTypeReference(model, variable.getTypeRef());
         if (typeRef != null) {
             Type expectedType = dmnTransformer.toFEELType(model, typeRef);
             result = checkBindingResult(result, expectedType);
@@ -225,7 +224,7 @@ public class TypeChecker {
         }
 
         // Check constraints
-        Type expressionType = dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
+        Type expressionType = dmnTransformer.toFEELType(model, TypeReference.toTypeReference(model, typeRef));
         return checkConstraints(result, expressionType);
     }
 
@@ -236,7 +235,7 @@ public class TypeChecker {
 
     public Result checkListElement(Result elementResult, QName typeRef, TDefinitions model) {
         if (typeRef != null) {
-            Type type = dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
+            Type type = dmnTransformer.toFEELType(model, TypeReference.toTypeReference(model, typeRef));
             elementResult = checkExpressionResult(elementResult, type);
         }
         return elementResult;
@@ -259,7 +258,7 @@ public class TypeChecker {
 
     public Result checkOutputClause(Result result, TOutputClause outputClause, TLiteralExpression outputExpression, TDefinitions model) {
         QName typeRef = outputClauseTypeRef(outputClause, outputExpression);
-        Type paramType = typeRef == null ? null : dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
+        Type paramType = typeRef == null ? null : dmnTransformer.toFEELType(model, TypeReference.toTypeReference(model, typeRef));
         return checkBindingResult(result, paramType);
     }
 

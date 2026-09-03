@@ -14,7 +14,7 @@ package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.Graph;
-import com.gs.dmn.QualifiedName;
+import com.gs.dmn.TypeReference;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.error.SemanticError;
@@ -75,8 +75,8 @@ public class CyclicItemDefinitionsValidator extends SimpleDMNValidator {
             List<TItemDefinition> itemDefinitions = repository.findTopLevelItemDefinitions(definitions);
             for (TItemDefinition itemDef : itemDefinitions) {
                 QName typeRef = itemDef.getTypeRef();
-                QualifiedName qualifiedName = QualifiedName.toQualifiedName(definitions, typeRef);
-                TItemDefinition referencedItemDef = repository.lookupItemDefinition(definitions, qualifiedName);
+                TypeReference typeReference = TypeReference.toTypeReference(definitions, typeRef);
+                TItemDefinition referencedItemDef = repository.lookupItemDefinition(definitions, typeReference);
                 if (referencedItemDef != null) {
                     graph.addEdge(itemDef, referencedItemDef);
                 }

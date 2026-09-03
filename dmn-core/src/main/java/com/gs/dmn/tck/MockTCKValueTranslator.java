@@ -13,7 +13,7 @@
 package com.gs.dmn.tck;
 
 import com.gs.dmn.DRGElementReference;
-import com.gs.dmn.QualifiedName;
+import com.gs.dmn.TypeReference;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.AnyType;
@@ -164,7 +164,7 @@ public class MockTCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
             return null;
         }
 
-        return this.repository.lookupItemDefinition(model, QualifiedName.toQualifiedName(model, typeRef));
+        return this.repository.lookupItemDefinition(model, TypeReference.toTypeReference(model, typeRef));
     }
 
     private TItemDefinition elementItemDefinition(TItemDefinition itemDefinition) {

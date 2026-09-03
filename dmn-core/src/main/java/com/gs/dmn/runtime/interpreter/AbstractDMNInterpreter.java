@@ -142,7 +142,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                 TDRGElement drgElementByName = findInputData(model, entry.getKey());
                 if (drgElementByName instanceof TInputData inputData) {
                     TInformationItem variable = inputData.getVariable();
-                    String originalTypeRef = QualifiedName.toName(variable.getTypeRef());
+                    String originalTypeRef = TypeReference.toName(variable.getTypeRef());
                     if (Type.isNullOrAny(originalTypeRef)) {
                         String inferredType = null;
                         if (feelLib.isNumber(value)) {
@@ -186,11 +186,11 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
     private TDRGElement findInputData(TDefinitions model, QualifiedName qualifiedName) {
         try {
             String namespace = qualifiedName.getNamespace();
-            String localPart = qualifiedName.getLocalPart();
+            String name = qualifiedName.getName();
             if (StringUtils.isBlank(namespace)) {
-                return this.repository.findDRGElementByName(model, localPart);
+                return this.repository.findDRGElementByName(model, name);
             } else {
-                return this.repository.findDRGElementByName(namespace, localPart);
+                return this.repository.findDRGElementByName(namespace, name);
             }
         } catch (Exception e) {
             return null;
@@ -384,10 +384,10 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
         for (int i = 0; i < formalParameterList.size(); i++) {
             TInformationItem param = formalParameterList.get(i);
             String name = param.getName();
-            String paramTypeRef = QualifiedName.toName(param.getTypeRef());
+            String paramTypeRef = TypeReference.toName(param.getTypeRef());
             Type paramType = null;
             if (!StringUtils.isEmpty(paramTypeRef)) {
-                paramType = this.dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, paramTypeRef));
+                paramType = this.dmnTransformer.toFEELType(model, TypeReference.toTypeReference(model, paramTypeRef));
             }
             Object value = argList.get(i);
 
@@ -715,7 +715,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                     if (variable != null) {
                         // Determine entry type
                         String entryName = variable.getName();
-                        String typeRef = QualifiedName.toName(variable.getTypeRef());
+                        String typeRef = TypeReference.toName(variable.getTypeRef());
                         Type entryType;
                         Result entryResult = entryResultMap.get(entry);
                         if (StringUtils.isEmpty(typeRef)) {
@@ -774,7 +774,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             if (listTypeRef == null) {
                 listType = new ListType(firstElementType);
             } else {
-                listType = dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, listTypeRef));
+                listType = dmnTransformer.toFEELType(model, TypeReference.toTypeReference(model, listTypeRef));
             }
 
             // Check result
@@ -838,7 +838,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             if (listTypeRef == null) {
                 relationType = new ListType(firstRowType);
             } else {
-                relationType = dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, listTypeRef));
+                relationType = dmnTransformer.toFEELType(model, TypeReference.toTypeReference(model, listTypeRef));
             }
 
             // Check result

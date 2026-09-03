@@ -67,8 +67,8 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
             DMNModelRepository repository = new SignavioDMNModelRepository(definitions, SIG_EXT_NAMESPACE);
             DMNInterpreter<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> interpreter = this.dialectDefinition.createDMNInterpreter(repository, this.inputParameters);
 
-            TDefinitions rootDefintions = getDefinitions(repository);
-            TDecision decision = (TDecision) repository.findDRGElementByName(rootDefintions, decisionName);
+            TDefinitions rootDefinitions = getDefinitions(repository);
+            TDecision decision = (TDecision) repository.findDRGElementByName(rootDefinitions, decisionName);
             DRGElementReference<TDecision> reference = repository.makeDRGElementReference(decision);
             Map<QualifiedName, Object> informationRequirements = new LinkedHashMap<>();
             for (Map.Entry<String, Object> entry : bindings.entrySet()) {
@@ -79,7 +79,7 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
 
             assertEquals(expectedResult, actualValue, errorMessage);
         } catch (Exception e) {
-            throw e;
+            throw new RuntimeException(e);
         }
     }
 

@@ -13,7 +13,7 @@
 package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.QualifiedName;
+import com.gs.dmn.TypeReference;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.feel.analysis.semantics.type.FEELType;
 import com.gs.dmn.log.BuildLogger;
@@ -104,7 +104,7 @@ public class InOutCorrectPathsInDecisionsTransformer extends SimpleDMNTransforme
         TDefinitions model = repository.getModel(decision);
         QName typeRef = variable.getTypeRef();
         do {
-            TItemDefinition itemDefinition = repository.lookupItemDefinition(model, QualifiedName.toQualifiedName(model, typeRef));
+            TItemDefinition itemDefinition = repository.lookupItemDefinition(model, TypeReference.toTypeReference(model, typeRef));
             if (itemDefinition == null || itemDefinition.getTypeRef() == null) {
                 return false;
             }

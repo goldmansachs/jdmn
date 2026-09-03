@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.signavio.transformation.basic;
 
-import com.gs.dmn.QualifiedName;
+import com.gs.dmn.TypeReference;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.Declaration;
@@ -114,7 +114,7 @@ public class SignavioDMNEnvironmentFactory extends StandardDMNEnvironmentFactory
             } else {
                 TFunctionDefinition functionDefinition = bkm.getEncapsulatedLogic();
                 functionDefinition.getFormalParameter().forEach(
-                        p -> parentEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(p.getName(), toFEELType(childModel, QualifiedName.toQualifiedName(childModel, p.getTypeRef())))));
+                        p -> parentEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(p.getName(), toFEELType(childModel, TypeReference.toTypeReference(childModel, p.getTypeRef())))));
                 declaration = makeInvocableDeclaration(bkm);
             }
         } else if (child instanceof TDecision) {

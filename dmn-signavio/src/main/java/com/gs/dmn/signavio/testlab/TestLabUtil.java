@@ -13,7 +13,7 @@
 package com.gs.dmn.signavio.testlab;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.QualifiedName;
+import com.gs.dmn.TypeReference;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
@@ -269,9 +269,9 @@ public class TestLabUtil {
     public TItemDefinition elementType(TItemDefinition type) {
         TDefinitions model = this.repository.getModel(type);
         if (type.isIsCollection()) {
-            String typeRef = QualifiedName.toName(type.getTypeRef());
+            String typeRef = TypeReference.toName(type.getTypeRef());
             if (!this.repository.isNull(typeRef)) {
-                return this.repository.lookupItemDefinition(model, QualifiedName.toQualifiedName(model, typeRef));
+                return this.repository.lookupItemDefinition(model, TypeReference.toTypeReference(model, typeRef));
             }
             List<TItemDefinition> itemComponent = type.getItemComponent();
             if (itemComponent.size() == 1) {
@@ -384,7 +384,7 @@ public class TestLabUtil {
             TDRGElement element = findDRGElement(parameterDefinition);
             TDefinitions model = this.repository.getModel(element);
             String typeRef = getTypeRef(parameterDefinition);
-            return transformer.toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
+            return transformer.toFEELType(model, TypeReference.toTypeReference(model, typeRef));
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot resolve FEEL type for requirementId requirement '%s' in DM '%s'", parameterDefinition.getId(), parameterDefinition.getModelName()));
         }
@@ -394,16 +394,16 @@ public class TestLabUtil {
         String typeRef = getTypeRef(parameterDefinition);
         TDRGElement element = findDRGElement(parameterDefinition);
         TDefinitions model = this.repository.getModel(element);
-        return transformer.getDMNModelRepository().lookupItemDefinition(model, QualifiedName.toQualifiedName(model, typeRef));
+        return transformer.getDMNModelRepository().lookupItemDefinition(model, TypeReference.toTypeReference(model, typeRef));
     }
 
     private String getTypeRef(ParameterDefinition parameterDefinition) {
         TDRGElement element = findDRGElement(parameterDefinition);
         String typeRef;
         if (element instanceof TInputData) {
-            typeRef = QualifiedName.toName(((TInputData) element).getVariable().getTypeRef());
+            typeRef = TypeReference.toName(((TInputData) element).getVariable().getTypeRef());
         } else if (element instanceof TDecision) {
-            typeRef = QualifiedName.toName(((TDecision) element).getVariable().getTypeRef());
+            typeRef = TypeReference.toName(((TDecision) element).getVariable().getTypeRef());
         } else {
             throw new UnsupportedOperationException(String.format("Cannot resolve FEEL type for requirementId requirement '%s'. '%s' not supported", parameterDefinition.getId(), element.getClass().getSimpleName()));
         }

@@ -10,46 +10,45 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.transformation.basic;
+package com.gs.dmn;
 
-import com.gs.dmn.QualifiedName;
 import com.gs.dmn.ast.TDefinitions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class QualifiedNameTest {
+public class TypeReferenceTest {
     @Test
     public void testConstructorWithNullString() {
-        QualifiedName qualifiedName = QualifiedName.toQualifiedName((TDefinitions) null, (String) null);
-        assertNull(qualifiedName);
+        TypeReference typeReference = TypeReference.toTypeReference((TDefinitions) null, (String) null);
+        assertNull(typeReference);
     }
 
     @Test
     public void testConstructorWithEmptyString() {
-        QualifiedName qualifiedName = QualifiedName.toQualifiedName((TDefinitions) null, "");
-        assertNull(qualifiedName);
+        TypeReference typeReference = TypeReference.toTypeReference((TDefinitions) null, "");
+        assertNull(typeReference);
     }
 
     @Test
     public void testConstructorForFEELTypes() {
-        QualifiedName qualifiedName = QualifiedName.toQualifiedName((TDefinitions) null,"feel.string");
-        assertEquals("feel", qualifiedName.getNamespace());
-        assertEquals("string", qualifiedName.getLocalPart());
+        TypeReference typeReference = TypeReference.toTypeReference((TDefinitions) null,"feel.string");
+        assertEquals("feel", typeReference.getPrefix());
+        assertEquals("string", typeReference.getName());
     }
 
     @Test
     public void testConstructorWhenMissingNamespace() {
-        QualifiedName qualifiedName = QualifiedName.toQualifiedName((TDefinitions) null,"abc");
-        assertNull(qualifiedName.getNamespace());
-        assertEquals("abc", qualifiedName.getLocalPart());
+        TypeReference typeReference = TypeReference.toTypeReference((TDefinitions) null,"abc");
+        assertNull(typeReference.getPrefix());
+        assertEquals("abc", typeReference.getName());
     }
 
     @Test
     public void testConstructorWhenDotInName() {
-        QualifiedName qualifiedName = QualifiedName.toQualifiedName((TDefinitions) null,"test.abc");
-        assertNull(qualifiedName.getNamespace());
-        assertEquals("test.abc", qualifiedName.getLocalPart());
+        TypeReference typeReference = TypeReference.toTypeReference((TDefinitions) null,"test.abc");
+        assertNull(typeReference.getPrefix());
+        assertEquals("test.abc", typeReference.getName());
     }
 }

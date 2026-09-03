@@ -12,92 +12,29 @@
  */
 package com.gs.dmn;
 
-import com.gs.dmn.ast.TDefinitions;
-import com.gs.dmn.ast.TImport;
-import com.gs.dmn.ast.TItemDefinition;
-import com.gs.dmn.feel.analysis.semantics.type.FEELType;
-import com.gs.dmn.serialization.DMNVersion;
-
-import javax.xml.namespace.QName;
-import java.util.Objects;
-
 public class QualifiedName {
-    public static String toName(QName qName) {
-        return qName == null ? null : qName.getLocalPart();
-    }
-
-    public static QualifiedName toQualifiedName(TDefinitions model, QName qName) {
-        if (qName == null) {
-            return null;
-        } else {
-            return toQualifiedName(model, qName.getLocalPart());
-        }
-    }
-
-    public static QualifiedName toQualifiedName(TDefinitions model, String qName) {
-        if (qName == null || qName.isEmpty()) {
-            return null;
-        }
-
-        // Check user defined types
-        if (model != null) {
-            // Check the imports
-            for (TImport import_: model.getImport()) {
-                String importName = import_.getName();
-                if (hasPrefix(qName, importName)) {
-                    String localPart = qName.substring(qName.indexOf('.') + 1);
-                    return new QualifiedName(importName, localPart);
-                }
-            }
-            // Check the types defined in the model
-            for (TItemDefinition itemDefinition: model.getItemDefinition()) {
-                if (Objects.equals(itemDefinition.getName(), qName)) {
-                    return new QualifiedName(null, qName);
-                }
-            }
-        }
-
-        // Check FEEL types with and without prefix
-        if (hasPrefix(qName, DMNVersion.LATEST.getFeelPrefix())) {
-            String prefix = DMNVersion.LATEST.getFeelPrefix();
-            String localPart = qName.substring(qName.indexOf('.') + 1);
-            return new QualifiedName(prefix, localPart);
-        } else {
-            if (FEELType.FEEL_TYPE_NAMES.contains(qName)) {
-                return new QualifiedName(DMNVersion.LATEST.getFeelPrefix(), qName);
-            } else {
-                return new QualifiedName(null, qName);
-            }
-        }
-
-    }
-
-    public static QualifiedName toQualifiedName(String namespace, String localName) {
-        return new QualifiedName(namespace, localName);
-    }
-
-    private static boolean hasPrefix(String qName, String importName) {
-        return qName.startsWith(importName + '.');
+    public static QualifiedName toQualifiedName(String namespace, String name) {
+        return new QualifiedName(namespace, name);
     }
 
     private final String namespace;
-    private final String localPart;
+    private final String name;
 
-    private QualifiedName(String namespace, String localPart) {
+    private QualifiedName(String namespace, String name) {
         this.namespace = namespace;
-        this.localPart = localPart;
+        this.name = name;
     }
 
     public String getNamespace() {
         return this.namespace;
     }
 
-    public String getLocalPart() {
-        return this.localPart;
+    public String getName() {
+        return this.name;
     }
 
     @Override
     public String toString() {
-        return String.format("QualifiedName(%s, %s)", this.namespace, this.localPart);
+        return String.format("QualifiedName(%s, %s)", this.namespace, this.name);
     }
 }

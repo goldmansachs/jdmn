@@ -1,7 +1,7 @@
 package com.gs.dmn.signavio;
 
 import com.gs.dmn.AbstractTest;
-import com.gs.dmn.QualifiedName;
+import com.gs.dmn.TypeReference;
 import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.ast.TItemDefinition;
@@ -47,7 +47,7 @@ class SignavioDMNModelRepositoryTest extends AbstractTest {
         assertNull(this.dmnModelRepository.getGlossaryId(null));
         TDefinitions model = getDefinitions(this.dmnModelRepository);
         assertNotNull(model);
-        TItemDefinition itemDefinition = this.dmnModelRepository.lookupItemDefinition(model, QualifiedName.toQualifiedName(model, "creditIssueType"));
+        TItemDefinition itemDefinition = this.dmnModelRepository.lookupItemDefinition(model, TypeReference.toTypeReference(model, "creditIssueType"));
         assertNotNull(itemDefinition);
         assertEquals("3aa8101e7bad40dd87d293f33b5ae045", this.dmnModelRepository.getGlossaryId(itemDefinition));
     }

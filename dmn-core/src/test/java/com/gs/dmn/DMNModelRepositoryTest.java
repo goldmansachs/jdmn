@@ -292,12 +292,12 @@ public class DMNModelRepositoryTest extends AbstractTest {
 
         // Test import with prefixes
         TDefinitions model = repository.findModelByNamespace("http://www.example.com/definitions/item-definition-cycle");
-        QualifiedName qName1 = QualifiedName.toQualifiedName(model, "modela.modelb.Other");
+        TypeReference qName1 = TypeReference.toTypeReference(model, "modela.modelb.Other");
         TItemDefinition itemDefinition1 = repository.lookupItemDefinition(model, qName1);
         assertEquals("Other", itemDefinition1.getName());
 
         // Test import with one empty prefix
-        QualifiedName qName2 = QualifiedName.toQualifiedName(model, "modelb.Other");
+        TypeReference qName2 = TypeReference.toTypeReference(model, "modelb.Other");
         TItemDefinition itemDefinition2 = repository.lookupItemDefinition(model, qName2);
         assertEquals("Other", itemDefinition2.getName());
     }
@@ -379,34 +379,34 @@ public class DMNModelRepositoryTest extends AbstractTest {
         assertEquals(node, this.dmnModelRepository.next(next));
 
         // Test lookupItemDefinition() for root types and member types
-        assertEquals(t1, this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName("", "t1")));
-        assertEquals(t1, this.dmnModelRepository.lookupItemDefinition(modelB, QualifiedName.toQualifiedName(prefixA, "t1")));
-        assertEquals(t2, this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName("","t2")));
-        assertEquals(t2, this.dmnModelRepository.lookupItemDefinition(modelB, QualifiedName.toQualifiedName(prefixA,"t2")));
-        assertEquals(other, this.dmnModelRepository.lookupItemDefinition(modelB, QualifiedName.toQualifiedName("","other")));
-        assertEquals(other, this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName(prefixB,"other")));
+        assertEquals(t1, this.dmnModelRepository.lookupItemDefinition(modelA, TypeReference.toTypeReference("", "t1")));
+        assertEquals(t1, this.dmnModelRepository.lookupItemDefinition(modelB, TypeReference.toTypeReference(prefixA, "t1")));
+        assertEquals(t2, this.dmnModelRepository.lookupItemDefinition(modelA, TypeReference.toTypeReference("","t2")));
+        assertEquals(t2, this.dmnModelRepository.lookupItemDefinition(modelB, TypeReference.toTypeReference(prefixA,"t2")));
+        assertEquals(other, this.dmnModelRepository.lookupItemDefinition(modelB, TypeReference.toTypeReference("","other")));
+        assertEquals(other, this.dmnModelRepository.lookupItemDefinition(modelA, TypeReference.toTypeReference(prefixB,"other")));
 
-        assertEquals(node, this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName("", "node")));
-        assertNull(this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName("","key")));
-        assertNull(this.dmnModelRepository.lookupItemDefinition(modelB, QualifiedName.toQualifiedName(prefixA,"key")));
-        assertEquals(defDefinition, this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName(prefixB,"def")));
-        assertEquals(defDefinition, this.dmnModelRepository.lookupItemDefinition(modelB, QualifiedName.toQualifiedName("","def")));
+        assertEquals(node, this.dmnModelRepository.lookupItemDefinition(modelA, TypeReference.toTypeReference("", "node")));
+        assertNull(this.dmnModelRepository.lookupItemDefinition(modelA, TypeReference.toTypeReference("","key")));
+        assertNull(this.dmnModelRepository.lookupItemDefinition(modelB, TypeReference.toTypeReference(prefixA,"key")));
+        assertEquals(defDefinition, this.dmnModelRepository.lookupItemDefinition(modelA, TypeReference.toTypeReference(prefixB,"def")));
+        assertEquals(defDefinition, this.dmnModelRepository.lookupItemDefinition(modelB, TypeReference.toTypeReference("","def")));
         if (StringUtils.isBlank(prefixA)) {
             // Finds definition
-            assertEquals(defDefinition, this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName("","def")));
+            assertEquals(defDefinition, this.dmnModelRepository.lookupItemDefinition(modelA, TypeReference.toTypeReference("","def")));
         } else {
             // Cannot find reference as is a child
-            assertNull(this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName("","def")));
+            assertNull(this.dmnModelRepository.lookupItemDefinition(modelA, TypeReference.toTypeReference("","def")));
         }
         if (StringUtils.isBlank(prefixB)) {
             // Finds definition
-            assertEquals(defDefinition, this.dmnModelRepository.lookupItemDefinition(modelB, QualifiedName.toQualifiedName(prefixA, "def")));
+            assertEquals(defDefinition, this.dmnModelRepository.lookupItemDefinition(modelB, TypeReference.toTypeReference(prefixA, "def")));
         } else {
             // Cannot find reference as is a child
-            assertNull(this.dmnModelRepository.lookupItemDefinition(modelB, QualifiedName.toQualifiedName(prefixA, "def")));
+            assertNull(this.dmnModelRepository.lookupItemDefinition(modelB, TypeReference.toTypeReference(prefixA, "def")));
         }
-        assertNull(this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName("","next")));
-        assertNull(this.dmnModelRepository.lookupItemDefinition(modelB, QualifiedName.toQualifiedName(prefixA,"next")));
+        assertNull(this.dmnModelRepository.lookupItemDefinition(modelA, TypeReference.toTypeReference("","next")));
+        assertNull(this.dmnModelRepository.lookupItemDefinition(modelB, TypeReference.toTypeReference(prefixA,"next")));
     }
 
     private TItemDefinition findItemDefinition(TDefinitions modelA, String name) {
