@@ -346,6 +346,21 @@ public class DMNModelRepository {
         return definitions.getImport();
     }
 
+    public String findNamespace(TDefinitions definitions, String prefix) {
+        if (DMNVersion.LATEST.getFeelPrefix().equals(prefix)) {
+            return DMNVersion.LATEST.getFeelNamespace();
+        }
+        if (StringUtils.isBlank(prefix)) {
+            prefix = "";
+        }
+        for (TImport import_ : definitions.getImport()) {
+            if (isDMNImport(import_) && import_.getName().equals(prefix)) {
+                return import_.getNamespace();
+            }
+        }
+        return "";
+    }
+
     public List<TItemDefinition> findTopLevelItemDefinitions(TDefinitions definitions) {
         return definitions.getItemDefinition();
     }
@@ -883,7 +898,7 @@ public class DMNModelRepository {
     }
 
     public TItemDefinition lookupItemDefinition(TDefinitions model, TypeReference typeReference) {
-        return lookupItemDefinition( model, typeReference, new ArrayList<>());
+        return lookupItemDefinition(model, typeReference, new ArrayList<>());
     }
 
     public TItemDefinition lookupItemDefinition(TDefinitions parentModel, TypeReference qName, List<TDefinitions> path) {
@@ -900,22 +915,21 @@ public class DMNModelRepository {
 
         // Check user types
         String prefix = qName.getPrefix();
-        String localPart = qName.getName();
+        String name = qName.getName();
         if (StringUtils.isBlank(prefix)) {
             // Search local item definition in parent model
-            TItemDefinition referencedItemDef = findLocalItemDefinition(parentModel, localPart);
+            TItemDefinition referencedItemDef = findLocalItemDefinition(parentModel, name);
             if (referencedItemDef != null) {
                 return referencedItemDef;
             }
 
             // Search in imported models with empty prefix
             List<TImport> importList = parentModel.getImport();
-            List<TDefinitions> newPath = makeNewPath(path, parentModel);
             for (TImport import_ :importList) {
                 if (isDMNImport(import_)) {
                     if (StringUtils.isBlank(import_.getName())) {
                         TDefinitions importedModel = findModelByNamespace(import_.getNamespace());
-                        referencedItemDef = lookupItemDefinition(importedModel, TypeReference.toTypeReference(importedModel, localPart), newPath);
+                        referencedItemDef = findLocalItemDefinition(importedModel, name);
                         if (referencedItemDef != null) {
                             return referencedItemDef;
                         }
@@ -930,8 +944,7 @@ public class DMNModelRepository {
                     if (import_.getName().equals(prefix)) {
                         // Check imported models
                         TDefinitions importedModel = findModelByNamespace(import_.getNamespace());
-                        List<TDefinitions> newPath = makeNewPath(path, parentModel);
-                        TItemDefinition referencedItemDef = lookupItemDefinition(importedModel, TypeReference.toTypeReference(importedModel, localPart), newPath);
+                        TItemDefinition referencedItemDef = findLocalItemDefinition(importedModel, name);
                         if (referencedItemDef != null) {
                             return referencedItemDef;
                         }

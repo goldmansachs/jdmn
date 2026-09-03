@@ -294,12 +294,12 @@ public class DMNModelRepositoryTest extends AbstractTest {
         TDefinitions model = repository.findModelByNamespace("http://www.example.com/definitions/item-definition-cycle");
         TypeReference qName1 = TypeReference.toTypeReference(model, "modela.modelb.Other");
         TItemDefinition itemDefinition1 = repository.lookupItemDefinition(model, qName1);
-        assertEquals("Other", itemDefinition1.getName());
+        assertNull(itemDefinition1);
 
         // Test import with one empty prefix
         TypeReference qName2 = TypeReference.toTypeReference(model, "modelb.Other");
         TItemDefinition itemDefinition2 = repository.lookupItemDefinition(model, qName2);
-        assertEquals("Other", itemDefinition2.getName());
+        assertNull(itemDefinition2);
     }
 
     @Test

@@ -43,13 +43,15 @@ public class TypeReference {
         }
 
         // Check user defined types
+        int dotIndex = qName.indexOf(TYPE_REFERENCE_SEPARATOR);
+        String prefix = dotIndex == -1 ? null : qName.substring(0, dotIndex);
+        String name = dotIndex == -1 ? qName : qName.substring(dotIndex + 1);
         if (model != null) {
             // Check the imports
             for (TImport import_: model.getImport()) {
                 String importName = import_.getName();
-                if (hasPrefix(qName, importName)) {
-                    String localPart = qName.substring(qName.indexOf(TYPE_REFERENCE_SEPARATOR) + 1);
-                    return new TypeReference(importName, localPart);
+                if (importName.equals(prefix)) {
+                    return new TypeReference(prefix, name);
                 }
             }
             // Check the types defined in the model
@@ -61,26 +63,19 @@ public class TypeReference {
         }
 
         // Check FEEL types with and without prefix
-        if (hasPrefix(qName, DMNVersion.LATEST.getFeelPrefix())) {
-            String prefix = DMNVersion.LATEST.getFeelPrefix();
-            String localPart = qName.substring(qName.indexOf(TYPE_REFERENCE_SEPARATOR) + 1);
-            return new TypeReference(prefix, localPart);
+        if (DMNVersion.LATEST.getFeelPrefix().equals(prefix)) {
+            return new TypeReference(prefix, name);
         } else {
             if (FEELType.FEEL_TYPE_NAMES.contains(qName)) {
                 return new TypeReference(DMNVersion.LATEST.getFeelPrefix(), qName);
-            } else {
-                return new TypeReference(null, qName);
             }
         }
 
+        return new TypeReference(prefix, name);
     }
 
     public static TypeReference toTypeReference(String prefix, String name) {
         return new TypeReference(prefix, name);
-    }
-
-    private static boolean hasPrefix(String qName, String importName) {
-        return qName.startsWith(importName + TYPE_REFERENCE_SEPARATOR);
     }
 
     private final String prefix;

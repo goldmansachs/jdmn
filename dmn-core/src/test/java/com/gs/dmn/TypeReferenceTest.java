@@ -48,7 +48,7 @@ public class TypeReferenceTest {
     @Test
     public void testConstructorWhenDotInName() {
         TypeReference typeReference = TypeReference.toTypeReference((TDefinitions) null,"test.abc");
-        assertNull(typeReference.getPrefix());
-        assertEquals("test.abc", typeReference.getName());
+        assertEquals("test", typeReference.getPrefix());
+        assertEquals("abc", typeReference.getName());
     }
 }
