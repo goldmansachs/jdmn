@@ -19,6 +19,7 @@ import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.error.SemanticErrorException;
 import com.gs.dmn.error.ValidationError;
+import com.gs.dmn.feel.analysis.semantics.type.FEELType;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.serialization.DMNVersion;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 //
 // Check the following modelling style rules:
@@ -43,6 +45,12 @@ import java.util.Set;
 //
 // Context expressions:
 //  - Nested expressions in a context are not allowed. All context entries should be literal expressions
+//
+// Names:
+//  - Names should contain only alphanumeric characters, underscores, dashes and spaces, , and should start with an alphanumeric character.
+//  - Names should not end with whitespace, including tabs, newlines, and carriage returns
+//  - Item definition names should not be FEEL type names.
+//  - Import names should contain only alphanumeric characters, underscores and spaces, and should start with a letter.
 //
 public class DMNModellingStyleValidator extends SimpleDMNValidator {
     public DMNModellingStyleValidator() {
@@ -61,13 +69,13 @@ public class DMNModellingStyleValidator extends SimpleDMNValidator {
         }
 
         ValidationContext context = new ValidationContext(repository);
-
-        List<TDefinitions> allDefinitions = repository.getAllDefinitions();
-        for (TDefinitions definitions : allDefinitions) {
+        for (TDefinitions definitions : repository.getAllDefinitions()) {
+            // Visit model
             context.setDefinitions(definitions);
             DMNModellingStyleValidatorVisitor visitor = new DMNModellingStyleValidatorVisitor(this.logger, this.errorHandler, ruleName());
             definitions.accept(visitor, context);
 
+            // Validate imported and used models
             validateImportedModelsExist(definitions, visitor.importedModels, context);
             validateImportedModelsAreUsed(definitions, visitor.importedModels, visitor.usedModels, context);
             validateUsedModelsAreImported(definitions, visitor.importedModels, visitor.usedModels, context);
@@ -130,6 +138,9 @@ public class DMNModellingStyleValidator extends SimpleDMNValidator {
 }
 
 class DMNModellingStyleValidatorVisitor extends TraversalVisitor<ValidationContext> {
+    private static final Pattern NAME_PATTERN = Pattern.compile("^[A-Za-z0-9][A-Za-z0-9-_ ]*$");
+    private static final Pattern IMPORT_NAME_PATTERN = Pattern.compile("^[A-Za-z][A-Za-z0-9_]*$");
+
     private final String ruleName;
     final Set<String> importedModels = new LinkedHashSet<>();
     final Set<String> usedModels = new LinkedHashSet<>();
@@ -140,10 +151,20 @@ class DMNModellingStyleValidatorVisitor extends TraversalVisitor<ValidationConte
     }
 
     @Override
+    public DMNBaseElement visit(TDefinitions element, ValidationContext context) {
+        if (element != null) {
+            validateName(element, context);
+        }
+
+        return super.visit(element, context);
+    }
+
+    @Override
     public DMNBaseElement visit(TImport element, ValidationContext context) {
         // Collect imported models
         if (element != null) {
             collectImportedModel(element, context);
+            validateImportName(element, context);
         }
 
         return super.visit(element, context);
@@ -153,6 +174,52 @@ class DMNModellingStyleValidatorVisitor extends TraversalVisitor<ValidationConte
     public DMNBaseElement visit(TItemDefinition element, ValidationContext context) {
         if (element != null) {
             validateNestedItemDefinitions(element, context);
+            validateItemDefinitionName(element, context);
+        }
+
+        return super.visit(element, context);
+    }
+
+    @Override
+    public DMNBaseElement visit(TInputData element, ValidationContext context) {
+        if (element != null) {
+            validateName(element, context);
+        }
+
+        return super.visit(element, context);
+    }
+
+    @Override
+    public DMNBaseElement visit(TDecision element, ValidationContext context) {
+        if (element != null) {
+            validateName(element, context);
+        }
+
+        return super.visit(element, context);
+    }
+
+    @Override
+    public DMNBaseElement visit(TBusinessKnowledgeModel element, ValidationContext context) {
+        if (element != null) {
+            validateName(element, context);
+        }
+
+        return super.visit(element, context);
+    }
+
+    @Override
+    public DMNBaseElement visit(TDecisionService element, ValidationContext context) {
+        if (element != null) {
+            validateName(element, context);
+        }
+
+        return super.visit(element, context);
+    }
+
+    @Override
+    public DMNBaseElement visit(TInformationItem element, ValidationContext context) {
+        if (element != null) {
+            validateName(element, context);
         }
 
         return super.visit(element, context);
@@ -250,6 +317,53 @@ class DMNModellingStyleValidatorVisitor extends TraversalVisitor<ValidationConte
     private void collectUsedNamespace(String namespace) {
         if (!StringUtils.isBlank(namespace) && !DMNVersion.LATEST.getFeelNamespace().equals(namespace)) {
             this.usedModels.add(namespace);
+        }
+    }
+
+    // Names should contain only alphanumeric characters, underscores, dashes and spaces, and should start with an alphanumeric character.
+    private void validateName(TNamedElement element, ValidationContext context) {
+        String name = element.getName();
+        if (!StringUtils.isBlank(name)) {
+            // Check if name contains invalid characters
+            if (!NAME_PATTERN.matcher(name).matches()) {
+                String errorMessage = String.format("Name '%s' contains invalid characters. Names should contain only alphanumeric characters, underscores, dashes and spaces, and should start with an alphanumeric character.", name);
+                TDefinitions definitions = context.getDefinitions();
+                SemanticError error = ErrorFactory.makeDMNWarning(new ModelCoordinates(definitions, element), errorMessage);
+                context.addError(new ValidationError(error, this.ruleName));
+            }
+            // Check if name ends with whitespace, including tabs, newlines, and carriage returns
+            if (Character.isWhitespace(name.charAt(name.length() - 1))) {
+                String errorMessage = String.format("Name '%s' ends with a whitespace.", name);
+                TDefinitions definitions = context.getDefinitions();
+                SemanticError error = ErrorFactory.makeDMNWarning(new ModelCoordinates(definitions, element), errorMessage);
+                context.addError(new ValidationError(error, this.ruleName));
+            }
+        }
+    }
+
+    // Item definition names should not be FEEL type names.
+    private void validateItemDefinitionName(TItemDefinition element, ValidationContext context) {
+        validateName(element, context);
+        // Check if name is not a FEEL type name
+        if (FEELType.FEEL_TYPE_NAMES.contains(element.getName())) {
+            String errorMessage = String.format("Item definition name '%s' is a FEEL type name which is not allowed.", element.getName());
+            TDefinitions definitions = context.getDefinitions();
+            SemanticError error = ErrorFactory.makeDMNWarning(new ModelCoordinates(definitions, element), errorMessage);
+            context.addError(new ValidationError(error, this.ruleName));
+        }
+    }
+
+    // Import names should contain only alphanumeric characters, underscores and spaces, and should start with a letter.
+    private void validateImportName(TNamedElement element, ValidationContext context) {
+        String name = element.getName();
+        if (!StringUtils.isBlank(name)) {
+            // Check if name contains invalid characters
+            if (!IMPORT_NAME_PATTERN.matcher(name).matches()) {
+                String errorMessage = String.format("Import name '%s' contains invalid characters. Import names should contain only alphanumeric characters and underscores, and should start with a letter.", name);
+                TDefinitions definitions = context.getDefinitions();
+                SemanticError error = ErrorFactory.makeDMNWarning(new ModelCoordinates(definitions, element), errorMessage);
+                context.addError(new ValidationError(error, this.ruleName));
+            }
         }
     }
 }

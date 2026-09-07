@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:feel="https://www.omg.org/spec/DMN/20230324/FEEL/"
+             id="test-dmn-modelling-style-names" name="test-dmn-modelling-style-names "
+             namespace="http://test.example.com/test-dmn-modelling-style-names"
+            >
+
+    <import name="badImport.name" namespace="" importType=""/>
+    <import name="Bad Import Name" namespace="" importType=""/>
+
+    <itemDefinition id="it01" name="string">
+        <typeRef>string</typeRef>
+    </itemDefinition>
+
+    <itemDefinition id="id02" name=" start space">
+        <typeRef>string</typeRef>
+    </itemDefinition>
+
+    <itemDefinition id="id03" name="end space ">
+        <typeRef>string</typeRef>
+    </itemDefinition>
+
+    <inputData id="i001" name="-invalidStart">
+        <variable id="i001var" name="-invalidVarStart" typeRef="string"/>
+    </inputData>
+
+    <decision id="d001" name="bad.name">
+        <variable id="decision1_var" name="badVar.name" typeRef="string"/>
+    </decision>
+
+    <decisionService name="badDS.name" id="ds001">
+        <variable id="ds001var" name="badDSVar.name" typeRef="string"/>
+        <outputDecision href="#d001"/>
+    </decisionService>
+
+    <businessKnowledgeModel name="badBKM.name" id="bkm001">
+        <variable id="bkm001var" name="badBKMVar.name" typeRef="string"/>
+    </businessKnowledgeModel>
+</definitions>
