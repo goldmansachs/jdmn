@@ -51,6 +51,7 @@ import java.util.regex.Pattern;
 //  - Names should not end with whitespace, including tabs, newlines, and carriage returns
 //  - Item definition names should not be FEEL type names.
 //  - Import names should contain only alphanumeric characters, underscores and spaces, and should start with a letter.
+//  - Labels are deprecated and should not be used.
 //
 public class DMNModellingStyleValidator extends SimpleDMNValidator {
     public DMNModellingStyleValidator() {
@@ -321,7 +322,9 @@ class DMNModellingStyleValidatorVisitor extends TraversalVisitor<ValidationConte
     }
 
     // Names should contain only alphanumeric characters, underscores, dashes and spaces, and should start with an alphanumeric character.
+    // Labels are deprecated and should not be used.
     private void validateName(TNamedElement element, ValidationContext context) {
+        // Check name
         String name = element.getName();
         if (!StringUtils.isBlank(name)) {
             // Check if name contains invalid characters
@@ -338,6 +341,14 @@ class DMNModellingStyleValidatorVisitor extends TraversalVisitor<ValidationConte
                 SemanticError error = ErrorFactory.makeDMNWarning(new ModelCoordinates(definitions, element), errorMessage);
                 context.addError(new ValidationError(error, this.ruleName));
             }
+        }
+        // Check label
+        String label = element.getLabel();
+        if (!StringUtils.isBlank(label)) {
+            String errorMessage = String.format("Label '%s' is deprecated and should not be used.", label);
+            TDefinitions definitions = context.getDefinitions();
+            SemanticError error = ErrorFactory.makeDMNWarning(new ModelCoordinates(definitions, element), errorMessage);
+            context.addError(new ValidationError(error, this.ruleName));
         }
     }
 

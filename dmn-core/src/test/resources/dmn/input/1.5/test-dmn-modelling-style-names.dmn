@@ -32,7 +32,7 @@
         <outputDecision href="#d001"/>
     </decisionService>
 
-    <businessKnowledgeModel name="badBKM.name" id="bkm001">
-        <variable id="bkm001var" name="badBKMVar.name" typeRef="string"/>
+    <businessKnowledgeModel name="badBKM.name" id="bkm001" label="Deprecated Label">
+        <variable id="bkm001var" name="badBKMVar.name" typeRef="string" label="Deprecated Variable Label"/>
     </businessKnowledgeModel>
 </definitions>
