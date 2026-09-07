@@ -43,6 +43,9 @@ import java.util.regex.Pattern;
 // Item definitions:
 //  - Nested item definitions are not allowed. Complex types should be modelled separately.
 //
+// Decision services:
+//  - A decision service should expose exactly one output decision.
+//
 // Context expressions:
 //  - Nested expressions in a context are not allowed. All context entries should be literal expressions
 //
@@ -212,6 +215,7 @@ class DMNModellingStyleValidatorVisitor extends TraversalVisitor<ValidationConte
     public DMNBaseElement visit(TDecisionService element, ValidationContext context) {
         if (element != null) {
             validateName(element, context);
+            validateOutputDecisionCount(element, context);
         }
 
         return super.visit(element, context);
@@ -375,6 +379,17 @@ class DMNModellingStyleValidatorVisitor extends TraversalVisitor<ValidationConte
                 SemanticError error = ErrorFactory.makeDMNWarning(new ModelCoordinates(definitions, element), errorMessage);
                 context.addError(new ValidationError(error, this.ruleName));
             }
+        }
+    }
+
+    // A decision service should expose exactly one output decision.
+    private void validateOutputDecisionCount(TDecisionService element, ValidationContext context) {
+        List<TDMNElementReference> outputDecision = element.getOutputDecision();
+        if (outputDecision != null && outputDecision.size() > 1) {
+            String errorMessage = String.format("DecisionService '%s' should have only one output decision.", element.getName());
+            TDefinitions definitions = context.getDefinitions();
+            SemanticError error = ErrorFactory.makeDMNWarning(new ModelCoordinates(definitions, element), errorMessage);
+            context.addError(new ValidationError(error, this.ruleName));
         }
     }
 }

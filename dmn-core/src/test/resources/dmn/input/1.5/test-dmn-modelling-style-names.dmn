@@ -27,9 +27,14 @@
         <variable id="decision1_var" name="badVar.name" typeRef="string"/>
     </decision>
 
+    <decision id="d002" name="safe decision">
+        <variable id="decision2_var" name="safeDecision" typeRef="string"/>
+    </decision>
+
     <decisionService name="badDS.name" id="ds001">
         <variable id="ds001var" name="badDSVar.name" typeRef="string"/>
         <outputDecision href="#d001"/>
+        <outputDecision href="#d002"/>
     </decisionService>
 
     <businessKnowledgeModel name="badBKM.name" id="bkm001" label="Deprecated Label">
