@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:feel="https://www.omg.org/spec/DMN/20230324/FEEL/"
              id="test-dmn-modelling-style" name="test-dmn-modelling-style"
-             namespace="http://test.example.com/test-dmn-modelling-style">
+             namespace="http://test.example.com/test-dmn-modelling-style"
+            >
 
-     <itemDefinition id="primitiveType" name="primitiveType">
+    <import name="model-a" importType="https://www.omg.org/spec/DMN/20230324/MODEL/" namespace="http://test.example.com/model-a" />
+    <import name="model-b" importType="https://www.omg.org/spec/DMN/20230324/MODEL/" namespace="http://test.example.com/model-b" />
+    <import name="model-c" importType="https://www.omg.org/spec/DMN/20230324/MODEL/" namespace="http://test.example.com/model-c" />
+
+    <itemDefinition id="primitiveType" name="primitiveType">
         <typeRef>string</typeRef>
      </itemDefinition>
 
@@ -62,4 +67,25 @@
             </contextEntry>
         </context>
     </decision>
+
+    <decision name="UseImportedType">
+        <variable name="useImportedType" typeRef="model-b.Person"/>
+    </decision>
+
+    <decision name="UseImportedDecision">
+        <variable name="useImportedDecision" typeRef="number"/>
+        <informationRequirement>
+            <requiredDecision href="http://test.example.com/model-c#A"/>
+        </informationRequirement>
+    </decision>
+
+    <decision name="UseMissingImportType">
+        <variable name="useImportedType" typeRef="model-d.Person"/>
+    </decision>
+
+    <decisionService name="UseImportedDecisionService">
+        <outputDecision href="http://test.example.com/model-e#do"/>
+        <inputData href="http://test.example.com/model-f#ida"/>
+        <inputDecision href="http://test.example.com/model-g#ide"/>
+    </decisionService>
 </definitions>

@@ -1378,7 +1378,7 @@ public class DMNModelRepository {
     }
 
     // absolute URI is a namespace
-    protected String extractNamespaceURI(String href) {
+    public String extractNamespaceURI(String href) {
         String namespace = null;
         if (isAbsoluteURI(href)) {
             namespace = href.substring(0, href.indexOf(HREF_SEPARATOR));
