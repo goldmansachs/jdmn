@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" id="definitions" name="test-dictionary-incorrect"
+             namespace="http://test.example.org/dmn/dictionary-incorrect">
+    <itemDefinition id="it1" name="Person">
+        <itemComponent name="name" id="ic1">
+            <typeRef>string</typeRef>
+        </itemComponent>
+    </itemDefinition>
+
+    <itemDefinition id="it2" name="">
+        <typeRef>string</typeRef>
+    </itemDefinition>
+
+    <itemDefinition id="it3" name="Incorrect name #">
+        <typeRef>string</typeRef>
+    </itemDefinition>
+
+    <itemDefinition id="it4" name="Missing typeRef definition">
+        <typeRef>abc</typeRef>
+    </itemDefinition>
+
+    <decision id="d1" name="A Decision">
+        <variable name="A Decision" typeRef="number"/>
+        <literalExpression>
+            <text>1</text>
+        </literalExpression>
+    </decision>
+</definitions>

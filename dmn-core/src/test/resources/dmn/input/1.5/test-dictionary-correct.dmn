@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" id="definitions" name="test-dictionary-correct"
+             namespace="http://test.example.org/dmn/dictionary-correct">
+    <itemDefinition id="it1" name="Person">
+        <itemComponent name="name" id="ic1">
+            <typeRef>string</typeRef>
+        </itemComponent>
+    </itemDefinition>
+</definitions>
