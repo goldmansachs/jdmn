@@ -168,7 +168,7 @@
                                         <banLatest>true</banLatest>
                                         <banRelease>true</banRelease>
                                         <banSnapshots>${ban.snapshot}</banSnapshots>
-                                        <phases>clean,deploy,site</phases>`
+                                        <phases>clean,deploy,site</phases>
                                         <unCheckedPluginList>com.goldmansachs.jdmn:jdmn-maven-plugin,
                                             org.jetbrains.kotlin:kotlin-maven-plugin
                                         </unCheckedPluginList>
