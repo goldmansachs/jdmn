@@ -2,6 +2,7 @@
 <definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" id="definitions" name="test-dmn"
              namespace="http://example.org/dmn">
     <import name="dec1" namespace="" importType=""/>
+    <import name="test-empty-container" namespace="" importType=""/>
 
     <itemDefinition name="test-empty-container">
     </itemDefinition>

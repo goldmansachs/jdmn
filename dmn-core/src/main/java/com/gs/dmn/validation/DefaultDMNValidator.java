@@ -156,7 +156,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         }
     }
 
-    protected void validateUnique(TDefinitions definitions, List<? extends TDMNElement> elements, String elementType, String property, boolean isOptionalProperty, Function<TDMNElement, String> accessor, String errorMessage, ValidationContext context) {
+    protected void validateUnique(TDefinitions definitions, List<? extends TDMNElement> elements, String elementType, String property, Function<TDMNElement, String> accessor, String errorMessage, ValidationContext context) {
         if (errorMessage == null) {
             errorMessage = "The %s of a %s must be unique.".formatted(property, elementType);
         }
@@ -164,7 +164,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         Map<String, List<TDMNElement>> map = new LinkedHashMap<>();
         for (TDMNElement element : elements) {
             String key = accessor.apply(element);
-            if (key != null && !isOptionalProperty) {
+            if (key != null) {
                 List<TDMNElement> list = map.get(key);
                 if (list == null) {
                     list = new ArrayList<>();
@@ -191,7 +191,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         }
     }
 
-    private void validateUniqueReferences(TDefinitions definitions, List<? extends TDMNElementReference> elements, String elementType, String property, boolean isOptionalProperty, Function<TDMNElementReference, String> accessor, String errorMessage, ValidationContext context) {
+    private void validateUniqueReferences(TDefinitions definitions, List<? extends TDMNElementReference> elements, String elementType, String property, Function<TDMNElementReference, String> accessor, String errorMessage, ValidationContext context) {
         if (errorMessage == null) {
             errorMessage = "The %s of a %s must be unique.".formatted(property, elementType);
         }
@@ -199,7 +199,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         Map<String, List<TDMNElementReference>> map = new LinkedHashMap<>();
         for (TDMNElementReference element : elements) {
             String key = accessor.apply(element);
-            if (!isOptionalProperty || key != null) {
+            if (key != null) {
                 List<TDMNElementReference> list = map.get(key);
                 if (list == null) {
                     list = new ArrayList<>();
@@ -232,8 +232,8 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
             String errorMessage = "Missing id for element %s".formatted(element.getClass().getSimpleName());
             addValidationError(context, definitions, element, errorMessage);
         }
-        // Name is mandatory in XSD
-        if (element.getName() == null) {
+        // Name is mandatory in XSD, but XSD validation does not report empty names
+        if (StringUtils.isBlank(element.getName())) {
             String errorMessage = "Missing name for element %s".formatted(element.getClass().getSimpleName());
             addValidationError(context, definitions, element, errorMessage);
         }
@@ -249,14 +249,14 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         }
 
         // validate element/variable/name
-        if (variable.getName() == null) {
+        if (StringUtils.isBlank(variable.getName())) {
             String errorMessage = "Missing variable name";
             addValidationError(context, definitions, element, errorMessage);
         } else {
             // element/@name == element/variable/@name
             String variableName = variable.getName();
             String elementName = element.getName();
-            if (!elementName.equals(variableName)) {
+            if (!variableName.equals(elementName)) {
                 String errorMessage = "DRGElement name and variable name should be the same. Found '%s' and '%s'".formatted(elementName, variableName);
                 addValidationError(context, definitions, element, errorMessage);
             }
@@ -282,7 +282,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
                         return ir.getRequiredDecision().getHref();
                     }
                 };
-        validateUnique(definitions, informationRequirements, "TInformationRequirement", "href", false,
+        validateUnique(definitions, informationRequirements, "TInformationRequirement", "href",
                 accessor, decision.getName(), context);
     }
 
@@ -290,7 +290,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         // Validate requirements
         Function<TDMNElementReference, String> accessor =
                 TDMNElementReference::getHref;
-        validateUniqueReferences(definitions, references, "TDMNElementReference", "href", false,
+        validateUniqueReferences(definitions, references, "TDMNElementReference", "href",
                 accessor, element.getName(), context);
     }
 
@@ -309,7 +309,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
                 addValidationError(context, definitions, element, errorMessage);
             } else {
                 validateUnique(
-                        definitions, contextEntryList, "TContextEntry", "name", false,
+                        definitions, contextEntryList, "TContextEntry", "name",
                         entryAccessor, null, context
                 );
             }
@@ -401,7 +401,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         }
         // Names are unique within the formal parameters of a function definition.
         validateUnique(
-                definitions, formalParameter, "TInformationItem", "name", false,
+                definitions, formalParameter, "TInformationItem", "name",
                 e -> ((TInformationItem) e).getName(), null, context
         );
     }
@@ -580,25 +580,55 @@ class DefaultDMNValidatorVisitor extends TraversalVisitor<ValidationContext> {
     public DMNBaseElement visit(TDefinitions element, ValidationContext context) {
         if (element != null) {
             DMNModelRepository repository = context.getRepository();
-
-            logger.debug("Validate unique 'DRGElement.id'");
+            // Use notBlankImportElements as empty imports are allowed and not-empty validation is done for each element (e.g. DRGElement, ItemDefinition).
+            List<TImport> notBlankImportElements = element.getImport().stream().filter(i -> StringUtils.isNotBlank(i.getName())).toList();
             List<TDRGElement> drgElements = repository.findDRGElements(element);
-            this.validator.validateUnique(
-                    element, new ArrayList<>(drgElements), "DRGElement", "id", false,
-                    TDMNElement::getId, null, context
-            );
+            List<TItemDefinition> topLevelItemDefinitions = repository.findTopLevelItemDefinitions(element);
 
-            logger.debug("Validate unique 'DRGElement.name' and 'Import.name'");
-            List<TNamedElement> namedElements = new ArrayList<>(drgElements);
-            namedElements.addAll(element.getImport().stream().filter(i -> StringUtils.isNotBlank(i.getName())).toList());
+            //
+            // Validate Imports
+            //
+            // Import.name is unique across all Imports
+            logger.debug("Validate unique 'Import.name'");
             this.validator.validateUnique(
-                    element, new ArrayList<>(namedElements), "DRGElement", "name", false,
+                    element, new ArrayList<>(notBlankImportElements), "Import", "name",
+                    e -> ((TNamedElement) e).getName(), null, context
+            );
+            // Validate Import.name is distinct from DRGElement.name and ItemDefinition.name
+            // 6.3.3 Import metamodel
+            // ... the import name, which is typically a short business-friendly name,must be distinct from the names of other imports,
+            // decisions, input data, business knowledge models, decision services, and item definitions within the importing
+            // model only. Multiple imports with empty import names are allowed in the default namespace and their
+            // precedence is resolved according to their definition order
+            for (TImport importElement : notBlankImportElements) {
+                String prefix = importElement.getName();
+                if (drgElements.stream().anyMatch(drgElement -> prefix.equals(drgElement.getName()))) {
+                    String errorMessage = String.format("The name '%s' of the import is already used by a DRGElement", prefix);
+                    this.validator.addValidationError(context, element, importElement, errorMessage);
+                }
+                if (topLevelItemDefinitions.stream().anyMatch(itemDefinition -> prefix.equals(itemDefinition.getName()))) {
+                    String errorMessage = String.format("The name '%s' of the import is already used by a top level ItemDefinition", prefix);
+                    this.validator.addValidationError(context, element, importElement, errorMessage);
+                }
+            }
+
+            //
+            // Validate DRG elements
+            //
+            // DRGElement.name is unique across all DRG elements
+            logger.debug("Validate unique 'DRGElement.name'");
+            this.validator.validateUnique(
+                    element, new ArrayList<>(drgElements), "DRGElement", "name",
                     e -> ((TNamedElement) e).getName(), null, context
             );
 
+            //
+            // Validate ItemDefinitions
+            //
+            // ItemDefinition.name is unique across all top level ItemDefinitions
             logger.debug("Validate unique 'ItemDefinition.name'");
             this.validator.validateUnique(
-                    element, new ArrayList<>(repository.findTopLevelItemDefinitions(element)), "ItemDefinition", "name", false,
+                    element, new ArrayList<>(topLevelItemDefinitions), "ItemDefinition", "name",
                     e -> ((TNamedElement) e).getName(), null, context
             );
 
