@@ -45,6 +45,7 @@ import java.util.regex.Pattern;
 //
 // Decision services:
 //  - A decision service should expose exactly one output decision.
+//  - A decision service should not expose any input decision.
 //
 // Context expressions:
 //  - Nested expressions in a context are not allowed. All context entries should be literal expressions
@@ -216,6 +217,7 @@ class DMNModellingStyleValidatorVisitor extends TraversalVisitor<ValidationConte
         if (element != null) {
             validateName(element, context);
             validateOutputDecisionCount(element, context);
+            validateInputDecisionCount(element, context);
         }
 
         return super.visit(element, context);
@@ -387,6 +389,17 @@ class DMNModellingStyleValidatorVisitor extends TraversalVisitor<ValidationConte
         List<TDMNElementReference> outputDecision = element.getOutputDecision();
         if (outputDecision != null && outputDecision.size() > 1) {
             String errorMessage = String.format("DecisionService '%s' should have only one output decision.", element.getName());
+            TDefinitions definitions = context.getDefinitions();
+            SemanticError error = ErrorFactory.makeDMNWarning(new ModelCoordinates(definitions, element), errorMessage);
+            context.addError(new ValidationError(error, this.ruleName));
+        }
+    }
+
+    // A decision service should not expose any input decision.
+    private void validateInputDecisionCount(TDecisionService element, ValidationContext context) {
+        List<TDMNElementReference> inputDecision = element.getInputDecision();
+        if (inputDecision != null && !inputDecision.isEmpty()) {
+            String errorMessage = String.format("DecisionService '%s' should not expose any input decision.", element.getName());
             TDefinitions definitions = context.getDefinitions();
             SemanticError error = ErrorFactory.makeDMNWarning(new ModelCoordinates(definitions, element), errorMessage);
             context.addError(new ValidationError(error, this.ruleName));
