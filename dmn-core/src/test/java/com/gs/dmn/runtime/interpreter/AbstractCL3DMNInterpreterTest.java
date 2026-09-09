@@ -638,6 +638,11 @@ public abstract class AbstractCL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIM
     }
 
     @Test
+    public void test_15_cl3_0085_decision_services() {
+        doFolderTest("1.5", "0085-decision-services");
+    }
+
+    @Test
     public void test_15_cl3_0089_nested_inputdata_imports() {
         doFolderTest("1.5", "0089-nested-inputdata-imports");
     }

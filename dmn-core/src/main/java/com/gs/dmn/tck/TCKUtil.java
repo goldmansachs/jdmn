@@ -518,12 +518,25 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     private List<Object> makeArgs(TDRGElement drgElement, Map<QualifiedName, Object> inputs) {
         List<Object> args = new ArrayList<>();
-        if (drgElement instanceof TInvocable) {
-            // Preserve the order in the call
+        if (drgElement instanceof TBusinessKnowledgeModel) {
+            // Preserve the order in the call, bound by simple name
             List<FormalParameter<Type>> formalParameters = this.transformer.invocableFEELParameters(drgElement);
             for (FormalParameter<Type> parameter: formalParameters) {
                 for (Map.Entry<QualifiedName, Object> entry : inputs.entrySet()) {
                     if (entry.getKey().getName().equals(parameter.getName())) {
+                        args.add(entry.getValue());
+                    }
+                }
+            }
+        } else if (drgElement instanceof TDecisionService ds) {
+            // Preserve the order in the call, bound by qualified name using the prefix
+            List<DRGElementReference<? extends TDRGElement>> serviceInputRefs = this.dmnModelRepository.dsInputs(ds);
+            for (DRGElementReference<? extends TDRGElement> serviceInputRef : serviceInputRefs) {
+                String childNamespace = serviceInputRef.getNamespace();
+                String childName = serviceInputRef.getElementName();
+                for (Map.Entry<QualifiedName, Object> entry : inputs.entrySet()) {
+                    QualifiedName key = entry.getKey();
+                    if (key.getNamespace().equals(childNamespace) && key.getName().equals(childName)) {
                         args.add(entry.getValue());
                     }
                 }

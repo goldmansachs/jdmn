@@ -680,7 +680,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         }
         // Derive from decisions
         DMNContext context = this.dmnTransformer.makeGlobalContext(decisionService);
-        List<DRGElementReference<TDecision>> outputDecisionRefs = this.dmnModelRepository.directOutputDecisions(decisionService);
+        List<DRGElementReference<TDecision>> outputDecisionRefs = this.dmnModelRepository.directSubDecisions(decisionService);
         if (outputDecisionRefs.size() == 1) {
             TDecision decision = outputDecisionRefs.get(0).getElement();
             String decisionName = decision.getName();
@@ -690,9 +690,26 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             ContextType type = new ContextType();
             for (DRGElementReference<TDecision> outputDecisionRef: outputDecisionRefs) {
                 TDecision outputDecision = outputDecisionRef.getElement();
-                String decisionName = outputDecision.getName();
-                VariableDeclaration declaration = (VariableDeclaration) context.lookupVariableDeclaration(decisionName);
-                type.addMember(decisionName, Collections.emptyList(), declaration.getType());
+                ImportPath outputDecisionImportPath = outputDecisionRef.getImportPath();
+                if (ImportPath.isEmpty(outputDecisionImportPath)) {
+                    // Same model or empty prefix
+                    String decisionName = outputDecision.getName();
+                    VariableDeclaration declaration = (VariableDeclaration) context.lookupVariableDeclaration(decisionName);
+                    type.addMember(decisionName, Collections.emptyList(), declaration.getType());
+                } else {
+                    // With prefix
+                    String prefix = outputDecisionImportPath.getPathElements().get(0);
+                    VariableDeclaration contextDeclaration = (VariableDeclaration) context.lookupVariableDeclaration(prefix);
+                    Type prefixType = contextDeclaration.getType();
+                    if (prefixType instanceof ContextType contextType) {
+                        String decisionName = outputDecision.getName();
+                        Type memberType = contextType.getMemberType(decisionName);
+                        String memberName = this.dmnModelRepository.dsChildQName(outputDecisionRef);
+                        type.addMember(memberName, Collections.emptyList(), memberType);
+                    } else {
+                        throw new SemanticErrorException("Expected context type for prefix '%s', found '%s'".formatted(prefix, prefixType));
+                    }
+                }
             }
             return type;
         }

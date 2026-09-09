@@ -390,6 +390,7 @@
         new com.gs.dmn.runtime.LambdaExpression<${transformer.drgElementOutputType(drgElement)}>() {
             public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.lambdaApplySignature()}) {
             <@extractParametersFromArgs transformer.drgElementSignatureParameters(drgElement)/>
+            <@addMissingArgumentsForInputDecisions transformer.missingInputDecisionsArguments(drgElement)/>
 
             <@applySubDecisionsIndent "        " drgElement/>
             <#assign stm = transformer.serviceToNative(drgElement)>
@@ -405,11 +406,24 @@
 </#macro>
 
 <#macro extractParametersFromArgs arguments>
-            <#list transformer.drgElementSignatureParameters(drgElement) as argument>
+            <#list transformer.drgElementSignatureParameters(drgElement)>
+                <#items as argument>
                 ${transformer.extractParameterFromArgs(argument, argument?index)}
+                </#items>
             </#list>
-            <#list transformer.extractExtraParametersFromExecutionContext() as stm>
+            <#list transformer.extractExtraParametersFromExecutionContext()>
+                <#items as stm>
                 ${stm}
+                </#items>
+            </#list>
+</#macro>
+
+<#macro addMissingArgumentsForInputDecisions arguments>
+            <#list arguments>
+                // Add missing arguments for input decisions
+                <#items as argument>
+                ${argument}
+                </#items>
             </#list>
 </#macro>
 

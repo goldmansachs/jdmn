@@ -381,6 +381,21 @@ public class DMNModelRepository {
         return result;
     }
 
+    public String dsChildQName(DRGElementReference<? extends TDRGElement> reference) {
+        return dsChildQName(reference.getImportPath(), reference.getElement());
+    }
+
+    private String dsChildQName(ImportPath relativeImportPath, TDRGElement element) {
+        String label = "";
+        if (ImportPath.isEmpty(relativeImportPath)) {
+            label = element.getName();
+        } else {
+            String prefix = ImportPath.getImportName(relativeImportPath);
+            label = "%s.%s".formatted(prefix, element.getName());
+        }
+        return label;
+    }
+
     public List<TImport> findImports(TDefinitions definitions) {
         return definitions.getImport();
     }

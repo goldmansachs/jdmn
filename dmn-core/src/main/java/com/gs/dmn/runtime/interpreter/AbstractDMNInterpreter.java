@@ -535,6 +535,8 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
         public Result visitDSReference(DRGElementReference<TDecisionService> serviceReference, DMNContext serviceContext) {
             TDecisionService service = serviceReference.getElement();
 
+            // section 10.4 Execution Semantics of Decision Services
+
             // Decision Service start
             long startTime_ = System.currentTimeMillis();
             DRGElement drgElementAnnotation = makeDRGElementAnnotation(service);
@@ -556,9 +558,9 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             } else {
                 output = new Context();
                 for (int i = 0; i < outputDecisionRefs.size(); i++) {
-                    TDecision decision = outputDecisionRefs.get(i).getElement();
                     Object value = Result.value(results.get(i));
-                    ((Context) output).add(decision.getName(), value);
+                    String qName = repository.dsChildQName(outputDecisionRefs.get(i));
+                    ((Context) output).add(qName, value);
                 }
             }
 

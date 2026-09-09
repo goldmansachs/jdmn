@@ -283,6 +283,8 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     Statement serviceToNative(TDecisionService element);
 
+    List<String> missingInputDecisionsArguments(TDecisionService service);
+
     // Conversion methods
     String convertMethodName(TItemDefinition itemDefinition);
 

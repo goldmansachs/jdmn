@@ -1735,44 +1735,6 @@
                     </execution>
 
                     <execution>
-                        <id>cl3-0085-decision-services</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>dmn-to-java</goal>
-                        </goals>
-                        <configuration>
-                            <inputFileDirectory>${tck.13.diagram.folder}/cl3/0085-decision-services/translator/0085-decision-services.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.tck.cl3_0085_decision_services</javaRootPackage>
-                                <caching>true</caching>
-                            </inputParameters>
-                            <lazyEvaluationDetectors>
-                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.AlwaysLazyEvaluationDetector</lazyEvaluatorDetector>
-                            </lazyEvaluationDetectors>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>test-cl3-0085-decision-services</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>tck-to-java</goal>
-                        </goals>
-                        <configuration>
-                            <inputTestFileDirectory>${tck.13.diagram.folder}/cl3/0085-decision-services/translator/0085-decision-services-test-01.xml</inputTestFileDirectory>
-                            <inputModelFileDirectory>${tck.13.diagram.folder}/cl3/0085-decision-services/translator/0085-decision-services.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.tck.cl3_0085_decision_services</javaRootPackage>
-                                <caching>true</caching>
-                            </inputParameters>
-                            <lazyEvaluationDetectors>
-                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.AlwaysLazyEvaluationDetector</lazyEvaluatorDetector>
-                            </lazyEvaluationDetectors>
-                        </configuration>
-                    </execution>
-
-                    <execution>
                         <id>cl3-0092-feel-lambda</id>
                         <phase>generate-sources</phase>
                         <goals>
@@ -2506,6 +2468,44 @@
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0084_feel_for_loops</javaRootPackage>
                             </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>cl3-0085-decision-services</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${tck.15.diagram.folder}/cl3/0085-decision-services/translator</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0085_decision_services</javaRootPackage>
+                                <caching>true</caching>
+                            </inputParameters>
+                            <lazyEvaluationDetectors>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.AlwaysLazyEvaluationDetector</lazyEvaluatorDetector>
+                            </lazyEvaluationDetectors>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-cl3-0085-decision-services</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${tck.15.diagram.folder}/cl3/0085-decision-services/translator/0085-decision-services-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.15.diagram.folder}/cl3/0085-decision-services/translator</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0085_decision_services</javaRootPackage>
+                                <caching>true</caching>
+                            </inputParameters>
+                            <lazyEvaluationDetectors>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.AlwaysLazyEvaluationDetector</lazyEvaluatorDetector>
+                            </lazyEvaluationDetectors>
                         </configuration>
                     </execution>
 

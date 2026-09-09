@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions
+        namespace="http://www.montera.com.au/spec/DMN/model-a"
+        name="model-A"
+        xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/"
+        xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/"
+        xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/"
+        xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/"
+        xmlns:feel="https://www.omg.org/spec/DMN/20230324/FEEL/"
+        expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+
+  <decision name="DecisionA" id="_decision_a">
+    <variable name="DecisionA" typeRef="number" />
+    <informationRequirement>
+      <requiredInput href="#_input_a" />
+    </informationRequirement>
+    <literalExpression typeRef="number">
+      <text>2 * InputA</text>
+    </literalExpression>
+  </decision>
+
+  <inputData name="InputA" id="_input_a">
+    <variable name="InputA" typeRef="number" />
+  </inputData>
+
+</definitions>

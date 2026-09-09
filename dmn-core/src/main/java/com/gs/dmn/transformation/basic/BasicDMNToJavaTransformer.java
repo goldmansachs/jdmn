@@ -1055,13 +1055,13 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         List<DRGElementReference<? extends TDRGElement>> inputRefs = this.dmnModelRepository.dsInputs(service);
         for (DRGElementReference<? extends TDRGElement> inputRef : inputRefs) {
             TDRGElement input = inputRef.getElement();
-            String name = input.getName();
+            String qName = this.dmnModelRepository.dsChildQName(inputRef);
             if (input instanceof TInputData) {
                 // TInputData
-                parameters.add(new FormalParameter<>(name, toFEELType((TInputData) input)));
+                parameters.add(new FormalParameter<>(qName, toFEELType((TInputData) input)));
             } else {
                 // TDecision
-                parameters.add(new FormalParameter<>(name, drgElementOutputFEELType(input)));
+                parameters.add(new FormalParameter<>(qName, drgElementOutputFEELType(input)));
             }
         }
         return parameters;
@@ -1666,9 +1666,10 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             // Add members
             for (DRGElementReference<TDecision> ref : outputDecisions) {
                 TDecision od = ref.getElement();
-                String nativeVariableName = nativeVariableName(od);
+                String nativeVariableName = nativeVariableName(ref);
                 String text = lazyEvaluation(this.dmnModelRepository.lazyEvaluationKey(od), nativeVariableName, element);
-                String add = this.nativeFactory.makeContextMemberAssignment(outputVar, elementName(od), text);
+                String memberName = this.dmnModelRepository.dsChildQName(ref);
+                String add = this.nativeFactory.makeContextMemberAssignment(outputVar, memberName, text);
                 statement.add(this.nativeFactory.makeExpressionStatement(add, null));
             }
             // Return output
@@ -1676,6 +1677,41 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             statement.add(this.nativeFactory.makeExpressionStatement(return_, null));
             return statement;
         }
+    }
+
+    @Override
+    public List<String> missingInputDecisionsArguments(TDecisionService service) {
+        // DecisionService.inputData are already added
+        Set<String> added = new LinkedHashSet<>();
+        for (DRGElementReference<TInputData> idRef : this.dmnModelRepository.directInputDatas(service)) {
+            added.add(nativeVariableName(idRef));
+        }
+
+        // Collect unique InputDatas for DecisionService.inputDecision
+        List<DRGElementReference<TInputData>> arguments = new ArrayList<>();
+        List<DRGElementReference<TDecision>> inputDecisionRefs = this.dmnModelRepository.directInputDecisions(service);
+        for (DRGElementReference<TDecision> inputDecisionRef : inputDecisionRefs) {
+            List<DRGElementReference<TInputData>> inputDataReferences = this.dmnModelRepository.inputDataClosure(inputDecisionRef, new DRGElementFilter());
+            for (DRGElementReference<TInputData> inputDataReference : inputDataReferences) {
+                String key = nativeVariableName(inputDataReference);
+                if (!added.contains(key)) {
+                    arguments.add(inputDataReference);
+                    added.add(key);
+                }
+            }
+        }
+
+        // Make statements for null assignment
+        List<String> result = new ArrayList<>();
+        for (DRGElementReference<TInputData> inputDataRef : arguments) {
+            TInputData inputData = inputDataRef.getElement();
+            String nativeType = this.drgElementOutputType(inputData);
+            String variableName = nativeVariableName(inputDataRef);
+            String statement = this.nativeFactory.makeVariableAssignment(nativeType, variableName, this.nativeFactory.nullLiteral());
+            result.add(statement);
+        }
+
+        return result;
     }
 
     @Override
