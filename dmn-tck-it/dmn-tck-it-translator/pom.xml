@@ -1010,14 +1010,14 @@
                         </goals>
                         <configuration>
                             <templateProvider>com.gs.dmn.transformation.template.TreeTemplateProvider</templateProvider>
-                            <lazyEvaluationDetectors>
-                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
-                            </lazyEvaluationDetectors>
                             <inputFileDirectory>${tck.11.diagram.folder}/cl3/0004-lending/translator/0004-lending.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending_tree</javaRootPackage>
                             </inputParameters>
+                            <lazyEvaluationDetectors>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
+                            </lazyEvaluationDetectors>
                         </configuration>
                     </execution>
                     <execution>
@@ -1034,6 +1034,9 @@
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending_tree</javaRootPackage>
                             </inputParameters>
+                            <lazyEvaluationDetectors>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
+                            </lazyEvaluationDetectors>
                         </configuration>
                     </execution>
 
@@ -1761,7 +1764,11 @@
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0085_decision_services</javaRootPackage>
+                                <caching>true</caching>
                             </inputParameters>
+                            <lazyEvaluationDetectors>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.AlwaysLazyEvaluationDetector</lazyEvaluatorDetector>
+                            </lazyEvaluationDetectors>
                         </configuration>
                     </execution>
 
@@ -3160,13 +3167,13 @@
                         <configuration>
                             <inputFileDirectory>${composite.12.diagram.folder}/0008-name-conflicts-same-decision-no-singleton/translator</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
-                            <lazyEvaluationDetectors>
-                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
-                            </lazyEvaluationDetectors>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.lazy_composite_0008_name_conflicts_same_decision_no_singleton</javaRootPackage>
                                 <caching>false</caching>
                             </inputParameters>
+                            <lazyEvaluationDetectors>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
+                            </lazyEvaluationDetectors>
                         </configuration>
                     </execution>
                     <execution>
@@ -3179,13 +3186,13 @@
                             <inputTestFileDirectory>${composite.12.diagram.folder}/0008-name-conflicts-same-decision-no-singleton/translator</inputTestFileDirectory>
                             <inputModelFileDirectory>${composite.12.diagram.folder}/0008-name-conflicts-same-decision-no-singleton/translator</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
-                            <lazyEvaluationDetectors>
-                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
-                            </lazyEvaluationDetectors>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.lazy_composite_0008_name_conflicts_same_decision_no_singleton</javaRootPackage>
                                 <caching>false</caching>
                             </inputParameters>
+                            <lazyEvaluationDetectors>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
+                            </lazyEvaluationDetectors>
                         </configuration>
                     </execution>
 
@@ -3258,15 +3265,15 @@
                         </goals>
                         <configuration>
                             <templateProvider>com.gs.dmn.transformation.template.TreeTemplateProvider</templateProvider>
-                            <lazyEvaluationDetectors>
-                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
-                            </lazyEvaluationDetectors>
                             <inputFileDirectory>${tck.13.diagram.folder}/cl3/0004-lending/translator/0004-lending.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <singletonDecision>true</singletonDecision>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending_singleton</javaRootPackage>
                             </inputParameters>
+                            <lazyEvaluationDetectors>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
+                            </lazyEvaluationDetectors>
                         </configuration>
                     </execution>
                     <execution>
@@ -3284,6 +3291,9 @@
                                 <singletonDecision>true</singletonDecision>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending_singleton</javaRootPackage>
                             </inputParameters>
+                            <lazyEvaluationDetectors>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
+                            </lazyEvaluationDetectors>
                         </configuration>
                     </execution>
 
@@ -3296,14 +3306,14 @@
                         </goals>
                         <configuration>
                             <templateProvider>com.gs.dmn.transformation.template.TreeTemplateProvider</templateProvider>
-                            <lazyEvaluationDetectors>
-                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
-                            </lazyEvaluationDetectors>
                             <inputFileDirectory>${other.14.diagram.folder}/decision-table-with-annotations/translator/decision-table-with-annotations.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.other.decision_table_with_annotations</javaRootPackage>
                             </inputParameters>
+                            <lazyEvaluationDetectors>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
+                            </lazyEvaluationDetectors>
                         </configuration>
                     </execution>
                     <execution>
@@ -3320,6 +3330,9 @@
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.other.decision_table_with_annotations</javaRootPackage>
                             </inputParameters>
+                            <lazyEvaluationDetectors>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
+                            </lazyEvaluationDetectors>
                         </configuration>
                     </execution>
 

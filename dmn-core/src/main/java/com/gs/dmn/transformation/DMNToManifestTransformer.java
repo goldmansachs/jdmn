@@ -13,6 +13,7 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.TypeReference;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.log.BuildLogger;
@@ -92,7 +93,7 @@ public class DMNToManifestTransformer {
         String name = itemDefinition.getName();
         String label = itemDefinition.getLabel();
         boolean isCollection = itemDefinition.isIsCollection();
-        QName typeRef = makeMetadataTypeRef(containingModel, com.gs.dmn.TypeReference.toTypeReference(containingModel, itemDefinition.getTypeRef()));
+        QName typeRef = makeMetadataTypeRef(containingModel, TypeReference.toTypeReference(containingModel, itemDefinition.getTypeRef()));
         String allowedValues = makeMetadataAllowedValues(itemDefinition.getAllowedValues());
 
         List<TItemDefinition> children = itemDefinition.getItemComponent();
@@ -110,7 +111,7 @@ public class DMNToManifestTransformer {
         return type;
     }
 
-    protected QName makeMetadataTypeRef(TDefinitions model, com.gs.dmn.TypeReference typeRef) {
+    protected QName makeMetadataTypeRef(TDefinitions model, TypeReference typeRef) {
         if (this.dmnModelRepository.isNull(typeRef)) {
             return null;
         }
@@ -140,7 +141,7 @@ public class DMNToManifestTransformer {
         String shapeId = getShapeId(inputData);
         String javaParameterName = this.dmnTransformer.nativeVariableName(inputData);
         String javaTypeName = getJavaTypeName(inputData);
-        QName typeRef = makeMetadataTypeRef(containingModel, com.gs.dmn.TypeReference.toTypeReference(containingModel, inputData.getVariable().getTypeRef()));
+        QName typeRef = makeMetadataTypeRef(containingModel, TypeReference.toTypeReference(containingModel, inputData.getVariable().getTypeRef()));
         return new InputData(namespace, id, name, label, diagramId, shapeId, javaParameterName, javaTypeName, typeRef);
     }
 
@@ -154,7 +155,7 @@ public class DMNToManifestTransformer {
         String javaParameterName = this.dmnTransformer.nativeVariableName(bkm);
         String javaTypeName = this.dmnTransformer.qualifiedNativeName(this.dmnTransformer.nativeModelPackageName(containingModel.getName()), this.dmnTransformer.drgElementClassName(bkm));
         String javaOutputTypeName = getJavaTypeName(bkm);
-        QName typeRef = makeMetadataTypeRef(containingModel, com.gs.dmn.TypeReference.toTypeReference(containingModel, bkm.getVariable().getTypeRef()));
+        QName typeRef = makeMetadataTypeRef(containingModel, TypeReference.toTypeReference(containingModel, bkm.getVariable().getTypeRef()));
         List<DRGElementReference> knowledgeReferences = makeMetadataKnowledgeReferences(bkm.getKnowledgeRequirement(), containingModel, multiModels);
         return new BKM(namespace, id, name, label, diagramId, shapeId, javaParameterName, javaTypeName, javaOutputTypeName, typeRef, knowledgeReferences);
     }
@@ -169,7 +170,7 @@ public class DMNToManifestTransformer {
         String nativeParameterName = this.dmnTransformer.nativeVariableName(decision);
         String nativeTypeName = this.dmnTransformer.qualifiedNativeName(this.dmnTransformer.nativeModelPackageName(containingModels.getName()), this.dmnTransformer.drgElementClassName(decision));
         String nativeOutputTypeName = getJavaTypeName(decision);
-        QName typeRef = makeMetadataTypeRef(containingModels, com.gs.dmn.TypeReference.toTypeReference(containingModels, decision.getVariable().getTypeRef()));
+        QName typeRef = makeMetadataTypeRef(containingModels, TypeReference.toTypeReference(containingModels, decision.getVariable().getTypeRef()));
         List<DRGElementReference> references = makeMetadataInformationReferences(decision.getInformationRequirement(), containingModels, multiModels);
         List<DRGElementReference> knowledgeReferences = makeMetadataKnowledgeReferences(decision.getKnowledgeRequirement(), containingModels, multiModels);
         List<ExtensionElement> extensions = getExtensions(decision, containingModels, multiModels);

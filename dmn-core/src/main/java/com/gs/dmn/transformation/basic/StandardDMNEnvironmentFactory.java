@@ -680,17 +680,17 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         }
         // Derive from decisions
         DMNContext context = this.dmnTransformer.makeGlobalContext(decisionService);
-        List<TDMNElementReference> outputDecisions = decisionService.getOutputDecision();
-        if (outputDecisions.size() == 1) {
-            TDecision decision = this.dmnModelRepository.findDecisionByRef(decisionService, outputDecisions.get(0).getHref());
+        List<DRGElementReference<TDecision>> outputDecisionRefs = this.dmnModelRepository.directOutputDecisions(decisionService);
+        if (outputDecisionRefs.size() == 1) {
+            TDecision decision = outputDecisionRefs.get(0).getElement();
             String decisionName = decision.getName();
             VariableDeclaration declaration = (VariableDeclaration) context.lookupVariableDeclaration(decisionName);
             return declaration.getType();
         } else {
             ContextType type = new ContextType();
-            for (TDMNElementReference er: outputDecisions) {
-                TDecision decision = this.dmnModelRepository.findDecisionByRef(decisionService, er.getHref());
-                String decisionName = decision.getName();
+            for (DRGElementReference<TDecision> outputDecisionRef: outputDecisionRefs) {
+                TDecision outputDecision = outputDecisionRef.getElement();
+                String decisionName = outputDecision.getName();
                 VariableDeclaration declaration = (VariableDeclaration) context.lookupVariableDeclaration(decisionName);
                 type.addMember(decisionName, Collections.emptyList(), declaration.getType());
             }

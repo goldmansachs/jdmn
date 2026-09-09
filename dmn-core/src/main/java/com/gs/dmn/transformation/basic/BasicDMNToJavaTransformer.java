@@ -1036,20 +1036,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     // Decision Service related functions
     //
     @Override
-    public List<TDRGElement> dsInputs(TDecisionService service) {
-        List<TDRGElement> inputs = new ArrayList<>();
-        for (TDMNElementReference er : service.getInputData()) {
-            TInputData inputData = getDMNModelRepository().findInputDataByRef(service, er.getHref());
-            inputs.add(inputData);
-        }
-        for (TDMNElementReference er : service.getInputDecision()) {
-            TDecision decision = getDMNModelRepository().findDecisionByRef(service, er.getHref());
-            inputs.add(decision);
-        }
-        return inputs;
-    }
-
-    @Override
     public List<FormalParameter<Type>> dsFEELParameters(TDecisionService service) {
         // Check variable.typeRef
         TDefinitions model = this.dmnModelRepository.getModel(service);
@@ -1066,14 +1052,16 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         }
         // Infer from inputs
         List<FormalParameter<Type>> parameters = new ArrayList<>();
-        List<TDRGElement> inputs = dsInputs(service);
-        for (TDRGElement input : inputs) {
+        List<DRGElementReference<? extends TDRGElement>> inputRefs = this.dmnModelRepository.dsInputs(service);
+        for (DRGElementReference<? extends TDRGElement> inputRef : inputRefs) {
+            TDRGElement input = inputRef.getElement();
+            String name = input.getName();
             if (input instanceof TInputData) {
                 // TInputData
-                parameters.add(new FormalParameter<>(input.getName(), toFEELType((TInputData) input)));
+                parameters.add(new FormalParameter<>(name, toFEELType((TInputData) input)));
             } else {
                 // TDecision
-                parameters.add(new FormalParameter<>(input.getName(), drgElementOutputFEELType(input)));
+                parameters.add(new FormalParameter<>(name, drgElementOutputFEELType(input)));
             }
         }
         return parameters;

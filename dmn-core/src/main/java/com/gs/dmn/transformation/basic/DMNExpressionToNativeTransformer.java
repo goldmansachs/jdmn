@@ -519,14 +519,14 @@ public class DMNExpressionToNativeTransformer {
                 // Add statement
                 TInformationItem variable = entry.getVariable();
                 if (variable != null) {
-                    String javaContextEntryName = this.dmnTransformer.lowerCaseFirst(variable.getName());
+                    String nativeContextEntryName = this.dmnTransformer.lowerCaseFirst(variable.getName());
                     String entryText;
                     if (returnType instanceof ItemDefinitionType) {
-                        entryText = this.nativeFactory.makeMemberAssignment(complexTypeVariable, javaContextEntryName, javaContextEntryName);
+                        entryText = this.nativeFactory.makeMemberAssignment(complexTypeVariable, nativeContextEntryName, nativeContextEntryName);
                     } else {
-                        entryText = this.nativeFactory.makeContextMemberAssignment(complexTypeVariable, javaContextEntryName, javaContextEntryName);
+                        entryText = this.nativeFactory.makeContextMemberAssignment(complexTypeVariable, nativeContextEntryName, nativeContextEntryName);
                     }
-                    Statement entryStatement = this.nativeFactory.makeAssignmentStatement(complexTypeVariable, javaContextEntryName, javaContextEntryName, entryType, entryText);
+                    Statement entryStatement = this.nativeFactory.makeAssignmentStatement(complexTypeVariable, nativeContextEntryName, nativeContextEntryName, entryType, entryText);
                     statement.add(entryStatement);
                 }
             }

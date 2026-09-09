@@ -834,11 +834,31 @@ public class DMNModelRepository {
             }
         } else if (parent instanceof TDecisionService) {
             // Add reference for direct children
-            for (TDMNElementReference outputDecisionRef : ((TDecisionService) parent).getOutputDecision()) {
-                TDecision child = findDecisionByRef(parent, outputDecisionRef.getHref());
-                ImportPath importPath = findRelativeImportPath(parent, outputDecisionRef);
-                result.add(makeDRGElementReference(importPath, child));
-            }
+            result.addAll(directOutputDecisions((TDecisionService) parent));
+        }
+        sortNamedElementReferences(result);
+        return result;
+    }
+
+    public List<DRGElementReference<TDecision>> directOutputDecisions(TDecisionService parent) {
+        List<DRGElementReference<TDecision>> result = new ArrayList<>();
+        // Add reference for direct children
+        for (TDMNElementReference inputDecisionRef : parent.getOutputDecision()) {
+            TDecision child = findDecisionByRef(parent, inputDecisionRef.getHref());
+            ImportPath importPath = findRelativeImportPath(parent, inputDecisionRef);
+            result.add(makeDRGElementReference(importPath, child));
+        }
+        sortNamedElementReferences(result);
+        return result;
+    }
+
+    public List<DRGElementReference<TInputData>> directInputDatas(TDecisionService parent) {
+        List<DRGElementReference<TInputData>> result = new ArrayList<>();
+        // Add reference for direct children
+        for (TDMNElementReference inputDecisionRef : parent.getInputData()) {
+            TInputData child = findInputDataByRef(parent, inputDecisionRef.getHref());
+            ImportPath importPath = findRelativeImportPath(parent, inputDecisionRef);
+            result.add(makeDRGElementReference(importPath, child));
         }
         sortNamedElementReferences(result);
         return result;
@@ -854,6 +874,13 @@ public class DMNModelRepository {
         }
         sortNamedElementReferences(result);
         return result;
+    }
+
+    public List<DRGElementReference<? extends TDRGElement>> dsInputs(TDecisionService service) {
+        List<DRGElementReference<? extends TDRGElement>> inputs = new ArrayList<>();
+        inputs.addAll(directInputDatas(service));
+        inputs.addAll(directInputDecisions(service));
+        return inputs;
     }
 
     public List<DRGElementReference<TInvocable>> directSubInvocables(TDRGElement element) {
@@ -1441,7 +1468,7 @@ public class DMNModelRepository {
         return namespace;
     }
 
-    public static String extractId(String href) {
+    public String extractId(String href) {
         if (isAbsoluteURI(href)) {
             href = href.substring(href.indexOf(HREF_SEPARATOR) + 1);
         } else if (href != null && href.startsWith(HREF_SEPARATOR)) {

@@ -402,7 +402,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
 
     private void bindArguments(TDecisionService service, List<Object> argList, DMNContext serviceContext) {
         // Bind parameters
-        List<TDRGElement> inputs = this.dmnTransformer.dsInputs(service);
+        List<DRGElementReference<? extends TDRGElement>> inputRefs = this.repository.dsInputs(service);
         List<FormalParameter<Type>> formalParameterList = this.dmnTransformer.dsFEELParameters(service);
         for (int i = 0; i < formalParameterList.size(); i++) {
             FormalParameter<Type> param = formalParameterList.get(i);
@@ -415,7 +415,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             value = Result.value(result);
 
             // Variable declaration already exists
-            serviceContext.bind(this.repository.qualifiedName(this.repository.makeDRGElementReference(inputs.get(i))), value);
+            serviceContext.bind(this.repository.qualifiedName(inputRefs.get(i)), value);
             serviceContext.bind(name, value);
         }
     }
@@ -542,26 +542,21 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             EVENT_LISTENER.startDRGElement(drgElementAnnotation, decisionArguments);
 
             // Evaluate output decisions
-            List<TDecision> outputDecisions = new ArrayList<>();
             List<Result> results = new ArrayList<>();
-            for (TDMNElementReference outputDecisionReference : service.getOutputDecision()) {
-                TDecision decision = repository.findDecisionByRef(service, outputDecisionReference.getHref());
-                outputDecisions.add(decision);
-
-                ImportPath decisionImportPath = repository.findAbsoluteImportPath(service, outputDecisionReference, serviceReference.getImportPath());
-                DRGElementReference<TDecision> reference = repository.makeDRGElementReference(decisionImportPath, decision);
+            List<DRGElementReference<TDecision>> outputDecisionRefs = repository.directOutputDecisions(service);
+            for (DRGElementReference<TDecision> reference : outputDecisionRefs) {
                 Result result = visitDecisionReference(reference, makeDecisionGlobalContext(reference, serviceContext));
                 results.add(result);
             }
 
             // Make context result
             Object output;
-            if (outputDecisions.size() == 1) {
+            if (outputDecisionRefs.size() == 1) {
                 output = Result.value(results.get(0));
             } else {
                 output = new Context();
-                for (int i = 0; i < outputDecisions.size(); i++) {
-                    TDecision decision = outputDecisions.get(i);
+                for (int i = 0; i < outputDecisionRefs.size(); i++) {
+                    TDecision decision = outputDecisionRefs.get(i).getElement();
                     Object value = Result.value(results.get(i));
                     ((Context) output).add(decision.getName(), value);
                 }

@@ -277,8 +277,6 @@ public interface BasicDMNToNativeTransformer<T, C> {
     //
     // Decision Service related functions
     //
-    List<TDRGElement> dsInputs(TDecisionService service);
-
     List<FormalParameter<Type>> dsFEELParameters(TDecisionService service);
 
     List<String> dsFEELParameterNames(TDecisionService service);
