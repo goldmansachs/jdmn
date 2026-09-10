@@ -538,7 +538,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         }
         List<TRuleAnnotationClause> annotationClauses = decisionTable.getAnnotation();
         if (annotationEntries.size() != annotationClauses.size()) {
-            String errorMessage = "The number of annotation entries in rule %s does not match the number of annotation clauses in decision table '%s'. Expected %d found %d.".formatted(index + 1, decisionTable.getId(), annotationClauses.size(), annotationClauses.size());
+            String errorMessage = "The number of annotation entries in rule %s does not match the number of annotation clauses in decision table '%s'. Expected %d found %d.".formatted(index + 1, decisionTable.getId(), annotationClauses.size(), annotationEntries.size());
             addValidationError(context, definitions, element, errorMessage);
         }
     }
