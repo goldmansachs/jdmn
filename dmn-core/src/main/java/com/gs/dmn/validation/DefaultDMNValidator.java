@@ -526,16 +526,19 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
             }
         }
         // Validate cardinality with clauses
-        if (inputEntries.size() != decisionTable.getInput().size()) {
-            String errorMessage = "The number of input entries in rule %s does not match the number of input clauses in decision table %s".formatted(index + 1, decisionTable.getId());
+        List<TInputClause> input = decisionTable.getInput();
+        if (inputEntries.size() != input.size()) {
+            String errorMessage = "The number of input entries in rule %s does not match the number of input clauses in decision table '%s'. Expected %d found %d.".formatted(index + 1, decisionTable.getId(), input.size(), inputEntries.size());
             addValidationError(context, definitions, element, errorMessage);
         }
-        if (outputEntries.size() != decisionTable.getOutput().size()) {
-            String errorMessage = "The number of output entries in rule %s does not match the number of output clauses in decision table %s".formatted(index + 1, decisionTable.getId());
+        List<TOutputClause> output = decisionTable.getOutput();
+        if (outputEntries.size() != output.size()) {
+            String errorMessage = "The number of output entries in rule %s does not match the number of output clauses in decision table '%s'. Expected %d found %d.".formatted(index + 1, decisionTable.getId(), output.size(), outputEntries.size());
             addValidationError(context, definitions, element, errorMessage);
         }
-        if (annotationEntries.size() != decisionTable.getAnnotation().size()) {
-            String errorMessage = "The number of annotation entries in rule %s does not match the number of annotation clauses in decision table %s".formatted(index + 1, decisionTable.getId());
+        List<TRuleAnnotationClause> annotationClauses = decisionTable.getAnnotation();
+        if (annotationEntries.size() != annotationClauses.size()) {
+            String errorMessage = "The number of annotation entries in rule %s does not match the number of annotation clauses in decision table '%s'. Expected %d found %d.".formatted(index + 1, decisionTable.getId(), annotationClauses.size(), annotationClauses.size());
             addValidationError(context, definitions, element, errorMessage);
         }
     }
