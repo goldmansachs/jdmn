@@ -30,7 +30,7 @@ import com.gs.dmn.transformation.repository.OutputRepository;
 import com.gs.dmn.validation.CompositeDMNValidator;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.TypeRefValidator;
-import com.gs.dmn.validation.UniqueNameValidator;
+import com.gs.dmn.validation.UniqueRequirementValidator;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -90,7 +90,7 @@ public abstract class InMemoryTestCasesExecutorTest {
         DMNValidator dmnValidator = new CompositeDMNValidator(List.of(
 //                new DefaultDMNValidator(),
                 new TypeRefValidator(),
-                new UniqueNameValidator()
+                new UniqueRequirementValidator()
         ));
         CompositeDMNTransformer<TestLab> dmnTransformer = new CompositeDMNTransformer<>(List.of(
                 new RuleDescriptionTransformer()

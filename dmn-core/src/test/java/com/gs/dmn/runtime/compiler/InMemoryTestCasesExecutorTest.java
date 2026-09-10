@@ -251,7 +251,7 @@ public abstract class InMemoryTestCasesExecutorTest {
         DMNValidator dmnValidator = new CompositeDMNValidator(List.of(
                 new DefaultDMNValidator(),
                 new TypeRefValidator(),
-                new UniqueNameValidator()
+                new UniqueRequirementValidator()
         ));
         CompositeDMNTransformer<TestCases> dmnTransformer = new CompositeDMNTransformer<>(List.of(
                 new ToQuotedNameTransformer()
