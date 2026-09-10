@@ -25,7 +25,7 @@ public class DMNModellingStyleValidatorTest extends AbstractValidatorTest {
 
     @Test
     public void testValidateWhenCorrect() {
-        validate(validator, tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn"), new ArrayList<>());
+        validateSimpleValidator(validator, tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn"), new ArrayList<>());
     }
 
     @Test
@@ -48,7 +48,7 @@ public class DMNModellingStyleValidatorTest extends AbstractValidatorTest {
                 "[WARNING] (namespace = 'http://test.example.com/test-dmn-modelling-style', modelName = 'test-dmn-modelling-style', modelId = 'test-dmn-modelling-style'): Model 'http://test.example.com/model-f' is used but not imported in model 'http://test.example.com/test-dmn-modelling-style'.",
                 "[WARNING] (namespace = 'http://test.example.com/test-dmn-modelling-style', modelName = 'test-dmn-modelling-style', modelId = 'test-dmn-modelling-style'): Model 'model-d' is used but not imported in model 'http://test.example.com/test-dmn-modelling-style'."
         );
-        validate(validator, resource("dmn/input/1.5/test-dmn-modelling-style.dmn"), expectedErrors);
+        validateSimpleValidator(validator, resource("dmn/input/1.5/test-dmn-modelling-style.dmn"), expectedErrors);
     }
 
     @Test
@@ -73,7 +73,7 @@ public class DMNModellingStyleValidatorTest extends AbstractValidatorTest {
         "[WARNING] (namespace = 'http://test.example.com/test-dmn-modelling-style-names', modelName = 'test-dmn-modelling-style-names ', modelId = 'test-dmn-modelling-style-names', elementName = 'badDSVar.name', elementId = 'ds001var'): Name 'badDSVar.name' contains invalid characters. Names should contain only alphanumeric characters, underscores, dashes and spaces, and should start with an alphanumeric character.",
         "[WARNING] (namespace = 'http://test.example.com/test-dmn-modelling-style-names', modelName = 'test-dmn-modelling-style-names ', modelId = 'test-dmn-modelling-style-names', elementName = 'Bad Import Name'): Model '' is imported more than once in model 'http://test.example.com/test-dmn-modelling-style-names'."
         );
-        validate(validator, resource("dmn/input/1.5/test-dmn-modelling-style-names.dmn"), expectedErrors);
+        validateSimpleValidator(validator, resource("dmn/input/1.5/test-dmn-modelling-style-names.dmn"), expectedErrors);
     }
 
     @Test

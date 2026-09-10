@@ -23,7 +23,7 @@ class CyclicInformationRequirementsValidatorTest extends AbstractValidatorTest {
     @Test
     public void testWhenNoCycles() {
         List<String> expectedErrors = Collections.emptyList();
-        validate(validator, tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn"), expectedErrors);
+        validateSimpleValidator(validator, tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn"), expectedErrors);
     }
 
     @Test
@@ -31,6 +31,6 @@ class CyclicInformationRequirementsValidatorTest extends AbstractValidatorTest {
         List<String> expectedErrors = List.of(
                 "[ERROR] Cyclic information requirement detected: decision-a#DecisionA --> decision-b#DecisionB --> decision-b#DecisionC --> decision-a#DecisionA"
         );
-        validate(validator, tckResource("other/1.5/cyclic-decisions-requirements/"), expectedErrors);
+        validateSimpleValidator(validator, tckResource("other/1.5/cyclic-decisions-requirements/"), expectedErrors);
     }
 }

@@ -23,12 +23,12 @@ class CyclicImportsValidatorTest extends AbstractValidatorTest {
     @Test
     public void testWhenNoCycles() {
         List<String> expectedErrors = Collections.emptyList();
-        validate(validator, tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn"), expectedErrors);
+        validateSimpleValidator(validator, tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn"), expectedErrors);
     }
 
     @Test
     public void testWhenCycles() {
         List<String> expectedErrors = List.of("[ERROR] Cyclic import detected: model-a --> model-b --> model-a");
-        validate(validator, tckResource("other/1.5/cycles-no-prefix/translator/"), expectedErrors);
+        validateSimpleValidator(validator, tckResource("other/1.5/cycles-no-prefix/translator/"), expectedErrors);
     }
 }

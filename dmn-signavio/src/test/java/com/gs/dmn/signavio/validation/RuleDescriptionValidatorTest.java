@@ -46,7 +46,7 @@ public class RuleDescriptionValidatorTest extends AbstractSignavioValidatorTest 
                 "[ERROR] (namespace = 'http://www.provider.com/dmn/1.1/diagram/b4fc99dd0b044cf1b31b6e60d01c50fa.xml', modelName = 'Linked Decision Test', modelId = 'id-d944b069f6a24d0788b33965ec1c2318', elementName = 'root', elementId = 'id-dd34e15633241b301d7c512a35c9493a'): Description of rule 2 in decision 'root' contains illegal sequence 'string(-)'",
                 "[ERROR] (namespace = 'http://www.provider.com/dmn/1.1/diagram/b4fc99dd0b044cf1b31b6e60d01c50fa.xml', modelName = 'Linked Decision Test', modelId = 'id-d944b069f6a24d0788b33965ec1c2318', elementName = 'root', elementId = 'id-dd34e15633241b301d7c512a35c9493a'): Description of rule 3 in decision 'root' contains illegal sequence 'string(-)'"
         );
-        validate(validator, signavioResource(path + diagramName), expectedErrors);
+        validateSimpleValidator(validator, signavioResource(path + diagramName), expectedErrors);
     }
 
     @Test

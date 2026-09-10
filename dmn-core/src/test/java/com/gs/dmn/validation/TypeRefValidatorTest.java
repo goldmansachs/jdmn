@@ -27,7 +27,7 @@ public class TypeRefValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenCorrect() {
         List<String> expectedErrors = Collections.emptyList();
-        validate(validator, tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn"), expectedErrors);
+        validateSimpleValidator(validator, tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn"), expectedErrors);
     }
 
     @Test
@@ -35,7 +35,7 @@ public class TypeRefValidatorTest extends AbstractValidatorTest {
         List<String> expectedErrors = Collections.singletonList(
                 "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn-with-missing-type-ref', modelId = 'definitions', elementName = 'applicant', elementId = 'id-d2376567fde3c9400ee327ecec21e36d'): Cannot find definition of typeRef 'applicant'"
         );
-        validate(validator, resource("dmn/input/1.1/test-dmn-with-missing-type-ref.dmn"), expectedErrors);
+        validateSimpleValidator(validator, resource("dmn/input/1.1/test-dmn-with-missing-type-ref.dmn"), expectedErrors);
     }
 
     @Test
@@ -44,7 +44,7 @@ public class TypeRefValidatorTest extends AbstractValidatorTest {
                 "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn-with-missing-type-ref', modelId = 'definitions', elementName = 'applicant', elementId = 'id-d2376567fde3c9400ee327ecec21e36d'): Cannot find definition of typeRef 'applicant'",
                 "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn-with-missing-type-ref', modelId = 'definitions', elementName = 'applicant1', elementId = 'id-d2376567fde3c9400ee327ecec21e36d-2'): Error during lookup of typeRef 'prefix.importedType': Cannot find DM for namespace 'missing-namespace'"
         );
-        validate(validator, resource("dmn/input/1.5/test-dmn-with-missing-type-ref.dmn"), expectedErrors);
+        validateSimpleValidator(validator, resource("dmn/input/1.5/test-dmn-with-missing-type-ref.dmn"), expectedErrors);
     }
 
     @Test

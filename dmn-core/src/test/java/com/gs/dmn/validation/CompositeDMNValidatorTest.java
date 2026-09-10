@@ -29,17 +29,17 @@ class CompositeDMNValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenCorrect() {
         List<String> expectedErrors = List.of();
-        validate(validator, tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn"), expectedErrors);
+        validateCompositeValidator(validator, tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn"), expectedErrors);
     }
 
     @Test
     public void testValidateEmptyRepo() {
         List<String> expectedErrors = List.of();
         List<ValidationError> actualErrors = validator.validate(null);
-        checkErrors(validator.ruleName(), expectedErrors, actualErrors);
+        checkErrors(expectedErrors, actualErrors);
 
         actualErrors = validator.validate(new DMNModelRepository(new ArrayList<>()));
-        checkErrors(validator.ruleName(), expectedErrors, actualErrors);
+        checkErrors(expectedErrors, actualErrors);
     }
 
     @Test
@@ -56,12 +56,12 @@ class CompositeDMNValidatorTest extends AbstractValidatorTest {
             }
         }));
         List<String> expectedErrors = List.of(
-                "[ERROR] Fatal error in validator 'exception-validator' Exception Stacktrace"
+                "[exception-validator] [ERROR] Fatal error in validator 'exception-validator' Exception Stacktrace"
         );
         URI fileURI = tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn");
         DMNModelRepository repository = makeRepository(fileURI);
         List<ValidationError> actualErrors = validator.validate(repository);
 
-        checkErrors("exception-validator", expectedErrors, actualErrors);
+        checkErrors(expectedErrors, actualErrors);
     }
 }

@@ -26,7 +26,7 @@ public class UniqueRequirementValidatorTest extends AbstractValidatorTest {
 
     @Test
     public void testValidateWhenCorrect() {
-        validate(validator, tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn"), new ArrayList<>());
+        validateSimpleValidator(validator, tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn"), new ArrayList<>());
     }
 
     @Test
@@ -35,7 +35,7 @@ public class UniqueRequirementValidatorTest extends AbstractValidatorTest {
                 "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn-with-duplicated-information-requirements', modelId = 'definitions', elementName = 'CIP Assessments', elementId = 'cip-assessments'): Duplicated informationRequirement.requiredInput 'input-1'",
                 "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn-with-duplicated-information-requirements', modelId = 'definitions', elementName = 'CIP Assessments', elementId = 'cip-assessments'): Duplicated informationRequirement.requiredDecision 'decision-1'"
         );
-        validate(validator, resource("dmn/input/1.1/test-dmn-with-duplicated-information-requirements.dmn"), expectedErrors);
+        validateSimpleValidator(validator, resource("dmn/input/1.1/test-dmn-with-duplicated-information-requirements.dmn"), expectedErrors);
     }
 
     @Test

@@ -23,7 +23,7 @@ class CyclicKnowledgeRequirementsValidatorTest extends AbstractValidatorTest {
     @Test
     public void testWhenNoCycles() {
         List<String> expectedErrors = Collections.emptyList();
-        validate(validator, tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn"), expectedErrors);
+        validateSimpleValidator(validator, tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn"), expectedErrors);
     }
 
     @Test
@@ -31,6 +31,6 @@ class CyclicKnowledgeRequirementsValidatorTest extends AbstractValidatorTest {
         List<String> expectedErrors = List.of(
                 "[ERROR] Cyclic knowledge requirement detected: bkm-a#BKMA --> bkm-b#BKMB --> bkm-b#BKMC --> bkm-a#BKMA"
         );
-        validate(validator, tckResource("other/1.5/cyclic-knowledge-requirements/"), expectedErrors);
+        validateSimpleValidator(validator, tckResource("other/1.5/cyclic-knowledge-requirements/"), expectedErrors);
     }
 }

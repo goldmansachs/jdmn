@@ -23,7 +23,7 @@ class CyclicItemDefinitionsValidatorTest extends AbstractValidatorTest {
     @Test
     public void testWhenNoCycles() {
         List<String> expectedErrors = Collections.emptyList();
-        validate(validator, resource("dmn/input/1.3/0004-lending.dmn"), expectedErrors);
+        validateSimpleValidator(validator, resource("dmn/input/1.3/0004-lending.dmn"), expectedErrors);
     }
 
     @Test
@@ -33,6 +33,6 @@ class CyclicItemDefinitionsValidatorTest extends AbstractValidatorTest {
                 "[ERROR] Cyclic item definition detected: http://www.example.com/definitions/item-definition-cycle#boolean -> http://www.example.com/definitions/item-definition-cycle#string -> http://www.example.com/definitions/item-definition-cycle#number -> http://www.example.com/definitions/item-definition-cycle#boolean",
                 "[ERROR] Cyclic item definition detected: http://www.example.com/definitions/item-definition-cycle-model-a#TypeA -> http://www.example.com/definitions/item-definition-cycle-model-b#TypeB -> http://www.example.com/definitions/item-definition-cycle-model-b#TypeC -> http://www.example.com/definitions/item-definition-cycle-model-a#TypeA"
         );
-        validate(validator, tckResource("other/1.5/cycles-item-definitions/translator"), expectedErrors);
+        validateSimpleValidator(validator, tckResource("other/1.5/cycles-item-definitions/translator"), expectedErrors);
     }
 }

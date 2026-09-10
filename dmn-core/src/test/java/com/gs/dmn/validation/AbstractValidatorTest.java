@@ -28,7 +28,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public abstract class AbstractValidatorTest extends AbstractTest {
     protected final DMNSerializer serializer = new XMLDMNSerializer(LOGGER, this.inputParameters);
 
-    protected void validate(DMNValidator validator, URI fileURI, List<String> expectedErrors) {
+    protected void validateCompositeValidator(DMNValidator validator, URI fileURI, List<String> expectedErrors) {
+        DMNModelRepository repository = makeRepository(fileURI);
+        List<ValidationError> actualErrors = validator.validate(repository);
+
+        checkErrors(expectedErrors, actualErrors);
+    }
+
+    protected void validateSimpleValidator(DMNValidator validator, URI fileURI, List<String> expectedErrors) {
         DMNModelRepository repository = makeRepository(fileURI);
         List<ValidationError> actualErrors = validator.validate(repository);
 
@@ -45,6 +52,15 @@ public abstract class AbstractValidatorTest extends AbstractTest {
         assertEquals(expectedErrors.size(), actualErrors.size());
         for (int i = 0; i < actualErrors.size(); i++) {
             String expected = String.format("[%s] %s", ruleName, expectedErrors.get(i));
+            String actual = actualErrors.get(i).toText();
+            assertEquals(expected, actual, "Failed at index " + i);
+        }
+    }
+
+    protected void checkErrors(List<String> expectedErrors, List<ValidationError> actualErrors) {
+        assertEquals(expectedErrors.size(), actualErrors.size());
+        for (int i = 0; i < actualErrors.size(); i++) {
+            String expected = expectedErrors.get(i);
             String actual = actualErrors.get(i).toText();
             assertEquals(expected, actual, "Failed at index " + i);
         }

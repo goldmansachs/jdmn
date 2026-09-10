@@ -25,7 +25,7 @@ public class DefaultDMNValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenCorrect() {
         List<String> expectedErrors = List.of();
-        validate(validator, tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn"), expectedErrors);
+        validateSimpleValidator(validator, tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn"), expectedErrors);
     }
 
     @Test
@@ -38,7 +38,7 @@ public class DefaultDMNValidatorTest extends AbstractValidatorTest {
                 "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions', elementName = 'CIP Assessments', elementId = 'id-input-1'): DRGElement name and variable name should be the same. Found 'CIP Assessments' and 'string'",
                 "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions'): The name of a TContextEntry must be unique. Found duplicates for 'Waiting List'."
         );
-        validate(validator, resource("dmn/input/1.1/test-dmn-with-duplicates.dmn"), expectedErrors);
+        validateSimpleValidator(validator, resource("dmn/input/1.1/test-dmn-with-duplicates.dmn"), expectedErrors);
     }
 
     @Test
@@ -88,7 +88,7 @@ public class DefaultDMNValidatorTest extends AbstractValidatorTest {
             "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn', modelId = 'definitions', elementName = 'dec1', elementId = 'dec1'): Missing text of literal expression",
             "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn', modelId = 'definitions'): The variable type 'string' must be the same as the type of the contained expression 'number'"
         );
-        validate(validator, resource("dmn/input/1.5/test-dmn.dmn"), expectedErrors);
+        validateSimpleValidator(validator, resource("dmn/input/1.5/test-dmn.dmn"), expectedErrors);
     }
 
     @Test
@@ -122,7 +122,7 @@ public class DefaultDMNValidatorTest extends AbstractValidatorTest {
                 "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-boxed-expressions', modelId = 'definitions', elementName = 'some', elementId = 'some'): Missing 'in' expression in 'some' boxed expression in element 'some'",
                 "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-boxed-expressions', modelId = 'definitions', elementName = 'some', elementId = 'some'): Missing 'satisfies' expression in 'some' boxed expression in element 'some'"
         );
-        validate(validator, resource("dmn/input/1.5/test-boxed-expressions.dmn"), expectedErrors);
+        validateSimpleValidator(validator, resource("dmn/input/1.5/test-boxed-expressions.dmn"), expectedErrors);
     }
 
     @Test

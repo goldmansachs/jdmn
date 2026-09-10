@@ -26,7 +26,7 @@ public class UniqueNameValidatorTest extends AbstractValidatorTest {
 
     @Test
     public void testValidateWhenCorrect() {
-        validate(validator, tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn"), new ArrayList<>());
+        validateSimpleValidator(validator, tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn"), new ArrayList<>());
     }
 
     @Test
@@ -36,7 +36,7 @@ public class UniqueNameValidatorTest extends AbstractValidatorTest {
                 "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions'): The 'name' of a 'DRGElement' must be unique. Found 2 duplicates for 'Input'.",
                 "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions'): The 'name' of a 'ItemDefinition' must be unique. Found 2 duplicates for 'itemDefinition'."
         );
-        validate(validator, resource("dmn/input/1.1/test-dmn-with-duplicates.dmn"), expectedErrors);
+        validateSimpleValidator(validator, resource("dmn/input/1.1/test-dmn-with-duplicates.dmn"), expectedErrors);
     }
 
     @Test
