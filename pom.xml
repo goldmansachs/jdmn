@@ -561,12 +561,13 @@ specific language governing permissions and limitations under the License.]]></i
                     <!-- See https://docs.openrewrite.org/ https://docs.openrewrite.org/recipes/java/migrate/upgradetojava17 -->
                     <groupId>org.openrewrite.maven</groupId>
                     <artifactId>rewrite-maven-plugin</artifactId>
-                    <version>5.20.0</version>
+                    <version>6.46.1</version>
                     <configuration>
                         <activeRecipes>
 <!--                            <recipe>org.openrewrite.java.migrate.UpgradeToJava17</recipe>-->
-                            <recipe>org.openrewrite.java.testing.junit5.JUnit4to5Migration</recipe>
+<!--                            <recipe>org.openrewrite.java.testing.junit5.JUnit4to5Migration</recipe>-->
 <!--                            <recipe>org.openrewrite.java.testing.junit5.JUnit5BestPractices</recipe>-->
+                            <recipe>org.openrewrite.java.jackson.UpgradeJackson_2_3</recipe>
                         </activeRecipes>
                         <exclusions>
                             <exclude>**/target/**</exclude>
@@ -577,12 +578,18 @@ specific language governing permissions and limitations under the License.]]></i
                         <dependency>
                             <groupId>org.openrewrite.recipe</groupId>
                             <artifactId>rewrite-migrate-java</artifactId>
-                            <version>2.7.0</version>
+                            <version>3.42.1</version>
                         </dependency>
                         <dependency>
                             <groupId>org.openrewrite.recipe</groupId>
                             <artifactId>rewrite-testing-frameworks</artifactId>
-                            <version>2.3.0</version>
+                            <version>3.44.0</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.openrewrite.recipe</groupId>
+                            <artifactId>rewrite-jackson</artifactId>
+                            <version>1.29.0</version>
+                            <scope>runtime</scope>
                         </dependency>
                     </dependencies>
                 </plugin>
