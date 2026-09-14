@@ -170,7 +170,7 @@ public class DefaultSignavioStringLib implements SignavioStringLib {
 
     @Override
     public String lower(String text) {
-        return text == null ? null : text.toLowerCase();
+        return text == null ? null : text.toLowerCase(Locale.ROOT);
     }
 
     @Override
@@ -180,7 +180,7 @@ public class DefaultSignavioStringLib implements SignavioStringLib {
 
     @Override
     public String upper(String text) {
-        return text == null ? null : text.toUpperCase();
+        return text == null ? null : text.toUpperCase(Locale.ROOT);
     }
 
     @Override

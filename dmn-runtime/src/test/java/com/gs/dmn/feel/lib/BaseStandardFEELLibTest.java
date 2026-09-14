@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -613,6 +614,20 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
 
         assertEquals("ABC4", getLib().upperCase("aBc4"));
         assertEquals("abc4", getLib().lowerCase("aBc4"));
+    }
+
+    @Test
+    public void testCaseConversionIsLocaleIndependent() {
+        Locale defaultLocale = Locale.getDefault();
+        try {
+            // in the Turkish locale the default case mapping turns 'i' into a dotted capital I
+            Locale.setDefault(new Locale("tr", "TR"));
+
+            assertEquals("IDENTIFIER", getLib().upperCase("identifier"));
+            assertEquals("title", getLib().lowerCase("TITLE"));
+        } finally {
+            Locale.setDefault(defaultLocale);
+        }
     }
 
     @Test
