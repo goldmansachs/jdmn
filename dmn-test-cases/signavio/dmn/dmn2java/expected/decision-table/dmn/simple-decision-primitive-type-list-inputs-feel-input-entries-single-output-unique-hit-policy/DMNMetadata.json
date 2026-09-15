@@ -14,7 +14,7 @@
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/69b8ec68a443433f993135b386b718df.xml",
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "referenceType",
@@ -25,7 +25,7 @@
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/69b8ec68a443433f993135b386b718df.xml",
     "typeRef" : {
       "localName" : "number",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "referenceType",
@@ -36,7 +36,7 @@
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/69b8ec68a443433f993135b386b718df.xml",
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   } ],
   "elements" : [ {

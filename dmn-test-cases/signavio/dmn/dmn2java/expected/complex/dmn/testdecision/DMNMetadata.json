@@ -13,7 +13,7 @@
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/85f2dd29e4774c2f84b883545afdd8cc.xml",
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "referenceType",
@@ -25,7 +25,7 @@
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/85f2dd29e4774c2f84b883545afdd8cc.xml",
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   } ],
   "elements" : [ {

@@ -18,6 +18,7 @@ import com.gs.dmn.ast.dmndi.DMNDiagram;
 import com.gs.dmn.ast.dmndi.DMNStyle;
 import com.gs.dmn.ast.dmndi.DiagramElement;
 import com.gs.dmn.error.SemanticErrorException;
+import com.gs.dmn.feel.analysis.semantics.type.FEELType;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNVersion;
 import org.apache.commons.lang3.StringUtils;
@@ -182,9 +183,47 @@ public class DMNModelRepository {
         }
     }
 
-    public boolean isDMNImport(TImport import_) {
-        // Always the latest version - a transformation to latest is performed when reading
-        return DMNVersion.LATEST.getNamespace().equals(import_.getImportType());
+    public static boolean isDMNImport(TImport import_) {
+        if (import_ == null) {
+            // Ignore invalid ones
+            return false;
+        } else {
+            // Always the latest version - a transformation to latest is performed when reading
+            return DMNVersion.LATEST.getNamespace().equals(import_.getImportType());
+        }
+    }
+
+    public boolean isEmptyPrefixImport(TImport import_) {
+        if (import_ == null || import_.getName() == null) {
+            // Ignore invalid ones
+            return false;
+        } else {
+            return StringUtils.isBlank(import_.getName());
+        }
+    }
+
+    public boolean isEmptyPrefix(String prefix) {
+        return StringUtils.isBlank(prefix);
+    }
+
+    public static boolean matchesPrefix(TImport import_, String prefix) {
+        if (import_ == null || import_.getName() == null) {
+            // Ignore invalid ones
+            return false;
+        } else if (StringUtils.isBlank(import_.getName()) && StringUtils.isBlank(prefix)) {
+            return true;
+        } else {
+            return import_.getName().equals(prefix);
+        }
+    }
+
+    public boolean matchesNamespace(TImport import_, String namespace) {
+        if (import_ == null || import_.getNamespace() == null) {
+            // Ignore invalid ones
+            return false;
+        } else {
+            return import_.getNamespace().equals(namespace);
+        }
     }
 
     public List<TDefinitions> getAllDefinitions() {
@@ -226,7 +265,7 @@ public class DMNModelRepository {
     }
 
     public Graph<TDefinitions> createImportGraph() {
-        return createImportGraph(this::isDMNImport);
+        return createImportGraph(DMNModelRepository::isDMNImport);
     }
 
     private Graph<TDefinitions> createImportGraph(Predicate<TImport> filter) {
@@ -346,19 +385,35 @@ public class DMNModelRepository {
         return definitions.getImport();
     }
 
-    public String findNamespace(TDefinitions definitions, String prefix) {
-        if (DMNVersion.LATEST.getFeelPrefix().equals(prefix)) {
-            return DMNVersion.LATEST.getFeelNamespace();
-        }
-        if (StringUtils.isBlank(prefix)) {
-            prefix = "";
-        }
-        for (TImport import_ : definitions.getImport()) {
-            if (isDMNImport(import_) && import_.getName().equals(prefix)) {
-                return import_.getNamespace();
+    public String findNamespace(TDefinitions definitions, TypeReference reference) {
+        if (isEmptyPrefix(reference.getPrefix())) {
+            // Lookup local types
+            TItemDefinition localItemDefinition = this.findLocalItemDefinition(definitions, reference.getName());
+            if (localItemDefinition != null) {
+                return definitions.getNamespace();
+            }
+
+            // Check FEEL types
+            if (FEELType.FEEL_TYPE_NAMES.contains(reference.getName())) {
+                return DMNVersion.LATEST.getFeelNamespace();
             }
         }
-        return "";
+
+        // Lookup imported namespaces
+        for (TImport import_ : definitions.getImport()) {
+            if (isDMNImport(import_)) {
+                if (matchesPrefix(import_, reference.getPrefix())) {
+                    return import_.getNamespace();
+                }
+            }
+        }
+
+        // Check FEEL types
+        if (DMNVersion.LATEST.getFeelPrefix().equals(reference.getPrefix())) {
+            return DMNVersion.LATEST.getFeelNamespace();
+        }
+
+        return null;
     }
 
     public List<TItemDefinition> findTopLevelItemDefinitions(TDefinitions definitions) {
@@ -901,8 +956,8 @@ public class DMNModelRepository {
         return lookupItemDefinition(model, typeReference, new ArrayList<>());
     }
 
-    public TItemDefinition lookupItemDefinition(TDefinitions parentModel, TypeReference qName, List<TDefinitions> path) {
-        if (parentModel == null || qName == null) {
+    public TItemDefinition lookupItemDefinition(TDefinitions parentModel, TypeReference typeReference, List<TDefinitions> path) {
+        if (parentModel == null || typeReference == null) {
             return null;
         }
 
@@ -914,9 +969,9 @@ public class DMNModelRepository {
         }
 
         // Check user types
-        String prefix = qName.getPrefix();
-        String name = qName.getName();
-        if (StringUtils.isBlank(prefix)) {
+        String prefix = typeReference.getPrefix();
+        String name = typeReference.getName();
+        if (isEmptyPrefix(prefix)) {
             // Search local item definition in parent model
             TItemDefinition referencedItemDef = findLocalItemDefinition(parentModel, name);
             if (referencedItemDef != null) {
@@ -925,9 +980,9 @@ public class DMNModelRepository {
 
             // Search in imported models with empty prefix
             List<TImport> importList = parentModel.getImport();
-            for (TImport import_ :importList) {
+            for (TImport import_ : importList) {
                 if (isDMNImport(import_)) {
-                    if (StringUtils.isBlank(import_.getName())) {
+                    if (isEmptyPrefixImport(import_)) {
                         TDefinitions importedModel = findModelByNamespace(import_.getNamespace());
                         referencedItemDef = findLocalItemDefinition(importedModel, name);
                         if (referencedItemDef != null) {
@@ -939,9 +994,9 @@ public class DMNModelRepository {
         } else {
             // Search in imported model with the same prefix
             List<TImport> importList = parentModel.getImport();
-            for (TImport import_ :importList){
+            for (TImport import_ : importList) {
                 if (isDMNImport(import_)) {
-                    if (import_.getName().equals(prefix)) {
+                    if (matchesPrefix(import_, prefix)) {
                         // Check imported models
                         TDefinitions importedModel = findModelByNamespace(import_.getNamespace());
                         TItemDefinition referencedItemDef = findLocalItemDefinition(importedModel, name);
@@ -1352,7 +1407,7 @@ public class DMNModelRepository {
             // Check imported declarations
             for (TImport import_ : parentDefinitions.getImport()) {
                 if (isDMNImport(import_)) {
-                    if (Objects.equals(import_.getNamespace(), namespace)) {
+                    if (matchesNamespace(import_, namespace)) {
                         return new ImportPath(parentPath, import_.getName());
                     }
                 }

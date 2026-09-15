@@ -14,7 +14,7 @@
     "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services",
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "inputData",
@@ -25,7 +25,7 @@
     "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services",
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "inputData",
@@ -36,7 +36,7 @@
     "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services",
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "inputData",
@@ -47,7 +47,7 @@
     "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services",
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "inputData",
@@ -58,7 +58,7 @@
     "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services",
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "inputData",
@@ -69,7 +69,7 @@
     "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services",
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "inputData",
@@ -80,7 +80,7 @@
     "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services",
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "decision",
@@ -142,7 +142,7 @@
       "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     } ]
   }, {
@@ -234,7 +234,7 @@
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "decision",
@@ -262,7 +262,7 @@
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "decision",
@@ -305,7 +305,7 @@
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "decision",
@@ -349,7 +349,7 @@
       "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     }, {
       "@kind" : "inputData",
@@ -360,12 +360,12 @@
       "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     } ],
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "decision",
@@ -380,7 +380,7 @@
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "decision",
@@ -395,7 +395,7 @@
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "decision",
@@ -439,7 +439,7 @@
       "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     }, {
       "@kind" : "inputData",
@@ -450,12 +450,12 @@
       "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     } ],
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "decision",
@@ -470,7 +470,7 @@
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "decision",
@@ -485,7 +485,7 @@
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "decision",
@@ -514,7 +514,7 @@
       "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     } ]
   }, {
@@ -540,12 +540,12 @@
       "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     } ],
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "decision",
@@ -560,7 +560,7 @@
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "decision",
@@ -589,7 +589,7 @@
       "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     } ]
   }, {
@@ -615,12 +615,12 @@
       "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     } ],
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "decision",
@@ -635,7 +635,7 @@
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "decision",

@@ -19,7 +19,6 @@ import com.gs.dmn.feel.analysis.semantics.type.FEELType;
 import com.gs.dmn.serialization.DMNVersion;
 
 import javax.xml.namespace.QName;
-import java.util.Objects;
 
 public class TypeReference {
 
@@ -49,14 +48,15 @@ public class TypeReference {
         if (model != null) {
             // Check the imports
             for (TImport import_: model.getImport()) {
-                String importName = import_.getName();
-                if (importName.equals(prefix)) {
-                    return new TypeReference(prefix, name);
+                if (DMNModelRepository.isDMNImport(import_)) {
+                    if (DMNModelRepository.matchesPrefix(import_, prefix)) {
+                        return new TypeReference(prefix, name);
+                    }
                 }
             }
             // Check the types defined in the model
             for (TItemDefinition itemDefinition: model.getItemDefinition()) {
-                if (Objects.equals(itemDefinition.getName(), qName)) {
+                if (qName.equals(itemDefinition.getName())) {
                     return new TypeReference(null, qName);
                 }
             }
@@ -96,6 +96,6 @@ public class TypeReference {
 
     @Override
     public String toString() {
-        return String.format("QualifiedName(%s, %s)", this.prefix, this.name);
+        return String.format("TypeReference(%s, %s)", this.prefix, this.name);
     }
 }

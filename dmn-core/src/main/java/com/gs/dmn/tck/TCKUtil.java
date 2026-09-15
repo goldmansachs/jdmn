@@ -382,7 +382,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         } else {
             // Lookup in imports
             for (TImport imp: definitions.getImport()) {
-                if (this.dmnModelRepository.isDMNImport(imp)) {
+                if (DMNModelRepository.isDMNImport(imp)) {
                     String namespace = imp.getNamespace();
                     TDefinitions child = this.dmnModelRepository.findModelByNamespace(namespace);
                     DRGElementReference<? extends TDRGElement> result = findDRGElement(child, elementNamespace, elementName, new ImportPath(importPath, imp.getName()));

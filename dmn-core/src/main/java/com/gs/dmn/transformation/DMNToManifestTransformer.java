@@ -16,15 +16,12 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.metadata.*;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.gs.dmn.serialization.DMNVersion.DMN_11;
 
 public class DMNToManifestTransformer {
     // Unique HREFs across multiple XML files
@@ -117,30 +114,12 @@ public class DMNToManifestTransformer {
         if (this.dmnModelRepository.isNull(typeRef)) {
             return null;
         }
-        String importName = typeRef.getPrefix();
-        String namespace = findNamespace(model, importName);
+        String namespace = this.dmnModelRepository.findNamespace(model, typeRef);
         return new QName(namespace, typeRef.getName());
     }
 
     private String makeMetadataAllowedValues(TUnaryTests allowedValues) {
         return allowedValues == null ? null : allowedValues.getText();
-    }
-
-    private String findNamespace(TDefinitions model, String importName) {
-        if (DMN_11.getFeelPrefix().equals(importName)) {
-            return DMN_11.getFeelNamespace();
-        }
-        for (TImport import_: model.getImport()) {
-            if (this.dmnModelRepository.isDMNImport(import_)) {
-                if (import_.getName().equals(importName)) {
-                    model = this.dmnModelRepository.findModelByNamespace(import_.getNamespace());
-                    if (model == null) {
-                        throw new DMNRuntimeException(String.format("Cannot find model for import name '%s'", importName));
-                    }
-                }
-            }
-        }
-        return model.getNamespace();
     }
 
     //

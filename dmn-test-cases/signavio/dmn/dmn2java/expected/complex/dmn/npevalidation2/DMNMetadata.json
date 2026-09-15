@@ -13,7 +13,7 @@
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "number",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "referenceType",
@@ -24,7 +24,7 @@
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "number",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "referenceType",
@@ -35,7 +35,7 @@
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "boolean",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "referenceType",
@@ -46,7 +46,7 @@
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "number",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "referenceType",
@@ -57,7 +57,7 @@
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "compositeType",
@@ -75,7 +75,7 @@
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "typeRef" : {
         "localName" : "date",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     }, {
       "@kind" : "referenceType",
@@ -86,7 +86,7 @@
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "typeRef" : {
         "localName" : "date and time",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     } ]
   }, {
@@ -98,7 +98,7 @@
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "number",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "referenceType",
@@ -109,7 +109,7 @@
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "number",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "referenceType",
@@ -120,7 +120,7 @@
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "number",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "referenceType",
@@ -131,7 +131,7 @@
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "referenceType",
@@ -142,7 +142,7 @@
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "number",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "referenceType",
@@ -153,7 +153,7 @@
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "boolean",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "referenceType",
@@ -164,7 +164,7 @@
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "boolean",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "referenceType",
@@ -175,7 +175,7 @@
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "number",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "compositeType",
@@ -193,7 +193,7 @@
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     }, {
       "@kind" : "referenceType",
@@ -204,7 +204,7 @@
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     } ]
   }, {
@@ -216,7 +216,7 @@
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "number",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "compositeType",
@@ -234,7 +234,7 @@
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     }, {
       "@kind" : "referenceType",
@@ -245,7 +245,7 @@
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     }, {
       "@kind" : "referenceType",
@@ -256,7 +256,7 @@
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     }, {
       "@kind" : "referenceType",
@@ -267,7 +267,7 @@
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     }, {
       "@kind" : "referenceType",
@@ -278,7 +278,7 @@
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     }, {
       "@kind" : "referenceType",
@@ -289,7 +289,7 @@
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     } ]
   } ],

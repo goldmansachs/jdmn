@@ -13,7 +13,7 @@
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/8e30fec88a0a49feac5e2d32d7188b9f.xml",
     "typeRef" : {
       "localName" : "boolean",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "referenceType",
@@ -24,7 +24,7 @@
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/8e30fec88a0a49feac5e2d32d7188b9f.xml",
     "typeRef" : {
       "localName" : "date and time",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "referenceType",
@@ -35,7 +35,7 @@
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/8e30fec88a0a49feac5e2d32d7188b9f.xml",
     "typeRef" : {
       "localName" : "date",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "referenceType",
@@ -46,7 +46,7 @@
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/8e30fec88a0a49feac5e2d32d7188b9f.xml",
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "referenceType",
@@ -58,7 +58,7 @@
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/8e30fec88a0a49feac5e2d32d7188b9f.xml",
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "referenceType",
@@ -69,7 +69,7 @@
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/8e30fec88a0a49feac5e2d32d7188b9f.xml",
     "typeRef" : {
       "localName" : "number",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "referenceType",
@@ -80,7 +80,7 @@
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/8e30fec88a0a49feac5e2d32d7188b9f.xml",
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "referenceType",
@@ -91,7 +91,7 @@
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/8e30fec88a0a49feac5e2d32d7188b9f.xml",
     "typeRef" : {
       "localName" : "time",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   } ],
   "elements" : [ {

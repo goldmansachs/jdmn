@@ -18,7 +18,7 @@
       "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     }, {
       "@kind" : "referenceType",
@@ -28,7 +28,7 @@
       "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     }, {
       "@kind" : "referenceType",
@@ -38,7 +38,7 @@
       "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     } ]
   }, {
@@ -55,7 +55,7 @@
       "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     }, {
       "@kind" : "referenceType",
@@ -65,7 +65,7 @@
       "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     }, {
       "@kind" : "referenceType",
@@ -75,7 +75,7 @@
       "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     }, {
       "@kind" : "referenceType",
@@ -85,7 +85,7 @@
       "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     } ]
   }, {
@@ -102,7 +102,7 @@
       "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     }, {
       "@kind" : "referenceType",
@@ -112,7 +112,7 @@
       "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     }, {
       "@kind" : "referenceType",
@@ -122,7 +122,7 @@
       "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     } ]
   }, {
@@ -166,7 +166,7 @@
     "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
     "typeRef" : {
       "localName" : "number",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "inputData",
@@ -177,7 +177,7 @@
     "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
     "typeRef" : {
       "localName" : "number",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "bkm",
@@ -217,7 +217,7 @@
       "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     }, {
       "@kind" : "inputData",
@@ -228,7 +228,7 @@
       "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     } ],
     "typeRef" : {
@@ -260,7 +260,7 @@
       "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     }, {
       "@kind" : "inputData",
@@ -271,7 +271,7 @@
       "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     } ],
     "typeRef" : {
@@ -303,7 +303,7 @@
       "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     }, {
       "@kind" : "inputData",
@@ -314,7 +314,7 @@
       "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     } ],
     "typeRef" : {

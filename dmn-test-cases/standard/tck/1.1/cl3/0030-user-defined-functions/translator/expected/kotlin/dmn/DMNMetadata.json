@@ -14,7 +14,7 @@
     "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions",
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "inputData",
@@ -25,7 +25,7 @@
     "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions",
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "decision",
@@ -50,7 +50,7 @@
       "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     }, {
       "@kind" : "inputData",
@@ -61,12 +61,12 @@
       "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     } ],
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "decision",
@@ -91,7 +91,7 @@
       "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     }, {
       "@kind" : "inputData",
@@ -102,12 +102,12 @@
       "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     } ],
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   } ]
 }

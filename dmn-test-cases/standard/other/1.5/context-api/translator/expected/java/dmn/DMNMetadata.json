@@ -28,7 +28,7 @@
       "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     }, {
       "@kind" : "referenceType",
@@ -38,7 +38,7 @@
       "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     } ]
   }, {
@@ -55,7 +55,7 @@
       "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     } ]
   }, {
@@ -92,7 +92,7 @@
       "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     }, {
       "@kind" : "referenceType",
@@ -102,7 +102,7 @@
       "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     } ]
   } ],
@@ -115,7 +115,7 @@
     "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB",
     "typeRef" : {
       "localName" : "date",
-      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
     }
   }, {
     "@kind" : "inputData",
@@ -151,7 +151,7 @@
       "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB",
       "typeRef" : {
         "localName" : "date",
-        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
       }
     }, {
       "@kind" : "inputData",

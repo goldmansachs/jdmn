@@ -168,7 +168,7 @@ class DMNModellingStyleValidatorVisitor extends TraversalVisitor<ValidationConte
     public DMNBaseElement visit(TImport element, ValidationContext context) {
         // Collect imported models
         if (element != null) {
-            collectImportedModel(element, context);
+            collectImportedModel(element);
             validateImportName(element, context);
         }
 
@@ -290,9 +290,8 @@ class DMNModellingStyleValidatorVisitor extends TraversalVisitor<ValidationConte
     }
 
     // Collect imported model
-    private void collectImportedModel(TImport element, ValidationContext context) {
-        DMNModelRepository repository = context.getRepository();
-        if (repository.isDMNImport(element)) {
+    private void collectImportedModel(TImport element) {
+        if (DMNModelRepository.isDMNImport(element)) {
             this.importedModels.add(element.getNamespace());
         }
     }
@@ -304,11 +303,10 @@ class DMNModellingStyleValidatorVisitor extends TraversalVisitor<ValidationConte
 
         TypeReference typeReference = TypeReference.toTypeReference(definitions, typeRef);
         String prefix = typeReference.getPrefix();
-        String namespace = repository.findNamespace(definitions, prefix);
-        // If the prefix is not empty and the namespace is empty, collect the prefix as used model to report the error later.
+        String namespace = repository.findNamespace(definitions, typeReference);
         if (!StringUtils.isBlank(prefix) && StringUtils.isBlank(namespace)) {
             collectUsedNamespace(prefix);
-        } else {
+        } else if (!definitions.getNamespace().equals(namespace)) {
             collectUsedNamespace(namespace);
         }
     }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" namespace="http://www.provider.com/dmn/1.1/diagram/c3d5f975281b4d2f829ee2c77b320f01.xml" exporterVersion="10.15.9" name="Child" id="id-03b2b52b82d944928512dda165dc7027" sigExt:revisionId="341b81ba73844c14b2ad31eb943b4e8f" sigExt:revisionNumber="1">
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" namespace="http://www.provider.com/dmn/1.1/diagram/c3d5f975281b4d2f829ee2c77b320f01.xml" exporterVersion="10.15.9" name="Child" id="id-03b2b52b82d944928512dda165dc7027" sigExt:revisionId="341b81ba73844c14b2ad31eb943b4e8f" sigExt:revisionNumber="1">
     <extensionElements/>
     <itemDefinition isCollection="false" name="abc" id="id-b06eb129b14470365f5372c2e46a27f3" label="abc">
-        <typeRef>number</typeRef>
+        <typeRef>feel:number</typeRef>
     </itemDefinition>
     <itemDefinition isCollection="false" name="num" id="id-e49de84a20b6287cfdee3034b2107068" label="num">
-        <typeRef>number</typeRef>
+        <typeRef>feel:number</typeRef>
     </itemDefinition>
     <inputData name="num" id="id-633e1930a1ad44cae56744496cd663d3" label="num" sigExt:shapeId="sid-5839E07F-9439-46C5-B92F-7588F17E0A7C" sigExt:diagramId="c3d5f975281b4d2f829ee2c77b320f01">
         <variable xmlns:sig="http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml" typeRef="sig:num" name="num" id="id-633e1930a1ad44cae56744496cd663d3_variable"/>

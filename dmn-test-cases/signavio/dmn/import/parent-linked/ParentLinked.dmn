@@ -14,7 +14,7 @@
         <typeRef>number</typeRef>
     </itemDefinition>
     <decision name="childObject" id="id-7c5358c692497488ed1b1023189410fb" label="ChildObject" sigExt:shapeId="sid-3551B993-B042-466B-B0CD-B5EE8B6C192B" sigExt:diagramId="80afa9e878bb4885a8f5be36b6f16abc">
-        <variable xmlns:sig="http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml" typeRef="sig:abc" name="ChildObject" id="id-7c5358c692497488ed1b1023189410fb_variable"/>
+        <variable typeRef="abc" name="ChildObject" id="id-7c5358c692497488ed1b1023189410fb_variable"/>
         <informationRequirement>
             <requiredDecision href="http://www.provider.com/dmn/1.1/diagram/c3d5f975281b4d2f829ee2c77b320f01.xml#id-cd02eb803eaf0f5bf6ae1823636939db"/>
         </informationRequirement>
@@ -23,7 +23,7 @@
         </literalExpression>
     </decision>
     <decision name="somethingElse" id="id-6c8cb98cfc4743b1066d1f6ed28f3f10" label="SomethingElse" sigExt:shapeId="sid-89A9C1A5-1701-4289-9DFE-9FF6223528C7" sigExt:diagramId="80afa9e878bb4885a8f5be36b6f16abc">
-        <variable xmlns:sig="http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml" typeRef="sig:somethingElse" name="SomethingElse" id="id-6c8cb98cfc4743b1066d1f6ed28f3f10_variable"/>
+        <variable typeRef="somethingElse" name="SomethingElse" id="id-6c8cb98cfc4743b1066d1f6ed28f3f10_variable"/>
         <informationRequirement>
             <requiredDecision href="#id-7c5358c692497488ed1b1023189410fb"/>
         </informationRequirement>
