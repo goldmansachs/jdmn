@@ -13,7 +13,6 @@
 package com.gs.dmn;
 
 import com.gs.dmn.ast.TDefinitions;
-import com.gs.dmn.ast.TImport;
 import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.feel.analysis.semantics.type.FEELType;
 import com.gs.dmn.serialization.DMNVersion;
@@ -41,26 +40,19 @@ public class TypeReference {
             return null;
         }
 
-        // Check user defined types
-        int dotIndex = qName.indexOf(TYPE_REFERENCE_SEPARATOR);
-        String prefix = dotIndex == -1 ? null : qName.substring(0, dotIndex);
-        String name = dotIndex == -1 ? qName : qName.substring(dotIndex + 1);
+        // Check if qName is defined in the current model
         if (model != null) {
-            // Check the imports
-            for (TImport import_: model.getImport()) {
-                if (DMNModelRepository.isDMNImport(import_)) {
-                    if (DMNModelRepository.matchesPrefix(import_, prefix)) {
-                        return new TypeReference(prefix, name);
-                    }
-                }
-            }
-            // Check the types defined in the model
-            for (TItemDefinition itemDefinition: model.getItemDefinition()) {
+            for (TItemDefinition itemDefinition : model.getItemDefinition()) {
                 if (qName.equals(itemDefinition.getName())) {
                     return new TypeReference(null, qName);
                 }
             }
         }
+
+        // Check the qName contains prefix
+        int dotIndex = qName.indexOf(TYPE_REFERENCE_SEPARATOR);
+        String prefix = dotIndex == -1 ? null : qName.substring(0, dotIndex);
+        String name = dotIndex == -1 ? qName : qName.substring(dotIndex + 1);
 
         // Check FEEL types with and without prefix
         if (DMNVersion.LATEST.getFeelPrefix().equals(prefix)) {

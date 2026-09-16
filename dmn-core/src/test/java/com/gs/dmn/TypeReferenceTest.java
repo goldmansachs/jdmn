@@ -13,6 +13,8 @@
 package com.gs.dmn;
 
 import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.ast.TImport;
+import com.gs.dmn.serialization.DMNVersion;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -36,6 +38,27 @@ public class TypeReferenceTest {
         TypeReference typeReference = TypeReference.toTypeReference((TDefinitions) null,"feel.string");
         assertEquals("feel", typeReference.getPrefix());
         assertEquals("string", typeReference.getName());
+    }
+
+    @Test
+    public void testConstructorForFEELTypesWithNoPrefix() {
+        TypeReference typeReference = TypeReference.toTypeReference(new TDefinitions(),"string");
+        assertEquals("feel", typeReference.getPrefix());
+        assertEquals("string", typeReference.getName());
+
+        typeReference = TypeReference.toTypeReference(makeModelWithEmptyImport(),"string");
+        assertEquals("feel", typeReference.getPrefix());
+        assertEquals("string", typeReference.getName());
+    }
+
+    private TDefinitions makeModelWithEmptyImport() {
+        TDefinitions definitions = new TDefinitions();
+        TImport import_ =  new TImport();
+        import_.setName("");
+        import_.setImportType(DMNVersion.LATEST.getNamespace());
+        import_.setNamespace("namespace");
+        definitions.getImport().add(import_);
+        return definitions;
     }
 
     @Test
