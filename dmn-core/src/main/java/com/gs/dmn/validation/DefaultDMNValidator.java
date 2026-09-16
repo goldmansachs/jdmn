@@ -227,14 +227,32 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
     }
 
     private void validateNamedElement(TDefinitions definitions, TNamedElement element, ValidationContext context) {
-        // ID is mandatory for DRG elements, it is used in references
-        if (StringUtils.isBlank(element.getId()) && element instanceof TDRGElement) {
-            String errorMessage = "Missing id for element %s".formatted(element.getClass().getSimpleName());
-            addValidationError(context, definitions, element, errorMessage);
+        if (element instanceof TDRGElement || element instanceof TDefinitions) {
+            // ID is mandatory for DRG elements, it is used in references
+            validateId(definitions, element, context);
+            // Name is mandatory in XSD, but XSD validation does not report empty names
+            validateEmptyName(definitions, element, context);
+        } else if (element instanceof TItemDefinition || element instanceof TInformationItem) {
+            // Name is mandatory in XSD, but XSD validation does not report empty names
+            validateEmptyName(definitions, element, context);
+        } else if (element instanceof TImport) {
+            if (element.getName() == null) {
+                String errorMessage = "Missing name for element %s".formatted(element.getClass().getSimpleName());
+                addValidationError(context, definitions, element, errorMessage);
+            }
         }
-        // Name is mandatory in XSD, but XSD validation does not report empty names
+    }
+
+    private void validateEmptyName(TDefinitions definitions, TNamedElement element, ValidationContext context) {
         if (StringUtils.isBlank(element.getName())) {
             String errorMessage = "Missing name for element %s".formatted(element.getClass().getSimpleName());
+            addValidationError(context, definitions, element, errorMessage);
+        }
+    }
+
+    private void validateId(TDefinitions definitions, TNamedElement element, ValidationContext context) {
+        if (StringUtils.isBlank(element.getId())) {
+            String errorMessage = "Missing id for element %s".formatted(element.getClass().getSimpleName());
             addValidationError(context, definitions, element, errorMessage);
         }
     }
