@@ -83,6 +83,24 @@
         <variable name="useImportedType" typeRef="model-d.Person"/>
     </decision>
 
+    <decision name="DecisionTable">
+        <variable name="DecisionTable" typeRef="number"/>
+        <decisionTable id="dt3Table">
+            <annotation name="1">
+            </annotation>
+            <annotation name="2">
+            </annotation>
+            <rule>
+                <annotationEntry>
+                    <text>"one"</text>
+                </annotationEntry>
+                <annotationEntry>
+                    <text>"two"</text>
+                </annotationEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+
     <decisionService name="UseImportedDecisionService">
         <outputDecision href="http://test.example.com/model-e#do"/>
         <inputData href="http://test.example.com/model-f#ida"/>

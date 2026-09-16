@@ -242,6 +242,17 @@ class DMNModellingStyleValidatorVisitor extends TraversalVisitor<ValidationConte
     }
 
     @Override
+    public DMNBaseElement visit(TDecisionTable element, ValidationContext context) {
+        if (element != null) {
+            TDMNElement parent = (TDMNElement) element.getParent();
+
+            validateDecisionTable(parent, element, context);
+        }
+
+        return super.visit(element, context);
+    }
+
+    @Override
     protected QName visitTypeRef(QName typeRef, ValidationContext context) {
         if (typeRef != null) {
             collectUsedModel(typeRef, context);
@@ -267,9 +278,7 @@ class DMNModellingStyleValidatorVisitor extends TraversalVisitor<ValidationConte
             for (TItemDefinition child : itemComponents) {
                 if (!child.getItemComponent().isEmpty()) {
                     String errorMessage = String.format("Complex type '%s' contains nested complex type '%s' which is not allowed. Complex types should be modelled separately.", element.getName(), child.getName());
-                    TDefinitions definitions = context.getDefinitions();
-                    SemanticError error = ErrorFactory.makeDMNWarning(new ModelCoordinates(definitions, element), errorMessage);
-                    context.addError(new ValidationError(error, this.ruleName));
+                    addValidationError(element, context, errorMessage);
                 }
             }
         }
@@ -282,9 +291,35 @@ class DMNModellingStyleValidatorVisitor extends TraversalVisitor<ValidationConte
             if (entry.getExpression() != null && !(entry.getExpression() instanceof TLiteralExpression)) {
                 String entryName = entry.getVariable() != null ? entry.getVariable().getName() : "unnamed";
                 String errorMessage = String.format("All context entries should be literal expressions. Context entry '%s' is a not a literal expression", entryName);
-                TDefinitions definitions = context.getDefinitions();
-                SemanticError error = ErrorFactory.makeDMNWarning(new ModelCoordinates(definitions, element), errorMessage);
-                context.addError(new ValidationError(error, this.ruleName));
+                addValidationError(element, context, errorMessage);
+            }
+        }
+    }
+
+    // Validate decision tables
+    private void validateDecisionTable(TDMNElement parent, TDecisionTable element, ValidationContext context) {
+        validateRuleAnnotationClauses(parent, element, context);
+        validateRules(parent, element, context);
+    }
+
+    // At most one annotation clause
+    private void validateRuleAnnotationClauses(TDMNElement parent, TDecisionTable element, ValidationContext context) {
+        List<TRuleAnnotationClause> annotationClauses = element.getAnnotation();
+        if (annotationClauses.size() > 1) {
+            String errorMessage = String.format("Expected at most one annotation clause, found %s.", annotationClauses.size());
+            addValidationError(parent, context, errorMessage);
+        }
+    }
+
+    // At most one annotation entry for rules
+    private void validateRules(TDMNElement parent, TDecisionTable element, ValidationContext context) {
+        List<TDecisionRule> rules = element.getRule();
+        for (int i=0; i<rules.size(); i++) {
+            TDecisionRule rule = rules.get(i);
+            List<TRuleAnnotation> annotationEntry = rule.getAnnotationEntry();
+            if (annotationEntry.size() > 1) {
+                String errorMessage = String.format("Expected at most one annotation entry in rule %d, found %s.", i + 1, annotationEntry.size());
+                addValidationError(parent, context, errorMessage);
             }
         }
     }
@@ -334,25 +369,19 @@ class DMNModellingStyleValidatorVisitor extends TraversalVisitor<ValidationConte
             // Check if name contains invalid characters
             if (!NAME_PATTERN.matcher(name).matches()) {
                 String errorMessage = String.format("Name '%s' contains invalid characters. Names should contain only alphanumeric characters, underscores, dashes and spaces, and should start with an alphanumeric character.", name);
-                TDefinitions definitions = context.getDefinitions();
-                SemanticError error = ErrorFactory.makeDMNWarning(new ModelCoordinates(definitions, element), errorMessage);
-                context.addError(new ValidationError(error, this.ruleName));
+                addValidationError(element, context, errorMessage);
             }
             // Check if name ends with whitespace, including tabs, newlines, and carriage returns
             if (Character.isWhitespace(name.charAt(name.length() - 1))) {
                 String errorMessage = String.format("Name '%s' ends with a whitespace.", name);
-                TDefinitions definitions = context.getDefinitions();
-                SemanticError error = ErrorFactory.makeDMNWarning(new ModelCoordinates(definitions, element), errorMessage);
-                context.addError(new ValidationError(error, this.ruleName));
+                addValidationError(element, context, errorMessage);
             }
         }
         // Check label
         String label = element.getLabel();
         if (!StringUtils.isBlank(label)) {
             String errorMessage = String.format("Label '%s' is deprecated and should not be used.", label);
-            TDefinitions definitions = context.getDefinitions();
-            SemanticError error = ErrorFactory.makeDMNWarning(new ModelCoordinates(definitions, element), errorMessage);
-            context.addError(new ValidationError(error, this.ruleName));
+            addValidationError(element, context, errorMessage);
         }
     }
 
@@ -362,9 +391,7 @@ class DMNModellingStyleValidatorVisitor extends TraversalVisitor<ValidationConte
         // Check if name is not a FEEL type name
         if (FEELType.FEEL_TYPE_NAMES.contains(element.getName())) {
             String errorMessage = String.format("Item definition name '%s' is a FEEL type name which is not allowed.", element.getName());
-            TDefinitions definitions = context.getDefinitions();
-            SemanticError error = ErrorFactory.makeDMNWarning(new ModelCoordinates(definitions, element), errorMessage);
-            context.addError(new ValidationError(error, this.ruleName));
+            addValidationError(element, context, errorMessage);
         }
     }
 
@@ -375,9 +402,7 @@ class DMNModellingStyleValidatorVisitor extends TraversalVisitor<ValidationConte
             // Check if name contains invalid characters
             if (!IMPORT_NAME_PATTERN.matcher(name).matches()) {
                 String errorMessage = String.format("Import name '%s' contains invalid characters. Import names should contain only alphanumeric characters and underscores, and should start with a letter.", name);
-                TDefinitions definitions = context.getDefinitions();
-                SemanticError error = ErrorFactory.makeDMNWarning(new ModelCoordinates(definitions, element), errorMessage);
-                context.addError(new ValidationError(error, this.ruleName));
+                addValidationError(element, context, errorMessage);
             }
         }
     }
@@ -387,9 +412,7 @@ class DMNModellingStyleValidatorVisitor extends TraversalVisitor<ValidationConte
         List<TDMNElementReference> outputDecision = element.getOutputDecision();
         if (outputDecision != null && outputDecision.size() > 1) {
             String errorMessage = String.format("DecisionService '%s' should have only one output decision.", element.getName());
-            TDefinitions definitions = context.getDefinitions();
-            SemanticError error = ErrorFactory.makeDMNWarning(new ModelCoordinates(definitions, element), errorMessage);
-            context.addError(new ValidationError(error, this.ruleName));
+            addValidationError(element, context, errorMessage);
         }
     }
 
@@ -398,9 +421,12 @@ class DMNModellingStyleValidatorVisitor extends TraversalVisitor<ValidationConte
         List<TDMNElementReference> inputDecision = element.getInputDecision();
         if (inputDecision != null && !inputDecision.isEmpty()) {
             String errorMessage = String.format("DecisionService '%s' should not expose any input decision.", element.getName());
-            TDefinitions definitions = context.getDefinitions();
-            SemanticError error = ErrorFactory.makeDMNWarning(new ModelCoordinates(definitions, element), errorMessage);
-            context.addError(new ValidationError(error, this.ruleName));
+            addValidationError(element, context, errorMessage);
         }
+    }
+
+    private void addValidationError(TDMNElement element, ValidationContext context, String errorMessage) {
+        SemanticError error = ErrorFactory.makeDMNWarning(new ModelCoordinates(context.getDefinitions(), element), errorMessage);
+        context.addError(new ValidationError(error, this.ruleName));
     }
 }

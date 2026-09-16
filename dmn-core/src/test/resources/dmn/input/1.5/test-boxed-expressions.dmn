@@ -40,6 +40,9 @@
                 <outputEntry>
                     <text>11</text>
                 </outputEntry>
+                <annotationEntry>
+                    <text>"abc"</text>
+                </annotationEntry>
             </rule>
         </decisionTable>
     </decision>
