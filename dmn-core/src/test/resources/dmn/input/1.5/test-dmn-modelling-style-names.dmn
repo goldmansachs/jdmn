@@ -9,6 +9,9 @@
 
     <itemDefinition id="it01" name="string">
         <typeRef>string</typeRef>
+        <itemComponent name="string">
+            <typeRef>string</typeRef>
+        </itemComponent>
     </itemDefinition>
 
     <itemDefinition id="id02" name=" start space">

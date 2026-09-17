@@ -53,7 +53,7 @@ import java.util.regex.Pattern;
 // Names:
 //  - Names should contain only alphanumeric characters, underscores, dashes and spaces, , and should start with an alphanumeric character.
 //  - Names should not end with whitespace, including tabs, newlines, and carriage returns
-//  - Item definition names should not be FEEL type names.
+//  - Root item definition names should not be FEEL type names.
 //  - Import names should contain only alphanumeric characters, underscores and spaces, and should start with a letter.
 //  - Labels are deprecated and should not be used.
 // TypeRefs:
@@ -388,13 +388,15 @@ class DMNModellingStyleValidatorVisitor extends TraversalVisitor<ValidationConte
         }
     }
 
-    // Item definition names should not be FEEL type names.
+    // Root item definition names should not be FEEL type names.
     private void validateItemDefinitionName(TItemDefinition element, ValidationContext context) {
         validateName(element, context);
-        // Check if name is not a FEEL type name
-        if (FEELType.FEEL_TYPE_NAMES.contains(element.getName())) {
-            String errorMessage = String.format("Item definition name '%s' is a FEEL type name which is not allowed.", element.getName());
-            addValidationError(element, context, errorMessage);
+        if (element.getParent() instanceof TDefinitions) {
+            // Check if name is not a FEEL type name
+            if (FEELType.FEEL_TYPE_NAMES.contains(element.getName())) {
+                String errorMessage = String.format("Item definition name '%s' is a FEEL type name which is not allowed.", element.getName());
+                addValidationError(element, context, errorMessage);
+            }
         }
     }
 
