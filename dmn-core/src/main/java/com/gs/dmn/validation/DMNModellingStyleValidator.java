@@ -56,6 +56,8 @@ import java.util.regex.Pattern;
 //  - Item definition names should not be FEEL type names.
 //  - Import names should contain only alphanumeric characters, underscores and spaces, and should start with a letter.
 //  - Labels are deprecated and should not be used.
+// TypeRefs:
+//  - TypeRefs should not contain more than one prefix
 //
 public class DMNModellingStyleValidator extends SimpleDMNValidator {
     public DMNModellingStyleValidator() {
@@ -255,6 +257,7 @@ class DMNModellingStyleValidatorVisitor extends TraversalVisitor<ValidationConte
     @Override
     protected QName visitTypeRef(QName typeRef, ValidationContext context) {
         if (typeRef != null) {
+            validateTypeRef(typeRef, context);
             collectUsedModel(typeRef, context);
         }
 
@@ -422,6 +425,17 @@ class DMNModellingStyleValidatorVisitor extends TraversalVisitor<ValidationConte
         if (inputDecision != null && !inputDecision.isEmpty()) {
             String errorMessage = String.format("DecisionService '%s' should not expose any input decision.", element.getName());
             addValidationError(element, context, errorMessage);
+        }
+    }
+
+    private void validateTypeRef(QName typeRef, ValidationContext context) {
+        // Nested imports are not allowed in typeRefs
+        String localPart = typeRef.getLocalPart();
+        // Count dots in localPart
+        int count = localPart.length() - localPart.replace(".", "").length();
+        if (count > 1) {
+            String errorMessage = String.format("TypeRef '%s' contains more than one prefix separated by .", localPart);
+            addValidationError(null, context, errorMessage);
         }
     }
 

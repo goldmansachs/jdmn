@@ -32,12 +32,12 @@
     </decision>
 
     <decisionService name="badDS.name" id="ds001">
-        <variable id="ds001var" name="badDSVar.name" typeRef="string"/>
+        <variable id="ds001var" name="badDSVar.name" typeRef="prefix1.string"/>
         <outputDecision href="#d001"/>
         <outputDecision href="#d002"/>
     </decisionService>
 
     <businessKnowledgeModel name="badBKM.name" id="bkm001" label="Deprecated Label">
-        <variable id="bkm001var" name="badBKMVar.name" typeRef="string" label="Deprecated Variable Label"/>
+        <variable id="bkm001var" name="badBKMVar.name" typeRef="prefix1.prefix2.string" label="Deprecated Variable Label"/>
     </businessKnowledgeModel>
 </definitions>
