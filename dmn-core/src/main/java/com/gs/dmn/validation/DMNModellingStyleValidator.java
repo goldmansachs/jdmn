@@ -340,12 +340,14 @@ class DMNModellingStyleValidatorVisitor extends TraversalVisitor<ValidationConte
         TDefinitions definitions = context.getDefinitions();
 
         TypeReference typeReference = TypeReference.toTypeReference(definitions, typeRef);
-        String prefix = typeReference.getPrefix();
-        String namespace = repository.findNamespace(definitions, typeReference);
-        if (!StringUtils.isBlank(prefix) && StringUtils.isBlank(namespace)) {
-            collectUsedNamespace(prefix);
-        } else if (!definitions.getNamespace().equals(namespace)) {
-            collectUsedNamespace(namespace);
+        if (typeReference != null) {
+            String prefix = typeReference.getPrefix();
+            String namespace = repository.findNamespace(definitions, typeReference);
+            if (!StringUtils.isBlank(prefix) && StringUtils.isBlank(namespace)) {
+                collectUsedNamespace(prefix);
+            } else if (!definitions.getNamespace().equals(namespace)) {
+                collectUsedNamespace(namespace);
+            }
         }
     }
 
