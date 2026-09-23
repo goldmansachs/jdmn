@@ -272,7 +272,7 @@
             output_.${transformer.outputClausePriorityVariableName(drgElement, output)} = ${transformer.outputClausePriority(drgElement, rule.outputEntry[output_index], output_index)}
                 </#if>
             </#list>
-            <@addAnnotation drgElement rule rule_index />
+            <@addAnnotations drgElement expression rule rule_index />
         }
 
         <@events.endRule drgElement rule_index "output_" />
@@ -400,12 +400,12 @@
 <#--
     Annotations
 -->
-<#macro addAnnotation drgElement rule rule_index>
-            <#list transformer.annotations(drgElement, rule)>
+<#macro addAnnotations drgElement decisionTable rule ruleIndex>
+            <#list transformer.annotations(drgElement, decisionTable, rule)>
 
             // Add annotations
             <#items as annotation>
-            ${transformer.annotationSetVariableName()}.addAnnotation("${drgElement.name}", ${rule_index}, ${annotation})
+            ${transformer.annotationSetVariableName()}.addAnnotation("${drgElement.name}", ${ruleIndex}, "${annotation.left}", ${annotation.right})
             </#items>
             </#list>
 </#macro>

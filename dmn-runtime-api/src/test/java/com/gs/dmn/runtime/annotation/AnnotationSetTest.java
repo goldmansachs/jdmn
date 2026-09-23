@@ -14,6 +14,8 @@ package com.gs.dmn.runtime.annotation;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AnnotationSetTest {
@@ -41,6 +43,22 @@ public class AnnotationSetTest {
 
         assertEquals(2, set.size());
         assertEquals(1, set.toSet().size());
+    }
+
+    @Test
+    public void testAnnotationName() {
+        AnnotationSet set = new AnnotationSet();
+        set.addAnnotation("Name", 0, "Explanation", "text1");
+        set.addAnnotation("Name", 0, "", "text2");
+        set.addAnnotation("Name", 0, null, "text3");
+        set.addAnnotation("Name", 0, null, (String) null);
+        set.addAnnotation("Name", 0, null, (List) null);
+        set.addAnnotation("Name", 0, "", "");
+
+        assertEquals(3, set.size());
+        assertEquals("Explanation#text1", set.get(0).getAnnotation());
+        assertEquals("text2", set.get(1).getAnnotation());
+        assertEquals("text3", set.get(2).getAnnotation());
     }
 
 }

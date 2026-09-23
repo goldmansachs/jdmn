@@ -1346,6 +1346,20 @@ public class DMNModelRepository {
         return outputClauseName;
     }
 
+    public String annotationClauseName(TDRGElement parent, TDecisionTable decisionTable, int annotationIndex) {
+        List<TRuleAnnotationClause> annotationClauses = decisionTable.getAnnotation();
+        String annotationName = "";
+        if (0 <= annotationIndex && annotationIndex < annotationClauses.size()) {
+            annotationName = annotationClauses.get(annotationIndex).getName();
+        } else {
+            throw new SemanticErrorException(String.format("Cannot find annotationClause with index %s in element '%s'", annotationIndex, parent.getName()));
+        }
+        if (StringUtils.isBlank(annotationName)) {
+            throw new SemanticErrorException(String.format("Cannot resolve name for annotationClause with index %s in element '%s'", annotationIndex, parent.getName()));
+        }
+        return annotationName;
+    }
+
     public TInformationItem variable(TNamedElement element) {
         if (element instanceof TInputData) {
             return ((TInputData) element).getVariable();

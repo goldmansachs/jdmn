@@ -27,6 +27,8 @@
                 </inputExpression>
             </input>
             <output id="_89841156-1ca0-4704-9551-39205fdb7ae2"/>
+            <annotation name="A1"/>
+            <annotation name="A2"/>
             <rule id="_543c9e93-e815-41df-8884-b40f726a847e">
                 <inputEntry id="_543c9e93-e815-41df-8884-b40f726a847e-0">
                     <text>&gt;10</text>

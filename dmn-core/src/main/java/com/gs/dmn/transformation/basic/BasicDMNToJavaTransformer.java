@@ -351,24 +351,32 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public List<String> annotations(TDRGElement element, List<String> annotationTexts) {
-        List<String> annotationStatements = new ArrayList<>();
+    public List<Pair<String, String>> annotations(TDRGElement element, List<Pair<String, String>> annotations) {
+        List<Pair<String, String>> annotationStatements = new ArrayList<>();
         DMNContext context = this.makeGlobalContext(element);
-        for (String annotationText : annotationTexts) {
+        for (Pair<String, String> pair : annotations) {
+            if (pair == null) {
+                continue;
+            }
+            String annotationText = pair.getRight();
             try {
                 // Add rule annotation
                 if (!StringUtils.isBlank(annotationText)) {
                     Statement statement = annotation(element, annotationText, context);
                     String code = statement.getText();
                     if (!StringUtils.isBlank(code)) {
-                        annotationStatements.add(code);
+                        annotationStatements.add(new Pair<>(pair.getLeft(), code));
                     }
                 }
             } catch (Exception e) {
-                throw new SemanticErrorException(String.format("Cannot process annotation '%s' for element '%s'", annotationText, element == null ? "" : element.getName()), e);
+                handleAnnotationError(element, pair, annotationStatements, e);
             }
         }
         return annotationStatements;
+    }
+
+    protected void handleAnnotationError(TDRGElement element, Pair<String, String> pair, List<Pair<String, String>> annotationStatements, Exception e) {
+        throw new SemanticErrorException(String.format("Cannot process annotation '%s' for element '%s'", pair.getRight(), element == null ? "" : element.getName()), e);
     }
 
     protected Statement annotation(TDRGElement element, String annotationText, DMNContext context) {
@@ -1568,8 +1576,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public List<String> annotations(TDRGElement element, TDecisionRule rule) {
-        return this.expressionToNativeTransformer.annotations(element, rule);
+    public List<Pair<String, String>> annotations(TDRGElement element, TDecisionTable decisionTable, TDecisionRule rule) {
+        return this.expressionToNativeTransformer.annotations(element, decisionTable, rule);
     }
 
     @Override

@@ -30,17 +30,30 @@ public class AnnotationSet extends LinkedList<Annotation> {
         this.maxAnnotations = maxAnnotations;
     }
 
+    @Deprecated
     public void addAnnotation(String decisionName, int ruleIndex, List<String> annotationList) {
+        addAnnotation(decisionName, ruleIndex, null, annotationList);
+    }
+
+    @Deprecated
+    public void addAnnotation(String decisionName, int ruleIndex, String annotation) {
+        addAnnotation(decisionName, ruleIndex, null, annotation);
+    }
+
+    public void addAnnotation(String decisionName, int ruleIndex, String annotationName, List<String> annotationList) {
         if (annotationList != null && !annotationList.isEmpty()) {
             String annotation = String.join(" ", annotationList);
-            this.addAnnotation(decisionName, ruleIndex, annotation);
+            this.addAnnotation(decisionName, ruleIndex, annotationName, annotation);
         }
     }
 
-    public void addAnnotation(String decisionName, int ruleIndex, String annotation) {
+    public void addAnnotation(String decisionName, int ruleIndex, String annotationName, String annotation) {
         if (!StringUtils.isBlank(annotation)) {
             // Rules index starts from 0
             if (size() < maxAnnotations) {
+                if (!StringUtils.isBlank(annotationName)) {
+                    annotation = String.format("%s#%s", annotationName, annotation);
+                }
                 Annotation element = new Annotation(decisionName, ruleIndex + 1, annotation);
                 this.add(element);
             } else if (size() == maxAnnotations) {

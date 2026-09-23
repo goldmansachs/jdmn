@@ -120,7 +120,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.J
             output_.setOutputExecutionAnalysisResult("Output1");
 
             // Add annotations
-            annotationSet_.addAnnotation("outputExecutionAnalysisResult", 0, string("Message1"));
+            annotationSet_.addAnnotation("outputExecutionAnalysisResult", 0, "", string("Message1"));
         }
 
         // Rule end
@@ -154,7 +154,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.J
             output_.setOutputExecutionAnalysisResult("Output2");
 
             // Add annotations
-            annotationSet_.addAnnotation("outputExecutionAnalysisResult", 1, string("Message2"));
+            annotationSet_.addAnnotation("outputExecutionAnalysisResult", 1, "", string("Message2"));
         }
 
         // Rule end
@@ -188,7 +188,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.J
             output_.setOutputExecutionAnalysisResult("Output3");
 
             // Add annotations
-            annotationSet_.addAnnotation("outputExecutionAnalysisResult", 2, string("Message3"));
+            annotationSet_.addAnnotation("outputExecutionAnalysisResult", 2, "", string("Message3"));
         }
 
         // Rule end
@@ -222,7 +222,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.J
             output_.setOutputExecutionAnalysisResult("Output4");
 
             // Add annotations
-            annotationSet_.addAnnotation("outputExecutionAnalysisResult", 3, string("Message4"));
+            annotationSet_.addAnnotation("outputExecutionAnalysisResult", 3, "", string("Message4"));
         }
 
         // Rule end
@@ -256,7 +256,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.J
             output_.setOutputExecutionAnalysisResult("Output5");
 
             // Add annotations
-            annotationSet_.addAnnotation("outputExecutionAnalysisResult", 4, string("Message5"));
+            annotationSet_.addAnnotation("outputExecutionAnalysisResult", 4, "", string("Message5"));
         }
 
         // Rule end
@@ -290,7 +290,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.J
             output_.setOutputExecutionAnalysisResult("Output6");
 
             // Add annotations
-            annotationSet_.addAnnotation("outputExecutionAnalysisResult", 5, string("Message6"));
+            annotationSet_.addAnnotation("outputExecutionAnalysisResult", 5, "", string("Message6"));
         }
 
         // Rule end
@@ -324,7 +324,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.J
             output_.setOutputExecutionAnalysisResult("Output7");
 
             // Add annotations
-            annotationSet_.addAnnotation("outputExecutionAnalysisResult", 6, string("Message7"));
+            annotationSet_.addAnnotation("outputExecutionAnalysisResult", 6, "", string("Message7"));
         }
 
         // Rule end
@@ -358,7 +358,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.J
             output_.setOutputExecutionAnalysisResult("Output8");
 
             // Add annotations
-            annotationSet_.addAnnotation("outputExecutionAnalysisResult", 7, string("Message8"));
+            annotationSet_.addAnnotation("outputExecutionAnalysisResult", 7, "", string("Message8"));
         }
 
         // Rule end
@@ -392,7 +392,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.J
             output_.setOutputExecutionAnalysisResult("Output9");
 
             // Add annotations
-            annotationSet_.addAnnotation("outputExecutionAnalysisResult", 8, string("Message9"));
+            annotationSet_.addAnnotation("outputExecutionAnalysisResult", 8, "", string("Message9"));
         }
 
         // Rule end
@@ -426,7 +426,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.J
             output_.setOutputExecutionAnalysisResult("Output10");
 
             // Add annotations
-            annotationSet_.addAnnotation("outputExecutionAnalysisResult", 9, string("Message10"));
+            annotationSet_.addAnnotation("outputExecutionAnalysisResult", 9, "", string("Message10"));
         }
 
         // Rule end

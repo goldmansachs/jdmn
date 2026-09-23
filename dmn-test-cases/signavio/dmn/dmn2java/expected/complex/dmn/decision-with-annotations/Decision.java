@@ -124,7 +124,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDe
             output_.setDecision("number");
 
             // Add annotations
-            annotationSet_.addAnnotation("decision", 0, string("Rule number"));
+            annotationSet_.addAnnotation("decision", 0, "", string("Rule number"));
         }
 
         // Rule end
@@ -164,7 +164,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDe
             output_.setDecision("string");
 
             // Add annotations
-            annotationSet_.addAnnotation("decision", 1, string("Rule string"));
+            annotationSet_.addAnnotation("decision", 1, "", string("Rule string"));
         }
 
         // Rule end
@@ -204,7 +204,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDe
             output_.setDecision("boolean");
 
             // Add annotations
-            annotationSet_.addAnnotation("decision", 2, string("Rule boolean"));
+            annotationSet_.addAnnotation("decision", 2, "", string("Rule boolean"));
         }
 
         // Rule end
@@ -244,7 +244,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDe
             output_.setDecision("date");
 
             // Add annotations
-            annotationSet_.addAnnotation("decision", 3, string("Rule date"));
+            annotationSet_.addAnnotation("decision", 3, "", string("Rule date"));
         }
 
         // Rule end
@@ -284,7 +284,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDe
             output_.setDecision("enumeration");
 
             // Add annotations
-            annotationSet_.addAnnotation("decision", 4, string("Rule enumeration"));
+            annotationSet_.addAnnotation("decision", 4, "", string("Rule enumeration"));
         }
 
         // Rule end
@@ -324,7 +324,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDe
             output_.setDecision("person");
 
             // Add annotations
-            annotationSet_.addAnnotation("decision", 5, string("Rule person"));
+            annotationSet_.addAnnotation("decision", 5, "", string("Rule person"));
         }
 
         // Rule end

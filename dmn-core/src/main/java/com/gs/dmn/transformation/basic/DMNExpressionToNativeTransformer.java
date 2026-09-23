@@ -402,19 +402,22 @@ public class DMNExpressionToNativeTransformer {
         return StringEscapeUtil.escapeInString(rule.getDescription());
     }
 
-    protected List<String> annotations(TDRGElement element, TDecisionRule rule) {
+    protected List<Pair<String, String>> annotations(TDRGElement element, TDecisionTable decisionTable, TDecisionRule rule) {
         // Collect annotation texts
-        List<String> annotations = collectAnnotationTexts(rule);
+        List<Pair<String, String>> annotations = collectAnnotationTexts(element, decisionTable, rule);
         // Translate annotations
         return this.dmnTransformer.annotations(element, annotations);
     }
 
-    protected List<String> collectAnnotationTexts(TDecisionRule rule) {
-        List<String> annotations = new ArrayList<>();
-        for (TRuleAnnotation ruleAnnotation : rule.getAnnotationEntry()) {
-            String text = ruleAnnotation.getText();
+    protected List<Pair<String, String>> collectAnnotationTexts(TDRGElement parent, TDecisionTable decisionTable, TDecisionRule rule) {
+        List<Pair<String, String>> annotations = new ArrayList<>();
+        List<TRuleAnnotation> annotationEntries = rule.getAnnotationEntry();
+        for (int i=0; i<annotationEntries.size(); i++) {
+            TRuleAnnotation annotationEntry = annotationEntries.get(i);
+            String text = annotationEntry.getText();
+            String annotationName = this.dmnModelRepository.annotationClauseName(parent, decisionTable, i);
             if (!StringUtils.isBlank(text)) {
-                annotations.add(text);
+                annotations.add(new Pair<>(annotationName, text));
             }
         }
         return annotations;

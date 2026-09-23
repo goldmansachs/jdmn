@@ -136,7 +136,7 @@ public class Sum extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecisio
             output_.setSum(sum(dateFormula));
 
             // Add annotations
-            annotationSet_.addAnnotation("sum", 0, string("D8R1"));
+            annotationSet_.addAnnotation("sum", 0, "", string("D8R1"));
         }
 
         // Rule end
@@ -175,7 +175,7 @@ public class Sum extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecisio
             output_.setSum(sum(timeFormula));
 
             // Add annotations
-            annotationSet_.addAnnotation("sum", 1, string("D8R2"));
+            annotationSet_.addAnnotation("sum", 1, "", string("D8R2"));
         }
 
         // Rule end
@@ -214,7 +214,7 @@ public class Sum extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecisio
             output_.setSum(sum(datetimeFormula));
 
             // Add annotations
-            annotationSet_.addAnnotation("sum", 2, string("D8R3"));
+            annotationSet_.addAnnotation("sum", 2, "", string("D8R3"));
         }
 
         // Rule end
@@ -253,7 +253,7 @@ public class Sum extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecisio
             output_.setSum(sum(dateFormula));
 
             // Add annotations
-            annotationSet_.addAnnotation("sum", 3, string("D8R4"));
+            annotationSet_.addAnnotation("sum", 3, "", string("D8R4"));
         }
 
         // Rule end
@@ -292,7 +292,7 @@ public class Sum extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecisio
             output_.setSum(sum(timeFormula));
 
             // Add annotations
-            annotationSet_.addAnnotation("sum", 4, string("D8R5"));
+            annotationSet_.addAnnotation("sum", 4, "", string("D8R5"));
         }
 
         // Rule end

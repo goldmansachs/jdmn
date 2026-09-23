@@ -135,8 +135,8 @@ public class PriceGt10 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boolea
             output_.setPriceGt10(Boolean.TRUE);
 
             // Add annotations
-            annotationSet_.addAnnotation("priceGt10", 0, "Logging");
-            annotationSet_.addAnnotation("priceGt10", 0, stringJoin(asList("Price ", string(((java.lang.Number)(structA != null ? structA.getPrice() : null))), " is >= 0"), " "));
+            annotationSet_.addAnnotation("priceGt10", 0, "A1", "Logging");
+            annotationSet_.addAnnotation("priceGt10", 0, "A2", stringJoin(asList("Price ", string(((java.lang.Number)(structA != null ? structA.getPrice() : null))), " is >= 0"), " "));
         }
 
         // Rule end
@@ -170,8 +170,8 @@ public class PriceGt10 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boolea
             output_.setPriceGt10(Boolean.FALSE);
 
             // Add annotations
-            annotationSet_.addAnnotation("priceGt10", 1, stringAdd(stringAdd("Price ", string(((java.lang.Number)(structA != null ? structA.getPrice() : null)))), " is <= 0"));
-            annotationSet_.addAnnotation("priceGt10", 1, "Since this is a CDATA section I can use all sorts of reserved characters like > < \" and & or write things like <foo></bar> but my document is still well formed!");
+            annotationSet_.addAnnotation("priceGt10", 1, "A1", stringAdd(stringAdd("Price ", string(((java.lang.Number)(structA != null ? structA.getPrice() : null)))), " is <= 0"));
+            annotationSet_.addAnnotation("priceGt10", 1, "A2", "Since this is a CDATA section I can use all sorts of reserved characters like > < \" and & or write things like <foo></bar> but my document is still well formed!");
         }
 
         // Rule end

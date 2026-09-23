@@ -17,6 +17,7 @@ import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.DMNExpressionToNativeTransformer;
 import com.gs.dmn.transformation.native_.statement.Statement;
@@ -78,11 +79,11 @@ public class SignavioDMNExpressionToNativeTransformer extends DMNExpressionToNat
     // Annotations
     //
     @Override
-    protected List<String> collectAnnotationTexts(TDecisionRule rule) {
-        List<String> annotations = new ArrayList<>();
+    protected List<Pair<String, String>> collectAnnotationTexts(TDRGElement parent, TDecisionTable decisionTable, TDecisionRule rule) {
+        List<Pair<String, String>> annotations = new ArrayList<>();
         String description = rule.getDescription();
         if (!StringUtils.isBlank(description)) {
-            annotations.add(description);
+            annotations.add(new Pair<>("", description));
         }
         return annotations;
     }

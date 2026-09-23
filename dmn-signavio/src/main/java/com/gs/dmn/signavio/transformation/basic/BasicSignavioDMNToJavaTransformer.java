@@ -27,6 +27,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinitio
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.StringLiteral;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.metadata.ExtensionElement;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
@@ -36,7 +37,6 @@ import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.FEELParameter;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.native_.statement.Statement;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -234,23 +234,11 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
     // Annotations
     //
     @Override
-    public List<String> annotations(TDRGElement element, List<String> annotationTexts) {
-        List<String> annotationStatements = new ArrayList<>();
-        DMNContext context = this.makeGlobalContext(element);
-        for (String annotationText : annotationTexts) {
-            try {
-                // Add rule annotation
-                if (!StringUtils.isBlank(annotationText)) {
-                    Statement statement = annotation(element, annotationText, context);
-                    annotationStatements.add(statement.getText());
-                }
-            } catch (Exception e) {
-                LOGGER.error(String.format("Cannot process annotation '%s' for element '%s'", annotationText, element == null ? "" : element.getName()));
-                // Add unevaluated annotation text
-                annotationStatements.add(String.format("\"%s\"", annotationText.replace("\"", "\\\\\"")));
-            }
-        }
-        return annotationStatements;
+    protected void handleAnnotationError(TDRGElement element, Pair<String, String> pair, List<Pair<String, String>> annotationStatements, Exception e) {
+        String annotationText = pair.getRight();
+        LOGGER.error(String.format("Cannot process annotation '%s' for element '%s'", annotationText, element == null ? "" : element.getName()));
+        // Add unevaluated annotation text
+        annotationStatements.add(new Pair<>("", String.format("\"%s\"", annotationText.replace("\"", "\\\\\""))));
     }
 
     //

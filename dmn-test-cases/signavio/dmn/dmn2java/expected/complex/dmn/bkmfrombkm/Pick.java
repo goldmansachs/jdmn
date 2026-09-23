@@ -132,7 +132,7 @@ public class Pick extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecisi
             output_.setPick(concat(asList("date: ", text(count(dateOperators), "0"))));
 
             // Add annotations
-            annotationSet_.addAnnotation("pick", 0, string("D7R1"));
+            annotationSet_.addAnnotation("pick", 0, "", string("D7R1"));
         }
 
         // Rule end
@@ -170,7 +170,7 @@ public class Pick extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecisi
             output_.setPick(concat(asList("time: ", text(count(timeOperators), "0"))));
 
             // Add annotations
-            annotationSet_.addAnnotation("pick", 1, string("D7R2"));
+            annotationSet_.addAnnotation("pick", 1, "", string("D7R2"));
         }
 
         // Rule end
@@ -208,7 +208,7 @@ public class Pick extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecisi
             output_.setPick(concat(asList("datetime: ", text(count(datetimeOperators), "0"))));
 
             // Add annotations
-            annotationSet_.addAnnotation("pick", 2, string("D7R3"));
+            annotationSet_.addAnnotation("pick", 2, "", string("D7R3"));
         }
 
         // Rule end

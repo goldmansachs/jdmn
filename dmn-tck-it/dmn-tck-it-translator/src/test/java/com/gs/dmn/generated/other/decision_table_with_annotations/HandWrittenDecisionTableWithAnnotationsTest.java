@@ -31,8 +31,8 @@ public class HandWrittenDecisionTableWithAnnotationsTest extends com.gs.dmn.runt
         checkValues(Boolean.FALSE, new PriceGt10().apply(structA, context_));
         List<String> actualAnnotations = context_.getAnnotations().stream().map(a -> a.toString()).collect(Collectors.toList());
         List<String> expectedAnnotations = Arrays.asList(
-                "Annotation('priceGt10', 2, 'Price 5 is <= 0')",
-                "Annotation('priceGt10', 2, 'Since this is a CDATA section I can use all sorts of reserved characters like > < \" and & or write things like <foo></bar> but my document is still well formed!')"
+                "Annotation('priceGt10', 2, 'A1#Price 5 is <= 0')",
+                "Annotation('priceGt10', 2, 'A2#Since this is a CDATA section I can use all sorts of reserved characters like > < \" and & or write things like <foo></bar> but my document is still well formed!')"
         );
         assertEquals(expectedAnnotations, actualAnnotations);
     }
@@ -48,8 +48,8 @@ public class HandWrittenDecisionTableWithAnnotationsTest extends com.gs.dmn.runt
         checkValues(Boolean.TRUE, new PriceGt10().apply(structA, context_));
         List<String> actualAnnotations = context_.getAnnotations().stream().map(a -> a.toString()).collect(Collectors.toList());
         List<String> expectedAnnotations = Arrays.asList(
-                "Annotation('priceGt10', 1, 'Logging')",
-                "Annotation('priceGt10', 1, 'Price  11  is >= 0')"
+                "Annotation('priceGt10', 1, 'A1#Logging')",
+                "Annotation('priceGt10', 1, 'A2#Price  11  is >= 0')"
         );
         assertEquals(expectedAnnotations, actualAnnotations);
     }

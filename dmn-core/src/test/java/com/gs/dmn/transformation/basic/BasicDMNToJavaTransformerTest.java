@@ -21,6 +21,7 @@ import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.ast.TInformationItem;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.JavaTimeDMNDialectDefinition;
+import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.InputParameters;
@@ -217,32 +218,36 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
     @Test
     public void testEmptyAnnotation() {
         TDecision decision = this.transformer.getDMNModelRepository().findDecisionByRef(null, this.href);
-        assertEquals(Collections.emptyList(), this.transformer.annotations(decision, Collections.singletonList(null)));
-        assertEquals(Collections.emptyList(), this.transformer.annotations(decision, Collections.singletonList("")));
+        checkAnnotations(Collections.emptyList(), this.transformer.annotations(decision, Collections.singletonList(null)));
+        checkAnnotations(Collections.emptyList(), this.transformer.annotations(decision, Collections.singletonList(new Pair<>("", ""))));
     }
 
     @Test
     public void testAnnotationWithOneString() {
         TDecision decision = this.transformer.getDMNModelRepository().findDecisionByRef(null, this.href);
-        assertEquals(Collections.singletonList("string(\"plain text\")"), this.transformer.annotations(decision, Collections.singletonList("string(\"plain text\")")));
-        assertEquals(Collections.singletonList("string(((java.lang.Number)(requestedProduct != null ? requestedProduct.getTerm() : null)))"), this.transformer.annotations(decision, Collections.singletonList("string(RequestedProduct.Term)")));
-        assertEquals(Collections.singletonList("string(\"\")"), this.transformer.annotations(decision, Collections.singletonList("string(\"\")")));
+        checkAnnotations(Collections.singletonList(new Pair<>("", "string(\"plain text\")")), this.transformer.annotations(decision, Collections.singletonList(new Pair<>("","string(\"plain text\")"))));
+        checkAnnotations(Collections.singletonList(new Pair<>("","string(((java.lang.Number)(requestedProduct != null ? requestedProduct.getTerm() : null)))")), this.transformer.annotations(decision, Collections.singletonList(new Pair<>("","string(RequestedProduct.Term)"))));
+        checkAnnotations(Collections.singletonList(new Pair<>("","string(\"\")")), this.transformer.annotations(decision, Collections.singletonList(new Pair<>("","string(\"\")"))));
     }
 
     @Test
     public void testAnnotationWithExpression() {
         TDecision decision = this.transformer.getDMNModelRepository().findDecisionByRef(null, this.href);
-        assertEquals(Collections.singletonList("string(numericAdd(((java.lang.Number)(requestedProduct != null ? requestedProduct.getRate() : null)), number(\"2\")))"), this.transformer.annotations(decision, Collections.singletonList("string(RequestedProduct.Rate + 2)")));
+        checkAnnotations(Collections.singletonList(new Pair<>("","string(numericAdd(((java.lang.Number)(requestedProduct != null ? requestedProduct.getRate() : null)), number(\"2\")))")), this.transformer.annotations(decision, Collections.singletonList(new Pair<>("","string(RequestedProduct.Rate + 2)"))));
     }
 
     @Test
     public void testAnnotationWithSeveralStrings() {
         TDecision decision = this.transformer.getDMNModelRepository().findDecisionByRef(null, this.href);
-        List<String> expected = Collections.singletonList(
+        List<Pair<String, String>> expected = Collections.singletonList(new Pair<>("",
                 "stringAdd(stringAdd(stringAdd(stringAdd(string(\"Rate is \"), string(((java.lang.Number)(requestedProduct != null ? requestedProduct.getRate() : null)))), " +
-                "string(\". And term is \")), string(((java.lang.Number)(requestedProduct != null ? requestedProduct.getTerm() : null)))), string(\"!\"))");
-        assertEquals(expected, this.transformer.annotations(decision, Collections.singletonList("string(\"Rate is \") + string(RequestedProduct.Rate) + string(\". And term is \") + string(RequestedProduct.Term) + string(\"!\")")));
-        assertEquals(Collections.singletonList("asList(string(\"\"), string(\"\"), string(\"\"))"), this.transformer.annotations(decision, Collections.singletonList("[string(\"\"), string(\"\"), string(\"\")]")));
+                "string(\". And term is \")), string(((java.lang.Number)(requestedProduct != null ? requestedProduct.getTerm() : null)))), string(\"!\"))"));
+        checkAnnotations(expected, this.transformer.annotations(decision, Collections.singletonList(new Pair<>("","string(\"Rate is \") + string(RequestedProduct.Rate) + string(\". And term is \") + string(RequestedProduct.Term) + string(\"!\")"))));
+        checkAnnotations(Collections.singletonList(new Pair<>("", "asList(string(\"\"), string(\"\"), string(\"\"))")), this.transformer.annotations(decision, Collections.singletonList(new Pair<>("","[string(\"\"), string(\"\"), string(\"\")]"))));
+    }
+
+    private void checkAnnotations(List<Pair<String, String>> expectedAnnotations, List<Pair<String, String>> actualAnnotations) {
+        assertEquals(expectedAnnotations, actualAnnotations);
     }
 
     @Test

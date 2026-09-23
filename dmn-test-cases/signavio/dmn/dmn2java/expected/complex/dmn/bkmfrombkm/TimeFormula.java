@@ -115,7 +115,7 @@ public class TimeFormula extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBas
             output_.setTimeFormula(hour(time));
 
             // Add annotations
-            annotationSet_.addAnnotation("timeFormula", 0, string("D5R1"));
+            annotationSet_.addAnnotation("timeFormula", 0, "", string("D5R1"));
         }
 
         // Rule end
@@ -149,7 +149,7 @@ public class TimeFormula extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBas
             output_.setTimeFormula(hourDiff(time, time2));
 
             // Add annotations
-            annotationSet_.addAnnotation("timeFormula", 1, string("D5R2"));
+            annotationSet_.addAnnotation("timeFormula", 1, "", string("D5R2"));
         }
 
         // Rule end
@@ -183,7 +183,7 @@ public class TimeFormula extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBas
             output_.setTimeFormula(minute(time));
 
             // Add annotations
-            annotationSet_.addAnnotation("timeFormula", 2, string("D5R3"));
+            annotationSet_.addAnnotation("timeFormula", 2, "", string("D5R3"));
         }
 
         // Rule end
@@ -217,7 +217,7 @@ public class TimeFormula extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBas
             output_.setTimeFormula(minutesDiff(time, time2));
 
             // Add annotations
-            annotationSet_.addAnnotation("timeFormula", 3, string("D5R4"));
+            annotationSet_.addAnnotation("timeFormula", 3, "", string("D5R4"));
         }
 
         // Rule end

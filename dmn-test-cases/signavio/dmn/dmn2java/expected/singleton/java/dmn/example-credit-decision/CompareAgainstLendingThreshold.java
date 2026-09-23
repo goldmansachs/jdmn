@@ -131,7 +131,7 @@ public class CompareAgainstLendingThreshold extends com.gs.dmn.signavio.runtime.
             output_.setCompareAgainstLendingThreshold(numericSubtract(numericAdd(assessIssueRisk, assessApplicantAge), lendingThreshold));
 
             // Add annotations
-            annotationSet_.addAnnotation("compareAgainstLendingThreshold", 0, stringAdd(stringAdd(stringAdd(stringAdd(stringAdd(string("Raw issue score is "), string(assessIssueRisk)), string(", Age-weighted score is ")), string(assessApplicantAge)), string(", Acceptance threshold is ")), string(lendingThreshold)));
+            annotationSet_.addAnnotation("compareAgainstLendingThreshold", 0, "", stringAdd(stringAdd(stringAdd(stringAdd(stringAdd(string("Raw issue score is "), string(assessIssueRisk)), string(", Age-weighted score is ")), string(assessApplicantAge)), string(", Acceptance threshold is ")), string(lendingThreshold)));
         }
 
         // Rule end
@@ -165,7 +165,7 @@ public class CompareAgainstLendingThreshold extends com.gs.dmn.signavio.runtime.
             output_.setCompareAgainstLendingThreshold(number("0"));
 
             // Add annotations
-            annotationSet_.addAnnotation("compareAgainstLendingThreshold", 1, string("Error: threshold undefined"));
+            annotationSet_.addAnnotation("compareAgainstLendingThreshold", 1, "", string("Error: threshold undefined"));
         }
 
         // Rule end
