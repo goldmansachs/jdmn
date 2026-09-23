@@ -401,6 +401,10 @@ public class DMNModelRepository {
     }
 
     public String findNamespace(TDefinitions definitions, TypeReference reference) {
+        if (definitions == null || reference == null) {
+            return null;
+        }
+
         if (isEmptyPrefix(reference.getPrefix())) {
             // Lookup local types
             TItemDefinition localItemDefinition = this.findLocalItemDefinition(definitions, reference.getName());
