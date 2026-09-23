@@ -1329,19 +1329,19 @@ public class DMNModelRepository {
     }
 
     public String outputClauseName(TDRGElement element, TOutputClause output) {
-        // Try TOutputClause.typeRef
+        // Try TOutputClause.name
         String outputClauseName = output.getName();
+        // Try variable.name from parent
         if (StringUtils.isBlank(outputClauseName)) {
-            // Try variable.typeRef from parent
             if (!isCompoundDecisionTable(element)) {
                 TInformationItem variable = variable(element);
                 if (variable != null) {
                     outputClauseName = variable.getName();
                 }
             }
-            if (StringUtils.isBlank(outputClauseName)) {
-                throw new SemanticErrorException(String.format("Cannot resolve name for outputClause '%s' in element '%s'", output.getId(), element.getName()));
-            }
+        }
+        if (StringUtils.isBlank(outputClauseName)) {
+            throw new SemanticErrorException(String.format("Cannot resolve name for outputClause '%s' in element '%s'", output.getId(), element.getName()));
         }
         return outputClauseName;
     }

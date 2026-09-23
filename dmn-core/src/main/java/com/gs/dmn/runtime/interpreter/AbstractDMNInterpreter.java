@@ -1093,7 +1093,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
 
                         // Collect rule output
                         Object value = Result.value(result);
-                        String key = decisionTable.getOutput().get(i).getName();
+                        String key = repository.outputClauseName(element, decisionTable.getOutput().get(i));
                         if (repository.isOutputOrderHit(hitPolicy)) {
                             Object priority = dmnTransformer.outputClausePriority(element, rule.getOutputEntry().get(i), i);
                             output.add(key, new Pair<>(value, priority));

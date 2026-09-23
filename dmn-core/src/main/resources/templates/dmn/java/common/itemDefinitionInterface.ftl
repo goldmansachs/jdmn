@@ -69,7 +69,7 @@ public interface ${nativeClassName} extends ${transformer.dmnTypeClassName()} {
     <#list itemDefinition.itemComponent as child>
         <#assign memberName = transformer.nativeVariableName(child)/>
         <#assign memberType = transformer.itemDefinitionNativeQualifiedInterfaceName(child)/>
-    @com.fasterxml.jackson.annotation.JsonGetter("${transformer.escapeInString(modelRepository.displayName(child))}")
+    @com.fasterxml.jackson.annotation.JsonGetter("${transformer.itemDefinitionSerializationKey(child)}")
     ${memberType} ${transformer.getter(child)};
 
     </#list>

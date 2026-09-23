@@ -50,12 +50,12 @@ public class ${nativeClassName} implements ${transformer.itemDefinitionNativeSim
     <#list itemDefinition.itemComponent as child>
         <#assign memberName = transformer.nativeVariableName(child)/>
         <#assign memberType = transformer.itemDefinitionNativeQualifiedInterfaceName(child)/>
-    @com.fasterxml.jackson.annotation.JsonGetter("${transformer.escapeInString(modelRepository.displayName(child))}")
+    @com.fasterxml.jackson.annotation.JsonGetter("${transformer.itemDefinitionSerializationKey(child)}")
     public ${memberType} ${transformer.getter(child)} {
         return this.${memberName};
     }
 
-    @com.fasterxml.jackson.annotation.JsonSetter("${transformer.escapeInString(modelRepository.displayName(child))}")
+    @com.fasterxml.jackson.annotation.JsonSetter("${transformer.itemDefinitionSerializationKey(child)}")
     public void ${transformer.setter(child, "${memberType} ${memberName}")} {
         this.${memberName} = ${memberName};
     }

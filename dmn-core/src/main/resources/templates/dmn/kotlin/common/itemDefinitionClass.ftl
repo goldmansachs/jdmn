@@ -34,8 +34,8 @@ class ${nativeClassName} : ${transformer.itemDefinitionNativeSimpleInterfaceName
     <#list itemDefinition.itemComponent as child>
         <#assign memberName = transformer.nativeVariableName(child)/>
         <#assign memberType = transformer.itemDefinitionNativeQualifiedInterfaceName(child)/>
-    @get:com.fasterxml.jackson.annotation.JsonGetter("${transformer.escapeInString(modelRepository.displayName(child))}")
-    @set:com.fasterxml.jackson.annotation.JsonGetter("${transformer.escapeInString(modelRepository.displayName(child))}")
+    @get:com.fasterxml.jackson.annotation.JsonGetter("${transformer.itemDefinitionSerializationKey(child)}")
+    @set:com.fasterxml.jackson.annotation.JsonGetter("${transformer.itemDefinitionSerializationKey(child)}")
     override var ${memberName}: ${memberType} = null
 
     </#list>

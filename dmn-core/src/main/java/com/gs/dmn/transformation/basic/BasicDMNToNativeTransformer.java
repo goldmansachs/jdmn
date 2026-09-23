@@ -207,6 +207,10 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String applyMapKey(FEELParameter parameter);
 
+    String itemDefinitionSerializationKey(TItemDefinition element);
+
+    String outputClauseSerializationKey(TDRGElement element, TOutputClause output);
+
     String applyContextKey(FEELParameter parameter);
 
     String applyContextKey(DRGElementReference<? extends TDRGElement> reference);
@@ -415,8 +419,6 @@ public interface BasicDMNToNativeTransformer<T, C> {
     String condition(TDRGElement element, TDecisionRule rule, int ruleIndex);
 
     String outputEntryToNative(TDRGElement element, TLiteralExpression outputEntryExpression, int outputIndex);
-
-    String outputClauseName(TDRGElement element, TOutputClause output);
 
     String outputClauseClassName(TDRGElement element, TOutputClause outputClause, int index);
 

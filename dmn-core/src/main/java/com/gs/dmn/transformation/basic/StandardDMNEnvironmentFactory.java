@@ -277,7 +277,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                     // Derive typeRef from output clause
                     TOutputClause outputClause = outputClauses.get(i);
                     Type type = toFEELType(model, element, outputEntries, outputClause, i, context);
-                    members.put(outputClause.getName(), type);
+                    members.put(this.dmnModelRepository.outputClauseName(element, outputClause), type);
                 }
                 Type expressionType;
                 if (members.isEmpty()) {

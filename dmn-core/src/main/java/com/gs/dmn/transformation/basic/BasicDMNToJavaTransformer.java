@@ -745,6 +745,24 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
+    public String itemDefinitionSerializationKey(TItemDefinition element) {
+        String key;
+        if (this.inputParameters.getApplyNameKind() == NameKind.SimpleName) {
+            key = elementName(element);
+        } else if (this.inputParameters.getApplyNameKind() == NameKind.DisplayName) {
+            key = displayName(element);
+        } else {
+            key = elementName(element);
+        }
+        return escapeInString(key);
+    }
+
+    @Override
+    public String outputClauseSerializationKey(TDRGElement element, TOutputClause output) {
+        return this.dmnModelRepository.outputClauseName(element, output);
+    }
+
+    @Override
     public String applyContextKey(FEELParameter parameter) {
         Object modelElement = parameter.getModelElement();
         if (modelElement instanceof DRGElementReference<?> reference) {
@@ -1482,11 +1500,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String outputEntryToNative(TDRGElement element, TLiteralExpression outputEntryExpression, int outputIndex) {
         return this.expressionToNativeTransformer.outputEntryToNative(element, outputEntryExpression, outputIndex);
-    }
-
-    @Override
-    public String outputClauseName(TDRGElement element, TOutputClause output) {
-        return this.dmnModelRepository.outputClauseName(element, output);
     }
 
     @Override
