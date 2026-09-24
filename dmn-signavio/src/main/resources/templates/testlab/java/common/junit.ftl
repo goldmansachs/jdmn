@@ -57,6 +57,7 @@ public class ${testClassName} extends ${decisionBaseClass}<Object> {
         <#assign inputParameterDefinition = testLab.inputParameterDefinitions[input?index] />
         ${testLabUtil.toNativeType(inputParameterDefinition)} ${testLabUtil.inputDataVariableName(inputParameterDefinition)} = ${testLabUtil.toNativeExpression(testLab, testCase, input?index)};
     </#list>
+        <@addMissingApplyArguments testLab testCase/>
         ${testLabUtil.drgElementOutputType(rootOutputParameter)} ${testLabUtil.drgElementVariableName(rootOutputParameter)} = this.${testLabUtil.drgElementVariableName(rootOutputParameter)}.apply(${testLabUtil.drgElementArgumentList(rootOutputParameter)});
 </#macro>
 
@@ -74,6 +75,15 @@ public class ${testClassName} extends ${decisionBaseClass}<Object> {
             <#else>
         checkValues(${testLabUtil.toNativeExpression(testLab, expectedValue)}, ${testLabUtil.drgElementVariableName(rootOutputParameter)});
             </#if>
+        </#items>
+    </#list>
+</#macro>
+
+<#macro addMissingApplyArguments testLab testCase>
+    <#list testLabUtil.missingArguments(testLab, testCase)>
+        // Add missing arguments
+        <#items as triplet>
+        ${triplet[0]} ${triplet[1]} = ${triplet[2]};
         </#items>
     </#list>
 </#macro>

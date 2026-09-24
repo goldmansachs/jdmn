@@ -94,4 +94,9 @@ public class ExportedTestLabToJavaJUnitTransformerTest extends AbstractTestLabTo
     public void testTest() throws Exception {
         doTest("TestDecision");
     }
+
+    @Test
+    public void testExampleCreditDecisionMissingInputsInTestLab() throws Exception {
+        doTest("example-credit-decision-with-missing-testlab-inputs");
+    }
 }

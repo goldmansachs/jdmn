@@ -26,6 +26,8 @@ import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.expression.*;
 import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
+import com.gs.dmn.transformation.basic.FEELParameter;
+import com.gs.dmn.transformation.basic.NativeParameter;
 import com.gs.dmn.transformation.native_.expression.NativeExpressionFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -212,6 +214,32 @@ public class TestLabUtil {
         Type outputType = toFEELType(testLab.getRootOutputParameter());
         TDecision decision = (TDecision) findDRGElement(testLab.getRootOutputParameter());
         return toNativeExpression(outputType, expression, decision);
+    }
+
+    // Missing input parameters
+    public List<List<String>> missingArguments(TestLab testLab, TestCase testCase) {
+        // Calculate provided inputs
+        List<String> inputNames = testLab.getInputParameterDefinitions().stream()
+                .map(this::inputDataVariableName)
+                .toList();
+        // Calculate missing arguments
+        TDecision decision = (TDecision) findDRGElement(testLab.getRootOutputParameter());
+        List<FEELParameter> parameters = this.transformer.drgElementTypeSignature(decision);
+        List<FEELParameter> missingParameters = parameters.stream().filter(p -> !inputNames.contains(transformer.nativeVariableName(p))).toList();
+        List<NativeParameter> missingArgs = missingParameters.stream()
+                .map(p -> new NativeParameter(transformer.getNativeFactory().nullableParameterType(transformer.toNativeType(p.getType())), transformer.nativeVariableName(p)))
+                .toList();
+
+        List<List<String>> result = new ArrayList<>();
+        for (int i=0; i<missingParameters.size(); i++) {
+            String defaultValue = this.transformer.getNativeFactory().nullLiteral();
+            List<String> triplet = new ArrayList<>();
+            triplet.add(missingArgs.get(i).getType());
+            triplet.add(missingArgs.get(i).getName());
+            triplet.add(defaultValue);
+            result.add(triplet);
+        }
+        return result;
     }
 
     private String toNativeExpression(Type inputType, Expression inputExpression, TDecision decision) {
