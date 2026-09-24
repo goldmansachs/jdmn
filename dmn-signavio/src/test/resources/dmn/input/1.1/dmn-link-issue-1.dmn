@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.provider.com/dmn/1.1/diagram/055772ca13bd41dea49e5a76275dc585.xml" exporterVersion="10.15.10" name="collapsed" id="id-4098201b30aa4262a08f88b7028b1a73" sigExt:revisionId="c4719b9e0c0e4da2aa74b45e58d5504d" sigExt:revisionNumber="2" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:sig="http://www.provider.com/dmn/1.1/diagram/055772ca13bd41dea49e5a76275dc585.xml" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" xmlns:feel="http://www.omg.org/spec/FEEL/20140401">
+    <extensionElements/>
+    <itemDefinition isCollection="false" name="determineTradeExchangedPaymentFirstCurrencyExceptionIndicator" id="id-988a5f8d3bb7b9697c5eeb853ac8fd08" label="Determine Trade Exchanged Payment First Currency Exception Indicator">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="determineTradeExchangedPaymentFirstCurrencyDomainValidity" id="id-26a78d5517bb49569980bc884ae35c79" label="Determine Trade Exchanged Payment First Currency Domain Validity">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"Invalid","Valid"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="tradeAssetClass" id="id-ceaa2974aca095334d717bd3620af9f0" label="Trade Asset Class">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"Commodity","Credit","Equity","ExchangeTradedDerivative","FixedIncome","ForeignExchange","InterestRate"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="tradeCurrencyCodeEnumeration" id="id-d18d20814332dcb0c511532e34bb7748" label="Trade Currency Code Enumeration">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"AED","AFN","ALL","AMD","ANG","AOA","ARS","AUD","AWG","AZN","BAM","BBD","BDT","BGN","BHD","BIF","BMD","BND","BOB","BOV","BRL","BSD","BTN","BWP","BYR","BZD","CAD","CDF","CHE","CHF","CHW","CLF","CLP","CNY","COP","COU","CRC","CUC","CUP","CVE","CZK","DJF","DKK","DOP","DZD","EGP","ERN","ETB","EUR","FJD","FKP","GBP","GEL","GHS","GIP","GMD","GNF","GTQ","GYD","HKD","HNL","HRK","HTG","HUF","IDR","ILS","INR","IQD","IRR","ISK","JMD","JOD","JPY","KES","KGS","KHR","KMF","KPW","KRW","KWD","KYD","KZT","LAK","LBP","LKR","LRD","LSL","LTL","LVL","LYD","MAD","MDL","MGA","MKD","MMK","MNT","MOP","MRO","MUR","MVR","MWK","MXN","MXV","MYR","MZN","NAD","NGN","NIO","NOK","NPR","NZD","OMR","PAB","PEN","PGK","PHP","PKR","PLN","PYG","QAR","RON","RSD","RUB","RWF","SAR","SBD","SCR","SDG","SEK","SGD","SHP","SLL","SOS","SRD","SSP","STD","SVC","SYP","SZL","THB","TJS","TMT","TND","TOP","TRY","TTD","TWD","TZS","UAH","UGX","USD","USN","USS","UYI","UYU","UZS","VEF","VND","VUV","WST","XAF","XAG","XAU","XBA","XBB","XBC","XBD","XCD","XDR","XFU","XOF","XPD","XPF","XPT","XSU","XTS","XUA","XXX","YER","ZAR","ZMW","ZWL"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="tradeAssetClassTaxonomy" id="id-7a02e0cbc9f67b5c40ffefea1fb3c804" label="Trade Asset Class Taxonomy" sigExt:glossaryId="2f24e9c859554b5b904ede416f39a2e4">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"Commodity:Agricultural:Dairy:Exotic","Commodity:Agricultural:Dairy:LoanLease:Cash","Commodity:Agricultural:Dairy:LoanLease:Physical","Commodity:Agricultural:Dairy:Option:Cash","Commodity:Agricultural:Dairy:Option:Physical","Commodity:Agricultural:Dairy:SpotFwd:Physical","Commodity:Agricultural:Dairy:Swap:Cash","Commodity:Agricultural:Forestry:Exotic","Commodity:Agricultural:Forestry:LoanLease:Cash","Commodity:Agricultural:Forestry:LoanLease:Physical","Commodity:Agricultural:Forestry:Option:Cash","Commodity:Agricultural:Forestry:Option:Physical","Commodity:Agricultural:Forestry:SpotFwd:Physical","Commodity:Agricultural:Forestry:Swap:Cash","Commodity:Agricultural:GrainsOilSeeds:Exotic","Commodity:Agricultural:GrainsOilSeeds:LoanLease:Cash","Commodity:Agricultural:GrainsOilSeeds:LoanLease:Physical","Commodity:Agricultural:GrainsOilSeeds:Option:Cash","Commodity:Agricultural:GrainsOilSeeds:Option:Physical","Commodity:Agricultural:GrainsOilSeeds:SpotFwd:Physical","Commodity:Agricultural:GrainsOilSeeds:Swap:Cash","Commodity:Agricultural:Livestock:Exotic","Commodity:Agricultural:Livestock:LoanLease:Cash","Commodity:Agricultural:Livestock:LoanLease:Physical","Commodity:Agricultural:Livestock:Option:Cash","Commodity:Agricultural:Livestock:Option:Physical","Commodity:Agricultural:Livestock:SpotFwd:Physical","Commodity:Agricultural:Livestock:Swap:Cash","Commodity:Agricultural:Softs:Exotic","Commodity:Agricultural:Softs:LoanLease:Cash","Commodity:Agricultural:Softs:LoanLease:Physical","Commodity:Agricultural:Softs:Option:Cash","Commodity:Agricultural:Softs:Option:Physical","Commodity:Agricultural:Softs:SpotFwd:Physical","Commodity:Agricultural:Softs:Swap:Cash","Commodity:Energy:Coal:Exotic","Commodity:Energy:Coal:LoanLease:Cash","Commodity:Energy:Coal:LoanLease:Physical","Commodity:Energy:Coal:Option:Cash","Commodity:Energy:Coal:Option:Physical","Commodity:Energy:Coal:SpotFwd:Physical","Commodity:Energy:Coal:Swap:Cash","Commodity:Energy:Elec:Exotic","Commodity:Energy:Elec:LoanLease:Cash","Commodity:Energy:Elec:LoanLease:Physical","Commodity:Energy:Elec:Option:Cash","Commodity:Energy:Elec:Option:Physical","Commodity:Energy:Elec:SpotFwd:Physical","Commodity:Energy:Elec:Swap:Cash","Commodity:Energy:Elec:Transmission","Commodity:Energy:InterEnergy:Exotic","Commodity:Energy:InterEnergy:LoanLease:Cash","Commodity:Energy:InterEnergy:LoanLease:Physical","Commodity:Energy:InterEnergy:Option:Cash","Commodity:Energy:InterEnergy:Option:Physical","Commodity:Energy:InterEnergy:SpotFwd:Physical","Commodity:Energy:InterEnergy:Swap:Cash","Commodity:Energy:NatGas:Exotic","Commodity:Energy:NatGas:LoanLease:Cash","Commodity:Energy:NatGas:LoanLease:Physical","Commodity:Energy:NatGas:Option:Cash","Commodity:Energy:NatGas:Option:Physical","Commodity:Energy:NatGas:SpotFwd:Physical","Commodity:Energy:NatGas:Swap:Cash","Commodity:Energy:NatGas:Transport","Commodity:Energy:Oil:Exotic","Commodity:Energy:Oil:LoanLease:Cash","Commodity:Energy:Oil:LoanLease:Physical","Commodity:Energy:Oil:Option:Cash","Commodity:Energy:Oil:Option:Physical","Commodity:Energy:Oil:SpotFwd:Physical","Commodity:Energy:Oil:Swap:Cash","Commodity:Environmental:Emissions:Exotic","Commodity:Environmental:Emissions:LoanLease:Cash","Commodity:Environmental:Emissions:LoanLease:Physical","Commodity:Environmental:Emissions:Option:Cash","Commodity:Environmental:Emissions:Option:Physical","Commodity:Environmental:Emissions:SpotFwd:Physical","Commodity:Environmental:Emissions:Swap:Cash","Commodity:Environmental:Weather:Exotic","Commodity:Environmental:Weather:LoanLease:Cash","Commodity:Environmental:Weather:Option:Cash","Commodity:Environmental:Weather:Swap:Cash","Commodity:Freight:Exotic","Commodity:Freight:LoanLease:Cash","Commodity:Freight:LoanLease:Physical","Commodity:Freight:Option:Cash","Commodity:Freight:Option:Physical","Commodity:Freight:SpotFwd:Physical","Commodity:Freight:Swap:Cash","Commodity:Index:Exotic","Commodity:Index:Option:Cash","Commodity:Index:Swap:Cash","Commodity:Metals:NonPrecious:Exotic","Commodity:Metals:NonPrecious:LoanLease:Cash","Commodity:Metals:NonPrecious:LoanLease:Physical","Commodity:Metals:NonPrecious:Option:Cash","Commodity:Metals:NonPrecious:Option:Physical","Commodity:Metals:NonPrecious:SpotFwd:Physical","Commodity:Metals:NonPrecious:Swap:Cash","Commodity:Metals:Precious:Exotic","Commodity:Metals:Precious:LoanLease:Cash","Commodity:Metals:Precious:LoanLease:Physical","Commodity:Metals:Precious:Option:Cash","Commodity:Metals:Precious:Option:Physical","Commodity:Metals:Precious:SpotFwd:Physical","Commodity:Metals:Precious:Swap:Cash","Commodity:MultiCommodityExotic","Credit:Exotic:Corporate:Refobonly","Credit:Exotic:Other","Credit:Exotic:StructuredCDS:BespokeTranche","Credit:Exotic:StructuredCDS:ContingentCDS","Credit:Exotic:StructuredCDS:FirsttoDefaultNthtoDefault","Credit:Exotic:StructuredCDS:IndexContingentCDS","Credit:Index:ABX:ABXHE","Credit:Index:CDX:CDXEmergingMarkets","Credit:Index:CDX:CDXEmergingMarketsDiversified","Credit:Index:CDX:CDXHY","Credit:Index:CDX:CDXIG","Credit:Index:CDX:CDXXO","Credit:Index:CMBX:CMBX","Credit:Index:IOS:IOS","Credit:Index:iTraxx:iTraxxAsiaExJapan","Credit:Index:iTraxx:iTraxxAustralia","Credit:Index:iTraxx:iTraxxEurope","Credit:Index:iTraxx:iTraxxJapan","Credit:Index:iTraxx:iTraxxLevX","Credit:Index:iTraxx:ItraxxSDI","Credit:Index:iTraxx:iTraxxSovX","Credit:Index:LCDX:LCDX","Credit:Index:LCDX:StandardLCDXBullet","Credit:Index:MBX:MBX","Credit:Index:MCDX:MCDX","Credit:Index:PO:PO","Credit:Index:PrimeX:PrimeX","Credit:Index:TRX:TRX","Credit:IndexTranche:ABX:ABXTranche","Credit:IndexTranche:CDX:CDXTrancheHY","Credit:IndexTranche:CDX:CDXTrancheIG","Credit:IndexTranche:CDX:CDXTrancheXO","Credit:IndexTranche:CDX:StandardCDXTrancheHY","Credit:IndexTranche:CDX:StandardCDXTrancheIG","Credit:IndexTranche:CDXStructuredTranche:CDXBlendedTranche","Credit:IndexTranche:CDXStructuredTranche:CDXRiskyZeroTranche","Credit:IndexTranche:iTraxx:iTraxxAsiaExJapanTranche","Credit:IndexTranche:iTraxx:iTraxxAustraliaTranche","Credit:IndexTranche:iTraxx:iTraxxEuropeTranche","Credit:IndexTranche:iTraxx:iTraxxJapanTranche","Credit:IndexTranche:iTraxx:StandardiTraxxEuropeTranche","Credit:IndexTranche:iTraxxStructuredTranche:iTraxxBlendedTranche","Credit:IndexTranche:iTraxxStructuredTranche:iTraxxRiskyZeroTranche","Credit:IndexTranche:LCDX:LCDXTranche","Credit:IndexTranche:LCDX:StandardLCDXBulletTranche","Credit:IndexTranche:MCDX:MCDXTranche","Credit:SingleName:ABS:CDSonCDO","Credit:SingleName:ABS:EuropeanMBS","Credit:SingleName:ABS:MBS","Credit:SingleName:Corporate:AsiaCorporate","Credit:SingleName:Corporate:AustraliaCorporate","Credit:SingleName:Corporate:EmergingEuropeanCorporate","Credit:SingleName:Corporate:EmergingEuropeanCorporateLPN","Credit:SingleName:Corporate:EuropeanCorporate","Credit:SingleName:Corporate:JapanCorporate","Credit:SingleName:Corporate:LatinAmericaCorporate","Credit:SingleName:Corporate:LatinAmericaCorporateBond","Credit:SingleName:Corporate:LatinAmericaCorporateBondOrLoan","Credit:SingleName:Corporate:NewZealandCorporate","Credit:SingleName:Corporate:NorthAmericanCorporate","Credit:SingleName:Corporate:SingaporeCorporate","Credit:SingleName:Corporate:StandardAsiaCorporate","Credit:SingleName:Corporate:StandardAustraliaCorporate","Credit:SingleName:Corporate:StandardEmergingEuropeanCorporate","Credit:SingleName:Corporate:StandardEmergingEuropeanCorporateLPN","Credit:SingleName:Corporate:StandardEuropeanCorporate","Credit:SingleName:Corporate:StandardJapanCorporate","Credit:SingleName:Corporate:StandardLatinAmericaCorporateBond","Credit:SingleName:Corporate:StandardLatinAmericaCorporateBondOrLoan","Credit:SingleName:Corporate:StandardNewZealandCorporate","Credit:SingleName:Corporate:StandardNorthAmericanCorporate","Credit:SingleName:Corporate:StandardSingaporeCorporate","Credit:SingleName:Corporate:StandardSubordinatedEuropeanInsuranceCorporate","Credit:SingleName:Corporate:StandardSukukCorporate","Credit:SingleName:Corporate:SubordinatedEuropeanInsuranceCorporate","Credit:SingleName:Corporate:SukukCorporate","Credit:SingleName:Loans:ELCDS","Credit:SingleName:Loans:LCDS","Credit:SingleName:Loans:StandardLCDSBullet","Credit:SingleName:Muni:StandardUSMunicipalFullFaithAndCredit","Credit:SingleName:Muni:StandardUSMunicipalGeneralFund","Credit:SingleName:Muni:StandardUSMunicipalRevenue","Credit:SingleName:Muni:USMunicipalFullFaithAndCredit","Credit:SingleName:Muni:USMunicipalGeneralFund","Credit:SingleName:Muni:USMunicipalRevenue","Credit:SingleName:RecoveryCDS:FixedRecoverySwaps","Credit:SingleName:RecoveryCDS:RecoveryLocks","Credit:SingleName:Sovereign:AsiaSovereign","Credit:SingleName:Sovereign:AustraliaSovereign","Credit:SingleName:Sovereign:EmergingEuropeanAndMiddleEasternSovereign","Credit:SingleName:Sovereign:JapanSovereign","Credit:SingleName:Sovereign:LatinAmericaSovereign","Credit:SingleName:Sovereign:NewZealandSovereign","Credit:SingleName:Sovereign:SingaporeSovereign","Credit:SingleName:Sovereign:StandardAsiaSovereign","Credit:SingleName:Sovereign:StandardAustraliaSovereign","Credit:SingleName:Sovereign:StandardEmergingEuropeanAndMiddleEasternSovereign","Credit:SingleName:Sovereign:StandardJapanSovereign","Credit:SingleName:Sovereign:StandardLatinAmericaSovereign","Credit:SingleName:Sovereign:StandardNewZealandSovereign","Credit:SingleName:Sovereign:StandardSingaporeSovereign","Credit:SingleName:Sovereign:StandardSukukSovereign","Credit:SingleName:Sovereign:StandardWesternEuropeanSovereign","Credit:SingleName:Sovereign:SukukSovereign","Credit:SingleName:Sovereign:WesternEuropeanSovereign","Credit:Swaptions:CDX:CDXSwaption","Credit:Swaptions:Corporate:CDSSwaption","Credit:Swaptions:iTraxx:iTraxxAsiaExJapanSwaption","Credit:Swaptions:iTraxx:iTraxxAustraliaSwaption","Credit:Swaptions:iTraxx:iTraxxEuropeSwaption","Credit:Swaptions:iTraxx:iTraxxJapanSwaption","Credit:Swaptions:iTraxx:iTraxxSovXSwaption","Credit:Swaptions:MCDX:MCDXSwaption","Credit:Swaptions:Muni:CDSSwaption","Credit:Swaptions:Sovereign:CDSSwaption","Credit:TotalReturnSwap","Equity:ContractForDifference:PriceReturnBasicPerformance:Basket","Equity:ContractForDifference:PriceReturnBasicPerformance:SingleIndex","Equity:ContractForDifference:PriceReturnBasicPerformance:SingleName","Equity:Forward:PriceReturnBasicPerformance:Basket","Equity:Forward:PriceReturnBasicPerformance:SingleIndex","Equity:Forward:PriceReturnBasicPerformance:SingleName","Equity:Option:ParameterReturnDividend:Basket","Equity:Option:ParameterReturnDividend:SingleIndex","Equity:Option:ParameterReturnDividend:SingleName","Equity:Option:ParameterReturnVariance:Basket","Equity:Option:ParameterReturnVariance:SingleIndex","Equity:Option:ParameterReturnVariance:SingleName","Equity:Option:ParameterReturnVolatility:Basket","Equity:Option:ParameterReturnVolatility:SingleIndex","Equity:Option:ParameterReturnVolatility:SingleName","Equity:Option:PriceReturnBasicPerformance:Basket","Equity:Option:PriceReturnBasicPerformance:SingleIndex","Equity:Option:PriceReturnBasicPerformance:SingleName","Equity:Other","Equity:PortfolioSwap:PriceReturnBasicPerformance:Basket","Equity:PortfolioSwap:PriceReturnBasicPerformance:SingleIndex","Equity:PortfolioSwap:PriceReturnBasicPerformance:SingleName","Equity:Swap:ParameterReturnDividend:Basket","Equity:Swap:ParameterReturnDividend:SingleIndex","Equity:Swap:ParameterReturnDividend:SingleName","Equity:Swap:ParameterReturnVariance:Basket","Equity:Swap:ParameterReturnVariance:SingleIndex","Equity:Swap:ParameterReturnVariance:SingleName","Equity:Swap:ParameterReturnVolatility:Basket","Equity:Swap:ParameterReturnVolatility:SingleIndex","Equity:Swap:ParameterReturnVolatility:SingleName","Equity:Swap:PriceReturnBasicPerformance:Basket","Equity:Swap:PriceReturnBasicPerformance:SingleIndex","Equity:Swap:PriceReturnBasicPerformance:SingleName","ForeignExchange:ComplexExotic","ForeignExchange:Forward","ForeignExchange:NDF","ForeignExchange:NDO","ForeignExchange:SimpleExotic:Barrier","ForeignExchange:SimpleExotic:Digital","ForeignExchange:Spot","ForeignExchange:VanillaOption","InterestRate:CapFloor","InterestRate:CrossCurrency:Basis","InterestRate:CrossCurrency:FixedFixed","InterestRate:CrossCurrency:FixedFloat","InterestRate:Exotic","InterestRate:FRA","InterestRate:IRSwap:Basis","InterestRate:IRSwap:FixedFixed","InterestRate:IRSwap:FixedFloat","InterestRate:IRSwap:Inflation","InterestRate:IRSwap:OIS","InterestRate:Option:DebtOption","InterestRate:Option:Swaption"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="determineTradeExchangedPaymentFirstCurrencyDataAcceptance" id="id-998cbf91cd767fc32e828f7815730ab3" label="Determine Trade Exchanged Payment First Currency Data Acceptance">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"Acceptable","Unacceptable","Warn"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="determineTradeExchangedPaymentFirstCurrencyCompleteness" id="id-81957391196d9a4731c5e2c594220a9d" label="Determine Trade Exchanged Payment First Currency Completeness">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"Complete","Incomplete"</text>
+        </allowedValues>
+    </itemDefinition>
+    <inputData name="tradeAssetClassTaxonomy" id="id-71311a8ae50536cfb8bc09736562ae78" label="Trade Asset Class Taxonomy" sigExt:shapeId="3b6420419b5848aaaa5c466392e3ffd6" sigExt:diagramId="055772ca13bd41dea49e5a76275dc585">
+        <variable typeRef="sig:tradeAssetClassTaxonomy" name="tradeAssetClassTaxonomy" id="id-71311a8ae50536cfb8bc09736562ae78_variable"/>
+    </inputData>
+    <inputData name="tradeAssetClass" id="id-2412ecdadbb3412d505c862ff2e477f9" label="Trade Asset Class" sigExt:shapeId="870a107378fb4d0195098c7ad625ab85" sigExt:diagramId="055772ca13bd41dea49e5a76275dc585">
+        <variable typeRef="sig:tradeAssetClass" name="tradeAssetClass" id="id-2412ecdadbb3412d505c862ff2e477f9_variable"/>
+    </inputData>
+    <inputData name="tradeCurrencyCodeEnumeration" id="id-b2cb254c0bc535de9167dee42c74c705" label="Trade Currency Code Enumeration" sigExt:shapeId="897622097b0044c4886e82b02270cfea" sigExt:diagramId="055772ca13bd41dea49e5a76275dc585">
+        <variable typeRef="sig:tradeCurrencyCodeEnumeration" name="tradeCurrencyCodeEnumeration" id="id-b2cb254c0bc535de9167dee42c74c705_variable"/>
+    </inputData>
+    <decision name="determineTradeExchangedPaymentFirstCurrencyDomainValidity" id="id-b5afadcae46e11470929cf2bfd7f3661" label="Determine Trade Exchanged Payment First Currency Domain Validity" sigExt:shapeId="0742ac63419e42d1a45906210ddec618" sigExt:diagramId="055772ca13bd41dea49e5a76275dc585">
+        <variable typeRef="sig:determineTradeExchangedPaymentFirstCurrencyDomainValidity" name="Determine Trade Exchanged Payment First Currency Domain Validity" id="id-b5afadcae46e11470929cf2bfd7f3661_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-b2cb254c0bc535de9167dee42c74c705"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-2412ecdadbb3412d505c862ff2e477f9"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-71311a8ae50536cfb8bc09736562ae78"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="ANY">
+            <input id="id-96395b09296f5f236b2f25573f5da556" label="Trade Currency Code Enumeration">
+                <inputExpression>
+                    <text>tradeCurrencyCodeEnumeration</text>
+                </inputExpression>
+            </input>
+            <input id="id-5d61dccf0401a0e2c337278ef3bf174a" label="Trade Asset Class">
+                <inputExpression>
+                    <text>tradeAssetClass</text>
+                </inputExpression>
+            </input>
+            <input id="id-3884a78c5953c9b0b617753ce7bad240" label="Trade Asset Class Taxonomy">
+                <inputExpression>
+                    <text>tradeAssetClassTaxonomy</text>
+                </inputExpression>
+            </input>
+            <input id="id-aef3296db3defe9334490644fa997f3f" label="Trade Asset Class">
+                <inputExpression>
+                    <text>tradeAssetClass</text>
+                </inputExpression>
+            </input>
+            <input id="id-70adffdfe60605a39d6d06c95f26d399" label="Trade Asset Class Taxonomy">
+                <inputExpression>
+                    <text>tradeAssetClassTaxonomy</text>
+                </inputExpression>
+            </input>
+            <input id="id-3f0f07c51be0f74c1c2f76577e1923ce" label="Trade Currency Code Enumeration">
+                <inputExpression>
+                    <text>tradeCurrencyCodeEnumeration</text>
+                </inputExpression>
+            </input>
+            <output name="determineTradeExchangedPaymentFirstCurrencyDomainValidity" typeRef="feel:string" id="id-e1c56103b760aa7341e9af3235a7f089" label="Determine Trade Exchanged Payment First Currency Domain Validity"/>
+            <rule id="id-90fb2fd2e39ce5fbce5361ec273e2f5a">
+                <description>[string("") , string("") , string("") , string("") , string("")]</description>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-12a4b889185a3869a852e18b5b1df35e">
+                <description>[string("") , string("") , string("") , string("") , string("")]</description>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-eb96faf6c86d55e2d00c427c58e034d2">
+                <description>[string("") , string("") , string("") , string("") , string("")]</description>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-66600749c6e81bc6ab283c8692f73526">
+                <description>[string("ISO Currency Code") , string("Incorrect Value") , string("Blank/Invalid Value") , string("Exchanged Currency Payment Amount Currency - First Currency") , string("The Trade Currency Code is ") + string(tradeCurrencyCodeEnumeration) + string(" which is not an enumerated value. The Trade Asset Class is ") + string(tradeAssetClass) + string(" and the Trade Asset Class Taxonomy is ") + string(tradeAssetClassTaxonomy) + string(".")]</description>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"ForeignExchange"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"ForeignExchange:NDF"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not("AED","AFN","ALL","AMD","ANG","AOA","ARS","AUD","AWG","AZN","BAM","BBD","BDT","BGN","BHD","BIF","BMD","BND","BOB","BOV","BRL","BSD","BTN","BWP","BYR","BZD","CAD","CDF","CHE","CHF","CHW","CLF","CLP","CNY","COP","COU","CRC","CUC","CUP","CVE","CZK","DJF","DKK","DOP","DZD","EGP","ERN","ETB","EUR","FJD","FKP","GBP","GEL","GHS","GIP","GMD","GNF","GTQ","GYD","HKD","HNL","HRK","HTG","HUF","IDR","ILS","INR","IQD","IRR","ISK","JMD","JOD","JPY","KES","KGS","KHR","KMF","KPW","KRW","KWD","KYD","KZT","LAK","LBP","LKR","LRD","LSL","LYD","MAD","MDL","MGA","MKD","MMK","MNT","MOP","MRO","MUR","MVR","MWK","MXN","MXV","MYR","MZN","NAD","NGN","NIO","NOK","NPR","NZD","OMR","PAB","PEN","PGK","PHP","PKR","PLN","PYG","QAR","RON","RSD","RUB","RWF","SAR","SBD","SCR","SDG","SEK","SGD","SHP","SLL","SOS","SRD","SSP","STD","SVC","SYP","SZL","THB","TJS","TMT","TND","TOP","TRY","TTD","TWD","TZS","UAH","UGX","USD","USN","UYI","UYU","UZS","VEF","VND","VUV","WST","XAF","XAG","XAU","XBA","XBB","XBC","XBD","XCD","XDR","XOF","XPD","XPF","XPT","XSU","XTS","XUA","XXX","YER","ZAR","ZMW","ZWL","LTL","LVL","USS","XFU")</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Invalid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-b3b40f5cfebf77856ea3ee2dc9f97820">
+                <description>[string("") , string("") , string("") , string("") , string("")]</description>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"ForeignExchange"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"ForeignExchange:NDF"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"AED","AFN","ALL","AMD","ANG","AOA","ARS","AUD","AWG","AZN","BAM","BBD","BDT","BGN","BHD","BIF","BMD","BND","BOB","BOV","BRL","BSD","BTN","BWP","BYR","BZD","CAD","CDF","CHE","CHF","CHW","CLF","CLP","CNY","COP","COU","CRC","CUC","CUP","CVE","CZK","DJF","DKK","DOP","DZD","EGP","ERN","ETB","EUR","FJD","FKP","GBP","GEL","GHS","GIP","GMD","GNF","GTQ","GYD","HKD","HNL","HRK","HTG","HUF","IDR","ILS","INR","IQD","IRR","ISK","JMD","JOD","JPY","KES","KGS","KHR","KMF","KPW","KRW","KWD","KYD","KZT","LAK","LBP","LKR","LRD","LSL","LYD","MAD","MDL","MGA","MKD","MMK","MNT","MOP","MRO","MUR","MVR","MWK","MXN","MXV","MYR","MZN","NAD","NGN","NIO","NOK","NPR","NZD","OMR","PAB","PEN","PGK","PHP","PKR","PLN","PYG","QAR","RON","RSD","RUB","RWF","SAR","SBD","SCR","SDG","SEK","SGD","SHP","SLL","SOS","SRD","SSP","STD","SVC","SYP","SZL","THB","TJS","TMT","TND","TOP","TRY","TTD","TWD","TZS","UAH","UGX","USD","USN","UYI","UYU","UZS","VEF","VND","VUV","WST","XAF","XAG","XAU","XBA","XBB","XBC","XBD","XCD","XDR","XOF","XPD","XPF","XPT","XSU","XTS","XUA","XXX","YER","ZAR","ZMW","ZWL","LTL","LVL","USS","XFU"</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-e4bc1c71055588f76e5fe6c4ccbd1b7b">
+                <description>[string("") , string("") , string("") , string("") , string("")]</description>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"ForeignExchange"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not("ForeignExchange:NDF")</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-26790c59e054d821ff01281d3ec0965e">
+                <description>[string("") , string("") , string("") , string("") , string("")]</description>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not("ForeignExchange")</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="determineTradeExchangedPaymentFirstCurrencyDataAcceptance" id="id-b4c78768e9a4a164bc082c2ff5b123ee" label="Determine Trade Exchanged Payment First Currency Data Acceptance" sigExt:shapeId="1abdb3ed2a08409f9d3afae5433f5e03" sigExt:diagramId="055772ca13bd41dea49e5a76275dc585">
+        <variable typeRef="sig:determineTradeExchangedPaymentFirstCurrencyDataAcceptance" name="Determine Trade Exchanged Payment First Currency Data Acceptance" id="id-b4c78768e9a4a164bc082c2ff5b123ee_variable"/>
+        <informationRequirement>
+            <requiredDecision href="#id-b5afadcae46e11470929cf2bfd7f3661"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#id-e98ff6bb9fba34980e6c51eabd788ce7"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="ANY">
+            <input id="id-1fc4ff3ba86252d39979c3059b8e6346" label="Determine Trade Exchanged Payment First Currency Completeness">
+                <inputExpression>
+                    <text>determineTradeExchangedPaymentFirstCurrencyCompleteness</text>
+                </inputExpression>
+            </input>
+            <input id="id-77faf6828dc380f3aaa8a16edb8321c9" label="Determine Trade Exchanged Payment First Currency Domain Validity">
+                <inputExpression>
+                    <text>determineTradeExchangedPaymentFirstCurrencyDomainValidity</text>
+                </inputExpression>
+            </input>
+            <output name="determineTradeExchangedPaymentFirstCurrencyDataAcceptance" typeRef="feel:string" id="id-c94eaa38e9781ded1778d61ac0169ed7" label="Determine Trade Exchanged Payment First Currency Data Acceptance"/>
+            <rule id="id-d34a4b4f73e5b8947ff0a25707456d25">
+                <description>string("")</description>
+                <inputEntry>
+                    <text>"Complete"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"Valid"</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Acceptable"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-180d3a2864b1702294e0e53f9ce278a9">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>not("Complete")</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Unacceptable"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-1e93731a342ca796bee0880c1fe1e2f2">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not("Valid")</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Unacceptable"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="determineTradeExchangedPaymentFirstCurrencyExceptionIndicator" id="id-16726877310cd8196247f5501a3e7def" label="Determine Trade Exchanged Payment First Currency Exception Indicator" sigExt:shapeId="7964ca5941ef44adba198ee8844371b8" sigExt:diagramId="055772ca13bd41dea49e5a76275dc585">
+        <variable typeRef="sig:determineTradeExchangedPaymentFirstCurrencyExceptionIndicator" name="Determine Trade Exchanged Payment First Currency Exception Indicator" id="id-16726877310cd8196247f5501a3e7def_variable"/>
+        <informationRequirement>
+            <requiredDecision href="#id-b4c78768e9a4a164bc082c2ff5b123ee"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="ANY">
+            <input id="id-fdabe2f87f12c799162deb50dad4553b" label="Determine Trade Exchanged Payment First Currency Data Acceptance">
+                <inputExpression>
+                    <text>determineTradeExchangedPaymentFirstCurrencyDataAcceptance</text>
+                </inputExpression>
+            </input>
+            <output name="determineTradeExchangedPaymentFirstCurrencyExceptionIndicator" typeRef="feel:boolean" id="id-787e901d0f03b04c568493cc7b8c6f1d" label="Determine Trade Exchanged Payment First Currency Exception Indicator"/>
+            <rule id="id-0464a561e0445520ca2b30788f0db921">
+                <description>string("")</description>
+                <inputEntry>
+                    <text>"Acceptable"</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>false</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-6674adb7ee21a9871fd536dc93a05b96">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>not("Acceptable")</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>true</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="determineTradeExchangedPaymentFirstCurrencyCompleteness" id="id-e98ff6bb9fba34980e6c51eabd788ce7" label="Determine Trade Exchanged Payment First Currency Completeness" sigExt:shapeId="5b6d370dfe61489f8cca3b1397156e4f" sigExt:diagramId="055772ca13bd41dea49e5a76275dc585">
+        <variable typeRef="sig:determineTradeExchangedPaymentFirstCurrencyCompleteness" name="Determine Trade Exchanged Payment First Currency Completeness" id="id-e98ff6bb9fba34980e6c51eabd788ce7_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-b2cb254c0bc535de9167dee42c74c705"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-2412ecdadbb3412d505c862ff2e477f9"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-71311a8ae50536cfb8bc09736562ae78"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="ANY">
+            <input id="id-ab859c7dbe55ef2fe05962135682e600" label="Trade Asset Class">
+                <inputExpression>
+                    <text>tradeAssetClass</text>
+                </inputExpression>
+            </input>
+            <input id="id-b4b8d73716b8d82e9209119b35ce592f" label="Trade Asset Class Taxonomy">
+                <inputExpression>
+                    <text>tradeAssetClassTaxonomy</text>
+                </inputExpression>
+            </input>
+            <input id="id-9b03fbc0f1885b6b9c7a9f5f6118615d" label="Trade Asset Class">
+                <inputExpression>
+                    <text>tradeAssetClass</text>
+                </inputExpression>
+            </input>
+            <input id="id-f330b30e3c64d24eee170dce10193057" label="Trade Asset Class Taxonomy">
+                <inputExpression>
+                    <text>tradeAssetClassTaxonomy</text>
+                </inputExpression>
+            </input>
+            <input id="id-7a67df9b12e2abdd974d08311cca531b" label="Trade Currency Code Enumeration">
+                <inputExpression>
+                    <text>tradeCurrencyCodeEnumeration</text>
+                </inputExpression>
+            </input>
+            <output name="determineTradeExchangedPaymentFirstCurrencyCompleteness" typeRef="feel:string" id="id-bd6819b9b5aa5f9f2bb23b72c6d058ad" label="Determine Trade Exchanged Payment First Currency Completeness"/>
+            <rule id="id-37d00c9d25bf0615c6a1d926dcb42a2c">
+                <description>[string("") , string("") , string("") , string("") , string("")]</description>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Complete"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-6a59ce1da727214ba4876a18c0bf52da">
+                <description>[string("") , string("") , string("") , string("") , string("")]</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Complete"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-feb092f7ac4614ab3ecc7108f7936481">
+                <description>[string("Populated") , string("Not Populated") , string("Blank/Invalid Value") , string("Exchanged Currency Payment Amount Currency - First Currency") , string("The Trade Currency Code is not populated, the Trade Asset Class is ") + string(tradeAssetClass) + string(", and the Trade Asset Class Taxonomy is ") + string(tradeAssetClassTaxonomy) + string(".")]</description>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"ForeignExchange"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"ForeignExchange:NDF"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Incomplete"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-5bc766133ac63d2f7b550941f44f7564">
+                <description>[string("") , string("") , string("") , string("") , string("")]</description>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"ForeignExchange"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"ForeignExchange:NDF"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Complete"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-529ea45fb4ce4c29670cfad49db74d4b">
+                <description>[string("") , string("") , string("") , string("") , string("")]</description>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"ForeignExchange"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not("ForeignExchange:NDF")</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Complete"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-c6f779f81a715fb7bdcafeca3c504318">
+                <description>[string("") , string("") , string("") , string("") , string("")]</description>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not("ForeignExchange")</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Complete"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+</definitions>
