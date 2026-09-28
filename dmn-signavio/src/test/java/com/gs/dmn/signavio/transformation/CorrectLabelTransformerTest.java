@@ -40,7 +40,8 @@ public class CorrectLabelTransformerTest extends AbstractSignavioDMNTransformerT
         DMNModelRepository actualRepository = executeDMNTransformation(transformer, dmnFileURI);
 
         // Check output
-        checkDefinitions(getDefinitions(actualRepository), "null-safe-tests-labels.dmn");
+        TDefinitions definitions = getDefinitions(actualRepository);
+        checkDefinitions(definitions, "null-safe-tests-labels.dmn");
     }
 
     @Test
@@ -61,16 +62,6 @@ public class CorrectLabelTransformerTest extends AbstractSignavioDMNTransformerT
         TDecision element = new TDecision();
         element.setLabel(label);
         return element;
-    }
-
-    private void checkDefinitions(TDefinitions actualDefinitions, String actualFileName) throws Exception {
-        File actualDMNFile = new File("target/" + actualFileName);
-        this.dmnSerializer.writeModel(actualDefinitions, actualDMNFile);
-
-        String path = "dmn/expected/";
-        File expectedDMNFile = new File(resource(path + actualFileName));
-
-        compareFile(expectedDMNFile, actualDMNFile);
     }
 
     @Override

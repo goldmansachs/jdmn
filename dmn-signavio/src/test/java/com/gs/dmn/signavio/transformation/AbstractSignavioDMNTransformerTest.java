@@ -13,6 +13,7 @@
 package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.signavio.AbstractSignavioFileTransformerTest;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
@@ -61,6 +62,16 @@ public abstract class AbstractSignavioDMNTransformerTest extends AbstractSignavi
     protected DMNModelRepository readModel(URI dmnFileURI) {
         File dmnFile = new File(dmnFileURI);
         return new SignavioDMNModelRepository(this.dmnSerializer.readModel(dmnFile), SignavioTestConstants.SIG_EXT_NAMESPACE);
+    }
+
+    protected void checkDefinitions(TDefinitions actualDefinitions, String fileName) throws Exception {
+        File actualDMNFile = new File("target/" + fileName);
+        this.dmnSerializer.writeModel(actualDefinitions, actualDMNFile);
+
+        String path = "dmn/expected/";
+        File expectedDMNFile = new File(resource(path + fileName));
+
+        compareFile(expectedDMNFile, actualDMNFile);
     }
 
     protected abstract DMNTransformer<TestLab> getTransformer();

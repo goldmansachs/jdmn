@@ -33,16 +33,17 @@ public class SimplifyTypesForMIDTransformerTest extends AbstractSignavioDMNTrans
         DMNModelRepository actualRepository = executeDMNTransformation(transformer, dmnFileURI);
 
         // Check output
-        checkDefinitions(actualRepository, "IteratorExampleReturningMultiple.dmn");
+        TDefinitions actualDefinitions = getDefinitions(actualRepository);
+        checkDefinitions(actualDefinitions, "IteratorExampleReturningMultiple.dmn");
     }
 
-    private void checkDefinitions(DMNModelRepository repository, String fileName) throws Exception {
-        File actualDMNFile = new File("target/" + fileName);
-        TDefinitions actualDefinitions = getDefinitions(repository);
+    @Override
+    protected void checkDefinitions(TDefinitions actualDefinitions, String actualFileName) throws Exception {
+        File actualDMNFile = new File("target/" + actualFileName);
         this.dmnSerializer.writeModel(actualDefinitions, actualDMNFile);
 
         String path = "dmn/dmn2java/expected/complex/";
-        File expectedDMNFile = new File(signavioResource(path + fileName));
+        File expectedDMNFile = new File(signavioResource(path + actualFileName));
 
         compareFile(expectedDMNFile, actualDMNFile);
     }

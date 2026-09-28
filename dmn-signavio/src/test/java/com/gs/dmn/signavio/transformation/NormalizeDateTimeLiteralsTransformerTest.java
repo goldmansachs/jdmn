@@ -50,18 +50,8 @@ public class NormalizeDateTimeLiteralsTransformerTest extends AbstractSignavioDM
         DMNModelRepository actualRepository = executeDMNTransformation(transformer, dmnFileURI);
 
         // Check output
-        checkDefinitions(actualRepository, "Normalized Null Safe Tests.dmn");
-    }
-
-    private void checkDefinitions(DMNModelRepository repository, String fileName) throws Exception {
-        File actualDMNFile = new File("target/" + fileName);
-        TDefinitions actualDefinitions = getDefinitions(repository);
-        this.dmnSerializer.writeModel(actualDefinitions, actualDMNFile);
-
-        String path = "dmn/expected/";
-        File expectedDMNFile = new File(resource(path + fileName));
-
-        compareFile(expectedDMNFile, actualDMNFile);
+        TDefinitions actualDefinitions = getDefinitions(actualRepository);
+        checkDefinitions(actualDefinitions, "Normalized Null Safe Tests.dmn");
     }
 
     @Override

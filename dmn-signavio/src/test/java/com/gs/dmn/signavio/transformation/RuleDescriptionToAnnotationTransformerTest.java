@@ -43,7 +43,8 @@ public class RuleDescriptionToAnnotationTransformerTest extends AbstractSignavio
         DMNModelRepository actualRepository = executeDMNTransformation(transformer, dmnFileURI);
 
         // Check output
-        checkDefinitions(actualRepository, "simpleMID-with-annotations.dmn");
+        TDefinitions actualDefinitions = getDefinitions(actualRepository);
+        checkDefinitions(actualDefinitions, "simpleMID-with-annotations.dmn");
     }
 
     @Test
@@ -55,7 +56,8 @@ public class RuleDescriptionToAnnotationTransformerTest extends AbstractSignavio
         DMNModelRepository actualRepository = executeDMNTransformation(transformer, dmnFileURI);
 
         // Check output
-        checkDefinitions(actualRepository, "dmn-link-issue-1.dmn");
+        TDefinitions actualDefintions = getDefinitions(actualRepository);
+        checkDefinitions(actualDefintions, "dmn-link-issue-1.dmn");
     }
 
     @Test
@@ -84,17 +86,6 @@ public class RuleDescriptionToAnnotationTransformerTest extends AbstractSignavio
                 assertEquals(expectedAnnotation, rule.getAnnotationEntry().get(0).getText());
             }
         }
-    }
-
-    private void checkDefinitions(DMNModelRepository repository, String fileName) throws Exception {
-        File actualDMNFile = new File("target/" + fileName);
-        TDefinitions actualDefinitions = getDefinitions(repository);
-        this.dmnSerializer.writeModel(actualDefinitions, actualDMNFile);
-
-        String path = "dmn/expected/";
-        File expectedDMNFile = new File(resource(path + fileName));
-
-        compareFile(expectedDMNFile, actualDMNFile);
     }
 
     @Override

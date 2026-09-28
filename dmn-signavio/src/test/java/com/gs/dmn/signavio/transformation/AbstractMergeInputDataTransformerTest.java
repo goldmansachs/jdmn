@@ -112,16 +112,6 @@ public abstract class AbstractMergeInputDataTransformerTest extends AbstractSign
         }
     }
 
-    protected void checkDefinitions(TDefinitions actualDefinitions, String fileName) throws Exception {
-        File actualDMNFile = new File("target/" + fileName);
-        this.dmnSerializer.writeModel(actualDefinitions, actualDMNFile);
-
-        String path = "dmn/expected/";
-        File expectedDMNFile = new File(resource(path + fileName));
-
-        compareFile(expectedDMNFile, actualDMNFile);
-    }
-
     private void checkTestLab(TestLab actualTestLab, String fileName) throws Exception {
         File actualTestLabFile = new File("target/" + fileName);
         this.testSerializer.write(actualTestLab, actualTestLabFile);
