@@ -304,7 +304,6 @@ public abstract class AbstractCL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIM
         doFolderTest("1.2", "0085-decision-services");
     }
 
-    @Disabled("incorrect DS type")
     @Test
     public void test_12_cl3_0086_import() {
         doFolderTest("1.2", "0086-import");

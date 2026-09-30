@@ -462,7 +462,7 @@ class AssertTest {
 
             Assert.assertEquals(ctx1, ctx2);
         });
-        assertEquals("{key1=value1} vs {key2=value1} at member key1 ==> expected: <value1> but was: <null>", assertionError.getMessage());
+        assertEquals("Comparing members ==> expected: <[key1]> but was: <[key2]>", assertionError.getMessage());
     }
 
     @Test
@@ -473,7 +473,7 @@ class AssertTest {
 
             Assert.assertEquals(ctx1, null);
         });
-        assertEquals("{key1=value1} vs {} at member key1 ==> expected: <value1> but was: <null>", assertionError.getMessage());
+        assertEquals("Comparing members ==> expected: <[key1]> but was: <[]>", assertionError.getMessage());
     }
 
     @Test

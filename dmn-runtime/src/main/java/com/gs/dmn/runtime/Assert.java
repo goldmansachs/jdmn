@@ -27,6 +27,7 @@ import java.time.ZonedDateTime;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class Assert {
     public static final BigDecimal NUMBER_COMPARISON_PRECISION = new BigDecimal("0.00000001");
@@ -69,7 +70,10 @@ public class Assert {
             if (actual == null) {
                 actual = new Context();
             }
-            for(Object key: ((Context) expected).keySet()) {
+            Set<?> expectedMembers = ((Context) expected).keySet();
+            Set<?> actualMembers = ((Context) actual).keySet();
+            Assertions.assertEquals(expectedMembers, actualMembers, appendMessage(message, "Comparing members"));
+            for(Object key: expectedMembers) {
                 Object expectedMember = ((Context) expected).get(key);
                 Object actualMember = ((Context) actual).get(key);
                 String errorMessage = String.format("%s vs %s at member %s", expected, actual, key);
