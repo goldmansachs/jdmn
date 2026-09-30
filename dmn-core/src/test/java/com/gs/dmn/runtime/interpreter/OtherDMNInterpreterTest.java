@@ -57,5 +57,10 @@ public class OtherDMNInterpreterTest extends AbstractDMNInterpreterTest<Number, 
     public void testSignavioLibraryWithPrefix() {
         doFolderTest("1.5", "feel-signavio-library-prefix", new Pair<>("librariesConfigPath", "libraries/libraries.json"));
     }
+
+    @Test
+    public void testEquivalentComplexTypes() {
+        doFolderTest("1.5", "equivalent-complex-types");
+    }
 }
 

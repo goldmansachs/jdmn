@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:kie="https://kie.org/dmn/extensions/1.0" xmlns:included0="https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7" expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/" namespace="https://kie.org/dmn/_41DA1B21-4EF2-42AC-8B8C-0EB93859BC91" id="_E287B16F-79AF-44C3-A7A2-FEB56698E866" name="parent">
+  <import id="_36D75915-F645-4214-8120-D47DE7C26804" name="" importType="https://www.omg.org/spec/DMN/20230324/MODEL/" namespace="https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7" locationURI="./child.dmn" />
+  <itemDefinition id="_9745824A-3A71-47ED-911F-B5EE00603ECF" name="ParentPersonList" isCollection="true" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+    <typeRef>ParentPerson</typeRef>
+  </itemDefinition>
+  <itemDefinition id="_94C2C0BB-851C-4ECF-8C82-F56F1E319242" name="ParentPerson" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+    <itemComponent id="_A820E2A6-F4CA-481E-8FCE-338B19E0978C" name="name" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>string</typeRef>
+    </itemComponent>
+    <itemComponent id="_0749E004-44BE-4E62-8AF4-540CA506E1AE" name="age" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>number</typeRef>
+    </itemComponent>
+    <itemComponent id="_329AD3D2-988F-4C45-9461-DEFCA3D626A9" name="addresses" isCollection="true" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>ParentAddress</typeRef>
+    </itemComponent>
+  </itemDefinition>
+  <itemDefinition id="_FA952177-CDC1-454C-8433-EB954A1B59A4" name="ParentAddress" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+    <itemComponent id="_B5AB9773-3B57-4C70-8332-7AA68F33F838" name="num" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>number</typeRef>
+    </itemComponent>
+    <itemComponent id="_5F1F25FD-1784-4027-A427-0322B12C9427" name="street" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>string</typeRef>
+    </itemComponent>
+  </itemDefinition>
+  <decision name="SimpleParent" id="_F0A03750-E236-4172-A0BB-816036E11A5E">
+    <variable name="SimpleParent" id="_E4C2CDF4-7AA0-4F86-9AD2-4FFE2A5302CB" typeRef="ParentPerson" />
+    <informationRequirement id="_80E08F22-DDBD-4F14-85DF-489176099B0D">
+      <requiredDecision href="https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7#_B818F620-E17B-4FBD-8F1F-5057E294CED4" />
+    </informationRequirement>
+    <literalExpression id="_4F788051-7085-447C-AF06-6D4BCCABEBB0" label="SimpleParent" typeRef="ParentPerson">
+      <text>SimpleChild</text>
+    </literalExpression>
+  </decision>
+  <decision name="ListParent" id="_00EEB088-1E5F-469C-B144-A6100F66F0D1">
+    <variable name="ListParent" id="_A12F82E7-90A6-45FD-82CD-3E13E3F1D440" typeRef="ParentPersonList" />
+    <informationRequirement id="_D8A417A6-6A52-46A3-B485-B711CAE779B9">
+      <requiredDecision href="https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7#_3D0B92B9-77AE-49F4-8D33-D26E70AAB7B0" />
+    </informationRequirement>
+    <literalExpression id="_1F168BB9-582B-496A-8C86-05B2C029F140" typeRef="ParentPersonList" label="ListParent">
+      <text>ListChild</text>
+    </literalExpression>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="_BEE1553A-E4CB-4191-A5A0-C3FD670E4A4A" name="Default DRD" useAlternativeInputDataShape="false">
+      <di:extension>
+        <kie:ComponentsWidthsExtension>
+          <kie:ComponentWidths dmnElementRef="_4F788051-7085-447C-AF06-6D4BCCABEBB0">
+            <kie:width>190</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_1F168BB9-582B-496A-8C86-05B2C029F140">
+            <kie:width>190</kie:width>
+          </kie:ComponentWidths>
+        </kie:ComponentsWidthsExtension>
+      </di:extension>
+      <dmndi:DMNShape id="_FF26D54F-EF9D-4570-AB11-07EBF45FDE03" dmnElementRef="_F0A03750-E236-4172-A0BB-816036E11A5E" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="560" y="180" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_F6B48F09-7C23-4BF4-BF21-4BC71D510F74" dmnElementRef="_00EEB088-1E5F-469C-B144-A6100F66F0D1" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="1000" y="180" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_E1BE6149-8B68-44C4-8E35-DD4F11E6B167" dmnElementRef="included0:_B818F620-E17B-4FBD-8F1F-5057E294CED4">
+        <dc:Bounds x="560" y="380" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_DB482D0C-4E59-446F-8634-C57E47B369F8" dmnElementRef="included0:_3D0B92B9-77AE-49F4-8D33-D26E70AAB7B0">
+        <dc:Bounds x="1000" y="380" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="_E8AB92FA-116F-434D-A254-40B29BEA9DA1" dmnElementRef="_80E08F22-DDBD-4F14-85DF-489176099B0D" sourceElement="_E1BE6149-8B68-44C4-8E35-DD4F11E6B167" targetElement="_FF26D54F-EF9D-4570-AB11-07EBF45FDE03">
+        <di:waypoint x="640" y="420" />
+        <di:waypoint x="640" y="260" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="_5C64842D-164B-4F82-AC84-BB3B77E0D843" dmnElementRef="_D8A417A6-6A52-46A3-B485-B711CAE779B9" sourceElement="_DB482D0C-4E59-446F-8634-C57E47B369F8" targetElement="_F6B48F09-7C23-4BF4-BF21-4BC71D510F74">
+        <di:waypoint x="1080" y="420" />
+        <di:waypoint x="1080" y="260" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

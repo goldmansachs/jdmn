@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:kie="https://kie.org/dmn/extensions/1.0" expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/" namespace="https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7" id="_3C0117DE-53FD-45B0-82B3-85103B95DAC5" name="child">
+  <itemDefinition id="_0A721731-A32D-4EB4-A4AE-73BC8027ECBB" name="ChildPersonList" isCollection="true" typeLanguage="https://www.omg.org/spec/DMN/20240513/FEEL/">
+    <typeRef>ChildPerson</typeRef>
+  </itemDefinition>
+  <itemDefinition id="_C9E7E93E-616B-4C3D-AD34-2779AB2234D6" name="ChildPerson" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20240513/FEEL/">
+    <itemComponent id="_3EB35B24-2DC9-444F-8760-21DA4AF0F815" name="age" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20240513/FEEL/">
+      <typeRef>number</typeRef>
+    </itemComponent>
+    <itemComponent id="_33DBE4DA-AF1B-4969-A08D-05E80A53A176" name="name" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20240513/FEEL/">
+      <typeRef>string</typeRef>
+    </itemComponent>
+    <itemComponent id="_27740B5A-F1C6-4761-9D16-97270C650F85" name="addresses" isCollection="true" typeLanguage="https://www.omg.org/spec/DMN/20240513/FEEL/">
+      <typeRef>ChildAddress</typeRef>
+    </itemComponent>
+  </itemDefinition>
+  <itemDefinition id="_1DC508E3-6D0A-4A13-9B1F-A49600490E18" name="ChildAddress" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20240513/FEEL/">
+    <itemComponent id="_93A05800-DC6F-4F37-8530-344BB11F46DB" name="street" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20240513/FEEL/">
+      <typeRef>string</typeRef>
+    </itemComponent>
+    <itemComponent id="_0A3A83FA-F5DD-4890-AF5F-C4F342D46885" name="num" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20240513/FEEL/">
+      <typeRef>number</typeRef>
+    </itemComponent>
+  </itemDefinition>
+  <decision name="SimpleChild" id="_B818F620-E17B-4FBD-8F1F-5057E294CED4">
+    <variable name="SimpleChild" id="_E1A8C513-BB61-45DB-8736-639F90295CAA" typeRef="ChildPerson" />
+    <literalExpression id="_F4C3219E-A345-46B6-9176-2D8EFE2377E3" typeRef="ChildPerson" label="SimpleChild">
+      <text>{age:4, name:&quot;John&quot;, addresses:[]}</text>
+    </literalExpression>
+  </decision>
+  <decision name="ListChild" id="_3D0B92B9-77AE-49F4-8D33-D26E70AAB7B0">
+    <variable name="ListChild" id="_23D74B89-0DE4-49C0-B50C-A59C48846337" typeRef="ChildPersonList" />
+    <literalExpression id="_F394D720-3AFB-493D-9B8C-4950868AD53D" typeRef="ChildPersonList" label="ListChild">
+      <text>[{age:4, name:&quot;John&quot;, addresses:[]}]</text>
+    </literalExpression>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="_13FAD324-843A-4BFC-96CC-F00CF583AC6B" name="Default DRD" useAlternativeInputDataShape="false">
+      <dmndi:DMNShape id="_540AAFD9-2286-4CFB-B292-CDAFE2400018" dmnElementRef="_B818F620-E17B-4FBD-8F1F-5057E294CED4" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="580" y="260" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_35920B54-6F92-419B-99E7-0FC7E48370B0" dmnElementRef="_3D0B92B9-77AE-49F4-8D33-D26E70AAB7B0" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="840" y="260" width="160" height="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

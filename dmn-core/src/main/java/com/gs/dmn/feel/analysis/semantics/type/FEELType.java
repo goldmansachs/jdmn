@@ -30,11 +30,17 @@ public interface FEELType {
         expectedType = Type.extractTypeFromConstraint(expectedType);
         actualType = Type.extractTypeFromConstraint(actualType);
         // Check when conversion is not needed
-        if (Type.equivalentTo(actualType, expectedType)) {
+        if (Type.same(actualType, expectedType)) {
             // Same type, no conversion
             return NONE;
-        } else if (Type.isAny(expectedType) || Type.isNullType(actualType)) {
-            // Upper bound or lower bound, no conversion
+        }
+        // Check upper and lower bounds
+        if (Type.isAny(expectedType)) {
+            // All types conform to Any type
+            return NONE;
+        }
+        if (Type.isNullType(actualType)) {
+            // Null type conforms to all types
             return NONE;
         }
 
@@ -55,35 +61,16 @@ public interface FEELType {
                 return NONE;
             }
         } else if (expectedType instanceof CompositeDataType && actualType instanceof CompositeDataType) {
-            if (Type.conformsTo(actualType, expectedType)) {
-                // Convert to ItemDefinition
-                if (expectedType instanceof ItemDefinitionType) {
-                    // Convert to Item Definitions
-                    return TO_ITEM_DEFINITION;
-                }
-                return NONE;
-            } else {
-                // Actual type needs refinement, convert to ItemDefinition
-                if (expectedType instanceof ItemDefinitionType && Type.isAny(actualType)) {
-                    // Convert to Item Definitions
-                    return TO_ITEM_DEFINITION;
-                }
+            ConversionKind kind = compositeConversionKind(actualType, expectedType, TO_ITEM_DEFINITION);
+            if (kind != null) {
+                return kind;
             }
         } else if (expectedType instanceof ListType && actualType instanceof ListType) {
-            if (Type.conformsTo(actualType, expectedType)) {
-                // Not equivalent types, convert to list of Item Definitions
-                Type expectedElementType = ((ListType) expectedType).getElementType();
-                if (expectedElementType instanceof ItemDefinitionType) {
-                    return TO_LIST_OF_ITEM_DEFINITION;
-                }
-                return NONE;
-            } else {
-                // Actual type needs refinement, convert to list of Item Definitions
-                Type expectedElementType = ((ListType) expectedType).getElementType();
-                Type actualElementType = ((ListType) actualType).getElementType();
-                if (expectedElementType instanceof ItemDefinitionType && Type.isAny(actualElementType)) {
-                    return TO_LIST_OF_ITEM_DEFINITION;
-                }
+            Type expectedElementType = ((ListType) expectedType).getElementType();
+            Type actualElementType = ((ListType) actualType).getElementType();
+            ConversionKind kind = compositeConversionKind(actualElementType, expectedElementType, TO_LIST_OF_ITEM_DEFINITION);
+            if (kind != null) {
+                return kind;
             }
         } else if (expectedType instanceof FunctionType && actualType instanceof FunctionType) {
             if (Type.conformsTo(actualType, expectedType)) {
@@ -104,6 +91,22 @@ public interface FEELType {
         }
 
         return CONFORMS_TO;
+    }
+
+    private static ConversionKind compositeConversionKind(Type actualElementType, Type expectedElementType, ConversionKind applicableConversion) {
+        if (Type.conformsTo(actualElementType, expectedElementType)) {
+            // Not equivalent types, convert
+            if (expectedElementType instanceof ItemDefinitionType) {
+                return applicableConversion;
+            }
+            return NONE;
+        } else {
+            // Actual type needs refinement, convert
+            if (expectedElementType instanceof ItemDefinitionType && Type.isAny(actualElementType)) {
+                return applicableConversion;
+            }
+        }
+        return null;
     }
 
     static boolean isPrimitiveType(Type type) {

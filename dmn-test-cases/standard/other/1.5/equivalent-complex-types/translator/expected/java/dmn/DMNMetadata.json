@@ -1,0 +1,221 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "dmnNamespaces" : [ "https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7", "https://kie.org/dmn/_41DA1B21-4EF2-42AC-8B8C-0EB93859BC91" ],
+  "nativeNamespace" : "",
+  "types" : [ {
+    "@kind" : "compositeType",
+    "id" : "https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7#_1DC508E3-6D0A-4A13-9B1F-A49600490E18",
+    "isCollection" : false,
+    "name" : "ChildAddress",
+    "namespace" : "https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "id" : "https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7#_0A3A83FA-F5DD-4890-AF5F-C4F342D46885",
+      "isCollection" : false,
+      "name" : "num",
+      "namespace" : "https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7#_93A05800-DC6F-4F37-8530-344BB11F46DB",
+      "isCollection" : false,
+      "name" : "street",
+      "namespace" : "https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
+      }
+    } ]
+  }, {
+    "@kind" : "compositeType",
+    "id" : "https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7#_C9E7E93E-616B-4C3D-AD34-2779AB2234D6",
+    "isCollection" : false,
+    "name" : "ChildPerson",
+    "namespace" : "https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "id" : "https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7#_27740B5A-F1C6-4761-9D16-97270C650F85",
+      "isCollection" : true,
+      "name" : "addresses",
+      "namespace" : "https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7",
+      "typeRef" : {
+        "localName" : "ChildAddress",
+        "namespace" : "https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7#_3EB35B24-2DC9-444F-8760-21DA4AF0F815",
+      "isCollection" : false,
+      "name" : "age",
+      "namespace" : "https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7#_33DBE4DA-AF1B-4969-A08D-05E80A53A176",
+      "isCollection" : false,
+      "name" : "name",
+      "namespace" : "https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
+      }
+    } ]
+  }, {
+    "@kind" : "referenceType",
+    "id" : "https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7#_0A721731-A32D-4EB4-A4AE-73BC8027ECBB",
+    "isCollection" : true,
+    "name" : "ChildPersonList",
+    "namespace" : "https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7",
+    "typeRef" : {
+      "localName" : "ChildPerson",
+      "namespace" : "https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7"
+    }
+  }, {
+    "@kind" : "compositeType",
+    "id" : "https://kie.org/dmn/_41DA1B21-4EF2-42AC-8B8C-0EB93859BC91#_FA952177-CDC1-454C-8433-EB954A1B59A4",
+    "isCollection" : false,
+    "name" : "ParentAddress",
+    "namespace" : "https://kie.org/dmn/_41DA1B21-4EF2-42AC-8B8C-0EB93859BC91",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "id" : "https://kie.org/dmn/_41DA1B21-4EF2-42AC-8B8C-0EB93859BC91#_B5AB9773-3B57-4C70-8332-7AA68F33F838",
+      "isCollection" : false,
+      "name" : "num",
+      "namespace" : "https://kie.org/dmn/_41DA1B21-4EF2-42AC-8B8C-0EB93859BC91",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "https://kie.org/dmn/_41DA1B21-4EF2-42AC-8B8C-0EB93859BC91#_5F1F25FD-1784-4027-A427-0322B12C9427",
+      "isCollection" : false,
+      "name" : "street",
+      "namespace" : "https://kie.org/dmn/_41DA1B21-4EF2-42AC-8B8C-0EB93859BC91",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
+      }
+    } ]
+  }, {
+    "@kind" : "compositeType",
+    "id" : "https://kie.org/dmn/_41DA1B21-4EF2-42AC-8B8C-0EB93859BC91#_94C2C0BB-851C-4ECF-8C82-F56F1E319242",
+    "isCollection" : false,
+    "name" : "ParentPerson",
+    "namespace" : "https://kie.org/dmn/_41DA1B21-4EF2-42AC-8B8C-0EB93859BC91",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "id" : "https://kie.org/dmn/_41DA1B21-4EF2-42AC-8B8C-0EB93859BC91#_329AD3D2-988F-4C45-9461-DEFCA3D626A9",
+      "isCollection" : true,
+      "name" : "addresses",
+      "namespace" : "https://kie.org/dmn/_41DA1B21-4EF2-42AC-8B8C-0EB93859BC91",
+      "typeRef" : {
+        "localName" : "ParentAddress",
+        "namespace" : "https://kie.org/dmn/_41DA1B21-4EF2-42AC-8B8C-0EB93859BC91"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "https://kie.org/dmn/_41DA1B21-4EF2-42AC-8B8C-0EB93859BC91#_0749E004-44BE-4E62-8AF4-540CA506E1AE",
+      "isCollection" : false,
+      "name" : "age",
+      "namespace" : "https://kie.org/dmn/_41DA1B21-4EF2-42AC-8B8C-0EB93859BC91",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "https://kie.org/dmn/_41DA1B21-4EF2-42AC-8B8C-0EB93859BC91#_A820E2A6-F4CA-481E-8FCE-338B19E0978C",
+      "isCollection" : false,
+      "name" : "name",
+      "namespace" : "https://kie.org/dmn/_41DA1B21-4EF2-42AC-8B8C-0EB93859BC91",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
+      }
+    } ]
+  }, {
+    "@kind" : "referenceType",
+    "id" : "https://kie.org/dmn/_41DA1B21-4EF2-42AC-8B8C-0EB93859BC91#_9745824A-3A71-47ED-911F-B5EE00603ECF",
+    "isCollection" : true,
+    "name" : "ParentPersonList",
+    "namespace" : "https://kie.org/dmn/_41DA1B21-4EF2-42AC-8B8C-0EB93859BC91",
+    "typeRef" : {
+      "localName" : "ParentPerson",
+      "namespace" : "https://kie.org/dmn/_41DA1B21-4EF2-42AC-8B8C-0EB93859BC91"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "decision",
+    "id" : "https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7#_3D0B92B9-77AE-49F4-8D33-D26E70AAB7B0",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "List<child.type.ChildPerson>",
+    "javaParameterName" : "listChild",
+    "javaTypeName" : "child.ListChild",
+    "knowledgeReferences" : [ ],
+    "name" : "ListChild",
+    "namespace" : "https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7",
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : {
+      "localName" : "ChildPersonList",
+      "namespace" : "https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7#_B818F620-E17B-4FBD-8F1F-5057E294CED4",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "child.type.ChildPerson",
+    "javaParameterName" : "simpleChild",
+    "javaTypeName" : "child.SimpleChild",
+    "knowledgeReferences" : [ ],
+    "name" : "SimpleChild",
+    "namespace" : "https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7",
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : {
+      "localName" : "ChildPerson",
+      "namespace" : "https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "https://kie.org/dmn/_41DA1B21-4EF2-42AC-8B8C-0EB93859BC91#_00EEB088-1E5F-469C-B144-A6100F66F0D1",
+    "informationReferences" : [ {
+      "reference" : "https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7#_3D0B92B9-77AE-49F4-8D33-D26E70AAB7B0"
+    } ],
+    "javaOutputTypeName" : "List<parent.type.ParentPerson>",
+    "javaParameterName" : "listParent",
+    "javaTypeName" : "parent.ListParent",
+    "knowledgeReferences" : [ ],
+    "name" : "ListParent",
+    "namespace" : "https://kie.org/dmn/_41DA1B21-4EF2-42AC-8B8C-0EB93859BC91",
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : {
+      "localName" : "ParentPersonList",
+      "namespace" : "https://kie.org/dmn/_41DA1B21-4EF2-42AC-8B8C-0EB93859BC91"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "https://kie.org/dmn/_41DA1B21-4EF2-42AC-8B8C-0EB93859BC91#_F0A03750-E236-4172-A0BB-816036E11A5E",
+    "informationReferences" : [ {
+      "reference" : "https://kie.org/dmn/_E41422F9-9D1F-4BAD-B81A-0A28390DF4F7#_B818F620-E17B-4FBD-8F1F-5057E294CED4"
+    } ],
+    "javaOutputTypeName" : "parent.type.ParentPerson",
+    "javaParameterName" : "simpleParent",
+    "javaTypeName" : "parent.SimpleParent",
+    "knowledgeReferences" : [ ],
+    "name" : "SimpleParent",
+    "namespace" : "https://kie.org/dmn/_41DA1B21-4EF2-42AC-8B8C-0EB93859BC91",
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : {
+      "localName" : "ParentPerson",
+      "namespace" : "https://kie.org/dmn/_41DA1B21-4EF2-42AC-8B8C-0EB93859BC91"
+    }
+  } ]
+}

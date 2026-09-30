@@ -49,4 +49,9 @@ public class OtherDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransform
     public void testApplyContext() throws Exception {
         doFolderTest("1.5", "context-api");
     }
+
+    @Test
+    public void testEquivalentTypes() throws Exception {
+        doFolderTest("1.5", "equivalent-complex-types");
+    }
 }

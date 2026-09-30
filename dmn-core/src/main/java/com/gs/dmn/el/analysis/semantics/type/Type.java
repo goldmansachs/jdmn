@@ -15,6 +15,7 @@ package com.gs.dmn.el.analysis.semantics.type;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.List;
+import java.util.Objects;
 
 public interface Type {
     //
@@ -81,6 +82,10 @@ public interface Type {
         } else {
             return type1.conformsTo(type2);
         }
+    }
+
+    static boolean same(Type type1, Type type2) {
+        return Objects.equals(type1, type2);
     }
 
     static boolean equivalentTo(List<Type> list1, List<Type> list2) {
