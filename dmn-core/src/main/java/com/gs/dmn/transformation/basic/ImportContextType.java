@@ -14,13 +14,12 @@ package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.ast.TDRGElement;
-import com.gs.dmn.feel.analysis.semantics.type.CompositeDataType;
 import com.gs.dmn.feel.analysis.semantics.type.ContextType;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ImportContextType extends ContextType implements CompositeDataType {
+public class ImportContextType extends ContextType {
     private final String importName;
     private final Map<String, DRGElementReference<? extends TDRGElement>> referenceMap = new LinkedHashMap<>();
 
@@ -33,8 +32,7 @@ public class ImportContextType extends ContextType implements CompositeDataType 
     }
 
     public DRGElementReference<? extends TDRGElement> getMemberReference(String name) {
-        DRGElementReference<? extends TDRGElement> reference = this.referenceMap.get(name);
-        return reference;
+        return this.referenceMap.get(name);
     }
 
     public void addMemberReference(String name, DRGElementReference<? extends TDRGElement> reference) {

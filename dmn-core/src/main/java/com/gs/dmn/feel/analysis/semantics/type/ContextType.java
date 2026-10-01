@@ -17,7 +17,7 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ContextType implements Type, CompositeDataType {
+public class ContextType implements CompositeDataType {
     public static final Type CONTEXT = new ContextType();
 
     private final Map<String, Type> members = new LinkedHashMap<>();

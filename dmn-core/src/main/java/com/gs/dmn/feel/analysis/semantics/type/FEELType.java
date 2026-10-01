@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 
 import static com.gs.dmn.feel.analysis.syntax.ConversionKind.*;
 
-public interface FEELType {
+public interface FEELType extends Type {
     static ConversionKind conversionKind(Type expectedType, Type actualType) {
         expectedType = Type.extractTypeFromConstraint(expectedType);
         actualType = Type.extractTypeFromConstraint(actualType);
