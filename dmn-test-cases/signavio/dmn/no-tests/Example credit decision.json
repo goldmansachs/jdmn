@@ -1,0 +1,30 @@
+{
+  "source" : "StringReader",
+  "inputParameterDefinitions" : [ {
+    "id" : "9acf44f2b05343d79fc35140c493c1e0/sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
+    "modelName" : "Example credit decision",
+    "requirementName" : "Current risk appetite",
+    "shapeId" : "sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
+    "diagramId" : "9acf44f2b05343d79fc35140c493c1e0"
+  }, {
+    "id" : "9acf44f2b05343d79fc35140c493c1e0/sid-6CFB0C31-B181-4606-BE51-1960E8B86487",
+    "modelName" : "Example credit decision",
+    "requirementName" : "Lending threshold",
+    "shapeId" : "sid-6CFB0C31-B181-4606-BE51-1960E8B86487",
+    "diagramId" : "9acf44f2b05343d79fc35140c493c1e0"
+  }, {
+    "id" : "9acf44f2b05343d79fc35140c493c1e0/sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
+    "modelName" : "Example credit decision",
+    "requirementName" : "Applicant",
+    "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
+    "diagramId" : "9acf44f2b05343d79fc35140c493c1e0"
+  } ],
+  "outputParameterDefinitions" : [ {
+    "id" : "9acf44f2b05343d79fc35140c493c1e0/sid-8DBE416B-B1CA-43EC-BFE6-7D5DFA296EB6",
+    "modelName" : "Example credit decision",
+    "requirementName" : "Generate output data",
+    "shapeId" : "sid-8DBE416B-B1CA-43EC-BFE6-7D5DFA296EB6",
+    "diagramId" : "9acf44f2b05343d79fc35140c493c1e0"
+  } ],
+  "testCases" : [ ]
+}

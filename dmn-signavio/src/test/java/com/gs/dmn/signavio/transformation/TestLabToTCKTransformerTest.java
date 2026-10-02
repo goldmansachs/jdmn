@@ -32,6 +32,13 @@ class TestLabToTCKTransformerTest extends AbstractSignavioFileTransformerTest {
     }
 
     @Test
+    public void testTransformFolderWhenNoTests() throws Exception {
+        String signavioTestCasesPath = "dmn/no-tests/";
+
+        doTestFolder(signavioTestCasesPath);
+    }
+
+    @Test
     public void testTransformFile() throws Exception {
         String signavioTestCasesPath = "dmn/complex/";
 

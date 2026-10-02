@@ -88,7 +88,12 @@ public class TestLabToTCKTransformer {
 
         // Transform TestLab to TCK
         ToTCKVisitor visitor = new ToTCKVisitor(basicTransformer);
-        return (TestCases) testLab.accept(visitor, new TestLabContext());
+        TestCases result = (TestCases) testLab.accept(visitor, new TestLabContext());
+        // Add at least one test case to avoid empty TCK files
+        if (result.getTestCase().isEmpty()) {
+            result.getTestCase().add(makeEmptyTestCase());
+        }
+        return result;
     }
 
     private DMNSerializer makeSignavioSerializer() {
@@ -124,5 +129,11 @@ public class TestLabToTCKTransformer {
         int index = modelName.lastIndexOf(inputParameters.getDmnFileExtension());
         modelName = index == - 1 ? modelName : modelName.substring(0, index);
         return modelName;
+    }
+
+    public com.gs.dmn.tck.ast.TestCase makeEmptyTestCase() {
+        com.gs.dmn.tck.ast.TestCase testCase = new com.gs.dmn.tck.ast.TestCase();
+        testCase.setId("001");
+        return testCase;
     }
 }
