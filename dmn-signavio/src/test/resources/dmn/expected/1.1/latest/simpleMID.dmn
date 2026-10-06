@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" sigExt:revisionNumber="1" sigExt:revisionId="e74d842338ef4b88ae1cfae675e41333" id="id-65dd8924ec764d11b639aec28b9cac1f" name="simpleMID" namespace="http://www.provider.com/dmn/1.1/diagram/9e53b9fc18f94da39241c0319c532c9a.xml" exporterVersion="10.15.9">
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:sig="http://www.provider.com/dmn/1.1/diagram/9e53b9fc18f94da39241c0319c532c9a.xml" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:feel="https://www.omg.org/spec/DMN/20230324/FEEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" sigExt:revisionNumber="1" sigExt:revisionId="e74d842338ef4b88ae1cfae675e41333" id="id-65dd8924ec764d11b639aec28b9cac1f" name="simpleMID" namespace="http://www.provider.com/dmn/1.1/diagram/9e53b9fc18f94da39241c0319c532c9a.xml" exporterVersion="10.15.9">
   <extensionElements></extensionElements>
   <itemDefinition id="id-29a7c994311c4fc6014819ae16f74913" label="decide" name="decide" isCollection="false">
     <typeRef>string</typeRef>
@@ -29,13 +29,13 @@
       </sigExt:MultiInstanceDecisionLogic>
     </extensionElements>
     <variable id="id-1a22e9b5a3559ee94956a2fb15ff8a4d_variable" name="mid" typeRef="mid"></variable>
-    <informationRequirement>
+    <informationRequirement id="_30640821-59be-33f7-b1eb-43a624c50865">
       <requiredInput href="#id-16e27bd3dab9d90a677b69685f682a7b"></requiredInput>
     </informationRequirement>
   </decision>
   <decision sigExt:shapeId="sid-A4ECA749-90FE-4E06-9B35-C544CC83FFCC" sigExt:diagramId="9e53b9fc18f94da39241c0319c532c9a" id="id-1512301329aab38249e3624207658df2" label="decide" name="decide">
     <variable id="id-1512301329aab38249e3624207658df2_variable" name="decide" typeRef="decide"></variable>
-    <informationRequirement>
+    <informationRequirement id="_9a93419a-faa1-39d8-ba94-650e7d745bb8">
       <requiredInput href="#id-478006c112da0f37d337a994d51924de"></requiredInput>
     </informationRequirement>
     <decisionTable hitPolicy="UNIQUE">

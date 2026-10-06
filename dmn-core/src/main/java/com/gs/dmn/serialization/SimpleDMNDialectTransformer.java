@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 import javax.xml.namespace.QName;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public abstract class SimpleDMNDialectTransformer {
     protected static final Logger LOGGER = LoggerFactory.getLogger(SimpleDMNDialectTransformer.class);
@@ -378,6 +379,14 @@ class DMNVersionTransformerVisitor<C> extends TraversalVisitor<C> {
     public DMNBaseElement visit(TInformationRequirement  element, C context) {
         updateXMLNamespaces(element);
 
+        if (sourceVersion == DMNVersion.DMN_11) {
+            // DMN 1.1
+            // An InformationRequirement does not have an ID, is needed for edges in diagrams.
+            if (StringUtils.isBlank(element.getId())) {
+                String id = makeXsdId(element);
+                element.setId(id);
+            }
+        }
         super.visit(element, context);
         return element;
     }
@@ -723,5 +732,12 @@ class DMNVersionTransformerVisitor<C> extends TraversalVisitor<C> {
     // Include all version to recover from errors when the namespaces do not match the sourceVersion
     private boolean isFEELNamespace(String namespace) {
         return DMNVersion.VERSIONS.stream().anyMatch(v -> v.getFeelNamespace().equals(namespace));
+    }
+
+    private String makeXsdId(TInformationRequirement element) {
+        DMNBaseElement parent = element.getParent();
+        String value = parent != null ? ((TDMNElement) parent).getId() : "";
+        value += element.getRequiredInput() != null ? element.getRequiredInput().getHref() : element.getRequiredDecision().getHref();
+        return "_" + UUID.nameUUIDFromBytes(value.getBytes());
     }
 }

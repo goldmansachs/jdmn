@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" sigExt:revisionNumber="1" sigExt:revisionId="ca105398f65d4c3ead49bfa305c5db43" id="id-39104958614e42a8aac1c2c02557d321" name="Null Safe Tests" namespace="http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml" exporterVersion="10.15.9">
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:sig="http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:feel="https://www.omg.org/spec/DMN/20230324/FEEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" sigExt:revisionNumber="1" sigExt:revisionId="ca105398f65d4c3ead49bfa305c5db43" id="id-39104958614e42a8aac1c2c02557d321" name="Null Safe Tests" namespace="http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml" exporterVersion="10.15.9">
   <extensionElements></extensionElements>
   <itemDefinition id="id-2cc3214320632e21fa06a8e4df51a01f" label="allFalseAggregation" name="allFalseAggregation" isCollection="false">
     <typeRef>boolean</typeRef>
@@ -116,19 +116,19 @@
       </sigExt:MultiInstanceDecisionLogic>
     </extensionElements>
     <variable id="id-12f8c62e129adc2b235f1819817022ec_variable" name="allFalseAggregation" typeRef="allFalseAggregation"></variable>
-    <informationRequirement>
+    <informationRequirement id="_572f0989-6149-39be-af79-455347840ae0">
       <requiredInput href="#id-963dd1faff03c460abb0bb16855be442"></requiredInput>
     </informationRequirement>
   </decision>
   <decision sigExt:shapeId="sid-2ABA9455-1BAD-4552-BE44-9FE612EA1D10" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8" id="id-26dd50ab439aa5d5392f972084733182" label="allTogether" name="allTogether">
     <variable id="id-26dd50ab439aa5d5392f972084733182_variable" name="allTogether" typeRef="allTogether"></variable>
-    <informationRequirement>
+    <informationRequirement id="_6367d7e1-39f3-3eb5-adc3-4e0b4cb05a98">
       <requiredDecision href="#id-aa6192796546dfbb201e1a17f1711b12"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_218c2830-7c0d-3c4c-93d9-5b5a3c194396">
       <requiredDecision href="#id-7db1ff2909dfa8e87829969a4f2b0bee"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_69b41317-ad10-3547-a26f-a0e09b946c51">
       <requiredDecision href="#id-c766b420761d4a1c594e4caabdd5d4be"></requiredDecision>
     </informationRequirement>
     <decisionTable hitPolicy="UNIQUE">
@@ -175,7 +175,7 @@
       </sigExt:MultiInstanceDecisionLogic>
     </extensionElements>
     <variable id="id-990fc1682febe5e206a9e367470fa4b5_variable" name="allTrueAggregation" typeRef="allTrueAggregation"></variable>
-    <informationRequirement>
+    <informationRequirement id="_058e59ef-d7c2-3406-9bb4-c5b4b6644ed7">
       <requiredInput href="#id-963dd1faff03c460abb0bb16855be442"></requiredInput>
     </informationRequirement>
   </decision>
@@ -189,19 +189,19 @@
       </sigExt:MultiInstanceDecisionLogic>
     </extensionElements>
     <variable id="id-499a1aeffa9f16f776cba221110df81a_variable" name="anyTrueAggregation" typeRef="anyTrueAggregation"></variable>
-    <informationRequirement>
+    <informationRequirement id="_a4249de9-b2dd-3417-9271-996f39fde133">
       <requiredInput href="#id-963dd1faff03c460abb0bb16855be442"></requiredInput>
     </informationRequirement>
   </decision>
   <decision sigExt:shapeId="sid-09794EF5-BBC7-4B29-BCA1-12225A55818C" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8" id="id-6ae008320d1d55b977bc3dd10a3725eb" label="arithmetic" name="arithmetic">
     <variable id="id-6ae008320d1d55b977bc3dd10a3725eb_variable" name="arithmetic" typeRef="arithmetic"></variable>
-    <informationRequirement>
+    <informationRequirement id="_59a96c7c-1fc5-31cf-b60d-0b427f9fea11">
       <requiredInput href="#id-f444fe9b45d132962058826c7ce0e254"></requiredInput>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_fe586589-f48e-3b16-ba7b-8e5e102967c5">
       <requiredInput href="#id-0bcd1fe0bdaa3c42ee1600d6de30e350"></requiredInput>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_80741514-03c8-3fcf-8b7b-f0327918e244">
       <requiredInput href="#id-c736af77b66969d175933720059dec48"></requiredInput>
     </informationRequirement>
     <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
@@ -228,7 +228,7 @@
   </inputData>
   <decision sigExt:shapeId="sid-9A7FCA4C-1E83-4971-8CB7-58AB96AB6BDA" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8" id="id-9f6598201a6d97e53905786b994d3523" label="comparator " name="comparator">
     <variable id="id-9f6598201a6d97e53905786b994d3523_variable" name="comparator " typeRef="comparator"></variable>
-    <informationRequirement>
+    <informationRequirement id="_c7697480-1480-3dea-8d34-7bd978a74532">
       <requiredInput href="#id-c736af77b66969d175933720059dec48"></requiredInput>
     </informationRequirement>
     <decisionTable hitPolicy="COLLECT">
@@ -302,10 +302,10 @@
   </inputData>
   <decision sigExt:shapeId="sid-1EC054B9-DD80-43EA-857F-EB765C4E2DB9" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8" id="id-f6f0c41b65035466a4cbaafab2e35265" label="formattingAndCoercing" name="formattingAndCoercing">
     <variable id="id-f6f0c41b65035466a4cbaafab2e35265_variable" name="formattingAndCoercing" typeRef="formattingAndCoercing"></variable>
-    <informationRequirement>
+    <informationRequirement id="_0150d88d-1265-3a1b-9e77-6a8f3169f397">
       <requiredInput href="#id-1c122325d0f516d01f33e3c10ec7bf61"></requiredInput>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_c7f1567c-0c85-3dd3-8e8f-e0ae4a2f8bb2">
       <requiredInput href="#id-0bcd1fe0bdaa3c42ee1600d6de30e350"></requiredInput>
     </informationRequirement>
     <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
@@ -314,7 +314,7 @@
   </decision>
   <decision sigExt:shapeId="sid-46262AD6-6A29-4E5F-BEB9-DD0D22969EF8" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8" id="id-21fa2a4ecb92ec37652f13671be694a2" label="keepInput_allFalse" name="keepInputallFalse">
     <variable id="id-21fa2a4ecb92ec37652f13671be694a2_variable" name="keepInput_allFalse" typeRef="keepInputallFalse"></variable>
-    <informationRequirement>
+    <informationRequirement id="_b233a550-9e53-37f8-b9a2-d8205795a835">
       <requiredInput href="#id-79ac9fb1afa596bbb0db5c6a5257a8b6"></requiredInput>
     </informationRequirement>
     <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
@@ -323,7 +323,7 @@
   </decision>
   <decision sigExt:shapeId="sid-8B1E9036-CB4E-47D3-BC4F-C70BE932BED9" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8" id="id-4396518e644ea96eb89ee72817af5157" label="keepInput_allTrue" name="keepInputallTrue">
     <variable id="id-4396518e644ea96eb89ee72817af5157_variable" name="keepInput_allTrue" typeRef="keepInputallTrue"></variable>
-    <informationRequirement>
+    <informationRequirement id="_69762551-92cf-34e3-8afb-47554a874b83">
       <requiredInput href="#id-0999a54b4e2887b6404fe10e4639a1d6"></requiredInput>
     </informationRequirement>
     <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
@@ -332,7 +332,7 @@
   </decision>
   <decision sigExt:shapeId="sid-1C225A46-AF9E-4303-8463-F343353C7C6F" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8" id="id-87919f1fc05a6c8813d8c16a2851de23" label="keepInput_anyTrue" name="keepInputanyTrue">
     <variable id="id-87919f1fc05a6c8813d8c16a2851de23_variable" name="keepInput_anyTrue" typeRef="keepInputanyTrue"></variable>
-    <informationRequirement>
+    <informationRequirement id="_456d531a-d3d2-3fd3-9e14-46fe76f94fa7">
       <requiredInput href="#id-4b393744e05965a1928ecb455ab42308"></requiredInput>
     </informationRequirement>
     <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
@@ -341,10 +341,10 @@
   </decision>
   <decision sigExt:shapeId="sid-BEBCC832-10E1-4E72-9649-9C7CE3868D27" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8" id="id-68e1bf98ec7c27a9dd0b29b04c5479bb" label="listHandling" name="listHandling">
     <variable id="id-68e1bf98ec7c27a9dd0b29b04c5479bb_variable" name="listHandling" typeRef="listHandling"></variable>
-    <informationRequirement>
+    <informationRequirement id="_21372d1f-ac82-3820-a099-51f3308cedd1">
       <requiredInput href="#id-f444fe9b45d132962058826c7ce0e254"></requiredInput>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_45f4f760-1f4e-3d38-936e-be3146cd4ec1">
       <requiredInput href="#id-0bcd1fe0bdaa3c42ee1600d6de30e350"></requiredInput>
     </informationRequirement>
     <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
@@ -353,10 +353,10 @@
   </decision>
   <decision sigExt:shapeId="sid-22C033FA-B0F9-45E3-B5E4-BDE3B04F9511" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8" id="id-d844337c47e4efb641f61e447347b1a9" label="logical " name="logical">
     <variable id="id-d844337c47e4efb641f61e447347b1a9_variable" name="logical " typeRef="logical"></variable>
-    <informationRequirement>
+    <informationRequirement id="_8ed0140b-da53-374c-8ad9-fbdd9ed78b14">
       <requiredInput href="#id-e266bf27f575f63084511773f3a737c6"></requiredInput>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_5b8aa663-a413-33d7-8c79-8da586888a37">
       <requiredInput href="#id-1058e602798d798780d99866788586c8"></requiredInput>
     </informationRequirement>
     <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
@@ -374,13 +374,13 @@
   </inputData>
   <decision sigExt:shapeId="sid-13F089D7-88FB-48B7-A9B1-6595017CC2AD" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8" id="id-c766b420761d4a1c594e4caabdd5d4be" label="partA" name="partA">
     <variable id="id-c766b420761d4a1c594e4caabdd5d4be_variable" name="partA" typeRef="partA"></variable>
-    <informationRequirement>
+    <informationRequirement id="_6820a85d-6320-3e6b-8c20-d60c17fbbf06">
       <requiredDecision href="#id-499a1aeffa9f16f776cba221110df81a"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_c9c066d4-f8bd-3193-aad0-9d90c50f6945">
       <requiredDecision href="#id-12f8c62e129adc2b235f1819817022ec"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_ae66a708-c45e-3954-93f7-70f983bae2b0">
       <requiredDecision href="#id-990fc1682febe5e206a9e367470fa4b5"></requiredDecision>
     </informationRequirement>
     <decisionTable hitPolicy="UNIQUE">
@@ -419,22 +419,22 @@
   </decision>
   <decision sigExt:shapeId="sid-A6EB0DC9-88FB-4B3E-8ED0-1763D6096157" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8" id="id-7db1ff2909dfa8e87829969a4f2b0bee" label="partB" name="partB">
     <variable id="id-7db1ff2909dfa8e87829969a4f2b0bee_variable" name="partB" typeRef="partB"></variable>
-    <informationRequirement>
+    <informationRequirement id="_670d63f8-41d6-3cf1-bacd-723831f23a06">
       <requiredDecision href="#id-5b07c9711db6376713296511215c7644"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_09eb59a7-54c8-39e9-b36c-07db9df8eb6c">
       <requiredDecision href="#id-f6f0c41b65035466a4cbaafab2e35265"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_b4ae1bed-b575-3ae6-a17d-5ccfe539e872">
       <requiredDecision href="#id-d5f34819daa731749e8a2e610010899d"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_3b31c1ff-f640-36ba-89b4-15eac02e1dd3">
       <requiredDecision href="#id-6ae008320d1d55b977bc3dd10a3725eb"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_44429dcd-225a-3fa0-8af7-ccfd162de2b2">
       <requiredDecision href="#id-9f6598201a6d97e53905786b994d3523"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_7f1979e4-1e67-315b-8f8c-63eba938d808">
       <requiredDecision href="#id-68e1bf98ec7c27a9dd0b29b04c5479bb"></requiredDecision>
     </informationRequirement>
     <decisionTable hitPolicy="UNIQUE">
@@ -497,16 +497,16 @@
   </decision>
   <decision sigExt:shapeId="sid-A22D087F-827E-4AB8-A589-856C29D1CA30" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8" id="id-aa6192796546dfbb201e1a17f1711b12" label="partC" name="partC">
     <variable id="id-aa6192796546dfbb201e1a17f1711b12_variable" name="partC" typeRef="partC"></variable>
-    <informationRequirement>
+    <informationRequirement id="_5dc9ecf2-3121-3673-9ff8-f4d8ba0b45dd">
       <requiredDecision href="#id-e531076a8bd1457bfe3bcc7cdf1a2637"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_8d4c9d5a-96d5-3976-ab44-a62830d4450f">
       <requiredDecision href="#id-72c343df36c2e2018dae168097967162"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_b37af1d8-1d91-35fc-97f5-1fe4d5bfb4f3">
       <requiredDecision href="#id-29cf8a82fee3b01a2e0f13fa89ecb697"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_7381c904-a90f-38d8-ba3f-060e400f69c4">
       <requiredDecision href="#id-d844337c47e4efb641f61e447347b1a9"></requiredDecision>
     </informationRequirement>
     <decisionTable hitPolicy="UNIQUE">
@@ -553,7 +553,7 @@
   </decision>
   <decision sigExt:shapeId="sid-E2244965-9696-4D63-BFC3-4CE35C346E12" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8" id="id-5b07c9711db6376713296511215c7644" label="statistical" name="statistical">
     <variable id="id-5b07c9711db6376713296511215c7644_variable" name="statistical" typeRef="statistical"></variable>
-    <informationRequirement>
+    <informationRequirement id="_2162f9f6-d1cd-312e-b696-01c199b56707">
       <requiredInput href="#id-f444fe9b45d132962058826c7ce0e254"></requiredInput>
     </informationRequirement>
     <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
@@ -565,13 +565,13 @@
   </inputData>
   <decision sigExt:shapeId="sid-E3AD229C-1932-46CB-9E7D-90AB1CF41224" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8" id="id-a7895d8e6af939a1e7cafb3317d8a423" label="stringHandling" name="stringHandling">
     <variable id="id-a7895d8e6af939a1e7cafb3317d8a423_variable" name="stringHandling" typeRef="stringHandling"></variable>
-    <informationRequirement>
+    <informationRequirement id="_f5526909-d2ca-371f-9054-6b46bd404fab">
       <requiredInput href="#id-b9fd8fd2303ab43c6c19e8ba30a50116"></requiredInput>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_37dfe643-fdba-3dad-889e-cede6cd524d3">
       <requiredInput href="#id-0bcd1fe0bdaa3c42ee1600d6de30e350"></requiredInput>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_41c9bfc6-c5b6-39c3-957b-682bd3d4a1d3">
       <requiredInput href="#id-c736af77b66969d175933720059dec48"></requiredInput>
     </informationRequirement>
     <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
@@ -580,7 +580,7 @@
   </decision>
   <decision sigExt:shapeId="sid-B5F1EEE1-2935-439E-8A01-CB08E0D61E01" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8" id="id-d5f34819daa731749e8a2e610010899d" label="stringHandlingComparator" name="stringHandlingComparator">
     <variable id="id-d5f34819daa731749e8a2e610010899d_variable" name="stringHandlingComparator" typeRef="stringHandlingComparator"></variable>
-    <informationRequirement>
+    <informationRequirement id="_15633532-d2ab-3a9e-b30a-63d64963ca1a">
       <requiredDecision href="#id-a7895d8e6af939a1e7cafb3317d8a423"></requiredDecision>
     </informationRequirement>
     <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
@@ -592,7 +592,7 @@
   </inputData>
   <decision sigExt:shapeId="sid-5511B0A1-6D8F-4084-897D-51B89D5B653C" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8" id="id-e531076a8bd1457bfe3bcc7cdf1a2637" label="temporal" name="temporal">
     <variable id="id-e531076a8bd1457bfe3bcc7cdf1a2637_variable" name="temporal" typeRef="temporal"></variable>
-    <informationRequirement>
+    <informationRequirement id="_1ad29a3c-e670-38a1-aa61-7b4184c82552">
       <requiredInput href="#id-de95e2868799a862ed04920c276bffa1"></requiredInput>
     </informationRequirement>
     <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
@@ -607,7 +607,7 @@
   </decision>
   <decision sigExt:shapeId="sid-394B1A70-6206-4407-9FE4-64635EFB5260" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8" id="id-72c343df36c2e2018dae168097967162" label="temporalComparator " name="temporalComparator">
     <variable id="id-72c343df36c2e2018dae168097967162_variable" name="temporalComparator " typeRef="temporalComparator"></variable>
-    <informationRequirement>
+    <informationRequirement id="_89c69be8-fef6-30b6-b080-f6f395a62769">
       <requiredInput href="#id-de95e2868799a862ed04920c276bffa1"></requiredInput>
     </informationRequirement>
     <decisionTable hitPolicy="COLLECT">
@@ -675,13 +675,13 @@
   </decision>
   <decision sigExt:shapeId="sid-D4DCD084-82D7-4757-9D39-911AFB33CC9A" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8" id="id-29cf8a82fee3b01a2e0f13fa89ecb697" label="temporalDiff" name="temporalDiff">
     <variable id="id-29cf8a82fee3b01a2e0f13fa89ecb697_variable" name="temporalDiff" typeRef="temporalDiff"></variable>
-    <informationRequirement>
+    <informationRequirement id="_c390df4f-0799-39f0-8e27-3c5042972516">
       <requiredInput href="#id-5d1954e864444e9ebb079558da384758"></requiredInput>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_fe81c348-5ed1-36de-b857-aba36e3cdf96">
       <requiredInput href="#id-71d2b9c0abb24d5032ba55c6b1088231"></requiredInput>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_6e1bb64f-6067-32f9-b552-4c2aed6abe9f">
       <requiredInput href="#id-de95e2868799a862ed04920c276bffa1"></requiredInput>
     </informationRequirement>
     <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">

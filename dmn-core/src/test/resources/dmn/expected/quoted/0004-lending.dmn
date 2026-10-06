@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" triso:logoChoice="Default" id="_4e0f0b70-d31c-471c-bd52-5ca709ed362b" name="0004-lending" expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/" namespace="http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b" exporter="DMN Modeler; Method and Style trisofix.xslt" exporterVersion="5.0.32.2; 1.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:tns="http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b" xmlns:feel="https://www.omg.org/spec/DMN/20230324/FEEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" triso:logoChoice="Default" id="_4e0f0b70-d31c-471c-bd52-5ca709ed362b" name="0004-lending" expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/" namespace="http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b" exporter="DMN Modeler; Method and Style trisofix.xslt" exporterVersion="5.0.32.2; 1.0">
   <itemDefinition name="tAdjudication" isCollection="false">
     <typeRef>string</typeRef>
     <allowedValues>
@@ -97,13 +97,13 @@
   </itemDefinition>
   <decision id="d_Adjudication" name="Adjudication">
     <variable name="Adjudication" typeRef="tAdjudication"></variable>
-    <informationRequirement>
+    <informationRequirement id="_4ce3c0b9-d7e4-3ac8-88ae-df3ed9b36fad">
       <requiredInput href="#i_BureauData"></requiredInput>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_10536c65-37b8-38a6-ae56-856b547b6e19">
       <requiredInput href="#i_SupportingDocuments"></requiredInput>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_e2808d1b-5da4-3215-a334-6f4f218ae223">
       <requiredInput href="#i_ApplicantData"></requiredInput>
     </informationRequirement>
     <literalExpression>
@@ -161,7 +161,7 @@
   </inputData>
   <decision id="d_ApplicationRiskScore" name="ApplicationRiskScore">
     <variable name="ApplicationRiskScore" typeRef="number"></variable>
-    <informationRequirement>
+    <informationRequirement id="_128e853e-74ef-3dc7-81e5-a759fbbfd6e1">
       <requiredInput href="#i_ApplicantData"></requiredInput>
     </informationRequirement>
     <knowledgeRequirement>
@@ -382,7 +382,7 @@
   </businessKnowledgeModel>
   <decision id="d_BureauCallType" name="BureauCallType">
     <variable name="BureauCallType" typeRef="tBureauCallType"></variable>
-    <informationRequirement>
+    <informationRequirement id="_c82fe969-4552-3248-9d22-e0980b01d576">
       <requiredDecision href="#d_Pre-bureauRiskCategory"></requiredDecision>
     </informationRequirement>
     <knowledgeRequirement>
@@ -484,13 +484,13 @@
   </businessKnowledgeModel>
   <decision id="d_Eligibility" name="Eligibility">
     <variable name="Eligibility" typeRef="tEligibility"></variable>
-    <informationRequirement>
+    <informationRequirement id="_e2014023-acda-35ba-8c87-0bc0681667ac">
       <requiredDecision href="#d_Pre-bureauAffordability"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_502cb3bb-6648-3d84-96a4-b70aa4c765ca">
       <requiredDecision href="#d_Pre-bureauRiskCategory"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_62a4934c-fb9c-3e10-b683-6320b672b4a9">
       <requiredInput href="#i_ApplicantData"></requiredInput>
     </informationRequirement>
     <knowledgeRequirement>
@@ -636,13 +636,13 @@
   </businessKnowledgeModel>
   <decision id="d_Post-bureauAffordability" name="Post-bureauAffordability">
     <variable name="Post-bureauAffordability" typeRef="boolean"></variable>
-    <informationRequirement>
+    <informationRequirement id="_a633c7f7-409f-3dba-bf2b-67947dff0ea3">
       <requiredDecision href="#d_RequiredMonthlyInstallment"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_3c4e2fef-532c-3270-82e5-7770d671b42c">
       <requiredDecision href="#d_Post-bureauRiskCategory"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_561c2899-b7f0-392e-a74b-1c967fadabc6">
       <requiredInput href="#i_ApplicantData"></requiredInput>
     </informationRequirement>
     <knowledgeRequirement>
@@ -686,13 +686,13 @@
   </decision>
   <decision id="d_Post-bureauRiskCategory" name="Post-bureauRiskCategory">
     <variable name="Post-bureauRiskCategory" typeRef="tRiskCategory"></variable>
-    <informationRequirement>
+    <informationRequirement id="_a79f5743-c932-3b47-9999-b4eb6aa3321c">
       <requiredDecision href="#d_ApplicationRiskScore"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_00a5a267-e7fb-3f5e-9ac9-7cd4353be77f">
       <requiredInput href="#i_BureauData"></requiredInput>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_e0935a33-f6cb-3ddf-9b5a-77a17bc8f773">
       <requiredInput href="#i_ApplicantData"></requiredInput>
     </informationRequirement>
     <knowledgeRequirement>
@@ -932,13 +932,13 @@
   </businessKnowledgeModel>
   <decision id="d_Pre-bureauAffordability" name="Pre-bureauAffordability">
     <variable name="Pre-bureauAffordability" typeRef="boolean"></variable>
-    <informationRequirement>
+    <informationRequirement id="_9c666669-7980-3fe7-98b5-72e21c9b3514">
       <requiredDecision href="#d_RequiredMonthlyInstallment"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_dcffe360-3afd-302d-bcb5-fcd83cb0acdc">
       <requiredDecision href="#d_Pre-bureauRiskCategory"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_07a7cce8-3abb-3aad-81e7-95fdfe1656a2">
       <requiredInput href="#i_ApplicantData"></requiredInput>
     </informationRequirement>
     <knowledgeRequirement>
@@ -982,10 +982,10 @@
   </decision>
   <decision id="d_Pre-bureauRiskCategory" name="Pre-bureauRiskCategory">
     <variable name="Pre-bureauRiskCategory" typeRef="tRiskCategory"></variable>
-    <informationRequirement>
+    <informationRequirement id="_f12daf7a-98c7-330b-9949-3fa0bfaabfa1">
       <requiredDecision href="#d_ApplicationRiskScore"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_55af4d34-8f8c-3f61-af9d-155e9a285a17">
       <requiredInput href="#i_ApplicantData"></requiredInput>
     </informationRequirement>
     <knowledgeRequirement>
@@ -1122,7 +1122,7 @@
   </inputData>
   <decision id="d_RequiredMonthlyInstallment" name="RequiredMonthlyInstallment">
     <variable name="RequiredMonthlyInstallment" typeRef="number"></variable>
-    <informationRequirement>
+    <informationRequirement id="_9ea65d71-efdb-3558-a3b3-8d18a6896181">
       <requiredInput href="#i_RequestedProduct"></requiredInput>
     </informationRequirement>
     <knowledgeRequirement>
@@ -1160,13 +1160,13 @@
   </decision>
   <decision id="d_Routing" name="Routing">
     <variable name="Routing" typeRef="tRouting"></variable>
-    <informationRequirement>
+    <informationRequirement id="_f22d3650-0844-3655-874e-532103d20dd2">
       <requiredDecision href="#d_Post-bureauAffordability"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_be44d1c5-e021-30a4-9ef0-c3805995530c">
       <requiredDecision href="#d_Post-bureauRiskCategory"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_4ac3d2a8-5b2d-342d-ba09-dcac69eec99c">
       <requiredInput href="#i_BureauData"></requiredInput>
     </informationRequirement>
     <knowledgeRequirement>
@@ -1327,10 +1327,10 @@
     <question>Is credit bureau call required?</question>
     <allowedAnswers>Yes (BUREAU) or No (DECLINE, THROUGH)</allowedAnswers>
     <variable name="Strategy" typeRef="tStrategy"></variable>
-    <informationRequirement>
+    <informationRequirement id="_7fddbd97-b67d-3bae-9703-7321c21eb3c4">
       <requiredDecision href="#d_BureauCallType"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_317fae54-9400-3610-95af-4ce460021d9d">
       <requiredDecision href="#d_Eligibility"></requiredDecision>
     </informationRequirement>
     <decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row" outputLabel="Strategy">

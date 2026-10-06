@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dmn-ns:definitions xmlns:dmn-ns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:ext="http://dmnextension.org" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" name="test20161014" namespace="http://tempuri.org">
+<dmn-ns:definitions xmlns:dmn-ns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:ext="http://dmnextension.org" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" name="test20161014" namespace="http://tempuri.org">
   <dmn-ns:description>dmn-ns:description</dmn-ns:description>
   <dmn-ns:extensionElements>
-    <ext:eDefinitions myAttr="myValueOfMyAtt"/>
+    <ext:eDefinitions myAttr="myValueOfMyAtt"></ext:eDefinitions>
   </dmn-ns:extensionElements>
-  <dmn-ns:itemDefinition name="type">
+  <dmn-ns:itemDefinition name="type" isCollection="false">
     <dmn-ns:description>dmn-ns:description</dmn-ns:description>
     <dmn-ns:extensionElements>
-      <ext:eItemDefinition myAttr="myValueOfMyAtt"/>
+      <ext:eItemDefinition myAttr="myValueOfMyAtt"></ext:eItemDefinition>
     </dmn-ns:extensionElements>
   </dmn-ns:itemDefinition>
   <dmn-ns:decision name="decision">
     <dmn-ns:description>dmn-ns:description</dmn-ns:description>
     <dmn-ns:extensionElements>
-      <ext:eDecision myAttr="myValueOfMyAtt"/>
+      <ext:eDecision myAttr="myValueOfMyAtt"></ext:eDecision>
     </dmn-ns:extensionElements>
     <dmn-ns:question>dmn-ns:question</dmn-ns:question>
     <dmn-ns:allowedAnswers>dmn-ns:allowedAnswers</dmn-ns:allowedAnswers>
     <dmn-ns:variable name="decision">
       <dmn-ns:description>dmn-ns:description</dmn-ns:description>
       <dmn-ns:extensionElements>
-        <ext:eAllowedAnswer myAttr="myValueOfMyAtt"/>
+        <ext:eAllowedAnswer myAttr="myValueOfMyAtt"></ext:eAllowedAnswer>
       </dmn-ns:extensionElements>
     </dmn-ns:variable>
-    <dmn-ns:informationRequirement>
-      <dmn-ns:requiredDecision href="http://tempuri.org"/>
+    <dmn-ns:informationRequirement id="_a865d39c-da81-3db6-9cfc-debc195e88bd">
+      <dmn-ns:requiredDecision href="http://tempuri.org"></dmn-ns:requiredDecision>
     </dmn-ns:informationRequirement>
     <dmn-ns:knowledgeRequirement>
-      <dmn-ns:requiredKnowledge href="http://tempuri.org"/>
+      <dmn-ns:requiredKnowledge href="http://tempuri.org"></dmn-ns:requiredKnowledge>
     </dmn-ns:knowledgeRequirement>
     <dmn-ns:authorityRequirement>
-      <dmn-ns:requiredDecision href="http://tempuri.org"/>
+      <dmn-ns:requiredDecision href="http://tempuri.org"></dmn-ns:requiredDecision>
     </dmn-ns:authorityRequirement>
-    <dmn-ns:supportedObjective href="http://tempuri.org"/>
-    <dmn-ns:impactedPerformanceIndicator href="http://tempuri.org"/>
-    <dmn-ns:decisionMaker href="http://tempuri.org"/>
-    <dmn-ns:decisionOwner href="http://tempuri.org"/>
-    <dmn-ns:usingProcess href="http://tempuri.org"/>
-    <dmn-ns:usingTask href="http://tempuri.org"/>
+    <dmn-ns:supportedObjective href="http://tempuri.org"></dmn-ns:supportedObjective>
+    <dmn-ns:impactedPerformanceIndicator href="http://tempuri.org"></dmn-ns:impactedPerformanceIndicator>
+    <dmn-ns:decisionMaker href="http://tempuri.org"></dmn-ns:decisionMaker>
+    <dmn-ns:decisionOwner href="http://tempuri.org"></dmn-ns:decisionOwner>
+    <dmn-ns:usingProcess href="http://tempuri.org"></dmn-ns:usingProcess>
+    <dmn-ns:usingTask href="http://tempuri.org"></dmn-ns:usingTask>
     <dmn-ns:literalExpression>
       <dmn-ns:description>dmn-ns:description</dmn-ns:description>
       <dmn-ns:extensionElements>
-        <ext:eLiteralExpression myAttr="myValueOfMyAtt"/>
+        <ext:eLiteralExpression myAttr="myValueOfMyAtt"></ext:eLiteralExpression>
       </dmn-ns:extensionElements>
       <dmn-ns:text>dmn-ns:text</dmn-ns:text>
     </dmn-ns:literalExpression>
@@ -49,22 +49,22 @@
   <dmn-ns:textAnnotation>
     <dmn-ns:description>dmn-ns:description</dmn-ns:description>
     <dmn-ns:extensionElements>
-      <ext:eTextAnnotation myAttr="myValueOfMyAtt"/>
+      <ext:eTextAnnotation myAttr="myValueOfMyAtt"></ext:eTextAnnotation>
     </dmn-ns:extensionElements>
     <dmn-ns:text>dmn-ns:text</dmn-ns:text>
   </dmn-ns:textAnnotation>
   <dmn-ns:elementCollection name="collection">
     <dmn-ns:description>dmn-ns:description</dmn-ns:description>
     <dmn-ns:extensionElements>
-      <ext:eElementCollection myAttr="myValueOfMyAtt"/>
+      <ext:eElementCollection myAttr="myValueOfMyAtt"></ext:eElementCollection>
     </dmn-ns:extensionElements>
-    <dmn-ns:drgElement href="http://tempuri.org"/>
+    <dmn-ns:drgElement href="http://tempuri.org"></dmn-ns:drgElement>
   </dmn-ns:elementCollection>
   <dmn-ns:performanceIndicator name="performance">
     <dmn-ns:description>dmn-ns:description</dmn-ns:description>
     <dmn-ns:extensionElements>
-      <ext:ePerformanceIndicator myAttr="myValueOfMyAtt"/>
+      <ext:ePerformanceIndicator myAttr="myValueOfMyAtt"></ext:ePerformanceIndicator>
     </dmn-ns:extensionElements>
-    <dmn-ns:impactingDecision href="http://tempuri.org"/>
+    <dmn-ns:impactingDecision href="http://tempuri.org"></dmn-ns:impactingDecision>
   </dmn-ns:performanceIndicator>
 </dmn-ns:definitions>

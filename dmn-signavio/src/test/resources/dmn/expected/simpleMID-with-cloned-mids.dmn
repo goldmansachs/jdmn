@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" sigExt:revisionNumber="1" sigExt:revisionId="e74d842338ef4b88ae1cfae675e41333" id="id-65dd8924ec764d11b639aec28b9cac1f" name="simpleMID" namespace="http://www.provider.com/dmn/1.1/diagram/9e53b9fc18f94da39241c0319c532c9a.xml" exporterVersion="10.15.9">
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:sig="http://www.provider.com/dmn/1.1/diagram/9e53b9fc18f94da39241c0319c532c9a.xml" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:feel="https://www.omg.org/spec/DMN/20230324/FEEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" sigExt:revisionNumber="1" sigExt:revisionId="e74d842338ef4b88ae1cfae675e41333" id="id-65dd8924ec764d11b639aec28b9cac1f" name="simpleMID" namespace="http://www.provider.com/dmn/1.1/diagram/9e53b9fc18f94da39241c0319c532c9a.xml" exporterVersion="10.15.9">
   <extensionElements></extensionElements>
   <itemDefinition id="id-29a7c994311c4fc6014819ae16f74913" label="decide" name="decide" isCollection="false">
     <typeRef>string</typeRef>
@@ -15,7 +15,7 @@
   </itemDefinition>
   <decision sigExt:shapeId="sid-A4ECA749-90FE-4E06-9B35-C544CC83FFCC-2" sigExt:diagramId="9e53b9fc18f94da39241c0319c532c9a" id="id-1512301329aab38249e3624207658df2-2" label="decide-2" name="decide-2">
     <variable id="id-1512301329aab38249e3624207658df2_variable-2" name="decide_2" typeRef="decide"></variable>
-    <informationRequirement>
+    <informationRequirement id="_dd4e8661-a98b-3c3e-8202-db338a2ea213">
       <requiredInput href="#id-478006c112da0f37d337a994d51924de-2"></requiredInput>
     </informationRequirement>
     <decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
@@ -56,7 +56,7 @@
   </decision>
   <decision sigExt:shapeId="sid-A4ECA749-90FE-4E06-9B35-C544CC83FFCC-1" sigExt:diagramId="9e53b9fc18f94da39241c0319c532c9a" id="id-1512301329aab38249e3624207658df2-1" label="decide-1" name="decide_1">
     <variable id="id-1512301329aab38249e3624207658df2_variable-1" name="decide_1" typeRef="decide"></variable>
-    <informationRequirement>
+    <informationRequirement id="_6a5726f1-b198-354a-bb8b-677d8563950e">
       <requiredInput href="#id-478006c112da0f37d337a994d51924de-1"></requiredInput>
     </informationRequirement>
     <decisionTable hitPolicy="UNIQUE">
@@ -105,7 +105,7 @@
       </sigExt:MultiInstanceDecisionLogic>
     </extensionElements>
     <variable id="id-1a22e9b5a3559ee94956a2fb15ff8a4d_variable-1" name="mid_1" typeRef="mid"></variable>
-    <informationRequirement>
+    <informationRequirement id="_a2ca5fb2-529c-3ce3-bf3f-0adf7d3f018f">
       <requiredInput href="#id-16e27bd3dab9d90a677b69685f682a7b"></requiredInput>
     </informationRequirement>
   </decision>
@@ -119,7 +119,7 @@
       </sigExt:MultiInstanceDecisionLogic>
     </extensionElements>
     <variable id="id-1a22e9b5a3559ee94956a2fb15ff8a4d_variable-2" name="mid_2" typeRef="mid"></variable>
-    <informationRequirement>
+    <informationRequirement id="_3a2fad2c-58ff-3de1-b823-777b38b6a10a">
       <requiredInput href="#id-16e27bd3dab9d90a677b69685f682a7b"></requiredInput>
     </informationRequirement>
   </decision>

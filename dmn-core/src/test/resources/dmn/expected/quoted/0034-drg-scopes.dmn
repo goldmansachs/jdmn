@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" id="_7X638PQIEeecaNY7kk20yA" name="0034-drg-scopes" namespace="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes">
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:feel="https://www.omg.org/spec/DMN/20230324/FEEL/" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="_7X638PQIEeecaNY7kk20yA" name="0034-drg-scopes" namespace="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes">
   <extensionElements>
     <layout:container href="#_7X638PQIEeecaNY7kk20yA" id="_7ZtAoPQIEeecaNY7kk20yA" name="0034-drg-scopes" type="Dmn">
       <layout:node href="#_9z0SoPQIEeecaNY7kk20yA" id="_9020cPQIEeecaNY7kk20yA" type="2003">
@@ -276,7 +276,7 @@
       <layout:container href="#_DMwGMPQJEeecaNY7kk20yA" id="_ZsYfgPQKEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
     <variable id="_iX6XgfRSEeeUEfOdtC13fQ" name="decision A 1" typeRef="TypeDecisionA1"></variable>
-    <informationRequirement>
+    <informationRequirement id="_56205965-f532-39db-a3d8-3cf0ce7d067d">
       <requiredInput href="#_9z0SoPQIEeecaNY7kk20yA"></requiredInput>
     </informationRequirement>
     <context id="_a-zwsPQKEeecaNY7kk20yA">
@@ -293,7 +293,7 @@
       <layout:container href="#_HQN7oPQJEeecaNY7kk20yA" id="_eyKtkPQKEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
     <variable id="_2VW6MfROEeeUEfOdtC13fQ" name="decision A 2.1" typeRef="TypeDecisionA2.x"></variable>
-    <informationRequirement>
+    <informationRequirement id="_0eaa5d02-b786-3166-baa3-996802a0c71e">
       <requiredDecision href="#_DMwGMPQJEeecaNY7kk20yA"></requiredDecision>
     </informationRequirement>
     <context id="_fHePMPQKEeecaNY7kk20yA">
@@ -310,7 +310,7 @@
       <layout:container href="#_HrMAYPQJEeecaNY7kk20yA" id="_nOMesPQKEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
     <variable id="_r7oJcfRSEeeUEfOdtC13fQ" name="decision A 2.2" typeRef="TypeDecisionA2.x"></variable>
-    <informationRequirement>
+    <informationRequirement id="_13070f5e-c2f4-3879-842c-b4b28c3b50ac">
       <requiredDecision href="#_DMwGMPQJEeecaNY7kk20yA"></requiredDecision>
     </informationRequirement>
     <context id="_nk2rMPQKEeecaNY7kk20yA">
@@ -327,10 +327,10 @@
       <layout:container href="#_LGRAIPQJEeecaNY7kk20yA" id="_tooykPQKEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
     <variable id="_42grgfRSEeeUEfOdtC13fQ" name="decision A 3" typeRef="TypeDecisionA3"></variable>
-    <informationRequirement>
+    <informationRequirement id="_7495c1a9-8957-3a42-adee-17d5616d74a5">
       <requiredDecision href="#_HQN7oPQJEeecaNY7kk20yA"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_8c035180-1592-30f8-8ebf-bb7a47098e9c">
       <requiredDecision href="#_HrMAYPQJEeecaNY7kk20yA"></requiredDecision>
     </informationRequirement>
     <context id="_t-lNYPQKEeecaNY7kk20yA">
@@ -353,10 +353,10 @@
       <layout:container href="#_EL7rQPQJEeecaNY7kk20yA" id="_3WFvUPQKEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
     <variable id="_Lnbz4fRTEeeUEfOdtC13fQ" name="decision B 1" typeRef="TypeDecisionB1"></variable>
-    <informationRequirement>
+    <informationRequirement id="_519e054a-cdd4-3b57-a4dd-30989af78d59">
       <requiredInput href="#_9z0SoPQIEeecaNY7kk20yA"></requiredInput>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_c95c8570-d7da-3fbe-9370-2449226e7db9">
       <requiredInput href="#_AV-tYPQJEeecaNY7kk20yA"></requiredInput>
     </informationRequirement>
     <context id="_31avoPQKEeecaNY7kk20yA">
@@ -379,7 +379,7 @@
       <layout:container href="#_I_HtcPQJEeecaNY7kk20yA" id="_51714PQKEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
     <variable id="_QZqMwfRTEeeUEfOdtC13fQ" name="decision B 2.1" typeRef="TypeDecisionB2.x"></variable>
-    <informationRequirement>
+    <informationRequirement id="_a3c200bf-d90a-3303-bcff-5315882a3656">
       <requiredDecision href="#_EL7rQPQJEeecaNY7kk20yA"></requiredDecision>
     </informationRequirement>
     <context id="_6LkusPQKEeecaNY7kk20yA">
@@ -396,7 +396,7 @@
       <layout:container href="#_JhYtAPQJEeecaNY7kk20yA" id="_-iazIPQKEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
     <variable id="_XAogwfRTEeeUEfOdtC13fQ" name="decision B 2.2" typeRef="TypeDecisionB2.x"></variable>
-    <informationRequirement>
+    <informationRequirement id="_62d711b5-7146-3139-800d-76c3474bbc56">
       <requiredDecision href="#_EL7rQPQJEeecaNY7kk20yA"></requiredDecision>
     </informationRequirement>
     <context id="_-2Y4APQKEeecaNY7kk20yA">
@@ -413,13 +413,13 @@
       <layout:container href="#_Mk9LsPQJEeecaNY7kk20yA" id="_DB-usPQLEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
     <variable id="_cNLeIfRTEeeUEfOdtC13fQ" name="decision B 3" typeRef="TypeDecisionB3"></variable>
-    <informationRequirement>
+    <informationRequirement id="_456bbbed-ee4f-398a-a5d8-5afce9433843">
       <requiredDecision href="#_I_HtcPQJEeecaNY7kk20yA"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_cb01bdfb-27b4-3c8a-a188-ee6f4bb72625">
       <requiredDecision href="#_JhYtAPQJEeecaNY7kk20yA"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_c45aeec9-b42a-3a5a-bd6b-6766d11eece2">
       <requiredDecision href="#_LGRAIPQJEeecaNY7kk20yA"></requiredDecision>
     </informationRequirement>
     <context id="_DaII8PQLEeecaNY7kk20yA">
@@ -448,13 +448,13 @@
       <layout:container href="#_OWzj0PQJEeecaNY7kk20yA" id="_LZBSIPQLEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
     <variable id="_tu_IAfRTEeeUEfOdtC13fQ" name="decision C 1" typeRef="TypeDecisionC1"></variable>
-    <informationRequirement>
+    <informationRequirement id="_0d104e44-097e-3631-ba11-b6657042b2a4">
       <requiredDecision href="#_LGRAIPQJEeecaNY7kk20yA"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_a633a064-431f-303f-a0f9-bdacde4c432c">
       <requiredDecision href="#_Mk9LsPQJEeecaNY7kk20yA"></requiredDecision>
     </informationRequirement>
-    <informationRequirement>
+    <informationRequirement id="_4708e78a-484b-3126-8c14-6e1b3c98fbd6">
       <requiredInput href="#_3kDvUPQJEeecaNY7kk20yA"></requiredInput>
     </informationRequirement>
     <context id="_L3HjYPQLEeecaNY7kk20yA">
@@ -483,7 +483,7 @@
       <layout:container href="#_Zf4KAPQJEeecaNY7kk20yA" id="_hzhwUPQLEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
     <variable id="_7jmHYfRTEeeUEfOdtC13fQ" name="decision C 2" typeRef="string"></variable>
-    <informationRequirement>
+    <informationRequirement id="_73e3d67d-bcab-35a2-91ed-39fcae6bc55b">
       <requiredDecision href="#_OWzj0PQJEeecaNY7kk20yA"></requiredDecision>
     </informationRequirement>
     <knowledgeRequirement>
@@ -506,7 +506,7 @@
       <layout:container href="#_XsZaMPQJEeecaNY7kk20yA" id="_s3udkPQLEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
     <variable id="_9uAJcfRTEeeUEfOdtC13fQ" name="decision C 3" typeRef="string"></variable>
-    <informationRequirement>
+    <informationRequirement id="_a565feda-47ec-363b-9683-df2bc77e31b7">
       <requiredDecision href="#_Zf4KAPQJEeecaNY7kk20yA"></requiredDecision>
     </informationRequirement>
     <knowledgeRequirement>
@@ -529,7 +529,7 @@
       <layout:container href="#_tX2SoPQMEeecaNY7kk20yA" id="_1LM6MPQMEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
     <variable id="_B1nfEfRUEeeUEfOdtC13fQ" name="decision C 4" typeRef="TypeDecisionC4"></variable>
-    <informationRequirement>
+    <informationRequirement id="_c418450e-0fa1-37c0-9a92-516d2b096d65">
       <requiredDecision href="#_XsZaMPQJEeecaNY7kk20yA"></requiredDecision>
     </informationRequirement>
     <context id="_1pWOwPQMEeecaNY7kk20yA">
