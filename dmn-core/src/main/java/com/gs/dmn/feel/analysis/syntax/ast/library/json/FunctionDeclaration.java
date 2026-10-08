@@ -21,6 +21,10 @@ public class FunctionDeclaration {
     private final String signature;
     private String description;
 
+    public FunctionDeclaration() {
+        this(null, List.of(), null);
+    }
+
     public FunctionDeclaration(String name, List<Parameter> parameters, String returnType) {
         this.name = name;
         this.parameters = parameters;

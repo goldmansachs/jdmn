@@ -23,9 +23,7 @@ import com.gs.dmn.transformation.InputParameters;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -33,13 +31,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JsonDescriptionGenerator {
+    private final FEELLibrarySerializer serializer = new FEELLibrarySerializer();
+
     public void generate(String libPath, Path outputFolder) throws Exception {
         // Parse library
         LibraryRepository libraryRepository = new LibraryRepository(new InputParameters());
         Library<?> library = libraryRepository.parseLibrary(libPath);
 
         // Serialize library
-        serialize(library, jsonFile(libPath, outputFolder));
+        serializer.write(toJson(library), jsonFile(libPath, outputFolder));
     }
 
     private File jsonFile(String libPath, Path outputFolder) throws IOException {
@@ -50,12 +50,6 @@ public class JsonDescriptionGenerator {
         Path outFile = outputFolder.resolve(jsonFileName);
         Files.createDirectories(outFile.getParent());
         return outFile.toFile();
-    }
-
-    private void serialize(Library<?> library, File jsonFile) throws Exception {
-        try (Writer writer = new FileWriter(jsonFile)) {
-            JsonSerializer.OBJECT_MAPPER.writeValue(writer, toJson(library));
-        }
     }
 
     FEELLibrary toJson(Library<?> library) throws Exception {
@@ -130,15 +124,13 @@ public class JsonDescriptionGenerator {
             return String.format("range<%s>", toJson(((RangeTypeExpression<?>) typeExpression).getElementTypeExpression()));
         } else if (typeExpression instanceof ListTypeExpression<?>) {
             return String.format("list<%s>", toJson(((ListTypeExpression<?>) typeExpression).getElementTypeExpression()));
-        } else if (typeExpression instanceof ContextTypeExpression<?>) {
-            ContextTypeExpression<?> contextTypeExpression = (ContextTypeExpression<?>) typeExpression;
+        } else if (typeExpression instanceof ContextTypeExpression<?> contextTypeExpression) {
             List<String> entries = new ArrayList<>();
             for (Pair<String, ? extends TypeExpression<?>> entry : contextTypeExpression.getMembers()) {
                 entries.add(String.format("%s: %s", entry.getLeft(), toJson(entry.getRight())));
             }
             return String.format("context<%s>", String.join(", ", entries));
-        } else if (typeExpression instanceof FunctionTypeExpression<?>) {
-            FunctionTypeExpression<?> functionTypeExpression = (FunctionTypeExpression<?>) typeExpression;
+        } else if (typeExpression instanceof FunctionTypeExpression<?> functionTypeExpression) {
             String returnType = toJson(functionTypeExpression.getReturnType());
             List<String> parameterTypes = new ArrayList<>();
             for (TypeExpression<?> parameterType : functionTypeExpression.getParameters()) {
