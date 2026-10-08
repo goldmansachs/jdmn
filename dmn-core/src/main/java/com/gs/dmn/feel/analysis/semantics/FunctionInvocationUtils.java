@@ -44,7 +44,22 @@ public class FunctionInvocationUtils {
         element.getParameters().setConvertedParameterTypes(declarationMatch.getParameterTypes());
     }
 
-    private static Type refineFunctionType(FunctionInvocation<Type> element, Declaration functionDeclaration) {
+    static void derivePathType(FunctionInvocation<Type> element, String functionName, Parameters<Type> parameters, Type originalFunctionType) {
+        FunctionType functionType = (FunctionType) refineFunctionType(functionName, ((FunctionType) originalFunctionType).getParameters(), parameters, originalFunctionType);
+        element.getFunction().setType(functionType);
+
+        setInvocationType(element, functionType);
+        ParameterConversions<Type> parameterConversions;
+        if (parameters instanceof NamedParameters) {
+            parameterConversions = new NamedParameterConversions<>(functionType.getParameters());
+        } else {
+            parameterConversions = new PositionalParameterConversions<>(functionType.getParameterTypes());
+        }
+        parameters.setParameterConversions(parameterConversions);
+        parameters.setConvertedParameterTypes(parameters.getSignature());
+    }
+
+    static Type refineFunctionType(FunctionInvocation<Type> element, Declaration functionDeclaration) {
         // Refine type for built-in functions
         Type originalFunctionType = functionDeclaration.getType();
         if (!(originalFunctionType instanceof BuiltinFunctionType)) {
@@ -54,6 +69,10 @@ public class FunctionInvocationUtils {
         String functionName = functionDeclaration.getName();
         Parameters<Type> parameters = element.getParameters();
         List<FormalParameter<Type>> formalParameters = ((FunctionType) originalFunctionType).getParameters();
+        return refineFunctionType(functionName, formalParameters, parameters, originalFunctionType);
+    }
+
+    static Type refineFunctionType(String functionName, List<FormalParameter<Type>> formalParameters, Parameters<Type> parameters, Type originalFunctionType) {
         if ("max".equals(functionName) || "min".equals(functionName)) {
             if (!formalParameters.isEmpty()) {
                 FormalParameter<Type> formalParameter = formalParameters.get(0);
@@ -61,13 +80,12 @@ public class FunctionInvocationUtils {
                 if ("list".equals(name)) {
                     Type inputType = parameters.getParameterType(0, "list");
                     if (inputType instanceof ListType) {
-                        Type returnType = ((ListType) inputType).getElementType();
-                        return StandardEnvironmentFactory.makeMaxMinBuiltInFunctionTypeForList(inputType, returnType);
+                        return StandardEnvironmentFactory.makeMaxMinBuiltInFunctionTypeForList(inputType);
                     }
                 } else {
                     Type inputType = parameters.getParameterType(0, "c1");
                     if (inputType instanceof ComparableDataType) {
-                        return StandardEnvironmentFactory.makeMaxMinBuiltInFunctionTypeForSequence(inputType, inputType);
+                        return StandardEnvironmentFactory.makeMaxMinBuiltInFunctionTypeForSequence(inputType);
                     }
                 }
             }

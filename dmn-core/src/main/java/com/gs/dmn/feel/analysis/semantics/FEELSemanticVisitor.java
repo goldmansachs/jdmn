@@ -752,6 +752,9 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         } else if (function instanceof QualifiedName && ((QualifiedName<Type>) function).getNames().size() == 1) {
             String functionName = ((QualifiedName<Type>) function).getQualifiedName();
             FunctionInvocationUtils.deriveType(element, context, functionName);
+        } else if (function instanceof PathExpression<Type>) {
+            String functionName = ((PathExpression<Type>) function).getMember();
+            FunctionInvocationUtils.derivePathType(element, functionName, parameters, element.getFunction().getType());
         } else {
             FunctionType functionType = (FunctionType) function.getType();
 

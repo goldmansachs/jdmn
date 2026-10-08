@@ -4,7 +4,16 @@
   "platformVersion" : "1.0",
   "dmnNamespaces" : [ "http://www.montera.com.au/spec/DMN/feel-signavio-library-prefix" ],
   "nativeNamespace" : "",
-  "types" : [ ],
+  "types" : [ {
+    "@kind" : "referenceType",
+    "isCollection" : true,
+    "name" : "stringList",
+    "namespace" : "http://www.montera.com.au/spec/DMN/feel-signavio-library-prefix",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
+    }
+  } ],
   "elements" : [ {
     "@kind" : "inputData",
     "id" : "id-13216bd85ab5ac7ee926ae1e467072ad-1",
@@ -28,6 +37,74 @@
     "typeRef" : {
       "localName" : "string",
       "namespace" : "https://www.omg.org/spec/DMN/20230324/FEEL/"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-13216bd85ab5ac7ee926ae1e467072ad-2",
+    "javaParameterName" : "list1",
+    "javaTypeName" : "List<String>",
+    "label" : "List 1",
+    "name" : "list1",
+    "namespace" : "http://www.montera.com.au/spec/DMN/feel-signavio-library-prefix",
+    "typeRef" : {
+      "localName" : "stringList",
+      "namespace" : "http://www.montera.com.au/spec/DMN/feel-signavio-library-prefix"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-13216bd85ab5ac7ee926ae1e467072ad-3",
+    "javaParameterName" : "list2",
+    "javaTypeName" : "List<String>",
+    "label" : "List 2",
+    "name" : "list2",
+    "namespace" : "http://www.montera.com.au/spec/DMN/feel-signavio-library-prefix",
+    "typeRef" : {
+      "localName" : "stringList",
+      "namespace" : "http://www.montera.com.au/spec/DMN/feel-signavio-library-prefix"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "id-44953907cf5c50f591b26f9f6b405dea-2",
+    "informationReferences" : [ {
+      "reference" : "id-13216bd85ab5ac7ee926ae1e467072ad-2"
+    }, {
+      "reference" : "id-13216bd85ab5ac7ee926ae1e467072ad-3"
+    } ],
+    "javaOutputTypeName" : "List<String>",
+    "javaParameterName" : "appendAllTest",
+    "javaTypeName" : "AppendAllTest",
+    "knowledgeReferences" : [ ],
+    "label" : "AppendAllTest",
+    "name" : "AppendAllTest",
+    "namespace" : "http://www.montera.com.au/spec/DMN/feel-signavio-library-prefix",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-13216bd85ab5ac7ee926ae1e467072ad-2",
+      "javaParameterName" : "list1",
+      "javaTypeName" : "List<String>",
+      "label" : "List 1",
+      "name" : "list1",
+      "namespace" : "http://www.montera.com.au/spec/DMN/feel-signavio-library-prefix",
+      "typeRef" : {
+        "localName" : "stringList",
+        "namespace" : "http://www.montera.com.au/spec/DMN/feel-signavio-library-prefix"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-13216bd85ab5ac7ee926ae1e467072ad-3",
+      "javaParameterName" : "list2",
+      "javaTypeName" : "List<String>",
+      "label" : "List 2",
+      "name" : "list2",
+      "namespace" : "http://www.montera.com.au/spec/DMN/feel-signavio-library-prefix",
+      "typeRef" : {
+        "localName" : "stringList",
+        "namespace" : "http://www.montera.com.au/spec/DMN/feel-signavio-library-prefix"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "stringList",
+      "namespace" : "http://www.montera.com.au/spec/DMN/feel-signavio-library-prefix"
     }
   }, {
     "@kind" : "decision",

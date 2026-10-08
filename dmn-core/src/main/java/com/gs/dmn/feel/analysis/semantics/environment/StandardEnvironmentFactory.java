@@ -21,6 +21,7 @@ import com.gs.dmn.context.environment.RuntimeEnvironment;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.type.BuiltinFunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.LibraryFunctionType;
+import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.RangeType;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.runtime.function.BuiltinFunction;
@@ -69,11 +70,12 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
         return INSTANCE;
     }
 
-    public static BuiltinFunctionType makeMaxMinBuiltInFunctionTypeForSequence(Type inputType, Type returnType) {
-        return new BuiltinFunctionType(returnType, new FormalParameter<>("c1", inputType), new FormalParameter<>("cs", inputType, false, true));
+    public static BuiltinFunctionType makeMaxMinBuiltInFunctionTypeForSequence(Type inputType) {
+        return new BuiltinFunctionType(inputType, new FormalParameter<>("c1", inputType), new FormalParameter<>("cs", inputType, false, true));
     }
 
-    public static BuiltinFunctionType makeMaxMinBuiltInFunctionTypeForList(Type inputType, Type returnType) {
+    public static BuiltinFunctionType makeMaxMinBuiltInFunctionTypeForList(Type inputType) {
+        Type returnType = ((ListType) inputType).getElementType();
         return new BuiltinFunctionType(returnType, new FormalParameter<>("list", inputType));
     }
 
@@ -313,10 +315,10 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
     private static void addListFunctions(Environment environment) {
         addFunctionDeclaration(environment, "list contains", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("list", ANY_LIST), new FormalParameter<>("element", ANY)));
         addFunctionDeclaration(environment, "count", new BuiltinFunctionType(NUMBER, new FormalParameter<>("list", ANY_LIST)));
-        addFunctionDeclaration(environment, "min", makeMaxMinBuiltInFunctionTypeForList(COMPARABLE_LIST, COMPARABLE));
-        addFunctionDeclaration(environment, "min", makeMaxMinBuiltInFunctionTypeForSequence(COMPARABLE, COMPARABLE));
-        addFunctionDeclaration(environment, "max", makeMaxMinBuiltInFunctionTypeForList(COMPARABLE_LIST, COMPARABLE));
-        addFunctionDeclaration(environment, "max", makeMaxMinBuiltInFunctionTypeForSequence(COMPARABLE, COMPARABLE));
+        addFunctionDeclaration(environment, "min", makeMaxMinBuiltInFunctionTypeForList(COMPARABLE_LIST));
+        addFunctionDeclaration(environment, "min", makeMaxMinBuiltInFunctionTypeForSequence(COMPARABLE));
+        addFunctionDeclaration(environment, "max", makeMaxMinBuiltInFunctionTypeForList(COMPARABLE_LIST));
+        addFunctionDeclaration(environment, "max", makeMaxMinBuiltInFunctionTypeForSequence(COMPARABLE));
         addFunctionDeclaration(environment, "sum", new BuiltinFunctionType(NUMBER, new FormalParameter<>("list", NUMBER_LIST)));
         addFunctionDeclaration(environment, "sum", new BuiltinFunctionType(NUMBER, new FormalParameter<>("n1", NUMBER), new FormalParameter<>("ns", NUMBER, false, true)));
         addFunctionDeclaration(environment, "mean", new BuiltinFunctionType(NUMBER, new FormalParameter<>("list", NUMBER_LIST)));
