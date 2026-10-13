@@ -12,9 +12,10 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.string;
 
+import com.gs.dmn.runtime.StringUtils;
+
 import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
 import com.gs.dmn.signavio.feel.lib.SignavioUtil;
-import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;

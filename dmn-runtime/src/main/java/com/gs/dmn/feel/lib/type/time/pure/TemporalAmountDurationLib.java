@@ -12,9 +12,10 @@
  */
 package com.gs.dmn.feel.lib.type.time.pure;
 
+import com.gs.dmn.runtime.StringUtils;
+
 import com.gs.dmn.feel.lib.type.time.DurationLib;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import org.apache.commons.lang3.StringUtils;
 
 import java.time.Duration;
 import java.time.LocalDate;

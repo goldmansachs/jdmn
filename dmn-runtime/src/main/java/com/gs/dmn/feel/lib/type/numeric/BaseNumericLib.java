@@ -12,7 +12,8 @@
  */
 package com.gs.dmn.feel.lib.type.numeric;
 
-import org.apache.commons.lang3.StringUtils;
+import com.gs.dmn.runtime.StringUtils;
+
 
 import java.util.Arrays;
 import java.util.List;

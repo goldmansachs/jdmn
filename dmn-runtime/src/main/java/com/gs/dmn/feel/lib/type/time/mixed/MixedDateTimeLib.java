@@ -12,12 +12,13 @@
  */
 package com.gs.dmn.feel.lib.type.time.mixed;
 
+import com.gs.dmn.runtime.StringUtils;
+
 import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
 import com.gs.dmn.feel.lib.type.time.DateTimeLib;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationComparator;
 import com.gs.dmn.feel.lib.type.time.xml.XMLDurationFactory;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
