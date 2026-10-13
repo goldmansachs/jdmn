@@ -58,6 +58,9 @@
             <groupId>net.sf.saxon</groupId>
             <artifactId>Saxon-HE</artifactId>
             <version>11.4</version>
+            <!-- Optional: XPath-exact regex for replace()/matches()/split();
+                 JDK regex fallback otherwise (see RegexEvaluator). -->
+            <optional>true</optional>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>

@@ -13,7 +13,6 @@
 package com.gs.dmn.feel.lib.type.string;
 
 import com.gs.dmn.feel.lib.FormatUtils;
-import net.sf.saxon.s9api.*;
 
 import java.time.Duration;
 import java.time.temporal.TemporalAccessor;
@@ -244,51 +243,55 @@ public class DefaultStringLib implements StringLib {
     }
 
     private String evaluateReplace(String input, String pattern, String replacement, String flags) throws Exception {
-        String functionName = "replace";
-        List<String> paramNames = Arrays.asList("input", "pattern", "replacement", "flags");
-        List<String> arguments = Arrays.asList(input, pattern, replacement, flags);
-        XdmValue result = evaluateFunction(functionName, paramNames, arguments);
-        return ((XdmAtomicValue) result).getStringValue();
+        return regexEvaluator().evaluateReplace(input, pattern, replacement, flags);
     }
 
     private boolean evaluateMatches(String input, String pattern, String flags) throws Exception {
-        String functionName = "matches";
-        List<String> paramNames = Arrays.asList("input", "pattern", "flags");
-        List<String> arguments = Arrays.asList(input, pattern, flags);
-        XdmValue result = evaluateFunction(functionName, paramNames, arguments);
-        return ((XdmAtomicValue) result).getBooleanValue();
+        return regexEvaluator().evaluateMatches(input, pattern, flags);
     }
 
-    private List<String> evaluateSplit(String input, String pattern) throws SaxonApiException {
-        String functionName = "tokenize";
-        List<String> paramNames = Arrays.asList("input", "pattern");
-        List<String> arguments = Arrays.asList(input, pattern);
-        XdmValue result = evaluateFunction(functionName, paramNames, arguments);
-        // Iterate over the resulting tokens
-        return result.stream().map(XdmItem::getStringValue).collect(Collectors.toList());
+    private List<String> evaluateSplit(String input, String pattern) throws Exception {
+        return regexEvaluator().evaluateSplit(input, pattern);
     }
 
-    private static XdmValue evaluateFunction(String functionName, List<String> paramNames, List<String> arguments) throws SaxonApiException {
-        // Create a Saxon processor
-        Processor processor = new Processor(false);
-        XPathCompiler xpathCompiler = processor.newXPathCompiler();
+    /**
+     * System property selecting the regex engine for replace()/matches()/split():
+     * {@code saxon} (exact XPath F&amp;O semantics, requires Saxon-HE on the classpath),
+     * {@code jdk} (java.util.regex, no external dependency) or {@code auto}
+     * (default: Saxon if present, otherwise JDK).
+     */
+    public static final String REGEX_ENGINE_PROPERTY = "jdmn.regex.engine";
 
-        // Declare variables in the XPath expression
-        for (String param: paramNames) {
-            xpathCompiler.declareVariable(new QName(param));
+    private volatile RegexEvaluator regexEvaluator;
+
+    private RegexEvaluator regexEvaluator() {
+        RegexEvaluator evaluator = this.regexEvaluator;
+        if (evaluator == null) {
+            evaluator = createRegexEvaluator();
+            this.regexEvaluator = evaluator;
         }
+        return evaluator;
+    }
 
-        // Construct an XPath expression using the tokenize() function
-        String call = String.format("%s(%s)", functionName, paramNames.stream().map(p -> "$"+p).collect(Collectors.joining(", ")));
-        XPathExecutable compile = xpathCompiler.compile(call);
-        XPathSelector selector = compile.load();
-
-        // Set the input string and pattern as variables
-        for (int i = 0; i< paramNames.size(); i++) {
-            selector.setVariable(new QName(paramNames.get(i)), new XdmAtomicValue(arguments.get(i)));
+    private static RegexEvaluator createRegexEvaluator() {
+        String engine = System.getProperty(REGEX_ENGINE_PROPERTY, "auto");
+        switch (engine) {
+            case "jdk":
+                return new JdkRegexEvaluator();
+            case "saxon":
+                try {
+                    return new XPathRegexEvaluator();
+                } catch (LinkageError e) {
+                    throw new IllegalStateException("'" + REGEX_ENGINE_PROPERTY + "=saxon' requires Saxon-HE (net.sf.saxon:Saxon-HE) on the classpath", e);
+                }
+            case "auto":
+                try {
+                    return new XPathRegexEvaluator();
+                } catch (LinkageError e) {
+                    return new JdkRegexEvaluator();
+                }
+            default:
+                throw new IllegalArgumentException("Invalid value '" + engine + "' for system property '" + REGEX_ENGINE_PROPERTY + "', expected 'saxon', 'jdk' or 'auto'");
         }
-
-        // Evaluate the XPath expression
-        return selector.evaluate();
     }
 }

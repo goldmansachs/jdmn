@@ -44,6 +44,20 @@
 			<version>${project.version}</version>
 		</dependency>
 
+		<!-- Saxon-HE is optional in jdmn-runtime; the translator and interpreter
+		     keep the XPath-exact regex engine for replace()/matches()/split(). -->
+		<dependency>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>Saxon-HE</artifactId>
+			<version>11.4</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
 		<dependency>
 			<groupId>org.freemarker</groupId>
 			<artifactId>freemarker</artifactId>
