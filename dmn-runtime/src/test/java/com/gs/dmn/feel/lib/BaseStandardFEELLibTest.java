@@ -582,6 +582,11 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertEquals("\uD83D\uDC0Ebar", getLib().substring("foo\ud83d\udc0ebar\uD83D\uDE00", makeNumber("4"), makeNumber("4")));
 
         assertEquals("ab", getLib().substring("\uD83D\uDC0Eab", makeNumber("2")));
+
+        // negative start position counts back in code points, not code units
+        assertEquals("\uD83D\uDE00", getLib().substring("foo\ud83d\udc0ebar\uD83D\uDE00", makeNumber("-1")));
+        assertEquals("r", getLib().substring("foo\ud83d\udc0ebar\uD83D\uDE00", makeNumber("-2"), makeNumber("1")));
+        assertEquals("\uD83D\uDC0Eb", getLib().substring("foo\ud83d\udc0ebar\uD83D\uDE00", makeNumber("-5"), makeNumber("2")));
     }
 
     @Test

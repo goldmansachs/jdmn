@@ -84,14 +84,14 @@ public class DefaultStringLib implements StringLib {
             return null;
         }
 
+        int[] cps = string.codePoints().toArray();
         int start = startPosition.intValue();
         if (start < 0) {
-            start = string.length() + start;
+            start = cps.length + start;
         } else {
             --start;
         }
 
-        int[] cps = string.codePoints().toArray();
         int end = cps.length;
         return appendCodePoints(cps, start, end);
     }
@@ -102,13 +102,13 @@ public class DefaultStringLib implements StringLib {
             return null;
         }
 
+        int[] cps = string.codePoints().toArray();
         int start = startPosition.intValue();
         if (start < 0) {
-            start = string.length() + start;
+            start = cps.length + start;
         } else {
             --start;
         }
-        int[] cps = string.codePoints().toArray();
         int end = start + length.intValue();
         return appendCodePoints(cps, start, end);
     }
