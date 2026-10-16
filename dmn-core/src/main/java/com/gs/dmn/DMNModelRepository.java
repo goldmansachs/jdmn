@@ -264,6 +264,7 @@ public class DMNModelRepository {
         return names;
     }
 
+    // Build the import graph
     public Graph<TDefinitions> createImportGraph() {
         return createImportGraph(DMNModelRepository::isDMNImport);
     }
@@ -281,6 +282,83 @@ public class DMNModelRepository {
             }
         }
         return graph;
+    }
+
+    // Build the item definition type reference graph
+    public Graph<TItemDefinition> createItemDefinitionGraph() {
+        Graph<TItemDefinition> graph = new Graph<>();
+
+        // Add all item definitions as nodes
+        for (TDefinitions definitions : getAllDefinitions()) {
+            List<TItemDefinition> topLevelItemDefinitions = findTopLevelItemDefinitions(definitions);
+            for (TItemDefinition itemDef : topLevelItemDefinitions) {
+                graph.addNode(itemDef);
+            }
+        }
+        // Add edges based on typeRef relationships
+        for (TDefinitions definitions : getAllDefinitions()) {
+            List<TItemDefinition> itemDefinitions = findTopLevelItemDefinitions(definitions);
+            for (TItemDefinition itemDef : itemDefinitions) {
+                QName typeRef = itemDef.getTypeRef();
+                TypeReference typeReference = TypeReference.toTypeReference(definitions, typeRef);
+                TItemDefinition referencedItemDef = lookupItemDefinition(definitions, typeReference);
+                if (referencedItemDef != null) {
+                    graph.addEdge(itemDef, referencedItemDef);
+                }
+            }
+        }
+
+        return graph;
+    }
+
+    // Build the information requirements graph for Decisions only.
+    // The Inputs, BKMs and DSs do not have information requirements
+    public Graph<TDecision> createInformationRequirementGraph() {
+        Graph<TDecision> requirementsGraph = new Graph<>();
+        List<TDecision> allDecisions = findAllDecisions();
+
+        // Add all decisions as nodes
+        requirementsGraph.addNodes(allDecisions);
+
+        // Add edges for each required decision
+        for (TDecision decision : allDecisions) {
+            List<DRGElementReference<TDecision>> directSubDecisions = directSubDecisions(decision);
+            for (DRGElementReference<TDecision> subDecisionRef : directSubDecisions) {
+                TDecision subDecision = subDecisionRef.getElement();
+                if (subDecision != null) {
+                    requirementsGraph.addEdge(decision, subDecision);
+                }
+            }
+        }
+        return requirementsGraph;
+    }
+
+    // Build the knowledge requirements graph for BKMs only
+    // The Inputs, Decisions and DSs do not have KnowledgeRequirements
+    public Graph<TBusinessKnowledgeModel> createKnowledgeRequirementGraph() {
+        Graph<TBusinessKnowledgeModel> requirementsGraph = new Graph<>();
+        List<TDefinitions> allDefinitions = getAllDefinitions();
+        // Add BKMs as nodes
+        for (TDefinitions definitions : allDefinitions) {
+            List<TBusinessKnowledgeModel> bkms = findBKMs(definitions);
+            requirementsGraph.addNodes(bkms);
+        }
+
+        // Add edges for each BKM
+        for (TDefinitions definitions : allDefinitions) {
+            List<TBusinessKnowledgeModel> bkms = findBKMs(definitions);
+            for (TBusinessKnowledgeModel bkm : bkms) {
+                List<TKnowledgeRequirement> krs = bkm.getKnowledgeRequirement();
+                for (TKnowledgeRequirement kr : krs) {
+                    TDMNElementReference reference = kr.getRequiredKnowledge();
+                    TDRGElement drgElenent = findDRGElementByRef(bkm, reference.getHref());
+                    if (drgElenent instanceof TBusinessKnowledgeModel child) {
+                        requirementsGraph.addEdge(bkm, child);
+                    }
+                }
+            }
+        }
+        return requirementsGraph;
     }
 
     public TDefinitions getModel(TNamedElement element) {

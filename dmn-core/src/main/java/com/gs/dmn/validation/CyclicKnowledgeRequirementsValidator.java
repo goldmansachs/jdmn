@@ -42,29 +42,7 @@ public class CyclicKnowledgeRequirementsValidator extends SimpleDMNValidator {
         }
 
         // Build the knowledge requirements graph for BKMs only
-        // The Inputs, Decisions and DSs do not have KnowledgeRequirements
-        Graph<TBusinessKnowledgeModel> requirementsGraph = new Graph<>();
-        List<TDefinitions> allDefinitions = repository.getAllDefinitions();
-        // Add BKMs as nodes
-        for (TDefinitions definitions : allDefinitions) {
-            List<TBusinessKnowledgeModel> bkms = repository.findBKMs(definitions);
-            requirementsGraph.addNodes(bkms);
-        }
-
-        // Add edges for each BKM
-        for (TDefinitions definitions : allDefinitions) {
-            List<TBusinessKnowledgeModel> bkms = repository.findBKMs(definitions);
-            for (TBusinessKnowledgeModel bkm : bkms) {
-                List<TKnowledgeRequirement> krs = bkm.getKnowledgeRequirement();
-                for (TKnowledgeRequirement kr : krs) {
-                    TDMNElementReference reference = kr.getRequiredKnowledge();
-                    TDRGElement drgElenent = repository.findDRGElementByRef(bkm, reference.getHref());
-                    if (drgElenent instanceof TBusinessKnowledgeModel child) {
-                        requirementsGraph.addEdge(bkm, child);
-                    }
-                }
-            }
-        }
+        Graph<TBusinessKnowledgeModel> requirementsGraph = repository.createKnowledgeRequirementGraph();
 
         // Find cycles
         requirementsGraph.findCycles().forEach(cycle -> {

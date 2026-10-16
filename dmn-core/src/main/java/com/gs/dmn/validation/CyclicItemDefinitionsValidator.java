@@ -45,7 +45,7 @@ public class CyclicItemDefinitionsValidator extends SimpleDMNValidator {
         }
 
         // Build the item definition type reference graph
-        Graph<TItemDefinition> typeRefGraph = buildItemDefinitionGraph(repository);
+        Graph<TItemDefinition> typeRefGraph = repository.createItemDefinitionGraph();
 
         // Find cycles in the graph
         typeRefGraph.findCycles().forEach(cycle -> {
@@ -59,31 +59,4 @@ public class CyclicItemDefinitionsValidator extends SimpleDMNValidator {
 
         return context.getErrors();
     }
-
-    private Graph<TItemDefinition> buildItemDefinitionGraph(DMNModelRepository repository) {
-        Graph<TItemDefinition> graph = new Graph<>();
-
-        // Add all item definitions as nodes
-        for (TDefinitions definitions : repository.getAllDefinitions()) {
-            List<TItemDefinition> itemDefinitions = repository.findTopLevelItemDefinitions(definitions);
-            for (TItemDefinition itemDef : itemDefinitions) {
-                graph.addNode(itemDef);
-            }
-        }
-        // Add edges based on typeRef relationships
-        for (TDefinitions definitions : repository.getAllDefinitions()) {
-            List<TItemDefinition> itemDefinitions = repository.findTopLevelItemDefinitions(definitions);
-            for (TItemDefinition itemDef : itemDefinitions) {
-                QName typeRef = itemDef.getTypeRef();
-                TypeReference typeReference = TypeReference.toTypeReference(definitions, typeRef);
-                TItemDefinition referencedItemDef = repository.lookupItemDefinition(definitions, typeReference);
-                if (referencedItemDef != null) {
-                    graph.addEdge(itemDef, referencedItemDef);
-                }
-            }
-        }
-
-        return graph;
-    }
-
 }

@@ -43,23 +43,7 @@ public class CyclicInformationRequirementsValidator extends SimpleDMNValidator {
         }
 
         // Build the information requirements graph for Decisions only.
-        // The Inputs, BKMs and DSs do not have information requirements
-        Graph<TDecision> requirementsGraph = new Graph<>();
-        List<TDecision> allDecisions = repository.findAllDecisions();
-
-        // Add all decisions as nodes
-        requirementsGraph.addNodes(allDecisions);
-
-        // Add edges for each required decision
-        for (TDecision decision : allDecisions) {
-            List<DRGElementReference<TDecision>> directSubDecisions = repository.directSubDecisions(decision);
-            for (DRGElementReference<TDecision> subDecisionRef : directSubDecisions) {
-                TDecision subDecision = subDecisionRef.getElement();
-                if (subDecision != null) {
-                    requirementsGraph.addEdge(decision, subDecision);
-                }
-            }
-        }
+        Graph<TDecision> requirementsGraph = repository.createInformationRequirementGraph();
 
         // Find cycles
         requirementsGraph.findCycles().forEach(cycle -> {

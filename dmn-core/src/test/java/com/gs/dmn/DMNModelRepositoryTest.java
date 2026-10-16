@@ -276,14 +276,56 @@ public class DMNModelRepositoryTest extends AbstractTest {
     public void testCreateImportGraph() {
         // Read test models
         this.dmnModelRepository = readModels("other/1.5/cycles-no-prefix/translator/");
-        Graph<TDefinitions> importGraph = this.dmnModelRepository.createImportGraph();
-        List<String> nodeNames = importGraph.getNodes().stream().map(TNamedElement::getName).toList();
+        Graph<TDefinitions> graph = this.dmnModelRepository.createImportGraph();
+        List<String> nodeNames = graph.getNodes().stream().map(TNamedElement::getName).toList();
         assertEquals(List.of("model-a", "model-b"), nodeNames);
-        List<String> edges = importGraph.getEdges().stream().map(p -> p.getLeft() + " -> " + p.getRight()).toList();
+        List<String> edges = graph.getEdges().stream().map(p -> p.getLeft() + " -> " + p.getRight()).toList();
         assertEquals(List.of("TDefinitions(model-a) -> [TDefinitions(model-b)]", "TDefinitions(model-b) -> [TDefinitions(model-a)]"), edges);
-        assertEquals(List.of(), importGraph.findRootNodes());
-        List<String> cycles = importGraph.findCycles().stream().map(Object::toString).toList();
+        assertEquals(List.of(), graph.findRootNodes());
+        List<String> cycles = graph.findCycles().stream().map(Object::toString).toList();
         assertEquals(List.of("[TDefinitions(model-a), TDefinitions(model-b), TDefinitions(model-a)]"), cycles);
+    }
+
+    @Test
+    public void testCreateItemDefinitionGraph() {
+        // Read test models
+        this.dmnModelRepository = readModels("other/1.5/cycles-item-definitions/translator");
+        Graph<TItemDefinition> graph = this.dmnModelRepository.createItemDefinitionGraph();
+        List<String> nodeNames = graph.getNodes().stream().map(TNamedElement::getName).toList();
+        assertEquals(List.of("NestedType", "TypeA1", "TypeB1", "TypeC1", "boolean", "number", "string", "TypeA", "Other", "TypeB", "TypeC"), nodeNames);
+        List<String> edges = graph.getEdges().stream().map(p -> p.getLeft() + " -> " + p.getRight()).toList();
+        assertEquals(List.of("TItemDefinition(TypeA1) -> [TItemDefinition(TypeB1)]", "TItemDefinition(TypeB1) -> [TItemDefinition(TypeC1)]", "TItemDefinition(TypeC1) -> [TItemDefinition(TypeA1)]", "TItemDefinition(boolean) -> [TItemDefinition(string)]", "TItemDefinition(number) -> [TItemDefinition(boolean)]", "TItemDefinition(string) -> [TItemDefinition(number)]", "TItemDefinition(TypeA) -> [TItemDefinition(TypeB)]", "TItemDefinition(TypeB) -> [TItemDefinition(TypeC)]", "TItemDefinition(TypeC) -> [TItemDefinition(TypeA)]"), edges);
+        assertEquals("[TItemDefinition(NestedType), TItemDefinition(Other)]", graph.findRootNodes().toString());
+        List<String> cycles = graph.findCycles().stream().map(Object::toString).toList();
+        assertEquals(List.of("[TItemDefinition(TypeA1), TItemDefinition(TypeB1), TItemDefinition(TypeC1), TItemDefinition(TypeA1)]", "[TItemDefinition(boolean), TItemDefinition(string), TItemDefinition(number), TItemDefinition(boolean)]", "[TItemDefinition(TypeA), TItemDefinition(TypeB), TItemDefinition(TypeC), TItemDefinition(TypeA)]"), cycles);
+    }
+
+    @Test
+    public void testCreateInformationRequirementGraph() {
+        // Read test models
+        this.dmnModelRepository = readModels("other/1.5/cyclic-decisions-requirements/");
+        Graph<TDecision> graph = this.dmnModelRepository.createInformationRequirementGraph();
+        List<String> nodeNames = graph.getNodes().stream().map(TNamedElement::getName).toList();
+        assertEquals(List.of("DecisionA", "DecisionB", "DecisionC"), nodeNames);
+        List<String> edges = graph.getEdges().stream().map(p -> p.getLeft() + " -> " + p.getRight()).toList();
+        assertEquals(List.of("TDecision(DecisionA) -> [TDecision(DecisionB)]", "TDecision(DecisionB) -> [TDecision(DecisionC)]", "TDecision(DecisionC) -> [TDecision(DecisionA)]"), edges);
+        assertEquals(List.of(), graph.findRootNodes());
+        List<String> cycles = graph.findCycles().stream().map(Object::toString).toList();
+        assertEquals(List.of("[TDecision(DecisionA), TDecision(DecisionB), TDecision(DecisionC), TDecision(DecisionA)]"), cycles);
+    }
+
+    @Test
+    public void testCreateKnowledgeRequirementGraph() {
+        // Read test models
+        this.dmnModelRepository = readModels("other/1.5/cyclic-knowledge-requirements/");
+        Graph<TBusinessKnowledgeModel> graph = this.dmnModelRepository.createKnowledgeRequirementGraph();
+        List<String> nodeNames = graph.getNodes().stream().map(TNamedElement::getName).toList();
+        assertEquals(List.of("BKMA", "BKMB", "BKMC"), nodeNames);
+        List<String> edges = graph.getEdges().stream().map(p -> p.getLeft() + " -> " + p.getRight()).toList();
+        assertEquals(List.of("TBusinessKnowledgeModel(BKMA) -> [TBusinessKnowledgeModel(BKMB)]", "TBusinessKnowledgeModel(BKMB) -> [TBusinessKnowledgeModel(BKMC)]", "TBusinessKnowledgeModel(BKMC) -> [TBusinessKnowledgeModel(BKMA)]"), edges);
+        assertEquals(List.of(), graph.findRootNodes());
+        List<String> cycles = graph.findCycles().stream().map(Object::toString).toList();
+        assertEquals(List.of("[TBusinessKnowledgeModel(BKMA), TBusinessKnowledgeModel(BKMB), TBusinessKnowledgeModel(BKMC), TBusinessKnowledgeModel(BKMA)]"), cycles);
     }
 
     @Test
