@@ -31,12 +31,13 @@ public class DefaultDMNValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateDefinitionsWhenNotUniqueNames() {
         List<String> expectedErrors = List.of(
-                "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions'): The name of a DRGElement must be unique. Found duplicates for 'CIP Assessments, Input'.",
+                "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions'): The name of a DRGElement must be unique. Found duplicates for 'CIP Assessments'.",
+                "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions'): The name of a DRGElement must be unique. Found duplicates for 'Input'.",
                 "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions'): The name of a ItemDefinition must be unique. Found duplicates for 'itemDefinition'.",
                 "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions', elementName = 'CIP Assessments', elementId = 'cip-assessments'): Missing variable",
                 "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions', elementName = 'CIP Assessments', elementId = 'cip-assessments1'): Missing variable",
                 "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions', elementName = 'CIP Assessments', elementId = 'id-input-1'): DRGElement name and variable name should be the same. Found 'CIP Assessments' and 'string'",
-                "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions'): The name of a TContextEntry must be unique. Found duplicates for 'Waiting List'."
+                "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions', elementName = 'Prioritized Waiting List', elementId = 'd_PrioritizedWaitingList'): The name of a TContextEntry must be unique. Found duplicates for 'Waiting List'."
         );
         validateSimpleValidator(validator, resource("dmn/input/1.1/test-dmn-with-duplicates.dmn"), expectedErrors);
     }
@@ -67,7 +68,7 @@ public class DefaultDMNValidatorTest extends AbstractValidatorTest {
             "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn', modelId = 'definitions', elementId = 'bkm'): Missing expression",
             "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn', modelId = 'definitions', elementId = 'bkm1'): Missing name for element TBusinessKnowledgeModel",
             "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn', modelId = 'definitions', elementId = 'bkm1'): Missing variable name",
-            "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn', modelId = 'definitions'): The href of a TDMNElementReference must be unique. Found duplicates for '125'.",
+            "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn', modelId = 'definitions', elementId = 'bkm1'): The href of a TDMNElementReference must be unique. Found duplicates for '125'.",
             "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn', modelId = 'definitions', elementId = 'bkm1'): Missing expression",
             "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn', modelId = 'definitions'): Missing id for element TDecisionService",
             "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn', modelId = 'definitions'): Missing name for element TDecisionService",
@@ -86,7 +87,10 @@ public class DefaultDMNValidatorTest extends AbstractValidatorTest {
             "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn', modelId = 'definitions', elementName = 'dec1', elementId = 'dec1'): Missing variable name",
             "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn', modelId = 'definitions', elementName = 'dec1', elementId = 'dec1'): Missing typRef of variable",
             "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn', modelId = 'definitions', elementName = 'dec1', elementId = 'dec1'): Missing text of literal expression",
-            "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn', modelId = 'definitions'): The variable type 'string' must be the same as the type of the contained expression 'number'"
+            "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn', modelId = 'definitions'): The variable type 'string' must be the same as the type of the contained expression 'number'",
+            "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn', modelId = 'definitions', elementName = 'duplicateReferences', elementId = 'duplicate-references'): The href of a TInformationRequirement must be unique. Found duplicates for '#dec2'.",
+            "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn', modelId = 'definitions', elementName = 'duplicateReferences', elementId = 'duplicate-references'): The href of a TInformationRequirement must be unique. Found duplicates for '#dec1'.",
+            "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-dmn', modelId = 'definitions', elementName = 'duplicateReferences', elementId = 'duplicate-references'): duplicateReferences Found duplicates for '#bkm'."
         );
         validateSimpleValidator(validator, resource("dmn/input/1.5/test-dmn.dmn"), expectedErrors);
     }
@@ -98,7 +102,7 @@ public class DefaultDMNValidatorTest extends AbstractValidatorTest {
                 "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-boxed-expressions', modelId = 'definitions', elementName = 'cond', elementId = 'cond'): Missing 'then' expression in 'conditional' boxed expression in element 'cond'",
                 "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-boxed-expressions', modelId = 'definitions', elementName = 'cond', elementId = 'cond'): Missing 'else' expression in 'conditional' boxed expression in element 'cond'",
                 "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-boxed-expressions', modelId = 'definitions', elementName = 'ctx1', elementId = 'ctx1'): Missing entries in context expression",
-                "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-boxed-expressions', modelId = 'definitions'): The name of a TContextEntry must be unique. Found duplicates for 'a'.",
+                "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-boxed-expressions', modelId = 'definitions', elementName = 'ctx2', elementId = 'ctx2'): The name of a TContextEntry must be unique. Found duplicates for 'a'.",
                 "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-boxed-expressions', modelId = 'definitions', elementName = 'def', elementId = 'def'): Missing typeRef in formal parameter 1",
                 "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-boxed-expressions', modelId = 'definitions', elementName = 'def', elementId = 'def'): Missing name in formal parameter 2",
                 "[ERROR] (namespace = 'http://example.org/dmn', modelName = 'test-boxed-expressions', modelId = 'definitions', elementName = 'def', elementId = 'def'): Missing typeRef in formal parameter 2",

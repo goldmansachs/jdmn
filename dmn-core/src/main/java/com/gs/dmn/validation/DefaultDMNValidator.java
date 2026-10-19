@@ -156,7 +156,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         }
     }
 
-    protected void validateUnique(TDefinitions definitions, List<? extends TDMNElement> elements, String elementType, String property, Function<TDMNElement, String> accessor, String errorMessage, ValidationContext context) {
+    protected void validateUnique(TDefinitions definitions, TDMNElement parent, List<? extends TDMNElement> elements, String elementType, String property, Function<TDMNElement, String> accessor, String errorMessage, ValidationContext context) {
         if (errorMessage == null) {
             errorMessage = "The %s of a %s must be unique.".formatted(property, elementType);
         }
@@ -176,22 +176,17 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
             }
         }
         // Find duplicates
-        List<String> duplicates = new ArrayList<>();
         for (Map.Entry<String, List<TDMNElement>> entry : map.entrySet()) {
             String key = entry.getKey();
             if (entry.getValue().size() > 1) {
-                duplicates.add(key);
+                // Report error
+                String finalErrorMessage = "%s Found duplicates for '%s'.".formatted(errorMessage, key);
+                addValidationError(context, definitions, parent, finalErrorMessage);
             }
-        }
-        // Report error
-        if (!duplicates.isEmpty()) {
-            String message = String.join(", ", duplicates);
-            String finalErrorMessage = "%s Found duplicates for '%s'.".formatted(errorMessage, message);
-            addValidationError(context, definitions, null, finalErrorMessage);
         }
     }
 
-    private void validateUniqueReferences(TDefinitions definitions, List<? extends TDMNElementReference> elements, String elementType, String property, Function<TDMNElementReference, String> accessor, String errorMessage, ValidationContext context) {
+    private void validateUniqueReferences(TDefinitions definitions, TNamedElement parent, List<? extends TDMNElementReference> elements, String elementType, String property, Function<TDMNElementReference, String> accessor, String errorMessage, ValidationContext context) {
         if (errorMessage == null) {
             errorMessage = "The %s of a %s must be unique.".formatted(property, elementType);
         }
@@ -211,18 +206,13 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
             }
         }
         // Find duplicates
-        List<String> duplicates = new ArrayList<>();
         for (Map.Entry<String, List<TDMNElementReference>> entry : map.entrySet()) {
             String key = entry.getKey();
             if (entry.getValue().size() > 1) {
-                duplicates.add(key);
+                // Report error
+                String finalErrorMessage = "%s Found duplicates for '%s'.".formatted(errorMessage, key);
+                addValidationError(context, definitions, parent, finalErrorMessage);
             }
-        }
-        // Report error
-        if (!duplicates.isEmpty()) {
-            String message = String.join(", ", duplicates);
-            String finalErrorMessage = "%s Found duplicates for '%s'.".formatted(errorMessage, message);
-            addValidationError(context, definitions, null, finalErrorMessage);
         }
     }
 
@@ -300,15 +290,15 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
                         return ir.getRequiredDecision().getHref();
                     }
                 };
-        validateUnique(definitions, informationRequirements, "TInformationRequirement", "href",
-                accessor, decision.getName(), context);
+        validateUnique(definitions, decision, informationRequirements, "TInformationRequirement", "href",
+                accessor, null, context);
     }
 
     private void validateReferences(TDefinitions definitions, TNamedElement element, List<TDMNElementReference> references, ValidationContext context) {
         // Validate requirements
         Function<TDMNElementReference, String> accessor =
                 TDMNElementReference::getHref;
-        validateUniqueReferences(definitions, references, "TDMNElementReference", "href",
+        validateUniqueReferences(definitions, element, references, "TDMNElementReference", "href",
                 accessor, element.getName(), context);
     }
 
@@ -327,7 +317,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
                 addValidationError(context, definitions, element, errorMessage);
             } else {
                 validateUnique(
-                        definitions, contextEntryList, "TContextEntry", "name",
+                        definitions, element, contextEntryList, "TContextEntry", "name",
                         entryAccessor, null, context
                 );
             }
@@ -419,7 +409,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         }
         // Names are unique within the formal parameters of a function definition.
         validateUnique(
-                definitions, formalParameter, "TInformationItem", "name",
+                definitions, element, formalParameter, "TInformationItem", "name",
                 e -> ((TInformationItem) e).getName(), null, context
         );
     }
@@ -609,7 +599,7 @@ class DefaultDMNValidatorVisitor extends TraversalVisitor<ValidationContext> {
             // Import.name is unique across all Imports
             logger.debug("Validate unique 'Import.name'");
             this.validator.validateUnique(
-                    element, new ArrayList<>(notBlankImportElements), "Import", "name",
+                    element, null, new ArrayList<>(notBlankImportElements), "Import", "name",
                     e -> ((TNamedElement) e).getName(), null, context
             );
             // Validate Import.name is distinct from DRGElement.name and ItemDefinition.name
@@ -636,7 +626,7 @@ class DefaultDMNValidatorVisitor extends TraversalVisitor<ValidationContext> {
             // DRGElement.name is unique across all DRG elements
             logger.debug("Validate unique 'DRGElement.name'");
             this.validator.validateUnique(
-                    element, new ArrayList<>(drgElements), "DRGElement", "name",
+                    element, null, new ArrayList<>(drgElements), "DRGElement", "name",
                     e -> ((TNamedElement) e).getName(), null, context
             );
 
@@ -646,7 +636,7 @@ class DefaultDMNValidatorVisitor extends TraversalVisitor<ValidationContext> {
             // ItemDefinition.name is unique across all top level ItemDefinitions
             logger.debug("Validate unique 'ItemDefinition.name'");
             this.validator.validateUnique(
-                    element, new ArrayList<>(topLevelItemDefinitions), "ItemDefinition", "name",
+                    element, null, new ArrayList<>(topLevelItemDefinitions), "ItemDefinition", "name",
                     e -> ((TNamedElement) e).getName(), null, context
             );
 

@@ -139,4 +139,30 @@
         </encapsulatedLogic>
     </businessKnowledgeModel>
 
+    <decision id="duplicate-references" name="duplicateReferences">
+        <variable name="duplicateReferences" typeRef="string"/>
+        <informationRequirement>
+            <requiredDecision href="#dec2"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#dec2"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#dec1"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#dec1"/>
+        </informationRequirement>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#bkm"/>
+        </knowledgeRequirement>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#bkm"/>
+        </knowledgeRequirement>
+        <literalExpression>
+            <text>"123"</text>
+        </literalExpression>
+    </decision>
+
+
 </definitions>
