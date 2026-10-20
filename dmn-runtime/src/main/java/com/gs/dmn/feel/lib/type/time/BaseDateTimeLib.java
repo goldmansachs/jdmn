@@ -107,13 +107,22 @@ public abstract class BaseDateTimeLib {
             return false;
         }
 
-        // Check for offset ID Z
-        if (literal.contains("Z") || literal.contains("z")) {
+        // Check for offset ID Z, ignore zone IDs (e.g. @Europe/Zurich, [America/La_Paz])
+        String dateTime = removeZoneId(literal);
+        if (dateTime.contains("Z") || dateTime.contains("z")) {
             return true;
         }
 
         // Check for offset ID +/-HH:MM
         return ZONE_OFFSET.matcher(literal).find();
+    }
+
+    private String removeZoneId(String literal) {
+        int zoneIdIndex = literal.indexOf('@');
+        if (zoneIdIndex == -1) {
+            zoneIdIndex = literal.indexOf('[');
+        }
+        return zoneIdIndex == -1 ? literal : literal.substring(0, zoneIdIndex);
     }
 
     protected boolean isValidDate(long year, long month, long day) {
