@@ -78,7 +78,7 @@ public abstract class TDMNElement extends DMNBaseElement {
         return otherAttributes;
     }
 
-    public static class ExtensionElements extends DMNBaseElement {
+    public static class ExtensionElements extends DMNBaseElement implements Visitable {
         private List<Object> any;
 
         public List<Object> getAny() {
@@ -86,6 +86,11 @@ public abstract class TDMNElement extends DMNBaseElement {
                 any = new ArrayList<>();
             }
             return this.any;
+        }
+
+        @Override
+        public <C, R> R accept(Visitor<C, R> visitor, C context) {
+            return visitor.visit(this, context);
         }
     }
 }

@@ -398,6 +398,11 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
 
     @Override
     public DMNBaseElement visit(TRuleAnnotationClause element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitBaseElementProperties(element, context);
         return element;
     }
 
@@ -422,6 +427,11 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
 
     @Override
     public DMNBaseElement visit(TRuleAnnotation element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitBaseElementProperties(element, context);
         return element;
     }
 
@@ -460,6 +470,7 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
             return null;
         }
 
+        visitBaseElementProperties(element, context);
         TInformationItem parameter = element.getParameter();
         if (parameter != null) {
             parameter.accept(this, context);
@@ -690,6 +701,7 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
             return null;
         }
 
+        visitBaseElementProperties(element, context);
         element.setHref(element.getHref());
         return element;
     }
@@ -816,18 +828,26 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
             return null;
         }
 
-        return visitExtensions(element, context);
+        visitBaseElementProperties(element, context);
+        return element;
     }
 
     //
     // DMN properties
     //
+    protected void visitBaseElementProperties(DMNBaseElement element, C context) {
+    }
+
     protected void visitTDMNElementProperties(TDMNElement element, C context) {
         if (element == null) {
             return;
         }
 
-        visitExtensions(element.getExtensionElements(), context);
+        visitBaseElementProperties(element, context);
+        TDMNElement.ExtensionElements extensionElements = element.getExtensionElements();
+        if (extensionElements != null) {
+            extensionElements.accept(this, context);
+        }
     }
 
     protected void visitTNamedElementProperties(TNamedElement element, C context) {
@@ -892,6 +912,11 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
     }
 
     protected void visitTChildExpressionProperties(TChildExpression element, C context) {
+        if (element == null) {
+            return;
+        }
+
+        visitBaseElementProperties(element, context);
         TExpression exp = element.getExpression();
         if (exp != null) {
             visitTExpression(exp, context);
@@ -906,10 +931,6 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
         return qName;
     }
 
-    protected DMNBaseElement visitExtensions(TDMNElement.ExtensionElements element, C context) {
-        return element;
-    }
-
     //
     // DMN DI elements
     //
@@ -919,6 +940,7 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
             return null;
         }
 
+        visitBaseElementProperties(element, context);
         for (DMNDiagram diagram : element.getDMNDiagram()) {
             diagram.accept(this, context);
         }
@@ -1067,21 +1089,41 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
 
     @Override
     public DMNBaseElement visit(Color element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitBaseElementProperties(element, context);
         return element;
     }
 
     @Override
     public DMNBaseElement visit(Point element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitBaseElementProperties(element, context);
         return element;
     }
 
     @Override
     public DMNBaseElement visit(Bounds element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitBaseElementProperties(element, context);
         return element;
     }
 
     @Override
     public DMNBaseElement visit(Dimension element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitBaseElementProperties(element, context);
         return element;
     }
 
@@ -1104,10 +1146,20 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
     }
 
     protected DMNBaseElement visitExtension(DiagramElement.Extension element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitBaseElementProperties(element, context);
         return element;
     }
 
     protected Style.Extension visitExtension(Style.Extension element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitBaseElementProperties(element, context);
         return element;
     }
 
@@ -1127,6 +1179,7 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
             return;
         }
 
+        visitBaseElementProperties(element, context);
         visitExtension(element.getExtension(), context);
         visitStyle(element.getStyle(), context);
         visitStyle(element.getSharedStyle(), context);

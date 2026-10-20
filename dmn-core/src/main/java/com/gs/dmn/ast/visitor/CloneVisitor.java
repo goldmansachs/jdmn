@@ -672,7 +672,6 @@ public class CloneVisitor<C> extends AbstractVisitor<C, Object> {
         }
 
         TChildExpression newElement = objectFactory.createTChildExpression();
-        visitDMNBaseElementProperties(newElement, element);
         visitTChildExpressionProperties(newElement, element, context);
         return newElement;
     }
@@ -910,13 +909,16 @@ public class CloneVisitor<C> extends AbstractVisitor<C, Object> {
             return null;
         }
 
-        return visitExtensions(element, context);
+        TDMNElement.ExtensionElements newElement = objectFactory.createTDMNElementExtensionElements();
+        visitDMNBaseElementProperties(newElement, element);
+        newElement.getAny().addAll(element.getAny());
+        return newElement;
     }
 
     //
     // DMN properties
     //
-    private void visitDMNBaseElementProperties(DMNBaseElement newElement, DMNBaseElement element) {
+    protected void visitDMNBaseElementProperties(DMNBaseElement newElement, DMNBaseElement element) {
         if (newElement == null || element == null) {
             return;
         }
@@ -937,7 +939,10 @@ public class CloneVisitor<C> extends AbstractVisitor<C, Object> {
         visitDMNBaseElementProperties(newElement, element);
         newElement.getOtherAttributes().putAll(element.getOtherAttributes());
         newElement.setDescription(element.getDescription());
-        newElement.setExtensionElements(visitExtensions(element.getExtensionElements(), context));
+        TDMNElement.ExtensionElements extensionElements = element.getExtensionElements();
+        if (extensionElements != null) {
+            newElement.setExtensionElements((TDMNElement.ExtensionElements) extensionElements.accept(this, context));
+        }
         newElement.setId(element.getId());
         newElement.setLabel(element.getLabel());
     }
@@ -1013,6 +1018,8 @@ public class CloneVisitor<C> extends AbstractVisitor<C, Object> {
             return;
         }
 
+        visitDMNBaseElementProperties(newElement, element);
+
         newElement.setId(element.getId());
         TExpression exp = element.getExpression();
         if (exp != null) {
@@ -1043,17 +1050,6 @@ public class CloneVisitor<C> extends AbstractVisitor<C, Object> {
         }
 
         return new QName(qName.getNamespaceURI(), qName.getLocalPart(), qName.getPrefix());
-    }
-
-    protected TDMNElement.ExtensionElements visitExtensions(TDMNElement.ExtensionElements element, C context) {
-        if (element == null) {
-            return null;
-        }
-
-        TDMNElement.ExtensionElements newElement = objectFactory.createTDMNElementExtensionElements();
-        visitDMNBaseElementProperties(newElement, element);
-        newElement.getAny().addAll(element.getAny());
-        return newElement;
     }
 
     //
@@ -1388,7 +1384,6 @@ public class CloneVisitor<C> extends AbstractVisitor<C, Object> {
             return;
         }
 
-        visitDMNBaseElementProperties(newElement, element);
         newElement.setExtension(visitExtension(element.getExtension(), context));
         newElement.setId(element.getId());
         newElement.getOtherAttributes().putAll(element.getOtherAttributes());
