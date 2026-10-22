@@ -75,32 +75,35 @@ class DMNVersionTransformerVisitor<C> extends TraversalVisitor<C> {
     @Override
     public DMNBaseElement visit(TDefinitions element, C context) {
         this.definitions = element;
-        // Remove 'schemaLocation'
-        if (this.sourceVersion != DMNVersion.LATEST) {
-            element.getOtherAttributes().remove(SCHEMA_LOCATION);
-            element.getOtherAttributes().remove(NO_NAMESPACE_SCHEMA_LOCATION);
-        }
-        // Update expression language
-        if (isFEELNamespace(element.getTypeLanguage())) {
-            element.setTypeLanguage(this.targetVersion.getFeelNamespace());
-        }
-        if (isFEELNamespace(element.getExpressionLanguage())) {
-            element.setExpressionLanguage(this.targetVersion.getFeelNamespace());
-        }
-        // Update XML namespaces
-        updateXMLNamespaces(element);
+        element = (TDefinitions) super.visit(element, context);
 
-        super.visit(element, context);
+        if (element != null) {
+            // Remove 'schemaLocation'
+            if (this.sourceVersion != DMNVersion.LATEST) {
+                element.getOtherAttributes().remove(SCHEMA_LOCATION);
+                element.getOtherAttributes().remove(NO_NAMESPACE_SCHEMA_LOCATION);
+            }
+            // Update expression language
+            if (isFEELNamespace(element.getTypeLanguage())) {
+                element.setTypeLanguage(this.targetVersion.getFeelNamespace());
+            }
+            if (isFEELNamespace(element.getExpressionLanguage())) {
+                element.setExpressionLanguage(this.targetVersion.getFeelNamespace());
+            }
+        }
+
         return element;
     }
 
     // Import
     @Override
     public DMNBaseElement visit(TImport element, C context) {
-        updateXMLNamespaces(element);
-        updateImportType(element);
+        element = (TImport) super.visit(element, context);
 
-        super.visit(element, context);
+        if (element != null) {
+            updateImportType(element);
+        }
+
         return element;
     }
 
@@ -116,482 +119,67 @@ class DMNVersionTransformerVisitor<C> extends TraversalVisitor<C> {
 
     @Override
     public DMNBaseElement visit(TImportedValues element, C context) {
-        if (isFEELNamespace(element.getExpressionLanguage())) {
-            element.setExpressionLanguage(this.targetVersion.getFeelNamespace());
+        element = (TImportedValues) super.visit(element, context);
+
+        if (element != null) {
+            if (isFEELNamespace(element.getExpressionLanguage())) {
+                element.setExpressionLanguage(this.targetVersion.getFeelNamespace());
+            }
         }
-        updateXMLNamespaces(element);
 
-        super.visit(element, context);
-        return element;
-    }
-
-    // Data types
-    @Override
-    public DMNBaseElement visit(TItemDefinition  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TFunctionItem  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    // DRG Elements
-    @Override
-    public DMNBaseElement visit(TInputData  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TDecision  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TBusinessKnowledgeModel  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TDecisionService  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TKnowledgeSource  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    // Expressions
-    @Override
-    public DMNBaseElement visit(TContext  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TContextEntry  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TDecisionTable  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TInputClause  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TOutputClause  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TRuleAnnotationClause  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TDecisionRule  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TRuleAnnotation  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TFunctionDefinition  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TInvocation  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TBinding  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TList  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
         return element;
     }
 
     @Override
     public DMNBaseElement visit(TLiteralExpression  element, C context) {
-        if (isFEELNamespace(element.getExpressionLanguage())) {
-            element.setExpressionLanguage(this.targetVersion.getFeelNamespace());
+        element = (TLiteralExpression) super.visit(element, context);
+
+        if (element != null) {
+            if (isFEELNamespace(element.getExpressionLanguage())) {
+                element.setExpressionLanguage(this.targetVersion.getFeelNamespace());
+            }
         }
-        updateXMLNamespaces(element);
 
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TRelation  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
         return element;
     }
 
     @Override
     public DMNBaseElement visit(TUnaryTests  element, C context) {
-        if (isFEELNamespace(element.getExpressionLanguage())) {
-            element.setExpressionLanguage(this.targetVersion.getFeelNamespace());
+        element = (TUnaryTests) super.visit(element, context);
+
+        if (element != null) {
+            if (isFEELNamespace(element.getExpressionLanguage())) {
+                element.setExpressionLanguage(this.targetVersion.getFeelNamespace());
+            }
         }
-        updateXMLNamespaces(element);
 
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TConditional  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TFor  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TFilter  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TEvery  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TSome  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TChildExpression  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TTypedChildExpression  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    // Requirements
-    @Override
-    public DMNBaseElement visit(TAuthorityRequirement  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
         return element;
     }
 
     @Override
     public DMNBaseElement visit(TInformationRequirement  element, C context) {
-        updateXMLNamespaces(element);
+        element = (TInformationRequirement) super.visit(element, context);
 
-        if (sourceVersion == DMNVersion.DMN_11) {
-            // DMN 1.1
-            // An InformationRequirement does not have an ID, is needed for edges in diagrams.
-            if (StringUtils.isBlank(element.getId())) {
-                String id = makeXsdId(element);
-                element.setId(id);
+        if (element != null) {
+            if (sourceVersion == DMNVersion.DMN_11) {
+                // DMN 1.1
+                // An InformationRequirement does not have an ID, is needed for edges in diagrams.
+                if (StringUtils.isBlank(element.getId())) {
+                    String id = makeXsdId(element);
+                    element.setId(id);
+                }
             }
         }
-        super.visit(element, context);
-        return element;
-    }
 
-    @Override
-    public DMNBaseElement visit(TKnowledgeRequirement  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TInformationItem  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TDMNElementReference  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    // Artifacts
-    @Override
-    public DMNBaseElement visit(TAssociation  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TGroup  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TTextAnnotation  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    // Other
-    @Override
-    public DMNBaseElement visit(TBusinessContextElement  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TPerformanceIndicator  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TOrganizationUnit  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TElementCollection  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    // Extensions
-    @Override
-    public DMNBaseElement visit(TDMNElement.ExtensionElements element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
         return element;
     }
 
     //
-    // DMNDI elements
+    // DMN properties
     //
     @Override
-    public DMNBaseElement visit(DMNDI  element, C context) {
+    protected void visitBaseElementProperties(DMNBaseElement element, C context) {
         updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(DMNDiagram  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(DMNShape  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(DMNEdge  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(DMNStyle  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(DMNLabel  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(DMNDecisionServiceDividerLine  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(Color  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(Point  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(Bounds  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(Dimension  element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(DiagramElement.Extension element, C context) {
-        updateXMLNamespaces(element);
-
-        super.visit(element, context);
-        return element;
-    }
-
-    @Override
-    public Object visit(Style.Extension element, C context) {
-        return element;
-    }
-
-
-    @Override
-    protected DMNBaseElement visitExtensions(TDMNElement.ExtensionElements element, C context) {
-        updateXMLNamespaces(element);
-
-        return element;
     }
 
     @Override
