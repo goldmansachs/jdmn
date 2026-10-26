@@ -18,4 +18,6 @@ import com.gs.dmn.transformation.native_.statement.NativeStatementFactory;
 
 public interface NativeFactory extends NativeExpressionFactory, NativeStatementFactory {
     String MAP_ITERATOR = "x_";
+
+    String handleNativeKeywords(String name);
 }

@@ -521,7 +521,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doUnaryTestsTest(entries, "boolean", "true",
                 "PositiveUnaryTests(OperatorRange(null,BooleanLiteral(true)))",
                 "TupleType(boolean)",
-                "booleanEqual(boolean, Boolean.TRUE)",
+                "booleanEqual(boolean_, Boolean.TRUE)",
                 this.lib.booleanEqual(boolean_, Boolean.TRUE),
                 true);
         doUnaryTestsTest(entries, "date", "date(\"2016-08-01\")",

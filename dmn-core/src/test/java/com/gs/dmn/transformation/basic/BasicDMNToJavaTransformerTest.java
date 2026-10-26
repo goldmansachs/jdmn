@@ -188,6 +188,7 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
         assertEquals("ClientLevelRequirementRulesType", this.transformer.nativeFriendlyName("Client-level Requirement RulesType"));
         assertEquals("LinkedToList12ApprovedRegulator", this.transformer.nativeFriendlyName("Linked to List 1,2 Approved Regulator"));
         assertEquals("PrivateFundAssessmentPotentialSubClassifications", this.transformer.nativeFriendlyName("Private Fund Assessment.Potential SubClassifications"));
+        assertEquals("boolean_", this.transformer.nativeFriendlyName("boolean"));
     }
 
     @Test

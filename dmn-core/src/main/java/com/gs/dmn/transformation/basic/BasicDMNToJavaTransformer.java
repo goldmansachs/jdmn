@@ -2046,7 +2046,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
                 skippedPrevious = true;
             }
         }
-        return result.toString();
+        return this.nativeFactory.handleNativeKeywords(result.toString());
     }
 
     @Override

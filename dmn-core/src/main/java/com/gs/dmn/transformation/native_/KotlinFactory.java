@@ -27,8 +27,18 @@ import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
+import java.util.Set;
 
 public class KotlinFactory extends JavaFactory implements NativeFactory {
+    public static final Set<String> KOTLIN_KEYWORDS = Set.of(
+            "as", "break", "class", "continue", "do",
+            "else", "false", "for", "fun", "if",
+            "in", "interface", "is", "null", "object",
+            "package", "return", "super", "this", "throw",
+            "true", "try", "typealias", "val", "var",
+            "when", "while"
+    );
+
     public KotlinFactory(BasicDMNToNativeTransformer<Type, DMNContext> transformer) {
         super(transformer);
     }
@@ -324,5 +334,13 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     @Override
     protected String cast(String type, String value) {
         return StringUtils.isBlank(type) ? value : String.format("(%s as %s)", value, type);
+    }
+
+    @Override
+    public String handleNativeKeywords(String name) {
+        if (KOTLIN_KEYWORDS.contains(name)) {
+            return name + "_";
+        }
+        return name;
     }
 }

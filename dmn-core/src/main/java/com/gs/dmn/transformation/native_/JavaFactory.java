@@ -43,6 +43,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
@@ -51,6 +52,19 @@ import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 import static com.gs.dmn.feel.analysis.semantics.type.YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION;
 
 public class JavaFactory implements NativeFactory {
+    private static final Set<String> JAVA_KEYWORDS = Set.of(
+            "abstract", "assert", "boolean", "break", "byte",
+            "case", "catch", "char", "class", "const",
+            "continue", "default", "do", "double", "else",
+            "enum", "extends", "final", "finally", "float",
+            "for", "goto", "if", "implements", "import",
+            "instanceof", "int", "interface", "long", "native",
+            "new", "package", "private", "protected", "public",
+            "return", "short", "static", "strictfp", "super",
+            "switch", "synchronized", "this", "throw", "throws",
+            "transient", "try", "void", "volatile", "while"
+    );
+
     protected final BasicDMNToNativeTransformer<Type, DMNContext> transformer;
     protected final NativeTypeFactory typeFactory;
     protected final DMNModelRepository repository;
@@ -571,5 +585,13 @@ public class JavaFactory implements NativeFactory {
     @Override
     public CompoundStatement makeCompoundStatement() {
         return new CompoundStatement();
+    }
+
+    @Override
+    public String handleNativeKeywords(String name) {
+        if (JAVA_KEYWORDS.contains(name)) {
+            return name + "_";
+        }
+        return name;
     }
 }

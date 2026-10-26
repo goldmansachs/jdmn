@@ -167,7 +167,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
                 HitPolicy hitPolicy = ((DecisionTable) expression).getHitPolicy();
                 String aggregation = ((DecisionTable) expression).getAggregation();
                 List<OutputClause> outputClauses = ((DecisionTable) expression).getOutputClauses();
-                if (outputClauses.size() == 0) {
+                if (outputClauses.isEmpty()) {
                     throw new IllegalArgumentException(String.format("Cannot create ItemDefinition for '%s' without OutputClauses", this.rdfModel.getAboutAttribute(decision)));
                 } else if (outputClauses.size() == 1) {
                     // Make ItemDefinition for decision
@@ -549,14 +549,13 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
         List<TInputClause> tInputClauses = tDecisionTable.getInput();
         for (InputClause inputClause : decisionTable.getInputClauses()) {
             Expression expression = inputClause.getExpression();
-            if (expression instanceof Reference) {
+            if (expression instanceof Reference reference) {
                 TInputClause tInputClause = OBJECT_FACTORY.createTInputClause();
                 tInputClause.setId(makeInputClauseId(inputClause, decision));
 
                 TLiteralExpression tExpression = OBJECT_FACTORY.createTLiteralExpression();
                 tExpression.setId(makeInputClauseExpressionId(inputClause, decision));
 
-                Reference reference = (Reference) expression;
                 tExpression.setTypeRef(makeQName(reference));
                 tExpression.setText(text(reference));
                 tInputClause.setInputExpression(tExpression);
@@ -636,7 +635,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
         List<TOutputClause> tOutputClauses = tDecisionTable.getOutput();
         List<OutputClause> outputClauses = decisionTable.getOutputClauses();
         String decisionName = this.rdfModel.getName(decision);
-        if (outputClauses.size() == 0) {
+        if (outputClauses.isEmpty()) {
             throw new DMNRuntimeException(String.format("No OutputClauses for decision '%s'", decisionName));
         } else if (outputClauses.size() == 1) {
             OutputClause outputClause = outputClauses.get(0);
@@ -852,12 +851,14 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
     }
 
     private QName makeQName(String namespace, String name) {
-        String cleanName = this.dmnTransformer.nativeFriendlyName(name);
+        String cleanName = name;
         String prefix = XMLConstants.DEFAULT_NS_PREFIX;
         if (DMN_11.getFeelNamespace().equals(namespace)) {
             prefix = "feel";
         } else if (this.inputParameters.getNamespace().equals(namespace)) {
             prefix = this.inputParameters.getPrefix();
+        } else {
+            cleanName = this.dmnTransformer.nativeFriendlyName(name);
         }
         return new QName(namespace, cleanName, prefix);
     }

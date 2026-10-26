@@ -362,4 +362,12 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     protected String itemDefinitionConversionLambda(String qNativeType, String convertFunction) {
         return String.format("lambda e: %s.%s(e)", qNativeType, convertFunction);
     }
+
+    @Override
+    public String handleNativeKeywords(String name) {
+        if (PYTHON_KEYWORDS.contains(name)) {
+            return name + "_";
+        }
+        return name;
+    }
 }
