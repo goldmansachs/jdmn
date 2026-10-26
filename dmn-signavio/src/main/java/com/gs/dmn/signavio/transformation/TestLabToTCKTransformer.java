@@ -81,13 +81,13 @@ public class TestLabToTCKTransformer {
         testLabValidator.validate(testLab);
 
         // Enhance TestLab by adding itemComponent names
-        BasicDMNToJavaTransformer basicTransformer = STANDARD_DIALECT.createBasicTransformer(repository, new NopLazyEvaluationDetector(), this.inputParameters);
+        BasicDMNToJavaTransformer basicTransformer = SIGNAVIO_DIALECT.createBasicTransformer(repository, new NopLazyEvaluationDetector(), this.inputParameters);
         TestLabUtil testLabUtil = new TestLabUtil(basicTransformer);
         TestLabEnhancer testLabEnhancer = new TestLabEnhancer(testLabUtil);
         testLabEnhancer.enhance(testLab);
 
         // Transform TestLab to TCK
-        ToTCKVisitor visitor = new ToTCKVisitor(basicTransformer);
+        ToTCKVisitor visitor = new ToTCKVisitor(testLabUtil);
         TestCases result = (TestCases) testLab.accept(visitor, new TestLabContext());
         // Add at least one test case to avoid empty TCK files
         if (result.getTestCase().isEmpty()) {
@@ -110,7 +110,7 @@ public class TestLabToTCKTransformer {
         return SIGNAVIO_DIALECT.createTestSerializer(this.logger, this.inputParameters);
     }
 
-    private TestLab readTestLab(File inputFile) throws Exception {
+    private TestLab readTestLab(File inputFile) {
         TestSerializer<TestLab> testLabSerializer = makeTestLabSerializer();
         return testLabSerializer.read(inputFile);
     }

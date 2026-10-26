@@ -13,8 +13,6 @@
 package com.gs.dmn.signavio.testlab.visitor;
 
 import com.gs.dmn.ast.TDRGElement;
-import com.gs.dmn.context.DMNContext;
-import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.SemanticErrorException;
 import com.gs.dmn.serialization.TCKVersion;
 import com.gs.dmn.signavio.testlab.TestCase;
@@ -22,7 +20,6 @@ import com.gs.dmn.signavio.testlab.Visitor;
 import com.gs.dmn.signavio.testlab.*;
 import com.gs.dmn.signavio.testlab.expression.*;
 import com.gs.dmn.tck.ast.*;
-import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -36,13 +33,13 @@ public class ToTCKVisitor implements Visitor<TCKBaseElement, TestLabContext> {
 
     private final TestLabUtil testLabUtil;
 
-    public ToTCKVisitor(BasicDMNToNativeTransformer<Type, DMNContext> transformer) {
+    public ToTCKVisitor(TestLabUtil testLabUtil) {
         try {
             this.datatypeFactory = DatatypeFactory.newInstance();
         } catch (DatatypeConfigurationException e) {
             throw new RuntimeException(e);
         }
-        this.testLabUtil = new TestLabUtil(transformer);
+        this.testLabUtil = testLabUtil;
     }
 
     @Override
@@ -213,25 +210,27 @@ public class ToTCKVisitor implements Visitor<TCKBaseElement, TestLabContext> {
 
     private InputNode makeInputNode(TCKBaseElement tckElement, TestLabContext context) {
         InputNode inputNode = new InputNode();
-        setInputNodeName(inputNode, context);
+        setInputNodeProperties(inputNode, context);
         copyValue(inputNode, tckElement);
         return inputNode;
     }
 
-    private void setInputNodeName(InputNode inputNode, TestLabContext context) {
-        inputNode.setName(drgName(context.getInputParameterDefinitions().get(context.getInputIndex())));
+    private void setInputNodeProperties(InputNode inputNode, TestLabContext context) {
+        inputNode.setName(nodeName(context.getInputParameterDefinitions().get(context.getInputIndex())));
+        inputNode.setNamespace(nodeNamespace(context.getInputParameterDefinitions().get(context.getInputIndex())));
     }
 
     private ResultNode makeResultNode(TCKBaseElement tckElement, TestLabContext context) {
         ResultNode resultNode = new ResultNode();
-        setResultNodeName(resultNode, context);
+        setResultNodeProperties(resultNode, context);
         ValueType valueType = makeValueType(tckElement);
         resultNode.setExpected(valueType);
         return resultNode;
     }
 
-    private void setResultNodeName(ResultNode resultNode, TestLabContext context) {
-        resultNode.setName(drgName(context.getOutputParameterDefinitions().get(context.getOutputIndex())));
+    private void setResultNodeProperties(ResultNode resultNode, TestLabContext context) {
+        resultNode.setName(nodeName(context.getOutputParameterDefinitions().get(context.getOutputIndex())));
+        resultNode.setNamespace(nodeNamespace(context.getOutputParameterDefinitions().get(context.getOutputIndex())));
     }
 
     private TCKBaseElement makeLiteralValue(Object value) {
@@ -270,8 +269,7 @@ public class ToTCKVisitor implements Visitor<TCKBaseElement, TestLabContext> {
     private void copyValue(ValueType targetValueType, TCKBaseElement tckElement) {
         if (tckElement == null) {
             targetValueType.setValue(AnySimpleType.of(null));
-        } else if (tckElement instanceof ValueType) {
-            ValueType valueType = (ValueType) tckElement;
+        } else if (tckElement instanceof ValueType valueType) {
             targetValueType.setValue(valueType.getValue());
             targetValueType.setList(valueType.getList());
             targetValueType.getComponent().clear();
@@ -283,8 +281,14 @@ public class ToTCKVisitor implements Visitor<TCKBaseElement, TestLabContext> {
         }
     }
 
-    private String drgName(ParameterDefinition parameterDefinition) {
+    // Use the name of DRG element not the label
+    protected String nodeName(ParameterDefinition parameterDefinition) {
         TDRGElement drgElement = this.testLabUtil.findDRGElement(parameterDefinition);
         return drgElement.getName();
+    }
+
+    // One single model hence no namespace is needed to resolve the DRG element
+    protected String nodeNamespace(ParameterDefinition parameterDefinition) {
+        return null;
     }
 }
