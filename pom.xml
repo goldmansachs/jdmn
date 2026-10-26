@@ -86,9 +86,9 @@
         <java.version>17</java.version>
         <maven.version>3.9.10</maven.version>
 
-        <antlr4.version>4.13.1</antlr4.version>
+        <antlr4.version>4.13.2</antlr4.version>
 
-        <jackson.version>2.22.1</jackson.version>
+        <jackson.version>2.22.4</jackson.version>
         <jackson.core.version>${jackson.version}</jackson.core.version>
         <jackson.databind.version>${jackson.version}</jackson.databind.version>
         <jackson.datatype.version>${jackson.version}</jackson.datatype.version>
@@ -472,7 +472,7 @@ specific language governing permissions and limitations under the License.]]></i
             <dependency>
                 <groupId>org.skyscreamer</groupId>
                 <artifactId>jsonassert</artifactId>
-                <version>1.5.1</version>
+                <version>1.5.3</version>
                 <scope>test</scope>
             </dependency>
 
