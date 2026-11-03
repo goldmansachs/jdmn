@@ -16,7 +16,6 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.log.NopBuildLogger;
 import com.gs.dmn.tck.ast.*;
-import org.checkerframework.checker.nullness.qual.NonNull;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -102,7 +101,7 @@ class TestCaseTransformerTest {
         assertEquals("ds", testCase.getResultNode().get(0).getName());
     }
 
-    private static @NonNull DMNModelRepository makeRepository() {
+    private static DMNModelRepository makeRepository() {
         return new DMNModelRepository(new TDefinitions());
     }
 

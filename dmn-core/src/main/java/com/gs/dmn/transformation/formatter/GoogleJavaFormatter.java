@@ -17,9 +17,6 @@ import com.google.googlejavaformat.java.FormatterException;
 import com.google.googlejavaformat.java.JavaFormatterOptions;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-
 public class GoogleJavaFormatter implements JavaFormatter {
     private static final Formatter FORMATTER;
 
