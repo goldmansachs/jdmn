@@ -20,6 +20,7 @@ import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -129,7 +130,7 @@ public class DefaultStringLib implements StringLib {
             return null;
         }
 
-        return string.toUpperCase();
+        return string.toUpperCase(Locale.ROOT);
     }
 
     @Override
@@ -138,7 +139,7 @@ public class DefaultStringLib implements StringLib {
             return null;
         }
 
-        return string.toLowerCase();
+        return string.toLowerCase(Locale.ROOT);
     }
 
     @Override
