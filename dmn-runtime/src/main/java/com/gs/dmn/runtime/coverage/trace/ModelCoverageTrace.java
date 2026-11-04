@@ -12,8 +12,9 @@
  */
 package com.gs.dmn.runtime.coverage.trace;
 
+import com.gs.dmn.runtime.StringUtils;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 import java.util.Map;

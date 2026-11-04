@@ -12,7 +12,8 @@
  */
 package com.gs.dmn.feel.lib;
 
-import org.apache.commons.lang3.StringUtils;
+import com.gs.dmn.runtime.StringUtils;
+
 
 import java.util.LinkedHashMap;
 import java.util.Map;

@@ -14,7 +14,6 @@ package com.gs.dmn.runtime;
 
 import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.time.xml.BaseDefaultDurationType;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
 
 import javax.xml.datatype.Duration;

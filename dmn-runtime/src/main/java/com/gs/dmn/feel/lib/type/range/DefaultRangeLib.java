@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.lib.type.range;
 
+import com.gs.dmn.runtime.StringUtils;
+
 import com.gs.dmn.feel.lib.JavaTimeFEELLib;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.feel.lib.type.ComparableComparator;
@@ -28,7 +30,6 @@ import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationComparator;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.Range;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
