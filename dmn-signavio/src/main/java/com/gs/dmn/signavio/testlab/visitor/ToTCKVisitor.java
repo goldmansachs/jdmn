@@ -194,7 +194,7 @@ public class ToTCKVisitor implements Visitor<TCKBaseElement, TestLabContext> {
     @Override
     public TCKBaseElement visit(Slot element, TestLabContext context) {
         Component component = new Component();
-        component.setName(element.getItemComponentName());
+        component.setName(itemComponentName(element));
         TCKBaseElement slotValue = element.getValue().accept(this, context);
         copyValue(component, slotValue);
         return component;
@@ -291,4 +291,10 @@ public class ToTCKVisitor implements Visitor<TCKBaseElement, TestLabContext> {
     protected String nodeNamespace(ParameterDefinition parameterDefinition) {
         return null;
     }
+
+    // Use the name of item component not the label
+    protected String itemComponentName(Slot element) {
+        return element.getItemComponentName();
+    }
+
 }
