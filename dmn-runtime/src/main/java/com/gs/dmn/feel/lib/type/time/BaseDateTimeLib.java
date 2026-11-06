@@ -16,13 +16,11 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.DatatypeConstants;
-import java.text.DateFormatSymbols;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.ResolverStyle;
 import java.time.format.SignStyle;
-import java.util.Locale;
 import java.util.regex.Pattern;
 
 import static com.gs.dmn.feel.lib.type.BaseType.UTC;
@@ -30,16 +28,13 @@ import static java.time.temporal.ChronoField.*;
 
 public abstract class BaseDateTimeLib {
     protected static final Pattern BEGIN_YEAR = Pattern.compile("^-?(([1-9]\\d\\d\\d+)|(0\\d\\d\\d))-"); // FEEL spec, "specified by XML Schema Part 2 Datatypes", hence: yearFrag ::= '-'? (([1-9] digit digit digit+)) | ('0' digit digit digit))
+    protected static final Pattern ZONE_Z = Pattern.compile("\\d[zZ]$");
     protected static final Pattern ZONE_OFFSET = Pattern.compile("[+-]\\d\\d:\\d\\d");
 
     public static final DateTimeFormatter FEEL_DATE;
     public static final DateTimeFormatter FEEL_TIME;
     public static final DateTimeFormatter FEEL_DATE_TIME;
     public static final DateTimeFormatter REGION_DATETIME_FORMATTER;
-
-    protected static final DateFormatSymbols DATE_FORMAT_SYMBOLS = new DateFormatSymbols();
-    protected static final String[] DAY_NAMES = DATE_FORMAT_SYMBOLS.getWeekdays();
-    protected static final String[] MONTH_NAMES = DATE_FORMAT_SYMBOLS.getMonths();
 
     static {
         FEEL_DATE = new DateTimeFormatterBuilder()
@@ -108,7 +103,7 @@ public abstract class BaseDateTimeLib {
         }
 
         // Check for offset ID Z
-        if (literal.contains("Z") || literal.contains("z")) {
+        if (ZONE_Z.matcher(literal).find()) {
             return true;
         }
 

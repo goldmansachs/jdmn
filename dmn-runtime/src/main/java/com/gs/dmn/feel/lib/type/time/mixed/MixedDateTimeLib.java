@@ -352,7 +352,7 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
         }
 
         Month month = toDate(date).getMonth();
-        return MONTH_NAMES[month.getValue() - 1];
+        return month.getDisplayName(TextStyle.FULL, Locale.US);
     }
 
     //

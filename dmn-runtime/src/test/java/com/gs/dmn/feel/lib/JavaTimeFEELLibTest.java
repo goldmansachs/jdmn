@@ -158,6 +158,10 @@ public class JavaTimeFEELLibTest extends BaseStandardFEELLibTest<Number, LocalDa
         assertEqualsDateTime("00:00:00Z", getLib().time(makeDate("2017-08-10")));
         assertEqualsDateTime("11:00:00Z", getLib().time(makeDateAndTime("2016-08-01T11:00:00Z")));
 
+        // with zone id
+        assertEqualsDateTime("10:15:30@Europe/Zurich", getLib().time("10:15:30@Europe/Zurich"));
+        assertEqualsDateTime("10:15:30@America/La_Paz", getLib().time("10:15:30@America/La_Paz"));
+
         //
         // conversion from numbers
         //
@@ -187,6 +191,8 @@ public class JavaTimeFEELLibTest extends BaseStandardFEELLibTest<Number, LocalDa
 
         // with zone id
         assertEqualsDateTime("2011-12-03T10:15:30@Europe/Paris", getLib().dateAndTime("2011-12-03T10:15:30@Europe/Paris"));
+        assertEqualsDateTime("2011-12-03T10:15:30@Europe/Zurich", getLib().dateAndTime("2011-12-03T10:15:30@Europe/Zurich"));
+        assertEqualsDateTime("2011-12-03T10:15:30@America/La_Paz", getLib().dateAndTime("2011-12-03T10:15:30@America/La_Paz"));
 
         // year must be in the range [-999,999,999..999,999,999]
         assertEqualsDateTime("-999999999-12-31T11:22:33", getLib().dateAndTime("-999999999-12-31T11:22:33"));
