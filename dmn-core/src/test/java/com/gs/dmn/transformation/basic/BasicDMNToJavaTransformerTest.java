@@ -15,12 +15,11 @@ package com.gs.dmn.transformation.basic;
 import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
-import com.gs.dmn.ast.TDRGElement;
-import com.gs.dmn.ast.TDecision;
-import com.gs.dmn.ast.TDefinitions;
-import com.gs.dmn.ast.TInformationItem;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.JavaTimeDMNDialectDefinition;
+import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.tck.ast.TestCases;
@@ -53,10 +52,8 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
     @BeforeEach
     public void setUp() {
         String pathName = "dmn/input/1.1/0004-lending.dmn";
-        this.repository = readDMN(pathName);
-        this.definitions = getDefinitions(repository);
+        setUp(pathName);
         this.href = this.definitions.getNamespace() + "#d_RequiredMonthlyInstallment";
-        this.transformer = this.dialectDefinition.createBasicTransformer(repository, new NopLazyEvaluationDetector(), this.inputParameters);
     }
 
     @Test
@@ -157,6 +154,36 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
     }
 
     @Test
+    public void testOrderOfParametersForBKM() {
+        String pathName = "dmn/input/1.5/0087-chapter-11-example.dmn";
+        setUp(pathName);
+
+        TInvocable invocable = (TInvocable) this.repository.findDRGElementByName(definitions, "Eligibility rules");
+        List<FormalParameter<Type>> formalParameters = transformer.invocableFEELParameters(invocable);
+        List<FEELParameter> feelParameters = transformer.drgElementTypeSignature(repository.makeDRGElementReference(invocable));
+
+        // Check if the order is the same
+        List<String> formalNames = formalParameters.stream().map(FormalParameter::getName).toList();
+        List<String> feelNames = feelParameters.stream().map(FEELParameter::getName).toList();
+        assertEquals(formalNames, feelNames);
+    }
+
+    @Test
+    public void testOrderOfParametersForDS() {
+        String pathName = "dmn/input/1.5/0087-chapter-11-example.dmn";
+        setUp(pathName);
+
+        TInvocable invocable = (TInvocable) this.repository.findDRGElementByName(definitions, "Routing Decision Service");
+        List<FormalParameter<Type>> formalParameters = transformer.invocableFEELParameters(invocable);
+        List<FEELParameter> feelParameters = transformer.drgElementTypeSignature(repository.makeDRGElementReference(invocable));
+
+        // Check if the order is the same
+        List<String> formalNames = formalParameters.stream().map(FormalParameter::getName).toList();
+        List<String> feelNames = feelParameters.stream().map(FEELParameter::getName).toList();
+        assertEquals(formalNames, feelNames);
+    }
+
+    @Test
     public void testNativeVariableName() {
         // Get existing DRG element from the loaded model
         TDRGElement element = this.repository.findDRGElementByName(definitions, "BureauCallType");
@@ -226,15 +253,15 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
     @Test
     public void testAnnotationWithOneString() {
         TDecision decision = this.transformer.getDMNModelRepository().findDecisionByRef(null, this.href);
-        checkAnnotations(Collections.singletonList(new Pair<>("", "string(\"plain text\")")), this.transformer.annotations(decision, Collections.singletonList(new Pair<>("","string(\"plain text\")"))));
-        checkAnnotations(Collections.singletonList(new Pair<>("","string(((java.lang.Number)(requestedProduct != null ? requestedProduct.getTerm() : null)))")), this.transformer.annotations(decision, Collections.singletonList(new Pair<>("","string(RequestedProduct.Term)"))));
-        checkAnnotations(Collections.singletonList(new Pair<>("","string(\"\")")), this.transformer.annotations(decision, Collections.singletonList(new Pair<>("","string(\"\")"))));
+        checkAnnotations(Collections.singletonList(new Pair<>("", "string(\"plain text\")")), this.transformer.annotations(decision, Collections.singletonList(new Pair<>("", "string(\"plain text\")"))));
+        checkAnnotations(Collections.singletonList(new Pair<>("", "string(((java.lang.Number)(requestedProduct != null ? requestedProduct.getTerm() : null)))")), this.transformer.annotations(decision, Collections.singletonList(new Pair<>("", "string(RequestedProduct.Term)"))));
+        checkAnnotations(Collections.singletonList(new Pair<>("", "string(\"\")")), this.transformer.annotations(decision, Collections.singletonList(new Pair<>("", "string(\"\")"))));
     }
 
     @Test
     public void testAnnotationWithExpression() {
         TDecision decision = this.transformer.getDMNModelRepository().findDecisionByRef(null, this.href);
-        checkAnnotations(Collections.singletonList(new Pair<>("","string(numericAdd(((java.lang.Number)(requestedProduct != null ? requestedProduct.getRate() : null)), number(\"2\")))")), this.transformer.annotations(decision, Collections.singletonList(new Pair<>("","string(RequestedProduct.Rate + 2)"))));
+        checkAnnotations(Collections.singletonList(new Pair<>("", "string(numericAdd(((java.lang.Number)(requestedProduct != null ? requestedProduct.getRate() : null)), number(\"2\")))")), this.transformer.annotations(decision, Collections.singletonList(new Pair<>("", "string(RequestedProduct.Rate + 2)"))));
     }
 
     @Test
@@ -242,9 +269,9 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
         TDecision decision = this.transformer.getDMNModelRepository().findDecisionByRef(null, this.href);
         List<Pair<String, String>> expected = Collections.singletonList(new Pair<>("",
                 "stringAdd(stringAdd(stringAdd(stringAdd(string(\"Rate is \"), string(((java.lang.Number)(requestedProduct != null ? requestedProduct.getRate() : null)))), " +
-                "string(\". And term is \")), string(((java.lang.Number)(requestedProduct != null ? requestedProduct.getTerm() : null)))), string(\"!\"))"));
-        checkAnnotations(expected, this.transformer.annotations(decision, Collections.singletonList(new Pair<>("","string(\"Rate is \") + string(RequestedProduct.Rate) + string(\". And term is \") + string(RequestedProduct.Term) + string(\"!\")"))));
-        checkAnnotations(Collections.singletonList(new Pair<>("", "asList(string(\"\"), string(\"\"), string(\"\"))")), this.transformer.annotations(decision, Collections.singletonList(new Pair<>("","[string(\"\"), string(\"\"), string(\"\")]"))));
+                        "string(\". And term is \")), string(((java.lang.Number)(requestedProduct != null ? requestedProduct.getTerm() : null)))), string(\"!\"))"));
+        checkAnnotations(expected, this.transformer.annotations(decision, Collections.singletonList(new Pair<>("", "string(\"Rate is \") + string(RequestedProduct.Rate) + string(\". And term is \") + string(RequestedProduct.Term) + string(\"!\")"))));
+        checkAnnotations(Collections.singletonList(new Pair<>("", "asList(string(\"\"), string(\"\"), string(\"\"))")), this.transformer.annotations(decision, Collections.singletonList(new Pair<>("", "[string(\"\"), string(\"\"), string(\"\")]"))));
     }
 
     private void checkAnnotations(List<Pair<String, String>> expectedAnnotations, List<Pair<String, String>> actualAnnotations) {
@@ -302,6 +329,11 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
         return inputParams;
     }
 
+    private void setUp(String pathName) {
+        this.repository = readDMN(pathName);
+        this.definitions = getDefinitions(repository);
+        this.transformer = this.dialectDefinition.createBasicTransformer(repository, new NopLazyEvaluationDetector(), this.inputParameters);
+    }
 }
 
 class MockTransformer extends BasicDMNToJavaTransformer {

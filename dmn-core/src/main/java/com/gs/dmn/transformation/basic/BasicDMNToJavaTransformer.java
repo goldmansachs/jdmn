@@ -1055,7 +1055,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             Type parameterType = informationItemType(bkm, parameter);
             parameters.add(new FEELParameter(parameter, parameterType));
         }
-        return parameters;
+        return sortParameters(parameters, bkmFEELParameters(bkm));
     }
 
     //
@@ -1101,21 +1101,21 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     private List<FEELParameter> dsParameters(DRGElementReference<TDecisionService> reference) {
         TDecisionService service = reference.getElement();
         List<FEELParameter> parameters = new ArrayList<>();
-        for (TDMNElementReference er : service.getInputData()) {
-            TInputData inputData = this.dmnModelRepository.findInputDataByRef(service, er.getHref());
-            ImportPath importPath = this.dmnModelRepository.findRelativeImportPath(service, er);
-            DRGElementReference<TInputData> drgElementReference = this.dmnModelRepository.makeDRGElementReference(importPath, inputData);
-            Type parameterType = toFEELType(inputData);
+        List<DRGElementReference<? extends TDRGElement>> inputRefs = this.dmnModelRepository.dsInputs(service);
+        for (DRGElementReference<? extends TDRGElement> inputRef : inputRefs) {
+            TDRGElement input = inputRef.getElement();
+            ImportPath importPath = this.dmnModelRepository.findRelativeImportPath(service, input);
+            DRGElementReference<? extends TDRGElement> drgElementReference = this.dmnModelRepository.makeDRGElementReference(importPath, input);
+            Type parameterType = drgElementOutputFEELType(input);
             parameters.add(new FEELParameter(drgElementReference, parameterType));
         }
-        for (TDMNElementReference er : service.getInputDecision()) {
-            TDecision decision = this.dmnModelRepository.findDecisionByRef(service, er.getHref());
-            ImportPath importPath = this.dmnModelRepository.findRelativeImportPath(service, er);
-            DRGElementReference<TDecision> drgElementReference = this.dmnModelRepository.makeDRGElementReference(importPath, decision);
-            Type parameterType = drgElementOutputFEELType(decision);
-            parameters.add(new FEELParameter(drgElementReference, parameterType));
-        }
-        return parameters;
+        return sortParameters(parameters, dsFEELParameters(service));
+    }
+
+    private List<FEELParameter> sortParameters(List<FEELParameter> parameters, List<FormalParameter<Type>> formalParameters) {
+        return parameters.stream()
+                .sorted(Comparator.comparingInt(p -> formalParameters.indexOf(new FormalParameter<>(p.getName(), p.getType()))))
+                .collect(Collectors.toList());
     }
 
     //

@@ -591,7 +591,7 @@ public class DMNModelRepository {
         while (true) {
             // Check for cycles
             if (path.contains(itemDefinition)) {
-            path.add(itemDefinition);
+                path.add(itemDefinition);
                 throw new SemanticErrorException("Cyclic type definitions '%s'".formatted(path));
             } else {
                 path.add(itemDefinition);
@@ -607,7 +607,7 @@ public class DMNModelRepository {
             if (next == null) {
                 break;
             } else {
-                    itemDefinition = next;
+                itemDefinition = next;
             }
         }
         return new Pair<>(itemDefinition, restrictions);
@@ -957,7 +957,6 @@ public class DMNModelRepository {
             ImportPath importPath = findRelativeImportPath(parent, inputDecisionRef);
             result.add(makeDRGElementReference(importPath, child));
         }
-        sortNamedElementReferences(result);
         return result;
     }
 
@@ -969,7 +968,6 @@ public class DMNModelRepository {
             ImportPath importPath = findRelativeImportPath(parent, inputDecisionRef);
             result.add(makeDRGElementReference(importPath, child));
         }
-        sortNamedElementReferences(result);
         return result;
     }
 
