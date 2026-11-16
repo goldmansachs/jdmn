@@ -159,7 +159,7 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
         setUp(pathName);
 
         TInvocable invocable = (TInvocable) this.repository.findDRGElementByName(definitions, "Eligibility rules");
-        List<FormalParameter<Type>> formalParameters = transformer.invocableFEELParameters(invocable);
+        List<FormalParameter<Type>> formalParameters = transformer.invocableFormalParameters(invocable);
         List<FEELParameter> feelParameters = transformer.drgElementTypeSignature(repository.makeDRGElementReference(invocable));
 
         // Check if the order is the same
@@ -174,7 +174,7 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
         setUp(pathName);
 
         TInvocable invocable = (TInvocable) this.repository.findDRGElementByName(definitions, "Routing Decision Service");
-        List<FormalParameter<Type>> formalParameters = transformer.invocableFEELParameters(invocable);
+        List<FormalParameter<Type>> formalParameters = transformer.invocableFormalParameters(invocable);
         List<FEELParameter> feelParameters = transformer.drgElementTypeSignature(repository.makeDRGElementReference(invocable));
 
         // Check if the order is the same

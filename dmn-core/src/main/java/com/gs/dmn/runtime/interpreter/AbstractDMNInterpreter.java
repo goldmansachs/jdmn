@@ -403,7 +403,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
     private void bindArguments(TDecisionService service, List<Object> argList, DMNContext serviceContext) {
         // Bind parameters
         List<DRGElementReference<? extends TDRGElement>> inputRefs = this.repository.dsInputs(service);
-        List<FormalParameter<Type>> formalParameterList = this.dmnTransformer.dsFEELParameters(service);
+        List<FormalParameter<Type>> formalParameterList = this.dmnTransformer.invocableFormalParameters(service);
         for (int i = 0; i < formalParameterList.size(); i++) {
             FormalParameter<Type> param = formalParameterList.get(i);
             String name = param.getName();

@@ -459,6 +459,11 @@ public abstract class AbstractCL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIM
     }
 
     @Test
+    public void test_13_0104_allowed_values() {
+        doFolderTest("1.3", "0104-allowed-values", new Pair<>("strongTyping", "true"), new Pair<>("checkConstraints", "true"));
+    }
+
+    @Test
     public void test_13_cl3_0103_feel_is_function() {
         doFolderTest("1.3", "0103-feel-is-function");
     }
@@ -500,11 +505,6 @@ public abstract class AbstractCL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIM
     @Test
     public void test_14_cl3_0092_feel_lambda() {
         doFolderTest("1.4", "0092-feel-lambda", new Pair<>("strongTyping", "false"));
-    }
-
-    @Test
-    public void test_13_0104_allowed_values() {
-        doFolderTest("1.3", "0104-allowed-values", new Pair<>("strongTyping", "true"), new Pair<>("checkConstraints", "true"));
     }
 
     @Test

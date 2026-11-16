@@ -190,7 +190,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
     }
 
     @Override
-    public List<FormalParameter<Type>> bkmFEELParameters(TBusinessKnowledgeModel bkm) {
+    public List<FormalParameter<Type>> bkmFormalParameters(TBusinessKnowledgeModel bkm) {
         TFunctionDefinition encapsulatedLogic = bkm.getEncapsulatedLogic();
         if (encapsulatedLogic == null) {
             List<FormalParameter<Type>> parameters = new ArrayList<>();
@@ -204,7 +204,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
             }
             return parameters;
         } else {
-            return super.bkmFEELParameters(bkm);
+            return super.bkmFormalParameters(bkm);
         }
     }
 

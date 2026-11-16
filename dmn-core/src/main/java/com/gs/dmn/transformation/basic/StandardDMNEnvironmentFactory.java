@@ -716,7 +716,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     }
 
     private FunctionType makeDSVariableType(TDecisionService decisionService) {
-        List<FormalParameter<Type>> parameters = this.dmnTransformer.dsFEELParameters(decisionService);
+        List<FormalParameter<Type>> parameters = this.dmnTransformer.invocableFormalParameters(decisionService);
         return new DMNFunctionType(parameters, makeDSOutputType(decisionService), decisionService);
     }
 
@@ -1020,7 +1020,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             SemanticError error = makeDMNError(model, bkm, errorMessage);
             throw new SemanticErrorException(error.toText());
         }
-        List<FormalParameter<Type>> parameters = this.dmnTransformer.bkmFEELParameters(bkm);
+        List<FormalParameter<Type>> parameters = this.dmnTransformer.invocableFormalParameters(bkm);
         Type returnType = drgElementOutputFEELType(bkm);
         return this.environmentFactory.makeVariableDeclaration(name, new DMNFunctionType(parameters, returnType, bkm));
     }

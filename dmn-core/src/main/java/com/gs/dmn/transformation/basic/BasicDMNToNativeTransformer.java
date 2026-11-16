@@ -263,26 +263,15 @@ public interface BasicDMNToNativeTransformer<T, C> {
     //
     // Invocable  related functions
     //
-    List<FormalParameter<Type>> invocableFEELParameters(TDRGElement invocable);
+    List<FormalParameter<Type>> invocableFormalParameters(TDRGElement invocable);
 
-    List<String> invocableFEELParameterNames(TDRGElement invocable);
+    List<String> invocableFormalParameterNames(TDRGElement invocable);
 
     String singletonInvocableInstance(TInvocable invocable);
 
     //
-    // BKM related functions
-    //
-    List<FormalParameter<Type>> bkmFEELParameters(TBusinessKnowledgeModel bkm);
-
-    List<String> bkmFEELParameterNames(TBusinessKnowledgeModel bkm);
-
-    //
     // Decision Service related functions
     //
-    List<FormalParameter<Type>> dsFEELParameters(TDecisionService service);
-
-    List<String> dsFEELParameterNames(TDecisionService service);
-
     Statement serviceToNative(TDecisionService element);
 
     List<String> missingInputDecisionsArguments(TDecisionService service);

@@ -56,7 +56,7 @@ public class SignavioDMNExpressionToNativeTransformer extends DMNExpressionToNat
                 throw new DMNRuntimeException(String.format("Cannot find BKM for '%s'", invocableName));
             }
             List<Statement> argList = new ArrayList<>();
-            List<String> formalParameterList = this.dmnTransformer.invocableFEELParameterNames(invocable);
+            List<String> formalParameterList = this.dmnTransformer.invocableFormalParameterNames(invocable);
             for (String paramName : formalParameterList) {
                 if (argBinding.containsKey(paramName)) {
                     Statement argValue = argBinding.get(paramName);

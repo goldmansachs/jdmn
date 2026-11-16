@@ -159,7 +159,7 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
                 }
                 // Make args
                 List<Object> argList = new ArrayList<>();
-                List<String> formalParameterList = dmnTransformer.invocableFEELParameterNames(invocable);
+                List<String> formalParameterList = dmnTransformer.invocableFormalParameterNames(invocable);
                 for (String paramName : formalParameterList) {
                     if (argBinding.containsKey(paramName)) {
                         Object argValue = argBinding.get(paramName);

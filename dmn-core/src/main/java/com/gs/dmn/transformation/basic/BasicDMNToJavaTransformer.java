@@ -59,7 +59,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.namespace.QName;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -975,7 +974,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         return this.dmnEnvironmentFactory.toFEELType(inputData);
     }
 
-    private String inputDataType(TInputData inputData) {
+    private String inputDataNativeType(TInputData inputData) {
         Type type = toFEELType(inputData);
         return toNativeType(type);
     }
@@ -989,61 +988,43 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public List<FormalParameter<Type>> invocableFEELParameters(TDRGElement invocable) {
+    public List<FormalParameter<Type>> invocableFormalParameters(TDRGElement invocable) {
         if (invocable instanceof TBusinessKnowledgeModel) {
-            return bkmFEELParameters((TBusinessKnowledgeModel) invocable);
+            return bkmFormalParameters((TBusinessKnowledgeModel) invocable);
         } else if (invocable instanceof TDecisionService) {
-            return dsFEELParameters((TDecisionService) invocable);
+            return dsFormalParameters((TDecisionService) invocable);
         } else {
             throw new SemanticErrorException(String.format("Illegal invocable '%s'", invocable.getClass().getSimpleName()));
         }
     }
 
     @Override
-    public List<String> invocableFEELParameterNames(TDRGElement invocable) {
-        if (invocable instanceof TBusinessKnowledgeModel) {
-            return bkmFEELParameterNames((TBusinessKnowledgeModel) invocable);
-        } else if (invocable instanceof TDecisionService) {
-            return dsFEELParameterNames((TDecisionService) invocable);
-        } else {
-            throw new SemanticErrorException(String.format("Illegal invocable '%s'", invocable.getClass().getSimpleName()));
-        }
+    public List<String> invocableFormalParameterNames(TDRGElement invocable) {
+        List<FormalParameter<Type>> formalParameters = invocableFormalParameters(invocable);
+        return formalParameters.stream().map(FormalParameter::getName).collect(Collectors.toList());
     }
 
     //
     // BKM related functions
     //
-    @Override
-    public List<FormalParameter<Type>> bkmFEELParameters(TBusinessKnowledgeModel bkm) {
+    protected List<FormalParameter<Type>> bkmFormalParameters(TBusinessKnowledgeModel bkm) {
         // Check variable.typeRef
         TDefinitions model = this.dmnModelRepository.getModel(bkm);
-        QName bkmTypeRef = bkm.getVariable().getTypeRef();
-        if (bkmTypeRef != null) {
-            Type type = toFEELType(model, bkmTypeRef.getLocalPart());
-            if (type instanceof DMNFunctionType) {
-                return ((DMNFunctionType) type).getParameters();
-            } else if (Type.isNullOrAny(type)) {
-                // infer from inputs
-            } else {
-                throw new SemanticErrorException(String.format("Expected DMN function type, found '%s'", type));
+        TypeReference typeRef = this.dmnModelRepository.variableTypeRef(model, bkm);
+        Type declaredType = this.dmnModelRepository.isNullOrAny(typeRef) ? null : toFEELType(model, typeRef);
+        if (declaredType instanceof DMNFunctionType functionType) {
+            return functionType.getParameters();
+        } else if (Type.isNullOrAny(declaredType)) {
+            // Infer from expression
+            List<FormalParameter<Type>> parameters = new ArrayList<>();
+            for (TInformationItem parameter : bkm.getEncapsulatedLogic().getFormalParameter()) {
+                Type parameterType = informationItemType(bkm, parameter);
+                parameters.add(new FormalParameter<>(parameter.getName(), parameterType));
             }
+            return parameters;
+        } else {
+            throw new SemanticErrorException(String.format("Expected DMN function type, found '%s' for '%s'", declaredType, bkm.getName()));
         }
-        // Infer from expression
-        List<FormalParameter<Type>> parameters = new ArrayList<>();
-        for (TInformationItem p : bkm.getEncapsulatedLogic().getFormalParameter()) {
-            String typeRef = TypeReference.toName(p.getTypeRef());
-            Type type = null;
-            if (!StringUtils.isEmpty(typeRef)) {
-                type = toFEELType(model, TypeReference.toTypeReference(model, typeRef));
-            }
-            parameters.add(new FormalParameter<>(p.getName(), type));
-        }
-        return parameters;
-    }
-
-    @Override
-    public List<String> bkmFEELParameterNames(TBusinessKnowledgeModel bkm) {
-        return bkmFEELParameters(bkm).stream().map(FormalParameter::getName).collect(Collectors.toList());
     }
 
     protected List<FEELParameter> bkmParameters(DRGElementReference<TBusinessKnowledgeModel> reference) {
@@ -1055,47 +1036,38 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             Type parameterType = informationItemType(bkm, parameter);
             parameters.add(new FEELParameter(parameter, parameterType));
         }
-        return sortParameters(parameters, bkmFEELParameters(bkm));
+        return sortParameters(parameters, bkmFormalParameters(bkm));
     }
 
     //
     // Decision Service related functions
     //
-    @Override
-    public List<FormalParameter<Type>> dsFEELParameters(TDecisionService service) {
+    protected List<FormalParameter<Type>> dsFormalParameters(TDecisionService service) {
         // Check variable.typeRef
         TDefinitions model = this.dmnModelRepository.getModel(service);
-        QName invocableTypeRef = service.getVariable().getTypeRef();
-        if (invocableTypeRef != null) {
-            Type type = toFEELType(model, invocableTypeRef.getLocalPart());
-            if (type instanceof DMNFunctionType) {
-                return ((DMNFunctionType) type).getParameters();
-            } else if (Type.isNullOrAny(type)) {
-                // infer from inputs
-            } else {
-                throw new SemanticErrorException(String.format("Expected DMN function type, found '%s'", type));
+        TypeReference typeRef = this.dmnModelRepository.variableTypeRef(model, service);
+        Type declaredType = this.dmnModelRepository.isNullOrAny(typeRef) ? null : toFEELType(model, typeRef);
+        if (declaredType instanceof DMNFunctionType functionType) {
+            return functionType.getParameters();
+        } else if (Type.isNullOrAny(declaredType)) {
+            // Infer from inputs
+            List<FormalParameter<Type>> parameters = new ArrayList<>();
+            List<DRGElementReference<? extends TDRGElement>> inputRefs = this.dmnModelRepository.dsInputs(service);
+            for (DRGElementReference<? extends TDRGElement> inputRef : inputRefs) {
+                TDRGElement input = inputRef.getElement();
+                String qName = this.dmnModelRepository.dsChildQName(inputRef);
+                if (input instanceof TInputData) {
+                    // TInputData
+                    parameters.add(new FormalParameter<>(qName, toFEELType((TInputData) input)));
+                } else {
+                    // TDecision
+                    parameters.add(new FormalParameter<>(qName, drgElementOutputFEELType(input)));
+                }
             }
+            return parameters;
+        } else {
+             throw new SemanticErrorException(String.format("Expected DMN function type, found '%s' for '%s'", declaredType, service.getName()));
         }
-        // Infer from inputs
-        List<FormalParameter<Type>> parameters = new ArrayList<>();
-        List<DRGElementReference<? extends TDRGElement>> inputRefs = this.dmnModelRepository.dsInputs(service);
-        for (DRGElementReference<? extends TDRGElement> inputRef : inputRefs) {
-            TDRGElement input = inputRef.getElement();
-            String qName = this.dmnModelRepository.dsChildQName(inputRef);
-            if (input instanceof TInputData) {
-                // TInputData
-                parameters.add(new FormalParameter<>(qName, toFEELType((TInputData) input)));
-            } else {
-                // TDecision
-                parameters.add(new FormalParameter<>(qName, drgElementOutputFEELType(input)));
-            }
-        }
-        return parameters;
-    }
-
-    @Override
-    public List<String> dsFEELParameterNames(TDecisionService service) {
-        return dsFEELParameters(service).stream().map(FormalParameter::getName).collect(Collectors.toList());
     }
 
     private List<FEELParameter> dsParameters(DRGElementReference<TDecisionService> reference) {
@@ -1109,7 +1081,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             Type parameterType = drgElementOutputFEELType(input);
             parameters.add(new FEELParameter(drgElementReference, parameterType));
         }
-        return sortParameters(parameters, dsFEELParameters(service));
+        return sortParameters(parameters, dsFormalParameters(service));
     }
 
     private List<FEELParameter> sortParameters(List<FEELParameter> parameters, List<FormalParameter<Type>> formalParameters) {
@@ -1219,7 +1191,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     public String parameterNativeType(TDRGElement element) {
         String parameterNativeType;
         if (element instanceof TInputData) {
-            parameterNativeType = inputDataType((TInputData) element);
+            parameterNativeType = inputDataNativeType((TInputData) element);
         } else if (element instanceof TDecision) {
             parameterNativeType = drgElementOutputType(element);
         } else {
