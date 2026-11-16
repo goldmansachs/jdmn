@@ -21,7 +21,6 @@ import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.DMNTransformer;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.net.URI;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,8 +45,8 @@ public class CorrectLabelTransformerTest extends AbstractSignavioDMNTransformerT
 
     @Test
     public void testTransformForLabelIsEmpty() {
-        assertNull(visitor.cleanLabel(null));
-        assertEquals("abc", visitor.cleanLabel(" abc \n\r\t\f "));
+        assertNull(visitor.transformLabel(null));
+        assertEquals("abc", visitor.transformLabel(" abc \n\r\t\f "));
     }
 
     @Test
@@ -56,6 +55,45 @@ public class CorrectLabelTransformerTest extends AbstractSignavioDMNTransformerT
         visitor.visit(element, null);
 
         assertEquals("abc", element.getLabel());
+    }
+
+    @Test
+    public void testStrip() {
+        CorrectLabelVisitor visitor = new CorrectLabelVisitor(new NopBuildLogger(), new NopErrorHandler());
+        assertNull(visitor.transformLabel(null));
+        assertEquals("", visitor.transformLabel("  \n \t"));
+        assertEquals("abc", visitor.transformLabel(" abc"));
+        assertEquals("_abc", visitor.transformLabel(" _abc"));
+        assertEquals("-abc", visitor.transformLabel(" -abc"));
+        assertEquals("9abc-", visitor.transformLabel("9abc- "));
+        assertEquals("hello world !", visitor.transformLabel("hello world !"));
+        assertEquals("café Straße", visitor.transformLabel("café Straße"));
+    }
+
+    @Test
+    public void testCamelCase() {
+        CorrectLabelVisitor visitor = new CorrectLabelVisitor(CorrectLabelTransformer.TransformationKind.CAMEL_CASE, new NopBuildLogger(), new NopErrorHandler());
+        assertNull(visitor.transformLabel(null));
+        assertEquals("", visitor.transformLabel("  \n \t"));
+        assertEquals("Abc", visitor.transformLabel(" abc"));
+        assertEquals("_abc", visitor.transformLabel(" _abc"));
+        assertEquals("Abc", visitor.transformLabel(" -abc"));
+        assertEquals("_9abc", visitor.transformLabel("9abc- "));
+        assertEquals("HelloWorld", visitor.transformLabel("hello world !"));
+        assertEquals("CaféStraße", visitor.transformLabel("café Straße"));
+    }
+
+    @Test
+    public void testRemoveCharacters() {
+        CorrectLabelVisitor visitor = new CorrectLabelVisitor(CorrectLabelTransformer.TransformationKind.REMOVE_ILLEGAL_CHARACTERS, new NopBuildLogger(), new NopErrorHandler());
+        assertNull(visitor.transformLabel(null));
+        assertEquals("", visitor.transformLabel("  \n \t"));
+        assertEquals("abc", visitor.transformLabel(" abc"));
+        assertEquals("_abc", visitor.transformLabel(" _abc"));
+        assertEquals("-abc", visitor.transformLabel(" -abc"));
+        assertEquals("9abc-", visitor.transformLabel("9abc- "));
+        assertEquals("hello world", visitor.transformLabel("hello world !"));
+        assertEquals("café Straße", visitor.transformLabel("café Straße"));
     }
 
     private TDecision makeDecision(String label) {
