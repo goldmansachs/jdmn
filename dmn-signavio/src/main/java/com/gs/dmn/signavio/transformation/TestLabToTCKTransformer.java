@@ -45,7 +45,7 @@ public class TestLabToTCKTransformer {
     private static final JavaTimeDMNDialectDefinition STANDARD_DIALECT = new JavaTimeDMNDialectDefinition();
     private static final JavaTimeSignavioDMNDialectDefinition SIGNAVIO_DIALECT = new JavaTimeSignavioDMNDialectDefinition();
 
-    private final BuildLogger logger = new Slf4jBuildLogger(LOGGER);
+    private final BuildLogger buildLogger = new Slf4jBuildLogger(LOGGER);
     private final InputParameters inputParameters;
     private final TestLabValidator testLabValidator;
 
@@ -54,7 +54,7 @@ public class TestLabToTCKTransformer {
         this.testLabValidator = new TestLabValidator();
     }
 
-    public void transformFolder(File sourceFolder, File targetFolder) throws Exception {
+    public void transformFolder(File sourceFolder, File targetFolder) {
         // Read Signavio models and TestLab files from folder
         SignavioDMNModelRepository repository = readSignavioModels(sourceFolder);
         List<File> testFiles = Arrays.stream(Objects.requireNonNull(sourceFolder.listFiles())).filter(TestLabSerializer::isTestLabFile).toList();
@@ -64,7 +64,7 @@ public class TestLabToTCKTransformer {
         }
     }
 
-    public void transformFile(File testLabFile, File modelFile, File targetFolder) throws Exception {
+    public void transformFile(File testLabFile, File modelFile, File targetFolder) {
         TestLab testLab = readTestLab(testLabFile);
         SignavioDMNModelRepository repository = readSignavioModels(modelFile);
         transformFile(testLab, repository, targetFolder);
@@ -73,7 +73,7 @@ public class TestLabToTCKTransformer {
     public void transformFile(TestLab testLab, SignavioDMNModelRepository repository, File targetFolder) {
         TestCases tckTestCases = transform(testLab, repository);
         String modelName = removeExtensionFromModelName(tckTestCases);
-        writeTCK(tckTestCases, new File(targetFolder, modelName + inputParameters.getTckFileExtension()));
+        writeTCK(tckTestCases, new File(targetFolder, modelName + this.inputParameters.getTckFileExtension()));
     }
 
     public TestCases transform(TestLab testLab, SignavioDMNModelRepository repository) {
@@ -87,7 +87,7 @@ public class TestLabToTCKTransformer {
         testLabEnhancer.enhance(testLab);
 
         // Transform TestLab to TCK
-        ToTCKVisitor visitor = new ToTCKVisitor(testLabUtil);
+        ToTCKVisitor visitor = new ToTCKVisitor(testLabUtil, this.buildLogger);
         TestCases result = (TestCases) testLab.accept(visitor, new TestLabContext());
         // Add at least one test case to avoid empty TCK files
         if (result.getTestCase().isEmpty()) {
@@ -97,17 +97,17 @@ public class TestLabToTCKTransformer {
     }
 
     private DMNSerializer makeSignavioSerializer() {
-        return SIGNAVIO_DIALECT.createDMNSerializer(this.logger, this.inputParameters);
+        return SIGNAVIO_DIALECT.createDMNSerializer(this.buildLogger, this.inputParameters);
     }
 
     private SignavioDMNModelRepository readSignavioModels(File file) {
         DMNSerializer dmnSerializer = makeSignavioSerializer();
         List<TDefinitions> definitions = dmnSerializer.readModels(file);
-        return new SignavioDMNModelRepository(definitions, inputParameters.getSchemaNamespace());
+        return new SignavioDMNModelRepository(definitions, this.inputParameters.getSchemaNamespace());
     }
 
     private TestSerializer<TestLab> makeTestLabSerializer() {
-        return SIGNAVIO_DIALECT.createTestSerializer(this.logger, this.inputParameters);
+        return SIGNAVIO_DIALECT.createTestSerializer(this.buildLogger, this.inputParameters);
     }
 
     private TestLab readTestLab(File inputFile) {
@@ -116,7 +116,7 @@ public class TestLabToTCKTransformer {
     }
 
     private TestSerializer<TestCases> makeTCKSerializer() {
-        return STANDARD_DIALECT.createTestSerializer(this.logger, this.inputParameters);
+        return STANDARD_DIALECT.createTestSerializer(this.buildLogger, this.inputParameters);
     }
 
     private void writeTCK(TestCases tckTestCases, File file) {
@@ -126,7 +126,7 @@ public class TestLabToTCKTransformer {
 
     private String removeExtensionFromModelName(TestCases tckTestCases) {
         String modelName = tckTestCases.getModelName();
-        int index = modelName.lastIndexOf(inputParameters.getDmnFileExtension());
+        int index = modelName.lastIndexOf(this.inputParameters.getDmnFileExtension());
         modelName = index == - 1 ? modelName : modelName.substring(0, index);
         return modelName;
     }

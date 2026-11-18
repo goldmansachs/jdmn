@@ -71,13 +71,13 @@ public abstract class AbstractFileTransformerTest extends AbstractTest {
     }
 
     protected void compareXmlFile(File expectedOutputFile, File actualOutputFile, Diff diff) {
-        LOGGER.info("XMLUnit comparison with customized similarity for defaults:");
+        LOGGER.debug("Comparing XML files '%s' and '%s'".formatted(expectedOutputFile.getPath(), actualOutputFile.getPath()));
         if (diff.hasDifferences()) {
             for (Difference d: diff.getDifferences()) {
                 LOGGER.error(d.toString());
             }
         } else {
-            LOGGER.info("No diffs");
+            LOGGER.debug("No diffs found for files '%s' and '%s'".formatted(expectedOutputFile.getPath(), actualOutputFile.getPath()));
         }
         String message = String.format("XMLs %s and %s are not similar", expectedOutputFile.getPath(), actualOutputFile.getPath());
         assertFalse(diff.hasDifferences(), message);

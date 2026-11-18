@@ -14,6 +14,7 @@ package com.gs.dmn.signavio.testlab.visitor;
 
 import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.error.SemanticErrorException;
+import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.TCKVersion;
 import com.gs.dmn.signavio.testlab.TestCase;
 import com.gs.dmn.signavio.testlab.Visitor;
@@ -32,27 +33,32 @@ public class ToTCKVisitor implements Visitor<TCKBaseElement, TestLabContext> {
     private final DatatypeFactory datatypeFactory;
 
     private final TestLabUtil testLabUtil;
+    private final BuildLogger buildLogger;
 
-    public ToTCKVisitor(TestLabUtil testLabUtil) {
+    public ToTCKVisitor(TestLabUtil testLabUtil, BuildLogger buildLogger) {
         try {
             this.datatypeFactory = DatatypeFactory.newInstance();
         } catch (DatatypeConfigurationException e) {
             throw new RuntimeException(e);
         }
         this.testLabUtil = testLabUtil;
+        this.buildLogger = buildLogger;
     }
 
     @Override
     public TCKBaseElement visit(TestLab element, TestLabContext context) {
+        buildLogger.debug("Transforming test lab '%s' to TCK test cases".formatted(element.getModelName()));
         TestCases tckTestCases = new TestCases();
         Map<String, String> nsContext = tckTestCases.getElementInfo().getNsContext();
         addNamespaces(nsContext, TCKVersion.LATEST);
 
         // Set model name
+        buildLogger.debug("Setting model name to '%s'".formatted(element.getModelName()));
         String modelName = element.getModelName();
         tckTestCases.setModelName(modelName);
 
         // Add test cases
+        buildLogger.debug("Adding test cases to TCK test cases");
         context.setInputParameterDefinitions(element.getInputParameterDefinitions());
         context.setOutputParameterDefinitions(element.getOutputParameterDefinitions());
         List<TestCase> testLabTestCases = element.getTestCases();
@@ -65,6 +71,7 @@ public class ToTCKVisitor implements Visitor<TCKBaseElement, TestLabContext> {
             com.gs.dmn.tck.ast.TestCase tckTestCase = (com.gs.dmn.tck.ast.TestCase) testLabTestCase.accept(this, context);
             tckTestCases.getTestCase().add(tckTestCase);
         }
+        buildLogger.debug("Done.");
 
         return tckTestCases;
     }
