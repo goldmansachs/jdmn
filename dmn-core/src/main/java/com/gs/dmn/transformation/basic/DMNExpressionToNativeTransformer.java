@@ -616,7 +616,41 @@ public class DMNExpressionToNativeTransformer {
     }
 
     protected Statement invocationExpressionToNative(TDRGElement element, TInvocation invocation, DMNContext parentContext) {
-        // Compute name-java binding for arguments
+        // Make invocation
+        TExpression invocationExpression = invocation.getExpression();
+        Type functionType = this.dmnTransformer.expressionType(element, invocationExpression, parentContext);
+        if (functionType instanceof FunctionType) {
+            if (functionType instanceof DMNFunctionType) {
+                if (invocationExpression instanceof TLiteralExpression literalExpression) {
+                    // Find Invocable
+                    TInvocable invocable = findInvocable(literalExpression);
+                    // Compute name-java binding for arguments
+                    Map<String, Statement> argBinding = makeBindingMap(element, invocation, parentContext);
+                    // Make args
+                    List<Statement> argList = makeArguments(((FunctionType) functionType).getParameters(), argBinding);
+                    // Make invocation statement
+                    return makeInvocationStatement(invocable, argList);
+                } else {
+                    throw new SemanticErrorException(String.format("Not supported in TInvocation '%s' yet", invocationExpression));
+                }
+            } else {
+                throw new SemanticErrorException(String.format("Not supported in TInvocation '%s' yet", invocationExpression));
+            }
+        } else {
+            throw new SemanticErrorException(String.format("Expecting function found '%s' in %s", functionType, invocation));
+        }
+    }
+
+    protected TInvocable findInvocable(TLiteralExpression literalExpression) {
+        String invocableName = NameUtils.invocableName(literalExpression.getText());
+        TInvocable invocable = this.dmnModelRepository.findInvocableByName(invocableName);
+        if (invocable == null) {
+            throw new SemanticErrorException(String.format("Cannot find BKM or DS for '%s'", invocableName));
+        }
+        return invocable;
+    }
+
+    protected Map<String, Statement> makeBindingMap(TDRGElement element, TInvocation invocation, DMNContext parentContext) {
         Map<String, Statement> argBinding = new LinkedHashMap<>();
         for(TBinding binding: invocation.getBinding()) {
             String argName = binding.getParameter().getName();
@@ -624,45 +658,33 @@ public class DMNExpressionToNativeTransformer {
             Statement argJava = this.dmnTransformer.expressionToNative(element, argExpression, parentContext);
             argBinding.put(argName, argJava);
         }
+        return argBinding;
+    }
 
-        // Build call
-        TExpression functionExp = invocation.getExpression();
-        Type functionType = this.dmnTransformer.expressionType(element, functionExp, parentContext);
-        if (functionType instanceof FunctionType) {
-            // Make args
-            List<Statement> argList = new ArrayList<>();
-            for (FormalParameter<Type> param: ((FunctionType) functionType).getParameters()) {
-                String paramName = param.getName();
-                if (argBinding.containsKey(paramName)) {
-                    Statement argValue = argBinding.get(paramName);
-
-                    // Implicit conversions
-                    argValue = this.convertExpression(argValue, param.getType());
-
-                    argList.add(argValue);
-                } else {
-                    throw new UnsupportedOperationException(String.format("Cannot find binding for parameter '%s'", paramName));
-                }
-            }
-
-            if (functionType instanceof DMNFunctionType) {
-                // Find Invocable
-                String invocableName = NameUtils.invocableName(((TLiteralExpression) functionExp).getText());
-                TInvocable invocable = this.dmnModelRepository.findInvocableByName(invocableName);
-                if (invocable == null) {
-                    throw new SemanticErrorException(String.format("Cannot find BKM or DS for '%s'", invocableName));
-                }
-                String invocableInstance = this.dmnTransformer.singletonInvocableInstance(invocable);
-                String argListString = argList.stream().map(Statement::getText).collect(Collectors.joining(", "));
-                String expressionText = String.format("%s.apply(%s)", invocableInstance, this.dmnTransformer.augmentArgumentList(argListString));
-                Type expressionType = this.dmnTransformer.drgElementOutputFEELType(invocable);
-                return this.nativeFactory.makeExpressionStatement(expressionText, expressionType);
+    protected List<Statement> makeArguments(List<FormalParameter<Type>> formalParameters, Map<String, Statement> argBinding) {
+        List<Statement> argList = new ArrayList<>();
+        for (FormalParameter<Type> param: formalParameters) {
+            String paramName = param.getName();
+            if (argBinding.containsKey(paramName)) {
+                // Find corresponding argument value
+                Statement argValue = argBinding.get(paramName);
+                // Apply implicit conversions
+                argValue = this.convertExpression(argValue, param.getType());
+                // Add to argument list
+                argList.add(argValue);
             } else {
-                throw new SemanticErrorException(String.format("Not supported in TInvocation '%s' yet", functionExp));
+                throw new UnsupportedOperationException(String.format("Cannot find binding for parameter '%s'", paramName));
             }
-        } else {
-            throw new SemanticErrorException(String.format("Expecting function found '%s' in %s", functionType, invocation));
         }
+        return argList;
+    }
+
+    protected ExpressionStatement makeInvocationStatement(TInvocable invocable, List<Statement> argList) {
+        String invocableInstance = this.dmnTransformer.singletonInvocableInstance(invocable);
+        String argListString = argList.stream().map(Statement::getText).collect(Collectors.joining(", "));
+        String expressionText = String.format("%s.apply(%s)", invocableInstance, this.dmnTransformer.augmentArgumentList(argListString));
+        Type expressionType = this.dmnTransformer.drgElementOutputFEELType(invocable);
+        return this.nativeFactory.makeExpressionStatement(expressionText, expressionType);
     }
 
     //
