@@ -22,7 +22,6 @@ import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.DMNTransformer;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
@@ -56,8 +55,21 @@ public class RuleDescriptionToAnnotationTransformerTest extends AbstractSignavio
         DMNModelRepository actualRepository = executeDMNTransformation(transformer, dmnFileURI);
 
         // Check output
-        TDefinitions actualDefintions = getDefinitions(actualRepository);
-        checkDefinitions(actualDefintions, "dmn-link-issue-1.dmn");
+        TDefinitions actualDefinitions = getDefinitions(actualRepository);
+        checkDefinitions(actualDefinitions, "dmn-link-issue-1.dmn");
+    }
+
+    @Test
+    public void testTransformForComplexModel() throws Exception {
+        String path = "dmn/input/1.4/";
+
+        // Transform DMN
+        URI dmnFileURI = resource(path + "Example credit decision.dmn");
+        DMNModelRepository actualRepository = executeDMNTransformation(transformer, dmnFileURI);
+
+        // Check output
+        TDefinitions actualDefinitions = getDefinitions(actualRepository);
+        checkDefinitions(actualDefinitions, "Example credit decision.dmn");
     }
 
     @Test
